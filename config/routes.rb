@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "dashboard", to: "static#dashboard"
+  get "pricing", to: "static#pricing"
+  get "terms", to: "static#terms"
+  get "privacy", to: "static#privacy"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -10,5 +14,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "static#index"
 end
