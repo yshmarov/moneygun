@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "dashboard", to: "static#dashboard"
   get "pricing", to: "static#pricing"
   get "terms", to: "static#terms"

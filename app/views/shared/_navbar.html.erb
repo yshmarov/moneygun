@@ -4,4 +4,11 @@
   <%= link_to 'Pricing', pricing_path %>
   <%= link_to 'Terms', terms_path %>
   <%= link_to 'Privacy', privacy_path %>
+  <% if signed_in? %>
+    <%= link_to current_user.email, edit_user_registration_path %>
+    <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Log in", new_user_session_path %>
+    <%= link_to "Register", new_user_registration_path %>
+  <% end %>
 </nav>
