@@ -9,7 +9,7 @@
     <%= link_to 'Privacy', privacy_path %>
   </div>
 
-  <% if @account.present? %>
+  <% if @account.present? && @account.persisted? %>
     <%= link_to account_path(@account), class: 'flex items-center gap-2' do %>
       <%= image_tag @account.logo, class: 'rounded-full size-8' if @account.logo.attached? %>
       <%= @account.name %>
