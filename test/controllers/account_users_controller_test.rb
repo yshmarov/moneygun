@@ -24,6 +24,14 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
   test "should create account_user" do
     email = "julia@superails.com"
 
+    assert_no_difference("User.count") do
+      assert_no_difference("AccountUser.count") do
+        post account_account_users_url(@account), params: { email: "foo" }
+      end
+    end
+    assert_redirected_to new_account_account_user_url(@account)
+
+
     assert_difference("User.count") do
       assert_difference("AccountUser.count") do
         post account_account_users_url(@account), params: { email: }
