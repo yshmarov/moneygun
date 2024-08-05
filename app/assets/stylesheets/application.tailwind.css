@@ -27,3 +27,7 @@
 .btn-danger {
   @apply bg-red-500 text-white focus:bg-red-600 hover:bg-red-600;
 }
+
+.form-input {
+  @apply block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full;
+}
