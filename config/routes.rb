@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :accounts do
-    resources :account_users, only: %i[index new create]
+    resources :account_users, only: %i[index new create], module: :accounts
   end
 
   get "dashboard", to: "static#dashboard"
