@@ -13,7 +13,7 @@
 */
 
 .btn {
-  @apply inline-block px-4 py-2 rounded-md space-x-1 font-semibold text-sm transition-colors ease-in-out duration-300
+  @apply inline-block px-4 py-2 rounded-md space-x-1 font-semibold text-sm transition-colors ease-in-out duration-300 cursor-pointer;
 }
 
 .btn-primary {
