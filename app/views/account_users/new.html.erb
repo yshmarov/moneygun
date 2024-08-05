@@ -1,0 +1,6 @@
+<h1>Invite Members</h1>
+
+<%= form_with url: account_account_users_path do |form| %>
+  <%= form.email_field :email, placeholder: 'Email' %>
+  <%= form.submit 'Invite' %>
+<% end %>
