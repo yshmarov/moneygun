@@ -1,9 +1,11 @@
 class AccountsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_account, only: %i[ show edit update destroy ]
+  before_action :authorize_account_user, only: %i[ show edit update destroy ]
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = Account.all
+    @accounts = current_user.accounts
   end
 
   # GET /accounts/1 or /accounts/1.json
@@ -25,6 +27,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
+        @account.account_users.create!(user: current_user, role: AccountUser.roles[:admin])
         format.html { redirect_to account_url(@account), notice: "Account was successfully created." }
         format.json { render :show, status: :created, location: @account }
       else
@@ -66,5 +69,9 @@ class AccountsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def account_params
       params.require(:account).permit(:name)
+    end
+
+    def authorize_account_user
+      return redirect_to root_path, alert: "You are not authorized to perform this action." unless @account.users.include?(current_user)
     end
 end

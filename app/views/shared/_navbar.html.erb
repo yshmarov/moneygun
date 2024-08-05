@@ -5,6 +5,7 @@
   <%= link_to 'Terms', terms_path %>
   <%= link_to 'Privacy', privacy_path %>
   <% if signed_in? %>
+    <%= link_to 'Accounts', accounts_path %>
     <%= link_to current_user.email, edit_user_registration_path %>
     <%= button_to "Log out", destroy_user_session_path, method: :delete %>
   <% else %>
