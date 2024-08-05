@@ -24,10 +24,10 @@ class AccountsController < ApplicationController
   # POST /accounts or /accounts.json
   def create
     @account = Account.new(account_params)
+    @account.account_users.build(user: current_user, role: AccountUser.roles[:admin])
 
     respond_to do |format|
       if @account.save
-        @account.account_users.create!(user: current_user, role: AccountUser.roles[:admin])
         format.html { redirect_to account_url(@account), notice: "Account was successfully created." }
         format.json { render :show, status: :created, location: @account }
       else
