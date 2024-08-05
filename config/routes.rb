@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :account_users
   resources :accounts
   devise_for :users
   get "dashboard", to: "static#dashboard"
