@@ -1,7 +1,7 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account, only: %i[ show edit update destroy ]
-  before_action :authorize_account_user, only: %i[ show edit update destroy ]
+  before_action :authorize_account_user!, only: %i[ show edit update destroy ]
 
   # GET /accounts or /accounts.json
   def index
@@ -71,7 +71,7 @@ class AccountsController < ApplicationController
       params.require(:account).permit(:name)
     end
 
-    def authorize_account_user
+    def authorize_account_user!
       redirect_to root_path, alert: "You are not authorized to perform this action." unless @account.users.include?(current_user)
     end
 end

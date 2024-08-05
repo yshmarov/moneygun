@@ -3,7 +3,7 @@
 one:
   account: one
   user: one
-  role: MyString
+  role: admin
 
 two:
   account: two
