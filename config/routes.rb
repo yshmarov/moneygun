@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :account_users
-  resources :accounts
   devise_for :users
+
+  resources :accounts do
+    resources :account_users, only: %i[index]
+  end
+
   get "dashboard", to: "static#dashboard"
   get "pricing", to: "static#pricing"
   get "terms", to: "static#terms"
