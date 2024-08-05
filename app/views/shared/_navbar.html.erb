@@ -1,20 +1,25 @@
 <nav class="flex justify-between">
   <div>
     <%= link_to 'Home', root_path %>
-    <%= link_to 'Dashboard', dashboard_path %>
+    <% if signed_in? %>
+      <%= link_to 'Accounts', accounts_path %>
+      <%= link_to 'Dashboard', dashboard_path %>
+    <% end %>
     <%= link_to 'Pricing', pricing_path %>
     <%= link_to 'Terms', terms_path %>
     <%= link_to 'Privacy', privacy_path %>
   </div>
 
-  <div>
-    <%= @account&.name %>
-  </div>
+  <% if @account.present? %>
+    <div class="flex items-center gap-2">
+      <%= image_tag @account.logo, class: 'rounded-full size-8' if @account.logo.attached? %>
+      <%= @account.name %>
+    </div>
+  <% end %>
 
   <%# auth %>
   <div>
     <% if signed_in? %>
-      <%= link_to 'Accounts', accounts_path %>
       <%= link_to current_user.email, edit_user_registration_path %>
       <%= button_to "Log out", destroy_user_session_path, method: :delete %>
     <% else %>
