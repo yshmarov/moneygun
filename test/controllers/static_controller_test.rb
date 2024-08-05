@@ -6,15 +6,6 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get dashboard" do
-    get dashboard_url
-    assert_redirected_to new_user_session_url
-    user = users(:one)
-    sign_in user
-    get dashboard_url
-    assert_response :success
-  end
-
   test "should get pricing" do
     get pricing_url
     assert_response :success

@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     resources :account_users, only: %i[index new create destroy], module: :accounts
   end
 
-  get "dashboard", to: "static#dashboard"
   get "pricing", to: "static#pricing"
   get "terms", to: "static#terms"
   get "privacy", to: "static#privacy"

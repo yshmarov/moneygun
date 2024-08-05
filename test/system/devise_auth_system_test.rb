@@ -5,9 +5,9 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
     user = users(:one)
     sign_in user
 
-    visit dashboard_path
-    assert_current_path dashboard_path
-    assert_text "Find me in app/views/static/dashboard.html.erb"
+    visit accounts_path
+    assert_current_path accounts_path
+    assert_text "New account"
   end
 
   test "create user and sign in" do
@@ -15,14 +15,14 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
     password = "password"
     User.create(email:, password:)
 
-    visit dashboard_path
+    visit accounts_path
     # visit new_user_session_path
 
     fill_in "Email", with: email
     fill_in "Password", with: password
     click_button "Log in"
 
-    assert_current_path dashboard_path
+    assert_current_path accounts_path
     assert_text "Signed in successfully."
   end
 end
