@@ -1,0 +1,18 @@
+<h1>
+  Edit
+  <%= @account_user.user.email %>
+  roles
+</h1>
+
+<%= form_with(model: [@account, @account_user]) do |form| %>
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.select :role, AccountUser.roles, class: "form-input" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Update Account User", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link_to 'Cancel', account_account_users_path(@account), class: "btn btn-secondary" %>

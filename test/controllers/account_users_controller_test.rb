@@ -42,6 +42,44 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     assert @account.users.find_by(email:)
   end
 
+  test "#edit" do
+    # admin can not edit himself
+    get edit_account_account_user_url(@account, @account_user)
+    assert_response :redirect
+
+    # admin can edit other account user
+    @account.users << @user2
+    second_account_user = @account.account_users.find_by(user: @user2)
+    get edit_account_account_user_url(@account, second_account_user)
+    assert_response :success
+
+    # only admin can edit account user
+    sign_in @user2
+    get edit_account_account_user_url(@account, @account_user)
+    assert_response :redirect
+  end
+
+  test "#update" do
+    # admin can not update himself
+    patch account_account_user_url(@account, @account_user), params: { account_user: { role: "member" } }
+    assert_redirected_to account_account_users_url
+    assert @account_user.reload.admin?
+
+    # admin can update other account user
+    @account.users << @user2
+    second_account_user = @account.account_users.find_by(user: @user2)
+    patch account_account_user_url(@account, second_account_user), params: { account_user: { role: "admin" } }
+    assert_redirected_to account_account_users_url
+    assert second_account_user.reload.admin?
+
+    # only admin can update account user
+    first_account_user = @account.account_users.find_by(user: @user)
+    first_account_user.member!
+    patch account_account_user_url(@account, second_account_user), params: { account_user: { role: "member" } }
+    assert_redirected_to account_url(@account)
+    assert second_account_user.reload.admin?
+  end
+
   test "#destroy" do
     # does not destroy only account user
     assert_difference("AccountUser.count", 0) do

@@ -18,6 +18,6 @@ class Accounts::BaseController < ApplicationController
   end
 
   def authorize_account_admin!
-    redirect_to root_path, alert: "You are not authorized to perform this action." unless @current_account_user.admin?
+    redirect_to account_path(@account), alert: "You are not authorized to perform this action." unless @current_account_user.admin?
   end
 end

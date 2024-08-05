@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :accounts do
-    resources :account_users, only: %i[index new create destroy], module: :accounts
+    resources :account_users, module: :accounts
   end
 
   get "pricing", to: "static#pricing"
