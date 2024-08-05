@@ -9,7 +9,6 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    @account.users << @user
     get accounts_url
     assert_response :success
 
