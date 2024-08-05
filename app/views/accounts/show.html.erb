@@ -2,11 +2,11 @@
   <div class="mx-auto">
     <%= render @account %>
 
-    <%= link_to "Account users", account_account_users_path(@account), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this account", edit_account_path(@account), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to accounts", accounts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this account", @account, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <%= link_to "Account users", account_account_users_path(@account), class: "btn btn-secondary" %>
+    <%= link_to "Edit this account", edit_account_path(@account), class: "btn btn-secondary" %>
+    <%= link_to "Back to accounts", accounts_path, class: "btn btn-secondary" %>
+    <div class="inline-block">
+      <%= button_to "Destroy this account", @account, method: :delete, class: "btn btn-danger" %>
     </div>
   </div>
 </div>

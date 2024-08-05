@@ -9,5 +9,7 @@
     <%= account_user.role %>
   </p>
 
-  <%= button_to 'Remove', account_account_user_path(account_user.account, account_user), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <div class="inline-block">
+    <%= button_to 'Remove', account_account_user_path(account_user.account, account_user), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  </div>
 </div>
