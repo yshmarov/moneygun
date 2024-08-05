@@ -8,10 +8,10 @@ class Accounts::AccountUsersController < Accounts::BaseController
 
   def create
     email = params[:email]
-    return redirect_to account_account_users_path(@account), alert: 'No email provided' if email.blank?
+    return redirect_to account_account_users_path(@account), alert: "No email provided" if email.blank?
 
     user = User.find_by(email:) || User.invite!({ email: }, current_user)
-    return redirect_to account_account_users_path(@account), alert: 'Email invalid' unless user.valid?
+    return redirect_to account_account_users_path(@account), alert: "Email invalid" unless user.valid?
 
     user.account_users.find_or_create_by(account: @account, role: AccountUser.roles[:member])
     redirect_to account_account_users_path(@account), notice: "#{email} invited!"
