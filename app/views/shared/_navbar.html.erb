@@ -1,5 +1,5 @@
 <nav class="flex justify-between p-4 border-b bg-white">
-  <div>
+  <div class="flex items-center gap-4">
     <%= active_link_to "Home", root_path %>
     <% if signed_in? %>
       <%= active_link_to "Accounts", accounts_path %>

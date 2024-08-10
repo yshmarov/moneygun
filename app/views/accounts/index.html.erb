@@ -9,9 +9,6 @@
   <div id="accounts" class="min-w-full">
     <% @accounts.each do |account| %>
       <%= render account %>
-      <p>
-        <%= link_to "Show this account", account, class: "btn btn-secondary" %>
-      </p>
     <% end %>
   </div>
 </div>

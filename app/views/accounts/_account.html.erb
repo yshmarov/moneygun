@@ -1,12 +1,4 @@
-<div id="<%= dom_id account %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= account.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Logo:</strong>
-    <%= image_tag account.logo, class: "rounded-full size-10" if account.logo.attached? %>
-  </p>
-
-</div>
+<%= link_to account, class: "flex items-center gap-2", id: dom_id(account) do %>
+  <%= image_tag account.logo, class: "rounded-full size-8" if account.logo.attached? %>
+  <%= account.name %>
+<% end %>
