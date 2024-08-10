@@ -1,29 +1,28 @@
-<nav class="flex justify-between">
+<nav class="flex justify-between p-4 border-b">
   <div>
-    <%= link_to 'Home', root_path %>
+    <%= active_link_to 'Home', root_path %>
     <% if signed_in? %>
-      <%= link_to 'Accounts', accounts_path %>
+      <%= active_link_to 'Accounts', accounts_path %>
     <% end %>
-    <%= link_to 'Pricing', pricing_path %>
-    <%= link_to 'Terms', terms_path %>
-    <%= link_to 'Privacy', privacy_path %>
+    <% if @account.present? && @account.persisted? %>
+      <%= active_link_to account_path(@account), class: 'inline-flex items-center gap-2' do %>
+        <%= image_tag @account.logo, class: 'rounded-full size-8' if @account.logo.attached? %>
+        <%= @account.name %>
+      <% end %>
+    <% end %>
   </div>
 
-  <% if @account.present? && @account.persisted? %>
-    <%= link_to account_path(@account), class: 'flex items-center gap-2' do %>
-      <%= image_tag @account.logo, class: 'rounded-full size-8' if @account.logo.attached? %>
-      <%= @account.name %>
-    <% end %>
-  <% end %>
 
   <%# auth %>
-  <div>
+  <div class="">
     <% if signed_in? %>
-      <%= link_to current_user.email, edit_user_registration_path %>
-      <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+      <%= active_link_to current_user.email, edit_user_registration_path %>
+      <div class="inline-flex">
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: 'Are you sure?' } %>
+      </div>
     <% else %>
-      <%= link_to "Log in", new_user_session_path %>
-      <%= link_to "Register", new_user_registration_path %>
+      <%= active_link_to "Log in", new_user_session_path %>
+      <%= active_link_to "Register", new_user_registration_path %>
     <% end %>
   </div>
 </nav>

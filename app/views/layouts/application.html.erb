@@ -19,11 +19,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen">
     <%= render 'shared/navbar' %>
     <%= render 'shared/flash' %>
-    <main class="p-4">
+    <main class="flex-grow p-4">
       <%= yield %>
     </main>
+    <%= render 'shared/footer' %>
   </body>
 </html>
