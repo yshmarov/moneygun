@@ -7,21 +7,16 @@ class Accounts::AccountUsersController < Accounts::BaseController
   end
 
   def new
+    @form = InviteAccountUserForm.new(account: @account)
   end
 
   def create
-    email = params[:email]
-    return redirect_to new_account_account_user_path(@account), alert: "No email provided" if email.blank?
+    @form = InviteAccountUserForm.new(email: params[:invite_account_user_form][:email], account: @account, inviter: current_user)
 
-    user = User.find_by(email:) || User.invite!({ email: }, current_user)
-    return redirect_to new_account_account_user_path(@account), alert: "Email invalid" unless user.valid?
-
-    account_user = user.account_users.find_by(account: @account)
-    if account_user.present?
-      redirect_to account_account_users_path(@account), alert: "#{email} is already a member of this account."
+    if @form.save
+      redirect_to account_account_users_path(@account), notice: "#{@form.email} invited!"
     else
-      user.account_users.create(account: @account, role: AccountUser.roles[:member])
-      redirect_to account_account_users_path(@account), notice: "#{email} invited!"
+      render :new, status: :unprocessable_entity
     end
   end
 

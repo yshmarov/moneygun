@@ -1,10 +1,11 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Invite user</h1>
+  <%= form_with model: @form, url: account_account_users_path(@account), class: "contents" do |form| %>
+    <%= render "shared/errors", object: form.object %>
 
-  <%= form_with url: account_account_users_path, class: "contents" do |form| %>
     <div class="my-5">
       <%= form.label :email %>
-      <%= form.email_field :email, placeholder: "Email", class: "form-input" %>
+      <%= form.email_field :email, placeholder: "hello@superails.com", class: "form-input" %>
     </div>
 
     <div class="inline">
@@ -12,5 +13,5 @@
     </div>
   <% end %>
 
-  <%= link_to "Cancel", accounts_path, class: "btn btn-secondary" %>
+  <%= link_to "Cancel", account_account_users_path(@account), class: "btn btn-secondary" %>
 </div>

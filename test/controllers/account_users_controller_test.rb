@@ -24,18 +24,26 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
   test "should create account_user" do
     email = "julia@superails.com"
 
+    # nil email
+    assert_no_difference("User.count") do
+      assert_no_difference("AccountUser.count") do
+        post account_account_users_url(@account), params: { invite_account_user_form: { email: nil } }
+      end
+    end
+    assert_response :unprocessable_entity
+
     # invalid email
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { email: "foo" }
+        post account_account_users_url(@account), params: { invite_account_user_form: { email: "foo" } }
       end
     end
-    assert_redirected_to new_account_account_user_url(@account)
+    assert_response :unprocessable_entity
 
     # success
     assert_difference("User.count") do
       assert_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { email: }
+        post account_account_users_url(@account), params: { invite_account_user_form: { email: } }
       end
     end
 
@@ -45,11 +53,10 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     # when user is already a member
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { email: }
+        post account_account_users_url(@account), params: { invite_account_user_form: { email: } }
       end
     end
-    assert_redirected_to account_account_users_url
-    assert_equal flash[:alert], "#{email} is already a member of this account."
+    assert_response :unprocessable_entity
   end
 
   test "#edit" do
