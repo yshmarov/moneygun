@@ -20,8 +20,12 @@
   </head>
 
   <body class="flex flex-col min-h-screen">
-    <%= render 'shared/navbar' %>
-    <%= render 'shared/flash' %>
+    <header class="sticky z-30 top-0">
+      <%= render 'shared/navbar' %>
+      <div id="flash" class="absolute flex flex-col z-40 left-1/2 transform -translate-x-1/2">
+        <%= render 'shared/flash' %>
+      </div>
+    </header>
     <main class="flex-grow p-4">
       <%= yield %>
     </main>

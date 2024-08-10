@@ -1,6 +1,7 @@
-<% if notice.present? %>
-  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-<% end %>
-<% if alert.present? %>
-  <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
+<% flash.each do |type, message| %>
+  <% if message.is_a?(String) %>
+    <%= tag.div message,
+                class: ['mx-2 mt-2 rounded-xl p-2 shadow opacity-90 cursor-pointer break-normal', flash_style(type)],
+                data: { controller: 'element-remove', action: 'click->element-remove#click', turbo_temporary: true } %>
+  <% end %>
 <% end %>
