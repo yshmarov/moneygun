@@ -24,6 +24,7 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
   test "should create account_user" do
     email = "julia@superails.com"
 
+    # invalid email
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
         post account_account_users_url(@account), params: { email: "foo" }
@@ -31,7 +32,7 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to new_account_account_user_url(@account)
 
-
+    # success
     assert_difference("User.count") do
       assert_difference("AccountUser.count") do
         post account_account_users_url(@account), params: { email: }
@@ -40,6 +41,15 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to account_account_users_url
     assert @account.users.find_by(email:)
+
+    # when user is already a member
+    assert_no_difference("User.count") do
+      assert_no_difference("AccountUser.count") do
+        post account_account_users_url(@account), params: { email: }
+      end
+    end
+    assert_redirected_to account_account_users_url
+    assert_equal flash[:alert], "#{email} is already a member of this account."
   end
 
   test "#edit" do

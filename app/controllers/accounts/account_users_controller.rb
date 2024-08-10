@@ -16,8 +16,13 @@ class Accounts::AccountUsersController < Accounts::BaseController
     user = User.find_by(email:) || User.invite!({ email: }, current_user)
     return redirect_to new_account_account_user_path(@account), alert: "Email invalid" unless user.valid?
 
-    user.account_users.find_or_create_by(account: @account, role: AccountUser.roles[:member])
-    redirect_to account_account_users_path(@account), notice: "#{email} invited!"
+    account_user = user.account_users.find_by(account: @account)
+    if account_user.present?
+      redirect_to account_account_users_path(@account), alert: "#{email} is already a member of this account."
+    else
+      user.account_users.create(account: @account, role: AccountUser.roles[:member])
+      redirect_to account_account_users_path(@account), notice: "#{email} invited!"
+    end
   end
 
   def edit
