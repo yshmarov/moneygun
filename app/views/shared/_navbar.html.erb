@@ -1,12 +1,12 @@
 <nav class="flex justify-between p-4 border-b bg-white">
   <div>
-    <%= active_link_to 'Home', root_path %>
+    <%= active_link_to "Home", root_path %>
     <% if signed_in? %>
-      <%= active_link_to 'Accounts', accounts_path %>
+      <%= active_link_to "Accounts", accounts_path %>
     <% end %>
     <% if @account.present? && @account.persisted? %>
-      <%= active_link_to account_path(@account), class: 'inline-flex items-center gap-2' do %>
-        <%= image_tag @account.logo, class: 'rounded-full size-8' if @account.logo.attached? %>
+      <%= active_link_to account_path(@account), class: "inline-flex items-center gap-2" do %>
+        <%= image_tag @account.logo, class: "rounded-full size-8" if @account.logo.attached? %>
         <%= @account.name %>
       <% end %>
     <% end %>
@@ -18,7 +18,7 @@
     <% if signed_in? %>
       <%= active_link_to current_user.email, edit_user_registration_path %>
       <div class="inline-flex">
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: 'Are you sure?' } %>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
       </div>
     <% else %>
       <%= active_link_to "Log in", new_user_session_path %>

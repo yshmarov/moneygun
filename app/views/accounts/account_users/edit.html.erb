@@ -5,7 +5,7 @@
     roles
   </h1>
 
-  <%= form_with(model: [@account, @account_user], class: 'contents') do |form| %>
+  <%= form_with(model: [ @account, @account_user ], class: "contents") do |form| %>
     <div class="my-5">
       <%= form.label :role %>
       <%= form.select :role, AccountUser.roles, {}, class: "form-input" %>
@@ -16,5 +16,5 @@
     </div>
   <% end %>
 
-  <%= link_to 'Cancel', account_account_users_path(@account), class: "btn btn-secondary" %>
+  <%= link_to "Cancel", account_account_users_path(@account), class: "btn btn-secondary" %>
 </div>
