@@ -20,7 +20,6 @@ class AccountsTest < ApplicationSystemTestCase
     click_on "Create Account"
 
     assert_text "Account was successfully created"
-    click_on "Back"
   end
 
   test "should update Account" do
@@ -31,7 +30,6 @@ class AccountsTest < ApplicationSystemTestCase
     click_on "Update Account"
 
     assert_text "Account was successfully updated"
-    click_on "Back"
   end
 
   test "should destroy Account" do
