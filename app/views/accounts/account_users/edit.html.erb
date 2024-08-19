@@ -8,7 +8,14 @@
   <%= form_with(model: [ @account, @account_user ], class: "contents") do |form| %>
     <div class="my-5">
       <%= form.label :role %>
-      <%= form.select :role, AccountUser.roles, {}, class: "form-input" %>
+      <div>
+        <% AccountUser.roles.each do |role, _value| %>
+          <div>
+            <%= form.radio_button :role, role %>
+            <%= form.label :role, role.humanize, value: role %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <div class="inline">
