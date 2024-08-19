@@ -68,9 +68,9 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#edit" do
-    # admin can not edit himself
+    # admin can edit himself
     get edit_account_account_user_url(@account, @account_user)
-    assert_response :redirect
+    assert_response :success
 
     # admin can edit other account user
     @account.users << @user2
@@ -85,10 +85,11 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#update" do
-    # admin can not update himself
+    # admin can update himself
     patch account_account_user_url(@account, @account_user), params: { account_user: { role: "member" } }
     assert_redirected_to account_account_users_url
-    assert @account_user.reload.admin?
+    assert @account_user.reload.member?
+    @account_user.admin!
 
     # admin can update other account user
     @account.users << @user2
@@ -97,11 +98,11 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to account_account_users_url
     assert second_account_user.reload.admin?
 
-    # only admin can update account user
+    # member can not update account user
     first_account_user = @account.account_users.find_by(user: @user)
     first_account_user.member!
     patch account_account_user_url(@account, second_account_user), params: { account_user: { role: "member" } }
-    assert_redirected_to account_url(@account)
+    assert_redirected_to root_url
     assert second_account_user.reload.admin?
   end
 

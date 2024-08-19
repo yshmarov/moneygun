@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
   resources :accounts do
-    resources :account_users, module: :accounts
+    resources :account_users, module: :accounts, except: %i[show]
   end
 
   get "pricing", to: "static#pricing"

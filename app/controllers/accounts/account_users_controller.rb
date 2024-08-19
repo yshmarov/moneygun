@@ -1,6 +1,6 @@
 class Accounts::AccountUsersController < Accounts::BaseController
   before_action :set_account_user, only: [ :edit, :update, :destroy ]
-  before_action :authorize_account_admin!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :authorize_account_admin!, only: [ :new, :create ]
 
   def index
     @account_users = @account.account_users
@@ -21,12 +21,9 @@ class Accounts::AccountUsersController < Accounts::BaseController
   end
 
   def edit
-    redirect_to account_account_users_path(@account), alert: "Can not edit yourself" if @account_user.user == current_user
   end
 
   def update
-    return redirect_to account_account_users_path(@account), alert: "Can not edit yourself" if @account_user.user == current_user
-
     if @account_user.update(account_user_params)
       redirect_to account_account_users_path(@account), notice: "User updated"
     else
@@ -50,6 +47,7 @@ class Accounts::AccountUsersController < Accounts::BaseController
 
   def set_account_user
     @account_user = @account.account_users.find(params[:id])
+    authorize @account_user
   end
 
   def account_user_params

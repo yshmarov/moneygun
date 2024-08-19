@@ -9,8 +9,8 @@
     <%= account_user.role %>
   </p>
 
-  <%= link_to "Edit", edit_account_account_user_path(account_user.account, account_user), class: "btn btn-secondary" %>
+  <%= link_to "Edit", edit_account_account_user_path(account_user.account, account_user), class: "btn btn-secondary" if policy(account_user).edit? %>
   <div class="inline-block">
-    <%= button_to "Remove", account_account_user_path(account_user.account, account_user), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    <%= button_to "Remove", account_account_user_path(account_user.account, account_user), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(account_user).destroy? %>
   </div>
 </div>
