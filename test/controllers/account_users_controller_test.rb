@@ -40,10 +40,18 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :unprocessable_entity
 
+    # missing role
+    assert_no_difference("User.count") do
+      assert_no_difference("AccountUser.count") do
+        post account_account_users_url(@account), params: { invite_account_user_form: { email: } }
+      end
+    end
+    assert_response :unprocessable_entity
+
     # success
     assert_difference("User.count") do
       assert_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { invite_account_user_form: { email: } }
+        post account_account_users_url(@account), params: { invite_account_user_form: { email:, role: "member" } }
       end
     end
 

@@ -10,7 +10,7 @@
       <%= form.label :role %>
       <div>
         <% AccountUser.roles.each do |role, _value| %>
-          <div>
+          <div class="flex items-center gap-2">
             <%= form.radio_button :role, role %>
             <%= form.label :role, role.humanize, value: role %>
           </div>

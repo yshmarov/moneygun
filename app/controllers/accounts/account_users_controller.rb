@@ -7,11 +7,11 @@ class Accounts::AccountUsersController < Accounts::BaseController
   end
 
   def new
-    @form = InviteAccountUserForm.new(account: @account)
+    @form = InviteAccountUserForm.new(account: @account, role: AccountUser.roles[:member])
   end
 
   def create
-    @form = InviteAccountUserForm.new(email: params[:invite_account_user_form][:email], account: @account, inviter: current_user)
+    @form = InviteAccountUserForm.new(email: params[:invite_account_user_form][:email], role: params[:invite_account_user_form][:role], account: @account, inviter: current_user)
 
     if @form.save
       redirect_to account_account_users_path(@account), notice: "#{@form.email} invited!"

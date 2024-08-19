@@ -8,6 +8,18 @@
       <%= form.email_field :email, placeholder: "hello@superails.com", class: "form-input" %>
     </div>
 
+    <div class="my-5">
+      <%= form.label :role %>
+      <div>
+        <% AccountUser.roles.each do |role, _value| %>
+          <div class="flex items-center gap-2">
+            <%= form.radio_button :role, role %>
+            <%= form.label :role, role.humanize, value: role %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
     <div class="inline">
       <%= form.submit "Invite", class: "btn btn-primary" %>
     </div>
