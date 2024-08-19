@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :inboxes
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
   resources :accounts do
