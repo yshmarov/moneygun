@@ -111,6 +111,8 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
       delete account_account_user_url(@account, @account_user)
     end
     assert_redirected_to account_account_users_url
+    follow_redirect!
+    assert_response :success
 
     # destroys another account user
     @account.users << @user2
@@ -118,6 +120,9 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference("AccountUser.count", -1) do
       delete account_account_user_url(@account, second_account_user)
     end
+    assert_redirected_to account_account_users_url
+    follow_redirect!
+    assert_response :success
 
     # does not destroy only admin account user
     @account.users << @user2
@@ -125,11 +130,17 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference("AccountUser.count", 0) do
       delete account_account_user_url(@account, @account_user)
     end
+    assert_redirected_to account_account_users_url
+    follow_redirect!
+    assert_response :success
 
     # destroys admin if there is another admin
     second_account_user.admin!
     assert_difference("AccountUser.count", -1) do
       delete account_account_user_url(@account, @account_user)
     end
+    assert_redirected_to accounts_path
+    follow_redirect!
+    assert_response :success
   end
 end

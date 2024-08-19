@@ -36,7 +36,11 @@ class Accounts::AccountUsersController < Accounts::BaseController
 
   def destroy
     if @account_user.try_destroy
-      redirect_to account_account_users_path(@account), notice: "User removed from account"
+      if @account_user.user == current_user
+        redirect_to accounts_path, notice: "You have left that account"
+      else
+        redirect_to account_account_users_path(@account), notice: "User removed from account"
+      end
     else
       redirect_to account_account_users_path(@account), alert: "Failed to remove user from account"
     end
