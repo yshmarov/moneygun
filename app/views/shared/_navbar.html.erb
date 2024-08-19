@@ -3,6 +3,7 @@
     <%= active_link_to "Home", root_path %>
     <% if signed_in? %>
       <%= active_link_to "Accounts", accounts_path %>
+      <%= active_link_to "Inboxes", inboxes_path %>
     <% end %>
     <% if @account.present? && @account.persisted? %>
       <%= active_link_to account_path(@account), class: "inline-flex items-center gap-2" do %>

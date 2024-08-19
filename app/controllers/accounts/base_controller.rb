@@ -1,6 +1,5 @@
 class Accounts::BaseController < ApplicationController
   # the order of the before_actions is important
-  before_action :authenticate_user!
   before_action :set_account
   before_action :authorize_account_user!
   before_action :set_current_account_user

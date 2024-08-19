@@ -2,6 +2,8 @@ require "test_helper"
 
 class InboxesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @user = users(:one)
+    sign_in @user
     @inbox = inboxes(:one)
   end
 
