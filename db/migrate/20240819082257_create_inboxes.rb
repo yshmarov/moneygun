@@ -6,6 +6,6 @@ class CreateInboxes < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :inboxes, [:name, :account_id], unique: true
+    add_index :inboxes, [ :name, :account_id ], unique: true
   end
 end
