@@ -65,3 +65,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "devise_invitable", "~> 2.0"
+
+gem "pundit", "~> 2.3"
