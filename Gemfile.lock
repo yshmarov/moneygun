@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: f98e3fba19b63781ebdfd511934e14bce12d1157
+  revision: ac104520ee8518441bb4f8c2c7835d0bb8fd6800
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -27,7 +27,6 @@ GIT
       actionview (= 8.0.0.alpha)
       activesupport (= 8.0.0.alpha)
       nokogiri (>= 1.8.5)
-      racc
       rack (>= 2.2.4)
       rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
@@ -198,7 +197,7 @@ GEM
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
-    minitest (5.24.1)
+    minitest (5.25.1)
     msgpack (1.7.2)
     net-imap (0.4.14)
       date
