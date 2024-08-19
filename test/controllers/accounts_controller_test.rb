@@ -54,6 +54,14 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy account" do
+    account_user = @account.account_users.find_by(user: @user)
+    account_user.update!(role: AccountUser.roles[:member])
+
+    assert_no_difference("Account.count") do
+      delete account_url(@account)
+    end
+
+    account_user.update!(role: AccountUser.roles[:admin])
     assert_difference("Account.count", -1) do
       delete account_url(@account)
     end
