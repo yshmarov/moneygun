@@ -1,13 +1,13 @@
 <% content_for :title, "Accounts" %>
-<div class="space-y-8">
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Accounts</h1>
+
+<%= render PageComponent.new(title: "Accounts") do |component| %>
+  <% component.with_action_list do %>
     <%= link_to "New account", new_account_path, class: "btn btn-primary" %>
-  </div>
+  <% end %>
 
   <div id="accounts" class="space-y-4">
     <% @accounts.each do |account| %>
       <%= render account %>
     <% end %>
   </div>
-</div>
+<% end %>

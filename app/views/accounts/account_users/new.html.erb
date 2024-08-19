@@ -1,5 +1,4 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Invite user</h1>
+<%= render PageComponent.new(title: "Invite user") do |component| %>
   <%= form_with model: @form, url: account_account_users_path(@account), class: "contents" do |form| %>
     <%= render "shared/errors", object: form.object %>
 
@@ -26,4 +25,4 @@
   <% end %>
 
   <%= link_to "Cancel", account_account_users_path(@account), class: "btn btn-secondary" %>
-</div>
+<% end %>
