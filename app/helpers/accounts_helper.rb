@@ -1,11 +1,4 @@
 module AccountsHelper
-  def account_avatar_link(account)
-    active_link_to account_path(account), class: "inline-flex items-center gap-2" do
-      account_avatar(account) +
-      account.name
-    end
-  end
-
   def account_avatar(account)
     if account.logo.attached?
       image_tag account.logo, class: "rounded-full size-8"
