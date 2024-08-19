@@ -1,10 +1,18 @@
 class AccountUserPolicy < ApplicationPolicy
-  def edit?
+  def new?
     account_user&.admin?
   end
 
+  def create?
+    new?
+  end
+
+  def edit?
+    new?
+  end
+
   def update?
-    edit?
+    new?
   end
 
   def destroy?

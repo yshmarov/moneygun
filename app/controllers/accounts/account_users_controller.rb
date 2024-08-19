@@ -1,16 +1,17 @@
 class Accounts::AccountUsersController < Accounts::BaseController
   before_action :set_account_user, only: [ :edit, :update, :destroy ]
-  before_action :authorize_account_admin!, only: [ :new, :create ]
 
   def index
     @account_users = @account.account_users
   end
 
   def new
+    authorize @account.account_users.new
     @form = InviteAccountUserForm.new(account: @account, role: AccountUser.roles[:member])
   end
 
   def create
+    authorize @account.account_users.new
     @form = InviteAccountUserForm.new(email: params[:invite_account_user_form][:email], role: params[:invite_account_user_form][:role], account: @account, inviter: current_user)
 
     if @form.save

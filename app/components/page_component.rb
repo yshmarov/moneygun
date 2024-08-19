@@ -8,5 +8,4 @@ class PageComponent < ViewComponent::Base
   end
 
   attr_reader :title
-
 end

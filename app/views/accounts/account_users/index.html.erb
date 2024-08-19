@@ -2,7 +2,7 @@
 
 <%= render PageComponent.new(title: "Account users") do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "New account user", new_account_account_user_path(@account), class: "btn btn-primary" %>
+    <%= link_to "New account user", new_account_account_user_path(@account), class: "btn btn-primary" if policy(@account.account_users.new).new? %>
   <% end %>
 
   <div id="account_users" class="space-y-4">

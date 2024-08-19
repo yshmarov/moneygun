@@ -17,8 +17,20 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+    # admin can invite new account user
     get new_account_account_user_url(@account)
     assert_response :success
+
+    # user is not account user
+    sign_in @user2
+    get new_account_account_user_url(@account)
+    assert_response :not_found
+
+    # user is account member
+    @account.account_users.create(user: @user2, role: "member")
+    sign_in @user2
+    get new_account_account_user_url(@account)
+    assert_response :redirect
   end
 
   test "should create account_user" do
