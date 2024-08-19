@@ -1,12 +1,12 @@
 <nav class="flex justify-between p-4 border-b bg-white">
-  <div class="flex items-center gap-4">
-    <%= active_link_to "Home", root_path %>
+  <div class="flex items-center gap-2">
+    <%= active_link_to "Home", root_path, class: 'nav-link' %>
 
     <% if signed_in? %>
-      <%= active_link_to "Accounts", accounts_path %>
+      <%= active_link_to "Accounts", accounts_path, class: 'nav-link' %>
       <% if @account.present? && @account.persisted? %>
         <%= account_avatar_link(@account) %>
-        <%= active_link_to "Inboxes", inboxes_path %>
+        <%= active_link_to "Inboxes", inboxes_path, class: 'nav-link' %>
       <% end %>
     <% end %>
   </div>
@@ -14,13 +14,13 @@
   <%# auth %>
   <div class="">
     <% if signed_in? %>
-      <%= active_link_to current_user.email, edit_user_registration_path %>
+      <%= active_link_to current_user.email, edit_user_registration_path, class: 'nav-link' %>
       <div class="inline-flex">
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'nav-link' %>
       </div>
     <% else %>
-      <%= active_link_to "Log in", new_user_session_path %>
-      <%= active_link_to "Register", new_user_registration_path %>
+      <%= active_link_to "Log in", new_user_session_path, class: 'nav-link' %>
+      <%= active_link_to "Register", new_user_registration_path, class: 'nav-link' %>
     <% end %>
   </div>
 </nav>
