@@ -1,18 +1,15 @@
 <nav class="flex justify-between p-4 border-b bg-white">
   <div class="flex items-center gap-4">
     <%= active_link_to "Home", root_path %>
+
     <% if signed_in? %>
       <%= active_link_to "Accounts", accounts_path %>
-      <%= active_link_to "Inboxes", inboxes_path %>
-    <% end %>
-    <% if @account.present? && @account.persisted? %>
-      <%= active_link_to account_path(@account), class: "inline-flex items-center gap-2" do %>
-        <%= image_tag @account.logo, class: "rounded-full size-8" if @account.logo.attached? %>
-        <%= @account.name %>
+      <% if @account.present? && @account.persisted? %>
+        <%= account_avatar_link(@account) %>
+        <%= active_link_to "Inboxes", inboxes_path %>
       <% end %>
     <% end %>
   </div>
-
 
   <%# auth %>
   <div class="">

@@ -1,4 +1,3 @@
-<%= link_to account, class: "flex items-center gap-2", id: dom_id(account) do %>
-  <%= image_tag account.logo, class: "rounded-full size-8" if account.logo.attached? %>
-  <%= account.name %>
-<% end %>
+<div>
+  <%= account_avatar_link(account) %>
+</div>
