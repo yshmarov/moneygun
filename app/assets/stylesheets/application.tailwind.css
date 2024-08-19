@@ -33,5 +33,5 @@
 }
 
 .nav-link {
-  @apply text-gray-500 hover:text-gray-900 font-semibold text-sm bg-transparent hover:bg-gray-100 px-2 py-1 rounded-md;
+  @apply text-gray-500 hover:text-gray-900 font-semibold text-sm hover:bg-gray-100 px-2 py-1 rounded-md;
 }
