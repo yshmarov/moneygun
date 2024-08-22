@@ -7,7 +7,7 @@
       <% if @account.present? && @account.persisted? %>
         <%= active_link_to account_path(@account), class: "inline-flex items-center gap-2 no-underline" do %>
           <%= account_avatar(@account) %>
-          <%= @account.name %>
+          <%= @account.name.truncate(10) %>
         <% end %>
         <%= active_link_to "Inboxes", inboxes_path, class: "nav-link" %>
       <% end %>

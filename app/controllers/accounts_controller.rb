@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = current_user.accounts
+    @accounts = current_user.accounts.includes(:users)
   end
 
   # GET /accounts/1 or /accounts/1.json
