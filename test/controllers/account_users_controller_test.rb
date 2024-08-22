@@ -14,6 +14,10 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     get account_account_users_url(@account)
     assert_response :success
     assert_match @account_user.user.email, response.body
+
+    # user is not a member of the account
+    get account_account_users_url(accounts(:two))
+    assert_response :not_found
   end
 
   test "should get new" do
