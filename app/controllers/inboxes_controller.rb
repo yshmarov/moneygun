@@ -1,9 +1,9 @@
-class InboxesController < ApplicationController
+class InboxesController < Accounts::BaseController
   before_action :set_inbox, only: %i[ show edit update destroy ]
 
   # GET /inboxes or /inboxes.json
   def index
-    @inboxes = Inbox.all
+    @inboxes = Current.account.inboxes
   end
 
   # GET /inboxes/1 or /inboxes/1.json
@@ -21,7 +21,7 @@ class InboxesController < ApplicationController
 
   # POST /inboxes or /inboxes.json
   def create
-    @inbox = Inbox.new(inbox_params)
+    @inbox = Current.account.inboxes.new(inbox_params)
 
     respond_to do |format|
       if @inbox.save
@@ -65,6 +65,6 @@ class InboxesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def inbox_params
-      params.require(:inbox).permit(:name, :account_id)
+      params.require(:inbox).permit(:name)
     end
 end
