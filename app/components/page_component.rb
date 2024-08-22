@@ -12,7 +12,7 @@ class PageComponent < ViewComponent::Base
   attr_reader :title
 
   def conent_container_class
-    "border rounded-lg p-4" if @content_container == true
+    "border rounded-lg p-4 shadow" if @content_container == true
   end
 
   def width_class
