@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: "Invite user", content_container: true) do |component| %>
+<%= render PageComponent.new(title: "Invite user", content_container: true, full_width: false) do |component| %>
   <%= form_with model: @form, url: account_account_users_path(@account), class: "contents" do |form| %>
     <%= render "shared/errors", object: form.object %>
 
