@@ -1,12 +1,12 @@
 <%= form_with(model: account, class: "contents") do |form| %>
   <%= render "shared/errors", object: form.object %>
 
-  <div class="my-5">
+  <div class="">
     <%= form.label :name %>
     <%= form.text_field :name, class: "form-input" %>
   </div>
 
-  <div class="my-5">
+  <div class="">
     <%= form.label :logo %>
     <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "form-input" %>
   </div>

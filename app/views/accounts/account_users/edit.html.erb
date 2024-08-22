@@ -1,6 +1,6 @@
-<%= render PageComponent.new(title: "Edit #{@account_user.user.email} roles") do |component| %>
+<%= render PageComponent.new(title: "Edit #{@account_user.user.email} roles", content_container: true) do |component| %>
   <%= form_with(model: [ @account, @account_user ], class: "contents") do |form| %>
-    <div class="my-5">
+    <div class="">
       <%= form.label :role %>
       <div>
         <% AccountUser.roles.each do |role, _value| %>

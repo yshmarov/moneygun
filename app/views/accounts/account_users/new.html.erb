@@ -1,13 +1,13 @@
-<%= render PageComponent.new(title: "Invite user") do |component| %>
+<%= render PageComponent.new(title: "Invite user", content_container: true) do |component| %>
   <%= form_with model: @form, url: account_account_users_path(@account), class: "contents" do |form| %>
     <%= render "shared/errors", object: form.object %>
 
-    <div class="my-5">
+    <div class="">
       <%= form.label :email %>
       <%= form.email_field :email, placeholder: "hello@superails.com", class: "form-input" %>
     </div>
 
-    <div class="my-5">
+    <div class="">
       <%= form.label :role %>
       <div>
         <% AccountUser.roles.each do |role, _value| %>
