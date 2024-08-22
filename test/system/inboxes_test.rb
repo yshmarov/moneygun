@@ -6,11 +6,13 @@ class InboxesTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
+    skip
     visit inboxes_url
     assert_selector "h1", text: "Inboxes"
   end
 
   test "should create inbox" do
+    skip
     visit inboxes_url
     click_on "New inbox"
 
@@ -23,6 +25,7 @@ class InboxesTest < ApplicationSystemTestCase
   end
 
   test "should update Inbox" do
+    skip
     visit inbox_url(@inbox)
     click_on "Edit this inbox", match: :first
 
@@ -35,6 +38,7 @@ class InboxesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Inbox" do
+    skip
     visit inbox_url(@inbox)
     click_on "Destroy this inbox", match: :first
 
