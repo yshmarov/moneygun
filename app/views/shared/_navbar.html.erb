@@ -1,13 +1,12 @@
 <nav class="flex justify-between p-4 border-b bg-white">
   <div class="flex items-center gap-2">
-    <%= active_link_to "Home", root_path, active_classes: "bg-gray-100", class: "nav-link" %>
-
+    <%= active_link_to "Home", root_path(script_name: nil), active_classes: "bg-gray-100", class: "nav-link" %>
     <% if signed_in? %>
-      <%= active_link_to "Accounts", accounts_path, active_classes: "bg-gray-100", class: "nav-link" %>
-      <% if @account.present? && @account.persisted? %>
-        <%= active_link_to account_path(@account), class: "inline-flex items-center gap-2 no-underline" do %>
-          <%= account_avatar(@account) %>
-          <%= @account.name.truncate(10) %>
+      <%= active_link_to "Accounts", accounts_path(script_name: nil), active_classes: "bg-gray-100", class: "nav-link" %>
+      <% if Current.account.present? || @account.present? && @account.persisted? %>
+        <%= active_link_to account_path(Current.account), class: "inline-flex items-center gap-2 no-underline" do %>
+          <%= account_avatar(Current.account) %>
+          <%= Current.account.name.truncate(10) %>
         <% end %>
         <%= active_link_to "Inboxes", inboxes_path, class: "nav-link" %>
       <% end %>
@@ -17,7 +16,7 @@
   <%# auth %>
   <div class="">
     <% if signed_in? %>
-      <%= active_link_to current_user.email, edit_user_registration_path, active_classes: "bg-gray-100", class: "nav-link" %>
+      <%= active_link_to current_user.email, edit_user_registration_path(script_name: nil), active_classes: "bg-gray-100", class: "nav-link" %>
       <div class="inline-flex">
         <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "nav-link" %>
       </div>
