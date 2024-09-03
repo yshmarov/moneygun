@@ -69,4 +69,4 @@ gem "devise_invitable", "~> 2.0"
 gem "pundit", "~> 2.3"
 gem "view_component"
 
-gem "inline_svg", "~> 1.9"
+gem "inline_svg", "~> 1.10"
