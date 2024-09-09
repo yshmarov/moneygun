@@ -234,7 +234,7 @@ GEM
     parser (3.3.4.2)
       ast (~> 2.4.1)
       racc
-    pg (1.5.7)
+    pg (1.5.8)
     propshaft (0.9.1)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -389,7 +389,7 @@ DEPENDENCIES
   inline_svg (~> 1.9)
   jbuilder
   kamal
-  pg (~> 1.1)
+  pg (~> 1.5)
   propshaft
   puma (>= 5.0)
   pundit (~> 2.3)
