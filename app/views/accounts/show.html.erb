@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: @account.name) do |component| %>
+<%= render PageComponent.new(title: "Accounts / #{@account.name}") do |component| %>
   <% component.with_action_list do %>
     <%= link_to "Users", account_account_users_path(@account), class: "btn btn-secondary" %>
     <%= link_to "Edit", edit_account_path(@account), class: "btn btn-secondary" if policy(@account).edit? %>
