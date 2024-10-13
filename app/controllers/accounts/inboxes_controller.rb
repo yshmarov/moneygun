@@ -65,6 +65,6 @@ class Accounts::InboxesController < Accounts::BaseController
 
     # Only allow a list of trusted parameters through.
     def inbox_params
-      params.require(:inbox).permit(:name, :account_id)
+      params.require(:inbox).permit(:name)
     end
 end
