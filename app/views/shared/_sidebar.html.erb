@@ -21,8 +21,18 @@
       <% end %>
 
     <% if current_account %>
-      <%= active_link_to "Users", account_account_users_path(@account), class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
-      <%= active_link_to "Inboxes", account_inboxes_path(@account), class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+      <%= active_link_to account_account_users_path(@account), class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
+        <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
+        <span>
+          Users
+        </span>
+      <% end %>
+      <%= active_link_to account_inboxes_path(@account), class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
+        <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+        <span>
+          Inboxes
+        </span>
+      <% end %>
     <% end %>
   </nav>
 
