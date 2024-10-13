@@ -6,8 +6,12 @@
       <%= active_link_to "Accounts", accounts_path, active_classes: "bg-gray-100", class: "nav-link" %>
       <% if @account.present? && @account.persisted? %>
         <%= active_link_to account_path(@account), class: "inline-flex items-center gap-2 no-underline" do %>
-          <%= account_avatar(@account) %>
-          <%= @account.name.truncate(10) %>
+          <div>
+            <%= account_avatar(@account) %>
+          </div>
+          <div class="truncate">
+            <%= @account.name %>
+          </div>
         <% end %>
       <% end %>
     <% end %>
