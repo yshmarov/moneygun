@@ -4,16 +4,32 @@
     <%= render "layouts/head" %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
-    <header class="sticky z-30 top-0">
-      <%= render "shared/navbar" %>
-      <div id="flash" class="absolute flex flex-col z-40 left-1/2 transform -translate-x-1/2">
-        <%= render "shared/flash" %>
+  <body class="flex h-screen">
+    <aside class="hidden lg:flex flex-col justify-between bg-slate-400">
+      <div>
+        Widescreen sidebar top
       </div>
-    </header>
-    <main class="flex-grow px-4 py-8">
-      <%= yield %>
-    </main>
-    <%= render "shared/footer" %>
+      <div>
+        Widescreen sidebar bottom
+      </div>
+    </aside>
+    <div class="flex-grow overflow-y-auto flex flex-col">
+      <header class="sticky z-30 top-0">
+        <%= render "shared/navbar" %>
+        <div id="flash" class="absolute flex flex-col z-40 left-1/2 transform -translate-x-1/2">
+          <%= render "shared/flash" %>
+        </div>
+      </header>
+      <main class="flex-grow p-2">
+        <% 0.times do %>
+          <div>abc</div>
+        <% end %>
+        <%= yield %>
+      </main>
+      <%= render "shared/footer" %>
+      <footer class="block lg:hidden sticky bottom-0 bg-rose-400">
+        Mobile footer content
+      </footer>
+    </div>
   </body>
 </html>
