@@ -1,0 +1,3 @@
+# Rails.application.config_for(:settings).dig(:foo)
+shared:
+  app_name: Askvote

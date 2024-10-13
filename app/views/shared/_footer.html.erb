@@ -7,6 +7,7 @@
 
   <div>
     &copy; <%= Time.now.year %>
-    Your Company Name. All rights reserved.
+    <%= Rails.application.config_for(:settings).dig(:app_name) %>.
+    All rights reserved.
   </div>
 </footer>
