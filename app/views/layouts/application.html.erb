@@ -13,8 +13,20 @@
             <%#= image_tag 'logolong.png', alt: 'logo', class: 'h-10 w-auto' %>
             <%= image_tag 'logo.png', alt: 'logo', class: 'h-10 w-auto' %>
           <% end %>
+
+          <div class="">
+            <% current_user.accounts.each do |account| %>
+              <div>
+                <%= link_to account.name, account %>
+              </div>
+            <% end %>
+          </div>
+
           <%= active_link_to "Home", root_path, active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
           <%= active_link_to "Accounts", accounts_path, active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+          <% if @account.present? %>
+            <%#= active_link_to "Inboxes", account_inboxes_path(@account), active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+          <% end %>
         </div>
 
         <%# Widescreen sidebar bottom %>

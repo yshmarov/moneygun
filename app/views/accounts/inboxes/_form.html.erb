@@ -1,4 +1,4 @@
-<%= form_with(model: inbox, class: "contents") do |form| %>
+<%= form_with(model: [@account, inbox], class: "contents") do |form| %>
   <% if inbox.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(inbox.errors.count, "error") %> prohibited this inbox from being saved:</h2>
@@ -14,11 +14,6 @@
   <div class="">
     <%= form.label :name %>
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="">
-    <%= form.label :account_id %>
-    <%= form.text_field :account_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">

@@ -1,9 +1,9 @@
-class InboxesController < ApplicationController
+class Accounts::InboxesController < Accounts::BaseController
   before_action :set_inbox, only: %i[ show edit update destroy ]
 
   # GET /inboxes or /inboxes.json
   def index
-    @inboxes = Inbox.all
+    @inboxes = @account.inboxes
   end
 
   # GET /inboxes/1 or /inboxes/1.json
@@ -12,7 +12,7 @@ class InboxesController < ApplicationController
 
   # GET /inboxes/new
   def new
-    @inbox = Inbox.new
+    @inbox = @account.inboxes.new
   end
 
   # GET /inboxes/1/edit
@@ -21,11 +21,11 @@ class InboxesController < ApplicationController
 
   # POST /inboxes or /inboxes.json
   def create
-    @inbox = Inbox.new(inbox_params)
+    @inbox = @account.inboxes.new(inbox_params)
 
     respond_to do |format|
       if @inbox.save
-        format.html { redirect_to inbox_url(@inbox), notice: "Inbox was successfully created." }
+        format.html { redirect_to account_inbox_url(@account, @inbox), notice: "Inbox was successfully created." }
         format.json { render :show, status: :created, location: @inbox }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class InboxesController < ApplicationController
   def update
     respond_to do |format|
       if @inbox.update(inbox_params)
-        format.html { redirect_to inbox_url(@inbox), notice: "Inbox was successfully updated." }
+        format.html { redirect_to account_inbox_url(@account, @inbox), notice: "Inbox was successfully updated." }
         format.json { render :show, status: :ok, location: @inbox }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class InboxesController < ApplicationController
     @inbox.destroy!
 
     respond_to do |format|
-      format.html { redirect_to inboxes_url, notice: "Inbox was successfully destroyed." }
+      format.html { redirect_to account_inboxes_url(@account), notice: "Inbox was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -60,7 +60,7 @@ class InboxesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inbox
-      @inbox = Inbox.find(params[:id])
+      @inbox = @account.inboxes.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
