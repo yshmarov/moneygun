@@ -1,9 +1,11 @@
 module ApplicationHelper
-  def active_link_to(text = nil, path = nil, active_classes: "", **options, &)
+  def active_link_to(text = nil, path = nil, active_classes: "", active_if: nil, **options, &)
     path ||= text
 
     classes = active_classes.presence || "font-bold underline"
-    options[:class] = class_names(options[:class], classes) if current_page?(path)
+    is_active = active_if.nil? ? current_page?(path) : active_if
+
+    options[:class] = class_names(options[:class], classes) if is_active
 
     return link_to(path, options, &) if block_given?
 

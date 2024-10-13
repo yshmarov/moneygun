@@ -6,7 +6,7 @@
 
   <body class="flex h-screen">
     <% if signed_in? %>
-      <aside class="hidden lg:flex flex-col justify-between bg-slate-400 min-w-48">
+      <aside class="hidden lg:flex flex-col justify-between bg-slate-400">
         <%# Widescreen sidebar top %>
         <div class="flex flex-col">
           <%= link_to root_path, class: "p-4" do %>
@@ -14,18 +14,16 @@
             <%= image_tag 'logo.png', alt: 'logo', class: 'h-10 w-auto' %>
           <% end %>
 
-          <div class="">
-            <% current_user.accounts.each do |account| %>
-              <div>
-                <%= link_to account.name, account %>
-              </div>
-            <% end %>
-          </div>
-
           <%= active_link_to "Home", root_path, active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
           <%= active_link_to "Accounts", accounts_path, active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
-          <% if @account.present? %>
-            <%#= active_link_to "Inboxes", account_inboxes_path(@account), active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+
+            <% current_user.accounts.each do |account| %>
+                <%= active_link_to account.name, account, active_classes: "bg-rose-400 truncate", class: "px-4 py-2 hover:bg-slate-300", active_if: current_account && @account == account %>
+            <% end %>
+
+          <% if current_account %>
+            <%= active_link_to "Users", account_account_users_path(@account), active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+            <%= active_link_to "Inboxes", account_inboxes_path(@account), active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
           <% end %>
         </div>
 
