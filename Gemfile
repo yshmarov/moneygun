@@ -62,11 +62,12 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# authentication and authorization
 gem "devise", "~> 4.9"
-
 gem "devise_invitable", "~> 2.0"
-
 gem "pundit", "~> 2.3"
-gem "view_component"
 
+# frontend
+gem "view_component"
 gem "inline_svg", "~> 1.9"
+gem "active_link_to", "~> 1.0"
