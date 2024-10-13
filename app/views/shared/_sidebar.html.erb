@@ -1,0 +1,32 @@
+<aside class="hidden lg:flex flex-col justify-between bg-slate-400 w-72">
+  <%# Widescreen sidebar top %>
+  <nav class="flex flex-col">
+    <%= link_to root_path, class: "p-4" do %>
+      <%#= image_tag 'logolong.png', alt: 'logo', class: 'h-10 w-auto' %>
+      <%= image_tag 'logo.png', alt: 'logo', class: 'h-10 w-auto' %>
+    <% end %>
+
+    <%= active_link_to "Home", root_path, active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+    <%= active_link_to "Accounts", accounts_path, active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+
+      <% current_user.accounts.each do |account| %>
+        <%= active_link_to account_path(account), class: "pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300", active_classes: "bg-slate-200", active_if: current_account && @account == account do %>
+          <div>
+            <%= account_avatar(account) %>
+          </div>
+          <div class="truncate">
+            <%= account.name %>
+          </div>
+        <% end %>
+      <% end %>
+
+    <% if current_account %>
+      <%= active_link_to "Users", account_account_users_path(@account), active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+      <%= active_link_to "Inboxes", account_inboxes_path(@account), active_classes: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+    <% end %>
+  </nav>
+
+  <%# Widescreen sidebar bottom %>
+  <div class="p-4">
+  </div>
+</aside>
