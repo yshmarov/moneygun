@@ -19,7 +19,7 @@ class PageComponent < ViewComponent::Base
 
   def width_class
     if @full_width == true
-      "md:w-2/3 w-full"
+      "w-full"
     else
       "max-w-md w-full"
     end
