@@ -5,8 +5,4 @@
       <%= button_to "Destroy", @account, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(@account).destroy? %>
     </div>
   <% end %>
-
-  <div>
-    <%= render @account %>
-  </div>
 <% end %>
