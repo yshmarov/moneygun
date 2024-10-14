@@ -2,7 +2,7 @@
 
 Row-level route-based multitenancy in Ruby on Rails
 
-<a href="https://www.youtube.com/watch?v=KMonLTvWR5g"><img src="https://i.imgur.com/UvVKWwD.png" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" /><a>
+<a href="https://www.youtube.com/watch?v=KMonLTvWR5g"><img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" /><a>
 
 [Watch Screencast](https://www.youtube.com/watch?v=KMonLTvWR5g)
 
