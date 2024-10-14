@@ -1,27 +1,27 @@
 <nav class="justify-around flex items-center lg:hidden sticky bottom-0 px-3 md:px-6 pt-2 pb-8 bg-slate-400">
   <% if current_account %>
-    <%= active_link_to account_inboxes_path(@account), active_classes: 'text-yellow-400', class: 'flex flex-col items-center' do %>
-      <%= inline_svg_tag 'svg/user-group.svg', class: 'size-8' %>
+    <%= active_link_to account_inboxes_path(@account), active_classes: "text-yellow-400", class: "flex flex-col items-center" do %>
+      <%= inline_svg_tag "svg/user-group.svg", class: "size-8" %>
       <div class="text-xs">
         Inboxes
       </div>
     <% end %>
 
-    <%= active_link_to account_account_users_path(@account), active_classes: 'text-yellow-400', class: 'flex flex-col items-center' do %>
-      <%= inline_svg_tag 'svg/question-mark-circle.svg', class: 'size-8' %>
+    <%= active_link_to account_account_users_path(@account), active_classes: "text-yellow-400", class: "flex flex-col items-center" do %>
+      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
       <div class="text-xs">
         Users
       </div>
     <% end %>
   <% else %>
-    <%= active_link_to root_path, active: :exclusive, active_classes: 'text-yellow-400', class: 'flex flex-col items-center' do %>
-      <%= inline_svg_tag 'svg/question-mark-circle.svg', class: 'size-8' %>
+    <%= active_link_to root_path, active: :exclusive, active_classes: "text-yellow-400", class: "flex flex-col items-center" do %>
+      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
       <div class="text-xs">
         Home
       </div>
     <% end %>
-    <%= active_link_to accounts_path, active: :exclusive, active_classes: 'text-yellow-400', class: 'flex flex-col items-center' do %>
-      <%= inline_svg_tag 'svg/question-mark-circle.svg', class: 'size-8' %>
+    <%= active_link_to accounts_path, active: :exclusive, active_classes: "text-yellow-400", class: "flex flex-col items-center" do %>
+      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
       <div class="text-xs">
         Accounts
       </div>
