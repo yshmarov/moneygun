@@ -1,0 +1,41 @@
+<aside class="hidden lg:flex flex-col justify-between bg-slate-400">
+  <%# Widescreen sidebar top %>
+  <%# change the nav flex-col/flex-row %>
+  <nav class="flex flex-row">
+    <div class="flex flex-col">
+      <%= link_to root_path, class: "flex items-center justify-center px-2" do %>
+        <%#= image_tag "logolong.png", alt: "logo", class: "max-h-10 max-w-10" %>
+        <%= image_tag "logo.png", alt: "logo", class: "max-h-10 max-w-10" %>
+      <% end %>
+
+      <%#= active_link_to "Accounts", accounts_path, active: :exclusive, class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+
+      <% current_user.accounts.each do |account| %>
+        <%= active_link_to account_path(account), class: "px-4 py-2 inline-flex items-center justify-center no-underline hover:bg-slate-300", class_active: "bg-slate-200" do %>
+          <%= account_avatar(account) %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col">
+    <% if current_account %>
+      <%= active_link_to account_account_users_path(@account), class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
+        <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
+        <span>
+          Users
+        </span>
+      <% end %>
+      <%= active_link_to account_inboxes_path(@account), class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
+        <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+        <span>
+          Inboxes
+        </span>
+      <% end %>
+    <% end %>
+    </div>
+  </nav>
+
+  <%# Widescreen sidebar bottom %>
+  <div class="p-4">
+  </div>
+</aside>
