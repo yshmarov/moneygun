@@ -4,7 +4,7 @@
 
     <% if signed_in? %>
       <%= active_link_to "Accounts", accounts_path, active: :exclusive, class_active: "bg-gray-100", class: "nav-link" %>
-      <% if @account.present? && @account.persisted? %>
+      <% if current_account %>
         <%= link_to account_path(@account), class: "inline-flex items-center gap-2 no-underline" do %>
           <div>
             <%= account_avatar(@account) %>
