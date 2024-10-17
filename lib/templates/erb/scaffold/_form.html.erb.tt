@@ -1,0 +1,33 @@
+<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4") do |form| %>
+  <%= render "shared/errors", object: form.object %>
+
+<% attributes.each do |attribute| -%>
+  <div class="">
+<% if attribute.password_digest? -%>
+    <%%= form.label :password %>
+    <%%= form.password_field :password, class: "form-input" %>
+</div>
+
+<div class="">
+    <%%= form.label :password_confirmation %>
+    <%%= form.password_field :password_confirmation, class: "form-input" %>
+<% elsif attribute.attachments? -%>
+    <%%= form.label :<%= attribute.column_name %> %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true, class: "form-input" %>
+<% else -%>
+    <%%= form.label :<%= attribute.column_name %> %>
+<% if attribute.field_type == :textarea || attribute.field_type == :text_area -%>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, rows: 4, class: "form-input" %>
+<% elsif attribute.field_type == :checkbox || attribute.field_type == :check_box -%>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "block mt-2 h-5 w-5" %>
+<% else -%>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-input" %>
+<% end -%>
+<% end -%>
+  </div>
+
+<% end -%>
+  <div class="inline">
+    <%%= form.submit class: "btn btn-primary" %>
+  </div>
+<%% end %>
