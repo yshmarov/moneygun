@@ -2,7 +2,7 @@ class Accounts::AccountUsersController < Accounts::BaseController
   before_action :set_account_user, only: [ :edit, :update, :destroy ]
 
   def index
-    @account_users = @account.account_users
+    @account_users = @account.account_users.includes(:user)
   end
 
   def new
