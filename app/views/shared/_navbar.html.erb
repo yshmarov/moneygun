@@ -18,7 +18,11 @@
   </div>
 
   <%# auth %>
-  <div class="">
+  <div class="flex items-center gap-2">
+    <button data-controller="showhide" data-action="showhide#toggle" data-showhide-target-id-value="element-id">
+      <%= inline_svg_tag "svg/bars-3.svg", class: "size-8" %>
+    </button>
+
     <% if signed_in? %>
       <%= active_link_to current_user.email, edit_user_registration_path, class_active: "bg-gray-100", class: "nav-link" %>
       <div class="inline-flex">
