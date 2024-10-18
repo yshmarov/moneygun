@@ -101,11 +101,11 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#update" do
-    # admin can update himself
+    # admin can't make himself a member
     patch account_account_user_url(@account, @account_user), params: { account_user: { role: "member" } }
-    assert_redirected_to account_account_users_url
-    assert @account_user.reload.member?
-    @account_user.admin!
+    assert_response :unprocessable_entity
+    assert @account_user.reload.admin?
+    assert_match "Role cannot be changed because this is the only admin.", response.body
 
     # admin can update other account user
     @account.users << @user2

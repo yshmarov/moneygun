@@ -1,5 +1,7 @@
 <%= render PageComponent.new(title: "Edit #{@account_user.user.email} roles", content_container: true, full_width: false) do |component| %>
   <%= form_with(model: [ @account, @account_user ], class: "contents") do |form| %>
+    <%= render "shared/errors", object: form.object %>
+
     <div class="">
       <%= form.label :role %>
       <div>

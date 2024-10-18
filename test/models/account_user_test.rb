@@ -25,4 +25,13 @@ class AccountUserTest < ActiveSupport::TestCase
     assert account_user.try_destroy
     assert_not new_account_user.try_destroy
   end
+
+  test "cannot_change_role_if_only_admin" do
+    account = accounts(:one)
+    account_user = account.account_users.find_by(role: "admin")
+
+    account_user.role = "member"
+    assert_not account_user.save
+    assert_includes account_user.errors.messages[:base], "Role cannot be changed because this is the only admin."
+  end
 end

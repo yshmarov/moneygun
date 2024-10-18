@@ -9,8 +9,15 @@ class AccountUserPolicyTest < ActiveSupport::TestCase
 
   def test_edit
     assert AccountUserPolicy.new(@user, @account_user).edit?
-    @account_user.update(role: AccountUser.roles[:member])
-    assert_not AccountUserPolicy.new(@user, @account_user).edit?
+
+    user2 = users(:two)
+    assert_not AccountUserPolicy.new(user2, @account_user).edit?
+
+    account_user2 = @account.account_users.create(user: user2, role: AccountUser.roles[:member])
+    assert_not AccountUserPolicy.new(user2, @account_user).edit?
+
+    account_user2.update(role: AccountUser.roles[:admin])
+    assert AccountUserPolicy.new(user2, @account_user).edit?
   end
 
   def test_update

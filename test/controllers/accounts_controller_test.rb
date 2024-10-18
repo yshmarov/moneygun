@@ -61,9 +61,10 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "You are not authorized to perform this action.", flash[:alert]
   end
 
-  test "should destroy account" do
-    account_user = @account.account_users.find_by(user: @user)
-    account_user.update!(role: AccountUser.roles[:member])
+  test "only admin can destroy account" do
+    user = users(:two)
+    account_user = @account.account_users.create!(user:, role: AccountUser.roles[:member])
+    sign_in(user)
 
     assert_no_difference("Account.count") do
       delete account_url(@account)
