@@ -7,4 +7,22 @@ class AccountUserTest < ActiveSupport::TestCase
     assert_includes account_user.errors.messages[:user_id], "has already been taken"
     assert_includes account_user.errors.messages[:account_id], "has already been taken"
   end
+
+  test "try_destroy" do
+    # does not destroy only admin
+    account = accounts(:one)
+    account_user = account.account_users.first
+    assert_not account_user.try_destroy
+
+    # does not destroy only admin
+    # destroys member
+    new_account_user = account.account_users.create(user: users(:two), role: "member")
+    assert_not account_user.try_destroy
+    assert new_account_user.try_destroy
+
+    # destroys admin if there is another admin
+    new_account_user = account.account_users.create(user: users(:two), role: "admin")
+    assert account_user.try_destroy
+    assert_not new_account_user.try_destroy
+  end
 end
