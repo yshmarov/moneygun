@@ -33,6 +33,16 @@
             Inboxes
           </span>
         <% end %>
+      <details open class="space-y-2">
+        <summary>
+          <%= inline_svg_tag "svg/user-group.svg", class: "size-5 inline" %>
+          Inboxes
+        </summary>
+        <% current_account.inboxes.all.each do |inbox| %>
+          <%= active_link_to inbox.name, account_inbox_path(current_account, inbox), class_active: "bg-slate-300", class: "px-3 py-2 hover:bg-slate-300 flex items-center space-x-2 text-sm rounded" %>
+        <% end %>
+      </details>
+
       </div>
     <% end %>
   </nav>
