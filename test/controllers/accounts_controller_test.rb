@@ -53,6 +53,14 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to account_url(@account)
   end
 
+  test "should not update account he does not belong to" do
+    account = accounts(:two)
+    patch account_url(account), params: { account: { name: account.name } }
+    assert_redirected_to root_url
+    assert_equal account.name, account.reload.name
+    assert_equal "You are not authorized to perform this action.", flash[:alert]
+  end
+
   test "should destroy account" do
     account_user = @account.account_users.find_by(user: @user)
     account_user.update!(role: AccountUser.roles[:member])
