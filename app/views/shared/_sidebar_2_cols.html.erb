@@ -21,13 +21,13 @@
 
     <% if current_account %>
       <div class="flex flex-col max-h-screen overflow-y-auto p-2 space-y-2 bg-slate-200">
-        <%= active_link_to account_account_users_path(@account), class_active: "bg-slate-300", class: "px-3 py-2 hover:bg-slate-300 flex items-center space-x-2 text-sm rounded" do %>
+        <%= active_link_to account_account_users_path(@account), class_active: "bg-gray-300", class: "btn btn-transparent" do %>
           <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
           <span>
             Users
           </span>
         <% end %>
-        <%= active_link_to account_inboxes_path(@account), class_active: "bg-slate-300", class: "px-3 py-2 hover:bg-slate-300 flex items-center space-x-2 text-sm rounded" do %>
+        <%= active_link_to account_inboxes_path(@account), class_active: "bg-gray-300", class: "btn btn-transparent" do %>
           <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
           <span>
             Inboxes

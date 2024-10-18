@@ -1,9 +1,9 @@
 <nav class="flex justify-between p-4 border-b bg-white">
   <div class="flex items-center gap-2">
-    <%= active_link_to "Home", root_path, active: :exclusive, class_active: "bg-gray-100", class: "nav-link" %>
+    <%= active_link_to "Home", root_path, active: :exclusive, class_active: "bg-gray-300", class: "btn btn-transparent" %>
 
     <% if signed_in? %>
-      <%= active_link_to "Accounts", accounts_path, active: :exclusive, class_active: "bg-gray-100", class: "nav-link" %>
+      <%= active_link_to "Accounts", accounts_path, active: :exclusive, class_active: "bg-gray-300", class: "btn btn-transparent" %>
       <% if current_account %>
         <%= link_to account_path(@account), class: "inline-flex items-center gap-2 no-underline" do %>
           <div>
@@ -20,13 +20,13 @@
   <%# auth %>
   <div class="">
     <% if signed_in? %>
-      <%= active_link_to current_user.email, edit_user_registration_path, class_active: "bg-gray-100", class: "nav-link" %>
+      <%= active_link_to current_user.email, edit_user_registration_path, class_active: "bg-gray-300", class: "btn btn-transparent" %>
       <div class="inline-flex">
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "nav-link" %>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-transparent" %>
       </div>
     <% else %>
-      <%= active_link_to "Log in", new_user_session_path, class_active: "bg-gray-100", class: "nav-link" %>
-      <%= active_link_to "Register", new_user_registration_path, class_active: "bg-gray-100", class: "nav-link" %>
+      <%= active_link_to "Log in", new_user_session_path, class_active: "bg-gray-300", class: "btn btn-transparent" %>
+      <%= active_link_to "Register", new_user_registration_path, class_active: "bg-gray-300", class: "btn btn-transparent" %>
     <% end %>
   </div>
 </nav>
