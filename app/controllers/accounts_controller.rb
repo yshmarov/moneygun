@@ -50,7 +50,9 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1 or /accounts/1.json
   def destroy
-    @account.destroy!
+    ActsAsTenant.with_tenant(@account) do
+      @account.destroy!
+    end
 
     respond_to do |format|
       format.html { redirect_to accounts_url, notice: "Account was successfully destroyed." }
