@@ -1,0 +1,89 @@
+file 'lib/templates/erb/scaffold/index.html.erb.tt', <<-CODE
+<%% content_for :title, "<%= human_name.pluralize %>" %>
+
+<%= render PageComponent.new(title: "<%= human_name.pluralize %>") do |component| %>
+  <%% component.with_action_list do %>
+    <%%= link_to "New <%= human_name.downcase %>", new_<%= singular_route_name %>_path, class: "btn btn-primary" %>
+  <%% end %>
+
+  <div id="<%= plural_table_name %>" class="space-y-4">
+    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+      <%%= render <%= singular_table_name %> %>
+      <p>
+        <%%= link_to "Show this <%= human_name.downcase %>", <%= model_resource_name(singular_table_name) %>, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <%% end %>
+  </div>
+<% end %>
+CODE
+
+file 'lib/templates/erb/scaffold/_form.html.erb.tt', <<-CODE
+<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4") do |form| %>
+  <%= render "shared/errors", object: form.object %>
+
+<% attributes.each do |attribute| -%>
+  <div class="">
+<% if attribute.password_digest? -%>
+    <%%= form.label :password %>
+    <%%= form.password_field :password, class: "form-input" %>
+</div>
+
+<div class="">
+    <%%= form.label :password_confirmation %>
+    <%%= form.password_field :password_confirmation, class: "form-input" %>
+<% elsif attribute.attachments? -%>
+    <%%= form.label :<%= attribute.column_name %> %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true, class: "form-input" %>
+<% else -%>
+    <%%= form.label :<%= attribute.column_name %> %>
+<% if attribute.field_type == :textarea || attribute.field_type == :text_area -%>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, rows: 4, class: "form-input" %>
+<% elsif attribute.field_type == :checkbox || attribute.field_type == :check_box -%>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "block mt-2 h-5 w-5" %>
+<% else -%>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-input" %>
+<% end -%>
+<% end -%>
+  </div>
+
+<% end -%>
+  <div class="inline">
+    <%%= form.submit class: "btn btn-primary" %>
+  </div>
+<%% end %>
+CODE
+
+file 'lib/templates/erb/scaffold/new.html.erb.tt', <<-CODE
+<%%= render PageComponent.new(title: "New <%= human_name.downcase %>", content_container: true, full_width: false) do |component| %>
+  <%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
+  <%%= link_to "Cancel", <%= index_helper %>_path, class: "btn btn-secondary" %>
+<%% end %>
+CODE
+
+file 'lib/templates/erb/scaffold/edit.html.erb.tt', <<-CODE
+<%%= render PageComponent.new(title: "Editing <%= human_name.downcase %>", content_container: true, full_width: false) do |component| %>
+  <%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
+  <%%= link_to "Cancel", @<%= singular_table_name %>, class: "btn btn-secondary" %>
+<%% end %>
+CODE
+
+file 'lib/templates/erb/scaffold/show.html.erb.tt', <<-CODE
+<%%= render PageComponent.new(title: "<%= human_name.pluralize %> / <%%= @<%= singular_table_name %>.name %>") do |component| %>
+  <%% component.with_action_list do %>
+    <%%= link_to "Edit", edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: "btn btn-secondary" if policy(@<%= singular_table_name %>).edit? %>
+    <div class="inline-block">
+      <%%= button_to "Destroy", @<%= singular_table_name %>, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(@<%= singular_table_name %>).destroy? %>
+    </div>
+  <%% end %>
+<%% end %>
+
+<div class="card shadow">
+  <div class="card-body">
+  <% attributes.each do |attribute| %>
+    <b><%= attribute.human_name %>:</b>
+    <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+    <br>
+  <% end %>
+  </div>
+</div>
+CODE
