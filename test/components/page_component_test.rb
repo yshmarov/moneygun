@@ -4,9 +4,9 @@ require "test_helper"
 
 class PageComponentTest < ViewComponent::TestCase
   def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(PageComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+    assert_match(
+      %(Hello, components!),
+      render_inline(PageComponent.new(title: "Hello, components!")).to_html
+    )
   end
 end
