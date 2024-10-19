@@ -5,6 +5,7 @@ class InviteAccountUserForm
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :role, presence: true
+  validates :role, inclusion: { in: AccountUser.roles.keys }
 
   def save
     return false unless valid?

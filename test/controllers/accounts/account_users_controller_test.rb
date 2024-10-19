@@ -114,6 +114,11 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to account_account_users_url
     assert second_account_user.reload.admin?
 
+    # can not update account user with invalid role
+    assert_raises(ArgumentError) do
+      patch account_account_user_url(@account, second_account_user), params: { account_user: { role: "foo" } }
+    end
+
     # member can not update account user
     first_account_user = @account.account_users.find_by(user: @user)
     first_account_user.member!
