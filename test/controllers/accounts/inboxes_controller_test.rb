@@ -7,6 +7,7 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
 
     @account = accounts(:one)
     @inbox = inboxes(:one)
+    ActsAsTenant.current_tenant = @account
   end
 
   test "should get index" do
@@ -22,10 +23,12 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   test "should create inbox" do
     assert_no_difference("Inbox.count") do
       post account_inboxes_url(@account), params: { inbox: { account_id: @account.id, name: @inbox.name } }
+      ActsAsTenant.current_tenant = @account
     end
 
     assert_difference("Inbox.count") do
       post account_inboxes_url(@account), params: { inbox: { account_id: @account.id, name: "New name" } }
+      ActsAsTenant.current_tenant = @account
     end
 
     assert_redirected_to account_inbox_url(@account, Inbox.last)
@@ -55,6 +58,7 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   test "should destroy inbox" do
     assert_difference("Inbox.count", -1) do
       delete account_inbox_url(@account, @inbox)
+      ActsAsTenant.current_tenant = @account
     end
 
     assert_redirected_to account_inboxes_url(@account)
