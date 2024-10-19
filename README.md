@@ -54,6 +54,7 @@ I [tried using `AccountMiddlewhare`](https://github.com/yshmarov/askvote/pull/24
 
 ```ruby
 # models/project.rb
+  belongs_to :account
   belongs_to :user
 ```
 
@@ -61,24 +62,16 @@ I [tried using `AccountMiddlewhare`](https://github.com/yshmarov/askvote/pull/24
 
 ```ruby
 # models/project.rb
+  belongs_to :account
   belongs_to :account_user
 ```
 
-### Roadmap
+I recommend scoping downstream models to `account` too. This way you can query them more easily.
 
-##### Todo
-- nested scaffold generator like `rails generate_nested account/project name description`
-- sidebar: hide scrolls, collapsible on sm/mobile
-- banning a user from an account `disabled_at:datetime`
-- accept invite mechanism `status: %i[invited accepted declined disabled]`
+```ruby
+# models/task.rb
+  belongs_to :account # <- THIS
+  belongs_to :project
+```
 
-##### Ideas
-- public & private accounts; anyone can join a public account
-- i18n
-- gem acts_as_tenant
-- integrate Trello example app?
-- stripe user email required => `account.owner` would be nessesary.
-
-##### Not planned
-- Admin backend (out of scope)
-- Deeper authentication integration (styling, oauth, captcha) - with the current setup it is relatively easy to swap Devise with another Auth framework
+###
