@@ -6,11 +6,24 @@
       <%= image_tag "logo.png", alt: "logo", class: "h-10 w-auto" %>
     <% end %>
 
-    <%= active_link_to "Home", root_path, active: :exclusive, class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300" %>
-    <%= active_link_to "Accounts", accounts_path, active: :exclusive, class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300" %>
-
-      <% current_user.accounts.each do |account| %>
-        <%= active_link_to account_path(account), class: "pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300", class_active: "bg-slate-300" do %>
+    <%= active_link_to "All Accounts", accounts_path, active: :exclusive, class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300" %>
+    <details class="">
+      <summary class="hover:bg-slate-300 py-2">
+        <% if current_account %>
+        <div class="inline-flex items-center gap-2">
+          <div>
+            <%= account_avatar(current_account) %>
+          </div>
+          <div class="truncate">
+            <%= current_account.name %>
+          </div>
+        </div>
+        <% else %>
+          Select Account
+        <% end %>
+      </summary>
+      <% current_user.accounts.excluding(current_account).each do |account| %>
+        <%= active_link_to account_path(account), class: "w-full pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300", class_active: "bg-slate-300" do %>
           <div>
             <%= account_avatar(account) %>
           </div>
@@ -19,8 +32,15 @@
           </div>
         <% end %>
       <% end %>
+    </details>
 
     <% if current_account %>
+      <%= active_link_to account_path(current_account), active: :exclusive, class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
+        <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+        <span>
+          Dashboard
+        </span>
+      <% end %>
       <%= active_link_to account_account_users_path(@account), class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
         <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
         <span>
