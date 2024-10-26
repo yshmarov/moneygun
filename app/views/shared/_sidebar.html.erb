@@ -2,12 +2,11 @@
   <%# Widescreen sidebar top %>
   <nav class="flex flex-col">
     <%= link_to root_path, class: "p-4" do %>
-      <%#= image_tag 'logolong.png', alt: 'logo', class: 'h-10 w-auto' %>
       <%= image_tag "logo.png", alt: "logo", class: "h-10 w-auto" %>
     <% end %>
 
     <details class="">
-      <summary class="hover:bg-slate-300 py-2">
+      <summary class="hover:bg-slate-300 py-2 cursor-pointer">
         <% if current_account %>
         <div class="inline-flex items-center gap-2 max-w-40">
           <div>
@@ -21,40 +20,42 @@
           Select Account
         <% end %>
       </summary>
-      <div>
-      <%= active_link_to "All Accounts", accounts_path, active: :exclusive, class_active: "bg-slate-300", class: "w-full pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300" %>
-      <% current_user.accounts.excluding(current_account).each do |account| %>
-        <%= active_link_to account_path(account), class_active: "bg-slate-300", class: "w-full pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300" do %>
-          <div>
-            <%= account_avatar(account) %>
-          </div>
-          <div class="truncate">
-            <%= account.name %>
-          </div>
+      <div class="space-y-2 p-2 border-b">
+        <%= active_link_to "All Accounts", accounts_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent" %>
+        <% current_user.accounts.excluding(current_account).each do |account| %>
+          <%= active_link_to account_path(account), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
+            <div>
+              <%= account_avatar(account) %>
+            </div>
+            <div class="truncate">
+              <%= account.name %>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
-          </div>
+      </div>
     </details>
 
     <% if current_account %>
-      <%= active_link_to account_path(current_account), active: :exclusive, class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
-        <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
-        <span>
-          Dashboard
-        </span>
-      <% end %>
-      <%= active_link_to account_account_users_path(@account), class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
-        <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
-        <span>
-          Users
-        </span>
-      <% end %>
-      <%= active_link_to account_inboxes_path(@account), class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300 flex items-center space-x-2" do %>
-        <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
-        <span>
-          Inboxes
-        </span>
-      <% end %>
+      <div class="space-y-2 p-2">
+        <%= active_link_to account_path(current_account), active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent" do %>
+          <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+          <span>
+            Dashboard
+          </span>
+        <% end %>
+        <%= active_link_to account_account_users_path(@account), class_active: "bg-gray-300", class: "w-full btn btn-transparent" do %>
+          <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
+          <span>
+            Users
+          </span>
+        <% end %>
+        <%= active_link_to account_inboxes_path(@account), class_active: "bg-gray-300", class: "w-full btn btn-transparent" do %>
+          <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+          <span>
+            Inboxes
+          </span>
+        <% end %>
+      </div>
     <% end %>
   </nav>
 
