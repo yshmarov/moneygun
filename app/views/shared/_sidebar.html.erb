@@ -6,7 +6,6 @@
       <%= image_tag "logo.png", alt: "logo", class: "h-10 w-auto" %>
     <% end %>
 
-    <%= active_link_to "All Accounts", accounts_path, active: :exclusive, class_active: "bg-slate-300", class: "px-4 py-2 hover:bg-slate-300" %>
     <details class="">
       <summary class="hover:bg-slate-300 py-2">
         <% if current_account %>
@@ -22,8 +21,10 @@
           Select Account
         <% end %>
       </summary>
+      <div>
+      <%= active_link_to "All Accounts", accounts_path, active: :exclusive, class_active: "bg-slate-300", class: "w-full pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300" %>
       <% current_user.accounts.excluding(current_account).each do |account| %>
-        <%= active_link_to account_path(account), class: "w-full pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300", class_active: "bg-slate-300" do %>
+        <%= active_link_to account_path(account), class_active: "bg-slate-300", class: "w-full pl-8 pr-4 py-2 inline-flex items-center gap-2 no-underline hover:bg-slate-300" do %>
           <div>
             <%= account_avatar(account) %>
           </div>
@@ -32,6 +33,7 @@
           </div>
         <% end %>
       <% end %>
+          </div>
     </details>
 
     <% if current_account %>
