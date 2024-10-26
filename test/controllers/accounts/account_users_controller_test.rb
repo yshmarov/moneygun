@@ -48,6 +48,13 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :unprocessable_entity
 
+    assert_no_difference("User.count") do
+      assert_no_difference("AccountUser.count") do
+        post account_account_users_url(@account)
+      end
+    end
+    assert_response :unprocessable_entity
+
     # invalid email
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
