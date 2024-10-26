@@ -4,7 +4,7 @@ class AccountPolicy < ApplicationPolicy
   end
 
   def edit?
-    account_user = record.account_users.find_by(user: user)
+    account_user = record.account_users.find_by(user:)
     account_user&.admin?
   end
 

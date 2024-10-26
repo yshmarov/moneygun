@@ -22,6 +22,6 @@ class AccountUserPolicy < ApplicationPolicy
   private
 
   def account_user
-    record.account.account_users.find_by(user: user)
+    record.account.account_users.find_by(user:)
   end
 end

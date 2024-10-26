@@ -4,6 +4,7 @@ class Accounts::InboxesController < Accounts::BaseController
   # GET /inboxes or /inboxes.json
   def index
     @inboxes = @account.inboxes
+    authorize @account, policy_class: InboxPolicy
   end
 
   # GET /inboxes/1 or /inboxes/1.json
@@ -13,6 +14,7 @@ class Accounts::InboxesController < Accounts::BaseController
   # GET /inboxes/new
   def new
     @inbox = @account.inboxes.new
+    authorize @inbox
   end
 
   # GET /inboxes/1/edit
@@ -22,6 +24,7 @@ class Accounts::InboxesController < Accounts::BaseController
   # POST /inboxes or /inboxes.json
   def create
     @inbox = @account.inboxes.new(inbox_params)
+    authorize @inbox
 
     respond_to do |format|
       if @inbox.save
@@ -61,6 +64,7 @@ class Accounts::InboxesController < Accounts::BaseController
     # Use callbacks to share common setup or constraints between actions.
     def set_inbox
       @inbox = @account.inboxes.find(params[:id])
+      authorize @inbox
     end
 
     # Only allow a list of trusted parameters through.
