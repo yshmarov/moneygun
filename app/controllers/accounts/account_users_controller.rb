@@ -12,7 +12,7 @@ class Accounts::AccountUsersController < Accounts::BaseController
 
   def create
     authorize @account.account_users.new
-    @form = AccountUserInvitation.new(email: params.dig(:invite_account_user_form, :email), role: params.dig(:invite_account_user_form, :role), account: @account, inviter: current_user)
+    @form = AccountUserInvitation.new(email: params.dig(:account_user_invitation, :email), role: params.dig(:account_user_invitation, :role), account: @account, inviter: current_user)
 
     if @form.save
       redirect_to account_account_users_path(@account), notice: "#{@form.email} invited!"

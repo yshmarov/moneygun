@@ -43,7 +43,7 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     # nil email
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { invite_account_user_form: { email: nil } }
+        post account_account_users_url(@account), params: { account_user_invitation: { email: nil } }
       end
     end
     assert_response :unprocessable_entity
@@ -58,7 +58,7 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     # invalid email
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { invite_account_user_form: { email: "foo" } }
+        post account_account_users_url(@account), params: { account_user_invitation: { email: "foo" } }
       end
     end
     assert_response :unprocessable_entity
@@ -66,7 +66,7 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     # missing role
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { invite_account_user_form: { email: } }
+        post account_account_users_url(@account), params: { account_user_invitation: { email: } }
       end
     end
     assert_response :unprocessable_entity
@@ -74,7 +74,7 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     # success
     assert_difference("User.count") do
       assert_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { invite_account_user_form: { email:, role: "member" } }
+        post account_account_users_url(@account), params: { account_user_invitation: { email:, role: "member" } }
       end
     end
 
@@ -84,7 +84,7 @@ class AccountUsersControllerTest < ActionDispatch::IntegrationTest
     # when user is already a member
     assert_no_difference("User.count") do
       assert_no_difference("AccountUser.count") do
-        post account_account_users_url(@account), params: { invite_account_user_form: { email: } }
+        post account_account_users_url(@account), params: { account_user_invitation: { email: } }
       end
     end
     assert_response :unprocessable_entity
