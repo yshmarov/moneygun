@@ -71,3 +71,5 @@ gem "pundit", "~> 2.3"
 gem "view_component"
 gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
+
+gem 'nested_scaffold', github: 'yshmarov/nested_scaffold'

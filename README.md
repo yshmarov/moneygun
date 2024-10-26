@@ -74,4 +74,16 @@ I recommend scoping downstream models to `account` too. This way you can query t
   belongs_to :project
 ```
 
-###
+### Generators
+
+To quickly generate nested resources you can use [gem nested_scaffold](https://github.com/yshmarov/nested_scaffold)
+
+```
+rails generate nested_scaffold account/project name
+```
+
+Generate a pundit policy:
+
+```
+rails g pundit:policy project
+```

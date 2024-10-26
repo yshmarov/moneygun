@@ -97,6 +97,12 @@ GIT
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
 
+GIT
+  remote: https://github.com/yshmarov/nested_scaffold.git
+  revision: 53407c916af13d0b4215919ddfc51498793e8c1e
+  specs:
+    nested_scaffold (1.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -392,6 +398,7 @@ DEPENDENCIES
   inline_svg (~> 1.9)
   jbuilder
   kamal
+  nested_scaffold!
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
