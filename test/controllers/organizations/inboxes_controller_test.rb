@@ -20,12 +20,16 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create inbox" do
+    ActsAsTenant.current_tenant = @organization
+
     assert_no_difference("Inbox.count") do
       post organization_inboxes_url(@organization), params: { inbox: { organization_id: @organization.id, name: @inbox.name } }
+      ActsAsTenant.current_tenant = @organization
     end
 
     assert_difference("Inbox.count") do
       post organization_inboxes_url(@organization), params: { inbox: { organization_id: @organization.id, name: "New name" } }
+      ActsAsTenant.current_tenant = @organization
     end
 
     assert_redirected_to organization_inbox_url(@organization, Inbox.last)
@@ -53,8 +57,11 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy inbox" do
+    ActsAsTenant.current_tenant = @organization
+
     assert_difference("Inbox.count", -1) do
       delete organization_inbox_url(@organization, @inbox)
+      ActsAsTenant.current_tenant = @organization
     end
 
     assert_redirected_to organization_inboxes_url(@organization)
