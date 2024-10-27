@@ -1,0 +1,18 @@
+<%= active_link_to account_path(current_account), active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent" do %>
+  <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+  <span>
+    Dashboard
+  </span>
+<% end %>
+<%= active_link_to account_account_users_path(@account), class_active: "bg-gray-300", class: "w-full btn btn-transparent" do %>
+  <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
+  <span>
+    Users
+  </span>
+<% end %>
+<%= active_link_to account_inboxes_path(@account), class_active: "bg-gray-300", class: "w-full btn btn-transparent" do %>
+  <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+  <span>
+    Inboxes
+  </span>
+<% end %>
