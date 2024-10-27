@@ -6,15 +6,15 @@
       "fingerprint": "3d267719ec3cce4cb68530361975475e23f84f01f7502a2ccca64608e18a32d4",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/accounts/account_users_controller.rb",
+      "file": "app/controllers/organizations/memberships_controller.rb",
       "line": 56,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:account_user).permit(:role)",
+      "code": "params.require(:membership).permit(:role)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Accounts::AccountUsersController",
-        "method": "account_user_params"
+        "class": "Organizations::MembershipsController",
+        "method": "membership_params"
       },
       "user_input": ":role",
       "confidence": "Medium",

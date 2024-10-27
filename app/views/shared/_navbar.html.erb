@@ -3,14 +3,14 @@
     <%= active_link_to "Home", root_path, active: :exclusive, class_active: "bg-gray-300", class: "btn btn-transparent" %>
 
     <% if signed_in? %>
-      <%= active_link_to "Accounts", accounts_path, active: :exclusive, class_active: "bg-gray-300", class: "btn btn-transparent" %>
-      <% if current_account %>
-        <%= link_to account_path(@account), class: "inline-flex items-center gap-2 no-underline" do %>
+      <%= active_link_to "Organizations", organizations_path, active: :exclusive, class_active: "bg-gray-300", class: "btn btn-transparent" %>
+      <% if current_organization %>
+        <%= link_to organization_path(@organization), class: "inline-flex items-center gap-2 no-underline" do %>
           <div>
-            <%= account_avatar(@account) %>
+            <%= organization_avatar(@organization) %>
           </div>
           <div class="truncate">
-            <%= @account.name %>
+            <%= @organization.name %>
           </div>
         <% end %>
       <% end %>

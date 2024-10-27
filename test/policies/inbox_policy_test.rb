@@ -3,8 +3,8 @@ require "test_helper"
 class InboxPolicyTest < ActiveSupport::TestCase
   def setup
     @user = users(:one)
-    @account = accounts(:one)
-    @account_user = @account.account_users.find_by(user: @user)
+    @organization = organizations(:one)
+    @membership = @organization.memberships.find_by(user: @user)
     @inbox1 = inboxes(:one)
     @inbox2 = inboxes(:two)
   end
@@ -14,12 +14,12 @@ class InboxPolicyTest < ActiveSupport::TestCase
     assert_not InboxPolicy.new(@user, @inbox2).index?
 
     user2 = users(:two)
-    assert_not AccountUserPolicy.new(user2, @account_user).edit?
+    assert_not MembershipPolicy.new(user2, @membership).edit?
 
-    account_user2 = @account.account_users.create(user: user2, role: AccountUser.roles[:member])
+    membership2 = @organization.memberships.create(user: user2, role: Membership.roles[:member])
     assert_not InboxPolicy.new(user2, @inbox1).index?
 
-    account_user2.update(role: AccountUser.roles[:admin])
+    membership2.update(role: Membership.roles[:admin])
     assert InboxPolicy.new(user2, @inbox1).index?
   end
 

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || accounts_path
+    stored_location_for(resource) || organizations_path
   end
 
   include Pundit::Authorization
@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
     redirect_to(request.referrer || root_path)
   end
 
-  def current_account
-    @account if @account.present? && @account.persisted?
+  def current_organization
+    @organization if @organization.present? && @organization.persisted?
   end
 
-  helper_method :current_account
+  helper_method :current_organization
 end

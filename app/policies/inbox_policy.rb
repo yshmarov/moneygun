@@ -8,7 +8,7 @@ class InboxPolicy < ApplicationPolicy
   end
 
   def new?
-    account_user&.admin?
+    membership&.admin?
   end
 
   def create?
@@ -29,11 +29,11 @@ class InboxPolicy < ApplicationPolicy
 
   private
 
-  def account_user
-    account.account_users.find_by(user:)
+  def membership
+    organization.memberships.find_by(user:)
   end
 
-  def account
-    record.is_a?(Account) ? record : record.account
+  def organization
+    record.is_a?(Organization) ? record : record.organization
   end
 end

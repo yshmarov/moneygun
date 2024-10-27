@@ -7,35 +7,35 @@
 
     <details class="">
       <summary class="hover:bg-slate-300 py-2 cursor-pointer">
-        <% if current_account %>
+        <% if current_organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
           <div>
-            <%= account_avatar(current_account) %>
+            <%= organization_avatar(current_organization) %>
           </div>
           <div class="truncate">
-            <%= current_account.name %>
+            <%= current_organization.name %>
           </div>
         </div>
         <% else %>
-          Select Account
+          Select Organization
         <% end %>
       </summary>
       <div class="space-y-2 p-2 border-b">
-        <%= active_link_to "All Accounts", accounts_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent" %>
-        <% current_user.accounts.excluding(current_account).each do |account| %>
-          <%= active_link_to account_path(account), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
+        <%= active_link_to "All Organizations", organizations_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent" %>
+        <% current_user.organizations.excluding(current_organization).each do |organization| %>
+          <%= active_link_to organization_path(organization), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
             <div>
-              <%= account_avatar(account) %>
+              <%= organization_avatar(organization) %>
             </div>
             <div class="truncate">
-              <%= account.name %>
+              <%= organization.name %>
             </div>
           <% end %>
         <% end %>
       </div>
     </details>
 
-    <% if current_account %>
+    <% if current_organization %>
       <div class="space-y-2 p-2">
         <%= render "shared/nav_links" %>
       </div>

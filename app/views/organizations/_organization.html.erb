@@ -1,0 +1,18 @@
+<%= link_to organization_path(organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100" do %>
+  <div class="flex items-center gap-2">
+    <%= organization_avatar(organization) %>
+    <%= organization.name %>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <div class="flex items-center -space-x-2">
+      <% organization.users.each do |user| %>
+        <div class="bg-slate-400 rounded-full size-8 justify-center flex items-center border text-sm" title="<%= user.email %>">
+          <%= user.email[0..1] %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= inline_svg_tag "svg/chevron-right.svg", class: "size-5" %>
+  </div>
+<% end %>

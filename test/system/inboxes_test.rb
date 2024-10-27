@@ -16,7 +16,7 @@ class InboxesTest < ApplicationSystemTestCase
     visit inboxes_url
     click_on "New inbox"
 
-    fill_in "Account", with: @inbox.account_id
+    fill_in "Organization", with: @inbox.organization_id
     fill_in "Name", with: @inbox.name
     click_on "Create Inbox"
 
@@ -29,7 +29,7 @@ class InboxesTest < ApplicationSystemTestCase
     visit inbox_url(@inbox)
     click_on "Edit this inbox", match: :first
 
-    fill_in "Account", with: @inbox.account_id
+    fill_in "Organization", with: @inbox.organization_id
     fill_in "Name", with: @inbox.name
     click_on "Update Inbox"
 

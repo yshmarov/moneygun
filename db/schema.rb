@@ -10,25 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_08_19_082257) do
+ActiveRecord::Schema[8.1].define(version: 2024_10_27_081222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
-  create_table "account_users", force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.bigint "user_id", null: false
-    t.string "role", default: "member", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_users_on_account_id"
-    t.index ["user_id"], name: "index_account_users_on_user_id"
-  end
-
-  create_table "accounts", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -60,11 +44,27 @@ ActiveRecord::Schema[8.1].define(version: 2024_08_19_082257) do
 
   create_table "inboxes", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "account_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_inboxes_on_account_id"
-    t.index ["name", "account_id"], name: "index_inboxes_on_name_and_account_id", unique: true
+    t.index ["name", "organization_id"], name: "index_inboxes_on_name_and_organization_id", unique: true
+    t.index ["organization_id"], name: "index_inboxes_on_organization_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.string "role", default: "member", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_memberships_on_organization_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,9 +90,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_08_19_082257) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "account_users", "accounts"
-  add_foreign_key "account_users", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "inboxes", "accounts"
+  add_foreign_key "inboxes", "organizations"
+  add_foreign_key "memberships", "organizations"
+  add_foreign_key "memberships", "users"
 end

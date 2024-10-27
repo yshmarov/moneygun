@@ -7,18 +7,18 @@
         <%= image_tag "logo.png", alt: "logo", class: "max-h-10 max-w-10" %>
       <% end %>
 
-      <%#= active_link_to "Accounts", accounts_path, active: :exclusive, class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
+      <%#= active_link_to "Organizations", organizations_path, active: :exclusive, class_active: "bg-slate-100", class: "px-4 py-2 hover:bg-slate-300" %>
 
       <div class="flex flex-col items-center space-y-2">
-        <% current_user.accounts.each do |account| %>
-          <%= active_link_to account_path(account), class_active: "bg-slate-400", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-slate-400 bg-gray-600" do %>
-            <%= account_avatar(account) %>
+        <% current_user.organizations.each do |organization| %>
+          <%= active_link_to organization_path(organization), class_active: "bg-slate-400", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-slate-400 bg-gray-600" do %>
+            <%= organization_avatar(organization) %>
           <% end %>
         <% end %>
       </div>
     </div>
 
-    <% if current_account %>
+    <% if current_organization %>
       <div class="flex flex-col max-h-screen overflow-y-auto p-2 space-y-2 bg-slate-200">
         <%= render "shared/nav_links" %>
       </div>
