@@ -2,7 +2,7 @@
 
 ### Rails 8 Multitenancy Boilerplate
 
-[Moneygun features](https://imgur.com/QUmTexS)
+[Moneygun features](https://i.imgur.com/QUmTexS.png)
 
 Row-level route-based multitenancy in Ruby on Rails
 
