@@ -6,12 +6,12 @@ class Organizations::MembershipsController < Organizations::BaseController
   end
 
   def new
-    authorize @organization.memberships.new
+    authorize! @organization.memberships.new
     @form = MembershipInvitation.new(organization: @organization, role: Membership.roles[:member])
   end
 
   def create
-    authorize @organization.memberships.new
+    authorize! @organization.memberships.new
     @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), role: params.dig(:membership_invitation, :role), organization: @organization, inviter: current_user)
 
     if @form.save
@@ -48,7 +48,7 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def set_membership
     @membership = @organization.memberships.find(params[:id])
-    authorize @membership
+    authorize! @membership
   end
 
   def membership_params

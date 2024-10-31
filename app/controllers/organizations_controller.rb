@@ -51,7 +51,7 @@ class OrganizationsController < ApplicationController
 
   def set_organization
     @organization = Organization.find(params[:id])
-    authorize @organization
+    authorize! @organization
   end
 
   def organization_params

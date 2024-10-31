@@ -4,7 +4,7 @@ class Organizations::InboxesController < Organizations::BaseController
   # GET /organizations/1/inboxes
   def index
     @inboxes = @organization.inboxes
-    authorize @organization, policy_class: InboxPolicy
+    authorize! @organization, with: InboxPolicy
   end
 
   # GET /organizations/1/inboxes/1
@@ -14,7 +14,7 @@ class Organizations::InboxesController < Organizations::BaseController
   # GET /organizations/1/inboxes/new
   def new
     @inbox = @organization.inboxes.new
-    authorize @inbox
+    authorize! @inbox
   end
 
   # GET /organizations/1/inboxes/1/edit
@@ -24,7 +24,7 @@ class Organizations::InboxesController < Organizations::BaseController
   # POST /organizations/1/inboxes
   def create
     @inbox = @organization.inboxes.new(inbox_params)
-    authorize @inbox
+    authorize! @inbox
 
     if @inbox.save
       redirect_to organization_inbox_url(@organization, @inbox), notice: "Inbox was successfully created."
@@ -52,7 +52,8 @@ class Organizations::InboxesController < Organizations::BaseController
   private
     def set_inbox
       @inbox = @organization.inboxes.find(params[:id])
-      authorize @inbox
+      binding.b
+      authorize! @inbox
     end
 
     def inbox_params

@@ -2,7 +2,7 @@
 
 <%= render PageComponent.new(title: "Memberships") do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "New membership", new_organization_membership_path(@organization), class: "btn btn-primary" if policy(@organization.memberships.new).new? %>
+    <%= link_to "New membership", new_organization_membership_path(@organization), class: "btn btn-primary" if allowed_to?(:create, @organization.memberships.new) %>
   <% end %>
 
   <div id="memberships" class="space-y-4">
