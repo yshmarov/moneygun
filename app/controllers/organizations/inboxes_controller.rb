@@ -52,7 +52,6 @@ class Organizations::InboxesController < Organizations::BaseController
   private
     def set_inbox
       @inbox = @organization.inboxes.find(params[:id])
-      binding.b
       authorize! @inbox
     end
 

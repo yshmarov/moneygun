@@ -12,6 +12,14 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get organization_inboxes_url(@organization)
     assert_response :success
+
+    get organization_inboxes_url(organizations(:two))
+    assert_response :not_found
+
+    sign_in users(:two)
+    @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
+    get organization_inboxes_url(@organization)
+    assert_response :redirect
   end
 
   test "should get new" do
@@ -48,8 +56,30 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update inbox" do
-    patch organization_inbox_url(@organization, @inbox), params: { inbox: { organization_id: @organization.id, name: @inbox.name } }
-    assert_redirected_to organization_inbox_url(@organization, @inbox)
+    # admin can update
+    assert_authorized_to(:update?, @inbox, with: InboxPolicy) do
+      assert_changes -> { @inbox.reload.name } do
+      patch organization_inbox_url(@organization, @inbox), params: { inbox: { name: "changed" } }
+      end
+    end
+    assert_response :redirect
+
+    # can't update other organization's inbox
+    inbox = inboxes(:two)
+    assert_no_changes -> { inbox.reload.name } do
+      patch organization_inbox_url(organizations(:two), inbox), params: { inbox: { name: "changed" } }
+    end
+    assert_response :not_found
+
+    # member can't update
+    sign_in users(:two)
+    @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
+    assert_no_changes -> { @inbox.reload.name } do
+      patch organization_inbox_url(@organization, @inbox), params: { inbox: { name: "changed" } }
+    end
+    assert_response :redirect
+    assert_redirected_to root_url
+    assert_match "You are not authorized to perform this action.", flash[:alert]
   end
 
   test "should destroy inbox" do
