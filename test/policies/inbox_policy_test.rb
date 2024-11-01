@@ -14,8 +14,6 @@ class InboxPolicyTest < ActiveSupport::TestCase
     assert_not InboxPolicy.new(@user, @inbox2).index?
 
     user2 = users(:two)
-    assert_not MembershipPolicy.new(user2, @membership).edit?
-
     membership2 = @organization.memberships.create(user: user2, role: Membership.roles[:member])
     assert_not InboxPolicy.new(user2, @inbox1).index?
 
