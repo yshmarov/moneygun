@@ -1,4 +1,6 @@
 class Organizations::InboxesController < Organizations::BaseController
+  verify_authorized
+  # verify_authorized except: :index
   before_action :set_inbox, only: %i[ show edit update destroy ]
 
   # GET /organizations/1/inboxes

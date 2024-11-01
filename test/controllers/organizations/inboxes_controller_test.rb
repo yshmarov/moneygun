@@ -10,8 +10,10 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get organization_inboxes_url(@organization)
-    assert_response :success
+    assert_authorized_to(:index?, @organization, with: InboxPolicy) do
+      get organization_inboxes_url(@organization)
+      assert_response :success
+    end
 
     get organization_inboxes_url(organizations(:two))
     assert_response :not_found
