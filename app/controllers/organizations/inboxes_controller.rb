@@ -3,7 +3,7 @@ class Organizations::InboxesController < Organizations::BaseController
 
   # GET /organizations/1/inboxes
   def index
-    authorize Inbox.new(organization: @organization)
+    authorize Inbox
     @inboxes = @organization.inboxes
   end
 
