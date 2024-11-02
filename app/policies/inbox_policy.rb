@@ -31,6 +31,7 @@ class InboxPolicy < ApplicationPolicy
 
   def valid_membership
     membership = user
+    return membership if record == Inbox
     record.organization.memberships.find_by_id(membership.id)
   end
 end
