@@ -2,6 +2,7 @@ class Organizations::MembershipsController < Organizations::BaseController
   before_action :set_membership, only: [ :edit, :update, :destroy ]
 
   def index
+    authorize Membership
     @memberships = @organization.memberships.includes(:user)
   end
 

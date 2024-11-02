@@ -5,8 +5,8 @@ class Organizations::InboxesController < Organizations::BaseController
 
   # GET /organizations/1/inboxes
   def index
+    authorize Inbox
     @inboxes = @organization.inboxes
-    authorize! @organization, with: InboxPolicy
   end
 
   # GET /organizations/1/inboxes/1

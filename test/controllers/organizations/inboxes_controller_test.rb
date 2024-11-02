@@ -22,6 +22,18 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
     @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
     get organization_inboxes_url(@organization)
     assert_response :redirect
+
+    get organization_inboxes_url(organizations(:two))
+    assert_response :not_found
+
+    sign_in users(:two)
+    membership = @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
+    get organization_inboxes_url(@organization)
+    assert_response :redirect
+
+    membership.update(role: Membership.roles[:admin])
+    get organization_inboxes_url(@organization)
+    assert_response :success
   end
 
   test "should get new" do
@@ -50,6 +62,15 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
 
     get organization_inbox_url(organizations(:two), inboxes(:two))
     assert_response :not_found
+
+    sign_in users(:two)
+    membership = @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
+    get organization_inbox_url(@organization, @inbox)
+    assert_response :redirect
+
+    membership.update(role: Membership.roles[:admin])
+    get organization_inbox_url(@organization, @inbox)
+    assert_response :success
   end
 
   test "should get edit" do
@@ -61,7 +82,7 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
     # admin can update
     assert_authorized_to(:update?, @inbox, with: InboxPolicy) do
       assert_changes -> { @inbox.reload.name } do
-      patch organization_inbox_url(@organization, @inbox), params: { inbox: { name: "changed" } }
+        patch organization_inbox_url(@organization, @inbox), params: { inbox: { name: "changed" } }
       end
     end
     assert_response :redirect
