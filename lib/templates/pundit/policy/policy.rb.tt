@@ -1,0 +1,41 @@
+<% module_namespacing do -%>
+class <%= class_name %>Policy < ApplicationPolicy
+  # https://github.com/varvet/pundit
+  # See ApplicationPolicy for defaults
+
+  # def index?
+  #   user.admin?
+  # end
+
+  # def show?
+  #   user.admin?
+  # end
+
+  # def create?
+  #   user.admin?
+  # end
+
+  # def update?
+  #   user.admin?
+  # end
+
+  # def destroy?
+  #   user.admin?
+  # end
+
+  # https://github.com/varvet/pundit#strong-parameters
+  # def permitted_attributes
+  #   if user.admin?
+  #     [:name, :description]
+  #   else
+  #     [:name]
+  #   end
+  # end
+
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+  end
+end
+<% end -%>
