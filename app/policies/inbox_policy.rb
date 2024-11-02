@@ -8,7 +8,7 @@ class InboxPolicy < ApplicationPolicy
   end
 
   def new?
-    membership&.admin?
+    valid_membership&.admin?
   end
 
   def create?
@@ -29,7 +29,8 @@ class InboxPolicy < ApplicationPolicy
 
   private
 
-  def membership
-    record.organization.memberships.find_by(user:)
+  def valid_membership
+    membership = user
+    record.organization.memberships.find_by_id(membership.id)
   end
 end
