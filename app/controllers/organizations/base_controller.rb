@@ -2,7 +2,7 @@ class Organizations::BaseController < ApplicationController
   # the order of the before_actions is important
   before_action :set_organization
   # before_action :authorize_membership!
-  # before_action :set_current_membership
+  before_action :set_current_membership
 
   def set_organization
     @organization = current_user.organizations.find(params[:organization_id])
@@ -13,9 +13,9 @@ class Organizations::BaseController < ApplicationController
   #   raise Pundit::NotAuthorizedError unless @organization.users.include?(current_user)
   # end
 
-  # def set_current_membership
-  #   @current_membership ||= current_user.memberships.find_by(organization: @organization)
-  # end
+  def set_current_membership
+    @current_membership ||= current_user.memberships.find_by(organization: @organization)
+  end
 
   # def authorize_organization_admin!
   #   redirect_to organization_path(@organization), alert: "You are not authorized to perform this action." unless @current_membership.admin?

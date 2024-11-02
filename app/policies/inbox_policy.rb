@@ -30,10 +30,6 @@ class InboxPolicy < ApplicationPolicy
   private
 
   def membership
-    organization.memberships.find_by(user:)
-  end
-
-  def organization
-    record.is_a?(Organization) ? record : record.organization
+    record.organization.memberships.find_by(user:)
   end
 end
