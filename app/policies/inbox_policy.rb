@@ -1,13 +1,4 @@
-class InboxPolicy < ApplicationPolicy
-  attr_reader :membership, :record
-
-  def initialize(membership, record)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless membership
-
-    @membership = membership
-    @record = record
-  end
-
+class InboxPolicy < Organization::BasePolicy
   def index?
     membership.admin?
   end
