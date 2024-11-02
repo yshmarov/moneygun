@@ -1,18 +1,22 @@
 class MembershipPolicy < ApplicationPolicy
+  def index?
+    true
+  end
+
   def new?
-    membership&.admin?
+    create?
   end
 
   def create?
-    new?
+    membership&.admin?
   end
 
   def edit?
-    new?
+    update?
   end
 
   def update?
-    new?
+    membership&.admin?
   end
 
   def destroy?
