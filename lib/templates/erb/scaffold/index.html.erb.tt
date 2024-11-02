@@ -1,0 +1,16 @@
+<%% content_for :title, "<%= human_name.pluralize %>" %>
+
+<%%= render PageComponent.new(title: "<%= human_name.pluralize %>") do |component| %>
+  <%% component.with_action_list do %>
+    <%%= link_to "New <%= human_name.downcase %>", new_<%= singular_route_name %>_path, class: "btn btn-primary" %>
+  <%% end %>
+
+  <div id="<%= plural_table_name %>" class="space-y-4">
+    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+      <%%= render <%= singular_table_name %> %>
+      <p>
+        <%%= link_to "Show this <%= human_name.downcase %>", <%= model_resource_name(singular_table_name) %>, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <%% end %>
+  </div>
+<%% end %>
