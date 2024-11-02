@@ -1,39 +1,29 @@
-class InboxPolicy < ApplicationPolicy
+class InboxPolicy < Organization::BasePolicy
   def index?
-    new?
+    membership.admin?
   end
 
   def show?
-    new?
+    membership.admin?
   end
 
   def new?
-    membership&.admin?
+    create?
   end
 
   def create?
-    new?
+    membership.admin?
   end
 
   def edit?
-    new?
+    update?
   end
 
   def update?
-    new?
+    membership.admin?
   end
 
   def destroy?
-    new?
-  end
-
-  private
-
-  def membership
-    organization.memberships.find_by(user:)
-  end
-
-  def organization
-    record.is_a?(Organization) ? record : record.organization
+    membership.admin?
   end
 end

@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @organization if @organization.present? && @organization.persisted?
+    @current_membership&.organization
   end
 
   helper_method :current_organization
