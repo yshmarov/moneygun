@@ -1,4 +1,4 @@
-<%%= form_with(model: <%= model_resource_name %>) do |form| %>
+<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4") do |form| %>
   <%%= render "shared/errors", object: form.object %>
 
 <% attributes.each do |attribute| -%>
@@ -21,7 +21,7 @@
   </div>
 
 <% end -%>
-  <div>
-    <%%= form.submit %>
+  <div class="inline">
+    <%%= form.submit class: "btn btn-primary" %>
   </div>
 <%% end %>
