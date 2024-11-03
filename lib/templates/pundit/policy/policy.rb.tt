@@ -1,31 +1,28 @@
 <% module_namespacing do -%>
-class <%= class_name %>Policy < ApplicationPolicy
-  # https://github.com/varvet/pundit
-  # See ApplicationPolicy for defaults
-
+class <%= class_name %>Policy < Organization::BasePolicy
   # def index?
-  #   user.admin?
+  #   membership.admin?
   # end
 
   # def show?
-  #   user.admin?
+  #   membership.admin?
   # end
 
   # def create?
-  #   user.admin?
+  #   membership.admin?
   # end
 
   # def update?
-  #   user.admin?
+  #   membership.admin?
   # end
 
   # def destroy?
-  #   user.admin?
+  #   membership.admin?
   # end
 
   # https://github.com/varvet/pundit#strong-parameters
   # def permitted_attributes
-  #   if user.admin?
+  #   if membership.admin?
   #     [:name, :description]
   #   else
   #     [:name]
