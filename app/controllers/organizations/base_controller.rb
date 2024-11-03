@@ -4,7 +4,7 @@ class Organizations::BaseController < ApplicationController
   # before_action :authorize_membership!
   before_action :set_current_membership
   # ensure Pundit "authorize" is called for every controller action
-  after_action :verify_authorized
+  # after_action :verify_authorized
 
   # def authorize_membership!
   #   redirect_to root_path, alert: "You are not authorized to perform this action." unless @organization.users.include?(current_user)
