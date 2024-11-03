@@ -78,6 +78,8 @@ I recommend scoping downstream models to `organization` too. This way you can qu
 
 ### Generators
 
+`Inbox` is an example of a well-integrated **resource** scoped to an `organization`. With pundit authorization and tests. Use it as an inspiration.
+
 To quickly generate nested resources you can use [gem nested_scaffold](https://github.com/yshmarov/nested_scaffold)
 
 ```
@@ -89,3 +91,20 @@ Generate a pundit policy:
 ```
 rails g pundit:policy project
 ```
+
+### Testing & linting
+
+I did not focus on system tests, because the frontend can evolve a lot.
+
+There are quite a lot of tests covering authentication, authorization, and multitenancy.
+
+```shell
+# run all tests
+rails test:all
+bundle exec erb_lint --lint-all -a
+bundle exec rubocop -A
+```
+
+### Contributing
+
+Feel free to raise an Issue or open a Pull Request!
