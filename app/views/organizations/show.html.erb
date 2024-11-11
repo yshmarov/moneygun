@@ -6,3 +6,14 @@
     </div>
   <% end %>
 <% end %>
+
+<div data-controller="menu bridge--menu">
+  <button
+    data-controller="bridge--overflow-menu"
+    data-action="click->bridge--menu#show click->menu#show">
+    Open Menu
+  </button>
+  <p data-bridge--menu-target="title">Actions</p>
+  <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary", data: {"bridge--menu-target": "item"} if policy(@organization).edit? %>
+  <%= button_to "Destroy", @organization, method: :delete, data: { turbo_confirm: "Are you sure?", "bridge--menu-target": "item" }, class: "btn btn-danger" if policy(@organization).destroy? %>
+</div>
