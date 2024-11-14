@@ -16,6 +16,15 @@
         </div>
       </header>
       <main class="flex-grow p-2 lg:p-4">
+        <% if user_signed_in? %>
+          <%= tag.div data: { controller: 'bridge--nav', bridge_side: 'right', bridge_image: 'person.circle' } do %>
+            <%= link_to 'Profile', edit_user_registration_path, data: { 'bridge--nav-target': 'item', image: 'person.circle' } %>
+            <%= link_to 'Sign Out', destroy_user_session_path, data: { bridge__nav_target: 'item', image: 'return', turbo_method: :delete, turbo: true } %>
+            <%# button_to will not work. use link_to %>
+            <%#= button_to 'Sign Out', destroy_user_session_path, data: { bridge__nav_target: 'item', image: 'return', method: :delete } %>
+          <% end %>
+        <% end %>
+        <%#= request.user_agent %>
         <%= yield %>
       </main>
       <%= render "shared/footer" %>
