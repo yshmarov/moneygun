@@ -1,7 +1,8 @@
 class Organizations::BaseController < ApplicationController
   # the order of the before_actions is important
-  before_action :set_organization
   # before_action :authorize_membership!
+  set_current_tenant_through_filter
+  before_action :set_organization
   before_action :set_current_membership
   # ensure Pundit "authorize" is called for every controller action
   # after_action :verify_authorized
@@ -19,7 +20,9 @@ class Organizations::BaseController < ApplicationController
   private
 
   def set_organization
-    @organization = current_user.organizations.find(params[:organization_id])
+    current_account = current_user.organizations.find(params[:organization_id])
+    set_current_tenant(current_account)
+    @organization = current_account
   end
 
   def set_current_membership

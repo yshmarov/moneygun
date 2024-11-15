@@ -42,7 +42,9 @@ class OrganizationsController < ApplicationController
 
   # DELETE /organizations/1
   def destroy
-    @organization.destroy!
+    ActsAsTenant.with_tenant(@organization) do
+      @organization.destroy!
+    end
 
     redirect_to organizations_url, notice: "Organization was successfully destroyed."
   end
