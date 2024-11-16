@@ -9,9 +9,9 @@
   </div>
 
   <div>
-    <%= link_to "Edit", edit_organization_membership_path(membership.organization, membership), class: "btn btn-secondary" if policy(membership).edit? %>
+    <%= link_to "Edit", edit_organization_membership_path(membership.organization, membership), class: "btn btn-secondary" if allowed_to?(:update, membership) %>
     <div class="inline-block">
-      <%= button_to "Remove", organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(membership).destroy? %>
+      <%= button_to "Remove", organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if allowed_to?(:destroy, membership) %>
     </div>
   </div>
 </div>

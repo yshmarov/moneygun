@@ -10,8 +10,18 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
+    assert_authorized_to(:index?, @organization, with: InboxPolicy) do
+      get organization_inboxes_url(@organization)
+      assert_response :success
+    end
+
+    get organization_inboxes_url(organizations(:two))
+    assert_response :not_found
+
+    sign_in users(:two)
+    @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
     get organization_inboxes_url(@organization)
-    assert_response :success
+    assert_response :redirect
 
     get organization_inboxes_url(organizations(:two))
     assert_response :not_found
@@ -70,8 +80,10 @@ class InboxesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update inbox" do
     # admin can update
-    assert_changes -> { @inbox.reload.name } do
-      patch organization_inbox_url(@organization, @inbox), params: { inbox: { name: "changed" } }
+    assert_authorized_to(:update?, @inbox, with: InboxPolicy) do
+      assert_changes -> { @inbox.reload.name } do
+        patch organization_inbox_url(@organization, @inbox), params: { inbox: { name: "changed" } }
+      end
     end
     assert_response :redirect
 

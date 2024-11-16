@@ -1,8 +1,8 @@
 <%= render PageComponent.new(title: "Organizations / #{@organization.name}") do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary" if policy(@organization).edit? %>
+    <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary" if allowed_to?(:edit, @organization) %>
     <div class="inline-block">
-      <%= button_to "Destroy", @organization, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(@organization).destroy? %>
+      <%= button_to "Destroy", @organization, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if allowed_to?(:destroy, @organization) %>
     </div>
   <% end %>
 <% end %>

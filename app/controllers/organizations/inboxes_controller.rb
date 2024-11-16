@@ -1,4 +1,6 @@
 class Organizations::InboxesController < Organizations::BaseController
+  verify_authorized
+  # verify_authorized except: :index
   before_action :set_inbox, only: %i[ show edit update destroy ]
 
   # GET /organizations/1/inboxes
@@ -14,7 +16,7 @@ class Organizations::InboxesController < Organizations::BaseController
   # GET /organizations/1/inboxes/new
   def new
     @inbox = @organization.inboxes.new
-    authorize @inbox
+    authorize! @inbox
   end
 
   # GET /organizations/1/inboxes/1/edit
@@ -24,7 +26,7 @@ class Organizations::InboxesController < Organizations::BaseController
   # POST /organizations/1/inboxes
   def create
     @inbox = @organization.inboxes.new(inbox_params)
-    authorize @inbox
+    authorize! @inbox
 
     if @inbox.save
       redirect_to organization_inbox_url(@organization, @inbox), notice: "Inbox was successfully created."
@@ -52,7 +54,7 @@ class Organizations::InboxesController < Organizations::BaseController
   private
     def set_inbox
       @inbox = @organization.inboxes.find(params[:id])
-      authorize @inbox
+      authorize! @inbox
     end
 
     def inbox_params
