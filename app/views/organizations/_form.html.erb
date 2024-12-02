@@ -1,4 +1,4 @@
-<%= form_with(model: organization, class: "contents space-y-4") do |form| %>
+<%= strada_form_with(model: organization, class: "contents space-y-4", data: {turbo_action: "replace"}) do |form| %>
   <%= render "shared/errors", object: form.object %>
 
   <div class="">
@@ -12,6 +12,6 @@
   </div>
 
   <div class="inline">
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>
