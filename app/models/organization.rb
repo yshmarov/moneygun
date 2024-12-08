@@ -3,6 +3,8 @@ class Organization < ApplicationRecord
   has_many :users, through: :memberships
   belongs_to :owner, class_name: "User"
 
+  include Transfer
+
   has_many :inboxes, dependent: :destroy
 
   validates :name, presence: true
