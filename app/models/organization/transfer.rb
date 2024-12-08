@@ -22,8 +22,6 @@ module Organization::Transfer
     owner_id == user.id
   end
 
-  # private
-
   def can_transfer?(user)
     owner?(user) && users.size >= 2
   end
