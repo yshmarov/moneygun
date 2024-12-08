@@ -9,3 +9,6 @@ one:
 
 two:
   email: hello@superails.com
+
+unassociated:
+  email: unassociated@superails.com
