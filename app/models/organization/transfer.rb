@@ -7,10 +7,10 @@ module Organization::Transfer
     membership = memberships.find_by(user_id: user_id)
     return false unless membership
 
-    new_owner = organization_user.user
+    new_owner = membership.user
 
     ApplicationRecord.transaction do
-      membership.update!(admin: true)
+      membership.update!(role: Membership.roles[:admin])
       update!(owner: new_owner)
     end
   rescue => e
