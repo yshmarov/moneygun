@@ -22,6 +22,7 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
+    @organization.owner = current_user
     @organization.memberships.build(user: current_user, role: Membership.roles[:admin])
 
     if @organization.save
