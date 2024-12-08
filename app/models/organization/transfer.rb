@@ -18,13 +18,13 @@ module Organization::Transfer
     false
   end
 
+  def owner?(user)
+    owner_id == user.id
+  end
+
   # private
 
   def can_transfer?(user)
     owner?(user) && users.size >= 2
-  end
-
-  def owner?(user)
-    owner_id == user.id
   end
 end

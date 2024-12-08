@@ -16,6 +16,10 @@ class Organizations::BaseController < ApplicationController
   #   raise Pundit::NotAuthorizedError unless @current_membership.admin?
   # end
 
+  def authorize_organization_owner!
+    redirect_to organization_path(@organization), alert: "You are not authorized to perform this action." unless @organization.owner?(current_user)
+  end
+
   private
 
   def set_organization
