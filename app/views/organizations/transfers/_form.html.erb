@@ -1,0 +1,11 @@
+<%= form_with url: organization_transfer_path(current_organization), method: :patch, class: "contents space-y-4" do |form| %>
+  <div class="">
+    <%= form.label :user_id %>
+    <%= form.collection_select :user_id, current_organization.users.where.not(users: { id: current_user.id }), :id, :email, { include_blank: true, required: true }, { class: "form-input" } %>
+  </div>
+
+  <div class="inline">
+    <%#= form.button, data: { turbo_confirm: "Are you sure?" } %>
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

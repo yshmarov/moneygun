@@ -2,6 +2,8 @@
 
 one:
   name: Organization 1
+  owner: one
 
 two:
   name: Organization 2
+  owner: two
