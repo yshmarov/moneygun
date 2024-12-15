@@ -12,6 +12,7 @@ Avo.configure do |config|
 
   # Where should the user be redirected when visiting the `/avo` url
   # config.home_path = nil
+  config.home_path = "/avo/resources/users"
 
   ## == Licensing ==
   # config.license_key = ENV['AVO_LICENSE_KEY']

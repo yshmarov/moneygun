@@ -6,6 +6,7 @@
 #
 one:
   email: yaro@superails.com
+  admin: true
 
 two:
   email: hello@superails.com
