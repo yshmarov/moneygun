@@ -1,7 +1,7 @@
 <%= render PageComponent.new(title: "Organizations / #{@organization.name}") do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "Transfer", organization_transfer_path(@organization), class: "btn btn-danger" if @organization.can_transfer?(current_user) %>
     <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary" if policy(@organization).edit? %>
+    <%= link_to "Transfer", organization_transfer_path(@organization), class: "btn btn-danger" if @organization.can_transfer?(current_user) %>
     <div class="inline-block">
       <%= button_to "Destroy", @organization, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(@organization).destroy? %>
     </div>
