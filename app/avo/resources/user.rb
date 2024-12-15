@@ -5,7 +5,7 @@ class Avo::Resources::User < Avo::BaseResource
     query: -> { query.ransack(id_eq: params[:q], email_cont: params[:q], m: "or").result(distinct: false) },
     item: -> {
       {
-        title: record.email
+        title: [record.id, record.email].join("/")
       }
     }
   }
@@ -14,10 +14,11 @@ class Avo::Resources::User < Avo::BaseResource
     main_panel do
       field :id, as: :id
       field :email, as: :text, disabled: true, sortable: true
+      field :admin, as: :boolean, sortable: true
 
       sidebar do
-        field :created_at, as: :date_time, disabled: true
-        field :updated_at, as: :date_time, disabled: true
+        field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
+        field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
       end
       sidebar do
         field :invitation_token, as: :text

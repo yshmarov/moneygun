@@ -1,5 +1,9 @@
 class Avo::Resources::Membership < Avo::BaseResource
-  # self.includes = []
+  self.title = -> {
+    [record.id, record.user.email, record.organization.name].join(" / ")
+  }
+  self.includes = [:organization, :user]
+  # self.visible_on_sidebar = false
   # self.attachments = []
   # self.search = {
   #   query: -> { query.ransack(id_eq: params[:q], m: "or").result(distinct: false) }
@@ -8,13 +12,13 @@ class Avo::Resources::Membership < Avo::BaseResource
   def fields
     main_panel do
       field :id, as: :id
-      field :role, as: :select, enum: ::Membership.roles
+      field :role, as: :select, enum: ::Membership.roles, sortable: true
       field :organization, as: :belongs_to
       field :user, as: :belongs_to
 
       sidebar do
-        field :created_at, as: :date_time, disabled: true
-        field :updated_at, as: :date_time, disabled: true
+        field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
+        field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
       end
     end
   end
