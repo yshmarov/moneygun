@@ -9,6 +9,7 @@ class Avo::Resources::User < Avo::BaseResource
   def fields
     field :id, as: :id
     field :email, as: :text
+    field :admin, as: :boolean
     field :invitation_token, as: :text
     field :invitation_created_at, as: :date_time
     field :invitation_sent_at, as: :date_time
