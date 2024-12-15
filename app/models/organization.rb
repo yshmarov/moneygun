@@ -10,4 +10,12 @@ class Organization < ApplicationRecord
   validates :name, presence: true
 
   has_one_attached :logo
+
+  def self.ransackable_attributes auth_object = nil
+    %w[id name]
+  end
+
+  def self.ransackable_associations auth_object = nil
+    %w[]
+  end
 end

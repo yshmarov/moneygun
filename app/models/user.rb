@@ -6,4 +6,12 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :organizations, through: :memberships
   has_many :owned_organizations, class_name: "Organization", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
+
+  def self.ransackable_attributes auth_object = nil
+    %w[id email]
+  end
+
+  def self.ransackable_associations auth_object = nil
+    %w[]
+  end
 end
