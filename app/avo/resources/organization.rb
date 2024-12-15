@@ -1,6 +1,6 @@
 class Avo::Resources::Organization < Avo::BaseResource
   self.title = -> {
-    [record.id, record.name].join("/")
+    [ record.id, record.name ].join("/")
   }
   # self.includes = []
   # self.attachments = []
@@ -8,7 +8,7 @@ class Avo::Resources::Organization < Avo::BaseResource
     query: -> { query.ransack(id_eq: params[:q], name_cont: params[:q], m: "or").result(distinct: false) },
     item: -> {
       {
-        title: [record.id, record.name].join(" ")
+        title: [ record.id, record.name ].join(" ")
       }
     }
   }

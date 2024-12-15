@@ -1,8 +1,8 @@
 class Avo::Resources::Membership < Avo::BaseResource
   self.title = -> {
-    [record.id, record.user.email, record.organization.name].join(" / ")
+    [ record.id, record.user.email, record.organization.name ].join(" / ")
   }
-  self.includes = [:organization, :user]
+  self.includes = [ :organization, :user ]
   # self.visible_on_sidebar = false
   # self.attachments = []
   # self.search = {

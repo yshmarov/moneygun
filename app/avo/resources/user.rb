@@ -1,11 +1,11 @@
 class Avo::Resources::User < Avo::BaseResource
   self.title = :email
-  self.includes = [:organizations, :memberships]
+  self.includes = [ :organizations, :memberships ]
   self.search = {
     query: -> { query.ransack(id_eq: params[:q], email_cont: params[:q], m: "or").result(distinct: false) },
     item: -> {
       {
-        title: [record.id, record.email].join("/")
+        title: [ record.id, record.email ].join("/")
       }
     }
   }
