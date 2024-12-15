@@ -27,8 +27,14 @@ class Avo::Resources::Organization < Avo::BaseResource
     end
 
     tabs do
-      field :memberships, as: :has_many
-      field :users, as: :has_many, through: :memberships
+      field :memberships, as: :has_many,
+            attach_scope: lambda {
+              query.where.not(id: parent.memberships.select(:id)).order(created_at: :desc)
+            }
+      field :users, as: :has_many, through: :memberships,
+      attach_scope: lambda {
+        query.where.not(id: parent.memberships.select(:user_id)).order(email: :asc)
+      }
     end
   end
 end
