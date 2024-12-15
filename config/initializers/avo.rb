@@ -22,7 +22,8 @@ Avo.configure do |config|
   end
 
   ## == Authentication ==
-  # config.current_user_method = :current_user
+  config.current_user_method = :current_user
+  config.sign_out_path_name = :destroy_user_session_path
   # config.authenticate_with do
   # end
 

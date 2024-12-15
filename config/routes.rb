@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  mount Avo::Engine, at: Avo.configuration.root_path
+  authenticate :user, -> user { user.admin? } do
+    mount Avo::Engine, at: Avo.configuration.root_path
+  end
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
   resources :organizations do
