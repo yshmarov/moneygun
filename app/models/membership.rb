@@ -14,7 +14,7 @@ class Membership < ApplicationRecord
 
   def try_destroy
     return false if organization.memberships.count == 1
-    return false if role == "admin" && organization.memberships.where(role: "admin").count == 1
+    return false if single_admin_role_persent?
 
     destroy
   end
@@ -22,7 +22,7 @@ class Membership < ApplicationRecord
   private
 
   def admin_must_have_active_invitation_status
-    return if role == "admin" && invitation_status == "active"
+    return if single_admin_role_persent?
     return if role == "member" && invitation_status.present?
 
     errors.add(:invitation_status, "Admins must always have an active invitation status.")
@@ -34,5 +34,9 @@ class Membership < ApplicationRecord
     if role_changed? && role_was == "admin"
       errors.add(:base, "Role cannot be changed because this is the only admin.")
     end
+  end
+
+  def single_admin_role_persent?
+    role == "admin" && organization.memberships.where(role: "admin").count == 1
   end
 end
