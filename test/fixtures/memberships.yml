@@ -4,8 +4,10 @@ one:
   organization: one
   user: one
   role: admin
+  invitation_status: active
 
 two:
   organization: two
   user: two
   role: member
+  invitation_status: active

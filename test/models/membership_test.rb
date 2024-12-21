@@ -21,9 +21,9 @@ class MembershipTest < ActiveSupport::TestCase
     assert new_membership.try_destroy
 
     # destroys admin if there is another admin
-    new_membership = organization.memberships.create(user: users(:two), role: "admin")
+    admin_membership = organization.memberships.create(user: users(:two), role: "admin", invitation_status: "active")
     assert membership.try_destroy
-    assert_not new_membership.try_destroy
+    assert_not admin_membership.try_destroy
   end
 
   test "cannot_change_role_if_only_admin" do
@@ -33,5 +33,14 @@ class MembershipTest < ActiveSupport::TestCase
     membership.role = "member"
     assert_not membership.save
     assert_includes membership.errors.messages[:base], "Role cannot be changed because this is the only admin."
+  end
+
+  test "admin_must_have_active_invitation_status" do
+    organization = organizations(:one)
+    admin_membership = organization.memberships.find_by(role: "admin")
+
+    admin_membership.invitation_status = "pending"
+    assert_not admin_membership.save
+    assert_includes admin_membership.errors.messages[:invitation_status], "Admins must always have an active invitation status."
   end
 end
