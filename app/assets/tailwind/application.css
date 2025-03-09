@@ -16,20 +16,15 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+  input:not([type='checkbox']):not([type='radio']):not([type='submit']) {
+    border-width: 1px;
+    border-color: var(--color-gray-200, currentColor);
   }
 }
 
-*/
-
 .btn {
-  @apply inline-flex px-4 py-2 rounded-md space-x-2 font-semibold text-sm transition-colors ease-in-out duration-300 cursor-pointer;
+  @apply inline-flex px-4 py-2 rounded-full space-x-2 font-semibold text-sm transition-colors ease-in-out duration-300 cursor-pointer;
 }
 
 .btn-primary {
