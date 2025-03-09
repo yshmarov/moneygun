@@ -1,6 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 /*
 
@@ -37,5 +53,5 @@
 }
 
 .form-input {
-  @apply block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full;
+  @apply block shadow-sm rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full;
 }
