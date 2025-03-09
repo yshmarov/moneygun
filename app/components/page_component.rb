@@ -3,7 +3,7 @@
 class PageComponent < ViewComponent::Base
   renders_one :action_list
 
-  def initialize(title:, content_container: false, full_width: true)
+  def initialize(title:, content_container: false, full_width: false)
     @title = title
     @content_container = content_container
     @full_width = full_width
@@ -21,7 +21,7 @@ class PageComponent < ViewComponent::Base
     if @full_width == true
       "w-full"
     else
-      "max-w-md w-full"
+      "max-w-lg w-full"
     end
   end
 end
