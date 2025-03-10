@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/yshmarov/nested_scaffold.git
-  revision: 37147daa692d839982c8dd1f37ab157c82bca52f
+  revision: c3522cc70871009bda01b9bac5f7d1cf3d8e2ae2
   specs:
     nested_scaffold (1.1.0)
 
