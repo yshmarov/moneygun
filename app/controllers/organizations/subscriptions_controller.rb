@@ -1,20 +1,7 @@
 class Organizations::SubscriptionsController < Organizations::BaseController
-  PLANS = [
-    {
-      id: "price_1R5YtwLRcgxgTmfQgItFN1b0",
-      unit_amount: 99900,
-      currency: "PLN",
-      interval: "month"
-    },
-    {
-      id: "price_1R5YuELRcgxgTmfQyxBxCAlr",
-      unit_amount: 99900,
-      currency: "PLN",
-      interval: "year"
-    }
-  ]
-
   def index
+    @organization.set_payment_processor :stripe
+    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
   end
 
   def checkout

@@ -1,8 +1,8 @@
 # Rails.application.config_for(:settings).dig(:site, :title)
 shared:
   pro_features:
-    - ✅ Foo
-    - ✅ Bar
+    - ☑️ Foo
+    - ☑️ Bar
   plans:
     - id: price_1R5YtwLRcgxgTmfQgItFN1b0
       unit_amount: 9900
