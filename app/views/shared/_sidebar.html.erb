@@ -2,52 +2,50 @@
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
 <%# Sidebar content %>
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative flex-col justify-between border-r border-slate-300 w-52 bg-white h-full -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50">
-  <nav class="flex flex-col">
-    <details class="group">
-      <summary class="btn-transparent font-semibold text-sm p-2 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-gray-100">
-        <% if current_organization %>
-        <div class="inline-flex items-center gap-2 max-w-40">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r border-slate-300 w-52 bg-white h-full -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50">
+  <details class="group">
+    <summary class="btn-transparent font-semibold text-sm p-2 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-gray-100">
+      <% if current_organization %>
+      <div class="inline-flex items-center gap-2 max-w-40">
+        <div>
+          <%= organization_avatar(current_organization) %>
+        </div>
+        <div class="truncate">
+          <%= current_organization.name %>
+        </div>
+      </div>
+      <% else %>
+        <div class="py-1 inline-flex">
+          Select Organization
+        </div>
+      <% end %>
+      <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
+    </summary>
+    <div class="space-y-2 p-2 border-b border-slate-300">
+      <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
+        <div>
+          <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+        </div>
+        <div>
+          All Organizations
+        </div>
+      <% end %>
+      <% current_user.organizations.excluding(current_organization).each do |organization| %>
+        <%= active_link_to organization_path(organization), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
           <div>
-            <%= organization_avatar(current_organization) %>
+            <%= organization_avatar(organization) %>
           </div>
           <div class="truncate">
-            <%= current_organization.name %>
-          </div>
-        </div>
-        <% else %>
-          <div class="py-1 inline-flex">
-            Select Organization
+            <%= organization.name %>
           </div>
         <% end %>
-        <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
-      </summary>
-      <div class="space-y-2 p-2 border-b border-slate-300">
-        <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
-          <div>
-            <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
-          </div>
-          <div>
-            All Organizations
-          </div>
-        <% end %>
-        <% current_user.organizations.excluding(current_organization).each do |organization| %>
-          <%= active_link_to organization_path(organization), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
-            <div>
-              <%= organization_avatar(organization) %>
-            </div>
-            <div class="truncate">
-              <%= organization.name %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-    </details>
+      <% end %>
+    </div>
+  </details>
 
-    <% if current_organization %>
-      <div class="space-y-2 p-2">
-        <%= render "shared/sidebar_links" %>
-      </div>
-    <% end %>
-  </nav>
+  <% if current_organization %>
+    <div class="space-y-2 p-2">
+      <%= render "shared/sidebar_links" %>
+    </div>
+  <% end %>
 </aside>
