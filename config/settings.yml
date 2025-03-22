@@ -1,0 +1,24 @@
+# Rails.application.config_for(:settings).dig(:site, :title)
+shared:
+  pro_features:
+    - ✅ Foo
+    - ✅ Bar
+  plans:
+    - id: price_1R5YtwLRcgxgTmfQgItFN1b0
+      unit_amount: 9900
+      currency: PLN
+      interval: month
+    - id: price_1R5YuELRcgxgTmfQyxBxCAlr
+      unit_amount: 99900
+      currency: PLN
+      interval: year
+production:
+  plans:
+    - id: price_foo
+      unit_amount: 1900
+      currency: USD
+      interval: month
+    - id: price_bar
+      unit_amount: 19000
+      currency: USD
+      interval: year

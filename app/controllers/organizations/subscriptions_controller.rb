@@ -1,15 +1,30 @@
 class Organizations::SubscriptionsController < Organizations::BaseController
+  PLANS = [
+    {
+      id: "price_1R5YtwLRcgxgTmfQgItFN1b0",
+      unit_amount: 99900,
+      currency: "PLN",
+      interval: "month"
+    },
+    {
+      id: "price_1R5YuELRcgxgTmfQyxBxCAlr",
+      unit_amount: 99900,
+      currency: "PLN",
+      interval: "year"
+    }
+  ]
+
   def index
     @organization.set_payment_processor :stripe
+    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
   end
 
   def checkout
-    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
-    redirect_to organization_subscriptions_url(@organization) and return if current_user.payment_processor&.subscription&.active?
+    return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscription&.active?
 
     price = Stripe::Price.retrieve(params[:price_id])
 
-    @checkout_session = current_user.payment_processor.checkout(
+    @checkout_session = @organization.payment_processor.checkout(
       mode: "subscription",
       locale: I18n.locale,
       line_items: [ {
@@ -19,10 +34,10 @@ class Organizations::SubscriptionsController < Organizations::BaseController
       allow_promotion_codes: true,
       automatic_tax: { enabled: true },
       tax_id_collection: { enabled: true },
-      consent_collection: { terms_of_service: :required },
+      # consent_collection: { terms_of_service: :required },
       customer_update: { address: :auto, name: :auto },
-      success_url: subscriptions_success_url,
-      cancel_url: user_url(current_user)
+      success_url: organization_subscriptions_url(@organization),
+      cancel_url: organization_subscriptions_url(@organization)
     )
 
     redirect_to @checkout_session.url, allow_other_host: true, status: :see_other

@@ -1,3 +1,66 @@
 <%= render PageComponent.new(title: "Billing") do %>
   <%= button_to "Manage Subscription", organization_subscriptions_billing_portal_path(current_organization), data: { turbo: "false" }, class: "btn btn-primary" %>
+
+  <% if @organization.payment_processor.subscribed? %>
+    <%= render "organizations/subscriptions/plan", subscription: @organization.payment_processor.subscription %>
+  <% else %>
+    <div class="inline-flex">
+      <%= link_to t("users.show.plan.subscribe"), pricing_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <div class="grid lg:grid-cols-2 gap-8">
+    <% Rails.application.config_for(:settings)[:plans].each do |plan| %>
+      <div class="shadow-sm shadow-slate-400 hover:shadow-white rounded-xl text-center flex flex-col">
+        <div class="leading-none grow">
+          <% if plan[:interval].to_s == "year" %>
+            Save yearly
+          <% end %>
+        </div>
+
+        <div class="p-4 flex flex-row lg:flex-col gap-8 items-center justify-between">
+          <div>
+            <span class="text-5xl font-semibold">
+              <%= number_to_currency (plan[:unit_amount].to_f / 100), unit: currency_symbol(plan[:currency]), strip_insignificant_zeros: true %>
+            </span>
+
+            <span class="text-2xl whitespace-nowrap">
+              /<%= plan[:interval] %>
+            </span>
+          </div>
+
+          <div class="">
+            <% if user_signed_in? %>
+              <% if @organization.payment_processor.subscribed? %>
+                <% if @organization.payment_processor.subscription.plan[:interval] == plan[:interval].to_s %>
+                  <%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
+                <% else %>
+                  <%= button_to subscriptions_billing_portal_path, data: { turbo: "false" }, class: "btn btn-secondary" do %>
+                    <div>
+                      <%= t("users.show.plan.manage_billing") %>
+                    </div>
+                  <% end %>
+                <% end %>
+
+              <% else %>
+                <%= link_to organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: "false" }, class: "btn btn-primary" do %>
+                  <div>
+                    <%= t(".subscribe") %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= render AuthLinksComponent.new(provider: cookies[:provider], provider_image_url: cookies[:provider_image_url], provider_username: cookies[:provider_username]) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center text-slate-400">
+    <%= t(".cancel_security") %>
+  </div>
+
+  <%= render "organizations/subscriptions/features", details: true %>
 <% end %>

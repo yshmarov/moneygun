@@ -1,0 +1,62 @@
+<% if subscription.on_grace_period? %>
+  <dl class="space-y-2">
+    <div class="flex justify-between">
+      <dt class="font-semibold">
+        <%= t("users.show.plan.subscription_cancelled") %>
+      </dt>
+      <dd>
+        <%= number_to_currency subscription.plan[:unit_amount] / 100, unit: currency_symbol(subscription.plan[:currency]), strip_insignificant_zeros: true %>
+        /<%= subscription.plan[:interval] %>
+      </dd>
+    </div>
+
+    <div class="flex justify-between">
+      <dt class="font-semibold">
+        <%= t("users.show.plan.you_will_lose_access_on") %>:
+      </dt>
+      <dd>
+        <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="inline-flex">
+    <%= button_to t("users.show.plan.resume_subscription"), subscriptions_billing_portal_path, data: { turbo: "false" }, class: "btn btn-primary" %>
+  </div>
+<% elsif subscription.active? %>
+  <dl class="space-y-2">
+    <div class="flex justify-between">
+      <dt class="font-semibold">
+        <%= t("users.show.plan.subscription_active") %>
+        <%= inline_svg_tag "svg/check-badge.svg", class: "size-6 inline stroke-white fill-blue-600" %>
+      </dt>
+      <dd>
+        <%= number_to_currency subscription.plan[:unit_amount] / 100, unit: currency_symbol(subscription.plan[:currency]), strip_insignificant_zeros: true %>
+        /<%= subscription.plan[:interval] %>
+      </dd>
+    </div>
+
+    <div class="flex justify-between">
+      <dt class="font-semibold">
+        <%= t("users.show.plan.next_billing_date") %>:
+      </dt>
+      <dd>
+        <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="inline-flex">
+    <%= button_to t("users.show.plan.manage_billing"), subscriptions_billing_portal_path, data: { turbo: false }, class: "btn btn-secondary" %>
+  </div>
+<% end %>
+
+<h2 class="text-xl md:text-3xl">
+  <%= t("users.show.plan.features") %>
+</h2>
+
+<%= render "users/features", details: true %>
+
+<div class='text-slate-400 text-sm'>
+  ℹ️ If you have a linked Github account, you will get an automatic invite to the Github repositories. Otherwise please contact support.
+</div>

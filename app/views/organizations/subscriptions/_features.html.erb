@@ -1,0 +1,15 @@
+<dl class="space-y-2">
+  <% Rails.application.config_for(:settings)[:pro_features].each do |feature| %>
+    <% key, value = feature.first %>
+    <div class="flex flex-col">
+      <dt class="font-semibold">
+        <%= key %>
+      </dt>
+      <% if details == true %>
+        <dd class="italic text-sm">
+          <%= sanitize(value, tags: %w[a], attributes: %w[href style]) %>
+        </dd>
+      <% end %>
+    </div>
+  <% end %>
+</dl>
