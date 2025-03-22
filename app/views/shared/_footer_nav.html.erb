@@ -1,27 +1,21 @@
 <nav class="justify-around flex items-center lg:hidden sticky bottom-0 px-3 md:px-6 pt-2 pb-8 bg-gray-300">
   <% if current_organization %>
+    <%= active_link_to organization_dashboard_path(@organization), class_active: "text-blue-600", class: "flex flex-col items-center" do %>
+      <%= inline_svg_tag "svg/home.svg", class: "size-8" %>
+      <div class="text-xs">
+        Dashboard
+      </div>
+    <% end %>
+
     <%= active_link_to organization_inboxes_path(@organization), class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/user-group.svg", class: "size-8" %>
+      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
       <div class="text-xs">
         Inboxes
       </div>
     <% end %>
-
-    <%= active_link_to organization_memberships_path(@organization), class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
-      <div class="text-xs">
-        Users
-      </div>
-    <% end %>
   <% else %>
-    <%= active_link_to root_path, active: :exclusive, class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
-      <div class="text-xs">
-        Home
-      </div>
-    <% end %>
     <%= active_link_to organizations_path, active: :exclusive, class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
+      <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-8" %>
       <div class="text-xs">
         Organizations
       </div>
