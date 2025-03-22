@@ -23,14 +23,6 @@
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
       </summary>
       <div class="space-y-2 p-2 border-b border-gray-300">
-        <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-200", class: "w-full btn btn-transparent flex items-center" do %>
-          <div>
-            <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-5" %>
-          </div>
-          <div>
-            All Organizations
-          </div>
-        <% end %>
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
           <%= active_link_to organization_dashboard_path(organization), class_active: "bg-gray-200", class: "w-full btn btn-transparent flex items-center" do %>
             <div>
@@ -41,6 +33,7 @@
             </div>
           <% end %>
         <% end %>
+        <%= nav_link organizations_path, "All Organizations", "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
@@ -53,31 +46,9 @@
 
   <% if current_organization %>
     <div class="border-t border-gray-300 space-y-2 p-2">
-      <%= active_link_to organization_subscriptions_path(current_organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-        <div>
-          <%= inline_svg_tag "svg/credit-card.svg", class: "size-5" %>
-        </div>
-        <div>
-          Billing
-          <%= subscription_status_label(current_organization) %>
-        </div>
-      <% end %>
-      <%= active_link_to organization_path(current_organization), active: :exclusive, class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-        <div>
-          <%= inline_svg_tag "svg/cog-6-tooth.svg", class: "size-5" %>
-        </div>
-        <div>
-          Settings
-        </div>
-      <% end %>
-      <%= active_link_to organization_memberships_path(@organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-        <div>
-          <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
-        </div>
-        <div>
-          Users
-        </div>
-      <% end %>
+      <%= nav_link organization_subscriptions_path(current_organization), "Billing #{subscription_status_label(current_organization)}", "svg/credit-card.svg" %>
+      <%= nav_link organization_path(current_organization), "Settings", "svg/cog-6-tooth.svg" %>
+      <%= nav_link organization_memberships_path(current_organization), "Users", "svg/user-group.svg" %>
     </div>
   <% end %>
 </aside>
