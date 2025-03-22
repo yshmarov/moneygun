@@ -4,7 +4,7 @@ class ScaffoldGenerator < Rails::Generators::NamedBase
   hook_for :scaffold, in: :rails, default: true, type: :boolean
 
   def add_to_navigation
-    append_to_file "app/views/shared/_nav_links.html.erb" do
+    append_to_file "app/views/shared/_sidebar_links.html.erb" do
       <<-ERB
 <%= active_link_to #{index_helper(type: :path)}, class_active: "bg-gray-300", class: "w-full items-center btn btn-transparent" do %>
   <div>
