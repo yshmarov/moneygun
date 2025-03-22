@@ -25,9 +25,10 @@
   <%# auth %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
-      <details class="relative">
-        <summary class="inline-block font-semibold text-sm cursor-pointer">
+      <details class="relative group">
+        <summary class="inline-flex items-center gap-1 font-semibold text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
           <%= current_user.email %>
+          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
         <div class="absolute right-0 mt-1 bg-white border rounded-lg p-1">
           <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-transparent block w-full text-left" %>
