@@ -1,0 +1,3 @@
+<%= render PageComponent.new(title: "Billing") do %>
+  <%= button_to "Manage Subscription", organization_subscriptions_billing_portal_path(current_organization), data: { turbo: "false" }, class: "btn btn-primary" %>
+<% end %>

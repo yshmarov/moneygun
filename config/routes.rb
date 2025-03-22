@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     resources :memberships, module: :organizations, except: %i[show]
     resource :transfer, module: :organizations, only: %i[show update]
     resources :inboxes, module: :organizations
+    scope module: :organizations do
+      get "subscriptions", to: "subscriptions#index"
+      get "subscriptions/checkout", to: "subscriptions#checkout"
+      post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
+    end
   end
 
   get "pricing", to: "static#pricing"
@@ -23,4 +28,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "static#index"
+
+  # TODO: ADMIN ONLY
+  mount Profitable::Engine => "/profitable"
 end

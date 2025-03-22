@@ -53,6 +53,14 @@
 
   <% if current_organization %>
     <div class="border-t border-gray-300 space-y-2 p-2">
+      <%= active_link_to organization_subscriptions_path(current_organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
+        <div>
+          <%= inline_svg_tag "svg/credit-card.svg", class: "size-5" %>
+        </div>
+        <div>
+          Billing
+        </div>
+      <% end %>
       <%= active_link_to organization_path(current_organization), active: :exclusive, class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
         <div>
           <%= inline_svg_tag "svg/cog-6-tooth.svg", class: "size-5" %>
