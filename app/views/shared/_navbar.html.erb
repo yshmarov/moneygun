@@ -26,7 +26,7 @@
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <details class="relative group" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-        <summary class="inline-flex items-center gap-1 font-semibold text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
+        <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
           <%= current_user.email %>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
