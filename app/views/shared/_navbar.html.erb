@@ -1,4 +1,4 @@
-<nav class="flex justify-between p-2">
+<nav class="flex justify-between px-4 py-2">
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <% if current_organization %>
@@ -22,10 +22,15 @@
   <%# auth %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
-      <%= active_link_to current_user.email, edit_user_registration_path, class_active: "bg-gray-300", class: "btn btn-transparent" %>
-      <div class="inline-flex">
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-transparent" %>
-      </div>
+      <details class="relative">
+        <summary class="inline-block font-semibold text-sm cursor-pointer">
+          <%= current_user.email %>
+        </summary>
+        <div class="absolute right-0 mt-1 bg-white border rounded-lg p-1">
+          <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-transparent block w-full text-left" %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-transparent block w-full text-left" %>
+        </div>
+      </details>
     <% else %>
       <%= active_link_to "Log in", new_user_session_path, class_active: "bg-gray-300", class: "btn btn-transparent" %>
       <%= active_link_to "Register", new_user_registration_path, class_active: "bg-gray-300", class: "btn btn-transparent" %>
