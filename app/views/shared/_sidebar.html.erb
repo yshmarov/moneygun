@@ -59,6 +59,7 @@
         </div>
         <div>
           Billing
+          <%= subscription_status_label(current_organization) %>
         </div>
       <% end %>
       <%= active_link_to organization_path(current_organization), active: :exclusive, class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>

@@ -1,14 +1,8 @@
 <%= render PageComponent.new(title: "Features") do %>
   <dl class="space-y-2">
-    <% Rails.application.config_for(:settings)[:pro_features].each do |feature| %>
-      <% key, value = feature.first %>
-      <div class="flex flex-col">
-        <dt class="font-semibold">
-          <%= key %>
-        </dt>
-        <dd class="italic text-sm">
-          <%= sanitize(value, tags: %w[a], attributes: %w[href style]) %>
-        </dd>
+    <% Rails.application.config_for(:settings)[:pro_features].map do |feature| %>
+      <div>
+        <%= feature %>
       </div>
     <% end %>
   </dl>
