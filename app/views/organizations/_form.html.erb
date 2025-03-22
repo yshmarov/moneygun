@@ -3,7 +3,14 @@
 
   <div class="">
     <%= form.label :name %>
-    <%= form.text_field :name, class: "form-input", autofocus: true, required: true %>
+    <%= form.text_field :name,
+                        class: "form-input",
+                        autocomplete: "off",
+                        autocorrect: "off",
+                        autocapitalize: "off",
+                        spellcheck: "false",
+                        autofocus: !turbo_native_app?,
+                        required: true %>
   </div>
 
   <div class="">
