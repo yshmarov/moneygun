@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: "Features") do %>
+<%= render PageComponent.new(title: "Features", content_container: true) do %>
   <dl class="space-y-2">
     <% Rails.application.config_for(:settings)[:pro_features].map do |feature| %>
       <div>

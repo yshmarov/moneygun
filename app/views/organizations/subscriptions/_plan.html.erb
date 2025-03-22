@@ -1,53 +1,55 @@
-<% if subscription.on_grace_period? %>
-  <dl class="space-y-2">
-    <div class="flex justify-between">
-      <dt class="font-semibold">
-        <%= t("users.show.plan.subscription_cancelled") %>
-        <%= subscription_status_label(current_organization) %>
-      </dt>
-      <dd>
-        <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>
-        /<%= plan_for(subscription)[:interval] %>
-      </dd>
-    </div>
+<%= render PageComponent.new(title: "Billing", content_container: true) do %>
+  <% if subscription.on_grace_period? %>
+    <dl class="space-y-2">
+      <div class="flex justify-between">
+        <dt class="font-semibold">
+          <%= t("users.show.plan.subscription_cancelled") %>
+          <%= subscription_status_label(current_organization) %>
+        </dt>
+        <dd>
+          <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>
+          /<%= plan_for(subscription)[:interval] %>
+        </dd>
+      </div>
 
-    <div class="flex justify-between">
-      <dt class="font-semibold">
-        <%= t("users.show.plan.you_will_lose_access_on") %>:
-      </dt>
-      <dd>
-        <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
-      </dd>
-    </div>
-  </dl>
+      <div class="flex justify-between">
+        <dt class="font-semibold">
+          <%= t("users.show.plan.you_will_lose_access_on") %>:
+        </dt>
+        <dd>
+          <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
+        </dd>
+      </div>
+    </dl>
 
-  <div class="inline-flex">
-    <%= button_to t("users.show.plan.resume_subscription"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: "false" }, class: "btn btn-primary" %>
-  </div>
-<% elsif subscription.active? %>
-  <dl class="space-y-2">
-    <div class="flex justify-between">
-      <dt class="font-semibold">
-        <%= t("users.show.plan.subscription_active") %>
-        <%= subscription_status_label(current_organization) %>
-      </dt>
-      <dd>
-        <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>
-        /<%= plan_for(subscription)[:interval] %>
-      </dd>
+    <div class="inline-flex">
+      <%= button_to t("users.show.plan.resume_subscription"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: "false" }, class: "btn btn-primary" %>
     </div>
+  <% elsif subscription.active? %>
+    <dl class="space-y-2">
+      <div class="flex justify-between">
+        <dt class="font-semibold">
+          <%= t("users.show.plan.subscription_active") %>
+          <%= subscription_status_label(current_organization) %>
+        </dt>
+        <dd>
+          <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>
+          /<%= plan_for(subscription)[:interval] %>
+        </dd>
+      </div>
 
-    <div class="flex justify-between">
-      <dt class="font-semibold">
-        <%= t("users.show.plan.next_billing_date") %>:
-      </dt>
-      <dd>
-        <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
-      </dd>
+      <div class="flex justify-between">
+        <dt class="font-semibold">
+          <%= t("users.show.plan.next_billing_date") %>:
+        </dt>
+        <dd>
+          <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="inline-flex">
+      <%= button_to t("users.show.plan.manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
     </div>
-  </dl>
-
-  <div class="inline-flex">
-    <%= button_to t("users.show.plan.manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
-  </div>
+  <% end %>
 <% end %>
