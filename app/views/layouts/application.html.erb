@@ -18,8 +18,11 @@
       <main class="flex-grow p-2 lg:p-4">
         <%= yield %>
       </main>
-      <%= render "shared/footer_nav" %>
-      <%= render "shared/footer" unless signed_in? %>
+      <% if signed_in? %>
+        <%= render "shared/footer_nav" %>
+      <% else %>
+        <%= render "shared/footer" %>
+      <% end %>
     </div>
   </body>
 </html>
