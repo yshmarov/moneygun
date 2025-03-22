@@ -1,16 +1,4 @@
-<%= active_link_to organization_dashboard_path(@organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-  <div>
-    <%= inline_svg_tag "svg/home.svg", class: "size-5" %>
-  </div>
-  <div>
-    Dashboard
-  </div>
-<% end %>
-<%= active_link_to organization_inboxes_path(@organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-  <div>
-    <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
-  </div>
-  <div>
-    Inboxes
-  </div>
-<% end %>
+<%= nav_link organization_dashboard_path(@organization), "Dashboard", "svg/home.svg" %>
+<%= nav_link organization_inboxes_path(@organization), "Inboxes", "svg/question-mark-circle.svg" %>
+<%= nav_link organization_paywalled_page_path(@organization), "Paywalled", "🔐", target: "_blank" %>
+
