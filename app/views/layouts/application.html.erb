@@ -16,6 +16,7 @@
         <%= render "shared/flash" %>
       </div>
       <main class="flex-grow p-4 lg:p-6">
+        <%= render BreadcrumbsComponent.new(current_path: request.path) if current_organization %>
         <%= yield %>
       </main>
       <% if signed_in? %>
