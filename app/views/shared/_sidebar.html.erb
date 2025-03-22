@@ -32,7 +32,7 @@
           </div>
         <% end %>
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
-          <%= active_link_to organization_path(organization), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
+          <%= active_link_to organization_dashboard_path(organization), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
             <div>
               <%= organization_avatar(organization) %>
             </div>
