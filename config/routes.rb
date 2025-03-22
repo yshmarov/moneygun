@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   resources :organizations do
     get "dashboard", to: "organizations/dashboard#index"
     get "paywalled_page", to: "organizations/dashboard#paywalled_page"
-    resources :memberships, module: :organizations, except: %i[show]
-    resource :transfer, module: :organizations, only: %i[show update]
-    resources :inboxes, module: :organizations
     scope module: :organizations do
+      resources :memberships, except: %i[show]
+      resource :transfer, only: %i[show update]
+      resources :inboxes
       get "subscriptions", to: "subscriptions#index"
       get "subscriptions/checkout", to: "subscriptions#checkout"
       post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
