@@ -1,4 +1,4 @@
-<aside class="hidden lg:flex flex-col justify-between bg-slate-200 w-52">
+<aside class="hidden lg:flex flex-col justify-between border-r border-slate-300 w-52">
   <%# Widescreen sidebar top %>
   <nav class="flex flex-col">
     <details class="">
@@ -18,7 +18,7 @@
           </div>
         <% end %>
       </summary>
-      <div class="space-y-2 p-2 border-b-2 border-slate-300">
+      <div class="space-y-2 p-2 border-b border-slate-300">
         <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
           <div>
             <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
