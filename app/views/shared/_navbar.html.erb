@@ -1,21 +1,19 @@
 <nav class="flex justify-between px-4 py-2">
   <div class="flex items-center gap-2">
     <% if signed_in? %>
-      <%# Mobile menu button %>
-      <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer">
+      <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
         <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
-      </button>
-
-      <% if current_organization %>
-        <%= link_to organization_path(@organization), class: "inline-flex items-center gap-2 no-underline" do %>
-          <div>
-            <%= organization_avatar(@organization) %>
-          </div>
-          <div class="truncate">
-            <%= @organization.name %>
+        <% if current_organization %>
+          <div class="inline-flex items-center gap-2 no-underline">
+            <div>
+              <%= organization_avatar(@organization) %>
+            </div>
+            <div class="truncate">
+              <%= @organization.name %>
+            </div>
           </div>
         <% end %>
-      <% end %>
+      </button>
     <% else %>
       <%= link_to root_path, class: "no-underline" do %>
         <%= image_tag "logo.png", class: "size-8" %>
