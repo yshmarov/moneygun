@@ -19,7 +19,14 @@
         <% end %>
       </summary>
       <div class="space-y-2 p-2 border-b-2 border-slate-300">
-        <%= active_link_to "All Organizations", organizations_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent" %>
+        <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
+          <div>
+            <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
+          </div>
+          <div>
+            All Organizations
+          </div>
+        <% end %>
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
           <%= active_link_to organization_path(organization), class_active: "bg-gray-300", class: "w-full btn btn-transparent flex items-center" do %>
             <div>
