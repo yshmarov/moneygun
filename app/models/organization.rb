@@ -8,6 +8,7 @@ class Organization < ApplicationRecord
   has_many :inboxes, dependent: :destroy
 
   validates :name, presence: true
+  validates :name, length: { maximum: 20 }
 
   has_one_attached :logo
 end
