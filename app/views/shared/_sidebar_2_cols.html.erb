@@ -1,4 +1,4 @@
-<aside class="hidden lg:flex flex-col justify-between bg-slate-300 max-h-screen overflow-y-auto">
+<aside class="hidden lg:flex flex-col justify-between bg-gray-300 max-h-screen overflow-y-auto">
   <%# Widescreen sidebar top %>
   <%# change the nav flex-col/flex-row %>
   <nav class="flex flex-row flex-grow">
@@ -7,12 +7,12 @@
         <%= image_tag "logo.png", alt: "logo", class: "max-h-10 max-w-10" %>
       <% end %>
 
-      <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-slate-400", class: "aspect-square flex justify-center items-center text-sm rounded-md border-4 border-transparent hover:border-slate-400 hover:bg-gray-600" do %>
+      <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-400", class: "aspect-square flex justify-center items-center text-sm rounded-md border-4 border-transparent hover:border-gray-400 hover:bg-gray-600" do %>
         <%= inline_svg_tag "svg/list-bullet.svg", class: "size-6" %>
       <% end %>
       <div class="flex flex-col items-center space-y-2">
         <% current_user.organizations.each do |organization| %>
-          <%= active_link_to organization_path(organization), class_active: "bg-slate-400", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-slate-400 hover:bg-gray-600" do %>
+          <%= active_link_to organization_path(organization), class_active: "bg-gray-400", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-gray-400 hover:bg-gray-600" do %>
             <%= organization_avatar(organization) %>
           <% end %>
         <% end %>
@@ -20,14 +20,14 @@
     </div>
 
     <% if current_organization %>
-      <div class="flex flex-col max-h-screen overflow-y-auto p-2 space-y-2 bg-slate-200">
+      <div class="flex flex-col max-h-screen overflow-y-auto p-2 space-y-2 bg-gray-200">
         <%= render "shared/sidebar_links" %>
       </div>
     <% end %>
   </nav>
 
   <%# New section at the bottom %>
-  <div class="sticky bottom-0 bg-slate-500 text-white hidden">
+  <div class="sticky bottom-0 bg-gray-500 text-white hidden">
     <p>Bottom Content</p>
   </div>
 </aside>
