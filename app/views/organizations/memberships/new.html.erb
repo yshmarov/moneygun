@@ -4,7 +4,15 @@
 
     <div class="">
       <%= form.label :email %>
-      <%= form.email_field :email, placeholder: "hello@superails.com", class: "form-input", autofocus: true, required: true %>
+      <%= form.email_field :email,
+                           placeholder: "hello@superails.com",
+                           class: "form-input",
+                           autocomplete: "off",
+                           autocorrect: "off",
+                           autocapitalize: "off",
+                           spellcheck: "false",
+                           autofocus: !turbo_native_app?,
+                           required: true %>
     </div>
 
     <div class="">
