@@ -4,7 +4,7 @@
     <%= render "layouts/head" %>
   </head>
 
-  <body class="flex h-screen">
+  <body class="flex h-screen" data-controller="mobile-sidebar">
     <%= render "shared/sidebar" if signed_in? %>
     <%#= render "shared/sidebar_2_cols" if signed_in? %>
 
