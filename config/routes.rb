@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :organizations do
     get "dashboard", to: "organizations/dashboard#index"
+    get "paywalled_page", to: "organizations/dashboard#paywalled_page"
     resources :memberships, module: :organizations, except: %i[show]
     resource :transfer, module: :organizations, only: %i[show update]
     resources :inboxes, module: :organizations
