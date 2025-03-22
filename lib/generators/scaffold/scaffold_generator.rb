@@ -6,7 +6,7 @@ class ScaffoldGenerator < Rails::Generators::NamedBase
   def add_to_navigation
     append_to_file "app/views/shared/_sidebar_links.html.erb" do
       <<-ERB
-<%= active_link_to #{index_helper(type: :path)}, class_active: "bg-gray-300", class: "w-full items-center btn btn-transparent" do %>
+<%= active_link_to #{index_helper(type: :path)}, class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
   <div>
     <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
   </div>

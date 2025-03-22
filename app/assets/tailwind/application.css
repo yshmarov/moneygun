@@ -32,11 +32,11 @@
 }
 
 .btn-secondary {
-  @apply bg-gray-300 text-gray-800 focus:bg-gray-400 hover:bg-gray-400;
+  @apply bg-gray-200 text-gray-800 focus:bg-gray-400 hover:bg-gray-400;
 }
 
 .btn-transparent {
-  @apply text-gray-500 focus:text-gray-700 hover:text-gray-700 hover:bg-gray-300;
+  @apply text-gray-500 focus:text-gray-700 hover:text-gray-700 hover:bg-gray-200;
 }
 
 .btn-danger {
