@@ -1,4 +1,4 @@
-<nav class="flex justify-between p-4 border-b bg-white">
+<nav class="flex justify-between p-2">
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <% if current_organization %>
@@ -11,6 +11,11 @@
           </div>
         <% end %>
       <% end %>
+    <% else %>
+      <%= link_to root_path, class: "no-underline" do %>
+        <%= image_tag "logo.png", class: "size-8" %>
+      <% end %>
+      <%= active_link_to "Pricing", pricing_path, class_active: "bg-gray-300", class: "btn btn-transparent" %>
     <% end %>
   </div>
 

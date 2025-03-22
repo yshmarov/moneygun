@@ -1,10 +1,6 @@
 <aside class="hidden lg:flex flex-col justify-between bg-slate-200 w-52">
   <%# Widescreen sidebar top %>
   <nav class="flex flex-col">
-    <%= link_to root_path, class: "p-4" do %>
-      <%= image_tag "logo.png", alt: "logo", class: "h-10 w-auto" %>
-    <% end %>
-
     <details class="">
       <summary class="hover:bg-gray-300 py-2 cursor-pointer">
         <% if current_organization %>
