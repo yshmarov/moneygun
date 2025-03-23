@@ -9,6 +9,7 @@ class Membership < ApplicationRecord
 
   validates :role, presence: true
   validate :cannot_change_role_if_only_admin, on: :update
+  validate :cannot_demote_owner_from_admin, on: :update
 
   def try_destroy
     return false if organization.memberships.count == 1
@@ -24,6 +25,12 @@ class Membership < ApplicationRecord
 
     if role_changed? && role_was == "admin"
       errors.add(:base, "Role cannot be changed because this is the only admin.")
+    end
+  end
+
+  def cannot_demote_owner_from_admin
+    if role_changed? && role_was == "admin" && user_id == organization.owner_id
+      errors.add(:base, "Organization owner cannot be demoted from admin role.")
     end
   end
 end
