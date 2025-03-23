@@ -1,15 +1,12 @@
 class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_billing_enabled
   before_action :require_current_organization_admin
+  before_action :sync_subscriptions, only: [ :index, :checkout ]
 
   def index
-    @organization.set_payment_processor :stripe
-    # @organization.payment_processor.sync_subscriptions(status: "all")
   end
 
   def checkout
-    @organization.set_payment_processor :stripe
-    @organization.payment_processor.sync_subscriptions(status: "all")
     return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
 
     price = Stripe::Price.retrieve(params[:price_id])
@@ -42,6 +39,11 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   end
 
   private
+
+  def sync_subscriptions
+    @organization.set_payment_processor :stripe
+    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
+  end
 
   def require_billing_enabled
     redirect_to organization_url(@organization) unless Rails.application.credentials.dig(:stripe, :private_key).present?

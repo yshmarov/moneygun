@@ -12,6 +12,17 @@ class Organizations::SubscriptionsControllerTest < ActionDispatch::IntegrationTe
     assert_response :success
   end
 
+  test "#index can be accessed only by current organization admins" do
+    user = users(:two)
+    @organization.memberships.create!(user:, role: "member")
+    sign_in user
+    get organization_dashboard_url(@organization)
+    assert_response :success
+
+    get organization_subscriptions_url(@organization)
+    assert_response :redirect
+  end
+
   test "#checkout" do
     skip "will work if you have valid stripe API keys"
     get organization_subscriptions_checkout_path(@organization, price_id: "price_1NmG52GHcaLYld8Ifu7SVe6y")
