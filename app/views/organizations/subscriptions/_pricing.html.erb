@@ -26,19 +26,11 @@
 							<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
 								<%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
 							<% else %>
-								<%= button_to organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" do %>
-									<div>
-										<%= t(".manage_billing") %>
-									</div>
-								<% end %>
+								<%= button_to t(".manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
 							<% end %>
 
 						<% else %>
-							<%= link_to organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" do %>
-								<div>
-									<%= t(".subscribe") %>
-								</div>
-							<% end %>
+							<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
 						<% end %>
 					</div>
 				</div>
