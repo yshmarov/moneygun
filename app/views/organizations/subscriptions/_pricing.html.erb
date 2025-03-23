@@ -22,16 +22,19 @@
 					</div>
 
 					<div class="">
-						<% if @organization.payment_processor.subscribed? %>
-							<%# this is currently not accessible, since /_pricing is rendered only if there is no subscription %>
-							<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
-								<%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
-							<% else %>
-								<%= button_to t(".manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
-							<% end %>
+						<% if user_signed_in? && @organization.present? %>
+							<% if @organization.payment_processor.subscribed? %>
+								<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
+									<%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
+								<% else %>
+									<%= button_to t(".manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
+								<% end %>
 
+							<% else %>
+								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
+							<% end %>
 						<% else %>
-							<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
+							<%= link_to t(".subscribe"), new_user_registration_path, class: "btn btn-primary" %>
 						<% end %>
 					</div>
 				</div>
