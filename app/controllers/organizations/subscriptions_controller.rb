@@ -4,12 +4,12 @@ class Organizations::SubscriptionsController < Organizations::BaseController
 
   def index
     # @organization.set_payment_processor :stripe
-    # @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
+    # @organization.payment_processor.sync_subscriptions(status: "all")
   end
 
   def checkout
     @organization.set_payment_processor :stripe
-    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
+    @organization.payment_processor.sync_subscriptions(status: "all")
     return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
 
     price = Stripe::Price.retrieve(params[:price_id])
