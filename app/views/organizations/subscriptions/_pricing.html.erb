@@ -11,7 +11,7 @@
 				</div>
 
 				<div class="p-4 flex flex-row lg:flex-col gap-8 items-center justify-between">
-					<div>
+					<div class="inline-flex gap-0 items-baseline">
 						<span class="text-5xl font-semibold">
 							<%= number_to_currency (plan[:unit_amount].to_f / 100), unit: currency_symbol(plan[:currency]), strip_insignificant_zeros: true %>
 						</span>
