@@ -1,5 +1,9 @@
-# Rails.application.config_for(:settings).dig(:site, :title)
+# Rails.application.config_for(:settings).dig(:site, :name)
 shared:
+  site:
+    name: Moneygun
+    email: hello@superails.com
+    address: Warsaw, Poland, 02-691
   pro_features:
     - ☑️ Foo
     - ☑️ Bar
