@@ -6,6 +6,6 @@
 
   <div>
     &copy; <%= Time.now.year %>
-    Myapp. All rights reserved.
+    <%= Rails.application.config_for(:settings).dig(:site, :name) %>. All rights reserved.
   </div>
 </footer>
