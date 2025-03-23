@@ -3,7 +3,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_current_organization_admin
 
   def index
-    # @organization.set_payment_processor :stripe
+    @organization.set_payment_processor :stripe
     # @organization.payment_processor.sync_subscriptions(status: "all")
   end
 
