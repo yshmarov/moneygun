@@ -1,10 +1,12 @@
-<%= render PageComponent.new(title: "Pricing", content_container: false) do %>
+<%= render PageComponent.new(title: "Pricing") do %>
 	<div class="grid lg:grid-cols-2 gap-8">
 		<% Rails.application.config_for(:settings)[:plans].each do |plan| %>
-			<div class="shadow-sm shadow-slate-400 hover:shadow-white rounded-xl text-center flex flex-col">
+			<div class="shadow border rounded-xl text-center flex flex-col">
 				<div class="leading-none grow">
 					<% if plan[:interval].to_s == "year" %>
-						Save yearly
+						<span class="inline-block bg-green-100 text-green-700 text-xs font-medium px-2.5 py-0.5 rounded-full mt-2">
+							<%= t(".save_yearly") %>
+						</span>
 					<% end %>
 				</div>
 

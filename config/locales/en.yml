@@ -33,3 +33,5 @@ en:
     subscriptions:
       features:
         title: "Features"
+      pricing:
+        save_yearly: "Best value"
