@@ -1,4 +1,4 @@
-# Rails 8 Multitenancy Boilerplate
+# Rails 8 SaaS Multitenancy Boilerplate
 
 ### Core features
 
@@ -6,6 +6,7 @@
 - ✅ Create Organizations (aka Teams, Accounts, Workspaces, Tenants)
 - ✅ Invite Users to Organization & assign role (admin, member).
 - ✅ Organization admin can manage organization & members
+- ✅ **Organization-level subscriptions with Stripe and gem "pay"**
 - ✅ Authorization
 - ✅ Complete test coverage
 - ✅ Basic UI design
