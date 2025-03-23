@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module PlanHelper
-  def subscription_status_label(user, class_list: nil)
-    return "🚫" unless user.payment_processor.subscribed?
-    return "🚨" if user.payment_processor.subscription.cancelled?
+  def subscription_status_label(organization, class_list: nil)
+    return "🔴" unless organization.payment_processor.subscribed?
+    return "🟠" if organization.payment_processor.subscription.cancelled?
 
-    "✅"
+    "🟢"
   end
 
   CURRENCY_SYMBOLS = {
