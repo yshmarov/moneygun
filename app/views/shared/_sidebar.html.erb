@@ -24,14 +24,7 @@
       </summary>
       <div class="space-y-2 p-2 border-b border-gray-300">
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
-          <%= active_link_to organization_dashboard_path(organization), class_active: "bg-gray-200", class: "w-full btn btn-transparent flex items-center" do %>
-            <div>
-              <%= organization_avatar(organization) %>
-            </div>
-            <div class="truncate">
-              <%= organization.name %>
-            </div>
-          <% end %>
+          <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
         <% end %>
         <%= nav_link "All Organizations", organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
@@ -47,8 +40,8 @@
   <% if current_organization %>
     <div class="border-t border-gray-300 space-y-2 p-2">
       <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-      <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit", "show"]] %>
       <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
+      <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit", "show"]] %>
     </div>
   <% end %>
 </aside>
