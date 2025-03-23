@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "static#index"
 
-  # TODO: ADMIN ONLY
-  mount Profitable::Engine => "/profitable"
+  authenticate :user, ->(user) { user.admin? } do
+    mount Profitable::Engine => "/profitable"
+  end
 end
