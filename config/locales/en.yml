@@ -29,3 +29,7 @@
 
 en:
   hello: "Hello world"
+  organizations:
+    subscriptions:
+      features:
+        title: "Features"
