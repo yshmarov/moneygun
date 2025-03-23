@@ -34,4 +34,17 @@ en:
       features:
         title: "Features"
       pricing:
-        save_yearly: "Best value"
+        title: Pricing
+        save_yearly: Best value
+        subscribe: Get started
+        current_plan: Current plan
+        cancel_security: '🛡️ Cancel anytime. Secured by Stripe.'
+      plan:
+        features: Current plan features
+        manage_billing: Manage billing
+        next_billing_date: Next billing date
+        resume_subscription: Resume subscription
+        subscribe: Subscribe
+        subscription_active: Subscription active
+        subscription_cancelled: Subscription cancelled
+        you_will_lose_access_on: You will lose access on
