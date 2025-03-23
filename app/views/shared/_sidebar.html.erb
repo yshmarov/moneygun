@@ -33,7 +33,7 @@
             </div>
           <% end %>
         <% end %>
-        <%= nav_link organizations_path, "All Organizations", "svg/rocket-launch.svg", active: :exclusive %>
+        <%= nav_link "All Organizations", organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
@@ -46,9 +46,9 @@
 
   <% if current_organization %>
     <div class="border-t border-gray-300 space-y-2 p-2">
-      <%= nav_link organization_subscriptions_path(current_organization), "Billing #{subscription_status_label(current_organization)}", "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-      <%= nav_link organization_path(current_organization), "Settings", "svg/cog-6-tooth.svg", active: [["organizations"], ["edit", "show"]] %>
-      <%= nav_link organization_memberships_path(current_organization), "Users", "svg/user-group.svg" %>
+      <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+      <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit", "show"]] %>
+      <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
     </div>
   <% end %>
 </aside>
