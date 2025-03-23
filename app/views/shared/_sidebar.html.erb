@@ -2,7 +2,7 @@
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
 <%# Sidebar content %>
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r border-gray-300 w-52 bg-white h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r border-gray-300 w-52 bg-white h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
     <details class="group">
       <summary class="btn-transparent font-medium text-sm p-2 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-gray-100">
@@ -23,24 +23,10 @@
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
       </summary>
       <div class="space-y-2 p-2 border-b border-gray-300">
-        <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-200", class: "w-full btn btn-transparent flex items-center" do %>
-          <div>
-            <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-5" %>
-          </div>
-          <div>
-            All Organizations
-          </div>
-        <% end %>
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
-          <%= active_link_to organization_dashboard_path(organization), class_active: "bg-gray-200", class: "w-full btn btn-transparent flex items-center" do %>
-            <div>
-              <%= organization_avatar(organization) %>
-            </div>
-            <div class="truncate">
-              <%= organization.name %>
-            </div>
-          <% end %>
+          <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
         <% end %>
+        <%= nav_link "All Organizations", organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
@@ -52,22 +38,11 @@
   </div>
 
   <% if current_organization %>
-    <div class="border-t border-gray-300 space-y-2 p-2">
-      <%= active_link_to organization_path(current_organization), active: :exclusive, class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-        <div>
-          <%= inline_svg_tag "svg/cog-6-tooth.svg", class: "size-5" %>
-        </div>
-        <div>
-          Settings
-        </div>
-      <% end %>
-      <%= active_link_to organization_memberships_path(@organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-        <div>
-          <%= inline_svg_tag "svg/user-group.svg", class: "size-5" %>
-        </div>
-        <div>
-          Users
-        </div>
+    <div class="border-t border-gray-300 gap-y-2 p-2">
+      <% if @current_membership.admin? %>
+        <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+        <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
+        <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
       <% end %>
     </div>
   <% end %>

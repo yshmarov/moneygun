@@ -3,9 +3,15 @@ Rails.application.routes.draw do
 
   resources :organizations do
     get "dashboard", to: "organizations/dashboard#index"
-    resources :memberships, module: :organizations, except: %i[show]
-    resource :transfer, module: :organizations, only: %i[show update]
-    resources :inboxes, module: :organizations
+    get "paywalled_page", to: "organizations/dashboard#paywalled_page"
+    scope module: :organizations do
+      resources :memberships, except: %i[show]
+      resource :transfer, only: %i[show update]
+      resources :inboxes
+      get "subscriptions", to: "subscriptions#index"
+      get "subscriptions/checkout", to: "subscriptions#checkout"
+      post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
+    end
   end
 
   get "pricing", to: "static#pricing"
@@ -23,4 +29,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "static#index"
+
+  authenticate :user, ->(user) { user.admin? } do
+    mount Profitable::Engine => "/profitable"
+  end
 end

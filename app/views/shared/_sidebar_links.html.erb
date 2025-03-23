@@ -1,16 +1,3 @@
-<%= active_link_to organization_dashboard_path(@organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-  <div>
-    <%= inline_svg_tag "svg/home.svg", class: "size-5" %>
-  </div>
-  <div>
-    Dashboard
-  </div>
-<% end %>
-<%= active_link_to organization_inboxes_path(@organization), class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent" do %>
-  <div>
-    <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
-  </div>
-  <div>
-    Inboxes
-  </div>
-<% end %>
+<%= nav_link "Dashboard", organization_dashboard_path(@organization), icon: "svg/home.svg" %>
+<%= nav_link "Paywalled page", organization_paywalled_page_path(@organization), icon: "🔐", target: "_blank" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+<%= nav_link "Inboxes", organization_inboxes_path(@organization), icon: "svg/question-mark-circle.svg" %>
