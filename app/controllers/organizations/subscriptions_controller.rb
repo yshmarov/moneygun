@@ -1,7 +1,9 @@
 class Organizations::SubscriptionsController < Organizations::BaseController
+  before_action :ensure_billing_enabled
+
   def index
-    @organization.set_payment_processor :stripe
-    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
+    # @organization.set_payment_processor :stripe
+    # @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
   end
 
   def checkout
@@ -35,5 +37,11 @@ class Organizations::SubscriptionsController < Organizations::BaseController
       return_url: organization_subscriptions_url(@organization)
     )
     redirect_to @portal_session.url, allow_other_host: true, status: :see_other
+  end
+
+  private
+
+  def ensure_billing_enabled
+    redirect_to organization_url(@organization) unless Rails.application.credentials.dig(:stripe, :private_key).present?
   end
 end
