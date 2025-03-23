@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PlanHelper
+module SubscriptionHelper
   def subscription_status_label(organization, class_list: nil)
     return "🔴" unless organization.payment_processor.subscribed?
     return "🟠" if organization.payment_processor.subscription.cancelled?
