@@ -170,13 +170,15 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
 
-    # destroys admin if there is another admin
+    # does not destroy owner even if there is another admin
     second_membership.admin!
-    assert_difference("Membership.count", -1) do
+    assert_no_difference("Membership.count") do
       delete organization_membership_url(@organization, @membership)
     end
-    assert_redirected_to organizations_path
-    follow_redirect!
-    assert_response :success
+
+    # destroys non-owner admin if there is another admin
+    assert_difference("Membership.count", -1) do
+      delete organization_membership_url(@organization, second_membership)
+    end
   end
 end

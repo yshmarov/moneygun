@@ -14,6 +14,7 @@ class Membership < ApplicationRecord
   def try_destroy
     return false if organization.memberships.count == 1
     return false if role == "admin" && organization.memberships.where(role: "admin").count == 1
+    return false if user_id == organization.owner_id
 
     destroy
   end
