@@ -48,4 +48,4 @@ en:
         subscribe: Subscribe
         subscription_active: Subscription active
         subscription_cancelled: Subscription cancelled
-        you_will_lose_access_on: You will lose access on
+        you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
