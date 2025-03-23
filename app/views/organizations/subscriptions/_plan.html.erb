@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: "Billing", content_container: true) do %>
+<%= render PageComponent.new(title: t(".title"), content_container: true) do %>
   <% if subscription.on_grace_period? %>
     <dl class="space-y-2">
       <div class="flex justify-between">
@@ -13,7 +13,7 @@
 
       <div class="flex justify-between">
         <dt class="font-semibold">
-          <%= t(".you_will_lose_access_on") %>:
+          <%= t(".you_will_lose_access_on") %>
         </dt>
         <dd>
           <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
@@ -36,7 +36,7 @@
 
       <div class="flex justify-between">
         <dt class="font-semibold">
-          <%= t(".next_billing_date") %>:
+          <%= t(".next_billing_date") %>
         </dt>
         <dd>
           <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
