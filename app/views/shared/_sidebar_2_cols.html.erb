@@ -1,4 +1,7 @@
-<aside class="hidden lg:flex flex-col justify-between max-h-screen overflow-y-auto">
+<%# Mobile sidebar backdrop %>
+<div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
+
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r border-gray-300 bg-white h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <%# Widescreen sidebar top %>
   <%# change the nav flex-col/flex-row %>
   <nav class="flex flex-row flex-grow">
@@ -20,7 +23,7 @@
     </div>
 
     <% if current_organization %>
-      <div class="flex flex-col max-h-screen overflow-y-auto p-2 space-y-2 border-r">
+      <div class="flex flex-col max-h-screen overflow-y-auto p-2 space-y-2">
         <%= render "shared/sidebar_links" %>
       </div>
     <% end %>
