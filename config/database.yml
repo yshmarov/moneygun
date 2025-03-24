@@ -79,7 +79,20 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: moneygun_production
-  username: moneygun
-  password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    database: moneygun_production
+    username: moneygun
+    password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: moneygun_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: moneygun_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: moneygun_production_cable
+    migrations_paths: db/cable_migrate
