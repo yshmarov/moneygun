@@ -38,7 +38,7 @@
   </div>
 
   <% if current_organization %>
-    <div class="border-t border-gray-300 gap-y-2 p-2">
+    <div class="border-t space-y-2 p-2">
       <% if @current_membership.admin? %>
         <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
         <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
