@@ -22,7 +22,7 @@ class Organization < ApplicationRecord
     {
       metadata: {
         pay_customer_id: pay_customer.id,
-        user_id: id
+        organization_id: id
       }
     }
   end

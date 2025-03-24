@@ -8,13 +8,13 @@ shared:
     - ☑️ Foo
     - ☑️ Bar
   plans:
-    - id: price_1R5YtwLRcgxgTmfQgItFN1b0
+    - id: price_1R68bjLRcgxgTmfQL2kBW5pX
       unit_amount: 9900
-      currency: PLN
+      currency: USD
       interval: month
-    - id: price_1R5YuELRcgxgTmfQyxBxCAlr
+    - id: price_1R68c1LRcgxgTmfQijgGMDfT
       unit_amount: 99900
-      currency: PLN
+      currency: USD
       interval: year
 production:
   plans:
