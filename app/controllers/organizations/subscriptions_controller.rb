@@ -1,7 +1,7 @@
 class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_billing_enabled
   before_action :require_current_organization_admin
-  before_action :sync_subscriptions, only: [ :index, :checkout ]
+  before_action :sync_subscriptions, only: [ :checkout ]
 
   def index
   end

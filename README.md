@@ -41,7 +41,7 @@ resources :organizations do
 end
 ```
 
-I [tried using `OrganizationMiddlewhare`](https://github.com/yshmarov/askvote/pull/24/files#diff-44009a2f9efdafcc7cd44e1cb5e03151a74aa760c54af5c16e2cc7095ff3b0ffR7) like JumpstartPro does, but it felt too much of an  **unconventional** approach.
+I [tried using `OrganizationMiddlewhare`](https://github.com/yshmarov/moneygun/pull/24/files#diff-44009a2f9efdafcc7cd44e1cb5e03151a74aa760c54af5c16e2cc7095ff3b0ffR7) like JumpstartPro does, but it felt too much of an **unconventional** approach.
 
 ### Design inspiration
 
@@ -57,22 +57,26 @@ For example in Trello, you can have 2 unrelated boards open in 2 tabs.
 ### Getting started
 
 1. Clone the template repository:
+
 ```
 git clone git@github.com:yshmarov/moneygun.git your_new_project_name
 ```
 
 2. Enter the project directory:
+
 ```
 cd your_new_project_name
 ```
 
 3. Run the configuration and setup scripts:
+
 ```
 bundle install
 rails db:create db:migrate
 ```
 
 4. Start your application:
+
 ```
 bin/dev
 ```
@@ -105,7 +109,7 @@ I recommend scoping downstream models to `organization` too. This way you can qu
 
 ### Generators
 
-`Inbox` is an example of a well-integrated **resource** scoped to an `organization`. With pundit authorization and tests. Use it as an inspiration.
+`Project` is an example of a well-integrated **resource** scoped to an `organization`. With pundit authorization and tests. Use it as an inspiration.
 
 To quickly generate nested resources you can use [gem nested_scaffold](https://github.com/yshmarov/nested_scaffold)
 

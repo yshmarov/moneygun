@@ -1,4 +1,4 @@
-class InboxPolicy < Organization::BasePolicy
+class ProjectPolicy < Organization::BasePolicy
   def index?
     membership.admin?
   end

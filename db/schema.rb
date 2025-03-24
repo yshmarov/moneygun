@@ -42,15 +42,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_200707) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "inboxes", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "organization_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "organization_id"], name: "index_inboxes_on_name_and_organization_id", unique: true
-    t.index ["organization_id"], name: "index_inboxes_on_organization_id"
-  end
-
   create_table "memberships", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "user_id", null: false
@@ -165,6 +156,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_200707) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "organization_id"], name: "index_projects_on_name_and_organization_id", unique: true
+    t.index ["organization_id"], name: "index_projects_on_organization_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -191,7 +191,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_200707) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "inboxes", "organizations"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
   add_foreign_key "organizations", "users", column: "owner_id"
@@ -199,4 +198,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_200707) do
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
+  add_foreign_key "projects", "organizations"
 end

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     scope module: :organizations do
       resources :memberships, except: %i[show]
       resource :transfer, only: %i[show update]
-      resources :inboxes
+      resources :projects
 
       get "dashboard", to: "dashboard#index"
       get "paywalled_page", to: "dashboard#paywalled_page"

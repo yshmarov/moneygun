@@ -5,7 +5,7 @@ class Organization < ApplicationRecord
 
   include Transfer
 
-  has_many :inboxes, dependent: :destroy
+  has_many :projects, dependent: :destroy
 
   validates :name, presence: true
   validates :name, length: { maximum: 20 }
