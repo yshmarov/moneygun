@@ -22,13 +22,13 @@ default: &default
 
 development:
   <<: *default
-  database: moneygun_development
+  database: kamalapp_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: moneygun
+  #username: kamalapp
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -56,7 +56,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: moneygun_test
+  database: kamalapp_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,7 +79,20 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: moneygun_production
-  username: moneygun
-  password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    database: kamalapp_production
+    username: kamalapp
+    password: <%= ENV["KAMALAPP_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: kamalapp_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: kamalapp_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: kamalapp_production_cable
+    migrations_paths: db/cable_migrate
