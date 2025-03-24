@@ -8,6 +8,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/1
   def show
+    redirect_to params[:redirect_to] if params[:redirect_to].present?
   end
 
   # GET /organizations/new
