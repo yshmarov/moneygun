@@ -25,6 +25,15 @@
   <%# auth %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
+      <div class="mr-4">
+        <button data-action="layout-switcher#toggleLayout" class="btn btn-transparent text-sm">
+          <% if cookies[:sidebar_layout] == "two_column" %>
+            Switch to Default Sidebar
+          <% else %>
+            Switch to Two-Column Sidebar
+          <% end %>
+        </button>
+      </div>
       <details class="relative group" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
         <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
           <%= current_user.email %>
