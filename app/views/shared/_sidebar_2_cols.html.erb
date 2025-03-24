@@ -1,7 +1,7 @@
 <%# Mobile sidebar backdrop %>
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r border-gray-300 bg-white h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r bg-white h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <%# Widescreen sidebar top %>
   <nav class="flex flex-row flex-grow divide-x">
     <div class="flex flex-col max-h-dvh overflow-y-auto p-2 space-y-4">
@@ -28,8 +28,8 @@
         </div>
         <div class="border-t space-y-2 p-2">
           <% if @current_membership.admin? %>
-            <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
             <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
+            <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
             <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
           <% end %>
         </div>
