@@ -17,10 +17,10 @@
     <div class="flex-grow overflow-y-auto flex flex-col">
       <header class="sticky z-30 top-0">
         <%= render "shared/navbar" %>
+        <div id="flash" class="absolute right-4 z-40 flex flex-col items-end">
+          <%= render "shared/flash" %>
+        </div>
       </header>
-      <div id="flash" class="absolute bottom-4 right-4 z-40 flex flex-col items-end">
-        <%= render "shared/flash" %>
-      </div>
       <main class="flex-grow p-4 lg:p-6">
         <%= yield %>
       </main>
