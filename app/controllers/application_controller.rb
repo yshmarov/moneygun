@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || accounts_path
+    stored_location_for(resource) || organizations_path
   end
 
   include Pundit::Authorization
@@ -18,4 +18,10 @@ class ApplicationController < ActionController::Base
     flash[:alert] = "You are not authorized to perform this action."
     redirect_to(request.referrer || root_path)
   end
+
+  def current_organization
+    @current_membership&.organization
+  end
+
+  helper_method :current_organization
 end

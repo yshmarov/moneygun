@@ -1,0 +1,9 @@
+<%= render PageComponent.new(title: t("organizations.subscriptions.features.title"), content_container: true) do %>
+  <dl class="space-y-2">
+    <% Rails.application.config_for(:settings)[:pro_features].map do |feature| %>
+      <div>
+        <%= feature %>
+      </div>
+    <% end %>
+  </dl>
+<% end %>

@@ -1,0 +1,48 @@
+<%= render PageComponent.new(title: t(".title")) do %>
+	<div class="grid lg:grid-cols-2 gap-8">
+		<% Rails.application.config_for(:settings)[:plans].each do |plan| %>
+			<div class="shadow border rounded-xl text-center flex flex-col">
+				<div class="leading-none grow">
+					<% if plan[:interval].to_s == "year" %>
+						<span class="inline-block bg-green-100 text-green-700 text-xs font-medium px-2.5 py-0.5 rounded-full mt-2">
+							<%= t(".save_yearly") %>
+						</span>
+					<% end %>
+				</div>
+
+				<div class="p-4 flex flex-row lg:flex-col gap-8 items-center justify-between">
+					<div class="inline-flex gap-0 items-baseline">
+						<span class="text-5xl font-medium">
+							<%= number_to_currency (plan[:unit_amount].to_f / 100), unit: currency_symbol(plan[:currency]), strip_insignificant_zeros: true %>
+						</span>
+
+						<span class="text-2xl whitespace-nowrap">
+							/<%= plan[:interval] %>
+						</span>
+					</div>
+
+					<div class="">
+						<% if user_signed_in? && @organization.present? %>
+							<% if @organization.payment_processor.subscribed? %>
+								<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
+									<%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
+								<% else %>
+									<%= button_to t(".manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
+								<% end %>
+
+							<% else %>
+								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
+							<% end %>
+						<% else %>
+							<%= link_to t(".subscribe"), new_user_registration_path, class: "btn btn-primary" %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+
+	<div class="text-center text-gray-400">
+		<%= t(".cancel_security") %>
+	</div>
+<% end %>

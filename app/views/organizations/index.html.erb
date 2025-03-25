@@ -1,0 +1,13 @@
+<% content_for :title, "Organizations" %>
+
+<%= render PageComponent.new(title: "Organizations") do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to "New organization", new_organization_path, class: "btn btn-primary" %>
+  <% end %>
+
+  <div id="organizations" class="space-y-4">
+    <% @organizations.each do |organization| %>
+      <%= render organization %>
+    <% end %>
+  </div>
+<% end %>

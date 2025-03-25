@@ -1,19 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%= render "layouts/head" %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
-    <header class="sticky z-30 top-0">
-      <%= render "shared/navbar" %>
-      <div id="flash" class="absolute flex flex-col z-40 left-1/2 transform -translate-x-1/2">
-        <%= render "shared/flash" %>
-      </div>
-    </header>
-    <main class="flex-grow px-4 py-8">
-      <%= yield %>
-    </main>
-    <%= render "shared/footer" %>
+  <body class="flex h-dvh" data-controller="mobile-sidebar layout-switcher">
+    <% if signed_in? %>
+      <% sidebar_layout = cookies[:sidebar_layout] || "default" %>
+      <% if sidebar_layout == "default" %>
+        <%= render "shared/sidebar" %>
+      <% else %>
+        <%= render "shared/sidebar_2_cols" %>
+      <% end %>
+    <% end %>
+
+    <div class="flex-grow overflow-y-auto flex flex-col">
+      <header class="sticky z-30 top-0">
+        <%= render "shared/navbar" %>
+        <div id="flash" class="absolute right-4 z-40 flex flex-col items-end">
+          <%= render "shared/flash" %>
+        </div>
+      </header>
+      <main class="flex-grow p-4 lg:p-6">
+        <%= yield %>
+      </main>
+      <% if signed_in? %>
+        <%= render "shared/footer_nav" %>
+      <% else %>
+        <%= render "shared/footer" %>
+      <% end %>
+    </div>
   </body>
 </html>
