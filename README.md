@@ -1,141 +1,145 @@
-# Rails 8 SaaS Multitenancy Boilerplate
+# Moneygun - Simple Rails 8 SaaS Boilerplate
 
-### Core features
+A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS applications. Built with best practices, modern tooling, and a focus on developer experience.
 
-- ✅ Registrations & Authentication (Devise + Devise invitable, but is quite easy to switch)
-- ✅ Create Organizations (aka Teams, Accounts, Workspaces, Tenants)
-- ✅ Invite Users to Organization & assign role (admin, member).
-- ✅ Organization admin can manage organization & members
-- ✅ **Organization-level subscriptions with Stripe and gem "pay"**
-- ✅ Authorization
-- ✅ Complete test coverage
-- ✅ Basic UI design
-- ✅ Nested scaffold generators for fast development (/organizations/projects)
+[![Ruby on Rails](https://img.shields.io/badge/Ruby%20on%20Rails-8.1.0-red.svg)](https://rubyonrails.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-![Moneygun features](https://i.imgur.com/QUmTexS.png)
+## 🚀 Features
 
-### About Row-level route-based multitenancy in Ruby on Rails
+### Core Functionality
 
-[Teams should be an MVP feature!](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/)
+- **Multi-tenant Architecture**: Route-based organization management
+- **Authentication & Authorization**: Built with Devise and Pundit
+- **Subscription Management**: Integrated Stripe payments via Pay gem
+- **Team Management**: Organization creation, member invitations, and role management
+- **Modern UI**: Clean, responsive design that you can easily extend
 
-[Watch Screencast](https://www.youtube.com/watch?v=KMonLTvWR5g):
-<a href="https://www.youtube.com/watch?v=KMonLTvWR5g"><img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" /><a>
+### Developer Experience
 
-### Why route-based multitenancy?
+- **Complete Test Coverage**
+- **Nested Resource Generation**: Fast development with nested scaffold generators
 
-- ✅ Easy to switch between organizations
-- ✅ Keep multiple organizations open in different tabs
-- ✅ No hassle configuring subdomains
+## 🎯 Why Moneygun?
 
-### Why deep nested routes?
+### Route-Based Multi-tenancy
 
-Yes, this can generate an "long" url like `/organizations/344/projects/4532/tasks/24342342/edit`, but it preserves the logical **hierarchy**.
+Unlike traditional approaches (subdomains, user.organization_id), Moneygun uses route-based multi-tenancy which offers several advantages:
+
+- Support for multiple organizations in different browser tabs
+- No complex subdomain configuration required
+
+### Resource Organization
+
+Resources are organized in a logical hierarchy:
 
 ```ruby
-resources :organizations do
-  resources :memberships
-  resources :projects do
-    resources :tasks do
-    end
-  end
-end
+/organizations/:id/projects/:id/tasks/:id
 ```
 
-I [tried using `OrganizationMiddlewhare`](https://github.com/yshmarov/moneygun/pull/24/files#diff-44009a2f9efdafcc7cd44e1cb5e03151a74aa760c54af5c16e2cc7095ff3b0ffR7) like JumpstartPro does, but it felt too much of an **unconventional** approach.
+This structure provides:
 
-### Design inspiration
+- Clear resource ownership
+- Intuitive navigation
+- Easy access control
+- Simplified querying
 
-- trello
-- discord
-- slack
-- https://circle.so/
+## 🛠️ Getting Started
 
-For example in Trello, you can have 2 unrelated boards open in 2 tabs.
+1. Clone the repository:
 
-## Development
-
-### Getting started
-
-1. Clone the template repository:
-
-```
-git clone git@github.com:yshmarov/moneygun.git your_new_project_name
+```bash
+git clone git@github.com:yshmarov/moneygun.git your_project_name
+cd your_project_name
 ```
 
-2. Enter the project directory:
+2. Set up the application:
 
-```
-cd your_new_project_name
-```
-
-3. Run the configuration and setup scripts:
-
-```
+```bash
 bundle install
 rails db:create db:migrate
 ```
 
-4. Start your application:
+3. Start the development server:
 
-```
+```bash
 bin/dev
 ```
 
-### Resource assignments and references should be to Membership and not User!
+## 📚 Development Guide
 
-🚫 Bad
+### Resource Generation
 
-```ruby
-# models/project.rb
-  belongs_to :organization
-  belongs_to :user
-```
+Generate nested resources quickly using the nested_scaffold gem:
 
-✅ Good
-
-```ruby
-# models/project.rb
-  belongs_to :organization
-  belongs_to :membership
-```
-
-I recommend scoping downstream models to `organization` too. This way you can query them more easily.
-
-```ruby
-# models/task.rb
-  belongs_to :organization # <- THIS
-  belongs_to :project
-```
-
-### Generators
-
-`Project` is an example of a well-integrated **resource** scoped to an `organization`. With pundit authorization and tests. Use it as an inspiration.
-
-To quickly generate nested resources you can use [gem nested_scaffold](https://github.com/yshmarov/nested_scaffold)
-
-```
+```bash
 rails generate nested_scaffold organization/project name
 ```
 
-Generate a pundit policy:
+### Authorization
 
-```
+Generate Pundit policies for your resources:
+
+```bash
 rails g pundit:policy project
 ```
 
-### Testing & linting
+### Best Practices
 
-I did not focus on system tests, because the frontend can evolve a lot.
+#### Resource Associations
 
-There are quite a lot of tests covering authentication, authorization, and multitenancy.
+Always associate resources with `membership` instead of `user`:
 
-```shell
-# run all tests
+```ruby
+# ✅ Correct
+class Project < ApplicationRecord
+  belongs_to :organization
+  belongs_to :membership
+end
+
+# ❌ Avoid
+class Project < ApplicationRecord
+  belongs_to :user
+end
+```
+
+#### Organization Scoping
+
+Scope downstream models to organization for easier querying:
+
+```ruby
+class Task < ApplicationRecord
+  belongs_to :organization
+  belongs_to :project
+end
+```
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
 rails test:all
+```
+
+### Code Quality
+
+```bash
+# ERB linting
 bundle exec erb_lint --lint-all -a
+
+# Ruby linting
 bundle exec rubocop -A
 ```
 
-### Contributing
+## 🤝 Contributing
 
-Feel free to raise an Issue or open a Pull Request!
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Design inspiration from Basecamp, Trello, Discord, and Slack
