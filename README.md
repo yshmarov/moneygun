@@ -66,7 +66,102 @@ rails db:create db:migrate
 bin/dev
 ```
 
-## 📚 Development Guide
+## 💳 Stripe Integration
+
+Moneygun uses the [Pay](https://github.com/jumpstart-pro/pay) gem for handling Stripe subscriptions. Here's how to set it up:
+
+### 1. Configure Stripe Credentials
+
+Add your Stripe credentials to your Rails credentials:
+
+```bash
+rails credentials:edit
+```
+
+Add the following structure:
+
+```yaml
+stripe:
+  private_key: sk_
+  public_key: pk_
+  webhook_receive_test_events: true
+  signing_secret:
+    - whsec_
+```
+
+### 2. Create Stripe Products and Prices
+
+You can create the required Stripe products and prices in two ways:
+
+1. **Automatically via seeds**:
+
+   ```bash
+   rails db:seed
+   ```
+
+   This will create a "Pro plan" product with monthly ($99) and yearly ($999) prices.
+
+2. **Manually in Stripe Dashboard**:
+   - Create a product named "Pro plan"
+   - Add two prices:
+     - Monthly: $99/month
+     - Yearly: $999/year
+
+### 3. Configure Plans
+
+Add your Stripe price IDs to `config/settings.yml`:
+
+```yaml
+shared:
+  plans:
+    - id: price_xxx # Monthly price ID
+      unit_amount: 9900
+      currency: USD
+      interval: month
+    - id: price_yyy # Yearly price ID
+      unit_amount: 99900
+      currency: USD
+      interval: year
+```
+
+### 4. Development Setup
+
+The Stripe webhook listener is already configured in `Procfile.dev`
+
+```bash
+stripe listen --forward-to localhost:3000/pay/webhooks/stripe
+```
+
+#### Require active subscription to access a resource
+
+You can use the `require_subscription` before_action to protect routes:
+
+```ruby
+before_action :require_subscription
+
+private
+
+def require_subscription
+  unless current_organization.payment_processor.subscribed?
+    flash[:alert] = "You need to subscribe to access this page."
+    redirect_to organization_subscriptions_url(current_organization)
+  end
+end
+```
+
+#### Subscription Status Indicators
+
+Use the subscription status helper to show subscription state:
+
+```ruby
+subscription_status_label(organization)
+# Returns:
+# 🔴 - No subscription
+# 🟠 - Subscription cancelled (on grace period)
+# 🟢 - Active subscription
+```
+
+## 👷‍♂️ Development Guide
 
 ### Resource Generation
 
