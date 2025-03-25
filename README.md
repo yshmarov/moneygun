@@ -5,6 +5,8 @@ A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS appl
 [![Ruby on Rails](https://img.shields.io/badge/Ruby%20on%20Rails-8.1.0-red.svg)](https://rubyonrails.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+![Moneygun features](https://i.imgur.com/QUmTexS.png)
+
 ## 🚀 Features
 
 ### Core Functionality
@@ -14,6 +16,8 @@ A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS appl
 - **Subscription Management**: Integrated Stripe payments via Pay gem
 - **Team Management**: Organization creation, member invitations, and role management
 - **Modern UI**: Clean, responsive design that you can easily extend
+
+> 💡 **Teams as MVP**: [Teams should be an MVP feature!](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/) - Learn why implementing teams early is crucial for SaaS applications.
 
 ### Developer Experience
 
@@ -28,6 +32,10 @@ Unlike traditional approaches (subdomains, user.organization_id), Moneygun uses 
 
 - Support for multiple organizations in different browser tabs
 - No complex subdomain configuration required
+
+> 🎥 **Watch Screencast**: Learn how to implement row-level route-based multitenancy in Ruby on Rails
+>
+> <a href="https://www.youtube.com/watch?v=KMonLTvWR5g"><img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" /></a>
 
 ### Resource Organization
 
