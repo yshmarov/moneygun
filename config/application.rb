@@ -1,7 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
-require_relative "../lib/account_middleware"
+require_relative "../lib/organization_middleware"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -25,6 +25,6 @@ module Moneygun
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.middleware.use AccountMiddleware
+    config.middleware.use OrganizationMiddleware
   end
 end
