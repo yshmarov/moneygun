@@ -33,9 +33,23 @@ Unlike traditional approaches (subdomains, user.organization_id), Moneygun uses 
 - Support for multiple organizations in different browser tabs
 - No complex subdomain configuration required
 
-> 🎥 **Watch Screencast**: Learn how to implement row-level route-based multitenancy in Ruby on Rails
->
-> <a href="https://www.youtube.com/watch?v=KMonLTvWR5g"><img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" /></a>
+### 📚 Video Tutorials
+
+1. **Row-level Route-based Multitenancy**
+   Learn how to implement row-level route-based multitenancy in Ruby on Rails
+   <a href="https://superails.com/posts/row-level-route-based-multitenancy"><img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" /></a>
+
+2. **Multitenancy & Teams Boilerplate**
+   Learn how to implement teams and multitenancy in your Rails application
+   <a href="https://superails.com/posts/moneygun-teams-multitenancy-boilerplate"><img src="https://i.ytimg.com/vi/hzfl6h5SlH8/hqdefault.jpg" title="Moneygun - Multitenancy & Teams boilerplate" width="50%" /></a>
+
+3. **Add ActsAsTenant to Existing Application**
+   Step-by-step guide to adding ActsAsTenant to your existing Rails application
+   <a href="https://superails.com/posts/moneygun-add-actsastenant-to-an-existing-application"><img src="https://i.ytimg.com/vi/YzvWRzNwdiM/hqdefault.jpg" title="Moneygun - Add ActsAsTenant to an existing application" width="50%" /></a>
+
+4. **Build Your Next B2B SaaS**
+   Enable Subscriptions with Stripe and launch your B2B SaaS application with Moneygun
+   <a href="https://superails.com/posts/233-build-your-next-b2b-saas-with-moneygun-saas-multitenancy-boilerplate"><img src="https://i.ytimg.com/vi/KjlEm1kRYFY/hqdefault.jpg" title="Build your next B2B SaaS with Moneygun" width="50%" /></a>
 
 ### Resource Organization
 
@@ -246,3 +260,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Design inspiration from Basecamp, Trello, Discord, and Slack
+- [Bullet Train](https://bullettrain.co/) for SaaS patterns and inspiration
+- [Jumpstart Pro](https://jumpstartrails.com/) for AccountMiddleware and other SaaS patterns
+- [gem "pay"](https://github.com/jumpstart-pro/pay) gem for Stripe integration
