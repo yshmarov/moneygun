@@ -1,5 +1,6 @@
 class Organizations::ProjectsController < Organizations::BaseController
   before_action :set_project, only: %i[ show edit update destroy ]
+  before_action :require_subscription, only: %i[ new create ]
 
   # GET /organizations/1/projects
   def index
@@ -58,4 +59,11 @@ class Organizations::ProjectsController < Organizations::BaseController
     def project_params
       params.require(:project).permit(:name)
     end
+
+  def require_subscription
+    return true if @organization.projects.count < 1
+    return true if @organization.payment_processor.subscribed?
+
+    redirect_to organization_subscriptions_path(@organization), alert: "You need to have an active subscription to create more than 1 project."
+  end
 end
