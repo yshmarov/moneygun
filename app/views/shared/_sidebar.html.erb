@@ -20,7 +20,7 @@
             Select Organization
           </div>
         <% end %>
-        <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
+        <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
       </summary>
       <div class="space-y-2 p-2 border-b">
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
