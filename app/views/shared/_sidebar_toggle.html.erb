@@ -1,0 +1,7 @@
+<button data-action="layout-switcher#toggleLayout" class="btn btn-transparent btn-sm">
+	<% if cookies[:sidebar_layout] == "two_column" %>
+		<%= inline_svg_tag "svg/ellipsis-vertical.svg", class: "size-4" %>
+	<% else %>
+		<%= inline_svg_tag "svg/grip-vertical.svg", class: "size-4" %>
+	<% end %>
+</button>
