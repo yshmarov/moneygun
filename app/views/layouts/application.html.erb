@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full dark">
   <head>
     <%= render "layouts/head" %>
   </head>
 
-  <body class="flex h-dvh" data-controller="mobile-sidebar layout-switcher">
+  <body class="flex h-dvh bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-controller="mobile-sidebar layout-switcher">
     <% if signed_in? %>
       <% sidebar_layout = cookies[:sidebar_layout] || "default" %>
       <% if sidebar_layout == "default" %>

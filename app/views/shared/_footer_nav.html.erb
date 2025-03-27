@@ -1,20 +1,20 @@
-<nav class="justify-around flex items-center lg:hidden sticky bottom-0 px-4 py-3 bg-white border-t">
+<nav class="justify-around flex items-center lg:hidden sticky bottom-0 px-4 py-3 bg-white dark:bg-gray-800 border-t dark:border-gray-700">
   <% if current_organization %>
-    <%= active_link_to organization_dashboard_path(@organization), class_active: "!text-indigo-600", class: "flex flex-col items-center text-gray-600 hover:text-indigo-600 transition-colors duration-200 gap-1" do %>
+    <%= active_link_to organization_dashboard_path(@organization), class_active: "!text-indigo-600 dark:!text-indigo-400", class: "flex flex-col items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 gap-1" do %>
       <%= inline_svg_tag "svg/home.svg", class: "size-6" %>
       <div class="text-xs font-medium">
         Dashboard
       </div>
     <% end %>
 
-    <%= active_link_to organization_projects_path(@organization), class_active: "!text-indigo-600", class: "flex flex-col items-center text-gray-600 hover:text-indigo-600 transition-colors duration-200 gap-1" do %>
+    <%= active_link_to organization_projects_path(@organization), class_active: "!text-indigo-600 dark:!text-indigo-400", class: "flex flex-col items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 gap-1" do %>
       <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-6" %>
       <div class="text-xs font-medium">
         Projects
       </div>
     <% end %>
   <% else %>
-    <%= active_link_to organizations_path, active: :exclusive, class_active: "!text-indigo-600", class: "flex flex-col items-center text-gray-600 hover:text-indigo-600 transition-colors duration-200 gap-1" do %>
+    <%= active_link_to organizations_path, active: :exclusive, class_active: "!text-indigo-600 dark:!text-indigo-400", class: "flex flex-col items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 gap-1" do %>
       <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-6" %>
       <div class="text-xs font-medium">
         Organizations
