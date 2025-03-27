@@ -26,7 +26,7 @@
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
         <% end %>
-        <%= nav_link "All Organizations", organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
+        <%= nav_link "My organizations", organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
@@ -39,8 +39,8 @@
 
   <div class="border-t space-y-2 p-2">
     <% if current_organization %>
+      <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
       <% if @current_membership.admin? %>
-        <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
         <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
         <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
       <% end %>
