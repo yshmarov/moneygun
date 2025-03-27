@@ -1,10 +1,12 @@
 class ProjectPolicy < Organization::BasePolicy
   def index?
-    membership.admin?
+    true
+    # membership.admin?
   end
 
   def show?
-    membership.admin?
+    true
+    # membership.admin?
   end
 
   def new?
@@ -12,7 +14,8 @@ class ProjectPolicy < Organization::BasePolicy
   end
 
   def create?
-    membership.admin?
+    true
+    # membership.admin?
   end
 
   def edit?
@@ -20,10 +23,12 @@ class ProjectPolicy < Organization::BasePolicy
   end
 
   def update?
-    membership.admin?
+    true
+    # membership.admin?
   end
 
   def destroy?
-    membership.admin?
+    true
+    # membership.admin?
   end
 end
