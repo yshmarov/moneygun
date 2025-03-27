@@ -8,16 +8,8 @@ class <%= class_name %>Policy < Organization::BasePolicy
   #   membership.admin?
   # end
 
-  # def new?
-  #   create?
-  # end
-
   # def create?
   #   membership.admin?
-  # end
-
-  # def edit?
-  #   update?
   # end
 
   # def update?
