@@ -65,7 +65,7 @@ Current balance:
           </div>
         </div>
 
-        <%= button_to "Subscribe", organization_credits_path(current_organization, key), 
+        <%= button_to "Subscribe", organization_credits_path(current_organization, subscription_plan_id: key), 
             class: "w-full btn btn-primary" %>
       </div>
     <% end %>
