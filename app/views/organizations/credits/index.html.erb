@@ -20,7 +20,7 @@ Current balance:
             </p>
           <% end %>
         </div>
-        <%= button_to "Purchase", organization_credits_path(current_organization, key), 
+        <%= button_to "Purchase", organization_credits_path(current_organization, credit_pack_id: key), data: { turbo: "false" },
             class: "w-full btn btn-primary" %>
       </div>
     <% end %>
