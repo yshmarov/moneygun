@@ -1,3 +1,5 @@
+# extracted from
+# https://github.com/bullet-train-co/bullet_train-core/blob/main/bullet_train-obfuscates_id/app/models/concerns/obfuscates_id.rb
 module ObfuscatesId
   extend ActiveSupport::Concern
 
