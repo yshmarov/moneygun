@@ -13,6 +13,7 @@ class Organization < ApplicationRecord
   has_one_attached :logo
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
+  has_credits
 
   def email
     owner.email

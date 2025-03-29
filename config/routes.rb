@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       get "subscriptions", to: "subscriptions#index"
       get "subscriptions/checkout", to: "subscriptions#checkout"
       post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
+
+      resources :credits
     end
   end
 

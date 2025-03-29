@@ -41,6 +41,7 @@
     <% if current_organization %>
       <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
       <% if @current_membership.admin? %>
+        <%= nav_link "Credits", organization_credits_path(current_organization), icon: "💳" %>
         <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
         <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
       <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_23_200707) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_28_102457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -165,6 +165,71 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_200707) do
     t.index ["organization_id"], name: "index_projects_on_organization_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_tasks_on_organization_id"
+  end
+
+  create_table "usage_credits_allocations", force: :cascade do |t|
+    t.bigint "transaction_id", null: false
+    t.bigint "source_transaction_id", null: false
+    t.integer "amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_transaction_id"], name: "index_allocations_on_source_transaction_id"
+    t.index ["transaction_id", "source_transaction_id"], name: "index_allocations_on_tx_and_source_tx"
+    t.index ["transaction_id"], name: "index_allocations_on_transaction_id"
+  end
+
+  create_table "usage_credits_fulfillments", force: :cascade do |t|
+    t.bigint "wallet_id", null: false
+    t.string "source_type"
+    t.bigint "source_id"
+    t.integer "credits_last_fulfillment", null: false
+    t.string "fulfillment_type", null: false
+    t.datetime "last_fulfilled_at"
+    t.datetime "next_fulfillment_at"
+    t.string "fulfillment_period"
+    t.datetime "stops_at"
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fulfillment_type"], name: "index_usage_credits_fulfillments_on_fulfillment_type"
+    t.index ["next_fulfillment_at"], name: "index_usage_credits_fulfillments_on_next_fulfillment_at"
+    t.index ["source_type", "source_id"], name: "index_usage_credits_fulfillments_on_source"
+    t.index ["wallet_id"], name: "index_usage_credits_fulfillments_on_wallet_id"
+  end
+
+  create_table "usage_credits_transactions", force: :cascade do |t|
+    t.bigint "wallet_id", null: false
+    t.integer "amount", null: false
+    t.string "category", null: false
+    t.datetime "expires_at"
+    t.bigint "fulfillment_id"
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_usage_credits_transactions_on_category"
+    t.index ["expires_at", "id"], name: "index_transactions_on_expires_at_and_id"
+    t.index ["expires_at"], name: "index_usage_credits_transactions_on_expires_at"
+    t.index ["fulfillment_id"], name: "index_usage_credits_transactions_on_fulfillment_id"
+    t.index ["wallet_id", "amount"], name: "index_transactions_on_wallet_id_and_amount"
+    t.index ["wallet_id"], name: "index_usage_credits_transactions_on_wallet_id"
+  end
+
+  create_table "usage_credits_wallets", force: :cascade do |t|
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.integer "balance", default: 0, null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_usage_credits_wallets_on_owner"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -199,4 +264,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_200707) do
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
   add_foreign_key "projects", "organizations"
+  add_foreign_key "tasks", "organizations"
+  add_foreign_key "usage_credits_allocations", "usage_credits_transactions", column: "source_transaction_id"
+  add_foreign_key "usage_credits_allocations", "usage_credits_transactions", column: "transaction_id"
 end
