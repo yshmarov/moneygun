@@ -23,7 +23,7 @@ class PageComponent < ViewComponent::Base
     if @full_width == true
       "w-full"
     else
-      "max-w-lg w-full"
+      "max-w-xl w-full"
     end
   end
 end

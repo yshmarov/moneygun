@@ -1,141 +1,277 @@
-# Rails 8 SaaS Multitenancy Boilerplate
+# Moneygun - Simple Rails 8 SaaS Boilerplate
 
-### Core features
+A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS applications. Built with best practices, modern tooling, and a focus on developer experience.
 
-- ✅ Registrations & Authentication (Devise + Devise invitable, but is quite easy to switch)
-- ✅ Create Organizations (aka Teams, Accounts, Workspaces, Tenants)
-- ✅ Invite Users to Organization & assign role (admin, member).
-- ✅ Organization admin can manage organization & members
-- ✅ **Organization-level subscriptions with Stripe and gem "pay"**
-- ✅ Authorization
-- ✅ Complete test coverage
-- ✅ Basic UI design
-- ✅ Nested scaffold generators for fast development (/organizations/projects)
+[![Ruby on Rails](https://img.shields.io/badge/Ruby%20on%20Rails-8.1.0-red.svg)](https://rubyonrails.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ![Moneygun features](https://i.imgur.com/QUmTexS.png)
 
-### About Row-level route-based multitenancy in Ruby on Rails
+## 🚀 Features
 
-[Teams should be an MVP feature!](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/)
+### Core Functionality
 
-[Watch Screencast](https://www.youtube.com/watch?v=KMonLTvWR5g):
-<a href="https://www.youtube.com/watch?v=KMonLTvWR5g"><img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" /><a>
+- **Multi-tenant Architecture**: Route-based organization management
+- **Authentication & Authorization**: Built with Devise and Pundit
+- **Subscription Management**: Integrated Stripe payments via Pay gem
+- **Team Management**: Organization creation, member invitations, and role management
+- **Modern UI**: Clean, responsive design that you can easily extend
 
-### Why route-based multitenancy?
+> 💡 **Teams as MVP**: [Teams should be an MVP feature!](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/) - Learn why implementing teams early is crucial for SaaS applications.
 
-- ✅ Easy to switch between organizations
-- ✅ Keep multiple organizations open in different tabs
-- ✅ No hassle configuring subdomains
+### Developer Experience
 
-### Why deep nested routes?
+- **Complete Test Coverage**
+- **Nested Resource Generation**: Fast development with nested scaffold generators
 
-Yes, this can generate an "long" url like `/organizations/344/projects/4532/tasks/24342342/edit`, but it preserves the logical **hierarchy**.
+## 🎯 Why Moneygun?
+
+### Route-Based Multi-tenancy
+
+Unlike traditional approaches (subdomains, user.organization_id), Moneygun uses route-based multi-tenancy which offers several advantages:
+
+- Support for multiple organizations in different browser tabs
+- No complex subdomain configuration required
+
+### 📚 Video Tutorials
+
+1. **Row-level Route-based Multitenancy**
+   Learn how to implement row-level route-based multitenancy in Ruby on Rails
+
+   <a href="https://superails.com/posts/row-level-route-based-multitenancy">
+     <img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" />
+   </a>
+
+2. **Multitenancy & Teams Boilerplate**
+   Learn how to implement teams and multitenancy in your Rails application
+
+   <a href="https://superails.com/posts/moneygun-teams-multitenancy-boilerplate">
+     <img src="https://i.ytimg.com/vi/hzfl6h5SlH8/hqdefault.jpg" title="Moneygun - Multitenancy & Teams boilerplate" width="50%" />
+   </a>
+
+3. **Add ActsAsTenant to Existing Application**
+   Step-by-step guide to adding ActsAsTenant to your existing Rails application
+
+   <a href="https://superails.com/posts/moneygun-add-actsastenant-to-an-existing-application">
+     <img src="https://i.ytimg.com/vi/YzvWRzNwdiM/hqdefault.jpg" title="Moneygun - Add ActsAsTenant to an existing application" width="50%" />
+   </a>
+
+4. **Build Your Next B2B SaaS**
+   Enable Subscriptions with Stripe and launch your B2B SaaS application with Moneygun
+
+   <a href="https://superails.com/posts/233-build-your-next-b2b-saas-with-moneygun-saas-multitenancy-boilerplate">
+     <img src="https://i.ytimg.com/vi/KjlEm1kRYFY/hqdefault.jpg" title="Build your next B2B SaaS with Moneygun" width="50%" />
+   </a>
+
+### Resource Organization
+
+Resources are organized in a logical hierarchy:
 
 ```ruby
-resources :organizations do
-  resources :memberships
-  resources :projects do
-    resources :tasks do
-    end
-  end
-end
+/organizations/:id/projects/:id/tasks/:id
 ```
 
-I [tried using `OrganizationMiddlewhare`](https://github.com/yshmarov/moneygun/pull/24/files#diff-44009a2f9efdafcc7cd44e1cb5e03151a74aa760c54af5c16e2cc7095ff3b0ffR7) like JumpstartPro does, but it felt too much of an **unconventional** approach.
+This structure provides:
 
-### Design inspiration
+- Clear resource ownership
+- Intuitive navigation
+- Easy access control
+- Simplified querying
 
-- trello
-- discord
-- slack
-- https://circle.so/
+## 🛠️ Getting Started
 
-For example in Trello, you can have 2 unrelated boards open in 2 tabs.
+1. Clone the repository:
 
-## Development
-
-### Getting started
-
-1. Clone the template repository:
-
-```
-git clone git@github.com:yshmarov/moneygun.git your_new_project_name
+```bash
+git clone git@github.com:yshmarov/moneygun.git your_project_name
+cd your_project_name
 ```
 
-2. Enter the project directory:
+2. Set up the application:
 
-```
-cd your_new_project_name
-```
-
-3. Run the configuration and setup scripts:
-
-```
+```bash
 bundle install
 rails db:create db:migrate
 ```
 
-4. Start your application:
+3. Start the development server:
 
-```
+```bash
 bin/dev
 ```
 
-### Resource assignments and references should be to Membership and not User!
+## 💳 Stripe Integration
 
-🚫 Bad
+Moneygun uses the [Pay](https://github.com/jumpstart-pro/pay) gem for handling Stripe subscriptions. Here's how to set it up:
+
+### 1. Configure Stripe Credentials
+
+Add your Stripe credentials to your Rails credentials:
+
+```bash
+rails credentials:edit
+```
+
+Add the following structure:
+
+```yaml
+stripe:
+  private_key: sk_
+  public_key: pk_
+  webhook_receive_test_events: true
+  signing_secret:
+    - whsec_
+```
+
+### 2. Create Stripe Products and Prices
+
+You can create the required Stripe products and prices in two ways:
+
+1. **Automatically via seeds**:
+
+   ```bash
+   rails db:seed
+   ```
+
+   This will create a "Pro plan" product with monthly ($99) and yearly ($999) prices.
+
+2. **Manually in Stripe Dashboard**:
+   - Create a product named "Pro plan"
+   - Add two prices:
+     - Monthly: $99/month
+     - Yearly: $999/year
+
+### 3. Configure Plans
+
+Add your Stripe price IDs to `config/settings.yml`:
+
+```yaml
+shared:
+  plans:
+    - id: price_xxx # Monthly price ID
+      unit_amount: 9900
+      currency: USD
+      interval: month
+    - id: price_yyy # Yearly price ID
+      unit_amount: 99900
+      currency: USD
+      interval: year
+```
+
+### 4. Development Setup
+
+The Stripe webhook listener is already configured in `Procfile.dev`
+
+```bash
+stripe listen --forward-to localhost:3000/pay/webhooks/stripe
+```
+
+#### Require active subscription to access a resource
+
+You can use the `require_subscription` before_action to protect routes:
 
 ```ruby
-# models/project.rb
-  belongs_to :organization
-  belongs_to :user
+before_action :require_subscription
+
+private
+
+def require_subscription
+  unless current_organization.payment_processor.subscribed?
+    flash[:alert] = "You need to subscribe to access this page."
+    redirect_to organization_subscriptions_url(current_organization)
+  end
+end
 ```
 
-✅ Good
+#### Subscription Status Indicators
+
+Use the subscription status helper to show subscription state:
 
 ```ruby
-# models/project.rb
-  belongs_to :organization
-  belongs_to :membership
+subscription_status_label(organization)
+# Returns:
+# 🔴 - No subscription
+# 🟠 - Subscription cancelled (on grace period)
+# 🟢 - Active subscription
 ```
 
-I recommend scoping downstream models to `organization` too. This way you can query them more easily.
+## 👷‍♂️ Development Guide
 
-```ruby
-# models/task.rb
-  belongs_to :organization # <- THIS
-  belongs_to :project
-```
+### Resource Generation
 
-### Generators
+Generate nested resources quickly using the nested_scaffold gem:
 
-`Project` is an example of a well-integrated **resource** scoped to an `organization`. With pundit authorization and tests. Use it as an inspiration.
-
-To quickly generate nested resources you can use [gem nested_scaffold](https://github.com/yshmarov/nested_scaffold)
-
-```
+```bash
 rails generate nested_scaffold organization/project name
 ```
 
-Generate a pundit policy:
+### Authorization
 
-```
+Generate Pundit policies for your resources:
+
+```bash
 rails g pundit:policy project
 ```
 
-### Testing & linting
+### Best Practices
 
-I did not focus on system tests, because the frontend can evolve a lot.
+#### Resource Associations
 
-There are quite a lot of tests covering authentication, authorization, and multitenancy.
+Always associate resources with `membership` instead of `user`:
 
-```shell
-# run all tests
+```ruby
+# ✅ Correct
+class Project < ApplicationRecord
+  belongs_to :organization
+  belongs_to :membership
+end
+
+# ❌ Avoid
+class Project < ApplicationRecord
+  belongs_to :user
+end
+```
+
+#### Organization Scoping
+
+Scope downstream models to organization for easier querying:
+
+```ruby
+class Task < ApplicationRecord
+  belongs_to :organization
+  belongs_to :project
+end
+```
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
 rails test:all
+```
+
+### Code Quality
+
+```bash
+# ERB linting
 bundle exec erb_lint --lint-all -a
+
+# Ruby linting
 bundle exec rubocop -A
 ```
 
-### Contributing
+## 🤝 Contributing
 
-Feel free to raise an Issue or open a Pull Request!
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Design inspiration from Basecamp, Trello, Discord, and Slack
+- [Bullet Train](https://bullettrain.co/) for SaaS patterns and inspiration
+- [Jumpstart Pro](https://jumpstartrails.com/) for AccountMiddleware and other SaaS patterns
+- [gem "pay"](https://github.com/jumpstart-pro/pay) gem for Stripe integration

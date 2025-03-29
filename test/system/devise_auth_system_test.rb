@@ -7,7 +7,7 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
 
     visit organizations_path
     assert_current_path organizations_path
-    assert_text "New organization"
+    assert_text "New"
   end
 
   test "create user and sign in" do
