@@ -144,6 +144,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hashids (1.0.6)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.1.0)
@@ -425,6 +426,7 @@ DEPENDENCIES
   devise (~> 4.9)
   devise_invitable (~> 2.0)
   erb_lint
+  hashids
   importmap-rails
   inline_svg (~> 1.9)
   jbuilder
