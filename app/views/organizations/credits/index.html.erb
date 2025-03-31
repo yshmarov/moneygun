@@ -1,72 +1,66 @@
+<%= render PageComponent.new(title: "Current balance") do |component| %>
+  <% component.with_action_list do %>
+    Balance: <%= current_organization.credits %>
+  <% end %>
+<% end %>
 
-Current balance:
-<%= current_organization.credits %>
+<br>
 
-<%= render PageComponent.new(title: "Buy a credit pack") do %>
+<%= render PageComponent.new(title: "Buy a credit pack") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% @credit_packs.each do |key, credit_pack| %>
-      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-        <h3 class="text-xl font-semibold mb-2"><%= credit_pack.name.to_s.titleize %></h3>
-        <div class="text-3xl font-bold mb-4">
-          <%= number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency) %>
+      <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+        <div class="text-center space-y-4">
+          <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
+          
+          <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), organization_credits_path(current_organization, credit_pack_id: key), 
+              method: :post, 
+              class: "btn btn-primary",
+              data: { turbo: "false" } %>
+          
+          <div class="space-y-2">
+            <p class="text-lg font-medium text-gray-900"><%= credit_pack.credits %> Credits</p>
+            <% if credit_pack.bonus_credits > 0 %>
+              <p class="text-sm text-green-600">+<%= credit_pack.bonus_credits %> Bonus Credits</p>
+            <% end %>
+          </div>
         </div>
-        <div class="space-y-2 mb-6">
-          <p class="text-gray-600">
-            <span class="font-medium"><%= credit_pack.credits %></span> credits
-          </p>
-          <% if credit_pack.bonus_credits > 0 %>
-            <p class="text-green-600">
-              +<%= credit_pack.bonus_credits %> bonus credits
-            </p>
-          <% end %>
-        </div>
-        <%= button_to "Purchase", organization_credits_path(current_organization, credit_pack_id: key), data: { turbo: "false" },
-            class: "w-full btn btn-primary" %>
       </div>
     <% end %>
   </div>
 <% end %>
 
-<%= render PageComponent.new(title: "Subscription plans") do %>
+<br>
+
+<%= render PageComponent.new(title: "Subscription plans") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% @subscription_plans.each do |key, subscription_plan| %>
-      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-xl font-semibold"><%= subscription_plan.name.to_s.titleize %></h3>
-          <% if subscription_plan.trial_credits > 0 %>
-            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
-              <%= subscription_plan.trial_credits %> trial credits
-            </span>
-          <% end %>
-        </div>
-        
-        <div class="space-y-4 mb-6">
-          <div class="flex items-baseline">
-            <span class="text-3xl font-bold">
-              <%= number_to_currency(subscription_plan.processor_plan_ids[:stripe].to_f / 100) %>
-            </span>
-            <span class="ml-1 text-gray-500">/month</span>
+      <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+        <div class="text-center space-y-4">
+          <div class="flex items-center justify-center space-x-2">
+            <h3 class="text-xl font-semibold text-gray-900"><%= subscription_plan.name.to_s.titleize %></h3>
+            <% if subscription_plan.trial_credits > 0 %>
+              <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                <%= subscription_plan.trial_credits %> trial credits
+              </span>
+            <% end %>
           </div>
           
+          <%= button_to number_to_currency(subscription_plan.processor_plan_ids[:stripe].to_f / 100), organization_credits_path(current_organization, subscription_plan_id: key), 
+              method: :post, 
+              class: "btn btn-primary",
+              data: { turbo: "false" } %>
+          
           <div class="space-y-2">
-            <p class="text-gray-600">
-              <span class="font-medium"><%= subscription_plan.credits_per_period %></span> credits per <%= subscription_plan.fulfillment_period %>
-            </p>
+            <p class="text-lg font-medium text-gray-900"><%= subscription_plan.credits_per_period %> Credits per <%= subscription_plan.fulfillment_period %></p>
             <% if subscription_plan.signup_bonus_credits > 0 %>
-              <p class="text-green-600">
-                +<%= subscription_plan.signup_bonus_credits %> signup bonus credits
-              </p>
+              <p class="text-sm text-green-600">+<%= subscription_plan.signup_bonus_credits %> Signup Bonus Credits</p>
             <% end %>
             <% if subscription_plan.rollover_enabled %>
-              <p class="text-blue-600">
-                Credits roll over to next period
-              </p>
+              <p class="text-sm text-blue-600">Credits roll over to next period</p>
             <% end %>
           </div>
         </div>
-
-        <%= button_to "Subscribe", organization_credits_path(current_organization, subscription_plan_id: key), 
-            class: "w-full btn btn-primary" %>
       </div>
     <% end %>
   </div>
