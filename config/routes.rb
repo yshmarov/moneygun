@@ -15,6 +15,12 @@ Rails.application.routes.draw do
       post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
 
       resources :credits
+      resources :refills, only: %i[index] do
+        collection do
+          post :add_payment_method
+          post :charge_payment_method
+        end
+      end
     end
   end
 

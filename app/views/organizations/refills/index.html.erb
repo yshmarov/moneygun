@@ -1,0 +1,107 @@
+<%= render PageComponent.new(title: "Payment details") do |component| %>
+  <% component.with_action_list do %>
+    <%= button_to "Add payment method", add_payment_method_organization_refills_path(current_organization), method: :post, class: "btn btn-primary", data: { turbo: "false" } %>
+  <% end %>
+
+  <% if @payment_methods.any? %>
+    <div class="space-y-4">
+      <% @payment_methods.each do |payment_method| %>
+        <div class="bg-white rounded-lg shadow p-4 border border-gray-200">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="text-sm text-gray-500 uppercase font-medium">
+                <%= payment_method.card.brand %>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900">•••• •••• •••• <%= payment_method.card.last4 %></p>
+                <p class="text-sm text-gray-500">Expires <%= payment_method.card.exp_month %>/<%= payment_method.card.exp_year %></p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-gray-500"><%= payment_method.billing_details.name %></p>
+              <p class="text-sm text-gray-500"><%= payment_method.billing_details.email %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-white rounded-lg shadow p-8 border border-gray-200 text-center">
+      No payment methods found
+    </div>
+  <% end %>
+<% end %>
+
+<br>
+
+<%= render PageComponent.new(title: "Top up") do |component| %>
+  <% component.with_action_list do %>
+    Balance: <%= current_organization.credits %>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <% UsageCredits.credit_packs.each do |key, credit_pack| %>
+      <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+        <div class="text-center space-y-4">
+          <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
+          
+          <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), charge_payment_method_organization_refills_path(current_organization, credit_pack: key), 
+              method: :post, 
+              class: "btn btn-primary",
+              disabled: !@payment_methods.any?,
+              data: { turbo: "false" } %>
+          
+          <div class="space-y-2">
+            <p class="text-lg font-medium text-gray-900"><%= credit_pack.credits %> Credits</p>
+            <% if credit_pack.bonus_credits > 0 %>
+              <p class="text-sm text-green-600">+<%= credit_pack.bonus_credits %> Bonus Credits</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<br>
+
+<%= render PageComponent.new(title: "Payment history") do |component| %>
+  <div class="grid grid-cols-1 gap-6">
+    <% @charges.each do |charge| %>
+      <div class="bg-white rounded-lg shadow p-4 border border-gray-200">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div class="text-sm text-gray-500 uppercase font-medium">
+              <%= charge.payment_method_details.card.brand %>
+            </div>
+            <div>
+              <p class="font-medium text-gray-900">•••• •••• •••• <%= charge.payment_method_details.card.last4 %></p>
+              <p class="text-sm text-gray-500">Expires <%= charge.payment_method_details.card.exp_month %>/<%= charge.payment_method_details.card.exp_year %></p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-lg font-semibold text-gray-900"><%= number_to_currency(charge.amount.to_f / 100, unit: charge.currency.upcase) %></p>
+            <p class="text-sm text-gray-500"><%= Time.at(charge.created).strftime("%B %d, %Y %I:%M %p") %></p>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <div class="flex justify-between items-center">
+            <div class="text-sm text-gray-500">
+              <%= charge.billing_details.name %>
+              <br>
+              <%= charge.billing_details.email %>
+            </div>
+            <div class="text-sm">
+              <div class="flex items-center space-x-3">
+                <span class="px-2 py-1 rounded-full <%= charge.status == 'succeeded' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                  <%= charge.status.titleize %>
+                </span>
+                <%= link_to 'Receipt', charge.receipt_url, target: '_blank', rel: 'noopener', class: "text-blue-600 hover:text-blue-800" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
