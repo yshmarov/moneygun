@@ -1,22 +1,25 @@
 # extracted from
 # https://github.com/bullet-train-co/bullet_train-core/blob/main/bullet_train-obfuscates_id/app/models/concerns/obfuscates_id.rb
+
+# https://github.com/sqids/sqids-ruby
 module ObfuscatesId
   extend ActiveSupport::Concern
 
   class_methods do
-    def hashids
+    def sqids
       # ⚠️ Changing anything in this method will invalidate any URLs with obfuscated IDs that are in the wild.
       # You should not change any of these settings after going live unless you're OK breaking links in sent emails,
-      # breaking bookmarks to pages within your application, etc. For this reason, we don't want the Hashids salt
+      # breaking bookmarks to pages within your application, etc. For this reason, we don't want the Sqids salt
       # configurable via an ENV value.
-
-      # We don't include digits in our alphabet because it sometimes results in fully numeric strings being generated,
-      # and we can't differentiate those from normal IDs that we still need to be able to deal with.
-      @hashids ||= Hashids.new "Default ID Obfuscation Salt for #{name}", 6, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      @sqids ||= Sqids.new(
+        alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        min_length: 6,
+        salt: "Default ID Obfuscation Salt for #{name}"
+      )
     end
 
     def encode_id(id)
-      hashids.encode(id)
+      sqids.encode([ id ])
     end
 
     def decode_id(id)
@@ -29,7 +32,7 @@ module ObfuscatesId
 
     def decode_single_id(id)
       return id if id.to_i > 0
-      hashids.decode(id).first
+      sqids.decode(id).first
     end
 
     def find(*ids)
