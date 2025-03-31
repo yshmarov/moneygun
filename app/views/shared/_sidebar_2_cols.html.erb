@@ -5,7 +5,7 @@
   <%# Widescreen sidebar top %>
   <nav class="flex flex-row flex-grow divide-x">
     <div class="flex flex-col max-h-dvh overflow-y-auto p-2">
-      <div class="flex flex-col space-y-4">
+      <div class="flex flex-col space-y-2">
         <%= link_to root_path, class: "flex items-center justify-center" do %>
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
         <% end %>
@@ -13,7 +13,7 @@
         <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-200", class: "aspect-square flex justify-center items-center text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
           <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-6" %>
         <% end %>
-        <div class="flex flex-col items-center space-y-2">
+        <div class="flex flex-col items-center space-y-1">
           <% current_user.organizations.each do |organization| %>
             <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), class_active: "bg-gray-200", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
               <%= organization_avatar(organization) %>
@@ -27,11 +27,11 @@
     </div>
 
     <% if current_organization %>
-      <div class="flex flex-col justify-between max-w-min max-h-dvh overflow-y-auto space-y-2">
-        <div class="space-y-2 p-2">
+      <div class="flex flex-col justify-between max-w-min max-h-dvh overflow-y-auto space-y-1">
+        <div class="space-y-1 p-2">
           <%= render "shared/sidebar_links" %>
         </div>
-        <div class="border-t space-y-2 p-2">
+        <div class="border-t space-y-1 p-2">
           <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
           <% if @current_membership.admin? %>
             <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>

@@ -22,7 +22,7 @@
         <% end %>
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
       </summary>
-      <div class="space-y-2 p-2 border-b">
+      <div class="space-y-1 p-2 border-b">
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
         <% end %>
@@ -31,13 +31,13 @@
     </details>
 
     <% if current_organization %>
-      <div class="space-y-2 p-2">
+      <div class="space-y-1 p-2">
         <%= render "shared/sidebar_links" %>
       </div>
     <% end %>
   </div>
 
-  <div class="border-t space-y-2 p-2">
+  <div class="border-t space-y-1 p-2">
     <% if current_organization %>
       <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
       <% if @current_membership.admin? %>
