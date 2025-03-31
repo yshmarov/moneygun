@@ -8,7 +8,7 @@ class Organizations::RefillsController < Organizations::BaseController
   def add_payment_method
     session = Stripe::Checkout::Session.create({
                                                  mode: "setup",
-                                                 currency: "usd",
+                                                 currency: UsageCredits.credit_packs.first.second.price_currency,
                                                  customer: current_organization.payment_processor.processor_id,
                                                  success_url: organization_refills_url(current_organization),
                                                  cancel_url: organization_refills_url(current_organization),
