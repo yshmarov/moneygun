@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         collection do
           post :add_payment_method
           post :charge_payment_method
+          post :billing_portal
         end
       end
     end

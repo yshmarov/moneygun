@@ -11,6 +11,7 @@
 <%= render PageComponent.new(title: "Payment details") do |component| %>
   <% component.with_action_list do %>
     <%= button_to "Add payment method", add_payment_method_organization_refills_path(current_organization), method: :post, class: "btn btn-primary", data: { turbo: "false" } %>
+    <%= button_to "Manage billing", billing_portal_organization_refills_path(current_organization), method: :post, class: "btn btn-primary", data: { turbo: "false" } %>
   <% end %>
 
   <% if @payment_methods.any? %>

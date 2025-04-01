@@ -15,7 +15,7 @@ class Organizations::RefillsController < Organizations::BaseController
       customer_update: { address: :auto, name: :auto },
       tax_id_collection: { enabled: true }
     )
-    redirect_to session.url, allow_other_host: true
+    redirect_to session.url, allow_other_host: true, status: :see_other
   end
 
   # POST /credits/charge_payment_method
@@ -38,5 +38,10 @@ class Organizations::RefillsController < Organizations::BaseController
       flash[:alert] = "Payment failed. Please try again."
     end
     redirect_to organization_refills_url(current_organization)
+  end
+
+  def billing_portal
+    session = current_organization.payment_processor.billing_portal(return_url: organization_refills_url(current_organization))
+    redirect_to session.url, allow_other_host: true, status: :see_other
   end
 end
