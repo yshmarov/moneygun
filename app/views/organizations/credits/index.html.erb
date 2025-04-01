@@ -8,7 +8,7 @@
 
 <br>
 
-<%= render PageComponent.new(title: "Buy a credit pack") do |component| %>
+<%= render PageComponent.new(title: "Top up") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% UsageCredits.credit_packs.each do |key, credit_pack| %>
       <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
