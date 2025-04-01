@@ -20,15 +20,22 @@
   <% if @payment_methods.any? %>
     <div class="space-y-4">
       <% @payment_methods.each do |payment_method| %>
-        <div class="bg-white rounded-lg shadow p-4 border border-gray-200">
+        <div class="bg-white rounded-lg shadow p-2 border border-gray-200 hover:shadow-md transition-shadow">
           <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-              <div class="text-sm text-gray-500 uppercase font-medium">
-                <%= payment_method.data["brand"] %>
+            <div class="flex items-center space-x-6">
+              <div class="flex-shrink-0">
+                <div class="h-8 w-12 bg-gray-100 rounded flex items-center justify-center">
+                  <span class="text-xs font-medium text-gray-500"><%= payment_method.data["brand"] %></span>
+                </div>
               </div>
               <div>
-                <p class="font-medium text-gray-900">•••• •••• •••• <%= payment_method.data["last4"] %></p>
-                <p class="text-sm text-gray-500">Expires <%= payment_method.data["exp_month"] %>/<%= payment_method.data["exp_year"] %></p>
+                <div class="flex items-center space-x-2">
+                  <p class="font-medium text-gray-900">•••• •••• •••• <%= payment_method.data["last4"] %></p>
+                  <% if payment_method.default? %>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Default</span>
+                  <% end %>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Expires <%= payment_method.data["exp_month"].to_s.rjust(2, '0') %>/<%= payment_method.data["exp_year"] %></p>
               </div>
             </div>
           </div>
