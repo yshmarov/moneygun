@@ -6,15 +6,15 @@ class Organizations::RefillsController < Organizations::BaseController
 
   # POST /credits/add_payment_method
   def add_payment_method
-    session = Stripe::Checkout::Session.create({
-                                                 mode: "setup",
-                                                 currency: UsageCredits.credit_packs.first.second.price_currency,
-                                                 customer: current_organization.payment_processor.processor_id,
-                                                 success_url: organization_refills_url(current_organization),
-                                                 cancel_url: organization_refills_url(current_organization),
-                                                 customer_update: { address: :auto, name: :auto },
-                                                 tax_id_collection: { enabled: true }
-                                               })
+    current_organization.set_payment_processor :stripe
+    session = current_organization.payment_processor.checkout(
+      mode: "setup",
+      currency: UsageCredits.credit_packs.first.second.price_currency,
+      success_url: organization_refills_url(current_organization),
+      cancel_url: organization_refills_url(current_organization),
+      customer_update: { address: :auto, name: :auto },
+      tax_id_collection: { enabled: true }
+    )
     redirect_to session.url, allow_other_host: true
   end
 
