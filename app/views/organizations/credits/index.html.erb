@@ -10,7 +10,7 @@
 
 <%= render PageComponent.new(title: "Buy a credit pack") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <% @credit_packs.each do |key, credit_pack| %>
+    <% UsageCredits.credit_packs.each do |key, credit_pack| %>
       <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
         <div class="text-center space-y-4">
           <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
@@ -36,7 +36,7 @@
 
 <%= render PageComponent.new(title: "Subscription plans") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <% @subscription_plans.each do |key, subscription_plan| %>
+    <% UsageCredits.subscription_plans.each do |key, subscription_plan| %>
       <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
         <div class="text-center space-y-4">
           <div class="flex items-center justify-center space-x-2">

@@ -1,7 +1,5 @@
 class Organizations::CreditsController < Organizations::BaseController
   def index
-    @credit_packs = UsageCredits.credit_packs
-    @subscription_plans = UsageCredits.subscription_plans
   end
 
   def create
