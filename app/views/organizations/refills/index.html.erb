@@ -1,3 +1,13 @@
+<%= render PageComponent.new(title: "Current balance") do |component| %>
+  <% component.with_action_list do %>
+    <div class="text-lg font-semibold text-gray-900">
+      Balance: <span data-controller="animated-number" data-animated-number-start-value="0" data-animated-number-end-value="<%= current_organization.credits %>" data-animated-number-duration-value="300"><%= current_organization.credits %></span>
+    </div>
+  <% end %>
+<% end %>
+
+<br>
+
 <%= render PageComponent.new(title: "Payment details") do |component| %>
   <% component.with_action_list do %>
     <%= button_to "Add payment method", add_payment_method_organization_refills_path(current_organization), method: :post, class: "btn btn-primary", data: { turbo: "false" } %>
@@ -31,12 +41,6 @@
 <br>
 
 <%= render PageComponent.new(title: "Top up") do |component| %>
-  <% component.with_action_list do %>
-    <div class="text-lg font-semibold text-gray-900">
-      Balance: <span data-controller="animated-number" data-animated-number-start-value="0" data-animated-number-end-value="<%= current_organization.credits %>" data-animated-number-duration-value="300"><%= current_organization.credits %></span>
-    </div>
-  <% end %>
-
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% UsageCredits.credit_packs.each do |key, credit_pack| %>
       <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
