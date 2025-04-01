@@ -8,29 +8,7 @@
 
 <br>
 
-<%= render PageComponent.new(title: "Buy a credit pack") do |component| %>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <% UsageCredits.credit_packs.each do |key, credit_pack| %>
-      <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
-        <div class="text-center space-y-4">
-          <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
-          
-          <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), organization_credits_path(current_organization, credit_pack_id: key), 
-              method: :post, 
-              class: "btn btn-primary",
-              data: { turbo: "false" } %>
-          
-          <div class="space-y-2">
-            <p class="text-lg font-medium text-gray-900"><%= credit_pack.credits %> Credits</p>
-            <% if credit_pack.bonus_credits > 0 %>
-              <p class="text-sm text-green-600">+<%= credit_pack.bonus_credits %> Bonus Credits</p>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<%= render "organizations/credits/credit_packs" %>
 
 <br>
 
