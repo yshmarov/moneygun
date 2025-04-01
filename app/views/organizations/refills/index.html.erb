@@ -10,16 +10,12 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
               <div class="text-sm text-gray-500 uppercase font-medium">
-                <%= payment_method.card.brand %>
+                <%= payment_method.data["brand"] %>
               </div>
               <div>
-                <p class="font-medium text-gray-900">•••• •••• •••• <%= payment_method.card.last4 %></p>
-                <p class="text-sm text-gray-500">Expires <%= payment_method.card.exp_month %>/<%= payment_method.card.exp_year %></p>
+                <p class="font-medium text-gray-900">•••• •••• •••• <%= payment_method.data["last4"] %></p>
+                <p class="text-sm text-gray-500">Expires <%= payment_method.data["exp_month"] %>/<%= payment_method.data["exp_year"] %></p>
               </div>
-            </div>
-            <div class="text-right">
-              <p class="text-sm text-gray-500"><%= payment_method.billing_details.name %></p>
-              <p class="text-sm text-gray-500"><%= payment_method.billing_details.email %></p>
             </div>
           </div>
         </div>
@@ -72,32 +68,40 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <div class="text-sm text-gray-500 uppercase font-medium">
-              <%= charge.payment_method_details.card.brand %>
+              <%= charge.data["brand"] %>
             </div>
             <div>
-              <p class="font-medium text-gray-900">•••• •••• •••• <%= charge.payment_method_details.card.last4 %></p>
-              <p class="text-sm text-gray-500">Expires <%= charge.payment_method_details.card.exp_month %>/<%= charge.payment_method_details.card.exp_year %></p>
+              <p class="font-medium text-gray-900">•••• •••• •••• <%= charge.data["last4"] %></p>
+              <p class="text-sm text-gray-500">Expires <%= charge.data["exp_month"] %>/<%= charge.data["exp_year"] %></p>
             </div>
           </div>
           <div class="text-right">
             <p class="text-lg font-semibold text-gray-900"><%= number_to_currency(charge.amount.to_f / 100, unit: charge.currency.upcase) %></p>
-            <p class="text-sm text-gray-500"><%= Time.at(charge.created).strftime("%B %d, %Y %I:%M %p") %></p>
+            <p class="text-sm text-gray-500"><%= Time.at(charge.created_at).strftime("%B %d, %Y %I:%M %p") %></p>
           </div>
         </div>
         <div class="mt-4 pt-4 border-t border-gray-100">
           <div class="flex justify-between items-center">
-            <div class="text-sm text-gray-500">
-              <%= charge.billing_details.name %>
-              <br>
-              <%= charge.billing_details.email %>
-            </div>
-            <div class="text-sm">
+            <div class="space-y-2">
               <div class="flex items-center space-x-3">
-                <span class="px-2 py-1 rounded-full <%= charge.status == 'succeeded' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
-                  <%= charge.status.titleize %>
+                <span class="px-2 py-1 rounded-full <%= charge.data["amount_captured"] > 0 ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                  <%= charge.data["amount_captured"] > 0 ? 'Succeeded' : 'Pending' %>
                 </span>
-                <%= link_to 'Receipt', charge.receipt_url, target: '_blank', rel: 'noopener', class: "text-blue-600 hover:text-blue-800" %>
+                <%= link_to 'Receipt', charge.data["stripe_receipt_url"], target: '_blank', rel: 'noopener', class: "text-blue-600 hover:text-blue-800" %>
               </div>
+              <div class="text-sm text-gray-600">
+                <% if charge.metadata.present? %>
+                  <p>Credit Pack: <%= charge.metadata["pack_name"]&.titleize %></p>
+                  <p>Credits: <%= charge.metadata["credits"] %></p>
+                  <% if charge.metadata["bonus_credits"].to_i > 0 %>
+                    <p class="text-green-600">+<%= charge.metadata["bonus_credits"] %> Bonus Credits</p>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="text-right text-sm text-gray-500">
+              <p>Payment ID: <%= charge.processor_id %></p>
+              <p>Payment Method: <%= charge.data["payment_method_type"].titleize %></p>
             </div>
           </div>
         </div>

@@ -13,6 +13,11 @@ class ChargePaymentMethodJob < ApplicationJob
                                                     currency: credit_pack.price_currency,
                                                     payment_method:,
                                                     confirm: true,
+                                                    metadata: {
+                                                      pack_name: credit_pack.name,
+                                                      credits: credit_pack.credits,
+                                                      bonus_credits: credit_pack.bonus_credits
+                                                    },
                                                     customer: processor_id,
                                                     automatic_payment_methods: { enabled: true,
                                                                                  allow_redirects: "never" }

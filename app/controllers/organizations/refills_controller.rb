@@ -1,7 +1,7 @@
 class Organizations::RefillsController < Organizations::BaseController
   def index
-    @payment_methods = Stripe::PaymentMethod.list(customer: current_organization.payment_processor.processor_id)
-    @charges = Stripe::Charge.list(customer: current_organization.payment_processor.processor_id, limit: 1)
+    @payment_methods = current_organization.payment_processor.payment_methods
+    @charges = current_organization.payment_processor.charges
   end
 
   # POST /credits/add_payment_method
