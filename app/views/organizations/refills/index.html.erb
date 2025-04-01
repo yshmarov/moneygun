@@ -89,7 +89,7 @@
       <div class="space-y-2">
         <%= f.label :auto_refill_credit_pack, class: "block text-sm font-medium text-gray-700" %>
         <%= f.select :auto_refill_credit_pack, 
-            UsageCredits.credit_packs.map { |key, pack| [pack.name.to_s.titleize, key] },
+            UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] },
             { include_blank: "Select a credit pack" },
             class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md" %>
       </div>
