@@ -1,4 +1,6 @@
 class Organizations::RefillsController < Organizations::BaseController
+  AUTO_REFILL_THRESHOLD = 100.credits
+
   def index
     @payment_methods = current_organization.payment_processor.payment_methods
     @charges = current_organization.payment_processor.charges
