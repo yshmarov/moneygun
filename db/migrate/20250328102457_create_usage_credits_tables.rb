@@ -60,12 +60,12 @@ class CreateUsageCreditsTables < ActiveRecord::Migration[8.0]
     add_index :usage_credits_transactions, :expires_at
 
     # Composite index on (expires_at, id) for efficient ordering when calculating balances
-    add_index :usage_credits_transactions, [:expires_at, :id], name: 'index_transactions_on_expires_at_and_id'
+    add_index :usage_credits_transactions, [ :expires_at, :id ], name: 'index_transactions_on_expires_at_and_id'
 
     # Index on wallet_id and amount to speed up queries filtering by wallet and positive amounts
-    add_index :usage_credits_transactions, [:wallet_id, :amount], name: 'index_transactions_on_wallet_id_and_amount'
+    add_index :usage_credits_transactions, [ :wallet_id, :amount ], name: 'index_transactions_on_wallet_id_and_amount'
 
-    add_index :usage_credits_allocations, [:transaction_id, :source_transaction_id], name: "index_allocations_on_tx_and_source_tx"
+    add_index :usage_credits_allocations, [ :transaction_id, :source_transaction_id ], name: "index_allocations_on_tx_and_source_tx"
 
     add_index :usage_credits_fulfillments, :next_fulfillment_at
     add_index :usage_credits_fulfillments, :fulfillment_type
@@ -78,11 +78,11 @@ class CreateUsageCreditsTables < ActiveRecord::Migration[8.0]
     setting = config.options[config.orm][:primary_key_type]
     primary_key_type = setting || :primary_key
     foreign_key_type = setting || :bigint
-    [primary_key_type, foreign_key_type]
+    [ primary_key_type, foreign_key_type ]
   end
 
   def json_column_type
     return :jsonb if connection.adapter_name.downcase.include?('postgresql')
     :json
   end
-end 
+end
