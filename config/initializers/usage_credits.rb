@@ -105,3 +105,21 @@ UsageCredits.configure do |config|
   #   "#{amount} credits"
   # end
 end
+
+module WalletExtensions
+  extend ActiveSupport::Concern
+
+  included do
+    def self.auto_refill_threshold
+      100.credits
+    end
+  end
+
+  def foo
+    "bar"
+  end
+end
+
+Rails.configuration.to_prepare do
+  UsageCredits::Wallet.include WalletExtensions
+end
