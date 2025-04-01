@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           post :add_payment_method
           post :charge_payment_method
           post :billing_portal
+          patch :update_auto_refill
         end
       end
     end

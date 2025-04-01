@@ -78,6 +78,31 @@
 
 <br>
 
+<%= render PageComponent.new(title: "Auto-refill settings", content_container: true) do |component| %>
+  <%= form_with(model: [current_organization, current_organization.wallet], url: update_auto_refill_organization_refills_path(current_organization), method: :patch) do |f| %>
+    <div class="space-y-6">
+      <div class="flex items-center space-x-2">
+        <%= f.check_box :auto_refill_enabled, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+        <%= f.label :auto_refill_enabled, class: "text-sm font-medium text-gray-700" %>
+      </div>
+
+      <div class="space-y-2">
+        <%= f.label :auto_refill_credit_pack, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.select :auto_refill_credit_pack, 
+            UsageCredits.credit_packs.map { |key, pack| [pack.name.to_s.titleize, key] },
+            { include_blank: "Select a credit pack" },
+            class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md" %>
+      </div>
+
+      <div class="flex justify-end">
+        <%= f.submit "Save", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<br>
+
 <%= render PageComponent.new(title: "Payment history") do |component| %>
   <div class="grid grid-cols-1 gap-6">
     <% @charges.each do |charge| %>

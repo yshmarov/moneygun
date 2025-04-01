@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_28_102457) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_01_215403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -227,6 +227,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_102457) do
     t.jsonb "metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "auto_refill_enabled", default: false, null: false
+    t.string "auto_refill_credit_pack"
     t.index ["owner_type", "owner_id"], name: "index_usage_credits_wallets_on_owner"
   end
 

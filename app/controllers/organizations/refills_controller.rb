@@ -44,4 +44,17 @@ class Organizations::RefillsController < Organizations::BaseController
     session = current_organization.payment_processor.billing_portal(return_url: organization_refills_url(current_organization))
     redirect_to session.url, allow_other_host: true, status: :see_other
   end
+
+  def update_auto_refill
+    wallet = current_organization.wallet
+    wallet.update(wallet_params)
+    flash[:notice] = "Auto-refill settings updated"
+    redirect_to organization_refills_url(current_organization)
+  end
+
+  private
+
+  def wallet_params
+    params.require(:wallet).permit(:auto_refill_enabled, :auto_refill_credit_pack)
+  end
 end
