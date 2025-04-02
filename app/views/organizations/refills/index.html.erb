@@ -78,20 +78,29 @@
 
 <br>
 
-<%= render PageComponent.new(title: "Auto-refill settings", content_container: true) do |component| %>
+<%= render PageComponent.new(title: "Auto-top-ups", content_container: true) do |component| %>
   <%= form_with(model: [current_organization, current_organization.wallet], url: update_auto_refill_organization_refills_path(current_organization), method: :patch) do |f| %>
+    <%= render "shared/errors", object: f.object %>
     <div class="space-y-6">
       <div class="flex items-center space-x-2">
         <%= f.check_box :auto_refill_enabled, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
-        <%= f.label :auto_refill_enabled, class: "text-sm font-medium text-gray-700" %>
+        <%= f.label :auto_refill_enabled, "Enable auto top-ups", class: "text-sm font-medium text-gray-700" %>
       </div>
 
       <div class="space-y-2">
-        <%= f.label :auto_refill_credit_pack, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.select :auto_refill_credit_pack, 
-            UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] },
-            { include_blank: "Select a credit pack" },
-            class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md" %>
+        <%= f.label :auto_refill_credit_pack, "Automatically top up", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.select :auto_refill_credit_pack, UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] } %>
+      </div>
+
+      <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <div class="flex items-center space-x-2">
+          <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <p class="text-sm text-gray-600">
+            Auto-refill will trigger when your balance falls below <span class="font-semibold text-gray-900"><%= UsageCredits::Wallet.auto_refill_threshold.amount %> credits</span>
+          </p>
+        </div>
       </div>
 
       <div class="flex justify-end">

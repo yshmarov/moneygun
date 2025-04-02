@@ -8,10 +8,10 @@ module UsageCreditsHelper
   def credit_pack_label(credit_pack)
     price_per_credit = price_per_credit(credit_pack)
 
-    label = "#{credit_pack.name.to_s.titleize} - #{credit_pack.credits} credits"
+    label = "#{credit_pack.credits} credits"
     label += " (+#{credit_pack.bonus_credits} bonus)" if credit_pack.bonus_credits > 0
-    label += " (#{number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency)}"
-    label += " - #{price_per_credit}/credit)"
+    label += " - #{number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency)}"
+    label += " (#{price_per_credit}/credit)"
     label
   end
 end
