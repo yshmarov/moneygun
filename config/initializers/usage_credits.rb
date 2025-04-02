@@ -113,6 +113,8 @@ module WalletExtensions
     def self.auto_refill_threshold
       100.credits
     end
+
+    validates :auto_refill_enabled, inclusion: { in: [ false ] }, if: -> { auto_refill_credit_pack.blank? }
   end
 
   def foo
