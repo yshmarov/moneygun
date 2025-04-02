@@ -1,7 +1,7 @@
-<%= render PageComponent.new(title: "Current balance") do |component| %>
+<%= render PageComponent.new(title: "Balance") do |component| %>
   <% component.with_action_list do %>
     <div class="text-lg font-semibold text-gray-900">
-      Balance: <span data-controller="animated-number" data-animated-number-start-value="0" data-animated-number-end-value="<%= current_organization.credits %>" data-animated-number-duration-value="300"><%= current_organization.credits %></span>
+      <span data-controller="animated-number" data-animated-number-start-value="0" data-animated-number-end-value="<%= current_organization.credits %>" data-animated-number-duration-value="300"><%= current_organization.credits %></span> credits
     </div>
   <% end %>
 <% end %>
