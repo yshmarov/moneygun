@@ -27,6 +27,38 @@
     cursor: pointer;
   }
 }
+  :root {
+    --color-gray-200: #e5e7eb;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-blue-500: #3b82f6;
+    --color-blue-600: #2563eb;
+    --color-blue-700: #1d4ed8;
+    --color-red-500: #ef4444;
+    --color-red-600: #dc2626;
+    --color-red-700: #b91c1c;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+    --color-gray-200: #374151;
+    --color-gray-400: #6b7280;
+    --color-gray-500: #9ca3af;
+    --color-gray-600: #d1d5db;
+    --color-gray-700: #e5e7eb;
+    --color-gray-800: #f3f4f6;
+    --color-blue-500: #2563eb;
+    --color-blue-600: #1d4ed8;
+    --color-blue-700: #1e40af;
+    --color-red-500: #dc2626;
+    --color-red-600: #b91c1c;
+    --color-red-700: #991b1b;
+  }
+}
+
 
 .btn {
   @apply inline-flex px-4 py-2 rounded space-x-2 font-medium text-sm transition-colors ease-in-out duration-300 cursor-pointer whitespace-nowrap;
@@ -55,3 +87,4 @@
 .form-input {
   @apply block shadow-sm rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full;
 }
+
