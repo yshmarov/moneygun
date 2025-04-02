@@ -54,11 +54,12 @@
 <%= render PageComponent.new(title: "Top up") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% UsageCredits.credit_packs.each do |key, credit_pack| %>
+
       <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
         <div class="text-center space-y-4">
           <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
           
-          <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), charge_payment_method_organization_refills_path(current_organization, credit_pack: key), 
+          <%= button_to format_credit_price(credit_pack.price_cents), charge_payment_method_organization_refills_path(current_organization, credit_pack: key), 
               method: :post, 
               class: "btn btn-primary",
               disabled: !@payment_methods.any?,

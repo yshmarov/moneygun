@@ -10,7 +10,7 @@ module UsageCreditsHelper
 
     label = "#{format_credits(credit_pack.credits)}"
     label += " (+#{credit_pack.bonus_credits} bonus)" if credit_pack.bonus_credits > 0
-    label += " - #{number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency)}"
+    label += " - #{format_credit_price(credit_pack.price_cents)}"
     label += " (#{price_per_credit}/credit)"
     label
   end
