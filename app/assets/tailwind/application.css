@@ -21,6 +21,11 @@
     border-width: 1px;
     border-color: var(--color-gray-200, currentColor);
   }
+
+  button:not(:disabled),
+  input[type="submit"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 .btn {
