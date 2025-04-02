@@ -24,7 +24,7 @@ class ChargePaymentMethodJob < ApplicationJob
                                                   })
 
     if payment_intent.status == "succeeded"
-      organization.give_credits(credit_pack.credits, reason: credit_pack.name)
+      organization.give_credits(credit_pack.total_credits, reason: credit_pack.name)
     end
     payment_intent
   end
