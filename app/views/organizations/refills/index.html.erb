@@ -104,7 +104,7 @@
       </div>
 
       <div class="flex justify-end">
-        <%= f.submit "Save", class: "btn btn-primary" %>
+        <%= f.submit "Save", class: "btn btn-primary", disabled: !@payment_methods.any? %>
       </div>
     </div>
   <% end %>
