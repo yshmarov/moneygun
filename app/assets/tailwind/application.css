@@ -27,7 +27,7 @@
     cursor: pointer;
   }
 }
-  :root {
+  /* :root {
     --color-gray-200: #e5e7eb;
     --color-gray-400: #9ca3af;
     --color-gray-500: #6b7280;
@@ -40,7 +40,7 @@
     --color-red-500: #ef4444;
     --color-red-600: #dc2626;
     --color-red-700: #b91c1c;
-  }
+  } */
   
   @media (prefers-color-scheme: dark) {
     :root {
