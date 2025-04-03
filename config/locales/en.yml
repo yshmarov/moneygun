@@ -22,7 +22,7 @@ en:
     destroy:
       success: Space destroyed
     edit:
-      title: Editing space
+      title: Edit space
     index:
       title: My spaces
     new:
@@ -31,7 +31,7 @@ en:
       title: Space settings
     subscriptions:
       index:
-        title: Manage subscription
+        title: Billing
       features:
         title: Features
       plan:
@@ -65,6 +65,7 @@ en:
       edit: Edit
       new: New
     navigation:
+      select_organization: Select organization
       edit_profile: Edit profile
       login: Log in
       logout: Log out
