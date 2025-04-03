@@ -52,6 +52,12 @@ en:
       title: "My spaces"
     new:
       title: "New space"
+    create:
+      success: "Space created"
+    update:
+      success: "Space updated"
+    destroy:
+      success: "Space destroyed"
     show:
       title: "Space settings"
     edit:
