@@ -15,7 +15,7 @@
         <% end %>
         <div class="flex flex-col items-center space-y-1">
           <% current_user.organizations.each do |organization| %>
-            <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), title: organization.name, class_active: "bg-gray-200", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
+            <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), title: organization.name, class_active: "bg-red-400", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-red-400 hover:bg-red-400" do %>
               <%= organization_avatar(organization) %>
             <% end %>
           <% end %>
