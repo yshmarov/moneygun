@@ -21,10 +21,14 @@ en:
     index:
       title: My spaces
     memberships:
+      create:
+        success: "%{email} invited"
       index:
         title: Memberships
       new:
         title: Invite user
+      update:
+        success: User updated
     new:
       title: New space
     show:
@@ -64,15 +68,15 @@ en:
       destroy: Destroy
       edit: Edit
       new: New
+    errors:
+      not_authorized: You are not authorized to perform this action.
+      not_subscribed: You need to subscribe to access this page.
     navigation:
       edit_profile: Edit profile
       login: Log in
       logout: Log out
       register: Register
       select_organization: Select organization
-    errors:
-      not_authorized: "You are not authorized to perform this action."
-      not_subscribed: "You need to subscribe to access this page."
   static:
     pricing:
       title: Pricing

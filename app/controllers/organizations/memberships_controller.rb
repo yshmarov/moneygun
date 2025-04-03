@@ -16,7 +16,7 @@ class Organizations::MembershipsController < Organizations::BaseController
     @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), role: params.dig(:membership_invitation, :role), organization: @organization, inviter: current_user)
 
     if @form.save
-      redirect_to organization_memberships_path(@organization), notice: "#{@form.email} invited!"
+      redirect_to organization_memberships_path(@organization), notice: t(".success", email: @form.email)
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def update
     if @membership.update(membership_params)
-      redirect_to organization_memberships_path(@organization), notice: "User updated"
+      redirect_to organization_memberships_path(@organization), notice: t(".success")
     else
       render :edit, status: :unprocessable_entity
     end
