@@ -1,5 +1,6 @@
 class Organizations::TransfersController < Organizations::BaseController
   before_action :authorize_organization_owner!
+
   def show
   end
 
