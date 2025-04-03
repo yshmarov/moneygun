@@ -29,6 +29,17 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      organization: Space
+      membership: Member
+    attributes:
+      organization:
+        name: "Name"
+        logo: "Logo"
+      membership:
+        role: "Role"
+        email: "Email"
   shared:
     actions:
       new: "New"

@@ -26,7 +26,7 @@
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
         <% end %>
-        <%= nav_link "My organizations", organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
+        <%= nav_link t("organizations.index.title"), organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
