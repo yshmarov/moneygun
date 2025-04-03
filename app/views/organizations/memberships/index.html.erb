@@ -1,8 +1,8 @@
-<% content_for :title, "Memberships" %>
+<% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: "Memberships") do |component| %>
+<%= render PageComponent.new(title: t(".title")) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "Invite", new_organization_membership_path(@organization), class: "btn btn-primary" if policy(@organization.memberships.new).new? %>
+    <%= link_to t("organizations.memberships.new.title"), new_organization_membership_path(@organization), class: "btn btn-primary" if policy(@organization.memberships.new).new? %>
   <% end %>
 
   <div id="memberships" class="space-y-4">

@@ -12,6 +12,11 @@ en:
       membership: Member
       organization: Space
   organizations:
+    memberships:
+      index:
+        title: Memberships
+      new:
+        title: Invite user
     create:
       success: Space created
     destroy:
