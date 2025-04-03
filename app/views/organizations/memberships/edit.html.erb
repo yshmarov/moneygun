@@ -17,9 +17,9 @@
     </div>
 
     <div class="inline">
-      <%= form.submit "Update Organization User", class: "btn btn-primary" %>
+      <%= form.submit class: "btn btn-primary" %>
     </div>
   <% end %>
 
-  <%= link_to "Cancel", organization_memberships_path(@organization), class: "btn btn-secondary" %>
+  <%= link_to t("shared.actions.cancel"), organization_memberships_path(@organization), class: "btn btn-secondary" %>
 <% end %>

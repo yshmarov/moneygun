@@ -10,12 +10,12 @@
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
         <% end %>
 
-        <%= active_link_to organizations_path, active: :exclusive, class_active: "bg-gray-200", class: "aspect-square flex justify-center items-center text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
+        <%= active_link_to organizations_path, active: :exclusive, title: t("organizations.index.title"), class_active: "bg-gray-200", class: "aspect-square flex justify-center items-center text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
           <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-6" %>
         <% end %>
         <div class="flex flex-col items-center space-y-1">
           <% current_user.organizations.each do |organization| %>
-            <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), class_active: "bg-gray-200", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
+            <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), title: organization.name, class_active: "bg-gray-200", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
               <%= organization_avatar(organization) %>
             <% end %>
           <% end %>
@@ -32,10 +32,10 @@
           <%= render "shared/sidebar_links" %>
         </div>
         <div class="border-t space-y-1 p-2">
-          <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
+          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
           <% if @current_membership.admin? %>
-            <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-            <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
+            <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+            <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
           <% end %>
         </div>
       </div>
