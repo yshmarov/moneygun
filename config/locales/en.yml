@@ -72,6 +72,7 @@ en:
       select_organization: Select organization
     errors:
       not_authorized: "You are not authorized to perform this action."
+      not_subscribed: "You need to subscribe to access this page."
   static:
     pricing:
       title: Pricing
