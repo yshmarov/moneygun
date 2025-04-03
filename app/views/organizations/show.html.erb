@@ -1,11 +1,11 @@
-<% content_for :title, "#{@organization.name} settings" %>
+<% content_for :title, t("organizations.show.title") %>
 
-<%= render PageComponent.new(title: "#{@organization.name} settings") do |component| %>
+<%= render PageComponent.new(title: t("organizations.show.title")) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary" if policy(@organization).edit? %>
-    <%= link_to "Transfer", organization_transfer_path(@organization), class: "btn btn-danger" if @organization.can_transfer?(current_user) %>
+    <%= link_to t("shared.actions.edit"), edit_organization_path(@organization), class: "btn btn-secondary" if policy(@organization).edit? %>
+    <%= link_to t("organizations.transfer.title"), organization_transfer_path(@organization), class: "btn btn-danger" if @organization.can_transfer?(current_user) %>
     <div class="inline-block">
-      <%= button_to "Destroy", @organization, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(@organization).destroy? %>
+      <%= button_to t("shared.actions.destroy"), @organization, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-danger" if policy(@organization).destroy? %>
     </div>
   <% end %>
 <% end %>

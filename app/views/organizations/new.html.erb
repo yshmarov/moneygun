@@ -1,6 +1,6 @@
-<% content_for :title, "New organization" %>
+<% content_for :title, t("organizations.new.title") %>
 
-<%= render PageComponent.new(title: "New organization", content_container: true, full_width: false) do |component| %>
+<%= render PageComponent.new(title: t("organizations.new.title"), content_container: true, full_width: false) do |component| %>
   <%= render "form", organization: @organization %>
-  <%= link_to "Cancel", organizations_path, class: "btn btn-secondary" %>
+  <%= link_to t("shared.actions.cancel"), organizations_path, class: "btn btn-secondary" %>
 <% end %>

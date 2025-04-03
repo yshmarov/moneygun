@@ -29,7 +29,24 @@
 
 en:
   hello: "Hello world"
+  shared:
+    actions:
+      new: "New"
+      edit: "Edit"
+      destroy: "Destroy"
+      cancel: "Cancel"
+      confirm: "Are you sure?"
   organizations:
+    index:
+      title: "My spaces"
+    new:
+      title: "New space"
+    show:
+      title: "Space settings"
+    edit:
+      title: "Editing space"
+    transfer:
+      title: "Transfer"
     subscriptions:
       features:
         title: "Features"
