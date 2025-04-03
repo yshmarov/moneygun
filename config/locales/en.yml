@@ -1,80 +1,34 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
+---
 en:
-  hello: "Hello world"
   activerecord:
-    models:
-      organization: Space
-      membership: Member
     attributes:
-      organization:
-        name: "Name"
-        logo: "Logo"
       membership:
-        role: "Role"
-        email: "Email"
-  shared:
-    actions:
-      new: "New"
-      edit: "Edit"
-      destroy: "Destroy"
-      cancel: "Cancel"
-      confirm: "Are you sure?"
+        email: Email
+        role: Role
+      organization:
+        logo: Logo
+        name: Name
+    models:
+      membership: Member
+      organization: Space
+  hello: Hello world
   organizations:
-    index:
-      title: "My spaces"
-    new:
-      title: "New space"
     create:
-      success: "Space created"
-    update:
-      success: "Space updated"
+      success: Space created
     destroy:
-      success: "Space destroyed"
-    show:
-      title: "Space settings"
+      success: Space destroyed
     edit:
-      title: "Editing space"
-    transfer:
-      title: "Transfer"
+      title: Editing space
+    index:
+      title: My spaces
+    new:
+      title: New space
+    show:
+      title: Space settings
     subscriptions:
       features:
-        title: "Features"
-      pricing:
-        title: Pricing
-        save_yearly: Best value
-        subscribe: Get started
-        current_plan: Current plan
-        cancel_security: '🛡️ Cancel anytime. Secured by Stripe.'
+        title: Features
       plan:
-        title: Manage subscription
         features: Current plan features
         manage_billing: Manage billing
         next_billing_date: Next billing date
@@ -82,4 +36,22 @@ en:
         subscribe: Subscribe
         subscription_active: Subscription active
         subscription_cancelled: Subscription cancelled
+        title: Manage subscription
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
+      pricing:
+        cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
+        current_plan: Current plan
+        save_yearly: Best value
+        subscribe: Get started
+        title: Pricing
+    transfer:
+      title: Transfer
+    update:
+      success: Space updated
+  shared:
+    actions:
+      cancel: Cancel
+      confirm: Are you sure?
+      destroy: Destroy
+      edit: Edit
+      new: New
