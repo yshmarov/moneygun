@@ -50,11 +50,11 @@ en:
         save_yearly: Best value
         subscribe: Get started
         title: Pricing
-    transfer:
-      title: Transfer
     transfers:
       show:
         title: Transfer space
+      update:
+        success: Ownership transferred
     update:
       success: Space updated
   shared:
