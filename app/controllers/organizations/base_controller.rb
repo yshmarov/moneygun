@@ -20,6 +20,13 @@ class Organizations::BaseController < ApplicationController
     redirect_to organization_path(@organization), alert: "You are not authorized to perform this action." unless @organization.owner?(current_user)
   end
 
+  def require_subscription
+    unless current_organization.payment_processor.subscribed?
+      flash[:alert] = "You need to subscribe to access this page."
+      redirect_to organization_subscriptions_url(current_organization)
+    end
+  end
+
   private
 
   def set_organization

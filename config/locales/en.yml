@@ -70,6 +70,8 @@ en:
       logout: Log out
       register: Register
       select_organization: Select organization
+    errors:
+      not_authorized: "You are not authorized to perform this action."
   static:
     pricing:
       title: Pricing
