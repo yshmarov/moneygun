@@ -25,6 +25,8 @@ en:
     show:
       title: Space settings
     subscriptions:
+      index:
+        title: Manage subscription
       features:
         title: Features
       plan:
