@@ -1,3 +1,5 @@
+<% content_for :title, "Edit #{@membership.user.email} roles" %>
+
 <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles", content_container: true, full_width: false) do |component| %>
   <%= form_with(model: [ @organization, @membership ], class: "contents") do |form| %>
     <%= render "shared/errors", object: form.object %>

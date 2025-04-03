@@ -1,3 +1,5 @@
+<% content_for :title, "#{@organization.name} settings" %>
+
 <%= render PageComponent.new(title: "#{@organization.name} settings") do |component| %>
   <% component.with_action_list do %>
     <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary" if policy(@organization).edit? %>

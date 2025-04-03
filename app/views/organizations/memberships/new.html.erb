@@ -1,3 +1,5 @@
+<% content_for :title, "Invite user" %>
+
 <%= render PageComponent.new(title: "Invite user", content_container: true, full_width: false) do |component| %>
   <%= form_with model: @form, url: organization_memberships_path(@organization), class: "contents space-y-4" do |form| %>
     <%= render "shared/errors", object: form.object %>
