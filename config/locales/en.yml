@@ -45,6 +45,9 @@ en:
         title: Pricing
     transfer:
       title: Transfer
+    transfers:
+      show:
+        title: Transfer space
     update:
       success: Space updated
   shared:
@@ -54,3 +57,8 @@ en:
       destroy: Destroy
       edit: Edit
       new: New
+    navigation:
+      edit_profile: Edit profile
+      login: Log in
+      logout: Log out
+      register: Register
