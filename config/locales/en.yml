@@ -62,3 +62,10 @@ en:
       login: Log in
       logout: Log out
       register: Register
+  static:
+    pricing:
+      title: Pricing
+    terms:
+      title: Terms
+    privacy:
+      title: Privacy
