@@ -17,7 +17,7 @@
         </div>
         <% else %>
           <div class="py-1 inline-flex">
-            Select Organization
+            <%= t("shared.navigation.select_organization") %>
           </div>
         <% end %>
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
@@ -26,7 +26,7 @@
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
         <% end %>
-        <%= nav_link "My organizations", organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
+        <%= nav_link t("organizations.index.title"), organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
@@ -39,12 +39,12 @@
 
   <div class="border-t space-y-1 p-2">
     <% if current_organization %>
-      <%= nav_link "Users", organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
+      <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
       <% if @current_membership.admin? %>
         <%= nav_link "Refills", organization_refills_path(current_organization), icon: "💸" %>
         <%= nav_link "Credits", organization_credits_path(current_organization), icon: "💳" %>
-        <%= nav_link "Billing #{subscription_status_label(current_organization)}", organization_subscriptions_path(current_organization), icon: "svg/credit-card.svg" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-        <%= nav_link "Settings", organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
+        <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+        <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
       <% end %>
     <% end %>
     <%= render "shared/sidebar_toggle" %>
