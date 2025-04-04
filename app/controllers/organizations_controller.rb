@@ -22,7 +22,7 @@ class OrganizationsController < ApplicationController
     @organization.memberships.build(user: current_user, role: Membership.roles[:admin])
 
     if @organization.save
-      redirect_to organization_url(@organization), notice: t("organizations.create.success")
+      redirect_to organization_dashboard_path(@organization), notice: t("organizations.create.success")
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class OrganizationsController < ApplicationController
 
   def update
     if @organization.update(organization_params)
-      redirect_to organization_url(@organization), notice: t("organizations.update.success")
+      redirect_to organization_path(@organization), notice: t("organizations.update.success")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -39,7 +39,7 @@ class OrganizationsController < ApplicationController
   def destroy
     @organization.destroy!
 
-    redirect_to organizations_url, notice: t("organizations.destroy.success")
+    redirect_to organizations_path, notice: t("organizations.destroy.success")
   end
 
   private
