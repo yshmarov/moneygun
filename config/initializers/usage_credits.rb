@@ -31,20 +31,20 @@ UsageCredits.configure do |config|
   # Example credit packs (uncomment and modify as needed):
   #
   credit_pack :tiny do
-    gives 100.credits
-    costs 99.cents # Price can be in cents or dollars
+    gives 10.credits
+    costs 10.dollars # Price can be in cents or dollars
   end
 
   credit_pack :starter do
-    gives 1000.credits
-    bonus 100.credits  # Optional bonus credits
-    costs 49.dollars
+    gives 100.credits
+    bonus 10.credits  # Optional bonus credits
+    costs 100.dollars
   end
 
   credit_pack :pro do
-    gives 5000.credits
-    bonus 1000.credits
-    costs 199.dollars
+    gives 1000.credits
+    bonus 200.credits
+    costs 1000.dollars
   end
   #
   #
@@ -53,16 +53,16 @@ UsageCredits.configure do |config|
   #
   subscription_plan :basic do
     stripe_price "price_1R68bjLRcgxgTmfQL2kBW5pX"
-    gives 1000.credits.every(:month)
-    signup_bonus 100.credits
+    gives 100.credits.every(:month)
+    signup_bonus 10.credits
     unused_credits :expire  # Credits reset each month
   end
 
   subscription_plan :pro do
     stripe_price "price_1R68c1LRcgxgTmfQijgGMDfT"
-    gives 10_000.credits.every(:month)
-    signup_bonus 1_000.credits
-    trial_includes 500.credits
+    gives 1000.credits.every(:month)
+    signup_bonus 200.credits
+    trial_includes 20.credits
     unused_credits :expire  # Credits expire at the end of the fulfillment period (use :rollover to roll over to next period)
   end
   #
