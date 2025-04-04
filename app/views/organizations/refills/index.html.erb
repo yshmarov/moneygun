@@ -1,11 +1,3 @@
-<%= render PageComponent.new(title: "Balance") do |component| %>
-  <% component.with_action_list do %>
-    <%== credits_badge(current_organization) %>
-  <% end %>
-<% end %>
-
-<br>
-
 <%= render PageComponent.new(title: "Payment details") do |component| %>
   <% component.with_action_list do %>
     <% if @payment_methods.any? %>

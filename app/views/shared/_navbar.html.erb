@@ -14,6 +14,9 @@
           </div>
         <% end %>
       </button>
+      <% if current_organization %>
+        <%= credits_badge(current_organization, counter: false) %>
+      <% end %>
     <% else %>
       <%= link_to root_path, class: "no-underline" do %>
         <%= image_tag "logo.png", class: "size-8" %>

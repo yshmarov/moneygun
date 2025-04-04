@@ -15,10 +15,14 @@ module UsageCreditsHelper
     label
   end
 
-  def credits_badge(organization)
+  def credits_badge(organization, counter: true)
     content_tag(:div, class: "font-medium border border-gray-200 bg-amber-400 rounded-lg px-1") do
-      concat content_tag(:span, organization.credits.to_s, data: { controller: "animated-number", animated_number_start_value: "0", animated_number_end_value: organization.credits, animated_number_duration_value: "300" })
-      concat " credits"
+      if counter
+        concat content_tag(:span, organization.credits.to_s, data: { controller: "animated-number", animated_number_start_value: "0", animated_number_end_value: organization.credits, animated_number_duration_value: "300" })
+        concat " credits"
+      else
+        concat format_credits(organization.credits)
+      end
     end
   end
 end
