@@ -15,7 +15,7 @@
         <% end %>
       </button>
       <% if current_organization %>
-        <%= credits_badge(current_organization, counter: false) %>
+        <%= render CreditsBadgeComponent.new(organization: current_organization, counter: false, link: true) %>
       <% end %>
     <% else %>
       <%= link_to root_path, class: "no-underline" do %>

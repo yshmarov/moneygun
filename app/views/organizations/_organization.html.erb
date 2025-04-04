@@ -6,7 +6,7 @@
   </div>
 
   <div class="flex items-center gap-4">
-    <%== credits_badge(organization) %>
+    <%= render CreditsBadgeComponent.new(organization:) %>
     <div class="flex items-center -space-x-2">
       <% organization.users.each do |user| %>
         <%= user_avatar(user) %>

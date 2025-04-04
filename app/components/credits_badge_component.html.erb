@@ -1,0 +1,26 @@
+<% wrapper_classes = "font-medium border border-gray-200 bg-amber-400 rounded-lg px-1" %>
+<% wrapper_classes += " hover:bg-amber-500" if link %>
+
+<% content = capture do %>
+  <% if counter %>
+    <span data-controller="animated-number" 
+          data-animated-number-start-value="0" 
+          data-animated-number-end-value="<%= organization.credits %>" 
+          data-animated-number-duration-value="300">
+      <%= organization.credits %>
+    </span>
+    credits
+  <% else %>
+    <%= format_credits(organization.credits) %>
+  <% end %>
+<% end %>
+
+<% if link %>
+  <%= link_to organization_credits_path(organization), class: wrapper_classes do %>
+    <%= content %>
+  <% end %>
+<% else %>
+  <%= tag.div class: wrapper_classes do %>
+    <%= content %>
+  <% end %>
+<% end %>
