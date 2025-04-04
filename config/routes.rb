@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       get "subscriptions/checkout", to: "subscriptions#checkout"
       post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
 
-      resources :credits
+      resources :credits, only: %i[index create]
       resources :refills, only: %i[index] do
         collection do
           post :add_payment_method
