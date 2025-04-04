@@ -70,17 +70,17 @@
 <br>
 
 <%= render PageComponent.new(title: "Auto-top-ups", content_container: true) do |component| %>
-  <%= form_with(model: [current_organization, current_organization.wallet], url: update_auto_refill_organization_refills_path(current_organization), method: :patch) do |f| %>
-    <%= render "shared/errors", object: f.object %>
+  <%= form_with(model: [current_organization, current_organization.wallet], url: update_auto_refill_organization_refills_path(current_organization), method: :patch) do |form| %>
+    <%= render "shared/errors", object: form.object %>
     <div class="space-y-6">
       <div class="flex items-center space-x-2">
-        <%= f.check_box :auto_refill_enabled, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
-        <%= f.label :auto_refill_enabled, "Enable auto top-ups", class: "text-sm font-medium text-gray-700" %>
+        <%= form.check_box :auto_refill_enabled, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+        <%= form.label :auto_refill_enabled, "Enable auto top-ups", class: "text-sm font-medium text-gray-700" %>
       </div>
 
       <div class="space-y-2">
-        <%= f.label :auto_refill_credit_pack, "Automatically top up", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.select :auto_refill_credit_pack, UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] } %>
+        <%= form.label :auto_refill_credit_pack, "Automatically top up", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.select :auto_refill_credit_pack, UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] } %>
       </div>
 
       <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
@@ -95,7 +95,7 @@
       </div>
 
       <div class="flex justify-end">
-        <%= f.submit "Save", class: "btn btn-primary", disabled: !@payment_methods.any? %>
+        <%= form.submit "Save", class: "btn btn-primary", disabled: !@payment_methods.any? %>
       </div>
     </div>
   <% end %>
