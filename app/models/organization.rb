@@ -31,4 +31,10 @@ class Organization < ApplicationRecord
   def pay_should_sync_customer?
     super || self.saved_change_to_owner_id?
   end
+
+  after_create :give_starter_credits
+
+  def give_starter_credits
+    give_credits(100, reason: "new_organization")
+  end
 end
