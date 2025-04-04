@@ -35,6 +35,6 @@ class Organization < ApplicationRecord
   after_create :give_starter_credits
 
   def give_starter_credits
-    give_credits(100, reason: "new_organization")
+    give_credits(10, reason: "new_organization")
   end
 end
