@@ -71,7 +71,7 @@ UsageCredits.configure do |config|
   # Alert when balance drops below this threshold (default: 100 credits)
   # Set to nil to disable low balance alerts
   #
-  # config.low_balance_threshold = 100.credits
+  config.low_balance_threshold = 5.credits
   #
   #
   # Handle low credit balance alerts – Useful to sell booster credit packs, for example
@@ -110,9 +110,9 @@ module WalletExtensions
   extend ActiveSupport::Concern
 
   included do
-    def self.auto_refill_threshold
-      100.credits
-    end
+    # def self.auto_refill_threshold
+    #   100.credits
+    # end
 
     validates :auto_refill_enabled, inclusion: { in: [ false ] }, if: -> { auto_refill_credit_pack.blank? }
   end
