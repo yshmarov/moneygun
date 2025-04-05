@@ -13,6 +13,7 @@ class Organization < ApplicationRecord
   has_one_attached :logo
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
+  has_credits
 
   def email
     owner.email
@@ -29,5 +30,11 @@ class Organization < ApplicationRecord
 
   def pay_should_sync_customer?
     super || self.saved_change_to_owner_id?
+  end
+
+  after_create :reward_new_organization
+
+  def reward_new_organization
+    give_credits(10, reason: "new_organization_created")
   end
 end

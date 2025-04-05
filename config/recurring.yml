@@ -8,3 +8,9 @@
 #     command: "SoftDeletedRecord.due.delete_all"
 #     priority: 2
 #     schedule: at 5am every day
+
+production:
+  refill_credits:
+    class: UsageCredits::FulfillmentJob
+    queue: default
+    schedule: every 5 minutes

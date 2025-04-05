@@ -79,4 +79,5 @@ gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
+gem "usage_credits"
 gem "sqids" # for obfuscating IDs
