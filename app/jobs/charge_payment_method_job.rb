@@ -5,8 +5,9 @@ class ChargePaymentMethodJob < ApplicationJob
 
   def perform(organization, credit_pack)
     processor_id = organization.payment_processor.processor_id
-    payment_method = Stripe::PaymentMethod.list(customer: processor_id).first.id
-    credit_pack = UsageCredits.find_credit_pack(credit_pack.name)
+    # TODO: try default one first, if that fails, try the first one
+    payment_method = organization.payment_processor.payment_methods.first.processor_id
+    credit_pack = UsageCredits.find_credit_pack(credit_pack)
 
     payment_intent = Stripe::PaymentIntent.create({
                                                     amount: credit_pack.price_cents,

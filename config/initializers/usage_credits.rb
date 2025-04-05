@@ -6,6 +6,10 @@ UsageCredits.configure do |config|
   #
   # Example:
   #
+  operation :spend_some_credits do
+    costs 25.credits
+  end
+  #
   # operation :send_email do
   #   costs 1.credit
   # end
@@ -71,15 +75,15 @@ UsageCredits.configure do |config|
   # Alert when balance drops below this threshold (default: 100 credits)
   # Set to nil to disable low balance alerts
   #
-  config.low_balance_threshold = 5.credits
+  config.low_balance_threshold = 101.credits
   #
   #
   # Handle low credit balance alerts – Useful to sell booster credit packs, for example
-  #
-  # config.on_low_balance do |user|
-  # Send notification to user when their balance drops below the threshold
-  # UserMailer.low_credits_alert(user).deliver_later
-  # end
+  config.on_low_balance do |organization|
+    if organization.wallet.auto_refill_enabled? && organization.wallet.auto_refill_credit_pack.present? && organization.payment_processor.payment_methods.any?
+      ChargePaymentMethodJob.perform_now(organization, organization.wallet.auto_refill_credit_pack)
+    end
+  end
   #
   #
   #

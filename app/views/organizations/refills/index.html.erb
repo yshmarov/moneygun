@@ -1,3 +1,5 @@
+<%= button_to "Spend some credits", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "btn btn-primary", data: { turbo: "false" } %>
+
 <%= render PageComponent.new(title: "Payment details") do |component| %>
   <% component.with_action_list do %>
     <% if @payment_methods.any? %>
