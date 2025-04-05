@@ -169,7 +169,7 @@
 <%# Credit History Section %>
 <%= render PageComponent.new(title: "Transaction history") do |component| %>
   <div class="space-y-2">
-    <% @organization.credit_history.recent.each do |transaction| %>
+    <% @organization.wallet.transactions.order(created_at: :desc).each do |transaction| %>
       <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
         <div class="flex items-center space-x-4">
           <div class="flex-shrink-0">
