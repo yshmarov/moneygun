@@ -80,7 +80,7 @@ UsageCredits.configure do |config|
   #
   # Handle low credit balance alerts – Useful to sell booster credit packs, for example
   config.on_low_balance do |organization|
-    if organization.wallet.auto_refill_enabled? && organization.wallet.auto_refill_credit_pack.present? && organization.payment_processor.payment_methods.any?
+    if organization.wallet.can_auto_refill?
       ChargePaymentMethodJob.perform_now(organization, organization.wallet.auto_refill_credit_pack)
     end
   end
@@ -123,6 +123,10 @@ module WalletExtensions
 
   def foo
     "bar"
+  end
+
+  def can_auto_refill?
+    auto_refill_enabled? && auto_refill_credit_pack.present? && owner.payment_processor.payment_methods.any?
   end
 end
 

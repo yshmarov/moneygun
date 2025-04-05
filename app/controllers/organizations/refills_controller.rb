@@ -57,7 +57,10 @@ class Organizations::RefillsController < Organizations::BaseController
       @organization.spend_credits_on(:spend_some_credits)
       flash[:notice] = "Credits spent successfully"
     else
-      flash[:alert] = "Insufficient credits"
+      # if @organization.wallet.can_auto_refill?
+      #   ChargePaymentMethodJob.perform_now(@organization, @organization.wallet.auto_refill_credit_pack)
+      # end
+      flash[:alert] = "Insufficient credits1"
     end
     redirect_to organization_refills_url(@organization)
   end
