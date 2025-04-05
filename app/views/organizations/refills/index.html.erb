@@ -167,7 +167,7 @@
 <br>
 
 <%# Credit History Section %>
-<%= render PageComponent.new(title: "Credit History") do |component| %>
+<%= render PageComponent.new(title: "Transaction history") do |component| %>
   <div class="space-y-2">
     <% @organization.credit_history.recent.each do |transaction| %>
       <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
@@ -185,7 +185,8 @@
           </div>
           <div>
             <p class="text-sm font-medium text-gray-900">
-              <%= transaction.metadata["reason"]&.titleize || transaction.category.titleize %>
+              <%= transaction.category.titleize %>:
+              <%= transaction.metadata["operation"]&.titleize || transaction.metadata["reason"]&.titleize || transaction.category.titleize %>
             </p>
             <p class="text-xs text-gray-500">
               <%= transaction.created_at.strftime("%b %d, %Y") %>
