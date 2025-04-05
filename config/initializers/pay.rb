@@ -6,3 +6,21 @@ Pay.setup do |config|
   config.enabled_processors = [ :stripe ]
   config.send_emails = false
 end
+
+module PaymentMethodExtensions
+  extend ActiveSupport::Concern
+
+  included do
+    after_create_commit :reward_first_payment_method
+  end
+
+  def reward_first_payment_method
+    return if customer.owner.payment_processor.payment_methods.count > 1
+
+    customer.owner.give_credits(100, reason: "first_payment_method_added")
+  end
+end
+
+Rails.configuration.to_prepare do
+  Pay::PaymentMethod.include PaymentMethodExtensions
+end
