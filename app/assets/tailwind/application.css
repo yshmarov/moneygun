@@ -27,6 +27,62 @@
     cursor: pointer;
   }
 }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+    --color-gray-50: #111827;
+    --color-gray-100: #1f2937;
+    --color-gray-200: #374151;
+    --color-gray-400: #6b7280;
+    --color-gray-500: #9ca3af;
+    --color-gray-600: #d1d5db;
+    --color-gray-700: #e5e7eb;
+    --color-gray-800: #f3f4f6;
+    --color-gray-900: #f9fafb;
+    --color-blue-500: #2563eb;
+    --color-blue-600: #1d4ed8;
+    --color-blue-700: #1e40af;
+    --color-red-500: #dc2626;
+    --color-red-600: #b91c1c;
+    --color-red-700: #991b1b;
+  }
+  
+  :root.midnight {
+    --color-gray-50: #0a0c12;
+    --color-gray-100: #12151e;
+    --color-gray-200: #1a1e2a;
+    --color-gray-400: #5a6175;
+    --color-gray-500: #8a92a8;
+    --color-gray-600: #c5cbd8;
+    --color-gray-700: #e0e4ed;
+    --color-gray-800: #f0f2f7;
+    --color-gray-900: #f8f9fc;
+    --color-blue-500: #3b82f6;
+    --color-blue-600: #2563eb;
+    --color-blue-700: #1d4ed8;
+    --color-red-500: #ef4444;
+    --color-red-600: #dc2626;
+    --color-red-700: #b91c1c;
+  }
+  
+  :root.github {
+    --color-gray-50: #161b22;
+    --color-gray-100: #22282f;
+    --color-gray-200: #2b3037;
+    --color-gray-400: #798490;
+    --color-gray-500: #9ca3af;
+    --color-gray-600: #d2d7df;
+    --color-gray-700: #e5e7eb;
+    --color-gray-800: #f3f4f6;
+    --color-gray-900: #f9fafb;
+    --color-blue-500: #2563eb;
+    --color-blue-600: #1d4ed8;
+    --color-blue-700: #1e40af;
+    --color-red-500: #dc2626;
+    --color-red-600: #b91c1c;
+    --color-red-700: #991b1b;
+  }
+}
 
 .btn {
   @apply inline-flex px-4 py-2 rounded space-x-2 font-medium text-sm transition-colors ease-in-out duration-300 cursor-pointer whitespace-nowrap active:scale-95 transition-all duration-200;
