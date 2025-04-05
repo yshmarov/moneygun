@@ -9,8 +9,6 @@ class CreditsBadgeComponent < ViewComponent::Base
   end
 
   def wrapper_classes
-    default_classes = "font-extrabold border border-gray-200 bg-amber-400 dark:bg-amber-600 text-gray-900 dark:text-gray-100 rounded-lg px-1"
-    default_classes += " hover:bg-amber-500 dark:hover:bg-amber-700 active:scale-95 transition-all duration-200" if link
-    default_classes
+    "!font-extrabold btn btn-warning btn-sm gap-0.5"
   end
 end
