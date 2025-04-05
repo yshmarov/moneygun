@@ -33,7 +33,7 @@
             <h3 class="text-xl font-semibold text-gray-900"><%= subscription_plan.name.to_s.titleize %></h3>
           </div>
           
-          <%= button_to number_to_currency(subscription_plan.processor_plan_ids[:stripe].to_f / 100), organization_credits_path(current_organization, subscription_plan_id: key), 
+          <%= button_to "Subscribe", organization_credits_path(current_organization, subscription_plan_id: key), 
               method: :post, 
               class: "btn btn-primary",
               data: { turbo: "false" } %>
