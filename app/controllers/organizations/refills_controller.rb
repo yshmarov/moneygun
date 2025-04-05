@@ -30,7 +30,7 @@ class Organizations::RefillsController < Organizations::BaseController
 
     credit_pack = UsageCredits.find_credit_pack(params[:credit_pack])
 
-    payment_intent = ChargePaymentMethodJob.perform_now(@organization, credit_pack)
+    payment_intent = ChargePaymentMethodJob.perform_now(@organization, credit_pack.name)
 
     if payment_intent.status == "succeeded"
       flash[:notice] = "Payment successful! Your balance has been updated."
@@ -53,21 +53,8 @@ class Organizations::RefillsController < Organizations::BaseController
   end
 
   def spend_some_credits
-    if @organization.has_enough_credits_to?(:spend_some_credits)
-      @organization.spend_credits_on(:spend_some_credits) do
-        # perform some action
-      end
+    if process_credit_spending
       flash[:notice] = "Credits spent successfully"
-    elsif @organization.wallet.can_auto_refill?
-      ChargePaymentMethodJob.perform_now(@organization, @organization.wallet.auto_refill_credit_pack)
-      if @organization.has_enough_credits_to?(:spend_some_credits)
-        @organization.spend_credits_on(:spend_some_credits) do
-          # perform some action
-        end
-        flash[:notice] = "Credits spent successfully"
-      else
-        flash[:alert] = "Insufficient credits"
-      end
     else
       flash[:alert] = "Insufficient credits"
     end
@@ -85,6 +72,26 @@ class Organizations::RefillsController < Organizations::BaseController
   end
 
   private
+
+  def process_credit_spending
+    return spend_credits if @organization.has_enough_credits_to?(:spend_some_credits)
+    return attempt_auto_refill_and_spend if @organization.wallet.can_auto_refill?
+
+    false
+  end
+
+  def spend_credits
+    @organization.spend_credits_on(:spend_some_credits) do
+      # perform some action
+    end
+  end
+
+  def attempt_auto_refill_and_spend
+    ChargePaymentMethodJob.perform_now(@organization, @organization.wallet.auto_refill_credit_pack)
+    return false unless @organization.has_enough_credits_to?(:spend_some_credits)
+
+    spend_credits
+  end
 
   def wallet_params
     params.require(:wallet).permit(:auto_refill_enabled, :auto_refill_credit_pack)

@@ -1,5 +1,5 @@
 <%= render PageComponent.new(title: "Spend credits") do |component| %>
-  <%= button_to "Spend 25 credits", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "btn btn-primary", data: { turbo: "false" } %>
+  <%= button_to "Spend 25 credits; attempt auto-refill", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "btn btn-primary", data: { turbo: "false" } %>
   <% [0, 10, 20, 50, 100].each do |units| %>
     <%= button_to "Spend 5 + #{units} credits", spend_bulk_credits_organization_refills_path(current_organization, units: units), method: :patch, disabled: !@organization.has_enough_credits_to?(:spend_bulk_credits, units: units), class: "btn btn-primary", data: { turbo: "false" } %>
   <% end %>
