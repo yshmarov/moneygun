@@ -3,7 +3,7 @@ class Organizations::CreditsController < Organizations::BaseController
   end
 
   def create
-    if params[:credit_pack_id].present?
+    session = if params[:credit_pack_id].present?
       handle_credit_pack_purchase
     elsif params[:subscription_plan_id].present?
       handle_subscription_plan_purchase
