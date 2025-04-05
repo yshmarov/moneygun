@@ -16,6 +16,7 @@ A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS appl
 - **Subscription Management**: Integrated Stripe payments via Pay gem
 - **Team Management**: Organization creation, member invitations, and role management
 - **Modern UI**: Clean, responsive design that you can easily extend
+- **Dark mode & Themes**
 
 > 💡 **Teams as MVP**: [Teams should be an MVP feature!](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/) - Learn why implementing teams early is crucial for SaaS applications.
 
@@ -166,6 +167,26 @@ The Stripe webhook listener is already configured in `Procfile.dev`
 stripe listen --forward-to localhost:3000/pay/webhooks/stripe
 ```
 
+## 🎨 Theme Configuration
+
+Moneygun comes with built-in support for multiple themes. The application supports:
+
+- **Default Theme**: Light mode with gray background
+- **Midnight Theme**: Dark mode with a sleek, modern look
+- **GitHub Theme**: GitHub-inspired color scheme
+
+### Switching Themes
+
+Themes can be applied by adding the appropriate class to the HTML element:
+
+```html
+<html lang="en" class="h-full bg-gray-50 text-gray-900"></html>
+<!-- Dark midnight theme -->
+<html lang="en" class="h-full bg-gray-50 text-gray-900 midnight"></html>
+<!-- Dark GitHub theme -->
+<html lang="en" class="h-full bg-gray-50 text-gray-900 github"></html>
+```
+
 #### Require active subscription to access a resource
 
 You can use the `require_subscription` before_action to protect routes:
@@ -271,7 +292,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Design inspiration from Basecamp, Trello, Discord, and Slack
-- [Bullet Train](https://bullettrain.co/) for SaaS patterns and inspiration
-- [Jumpstart Pro](https://jumpstartrails.com/) for AccountMiddleware and other SaaS patterns
-- [gem "pay"](https://github.com/jumpstart-pro/pay) gem for Stripe integration
+- Design inspiration from Basecamp, Linear, Trello, Discord, and Slack
+- [Bullet Train](https://bullettrain.co/) for SaaS patterns and inspiration (obfuscates_id, super scaffolding, teams architecture)
+- [Jumpstart Pro](https://jumpstartrails.com/) & co for maintaining the magnificent gems [pay](http://github.com/pay-rails/pay), [acts_as_tenant](https://github.com/ErwinM/acts_as_tenant)
