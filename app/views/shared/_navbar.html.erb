@@ -1,4 +1,4 @@
-<nav class="flex justify-between px-4 py-2 bg-white border-b">
+<nav class="flex justify-between px-4 py-2 bg-gray-100 border-b">
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
@@ -31,7 +31,7 @@
           <%= current_user.email %>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
-        <div class="absolute right-0 mt-1 bg-white border rounded-lg p-1 space-y-1">
+        <div class="absolute right-0 mt-1 bg-gray-100 border rounded-lg p-1 space-y-1">
           <%= active_link_to t("shared.navigation.edit_profile"), edit_user_registration_path, class_active: "bg-gray-200", class: "btn btn-transparent block w-full text-left" %>
           <%= button_to t("shared.navigation.logout"), destroy_user_session_path, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-transparent block w-full text-left" %>
         </div>
