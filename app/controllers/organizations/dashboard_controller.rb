@@ -5,6 +5,6 @@ class Organizations::DashboardController < Organizations::BaseController
   end
 
   def paywalled_page
-    render json: { message: "Congrats! If you see this, you're subscribed." }
+    render inline: "Congrats! If you see this, you're subscribed.", layout: "application"
   end
 end
