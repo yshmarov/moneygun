@@ -19,7 +19,7 @@
   <% if @payment_methods.any? %>
     <div class="space-y-4">
       <% @payment_methods.each do |payment_method| %>
-        <div class="bg-white rounded-lg shadow p-2 border border-gray-200 hover:shadow-md transition-shadow">
+        <div class="bg-gray-100 rounded-lg shadow p-2 border border-gray-200 hover:shadow-md transition-shadow">
           <div class="flex items-center justify-between space-x-6">
             <div class="h-10 w-auto aspect-video bg-gray-100 rounded flex items-center justify-center">
               <div class="text-xs font-medium text-gray-500"><%= payment_method.data["brand"] %></div>
@@ -38,7 +38,7 @@
       <% end %>
     </div>
   <% else %>
-    <div class="bg-white rounded-lg shadow p-8 border border-gray-200 text-center">
+    <div class="bg-gray-100 rounded-lg shadow p-8 border border-gray-200 text-center">
       No payment methods found
     </div>
   <% end %>
@@ -50,7 +50,7 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% UsageCredits.credit_packs.each do |key, credit_pack| %>
 
-      <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+      <div class="bg-gray-100 rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
         <div class="text-center space-y-4">
           <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
           
@@ -122,7 +122,7 @@
 <%= render PageComponent.new(title: "Payment history") do |component| %>
   <div class="grid grid-cols-1 gap-6">
     <% @charges.each do |charge| %>
-      <div class="bg-white rounded-lg shadow p-4 border border-gray-200">
+      <div class="bg-gray-100 rounded-lg shadow p-4 border border-gray-200">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <div class="text-sm text-gray-500 uppercase font-medium">
@@ -170,7 +170,7 @@
 <%= render PageComponent.new(title: "Transaction history") do |component| %>
   <div class="space-y-2">
     <% @organization.wallet.transactions.order(created_at: :desc).each do |transaction| %>
-      <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+      <div class="flex items-center justify-between p-3 bg-gray-100 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
         <div class="flex items-center space-x-4">
           <div class="flex-shrink-0">
             <div class="h-10 w-10 rounded-full flex items-center justify-center <%= transaction.amount.positive? ? 'bg-green-100' : 'bg-red-100' %>">
