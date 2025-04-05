@@ -78,7 +78,18 @@
 
       <div class="space-y-2">
         <%= form.label :auto_refill_credit_pack, "Automatically top up", class: "block text-sm font-medium text-gray-700" %>
-        <%= form.select :auto_refill_credit_pack, UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] } %>
+        <% if true %>
+          <div class="space-y-2">
+            <% UsageCredits.credit_packs.each do |key, pack| %>
+              <div class="flex items-center">
+                <%= form.radio_button :auto_refill_credit_pack, key, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" %>
+                <%= form.label "auto_refill_credit_pack_#{key}", credit_pack_label(pack), class: "ml-2 text-sm font-medium text-gray-700" %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <%= form.select :auto_refill_credit_pack, UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] } %>
+        <% end %>
       </div>
 
       <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
