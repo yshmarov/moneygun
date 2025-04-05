@@ -15,11 +15,11 @@ class Organizations::CreditsController < Organizations::BaseController
 
   def handle_credit_pack_purchase
     credit_pack = UsageCredits.find_credit_pack(params[:credit_pack_id])
-    session = credit_pack.create_checkout_session(@organization)
+    credit_pack.create_checkout_session(@organization)
   end
 
   def handle_subscription_plan_purchase
     subscription_plan = UsageCredits.find_subscription_plan(params[:subscription_plan_id])
-    session = subscription_plan.create_checkout_session(@organization, cancel_url: organization_credits_url(@organization), success_url: organization_credits_url(@organization))
+    subscription_plan.create_checkout_session(@organization, cancel_url: organization_credits_url(@organization), success_url: organization_credits_url(@organization))
   end
 end
