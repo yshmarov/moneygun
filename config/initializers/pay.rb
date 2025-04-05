@@ -11,11 +11,13 @@ module PaymentMethodExtensions
   extend ActiveSupport::Concern
 
   included do
-    after_create_commit :give_payment_method_added_credits
+    after_create_commit :reward_first_payment_method
   end
 
-  def give_payment_method_added_credits
-    customer.owner.give_credits(100, reason: "payment_method_added")
+  def reward_first_payment_method
+    return if customer.owner.payment_processor.payment_methods.count > 1
+
+    customer.owner.give_credits(100, reason: "first_payment_method_added")
   end
 end
 

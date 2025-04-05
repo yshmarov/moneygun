@@ -32,9 +32,9 @@ class Organization < ApplicationRecord
     super || self.saved_change_to_owner_id?
   end
 
-  after_create :give_new_organization_credits
+  after_create :reward_new_organization
 
-  def give_new_organization_credits
-    give_credits(10, reason: "new_organization")
+  def reward_new_organization
+    give_credits(10, reason: "new_organization_created")
   end
 end
