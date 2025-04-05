@@ -61,7 +61,7 @@
 
 
 .btn {
-  @apply inline-flex px-4 py-2 rounded space-x-2 font-medium text-sm transition-colors ease-in-out duration-300 cursor-pointer whitespace-nowrap;
+  @apply inline-flex px-4 py-2 rounded space-x-2 font-medium text-sm transition-colors ease-in-out duration-300 cursor-pointer whitespace-nowrap active:scale-95 transition-all duration-200;
 }
 
 .btn-primary {
