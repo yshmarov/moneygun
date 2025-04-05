@@ -9,6 +9,11 @@ UsageCredits.configure do |config|
   operation :spend_some_credits do
     costs 25.credits
   end
+
+  operation :spend_bulk_credits do
+    # 1.credit_per(:units)
+    costs 5.credits + 1.credit_per(:units)
+  end
   #
   # operation :send_email do
   #   costs 1.credit

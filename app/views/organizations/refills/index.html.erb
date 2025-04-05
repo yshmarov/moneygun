@@ -1,4 +1,7 @@
 <%= button_to "Spend some credits", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "btn btn-primary", data: { turbo: "false" } %>
+<% [0, 10, 20, 50, 100].each do |units| %>
+  <%= button_to "Spend #{units} credits", spend_bulk_credits_organization_refills_path(current_organization, units: units), method: :patch, class: "btn btn-primary", data: { turbo: "false" } %>
+<% end %>
 
 <%= render PageComponent.new(title: "Payment details") do |component| %>
   <% component.with_action_list do %>
