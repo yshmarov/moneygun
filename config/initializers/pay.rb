@@ -5,30 +5,20 @@ Pay.setup do |config|
   config.support_email = "#{Rails.application.config_for(:settings).dig(:site, :name)} <#{Rails.application.config_for(:settings).dig(:site, :email)}>"
   config.enabled_processors = [ :stripe ]
   config.send_emails = false
-
-  # ActiveSupport.on_load(:pay) do
-  #   Pay::Webhooks.delegator.subscribe "payment_method.attached", PaymentMethodAddedProcessor.new
-  #   # setup_intent.succeeded
-  # end
 end
 
 module PaymentMethodExtensions
   extend ActiveSupport::Concern
 
   included do
-    after_create_commit :give_credits
+    after_create_commit :give_payment_method_added_credits
   end
 
-  def give_credits
+  def give_payment_method_added_credits
     customer.owner.give_credits(100, reason: "payment_method_added")
-  end
-
-  def bizz
-    "buzz"
   end
 end
 
 Rails.configuration.to_prepare do
-  # Pay::Stripe::PaymentMethod.include PaymentMethodExtensions
   Pay::PaymentMethod.include PaymentMethodExtensions
 end
