@@ -189,7 +189,7 @@
               <%= transaction.metadata["operation"]&.titleize || transaction.metadata["reason"]&.titleize || transaction.category.titleize %>
             </p>
             <p class="text-xs text-gray-500">
-              <%= transaction.created_at.strftime("%b %d, %Y") %>
+              <%= transaction.created_at.strftime("%b %d, %Y %I:%M %p") %>
             </p>
           </div>
         </div>
