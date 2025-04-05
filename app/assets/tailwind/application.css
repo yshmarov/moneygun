@@ -8,6 +8,15 @@
   If we ever want to remove these styles, we need to add an explicit border
   color utility to any element that depends on these defaults.
 */
+@theme {
+  --color-github-navbar: #161b22;
+  --color-github-body: #22282f;
+  --color-github-favicon: #798490;
+  --color-github-button: #2b3037;
+  --color-github-text: #d2d7df;
+  --color-github-divider: #3e444c;
+}
+
 @layer base {
   *,
   ::after,
@@ -27,7 +36,7 @@
     cursor: pointer;
   }
 }
-  /* :root {
+  :root {
     --color-gray-200: #e5e7eb;
     --color-gray-400: #9ca3af;
     --color-gray-500: #6b7280;
@@ -40,7 +49,7 @@
     --color-red-500: #ef4444;
     --color-red-600: #dc2626;
     --color-red-700: #b91c1c;
-  } */
+  }
   
   @media (prefers-color-scheme: dark) {
     :root {
