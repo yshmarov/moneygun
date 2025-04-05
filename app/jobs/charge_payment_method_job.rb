@@ -1,4 +1,4 @@
-# organization = Organization.find(1)
+# organization = Organization.first
 # ChargePaymentMethodJob.perform_now(organization, :starter)
 class ChargePaymentMethodJob < ApplicationJob
   queue_as :default
