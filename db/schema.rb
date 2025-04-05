@@ -165,14 +165,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_215403) do
     t.index ["organization_id"], name: "index_projects_on_organization_id"
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.string "name"
-    t.bigint "organization_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_tasks_on_organization_id"
-  end
-
   create_table "usage_credits_allocations", force: :cascade do |t|
     t.bigint "transaction_id", null: false
     t.bigint "source_transaction_id", null: false
@@ -266,7 +258,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_215403) do
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
   add_foreign_key "projects", "organizations"
-  add_foreign_key "tasks", "organizations"
   add_foreign_key "usage_credits_allocations", "usage_credits_transactions", column: "source_transaction_id"
   add_foreign_key "usage_credits_allocations", "usage_credits_transactions", column: "transaction_id"
 end
