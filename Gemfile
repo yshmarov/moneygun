@@ -56,6 +56,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
 end
 
 group :test do
@@ -63,6 +64,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# active record
+gem "sqids" # for obfuscating IDs
 
 # authentication and authorization
 gem "devise", "~> 4.9"
@@ -74,9 +78,7 @@ gem "view_component"
 gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
 
-gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
-
+# payments
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
-gem "sqids" # for obfuscating IDs
