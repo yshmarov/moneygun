@@ -28,8 +28,8 @@
   }
 }
   
-  @media (prefers-color-scheme: dark) {
-    :root {
+@media (prefers-color-scheme: dark) {
+  :root {
     --color-gray-50: #111827;
     --color-gray-100: #1f2937;
     --color-gray-200: #374151;
@@ -85,7 +85,7 @@
 }
 
 .btn {
-  @apply inline-flex px-4 py-2 rounded space-x-2 font-medium text-sm transition-colors ease-in-out duration-300 cursor-pointer whitespace-nowrap active:scale-95 transition-all duration-200;
+  @apply inline-flex px-4 py-2 rounded space-x-2 font-medium text-sm ease-in-out cursor-pointer whitespace-nowrap active:scale-95 transition-all duration-300;
 }
 
 .btn-primary {
