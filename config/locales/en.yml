@@ -75,6 +75,7 @@ en:
     errors:
       not_authorized: You are not authorized to perform this action.
       not_subscribed: You need to subscribe to access this page.
+      rate_limit: Try again later.
     navigation:
       edit_profile: Edit profile
       login: Log in

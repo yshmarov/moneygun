@@ -58,7 +58,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     )
     assert_not invitation.valid?
     assert_includes invitation.errors.messages[:role], "is not included in the list"
-    refute invitation.save
+    assert_not invitation.save
   end
 
   test "fails when user is already a member" do

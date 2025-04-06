@@ -14,9 +14,7 @@ class Organization < ApplicationRecord
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 
-  def email
-    owner.email
-  end
+  delegate :email, to: :owner
 
   def stripe_attributes(pay_customer)
     {
@@ -28,6 +26,6 @@ class Organization < ApplicationRecord
   end
 
   def pay_should_sync_customer?
-    super || self.saved_change_to_owner_id?
+    super || saved_change_to_owner_id?
   end
 end

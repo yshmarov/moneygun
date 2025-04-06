@@ -12,9 +12,9 @@ module ApplicationHelper
       content_tag(:div, class: "text-lg") do
         icon
       end +
-      content_tag(:div) do
-        label
-      end
+        content_tag(:div) do
+          label
+        end
     end
   end
 end

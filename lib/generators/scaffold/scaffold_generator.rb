@@ -5,8 +5,8 @@ class ScaffoldGenerator < Rails::Generators::NamedBase
 
   def add_to_navigation
     append_to_file "app/views/shared/_sidebar_links.html.erb" do
-      <<-ERB
-<%= nav_link("#{plural_table_name.titleize}", #{index_helper(type: :path)}, icon: "svg/question-mark-circle.svg") %>
+      <<~ERB
+        <%= nav_link("#{plural_table_name.titleize}", #{index_helper(type: :path)}, icon: "svg/question-mark-circle.svg") %>
       ERB
     end
   end

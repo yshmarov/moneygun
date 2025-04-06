@@ -31,7 +31,8 @@ module ObfuscatesId
     end
 
     def decode_single_id(id)
-      return id if id.to_i > 0
+      return id if id.to_i.positive?
+
       sqids.decode(id).first
     end
 

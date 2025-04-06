@@ -1,5 +1,5 @@
 class Organizations::MembershipsController < Organizations::BaseController
-  before_action :set_membership, only: [ :edit, :update, :destroy ]
+  before_action :set_membership, only: %i[edit update destroy]
 
   def index
     authorize Membership
@@ -11,6 +11,9 @@ class Organizations::MembershipsController < Organizations::BaseController
     @form = MembershipInvitation.new(organization: @organization, role: Membership.roles[:member])
   end
 
+  def edit
+  end
+
   def create
     authorize @organization.memberships.new
     @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), role: params.dig(:membership_invitation, :role), organization: @organization, inviter: current_user)
@@ -20,9 +23,6 @@ class Organizations::MembershipsController < Organizations::BaseController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
   end
 
   def update

@@ -1,5 +1,5 @@
 class Organizations::ProjectsController < Organizations::BaseController
-  before_action :set_project, only: %i[ show edit update destroy ]
+  before_action :set_project, only: %i[show edit update destroy]
 
   # GET /organizations/1/projects
   def index
@@ -50,12 +50,13 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   private
-    def set_project
-      @project = @organization.projects.find(params[:id])
-      authorize @project
-    end
 
-    def project_params
-      params.require(:project).permit(:name)
-    end
+  def set_project
+    @project = @organization.projects.find(params[:id])
+    authorize @project
+  end
+
+  def project_params
+    params.require(:project).permit(:name)
+  end
 end

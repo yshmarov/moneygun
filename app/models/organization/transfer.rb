@@ -13,7 +13,7 @@ module Organization::Transfer
       membership.update!(role: Membership.roles[:admin])
       update!(owner: new_owner)
     end
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Ownership transfer failed: #{e.message}")
     false
   end
