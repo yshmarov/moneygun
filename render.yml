@@ -31,13 +31,15 @@ services:
         fromDatabase:
           name: mysite
           property: connectionString
-
+      # - key: SOLID_QUEUE_IN_PUMA
+      #   value: true
   # - type: worker
   #   name: postgres-worker
   #   runtime: ruby
   #   plan: starter
   #   buildCommand: bundle install
   #   startCommand: bundle exec rake solid_queue:start
+  #   startCommand: bin/rails solid_queue:start
   #   envVars:
   #     - key: DATABASE_URL
   #       fromDatabase:

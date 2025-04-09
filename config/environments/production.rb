@@ -53,6 +53,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :solid_queue
   # config.active_job.queue_adapter = :inline
   config.solid_queue.connects_to = { database: { writing: :queue } }
+  # config.solid_queue.silence_polling = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
