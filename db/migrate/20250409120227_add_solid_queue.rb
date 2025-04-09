@@ -1,4 +1,4 @@
-ActiveRecord::Schema[7.1].define(version: 1) do
+class AddSolidQueue < ActiveRecord::Migration[8.0]
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
