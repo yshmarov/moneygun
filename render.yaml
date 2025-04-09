@@ -31,8 +31,8 @@ services:
         fromDatabase:
           name: mysite
           property: connectionString
-      # - key: SOLID_QUEUE_IN_PUMA
-      #   value: true
+      - key: SOLID_QUEUE_IN_PUMA
+        value: 'true'
   # - type: worker
   #   name: postgres-worker
   #   runtime: ruby
