@@ -1,0 +1,47 @@
+# https://render.com/docs/deploy-rails-sidekiq
+# https://render.com/docs/deploy-rails#use-renderyaml-to-deploy
+
+databases:
+  - name: mysite
+    databaseName: mysite
+    region: frankfurt
+    ipAllowList: [] # only allow internal connections
+    # user: mysite
+    plan: free
+
+services:
+  - type: web
+    name: mysite
+    runtime: ruby
+    plan: free
+    # plan: starter
+    region: frankfurt
+    buildCommand: "./bin/render-build.sh"
+    # buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails assets:clean && bundle exec rails db:migrate
+    # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
+    startCommand: bundle exec rails server
+    # startCommand: ./bin/rails server
+    healthCheckPath: "/up"
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mysite
+          property: connectionString
+
+  # - type: worker
+  #   name: postgres-worker
+  #   runtime: ruby
+  #   plan: starter
+  #   buildCommand: bundle install
+  #   startCommand: bundle exec rake solid_queue:start
+  #   envVars:
+  #     - key: DATABASE_URL
+  #       fromDatabase:
+  #         name: postgres
+  #         property: connectionString
+  #     - key: RAILS_MASTER_KEY
+  #       sync: false
