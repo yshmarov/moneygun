@@ -84,11 +84,3 @@ production:
     database: moneygun_production
     username: moneygun
     password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: moneygun_production_cache
-    migrations_paths: db/cache_migrate
-  cable:
-    <<: *primary_production
-    database: moneygun_production_cable
-    migrations_paths: db/cable_migrate
