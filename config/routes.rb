@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
-  resources :organizations do
+  resources :organizations, path: I18n.t("routes.organizations") do
     scope module: :organizations do
       resources :memberships, except: %i[show]
       resource :transfer, only: %i[show update]

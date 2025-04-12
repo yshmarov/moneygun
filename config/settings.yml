@@ -17,11 +17,11 @@ shared:
       interval: year
 production:
   plans:
-    - id: price_foo
+    - id: price_1R68bjLRcgxgTmfQL2kBW5pX
       unit_amount: 1900
       currency: USD
       interval: month
-    - id: price_bar
+    - id: price_1R68c1LRcgxgTmfQijgGMDfT
       unit_amount: 19000
       currency: USD
       interval: year
