@@ -190,6 +190,16 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     minitest (5.25.5)
+    mission_control-jobs (1.0.2)
+      actioncable (>= 7.1)
+      actionpack (>= 7.1)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      importmap-rails (>= 1.2.1)
+      irb (~> 1.13)
+      railties (>= 7.1)
+      stimulus-rails
+      turbo-rails
     msgpack (1.8.0)
     net-imap (0.5.6)
       date
@@ -427,6 +437,7 @@ DEPENDENCIES
   inline_svg (~> 1.9)
   jbuilder
   kamal
+  mission_control-jobs (~> 1.0)
   nested_scaffold!
   pay (~> 8.0)
   pg (~> 1.1)

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "pricing", to: "static#pricing"
   get "terms", to: "static#terms"
   get "privacy", to: "static#privacy"
+  post "schedule_something", to: "static#schedule_something"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -35,4 +36,5 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
     mount Profitable::Engine => "/profitable"
   end
+  mount MissionControl::Jobs::Engine, at: "/jobs"
 end

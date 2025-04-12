@@ -82,3 +82,5 @@ gem "active_link_to", "~> 1.0"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
+
+gem "mission_control-jobs", "~> 1.0"

@@ -5,6 +5,10 @@ class StaticController < ApplicationController
   def index
   end
 
+  def schedule_something
+    HelloWorldJob.perform_later
+  end
+
   def pricing
   end
 

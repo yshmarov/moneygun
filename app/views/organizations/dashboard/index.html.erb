@@ -1,4 +1,5 @@
 <% content_for :title, "#{current_organization.name} dashboard" %>
 
 <%= render PageComponent.new(title: "#{current_organization.name} dashboard", full_width: true) do |component| %>
+<%= button_to "Schedule something", schedule_something_path, method: :post %>
 <% end %>
