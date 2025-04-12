@@ -25,7 +25,7 @@ class Organizations::SubscriptionsControllerTest < ActionDispatch::IntegrationTe
   end
 
   test "#checkout" do
-    get organization_subscriptions_checkout_path(@organization, price_id: "price_1NmG52GHcaLYld8Ifu7SVe6y")
+    get organization_subscriptions_checkout_path(@organization, price_id: Rails.application.config_for(:settings).dig(:plans, 0, :id))
     assert_match %r{\Ahttps://checkout.stripe.com/c/pay/cs_test_}, response.redirect_url
   end
 end
