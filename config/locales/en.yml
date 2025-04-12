@@ -10,16 +10,16 @@ en:
         name: Name
     models:
       membership: Member
-      organization: Space
+      organization: Organization
   organizations:
     create:
-      success: Space created
+      success: Organization created
     destroy:
-      success: Space destroyed
+      success: Organization destroyed
     edit:
-      title: Edit space
+      title: Edit organization
     index:
-      title: My spaces
+      title: My organizations
     memberships:
       create:
         success: "%{email} invited"
@@ -28,15 +28,15 @@ en:
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
-        title: Memberships
+        title: Team members
       new:
         title: Invite user
       update:
         success: User updated
     new:
-      title: New space
+      title: New organization
     show:
-      title: Space settings
+      title: Organization settings
     subscriptions:
       features:
         title: Features
@@ -60,11 +60,11 @@ en:
         title: Pricing
     transfers:
       show:
-        title: Transfer space
+        title: Transfer organization
       update:
         success: Ownership transferred
     update:
-      success: Space updated
+      success: Organization updated
   shared:
     actions:
       cancel: Cancel
@@ -89,3 +89,5 @@ en:
       title: Privacy
     terms:
       title: Terms
+  routes:
+    organizations: organizations

@@ -7,7 +7,7 @@ shared:
   pro_features:
     - ☑️ Access the paywalled page
   plans:
-    - id: price_1R68c1LRcgxgTmfQijgGMDfT
+    - id: price_1R68bjLRcgxgTmfQL2kBW5pX
       unit_amount: 9900
       currency: USD
       interval: month
@@ -17,7 +17,7 @@ shared:
       interval: year
 production:
   plans:
-    - id: price_1R68c1LRcgxgTmfQijgGMDfT
+    - id: price_1R68bjLRcgxgTmfQL2kBW5pX
       unit_amount: 1900
       currency: USD
       interval: month
