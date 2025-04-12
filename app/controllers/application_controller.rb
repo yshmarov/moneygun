@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @current_membership&.organization
+    Current.organization
   end
 
   def set_current_user

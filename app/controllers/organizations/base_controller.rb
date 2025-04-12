@@ -31,10 +31,12 @@ class Organizations::BaseController < ApplicationController
 
   def set_organization
     @organization = current_user.organizations.find(params[:organization_id])
+    Current.organization = @organization
   end
 
   def set_current_membership
-    @current_membership ||= current_user.memberships.find_by(organization: @organization)
+    @current_membership = current_user.memberships.find_by(organization: @organization)
+    Current.membership = @current_membership
   end
 
   def pundit_user
