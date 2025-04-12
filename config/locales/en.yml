@@ -28,7 +28,7 @@ en:
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
-        title: Memberships
+        title: Team members
       new:
         title: Invite user
       update:
