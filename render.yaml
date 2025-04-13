@@ -1,5 +1,5 @@
 databases:
-  - name: mysite
+  - name: moneygun
     region: frankfurt
     ipAllowList: [] # only allow internal connections
     # plan: free
@@ -8,7 +8,7 @@ databases:
 
 services:
   - type: web
-    name: mysite
+    name: moneygun
     runtime: ruby
     #  plan: free
     plan: starter
@@ -27,7 +27,7 @@ services:
         value: 2
       - key: DATABASE_URL
         fromDatabase:
-          name: mysite
+          name: moneygun
           property: connectionString
       - key: SOLID_QUEUE_IN_PUMA
         value: "true"
