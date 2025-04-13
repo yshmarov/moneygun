@@ -1,10 +1,20 @@
-<%= render PageComponent.new(title: "Invite user", content_container: true, full_width: false) do |component| %>
+<% content_for :title, t("organizations.memberships.new.title") %>
+
+<%= render PageComponent.new(title: t("organizations.memberships.new.title"), content_container: true, full_width: false) do |component| %>
   <%= form_with model: @form, url: organization_memberships_path(@organization), class: "contents space-y-4" do |form| %>
     <%= render "shared/errors", object: form.object %>
 
     <div class="">
       <%= form.label :email %>
-      <%= form.email_field :email, placeholder: "hello@superails.com", class: "form-input", autofocus: true, required: true %>
+      <%= form.email_field :email,
+                           placeholder: "hello@superails.com",
+                           class: "form-input",
+                           autocomplete: "off",
+                           autocorrect: "off",
+                           autocapitalize: "off",
+                           spellcheck: "false",
+                           autofocus: !turbo_native_app?,
+                           required: true %>
     </div>
 
     <div class="">
@@ -24,5 +34,5 @@
     </div>
   <% end %>
 
-  <%= link_to "Cancel", organization_memberships_path(@organization), class: "btn btn-secondary" %>
+  <%= link_to t("shared.actions.cancel"), organization_memberships_path(@organization), class: "btn btn-secondary" %>
 <% end %>

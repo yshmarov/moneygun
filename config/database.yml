@@ -79,7 +79,8 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: moneygun_production
-  username: moneygun
-  password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    database: moneygun_production
+    username: moneygun
+    password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>

@@ -1,31 +1,93 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
+---
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      membership:
+        email: Email
+        role: Role
+      organization:
+        logo: Logo
+        name: Name
+    models:
+      membership: Member
+      organization: Organization
+  organizations:
+    create:
+      success: Organization created
+    destroy:
+      success: Organization destroyed
+    edit:
+      title: Edit organization
+    index:
+      title: My organizations
+    memberships:
+      create:
+        success: "%{email} invited"
+      destroy:
+        failed_to_remove_user_from_organization: Failed to remove user from organization
+        user_removed_from_organization: User removed from organization
+        you_have_left_the_organization: You have left the organization
+      index:
+        title: Team members
+      new:
+        title: Invite user
+      update:
+        success: User updated
+    new:
+      title: New organization
+    show:
+      title: Organization settings
+    subscriptions:
+      features:
+        title: Features
+      index:
+        title: Billing
+      plan:
+        features: Current plan features
+        manage_billing: Manage billing
+        next_billing_date: Next billing date
+        resume_subscription: Resume subscription
+        subscribe: Subscribe
+        subscription_active: Subscription active
+        subscription_cancelled: Subscription cancelled
+        title: Manage subscription
+        you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
+      pricing:
+        cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
+        current_plan: Current plan
+        save_yearly: Best value
+        subscribe: Get started
+        title: Pricing
+    transfers:
+      show:
+        title: Transfer organization
+      update:
+        success: Ownership transferred
+    update:
+      success: Organization updated
+  shared:
+    actions:
+      cancel: Cancel
+      confirm: Are you sure?
+      destroy: Destroy
+      edit: Edit
+      new: New
+    errors:
+      not_authorized: You are not authorized to perform this action.
+      not_subscribed: You need to subscribe to access this page.
+      rate_limit: Try again later.
+    navigation:
+      edit_profile: Edit profile
+      login: Log in
+      logout: Log out
+      register: Register
+      select_organization: Select organization
+  static:
+    pricing:
+      title: Pricing
+    privacy:
+      title: Privacy
+    terms:
+      title: Terms
+  routes:
+    organizations: organizations

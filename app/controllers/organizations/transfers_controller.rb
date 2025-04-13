@@ -6,7 +6,7 @@ class Organizations::TransfersController < Organizations::BaseController
 
   def update
     if @organization.transfer_ownership(params[:user_id])
-      redirect_to @organization, notice: "Ownership transferred successfully."
+      redirect_to @organization, notice: t(".success")
     else
       render :show, status: :unprocessable_entity
     end

@@ -4,16 +4,9 @@ class ScaffoldGenerator < Rails::Generators::NamedBase
   hook_for :scaffold, in: :rails, default: true, type: :boolean
 
   def add_to_navigation
-    append_to_file "app/views/shared/_nav_links.html.erb" do
-      <<-ERB
-<%= active_link_to #{index_helper(type: :path)}, class_active: "bg-gray-300", class: "w-full items-center btn btn-transparent" do %>
-  <div>
-    <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-5" %>
-  </div>
-  <div>
-  #{plural_table_name.titleize}
-  </div>
-<% end %>
+    append_to_file "app/views/shared/_sidebar_links.html.erb" do
+      <<~ERB
+        <%= nav_link("#{plural_table_name.titleize}", #{index_helper(type: :path)}, icon: "svg/question-mark-circle.svg") %>
       ERB
     end
   end
