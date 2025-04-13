@@ -20,6 +20,10 @@ A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS appl
 
 > 💡 **Teams as MVP**: [Teams should be an MVP feature!](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/) - Learn why implementing teams early is crucial for SaaS applications.
 
+### Deployment
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/yshmarov/moneygun)
+
 ### Developer Experience
 
 - **Complete Test Coverage**

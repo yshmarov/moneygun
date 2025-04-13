@@ -1,0 +1,31 @@
+databases:
+   - name: mysite
+     region: frankfurt
+     ipAllowList: [] # only allow internal connections
+    #  plan: free
+     plan: basic-256mb
+
+services:
+  - type: web
+    name: mysite
+    runtime: ruby
+    #  plan: free
+    plan: starter
+    region: frankfurt
+    # buildCommand: "./bin/render-build.sh"
+    buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails assets:clean && bundle exec rails db:migrate
+    preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
+    #  startCommand: bundle exec rails server
+    startCommand: ./bin/rails server
+    healthCheckPath: "/up"
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mysite
+          property: connectionString
+      - key: SOLID_QUEUE_IN_PUMA
+        value: "true"
