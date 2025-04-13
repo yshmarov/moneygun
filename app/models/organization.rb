@@ -12,6 +12,14 @@ class Organization < ApplicationRecord
 
   has_one_attached :logo
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id name]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
+
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 
   delegate :email, to: :owner
