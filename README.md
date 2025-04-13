@@ -24,6 +24,8 @@ A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS appl
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/yshmarov/moneygun)
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/yshmarov/moneygun)
+
 ### Developer Experience
 
 - **Complete Test Coverage**
