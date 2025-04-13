@@ -20,6 +20,7 @@ services:
     startCommand: ./bin/rails server
     healthCheckPath: "/up"
     envVars:
+      - fromGroup: rails
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
@@ -30,3 +31,15 @@ services:
           property: connectionString
       - key: SOLID_QUEUE_IN_PUMA
         value: "true"
+
+envVarGroups:
+  - name: rails
+    envVars:
+      - key: SENSIBLE_DEFAULTS
+        value: enabled
+      - key: RAILS_ENV
+        value: production
+      - key: JEMALLOC_ENABLED
+        value: "true"
+      - key: MALLOC_ARENA_MAX
+        value: 2
