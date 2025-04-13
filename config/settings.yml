@@ -7,21 +7,21 @@ shared:
   pro_features:
     - ☑️ Access the paywalled page
   plans:
-    - id: price_1RDOJvLRcgxgTmfQP1IcUufZ
-      unit_amount: 5000
-      currency: EUR
+    - id: price_1R68bjLRcgxgTmfQL2kBW5pX
+      unit_amount: 9900
+      currency: USD
       interval: month
-    - id: price_1RDOKCLRcgxgTmfQrzPloyDL
-      unit_amount: 50000
-      currency: EUR
+    - id: price_1R68c1LRcgxgTmfQijgGMDfT
+      unit_amount: 99900
+      currency: USD
       interval: year
 production:
   plans:
-    - id: price_1RDOJvLRcgxgTmfQP1IcUufZ
-      unit_amount: 5000
-      currency: EUR
+    - id: price_1R68bjLRcgxgTmfQL2kBW5pX
+      unit_amount: 1900
+      currency: USD
       interval: month
-    - id: price_1RDOKCLRcgxgTmfQrzPloyDL
-      unit_amount: 50000
-      currency: EUR
+    - id: price_1R68c1LRcgxgTmfQijgGMDfT
+      unit_amount: 19000
+      currency: USD
       interval: year
