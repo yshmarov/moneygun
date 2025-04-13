@@ -1,9 +1,10 @@
 databases:
-   - name: mysite
-     region: frankfurt
-     ipAllowList: [] # only allow internal connections
-    #  plan: free
-     plan: basic-256mb
+  - name: mysite
+    region: frankfurt
+    ipAllowList: [] # only allow internal connections
+    # plan: free
+    plan: basic-256mb
+    diskSizeGB: 1
 
 services:
   - type: web
