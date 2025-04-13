@@ -8,6 +8,7 @@
   },
   "env": {
     "BUNDLE_WITHOUT": "development:test",
+    "SOLID_QUEUE_IN_PUMA": "true",
     "JEMALLOC_ENABLED": "true",
     "MALLOC_ARENA_MAX": "2",
     "RAILS_MASTER_KEY": {
@@ -21,10 +22,6 @@
   },
   "formation": {
     "web": {
-      "quantity": 1,
-      "size": "basic"
-    },
-    "worker": {
       "quantity": 1,
       "size": "basic"
     }
