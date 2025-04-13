@@ -15,7 +15,7 @@ services:
     region: frankfurt
     # buildCommand: "./bin/render-build.sh"
     buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails assets:clean && bundle exec rails db:migrate
-    preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
+    # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     #  startCommand: bundle exec rails server
     startCommand: ./bin/rails server
     healthCheckPath: "/up"
