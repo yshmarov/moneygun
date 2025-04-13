@@ -1,17 +1,17 @@
 databases:
-  - name: moneygun
+  - name: moneygun-db
     region: frankfurt
     ipAllowList: [] # only allow internal connections
-    # plan: free
-    plan: basic-256mb
-    diskSizeGB: 1
+    plan: free
+    # plan: basic-256mb
+    # diskSizeGB: 1
 
 services:
   - type: web
-    name: moneygun
+    name: moneygun-web
     runtime: ruby
-    #  plan: free
-    plan: starter
+    plan: free
+    # plan: starter
     region: frankfurt
     # buildCommand: "./bin/render-build.sh"
     buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails assets:clean && bundle exec rails db:migrate
@@ -20,20 +20,20 @@ services:
     startCommand: ./bin/rails server
     healthCheckPath: "/up"
     envVars:
-      - fromGroup: rails
+      - fromGroup: moneygun-rails-shared-env
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
         value: 2
       - key: DATABASE_URL
         fromDatabase:
-          name: moneygun
+          name: moneygun-db
           property: connectionString
       - key: SOLID_QUEUE_IN_PUMA
         value: "true"
 
 envVarGroups:
-  - name: rails
+  - name: moneygun-rails-shared-env
     envVars:
       - key: SENSIBLE_DEFAULTS
         value: enabled
