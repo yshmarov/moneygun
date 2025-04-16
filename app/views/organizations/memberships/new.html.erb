@@ -8,7 +8,7 @@
       <%= form.label :email %>
       <%= form.email_field :email,
                            placeholder: "hello@superails.com",
-                           class: "form-input",
+                           class: "input",
                            autocomplete: "off",
                            autocorrect: "off",
                            autocapitalize: "off",
@@ -19,10 +19,10 @@
 
     <div class="">
       <%= form.label :role %>
-      <div>
+      <div class="space-y-2">
         <% Membership.roles.each do |role, _value| %>
           <div class="flex items-center gap-2">
-            <%= form.radio_button :role, role %>
+            <%= form.radio_button :role, role, class: "radio" %>
             <%= form.label :role, role.humanize, value: role %>
           </div>
         <% end %>
