@@ -28,9 +28,9 @@ en:
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
-        title: Team members
+        title: Teammates
       new:
-        title: Invite user
+        title: Invite teammate
       update:
         success: User updated
     new:
@@ -91,3 +91,4 @@ en:
       title: Terms
   routes:
     organizations: organizations
+    memberships: teammates
