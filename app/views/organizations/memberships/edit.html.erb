@@ -1,15 +1,15 @@
 <% content_for :title, "Edit #{@membership.user.email} roles" %>
 
 <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles", content_container: true, full_width: false) do |component| %>
-  <%= form_with(model: [ @organization, @membership ], class: "contents") do |form| %>
+  <%= form_with(model: [ @organization, @membership ], class: "contents space-y-4") do |form| %>
     <%= render "shared/errors", object: form.object %>
 
     <div class="">
       <%= form.label :role %>
-      <div>
+      <div class="space-y-2">
         <% Membership.roles.each do |role, _value| %>
           <div class="flex items-center gap-2">
-            <%= form.radio_button :role, role %>
+            <%= form.radio_button :role, role, class: "radio" %>
             <%= form.label :role, role.humanize, value: role %>
           </div>
         <% end %>
