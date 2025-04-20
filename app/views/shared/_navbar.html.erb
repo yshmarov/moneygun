@@ -25,7 +25,7 @@
   <%# auth %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
-      <details class="relative group" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
+      <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
         <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
           <%= user_avatar(current_user) %>
           <%= current_user.email %>
