@@ -13,7 +13,7 @@ class MembershipInvitation
     user = find_or_invite_user
     return false unless user&.valid?
 
-    add_user_to_organization(user)
+    create_access_request(user)
   end
 
   private
@@ -22,13 +22,13 @@ class MembershipInvitation
     User.find_by(email: email) || User.invite!({ email: }, inviter)
   end
 
-  def add_user_to_organization(user)
+  def create_access_request(user)
     membership = user.memberships.find_by(organization: organization)
     if membership.present?
       errors.add(:base, "#{email} is already a member of this organization.")
       false
     else
-      user.memberships.create(organization: organization, role: role)
+      AccessRequest::InviteToOrganization.create(user:, organization:, organization_role: role)
       true
     end
   end

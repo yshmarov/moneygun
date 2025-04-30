@@ -32,6 +32,7 @@
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
         <div class="absolute right-0 mt-1 bg-gray-100 border rounded-lg p-1 space-y-1">
+          <%= active_link_to t("shared.navigation.pending_invitations"), user_invitations_path, class_active: "bg-gray-200", class: "btn btn-transparent block w-full text-left" %>
           <%= active_link_to t("shared.navigation.edit_profile"), edit_user_registration_path, class_active: "bg-gray-200", class: "btn btn-transparent block w-full text-left" %>
           <%= button_to t("shared.navigation.logout"), destroy_user_session_path, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-transparent block w-full text-left" %>
         </div>

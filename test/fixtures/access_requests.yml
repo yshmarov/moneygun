@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+invite_to_organization_one:
+  organization: one
+  user: unassociated
+  status: pending
+  type: AccessRequest::InviteToOrganization
+  resources: '{ "organization_role": "member" }'
+
+invite_to_organization_two:
+  organization: two
+  user: one
+  status: pending
+  type: AccessRequest::InviteToOrganization
+  resources: '{ "organization_role": "member" }'

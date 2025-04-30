@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
+  resource :user do
+    scope module: :users do
+      resources :invitations, only: %i[index] do
+        member do
+          post :approve
+          post :reject
+        end
+      end
+    end
+  end
+
   resources :organizations, path: I18n.t("routes.organizations") do
     scope module: :organizations do
       resources :memberships, except: %i[show], path: I18n.t("routes.memberships")
