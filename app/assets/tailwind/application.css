@@ -6,6 +6,7 @@
 
 @plugin "./daisyui.js" {
   themes: light --default, dark --prefersdark;
+  prefix: "du-";
 }
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
