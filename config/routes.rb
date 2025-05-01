@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :memberships, except: %i[show], path: I18n.t("routes.memberships")
       resource :transfer, only: %i[show update]
       resources :projects
+      resources :invitations, only: %i[index destroy]
 
       get "dashboard", to: "dashboard#index"
       get "paywalled_page", to: "dashboard#paywalled_page"

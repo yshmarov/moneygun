@@ -1,0 +1,9 @@
+<% content_for :title, t("organizations.invitations.index.title") %>
+
+<%= render PageComponent.new(title: t("organizations.invitations.index.page_title", organization: @organization.name)) do |component| %>
+  <div id="invitations" class="space-y-4">
+    <% @invitations.each do |invitation| %>
+      <%= render invitation, invitation: %>
+    <% end %>
+  </div>
+<% end %>

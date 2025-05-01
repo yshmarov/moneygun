@@ -29,10 +29,13 @@ class OrganizationsController < ApplicationController
   end
 
   def update
-    if @organization.update(organization_params)
-      redirect_to organization_path(@organization), notice: t(".success")
+    updated = @organization.update(organization_params)
+    coming_from_memberships = request.referer.include?(t("routes.memberships"))
+
+    if updated
+      handle_successful_update(coming_from_memberships)
     else
-      render :edit, status: :unprocessable_entity
+      handle_failed_update(coming_from_memberships)
     end
   end
 
@@ -44,6 +47,22 @@ class OrganizationsController < ApplicationController
 
   private
 
+  def handle_successful_update(came_from_memberships)
+    if came_from_memberships
+      redirect_back fallback_location: organization_memberships_path(@organization), notice: t(".success")
+    else
+      redirect_to organization_path(@organization), notice: t(".success")
+    end
+  end
+
+  def handle_failed_update(came_from_memberships)
+    if came_from_memberships
+      redirect_back fallback_location: organization_memberships_path(@organization), alert: t(".error")
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def set_organization
     @organization = Organization.find(params[:id])
     @current_membership ||= current_user.memberships.find_by(organization: @organization)
@@ -51,6 +70,6 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.require(:organization).permit(:name, :logo)
+    params.require(:organization).permit(:name, :logo, :privacy_setting)
   end
 end
