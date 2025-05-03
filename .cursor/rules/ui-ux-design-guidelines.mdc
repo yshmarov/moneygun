@@ -1,0 +1,19 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Use the rules below when:
+
+- You are writing HTML
+- You are writing CSS
+- You are writing styles in a JavaScript Stimulus controller
+
+## Rules for AI (mandatory)
+
+The codebase uses TailwindCSS v4.x (the newest version) with [daisyui.mdc](mdc:.cursor/rules/daisyui.mdc)
+
+- Always prefer using DaisyUI components and colors when possible.
+  - Example 1: use `bg-warning` rather than `bg-red-500`
+- Never create new styles in [application.css](mdc:app/assets/tailwind/application.css) or [application.css](mdc:app/assets/stylesheets/application.css) without explicitly receiving permission to do so
+- Always generate semantic HTML

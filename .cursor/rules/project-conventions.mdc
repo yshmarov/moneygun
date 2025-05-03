@@ -1,0 +1,116 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+This rule serves as high-level documentation for how you should write code for the codebase. 
+
+## Project Tech Stack
+
+- Web framework: Ruby on Rails
+  - Minitest + fixtures for testing
+  - Propshaft for asset pipeline
+  - Hotwire Turbo/Stimulus for SPA-like UI/UX
+  - TailwindCSS for styles
+  - Imported Heroicons for icons
+  - OpenAI for AI chat
+- Database: PostgreSQL
+- Jobs: GoodJob
+- External
+  - Payments: Stripe
+
+## Project conventions
+
+These conventions should be used when writing code for this application.
+
+### Convention 1: Minimize dependencies, vanilla Rails is plenty
+
+Dependencies are a natural part of building software, but we aim to minimize them when possible to keep this open-source codebase easy to understand, maintain, and contribute to.
+
+- Push Rails to its limits before adding new dependencies
+- When a new dependency is added, there must be a strong technical or business reason to add it
+- When adding dependencies, you should favor old and reliable over new and flashy 
+
+### Convention 2: Leverage POROs and concerns over "service objects"
+
+This codebase adopts a "skinny controller, fat models" convention.  Furthermore, we put almost _everything_ directly in the `app/models/` folder and avoid separate folders for business logic such as `app/services/`.
+
+- Organize large pieces of business logic into Rails concerns and POROs (Plain ole' Ruby Objects)
+- While a Rails concern _may_ offer shared functionality (i.e. "duck types"), it can also be a "one-off" concern that is only included in one place for better organization and readability.
+- When concerns are used for code organization, they should be organized around the "traits" of a model; not for simply moving code to another spot in the codebase.
+- When possible, models should answer questions about themselves—for example, we might have a method, `account.balance_series` that returns a time-series of the account's most recent balances.  We prefer this over something more service-like such as `AccountSeries.new(account).call`.
+
+### Convention 3: Leverage Hotwire, write semantic HTML, CSS, and JS, prefer server-side solutions
+
+- Native HTML is always preferred over JS-based components
+  - Example 1: Use `<dialog>` element for modals instead of creating a custom component
+  - Example 2: Use `<details><summary>...</summary></details>` for disclosures rather than custom components
+- Leverage Turbo frames to break up the page over JS-driven client-side solutions
+- Leverage query params in the URL for state over local storage and sessions.  If absolutely necessary, utilize the DB for persistent state.
+- Use Turbo streams to enhance functionality, but do not solely depend on it
+- Format currencies, numbers, dates, and other values server-side, then pass to Stimulus controllers for display only
+- Keep client-side code for where it truly shines.  For example, @bulk_select_controller.js is a case where server-side solutions would degrade the user experience significantly.  When bulk-selecting entries, client-side solutions are the way to go and Stimulus provides the right toolset to achieve this.
+- Always use the `inline_svg_tag` helper for icons.
+
+The Hotwire suite (Turbo/Stimulus) works very well with these native elements and we optimize for this.
+
+### Convention 4: Optimize for simplicitly and clarity
+
+All code should maximize readability and simplicity.
+
+- Prioritize good OOP domain design over performance
+- Only focus on performance for critical and global areas of the codebase; otherwise, don't sweat the small stuff.
+  - Example 1: be mindful of loading large data payloads in global layouts
+  - Example 2: Avoid N+1 queries
+
+### Convention 5: Use Minitest + Fixtures for testing, minimize fixtures
+
+Due to the open-source nature of this project, we have chosen Minitest + Fixtures for testing to maximize familiarity and predictability.
+
+- Always use Minitest and fixtures for testing.
+- Keep fixtures to a minimum.  Most models should have 2-3 fixtures maximum that represent the "base cases" for that model.  "Edge cases" should be created on the fly, within the context of the test which it is needed.
+- Take a minimal approach to testing—only test the absolutely critical code paths that will significantly increase developer confidence
+
+#### Convention 5a: Write minimal, effective tests
+
+- Use system tests sparingly as they increase the time to complete the test suite
+- Only write tests for critical and important code paths
+- Write tests as you go, when required
+- Take a practical approach to testing.  Tests are effective when their presence _significantly increases confidence in the codebase_.
+
+Below are examples of necessary vs. unnecessary tests:
+
+```rb
+# GOOD!!
+# Necessary test - in this case, we're testing critical domain business logic
+test "syncs balances" do
+  Holding::Syncer.any_instance.expects(:sync_holdings).returns([]).once
+
+  @account.expects(:start_date).returns(2.days.ago.to_date)
+
+  Balance::ForwardCalculator.any_instance.expects(:calculate).returns(
+    [
+      Balance.new(date: 1.day.ago.to_date, balance: 1000, cash_balance: 1000, currency: "USD"),
+      Balance.new(date: Date.current, balance: 1000, cash_balance: 1000, currency: "USD")
+    ]
+  )
+
+  assert_difference "@account.balances.count", 2 do
+    Balance::Syncer.new(@account, strategy: :forward).sync_balances
+  end
+end
+
+# BAD!!
+# Unnecessary test - in this case, this is simply testing ActiveRecord's functionality
+test "saves balance" do 
+  balance_record = Balance.new(balance: 100, currency: "USD")
+
+  assert balance_record.save
+end
+```
+
+### Convention 6: Use ActiveRecord for complex validations, DB for simple ones, keep business logic out of DB
+
+- Enforce `null` checks, unique indexes, and other simple validations in the DB
+- ActiveRecord validations _may_ mirror the DB level ones, but not 100% necessary.  These are for convenience when error handling in forms.  Always prefer client-side form validation when possible.
+- Complex validations and business logic should remain in ActiveRecord

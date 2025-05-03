@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# General rules for AI 
+
+- Use `current_user` for the current user. Do NOT use `Current.user`.
+- Use `current_organization` for the current organization. Do NOT use `Current.organization`.
+- Prior to generating any code, carefully read the project conventions and guidelines
+  - Read [project-conventions.mdc](mdc:.cursor/rules/project-conventions.mdc) to understand _how_ to write code for the codebase
+  - Read [ui-ux-design-guidelines.mdc](mdc:.cursor/rules/ui-ux-design-guidelines.mdc) to understand how to implement frontend code specifically
+- Do not hardcode strings in English. Use i18n methods.
+
+## Prohibited actions
+
+- Do not run `rails server` in your responses.
+- Do not run `touch tmp/restart.txt`
+- Do not run `rails credentials`
+- Do not automatically run migrations
