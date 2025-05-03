@@ -1,8 +1,8 @@
-<footer class="p-4 text-center border-t space-y-2">
-  <div>
-    <%= active_link_to "Terms", terms_path, class_active: "bg-gray-200", class: "btn btn-transparent" %>
-    <%= active_link_to "Privacy", privacy_path, class_active: "bg-gray-200", class: "btn btn-transparent" %>
-  </div>
+<footer class="du-footer du-footer-horizontal du-footer-center bg-base-200 text-base-content p-4">
+  <nav class="grid grid-flow-col gap-4">
+    <%= active_link_to "Terms", terms_path, class_active: "du-link-primary", class: "du-link du-link-hover" %>
+    <%= active_link_to "Privacy", privacy_path, class_active: "du-link-primary", class: "du-link du-link-hover" %>
+  </nav>
 
   <div>
     &copy; <%= Time.now.year %>
