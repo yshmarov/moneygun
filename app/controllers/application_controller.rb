@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :authenticate_user!
+  before_action :set_current_user, if: :user_signed_in?
+  before_action :set_current_organizations, if: :user_signed_in?
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || organizations_path
@@ -20,7 +22,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @current_membership&.organization
+    Current.organization
+  end
+
+  def set_current_user
+    Current.user = current_user
+  end
+
+  def set_current_organizations
+    Current.organizations = current_user.organizations.includes(:memberships).to_a
   end
 
   helper_method :current_organization
