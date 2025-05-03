@@ -1,11 +1,13 @@
 <% if object.errors.any? %>
-  <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-    <h2><%= pluralize(object.errors.count, "error") %> prohibited this object from being saved:</h2>
-
-    <ul>
-      <% object.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-      <% end %>
-    </ul>
+  <div id="error_explanation" class="du-alert du-alert-error">
+    <%= inline_svg_tag "svg/information-circle.svg", class: "size-6" %>
+    <div>
+      <h3 class="font-bold"><%= pluralize(object.errors.count, "error") %> prohibited this object from being saved:</h3>
+      <ul class="list-disc list-inside">
+        <% object.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 <% end %>
