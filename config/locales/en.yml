@@ -37,6 +37,11 @@ en:
       title: New organization
     show:
       title: Organization settings
+      access_settings:
+        title: Access Settings
+        privacy: Privacy type
+        invitations: Pending invitations
+        requests_to_join_organization: Pending requests to join organization
     subscriptions:
       features:
         title: Features
@@ -65,6 +70,17 @@ en:
         success: Ownership transferred
     update:
       success: Organization updated
+      error: An error occurred while updating the organization
+    invitations:
+      index:
+        title: Pending invitations
+        page_title: Pending invitations for %{organization}
+      destroy:
+        success: Invitation cancelled
+      buttons:
+        cancel: Cancel invitation
+      errors:
+        not_found: Invitation not found
   invitations:
     index:
       title: Pending invitations
