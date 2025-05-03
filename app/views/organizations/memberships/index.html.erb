@@ -1,15 +1,15 @@
 <% content_for :title, t(".title") %>
 
 <% if policy(@current_membership).update? %>
-  <%= render PageComponent.new(title: t("organizations.show.access_settings.title", )) do %>
+  <%= render PageComponent.new(title: t(".access_settings.title", )) do %>
     <%= form_with model: @organization, method: :patch do |form| %>
-      <%= form.label :privacy_setting, t("organizations.show.access_settings.privacy") %>
+      <%= form.label :privacy_setting, t(".access_settings.privacy") %>
       <%= form.select :privacy_setting, Organization.privacy_settings.keys.map { |k| [k.humanize, k] }, {}, { class: "form-input", onchange: "this.form.submit()" } %>
     <% end %>
 
     <%= link_to organization_invitations_path(@organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100" do %>
       <div class="flex items-center gap-2">
-        <%= t("organizations.show.access_settings.invitations") %>
+        <%= t(".access_settings.invitations") %>
       </div>
 
       <div class="flex items-center gap-4">
@@ -24,7 +24,7 @@
     <% if @organization.privacy_setting_restricted? %>
       <%= link_to "#", class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100" do %>
         <div class="flex items-center gap-2">
-          <%= t("organizations.show.access_settings.requests_to_join_organization") %>
+          <%= t(".access_settings.requests_to_join_organization") %>
         </div>
 
         <div class="flex items-center gap-4">
