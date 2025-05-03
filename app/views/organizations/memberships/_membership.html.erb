@@ -9,9 +9,9 @@
   </div>
 
   <div>
-    <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), class: "btn btn-secondary" if policy(membership).edit? %>
+    <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), class: "du-btn du-btn-secondary" if policy(membership).edit? %>
     <div class="inline-block">
-      <%= button_to t("shared.actions.destroy"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-danger" if policy(membership).destroy? %>
+      <%= button_to t("shared.actions.destroy"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-danger" if policy(membership).destroy? %>
     </div>
   </div>
 </div>
