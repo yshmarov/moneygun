@@ -1,7 +1,7 @@
 <div class="du-navbar du-bg-base-200 du-border-b du-border-base-300 px-4">
   <div class="du-navbar-start">
     <% if signed_in? %>
-      <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
+      <button data-action="click->mobile-sidebar#open" class="du-btn du-btn-ghost lg:hidden cursor-pointer inline-flex items-center gap-2">
         <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
         <% if current_organization %>
           <div class="inline-flex items-center gap-2 no-underline">
