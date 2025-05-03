@@ -1,4 +1,4 @@
-<%= link_to organization_dashboard_path(organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100" do %>
+<%= link_to organization_dashboard_path(organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
   <div class="flex items-center gap-2">
     <%= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
     <%= organization_avatar(organization) %>

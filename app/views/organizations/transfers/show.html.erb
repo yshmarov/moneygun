@@ -1,4 +1,4 @@
 <%= render PageComponent.new(title: t(".title"), content_container: true, full_width: false) do |component| %>
   <%= render "organizations/transfers/form" %>
-  <%= link_to t("shared.actions.cancel"), organization_path(current_organization), class: "btn btn-secondary" %>
+  <%= link_to t("shared.actions.cancel"), organization_path(current_organization), class: "du-btn du-btn-secondary" %>
 <% end %>
