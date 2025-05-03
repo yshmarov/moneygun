@@ -37,7 +37,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
-  test "should create membership" do
+  test "should create access request" do
     email = "julia@superails.com"
 
     # nil email
@@ -73,13 +73,13 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
     # success
     assert_difference("User.count") do
-      assert_difference("Membership.count") do
+      assert_difference("AccessRequest::InviteToOrganization.count") do
         post organization_memberships_url(@organization), params: { membership_invitation: { email:, role: "member" } }
       end
     end
 
     assert_redirected_to organization_memberships_url
-    assert @organization.users.find_by(email:)
+    assert_equal "julia@superails.com", @organization.user_invitations.last.user.email
 
     # when user is already a member
     assert_no_difference("User.count") do
