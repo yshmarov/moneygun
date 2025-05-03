@@ -10,7 +10,7 @@
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
         <% end %>
 
-        <%= active_link_to organizations_path, active: :exclusive, title: t("organizations.index.title"), class_active: "bg-gray-200", class: "aspect-square flex justify-center items-center text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
+        <%= active_link_to organizations_path, active: :exclusive, title: t("organizations.index.title"), class_active: "du-btn-active", class: "du-btn du-btn-ghost p-0" do %>
           <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-6" %>
         <% end %>
         <div class="flex flex-col items-center space-y-1">
