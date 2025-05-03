@@ -8,7 +8,7 @@ module ApplicationHelper
 
   def nav_link(label, path, icon:, **options)
     icon = inline_svg_tag icon, class: "size-5" if icon.match?(/svg/)
-    active_link_to path, class_active: "bg-gray-200", class: "w-full items-center btn btn-transparent btn-sm", **options do
+    active_link_to path, class_active: "du-btn-active", class: "whitespace-nowrap w-full justify-start du-btn du-btn-ghost du-btn-sm", **options do
       content_tag(:div, class: "text-lg") do
         icon
       end +

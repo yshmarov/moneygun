@@ -98,30 +98,6 @@
   }
 }
 
-.btn {
-  @apply inline-flex px-4 py-2 rounded space-x-2 font-medium text-sm ease-in-out cursor-pointer whitespace-nowrap active:scale-95 transition-all duration-300;
-}
-
-.btn-primary {
-  @apply bg-blue-500 text-white focus:bg-blue-600 hover:bg-blue-600;
-}
-
-.btn-secondary {
-  @apply bg-gray-200 text-gray-800 focus:bg-gray-400 hover:bg-gray-400;
-}
-
-.btn-transparent {
-  @apply text-gray-500 focus:text-gray-700 hover:text-gray-700 hover:bg-gray-200;
-}
-
-.btn-danger {
-  @apply bg-red-500 text-white focus:bg-red-600 hover:bg-red-600;
-}
-
-.btn-sm {
-  @apply px-3 py-1 text-xs;
-}
-
 .form-input {
   @apply block shadow-sm rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full;
 }
