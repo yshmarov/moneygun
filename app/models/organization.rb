@@ -3,6 +3,11 @@ class Organization < ApplicationRecord
   has_many :users, through: :memberships
   belongs_to :owner, class_name: "User"
 
+  has_many :user_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
+  has_many :user_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
+
+  enum :privacy_setting, { private: "private", restricted: "restricted", public: "public" }, default: :private, prefix: true
+
   include Transfer
 
   has_many :projects, dependent: :destroy
