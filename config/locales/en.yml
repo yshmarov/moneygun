@@ -81,6 +81,14 @@ en:
         cancel: Cancel invitation
       errors:
         not_found: Invitation not found
+  discovers:
+    show:
+      title: Discover
+      page_title: Choose your next organization
+      actions:
+        join: Join
+        request_to_join: Request to join
+        open: Open
   invitations:
     index:
       title: Pending invitations
@@ -111,6 +119,7 @@ en:
       register: Register
       select_organization: Select organization
       pending_invitations: Pending invitations
+      discover: Discover Organizations
   static:
     pricing:
       title: Pricing

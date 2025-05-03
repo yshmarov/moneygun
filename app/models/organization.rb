@@ -33,4 +33,8 @@ class Organization < ApplicationRecord
   def pay_should_sync_customer?
     super || saved_change_to_owner_id?
   end
+
+  def participant?(user)
+    users.include?(user)
+  end
 end
