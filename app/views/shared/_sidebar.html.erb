@@ -9,7 +9,7 @@
         <% if current_organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
           <div>
-            <%= organization_avatar(current_organization) %>
+            <%= organization_avatar(current_organization, classes: "size-5") %>
           </div>
           <div class="truncate">
             <%= current_organization.name %>
@@ -24,7 +24,7 @@
       </summary>
       <div class="space-y-1 p-2 border-b">
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
-          <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
+          <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>
         <%= nav_link t("organizations.index.title"), organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
