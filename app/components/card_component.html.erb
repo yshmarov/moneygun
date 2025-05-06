@@ -1,0 +1,16 @@
+<div class="du-card bg-base-100 shadow-sm max-w-xl">
+  <% if image? %>
+    <%= image %>
+  <% end %>
+  <div class="du-card-body">
+    <h2 class="du-card-title"><%= title %></h2>
+    <p><%= description %></p>
+    <div class="du-card-actions justify-end">
+      <% if actions? %>
+        <% actions.each do |action| %>
+          <%= action %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

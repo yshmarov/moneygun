@@ -1,0 +1,9 @@
+<% content_for :title, t(".title") %>
+
+<%= render PageComponent.new(title: t(".page_title"), full_width: true) do |component| %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <% @organizations.each do |organization| %>
+      <%= render "discovers/organization", organization: organization %>
+    <% end %>
+  </div>
+<% end %>
