@@ -29,7 +29,12 @@ class Organizations::ProjectsController < Organizations::BaseController
     if @project.save
       redirect_to organization_project_url(@organization, @project), notice: "Project was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.update("dialog_content", template: "organizations/projects/new"), status: :unprocessable_entity
+        }
+      end
     end
   end
 
