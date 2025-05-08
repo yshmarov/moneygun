@@ -32,4 +32,10 @@ export default class extends Controller {
       this.dialogTarget.close()
     }
   }
+
+  submitEnd(e) {
+    if (e.detail.success) {
+      this.close()
+    }
+  }
 }
