@@ -1,8 +1,6 @@
 <dialog class="m-auto rounded-lg bg-white text-left shadow-xl w-full sm:max-w-lg backdrop:bg-black/5" data-dialog-target="dialog" data-action="click->dialog#backdropClick turbo:submit-end->dialog#submitEnd">
-  <button type="button" data-action="dialog#close" class="absolute right-4 top-4 p-1 text-gray-400 bg-white rounded-md hover:text-gray-500 hover:bg-gray-100">
-    <svg class="w-6 h-6 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-    </svg>
+  <button type="button" data-action="dialog#close" class="absolute right-3 top-3 p-0.5 text-gray-400 rounded-md hover:bg-gray-100">
+    <%= inline_svg_tag "svg/x-mark.svg", class: "size-6 pointer-events-none" %>
   </button>
   <div class="p-4">
     <%= turbo_frame_tag "dialog_content", data: { dialog_target: "content" } %>
