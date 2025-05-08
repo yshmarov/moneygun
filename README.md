@@ -295,9 +295,12 @@ bundle exec erb_lint --lint-all -a
 bundle exec rubocop -A
 ```
 
-## 🤝 Contributing
+# ✨ Contributors
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+<a href="https://avohq.io/contributors">
+  <img src="https://contrib.rocks/image?repo=yshmarov/moneygun" />
+</a>
+<!--  https://contrib.rocks -->
 
 ## 📝 License
 
