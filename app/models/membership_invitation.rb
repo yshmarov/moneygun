@@ -28,7 +28,7 @@ class MembershipInvitation
       errors.add(:base, "#{email} is already a member of this organization.")
       false
     else
-      AccessRequest::InviteToOrganization.create(user:, organization:, organization_role: role)
+      organization.user_invitations.create(user:, organization_role: role)
       true
     end
   end
