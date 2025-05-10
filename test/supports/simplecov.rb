@@ -8,9 +8,7 @@ Rake.respond_to?(:application) &&
 
 FileUtils.rm_f("coverage/.resultset.json")
 
-if ENV["COVERAGE"] != "false"
-  SimpleCov.minimum_coverage 80
-end
+SimpleCov.minimum_coverage 80
 
 SimpleCov.start(:rails) do
   # Ignore files without functional code
