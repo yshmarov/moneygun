@@ -81,6 +81,8 @@ en:
         cancel: Cancel invitation
       errors:
         not_found: Invitation not found
+    errors:
+      not_found: Organization not found
   discovers:
     show:
       title: Discover
@@ -89,6 +91,8 @@ en:
         join: Join
         request_to_join: Request to join
         open: Open
+        waiting_for_approval: Waiting for approval
+        accept_invitation: Accept invitation
   invitations:
     index:
       title: Pending invitations
@@ -101,6 +105,22 @@ en:
       reject: Reject
     errors:
       not_found: Invitation not found
+  membership_requests:
+    index:
+      title: Membership Requests
+      page_title: Pending membership requests for %{organization}
+    buttons:
+      approve: Approve
+      reject: Reject
+    success: Requested access successfully
+    approve:
+      success: Membership request approved
+    reject:
+      success: Membership request rejected
+    errors:
+      not_found: Membership request not found
+      already_requested: You have already requested access to this organization
+      already_participant: You're already a member of this organization
   shared:
     actions:
       cancel: Cancel
