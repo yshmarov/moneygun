@@ -22,7 +22,7 @@
     <% end %>
 
     <% if @organization.privacy_setting_restricted? %>
-      <%= link_to "#", class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100" do %>
+      <%= link_to organization_membership_requests_path(@organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100" do %>
         <div class="flex items-center gap-2">
           <%= t(".access_settings.requests_to_join_organization") %>
         </div>

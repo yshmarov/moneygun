@@ -13,3 +13,10 @@ invite_to_organization_two:
   status: pending
   type: AccessRequest::InviteToOrganization
   resources: '{ "organization_role": "member" }'
+
+membership_request_one:
+  organization: one
+  user: three
+  status: pending
+  type: AccessRequest::UserRequestForOrganization
+  resources: '{ "organization_role": "member" }'

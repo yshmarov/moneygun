@@ -11,6 +11,7 @@ Rails.application.routes.draw do
           post :reject
         end
       end
+      resources :membership_requests, only: %i[create]
     end
   end
 
@@ -20,6 +21,12 @@ Rails.application.routes.draw do
       resource :transfer, only: %i[show update]
       resources :projects
       resources :invitations, only: %i[index destroy]
+      resources :membership_requests, only: %i[index] do
+        member do
+          post :approve
+          post :reject
+        end
+      end
 
       get "dashboard", to: "dashboard#index"
       get "paywalled_page", to: "dashboard#paywalled_page"
