@@ -29,6 +29,11 @@ en:
         you_have_left_the_organization: You have left the organization
       index:
         title: Teammates
+        access_settings:
+          title: Access Settings
+          privacy: Privacy type
+          invitations: Pending invitations
+          requests_to_join_organization: Pending requests to join organization
       new:
         title: Invite teammate
       update:
@@ -37,11 +42,6 @@ en:
       title: New organization
     show:
       title: Organization settings
-      access_settings:
-        title: Access Settings
-        privacy: Privacy type
-        invitations: Pending invitations
-        requests_to_join_organization: Pending requests to join organization
     subscriptions:
       features:
         title: Features
@@ -81,6 +81,14 @@ en:
         cancel: Cancel invitation
       errors:
         not_found: Invitation not found
+  discovers:
+    show:
+      title: Discover
+      page_title: Choose your next organization
+      actions:
+        join: Join
+        request_to_join: Request to join
+        open: Open
   invitations:
     index:
       title: Pending invitations
@@ -111,6 +119,7 @@ en:
       register: Register
       select_organization: Select organization
       pending_invitations: Pending invitations
+      discover: Discover Organizations
   static:
     pricing:
       title: Pricing

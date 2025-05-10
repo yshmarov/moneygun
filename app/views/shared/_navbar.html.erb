@@ -14,6 +14,8 @@
           </div>
         <% end %>
       </button>
+
+      <%= active_link_to t("shared.navigation.discover"), discover_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
     <% else %>
       <%= link_to root_path, class: "no-underline" do %>
         <%= image_tag "logo.png", class: "size-8" %>

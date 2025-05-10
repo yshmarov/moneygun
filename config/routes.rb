@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
+  resource :discover, only: %i[show]
+
   resource :user do
     scope module: :users do
       resources :invitations, only: %i[index] do
