@@ -180,26 +180,6 @@ To enable webhooks:
 
 Example production webhook url: `https://moneygun.com/pay/webhooks/stripe`
 
-## 🎨 Theme Configuration
-
-Moneygun comes with built-in support for multiple themes. The application supports:
-
-- **Default Theme**: Light mode with gray background
-- **Midnight Theme**: Dark mode with a sleek, modern look
-- **GitHub Theme**: GitHub-inspired color scheme
-
-### Switching Themes
-
-Themes can be applied by adding the appropriate class to the HTML element:
-
-```html
-<html lang="en" class="h-full bg-gray-50 text-gray-900"></html>
-<!-- Dark midnight theme -->
-<html lang="en" class="h-full bg-gray-50 text-gray-900 midnight"></html>
-<!-- Dark GitHub theme -->
-<html lang="en" class="h-full bg-gray-50 text-gray-900 github"></html>
-```
-
 #### Require active subscription to access a resource
 
 You can use the `require_subscription` before_action to protect routes:
