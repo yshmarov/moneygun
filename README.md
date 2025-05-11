@@ -275,6 +275,11 @@ bundle exec erb_lint --lint-all -a
 bundle exec rubocop -A
 ```
 
+```bash
+# Alphabetically sort i18n keys
+i18n-tasks normalize
+```
+
 # ✨ Contributors
 
 <a href="https://avohq.io/contributors">
