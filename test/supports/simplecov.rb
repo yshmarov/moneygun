@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "simplecov"
 
 Rake.respond_to?(:application) &&
