@@ -84,3 +84,5 @@ gem "active_link_to", "~> 1.0"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
+
+gem "turbo_power", "~> 0.7.0"
