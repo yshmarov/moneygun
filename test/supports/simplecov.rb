@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "simplecov"
 
 Rake.respond_to?(:application) &&
@@ -8,7 +6,9 @@ Rake.respond_to?(:application) &&
 
 FileUtils.rm_f("coverage/.resultset.json")
 
-SimpleCov.minimum_coverage 80
+if ENV["COVERAGE"] != "false"
+  SimpleCov.minimum_coverage 80
+end
 
 SimpleCov.start(:rails) do
   # Ignore files without functional code
