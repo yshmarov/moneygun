@@ -5,7 +5,7 @@
 @source "../../../app/views/**/*";
 
 @plugin "./daisyui.js" {
-  themes: cupcake --default, dark --prefersdark;
+  themes: light --default, dark --prefersdark;
   prefix: "du-";
 }
 
