@@ -22,7 +22,11 @@ class OrganizationsController < ApplicationController
     @organization.memberships.build(user: current_user, role: Membership.roles[:admin])
 
     if @organization.save
-      redirect_to organization_dashboard_path(@organization), notice: t(".success")
+      respond_to do |format|
+        flash[:notice] = t(".success")
+        format.html { redirect_to organization_dashboard_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
+      end
     else
       render :new, status: :unprocessable_entity
     end
