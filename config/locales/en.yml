@@ -70,6 +70,9 @@ en:
         page_title: Pending invitations for %{organization}
         title: Pending invitations
     memberships:
+      actions:
+        leave: Leave
+        remove_member: Remove member
       create:
         success: "%{email} invited"
       destroy:
