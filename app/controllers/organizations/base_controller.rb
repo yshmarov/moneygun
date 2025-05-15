@@ -31,6 +31,8 @@ class Organizations::BaseController < ApplicationController
 
   def set_organization
     @organization = current_user.organizations.find(params[:organization_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to organizations_path, alert: t("organizations.errors.not_found"), status: :not_found
   end
 
   def set_current_membership
