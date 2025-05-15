@@ -59,7 +59,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
 
     post user_membership_requests_url(organization_id:)
 
-    assert_redirected_to discover_path
+    assert_redirected_to public_organizations_path
     assert_equal I18n.t("organizations.errors.not_found"), flash[:alert]
   end
 end
