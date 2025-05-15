@@ -11,7 +11,7 @@ class AccessRequestTest < ActiveSupport::TestCase
     rejected_access_request = AccessRequest.create!(status: :rejected, user: users(:one), organization: organizations(:one))
     pending_access_requests = AccessRequest.pending
 
-    assert_equal 2, pending_access_requests.count
+    assert_equal 3, pending_access_requests.count
     assert_includes pending_access_requests, access_requests(:invite_to_organization_one)
     assert_includes pending_access_requests, access_requests(:invite_to_organization_two)
     assert_not_includes pending_access_requests, rejected_access_request
