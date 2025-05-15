@@ -1,4 +1,6 @@
-resource :discover, only: %i[show]
+namespace :public do
+  resources :organizations, only: %i[index show]
+end
 
 resources :organizations, path: I18n.t("routes.organizations") do
   scope module: :organizations do
