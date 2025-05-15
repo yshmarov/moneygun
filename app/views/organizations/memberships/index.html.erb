@@ -3,7 +3,7 @@
 <% if policy(@current_membership).update? %>
   <%= render PageComponent.new(title: t(".access_settings.title", )) do %>
     <%= form_with model: @organization, method: :patch do |form| %>
-      <%= form.label :privacy_setting, t(".access_settings.privacy") %>
+      <%= form.label :privacy_setting %>
       <%= form.select :privacy_setting, Organization.privacy_settings.keys.map { |k| [k.humanize, k] }, {}, { class: "form-input", onchange: "this.form.submit()" } %>
     <% end %>
 

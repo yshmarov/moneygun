@@ -18,6 +18,11 @@
     <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "form-input" %>
   </div>
 
+  <div class="">
+    <%= form.label :privacy_setting %>
+    <%= form.select :privacy_setting, options_for_select(Organization.privacy_settings.keys.map { |key| [key.humanize, key] }, organization.privacy_setting), {}, class: "form-input" %>
+  </div>
+
   <div class="inline">
     <%= form.submit class: "du-btn du-btn-primary" %>
   </div>

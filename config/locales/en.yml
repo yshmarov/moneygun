@@ -8,6 +8,7 @@ en:
       organization:
         logo: Logo
         name: Name
+        privacy_setting: Privacy
     models:
       membership: Member
       organization: Organization
@@ -82,7 +83,6 @@ en:
       index:
         access_settings:
           invitations: Pending invitations
-          privacy: Privacy type
           requests_to_join_organization: Pending requests to join organization
           title: Access Settings
         title: Teammates
