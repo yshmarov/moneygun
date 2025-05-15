@@ -19,8 +19,7 @@ en:
         open: Open
         request_to_join: Request to join
         waiting_for_approval: Waiting for approval
-      page_title: Choose your next organization
-      title: Discover
+      title: Discover organizations
   invitations:
     approve:
       success: Invitation approved

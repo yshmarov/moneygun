@@ -1,6 +1,10 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: t(".page_title"), full_width: true) do |component| %>
+<%= render PageComponent.new(title: t(".title"), full_width: true) do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to t("shared.actions.new"), new_organization_path, class: "du-btn du-btn-primary" %>
+  <% end %>
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
     <% @organizations.each do |organization| %>
       <%= render "discovers/organization", organization: organization %>
