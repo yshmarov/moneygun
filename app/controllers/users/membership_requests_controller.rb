@@ -13,7 +13,7 @@ class Users::MembershipRequestsController < ApplicationController
 
     render turbo_stream: [
       turbo_stream.replace("organization_#{@organization.id}",
-                          partial: "discovers/organization",
+                          partial: "public/organizations/organization",
                           locals: { organization: @organization }),
       turbo_stream.update("flash", partial: "shared/flash")
     ]
@@ -24,6 +24,6 @@ class Users::MembershipRequestsController < ApplicationController
   def set_organization
     @organization = Organization.find(params[:organization_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_back(fallback_location: discover_path, alert: t("organizations.errors.not_found"))
+    redirect_back(fallback_location: public_organizations_path, alert: t("organizations.errors.not_found"))
   end
 end

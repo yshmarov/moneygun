@@ -12,15 +12,6 @@ en:
     models:
       membership: Member
       organization: Organization
-  discovers:
-    show:
-      actions:
-        accept_invitation: Accept invitation
-        join: Join
-        open: Open
-        request_to_join: Request to join
-        waiting_for_approval: Waiting for approval
-      title: Discover organizations
   invitations:
     approve:
       success: Invitation approved
@@ -123,6 +114,18 @@ en:
     update:
       error: An error occurred while updating the organization
       success: Organization updated
+  public:
+    organizations:
+      index:
+        title: Discover organizations
+      show:
+        actions:
+          accept_invitation: Accept invitation
+          join: Join
+          open: Open
+          request_to_join: Request to join
+          waiting_for_approval: Waiting for approval
+        title: Discover organizations
   routes:
     memberships: teammates
     organizations: organizations
