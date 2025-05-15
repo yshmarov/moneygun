@@ -11,6 +11,44 @@ en:
     models:
       membership: Member
       organization: Organization
+  discovers:
+    show:
+      actions:
+        accept_invitation: Accept invitation
+        join: Join
+        open: Open
+        request_to_join: Request to join
+        waiting_for_approval: Waiting for approval
+      page_title: Choose your next organization
+      title: Discover
+  invitations:
+    approve:
+      success: Invitation approved
+    buttons:
+      approve: Join
+      reject: Reject
+    errors:
+      not_found: Invitation not found
+    index:
+      title: Pending invitations
+    reject:
+      success: Invitation rejected
+  membership_requests:
+    approve:
+      success: Membership request approved
+    buttons:
+      approve: Approve
+      reject: Reject
+    errors:
+      already_participant: You're already a member of this organization
+      already_requested: You have already requested access to this organization
+      not_found: Membership request not found
+    index:
+      page_title: Pending membership requests for %{organization}
+      title: Membership Requests
+    reject:
+      success: Membership request rejected
+    success: Requested access successfully
   organizations:
     create:
       success: Organization created
@@ -18,8 +56,20 @@ en:
       success: Organization destroyed
     edit:
       title: Edit organization
+    errors:
+      not_found: Organization not found
     index:
       title: My organizations
+    invitations:
+      buttons:
+        cancel: Cancel invitation
+      destroy:
+        success: Invitation cancelled
+      errors:
+        not_found: Invitation not found
+      index:
+        page_title: Pending invitations for %{organization}
+        title: Pending invitations
     memberships:
       create:
         success: "%{email} invited"
@@ -28,12 +78,12 @@ en:
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
-        title: Teammates
         access_settings:
-          title: Access Settings
-          privacy: Privacy type
           invitations: Pending invitations
+          privacy: Privacy type
           requests_to_join_organization: Pending requests to join organization
+          title: Access Settings
+        title: Teammates
       new:
         title: Invite teammate
       update:
@@ -69,58 +119,11 @@ en:
       update:
         success: Ownership transferred
     update:
-      success: Organization updated
       error: An error occurred while updating the organization
-    invitations:
-      index:
-        title: Pending invitations
-        page_title: Pending invitations for %{organization}
-      destroy:
-        success: Invitation cancelled
-      buttons:
-        cancel: Cancel invitation
-      errors:
-        not_found: Invitation not found
-    errors:
-      not_found: Organization not found
-  discovers:
-    show:
-      title: Discover
-      page_title: Choose your next organization
-      actions:
-        join: Join
-        request_to_join: Request to join
-        open: Open
-        waiting_for_approval: Waiting for approval
-        accept_invitation: Accept invitation
-  invitations:
-    index:
-      title: Pending invitations
-    approve:
-      success: Invitation approved
-    reject:
-      success: Invitation rejected
-    buttons:
-      approve: Join
-      reject: Reject
-    errors:
-      not_found: Invitation not found
-  membership_requests:
-    index:
-      title: Membership Requests
-      page_title: Pending membership requests for %{organization}
-    buttons:
-      approve: Approve
-      reject: Reject
-    success: Requested access successfully
-    approve:
-      success: Membership request approved
-    reject:
-      success: Membership request rejected
-    errors:
-      not_found: Membership request not found
-      already_requested: You have already requested access to this organization
-      already_participant: You're already a member of this organization
+      success: Organization updated
+  routes:
+    memberships: teammates
+    organizations: organizations
   shared:
     actions:
       cancel: Cancel
@@ -133,13 +136,13 @@ en:
       not_subscribed: You need to subscribe to access this page.
       rate_limit: Try again later.
     navigation:
+      discover: Discover Organizations
       edit_profile: Edit profile
       login: Log in
       logout: Log out
+      pending_invitations: Pending invitations
       register: Register
       select_organization: Select organization
-      pending_invitations: Pending invitations
-      discover: Discover Organizations
   static:
     pricing:
       title: Pricing
@@ -147,6 +150,3 @@ en:
       title: Privacy
     terms:
       title: Terms
-  routes:
-    organizations: organizations
-    memberships: teammates
