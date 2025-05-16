@@ -1,8 +1,0 @@
-{
-  "recommendations": [
-    "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss",
-    "eamodio.gitlens",
-    "elia.erb-formatter"
-  ]
-}
