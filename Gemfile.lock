@@ -130,6 +130,8 @@ GEM
     dotenv (3.1.8)
     drb (2.2.1)
     ed25519 (1.4.0)
+    erb-formatter (0.7.3)
+      syntax_tree (~> 6.0)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
@@ -254,6 +256,7 @@ GEM
     pg (1.5.9)
     pp (0.6.2)
       prettyprint
+    prettier_print (1.2.1)
     prettyprint (0.2.0)
     prism (1.4.0)
     profitable (0.2.3)
@@ -397,6 +400,8 @@ GEM
       railties (>= 6.0.0)
     stringio (3.1.7)
     stripe (13.5.1)
+    syntax_tree (6.2.0)
+      prettier_print (>= 1.2.0)
     tailwindcss-rails (4.2.3)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
@@ -459,6 +464,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   devise_invitable (~> 2.0)
+  erb-formatter
   erb_lint
   i18n-tasks
   importmap-rails

@@ -4,13 +4,13 @@
   <div class="">
     <%= form.label :name %>
     <%= form.text_field :name,
-                        class: "form-input",
-                        autocomplete: "off",
-                        autocorrect: "off",
-                        autocapitalize: "off",
-                        spellcheck: "false",
-                        autofocus: !turbo_native_app?,
-                        required: true %>
+                    class: "form-input",
+                    autocomplete: "off",
+                    autocorrect: "off",
+                    autocapitalize: "off",
+                    spellcheck: "false",
+                    autofocus: !turbo_native_app?,
+                    required: true %>
   </div>
 
   <div class="">
@@ -20,7 +20,13 @@
 
   <div class="">
     <%= form.label :privacy_setting %>
-    <%= form.select :privacy_setting, options_for_select(Organization.privacy_settings.keys.map { |key| [key.humanize, key] }, organization.privacy_setting), {}, class: "form-input" %>
+    <%= form.select :privacy_setting,
+                options_for_select(
+                  Organization.privacy_settings.keys.map { |key| [key.humanize, key] },
+                  organization.privacy_setting,
+                ),
+                {},
+                class: "form-input" %>
   </div>
 
   <div class="inline">

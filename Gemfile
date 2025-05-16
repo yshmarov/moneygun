@@ -59,6 +59,7 @@ group :development do
   gem "web-console"
   gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
   gem "i18n-tasks"
+  gem "erb-formatter", require: false
 end
 
 group :test do
