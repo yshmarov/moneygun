@@ -52,11 +52,13 @@ class OrganizationsController < ApplicationController
   private
 
   def handle_successful_update(came_from_memberships)
+    flash[:notice] = t(".success")
+
     if came_from_memberships
-      redirect_back fallback_location: organization_memberships_path(@organization), notice: t(".success")
+      redirect_back fallback_location: organization_memberships_path(@organization)
     else
       respond_to do |format|
-        format.html { redirect_to organization_path(@organization), notice: t(".success") }
+        format.html { redirect_to organization_path(@organization) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
       end
     end
