@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
 <% if policy(@current_membership).update? %>
-  <%= render PageComponent.new(title: t(".access_settings.title", )) do %>
+  <%= render PageComponent.new(title: t(".access_settings.title")) do %>
     <%= form_with model: @organization, method: :patch do |form| %>
       <%= form.label :privacy_setting %>
       <div class="space-y-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
