@@ -20,16 +20,16 @@
 
   <div class="">
     <%= form.label :privacy_setting, class: "block text-sm font-medium text-gray-700 mb-2" %>
-    <div class="space-y-4">
+    <div class="space-y-4 grid grid-cols-3 gap-4">
       <% Organization.privacy_settings.each do |key, value| %>
-        <div class="relative">
+        <div class="">
           <%= form.radio_button :privacy_setting, value, class: "peer sr-only" %>
-          <%= form.label "privacy_setting_#{key}".to_sym, class: "flex items-center p-4 border rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/5 hover:bg-gray-50" do %>
-            <div class="flex items-center gap-x-3">
+          <%= form.label "privacy_setting_#{key}".to_sym, class: "flex flex-col items-center p-4 border rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/5 hover:bg-gray-50" do %>
+            <div class="flex flex-col items-center gap-x-3">
               <div class="flex-shrink-0">
                 <%= inline_svg_tag privacy_setting_options(key)[:icon_path], class: "size-6 text-gray-600 peer-checked:text-primary" %>
               </div>
-              <div class="flex items-baseline gap-x-2">
+              <div class="flex flex-col items-center gap-x-2">
                 <span class="font-medium"><%= privacy_setting_options(key)[:display_text] %></span>
                 <span class="text-sm text-gray-500"><%= privacy_setting_options(key)[:description_text] %></span>
               </div>
