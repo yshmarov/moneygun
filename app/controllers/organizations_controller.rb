@@ -55,7 +55,10 @@ class OrganizationsController < ApplicationController
     if came_from_memberships
       redirect_back fallback_location: organization_memberships_path(@organization), notice: t(".success")
     else
-      redirect_to organization_path(@organization), notice: t(".success")
+      respond_to do |format|
+        format.html { redirect_to organization_path(@organization), notice: t(".success") }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
+      end
     end
   end
 
