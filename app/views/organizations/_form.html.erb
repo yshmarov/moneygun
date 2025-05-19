@@ -24,14 +24,14 @@
       <% Organization.privacy_settings.each do |key, value| %>
         <div class="h-full">
           <%= form.radio_button :privacy_setting, value, class: "peer sr-only" %>
-          <%= form.label "privacy_setting_#{key}".to_sym, class: "flex flex-col items-center justify-center p-4 h-full border rounded-lg cursor-pointer text-center peer-checked:border-primary peer-checked:ring-2 peer-checked:ring-primary peer-checked:bg-primary/5 hover:bg-gray-50 transition-all duration-150 ease-in-out" do %>
+          <%= form.label "privacy_setting_#{key}".to_sym, class: "flex flex-col items-center justify-center p-4 h-full border du-border-base-300 rounded-lg cursor-pointer text-center du-bg-base-100 hover:du-bg-base-200 peer-checked:du-border-primary peer-checked:ring-3 peer-checked:du-ring-primary peer-checked:du-bg-primary/10 transition-all duration-150 ease-in-out" do %>
             <div class="flex flex-col items-center gap-y-2">
               <div class="flex-shrink-0">
-                <%= inline_svg_tag privacy_setting_options(key)[:icon_path], class: "size-8 text-gray-500 peer-checked:text-primary" %>
+                <%= inline_svg_tag privacy_setting_options(key)[:icon_path], class: "size-8 text-base-content opacity-70 peer-checked:du-text-primary peer-checked:opacity-100" %>
               </div>
               <div class="flex flex-col items-center">
                 <span class="font-semibold text-sm"><%= privacy_setting_options(key)[:display_text] %></span>
-                <span class="text-xs text-gray-500 peer-checked:text-gray-700"><%= privacy_setting_options(key)[:description_text] %></span>
+                <span class="text-xs text-base-content opacity-70 peer-checked:du-text-primary peer-checked:opacity-100"><%= privacy_setting_options(key)[:description_text] %></span>
               </div>
             </div>
           <% end %>
