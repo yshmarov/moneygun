@@ -30,13 +30,6 @@ module OrganizationsHelper
         # icon_path: "svg/globe.svg"
         icon_path: "🌐"
       }
-    else
-      # Default or error handling
-      {
-        display_text: "",
-        description_text: "",
-        icon_path: ""
-      }
     end
   end
 end
