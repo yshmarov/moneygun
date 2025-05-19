@@ -1,6 +1,6 @@
 <dialog class="du-modal" data-dialog-target="dialog" data-action="click->dialog#backdropClick turbo:submit-end->dialog#submitEnd">
   <div class="du-modal-box">
-  <button type="button" data-action="dialog#close" class="absolute right-4 top-4 p-0.5 text-gray-400 rounded-md hover:bg-gray-100">
+  <button type="button" data-action="dialog#close" class="absolute right-4 top-4 du-btn du-btn-ghost du-btn-sm">
     <%= inline_svg_tag "svg/x-mark.svg", class: "size-6 pointer-events-none" %>
   </button>
     <%= turbo_frame_tag "dialog_content", data: { dialog_target: "content" } %>

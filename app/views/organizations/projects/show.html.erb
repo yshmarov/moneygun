@@ -2,10 +2,9 @@
   <div class="mx-auto">
     <%= render @project %>
 
-    <%= link_to "Edit this project", [ :edit, @organization, @project ], data: { turbo_frame: "dialog_content", action: "click->dialog#open" }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to projects", [ @organization, :projects ], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this project", [ :edit, @organization, @project ], data: { turbo_frame: "dialog_content", action: "click->dialog#open" }, class: "du-btn du-btn-primary" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this project", [ @organization, @project ], method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to "Destroy this project", [ @organization, @project ], method: :delete, class: "du-btn du-btn-error" %>
     </div>
   </div>
 </div>

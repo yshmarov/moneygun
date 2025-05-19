@@ -3,14 +3,14 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-lx lg:text-3xll">Projects</h1>
-    <%= link_to "New project", new_organization_project_path(@organization), data: { turbo_frame: "dialog_content", action: "dialog#open" }, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New project", new_organization_project_path(@organization), data: { turbo_frame: "dialog_content", action: "dialog#open" }, class: "du-btn du-btn-primary" %>
   </div>
 
   <div id="projects" class="min-w-full">
     <% @projects.each do |project| %>
       <%= render project %>
       <p>
-        <%= link_to "Show this project", [ @organization, project ], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Show this project", [ @organization, project ], class: "du-btn du-btn-primary" %>
       </p>
     <% end %>
   </div>

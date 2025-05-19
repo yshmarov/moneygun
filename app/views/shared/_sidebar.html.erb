@@ -23,10 +23,13 @@
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
       </summary>
       <div class="space-y-1 p-2 border-b">
+        <%= nav_link t("organizations.index.title"), organizations_path, icon: "🏠", active: :exclusive %>
+        <%= nav_link t("shared.navigation.discover"), public_organizations_path, icon: "🧭" %>
+      </div>
+      <div class="space-y-1 p-2 border-b">
         <% current_user.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>
-        <%= nav_link t("organizations.index.title"), organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
