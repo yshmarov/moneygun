@@ -3,7 +3,7 @@
 <%= render PageComponent.new(title: t("organizations.show.title")) do |component| %>
   <% component.with_action_list do %>
     <%= link_to t("shared.actions.edit"), edit_organization_path(@organization), data: { turbo_frame: "dialog_content", action: "click->dialog#open" }, class: "du-btn du-btn-secondary" if policy(@organization).edit? %>
-    <%= link_to t("organizations.transfers.show.title"), organization_transfer_path(@organization), class: "du-btn du-btn-error" if @organization.can_transfer?(current_user) %>
+    <%= link_to t("organizations.transfers.show.title"), organization_transfer_path(@organization), data: { turbo_frame: "dialog_content", action: "click->dialog#open" }, class: "du-btn du-btn-error" if @organization.can_transfer?(current_user) %>
     <div class="inline-block">
       <%= button_to t("shared.actions.destroy"), @organization, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error" if policy(@organization).destroy? %>
     </div>
