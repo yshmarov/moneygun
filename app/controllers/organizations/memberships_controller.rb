@@ -27,7 +27,11 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def update
     if @membership.update(membership_params)
-      redirect_to organization_memberships_path(@organization), notice: t(".success")
+      flash[:notice] = t(".success")
+      respond_to do |format|
+        format.html { redirect_to organization_memberships_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
+      end
     else
       render :edit, status: :unprocessable_entity
     end

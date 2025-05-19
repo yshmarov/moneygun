@@ -22,7 +22,11 @@ class OrganizationsController < ApplicationController
     @organization.memberships.build(user: current_user, role: Membership.roles[:admin])
 
     if @organization.save
-      redirect_to organization_dashboard_path(@organization), notice: t(".success")
+      respond_to do |format|
+        flash[:notice] = t(".success")
+        format.html { redirect_to organization_dashboard_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -48,10 +52,15 @@ class OrganizationsController < ApplicationController
   private
 
   def handle_successful_update(came_from_memberships)
+    flash[:notice] = t(".success")
+
     if came_from_memberships
-      redirect_back fallback_location: organization_memberships_path(@organization), notice: t(".success")
+      redirect_back fallback_location: organization_memberships_path(@organization)
     else
-      redirect_to organization_path(@organization), notice: t(".success")
+      respond_to do |format|
+        format.html { redirect_to organization_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
+      end
     end
   end
 
