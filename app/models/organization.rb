@@ -15,7 +15,9 @@ class Organization < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 20 }
 
-  has_one_attached :logo
+  has_one_attached :logo do |attachable|
+    attachable.variant :thumb, resize_to_limit: [ 100, 100 ]
+  end
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 

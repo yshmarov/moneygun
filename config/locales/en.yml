@@ -21,7 +21,7 @@ en:
     errors:
       not_found: Invitation not found
     index:
-      title: Pending invitations
+      title: Incoming invitations
     reject:
       success: Invitation rejected
   membership_requests:
@@ -35,8 +35,7 @@ en:
       already_requested: You have already requested access to this organization
       not_found: Membership request not found
     index:
-      page_title: Pending membership requests for %{organization}
-      title: Membership Requests
+      title: Incoming membership requests
     reject:
       success: Membership request rejected
     success: Requested access successfully
@@ -59,8 +58,7 @@ en:
       errors:
         not_found: Invitation not found
       index:
-        page_title: Pending invitations for %{organization}
-        title: Pending invitations
+        title: Outgoing invitations
     memberships:
       actions:
         leave: Leave
@@ -73,8 +71,8 @@ en:
         you_have_left_the_organization: You have left the organization
       index:
         access_settings:
-          invitations: Pending invitations
-          requests_to_join_organization: Pending requests to join organization
+          invitations: Outgoing invitations
+          requests_to_join_organization: Incoming membership requests
           title: Access Settings
         title: Teammates
       new:
@@ -145,7 +143,7 @@ en:
       edit_profile: Edit profile
       login: Log in
       logout: Log out
-      pending_invitations: Pending invitations
+      pending_invitations: Incoming invitations
       register: Register
       select_organization: Select organization
   static:
