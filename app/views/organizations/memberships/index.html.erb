@@ -4,7 +4,25 @@
   <%= render PageComponent.new(title: t(".access_settings.title", )) do %>
     <%= form_with model: @organization, method: :patch do |form| %>
       <%= form.label :privacy_setting %>
-      <%= form.select :privacy_setting, Organization.privacy_settings.keys.map { |k| [k.humanize, k] }, {}, { class: "form-input", onchange: "this.form.submit()" } %>
+      <div class="space-y-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <% Organization.privacy_settings.each do |key, value| %>
+          <div class="h-full">
+            <%= form.radio_button :privacy_setting, value, class: "peer sr-only", onchange: "this.form.requestSubmit()" %>
+            <%= form.label "privacy_setting_#{key}".to_sym, class: "flex flex-col items-center justify-center h-full p-4 text-center du-bg-base-100 border du-border-base-300 rounded-lg transition-all duration-150 ease-in-out cursor-pointer hover:du-bg-base-200 peer-checked:du-border-primary peer-checked:ring-3 peer-checked:du-ring-primary peer-checked:du-bg-primary/10" do %>
+              <div class="flex flex-row lg:flex-col w-full items-center gap-4 justify-between">
+                <div class="">
+                  <%#= inline_svg_tag privacy_setting_options(key)[:icon_path], class: "size-8 text-base-content opacity-70 peer-checked:du-text-primary peer-checked:opacity-100" %>
+                  <%= privacy_setting_options(key)[:icon_path] %>
+                </div>
+                <div class="flex flex-col lg:items-center items-start flex-grow text-center">
+                  <span class="font-semibold text-sm"><%= privacy_setting_options(key)[:display_text] %></span>
+                  <span class="text-xs text-base-content opacity-70 peer-checked:du-text-primary peer-checked:opacity-100"><%= privacy_setting_options(key)[:description_text] %></span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
 
     <%= link_to organization_invitations_path(@organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
