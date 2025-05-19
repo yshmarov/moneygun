@@ -6,4 +6,34 @@ module OrganizationsHelper
       tag.div organization.name[0..1], class: "uppercase rounded bg-gray-400 text-xs flex items-center justify-center #{classes}"
     end
   end
+
+  def privacy_setting_options(key)
+    case key
+    when "private"
+      {
+        display_text: "Invite only",
+        description_text: "People can join your server directly with an invite",
+        icon_path: "svg/lock.svg"
+      }
+    when "restricted"
+      {
+        display_text: "Apply to join",
+        description_text: "People must submit an application to be approved to join",
+        icon_path: "svg/envelope.svg"
+      }
+    when "public"
+      {
+        display_text: "Discoverable",
+        description_text: "Anyone can join your server directly through Server Discovery",
+        icon_path: "svg/globe.svg"
+      }
+    else
+      # Default or error handling
+      {
+        display_text: "",
+        description_text: "",
+        icon_path: ""
+      }
+    end
+  end
 end
