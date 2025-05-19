@@ -9,7 +9,7 @@
   </div>
 
   <div>
-    <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), class: "du-btn du-btn-secondary" if policy(membership).edit? %>
+    <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), data: { turbo_frame: "dialog_content", action: "click->dialog#open" }, class: "du-btn du-btn-secondary" if policy(membership).edit? %>
     <div class="inline-block">
       <%= button_to @current_membership == membership ? t("organizations.memberships.actions.leave") : t("organizations.memberships.actions.remove_member"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error" if policy(membership).destroy? %>
     </div>
