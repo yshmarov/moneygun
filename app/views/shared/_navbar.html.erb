@@ -35,6 +35,7 @@
         <div class="absolute right-0 mt-1 bg-base-200 border rounded-lg p-1 space-y-1">
           <%= active_link_to t("shared.navigation.edit_profile"), edit_user_registration_path, class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
           <%= active_link_to t("shared.navigation.pending_invitations"), user_invitations_path, class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+          <%= active_link_to t("shared.navigation.pending_requests"), user_membership_requests_path, class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
           <%= button_to t("shared.navigation.logout"), destroy_user_session_path, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
         </div>
       </details>

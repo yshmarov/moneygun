@@ -1,10 +1,12 @@
 <% content_for :title, t(".title") %>
 
 <%= render PageComponent.new(title: t(".title")) do %>
-  <% @organization_requests.each do |organization_request| %>
-    <div>
-      <%= link_to organization_request.organization.name, public_organization_path(organization_request.organization) %>
-      <%= organization_request.created_at %>
-    </div>
-  <% end %>
+  <div id="invitations" class="space-y-4">
+    <% @organization_requests.each do |organization_request| %>
+      <div>
+        <%= link_to organization_request.organization.name, public_organization_path(organization_request.organization) %>
+        <%= organization_request.created_at %>
+      </div>
+    <% end %>
+  </div>
 <% end %>

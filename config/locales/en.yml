@@ -158,3 +158,6 @@ en:
     membership_requests:
       index:
         title: Outgoing membership requests
+    invitations:
+      index:
+        title: Outgoing invitations
