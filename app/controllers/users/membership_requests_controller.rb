@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class Users::MembershipRequestsController < ApplicationController
-  before_action :set_organization
+  before_action :set_organization, only: %i[create]
+
+  def index
+    @organization_requests = current_user.organization_requests.pending
+  end
 
   def create
     request = MembershipRequest.new(organization: @organization, user: current_user)

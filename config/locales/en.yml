@@ -144,6 +144,7 @@ en:
       login: Log in
       logout: Log out
       pending_invitations: Incoming invitations
+      pending_requests: Outgoing requests
       register: Register
       select_organization: Select organization
   static:
@@ -153,3 +154,7 @@ en:
       title: Privacy
     terms:
       title: Terms
+  users:
+    membership_requests:
+      index:
+        title: Outgoing membership requests

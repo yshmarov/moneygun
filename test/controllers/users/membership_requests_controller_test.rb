@@ -1,6 +1,14 @@
 require "test_helper"
 
 class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
+  test "should get index" do
+    user = users(:one)
+    sign_in user
+
+    get user_membership_requests_url
+    assert_response :success
+  end
+
   test "should create membership for public organization" do
     membership = memberships(:one)
     user = membership.user

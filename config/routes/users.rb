@@ -8,6 +8,6 @@ resource :user do
         post :reject
       end
     end
-    resources :membership_requests, only: %i[create]
+    resources :membership_requests, only: %i[index create]
   end
 end

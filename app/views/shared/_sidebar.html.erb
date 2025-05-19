@@ -52,6 +52,7 @@
     <% if controller_path.start_with?('users') %>
       <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
       <%= nav_link t("shared.navigation.pending_invitations"), user_invitations_path, icon: current_user.organization_invitations.count.to_s %>
+      <%= nav_link t("shared.navigation.pending_requests"), user_membership_requests_path, icon: current_user.organization_requests.count.to_s %>
     <% end %>
 
     <%= render "shared/sidebar_toggle" %>
