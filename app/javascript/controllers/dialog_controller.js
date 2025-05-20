@@ -1,40 +1,42 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["dialog", "loadingTemplate", "content"]
-
   connect() {
-    this.boundBeforeCache = this.beforeCache.bind(this)
-    document.addEventListener("turbo:before-cache", this.boundBeforeCache)
+    this.open()
+    // needed because ESC key does not trigger close event
+    this.element.addEventListener("close", this.enableBodyScroll.bind(this))
   }
 
   disconnect() {
-    document.removeEventListener("turbo:before-cache", this.boundBeforeCache)
+    this.element.removeEventListener("close", this.enableBodyScroll.bind(this))
   }
 
-  open() {
-    this.contentTarget.innerHTML = this.loadingTemplateTarget.innerHTML
-    this.dialogTarget.showModal()
-  }
-
-  close() {
-    this.dialogTarget.close()
-  }
-
-  backdropClick(event) {
-    if (event.target.nodeName == "DIALOG") {
+  // hide modal on successful form submission
+  // data-action="turbo:submit-end->turbo-modal#submitEnd"
+  submitEnd(e) {
+    if (e.detail.success) {
       this.close()
     }
   }
 
-  beforeCache() {
-    if (this.dialogTarget.open) {
-      this.dialogTarget.close()
-    }
+  open() {
+    this.element.showModal()
+    document.body.classList.add('overflow-hidden')
   }
 
-  submitEnd(e) {
-    if (e.detail.success) {
+  close() {
+    this.element.close()
+    const frame = document.getElementById('modal')
+    frame.removeAttribute("src")
+    frame.innerHTML = ""
+  }
+
+  enableBodyScroll() {
+    document.body.classList.remove('overflow-hidden')
+  }
+
+  clickOutside(event) {
+    if (event.target === this.element) {
       this.close()
     }
   }
