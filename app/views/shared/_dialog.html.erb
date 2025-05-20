@@ -1,12 +1,11 @@
 <%= turbo_frame_tag :modal do %>
   <dialog class="du-modal" data-controller="dialog" data-action="click->dialog#clickOutside turbo:submit-end->dialog#submitEnd">
     <div class="du-modal-box">
-      <form method="dialog">
-        <button class="du-btn">Close</button>
+      <form method="dialog" class="absolute right-4 top-4">
+        <button class="du-btn du-btn-ghost du-btn-sm">
+          <%= inline_svg_tag "svg/x-mark.svg", class: "size-6 pointer-events-none" %>
+        </button>        
       </form>
-      <button type="button" data-action="dialog#close" class="absolute right-4 top-4 du-btn du-btn-ghost du-btn-sm">
-        <%= inline_svg_tag "svg/x-mark.svg", class: "size-6 pointer-events-none" %>
-      </button>
       <%= yield %>
     </div>
   </dialog>
