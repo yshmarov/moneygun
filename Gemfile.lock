@@ -128,6 +128,9 @@ GEM
       devise (>= 4.6)
     docile (1.4.1)
     dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.1)
     ed25519 (1.4.0)
     erb_lint (0.9.0)
@@ -140,6 +143,17 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
+    event_stream_parser (1.0.0)
+    faraday (2.13.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-multipart (1.1.0)
+      multipart-post (~> 2.0)
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
+    faraday-retry (2.3.1)
+      faraday (~> 2.0)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-arm-linux-gnu)
     ffi (1.17.2-arm64-darwin)
@@ -227,6 +241,9 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.8.0)
+    multipart-post (2.4.1)
+    net-http (0.6.0)
+      uri
     net-imap (0.5.8)
       date
       net-protocol
@@ -369,6 +386,14 @@ GEM
     ruby-vips (2.2.3)
       ffi (~> 1.12)
       logger
+    ruby_llm (1.2.0)
+      base64
+      event_stream_parser (~> 1)
+      faraday (~> 2)
+      faraday-multipart (~> 1)
+      faraday-net_http (~> 3)
+      faraday-retry (~> 2)
+      zeitwerk (~> 2)
     rubyzip (2.4.1)
     securerandom (0.4.1)
     selenium-webdriver (4.32.0)
@@ -476,6 +501,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   devise_invitable (~> 2.0)
+  dotenv-rails
   erb_lint
   i18n-tasks
   image_processing (~> 1.2)
@@ -493,6 +519,7 @@ DEPENDENCIES
   pundit (~> 2.3)
   rails (~> 8.0.1)
   rubocop-rails-omakase
+  ruby_llm (~> 1.1)
   selenium-webdriver
   simplecov (~> 0.22.0)
   solid_cable
