@@ -2,7 +2,7 @@
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
 <%# Sidebar content %>
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r w-52 bg-base-200 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 w-52 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
     <details class="group">
       <summary class="du-btn du-btn-ghost font-medium text-sm p-2 pl-4 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
@@ -22,11 +22,11 @@
         <% end %>
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
       </summary>
-      <div class="space-y-1 p-2 border-b">
+      <div class="space-y-1 p-2 border-b border-base-content/20">
         <%= nav_link t("organizations.index.title"), organizations_path, icon: "🏠", active: :exclusive %>
         <%= nav_link t("shared.navigation.discover"), public_organizations_path, icon: "🧭" %>
       </div>
-      <div class="space-y-1 p-2 border-b">
+      <div class="space-y-1 p-2 border-b border-base-content/20">
         <% Current.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>
@@ -40,7 +40,7 @@
     <% end %>
   </div>
 
-  <div class="border-t space-y-1 p-2">
+  <div class="border-t space-y-1 p-2 border-base-content/20">
     <% if current_organization %>
       <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
       <% if Current.membership.admin? %>
