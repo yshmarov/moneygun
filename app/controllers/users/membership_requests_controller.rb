@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Users::MembershipRequestsController < ApplicationController
   before_action :set_organization, only: %i[create]
 
