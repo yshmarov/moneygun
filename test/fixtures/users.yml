@@ -10,5 +10,8 @@ one:
 two:
   email: hello@superails.com
 
+three:
+  email: natan@superails.com
+
 unassociated:
   email: unassociated@superails.com

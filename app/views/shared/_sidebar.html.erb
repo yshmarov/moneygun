@@ -2,14 +2,14 @@
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
 <%# Sidebar content %>
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r w-52 bg-gray-100 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r w-52 bg-base-200 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
     <details class="group">
-      <summary class="btn-transparent font-medium text-sm p-2 pl-4 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-gray-100">
+      <summary class="du-btn du-btn-ghost font-medium text-sm p-2 pl-4 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
         <% if current_organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
           <div>
-            <%= organization_avatar(current_organization) %>
+            <%= organization_avatar(current_organization, classes: "size-5") %>
           </div>
           <div class="truncate">
             <%= current_organization.name %>
@@ -23,10 +23,13 @@
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
       </summary>
       <div class="space-y-1 p-2 border-b">
-        <% current_user.organizations.excluding(current_organization).each do |organization| %>
-          <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization) %>
+        <%= nav_link t("organizations.index.title"), organizations_path, icon: "🏠", active: :exclusive %>
+        <%= nav_link t("shared.navigation.discover"), public_organizations_path, icon: "🧭" %>
+      </div>
+      <div class="space-y-1 p-2 border-b">
+        <% Current.organizations.excluding(current_organization).each do |organization| %>
+          <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>
-        <%= nav_link t("organizations.index.title"), organizations_path, icon: "svg/rocket-launch.svg", active: :exclusive %>
       </div>
     </details>
 
@@ -40,11 +43,18 @@
   <div class="border-t space-y-1 p-2">
     <% if current_organization %>
       <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
-      <% if @current_membership.admin? %>
+      <% if Current.membership.admin? %>
         <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
         <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
       <% end %>
     <% end %>
+
+    <% if controller_path.start_with?('users') %>
+      <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
+      <%= nav_link t("shared.navigation.pending_invitations"), user_invitations_path, icon: current_user.organization_invitations.count.to_s %>
+      <%= nav_link t("shared.navigation.pending_requests"), user_membership_requests_path, icon: current_user.organization_requests.count.to_s %>
+    <% end %>
+
     <%= render "shared/sidebar_toggle" %>
   </div>
 </aside>

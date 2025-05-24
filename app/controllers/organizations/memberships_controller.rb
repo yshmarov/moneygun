@@ -8,7 +8,7 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def new
     authorize @organization.memberships.new
-    @form = MembershipInvitation.new(organization: @organization, role: Membership.roles[:member])
+    @form = MembershipInvitation.new(organization: @organization)
   end
 
   def edit
@@ -16,10 +16,13 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def create
     authorize @organization.memberships.new
-    @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), role: params.dig(:membership_invitation, :role), organization: @organization, inviter: current_user)
+    @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
 
     if @form.save
-      redirect_to organization_memberships_path(@organization), notice: t(".success", email: @form.email)
+      respond_to do |format|
+        format.html { redirect_to organization_memberships_path(@organization), notice: t(".success", email: @form.email) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +30,11 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def update
     if @membership.update(membership_params)
-      redirect_to organization_memberships_path(@organization), notice: t(".success")
+      flash[:notice] = t(".success")
+      respond_to do |format|
+        format.html { redirect_to organization_memberships_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
+      end
     else
       render :edit, status: :unprocessable_entity
     end

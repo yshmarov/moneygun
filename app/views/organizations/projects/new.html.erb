@@ -1,7 +1,8 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-lx lg:text-3xll">New project</h1>
-
-  <%= render "form", project: @project %>
+  <%= modal do %>
+    <h1 class="font-bold mb-3">New project</h1>
+    <%= render "form", project: @project %>
+  <% end %>
 
   <%= link_to "Back to projects", [ @organization, :projects ], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

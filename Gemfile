@@ -43,7 +43,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -59,12 +59,14 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
+  gem "i18n-tasks"
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "simplecov", "~> 0.22.0", require: false
 end
 
 # active record
@@ -86,3 +88,4 @@ gem "stripe", "~> 13.0"
 gem "profitable"
 
 gem "ruby_llm", "~> 1.1"
+gem "turbo_power", "~> 0.7.0"

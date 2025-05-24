@@ -1,11 +1,18 @@
 ENV["RAILS_ENV"] ||= "test"
+
+require_relative "supports/simplecov"
 require_relative "../config/environment"
 require "rails/test_help"
 
 module ActiveSupport
   class TestCase
     include Devise::Test::IntegrationHelpers
+
     # Run tests in parallel with specified workers
+    parallelize_setup do |_worker|
+      SimpleCov.command_name "Job::#{Process.pid}" if const_defined?(:SimpleCov)
+    end
+
     parallelize(workers: :number_of_processors)
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
