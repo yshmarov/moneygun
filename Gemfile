@@ -31,6 +31,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+gem "mission_control-jobs"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -42,7 +43,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -57,12 +58,14 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
+  gem "i18n-tasks"
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "simplecov", "~> 0.22.0", require: false
 end
 
 # active record
@@ -82,3 +85,5 @@ gem "active_link_to", "~> 1.0"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
+
+gem "turbo_power", "~> 0.7.0"

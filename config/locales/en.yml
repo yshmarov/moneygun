@@ -8,9 +8,37 @@ en:
       organization:
         logo: Logo
         name: Name
+        privacy_setting: Privacy
     models:
       membership: Member
       organization: Organization
+  invitations:
+    approve:
+      success: Invitation approved
+    buttons:
+      approve: Join
+      reject: Reject
+    errors:
+      not_found: Invitation not found
+    index:
+      title: Incoming invitations
+    reject:
+      success: Invitation rejected
+  membership_requests:
+    approve:
+      success: Membership request approved
+    buttons:
+      approve: Approve
+      reject: Reject
+    errors:
+      already_participant: You're already a member of this organization
+      already_requested: You have already requested access to this organization
+      not_found: Membership request not found
+    index:
+      title: Incoming membership requests
+    reject:
+      success: Membership request rejected
+    success: Requested access successfully
   organizations:
     create:
       success: Organization created
@@ -18,9 +46,23 @@ en:
       success: Organization destroyed
     edit:
       title: Edit organization
+    errors:
+      not_found: Organization not found
     index:
       title: My organizations
+    invitations:
+      buttons:
+        cancel: Cancel invitation
+      destroy:
+        success: Invitation cancelled
+      errors:
+        not_found: Invitation not found
+      index:
+        title: Outgoing invitations
     memberships:
+      actions:
+        leave: Leave
+        remove_member: Remove member
       create:
         success: "%{email} invited"
       destroy:
@@ -28,9 +70,13 @@ en:
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
-        title: Team members
+        access_settings:
+          invitations: Outgoing invitations
+          requests_to_join_organization: Incoming membership requests
+          title: Access Settings
+        title: Teammates
       new:
-        title: Invite user
+        title: Invite teammate
       update:
         success: User updated
     new:
@@ -64,7 +110,23 @@ en:
       update:
         success: Ownership transferred
     update:
+      error: An error occurred while updating the organization
       success: Organization updated
+  public:
+    organizations:
+      index:
+        title: Discover organizations
+      show:
+        actions:
+          accept_invitation: Accept invitation
+          join: Join
+          open: Open
+          request_to_join: Request to join
+          waiting_for_approval: Waiting for approval
+        title: Discover organizations
+  routes:
+    memberships: teammates
+    organizations: organizations
   shared:
     actions:
       cancel: Cancel
@@ -77,9 +139,12 @@ en:
       not_subscribed: You need to subscribe to access this page.
       rate_limit: Try again later.
     navigation:
+      discover: Discover Organizations
       edit_profile: Edit profile
       login: Log in
       logout: Log out
+      pending_invitations: Incoming invitations
+      pending_requests: Outgoing requests
       register: Register
       select_organization: Select organization
   static:
@@ -89,5 +154,10 @@ en:
       title: Privacy
     terms:
       title: Terms
-  routes:
-    organizations: organizations
+  users:
+    invitations:
+      index:
+        title: Outgoing invitations
+    membership_requests:
+      index:
+        title: Outgoing membership requests

@@ -1,4 +1,4 @@
 <%%= render PageComponent.new(title: "New <%= human_name.downcase %>", content_container: true, full_width: false) do |component| %>
   <%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
-  <%%= link_to "Cancel", <%= index_helper %>_path, class: "btn btn-secondary" %>
+  <%%= link_to "Cancel", <%= index_helper %>_path, class: "du-btn du-btn-secondary" %>
 <%% end %>

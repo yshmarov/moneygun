@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-50 text-gray-900">
+<html lang="en" class="h-full bg-base-100 text-base-content">
   <head>
     <%= render "layouts/head" %>
   </head>
@@ -30,5 +30,6 @@
         <%= render "shared/footer" %>
       <% end %>
     </div>
+    <%= turbo_frame_tag :modal %>
   </body>
 </html>
