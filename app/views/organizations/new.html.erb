@@ -1,6 +1,6 @@
 <% content_for :title, t("organizations.new.title") %>
 
-<%= render "shared/modal" do %>
+<%= modal do %>
   <%= render PageComponent.new(title: t("organizations.new.title")) do |component| %>
     <%= render "form", organization: @organization %>
   <% end %>
