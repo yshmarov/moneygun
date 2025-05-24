@@ -1,7 +1,7 @@
 <%= tag.div id: "organization_#{organization.id}" do %>
   <%= render CardComponent.new(title: organization.name, description: "Members: #{organization.users.count}") do |card| %>
     <% card.with_image do %>
-      <%= link_to public_organization_path(organization) do %>
+      <%= link_to public_organization_path(organization), data: { turbo_frame: "modal"} do %>
         <%= organization_avatar(organization, classes: "max-w-full h-80 object-contain") %>
       <% end %>
     <% end %>
