@@ -1,25 +1,25 @@
 <% content_for :title, "Edit #{@membership.user.email} roles" %>
 
-<%= render PageComponent.new(title: "Edit #{@membership.user.email} roles", content_container: true, full_width: false) do |component| %>
-  <%= form_with(model: [ @organization, @membership ], class: "contents") do |form| %>
-    <%= render "shared/errors", object: form.object %>
+<%= modal do %>
+  <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles") do |component| %>
+    <%= form_with(model: [ @organization, @membership ], class: "contents") do |form| %>
+      <%= render "shared/errors", object: form.object %>
 
-    <div class="">
-      <%= form.label :role %>
-      <div>
-        <% Membership.roles.each do |role, _value| %>
-          <div class="flex items-center gap-2">
-            <%= form.radio_button :role, role %>
-            <%= form.label :role, role.humanize, value: role %>
-          </div>
-        <% end %>
+      <div class="">
+        <%= form.label :role %>
+        <div>
+          <% Membership.roles.each do |role, _value| %>
+            <div class="flex items-center gap-2">
+              <%= form.radio_button :role, role %>
+              <%= form.label :role, role.humanize, value: role %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
 
-    <div class="inline">
-      <%= form.submit class: "btn btn-primary" %>
-    </div>
+      <div class="inline">
+        <%= form.submit class: "du-btn du-btn-primary" %>
+      </div>
+    <% end %>
   <% end %>
-
-  <%= link_to t("shared.actions.cancel"), organization_memberships_path(@organization), class: "btn btn-secondary" %>
 <% end %>

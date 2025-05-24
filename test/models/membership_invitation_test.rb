@@ -9,7 +9,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     @first_admin_membership = @organization.memberships.admin.first
   end
 
-  test "valid invitation with correct attributes" do
+  test "valid membership invitation with correct attributes creates an access request" do
     invitation = MembershipInvitation.new(
       email: "newuser@example.com",
       organization: @organization,
@@ -18,14 +18,14 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     )
     assert invitation.valid?
     assert_difference -> { User.count }, 1 do
-      assert_difference -> { Membership.count }, 1 do
+      assert_difference -> { AccessRequest::InviteToOrganization.count }, 1 do
         assert invitation.save
       end
     end
 
     user = User.find_by(email: "newuser@example.com")
     assert user.present?
-    assert user.memberships.exists?(organization: @organization)
+    assert_equal "newuser@example.com", @organization.user_invitations.last.user.email
   end
 
   test "invalid with incorrect email format" do

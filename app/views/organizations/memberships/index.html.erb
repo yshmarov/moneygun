@@ -1,8 +1,67 @@
 <% content_for :title, t(".title") %>
 
+<% if policy(@current_membership).update? %>
+  <%= render PageComponent.new(title: t(".access_settings.title")) do %>
+    <%= form_with model: @organization, method: :patch do |form| %>
+      <%= form.label :privacy_setting %>
+      <div class="space-y-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <% Organization.privacy_settings.each do |key, value| %>
+          <div class="h-full">
+            <%= form.radio_button :privacy_setting, value, class: "peer sr-only", onchange: "this.form.requestSubmit()" %>
+            <%= form.label "privacy_setting_#{key}".to_sym, class: "flex flex-col items-center justify-center h-full p-4 text-center du-bg-base-100 border du-border-base-300 rounded-lg transition-all duration-150 ease-in-out cursor-pointer hover:du-bg-base-200 peer-checked:du-border-primary peer-checked:ring-3 peer-checked:du-ring-primary peer-checked:du-bg-primary/10" do %>
+              <div class="flex flex-row lg:flex-col w-full items-center gap-4 justify-between">
+                <div class="">
+                  <%#= inline_svg_tag privacy_setting_options(key)[:icon_path], class: "size-8 text-base-content opacity-70 peer-checked:du-text-primary peer-checked:opacity-100" %>
+                  <%= privacy_setting_options(key)[:icon_path] %>
+                </div>
+                <div class="flex flex-col lg:items-center items-start flex-grow text-center">
+                  <span class="font-semibold text-sm"><%= privacy_setting_options(key)[:display_text] %></span>
+                  <span class="text-xs text-base-content opacity-70 peer-checked:du-text-primary peer-checked:opacity-100"><%= privacy_setting_options(key)[:description_text] %></span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= link_to organization_invitations_path(@organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
+      <div class="flex items-center gap-2">
+        <%= t(".access_settings.invitations") %>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center -space-x-2">
+          <%= @organization.user_invitations.pending.count %>
+        </div>
+
+        <%= inline_svg_tag "svg/chevron-right.svg", class: "size-5" %>
+      </div>
+    <% end %>
+
+    <% if @organization.privacy_setting_restricted? %>
+      <%= link_to organization_membership_requests_path(@organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
+        <div class="flex items-center gap-2">
+          <%= t(".access_settings.requests_to_join_organization") %>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="flex items-center -space-x-2">
+            <%= @organization.user_requests.pending.count %>
+          </div>
+
+          <%= inline_svg_tag "svg/chevron-right.svg", class: "size-5" %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<br>
+
 <%= render PageComponent.new(title: t(".title")) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("organizations.memberships.new.title"), new_organization_membership_path(@organization), class: "btn btn-primary" if policy(@organization.memberships.new).new? %>
+    <%= link_to t("organizations.memberships.new.title"), new_organization_membership_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" if policy(@organization.memberships.new).new? %>
   <% end %>
 
   <div id="memberships" class="space-y-4">

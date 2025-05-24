@@ -1,0 +1,14 @@
+<div class="border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200">
+  <div class="flex items-center gap-2">
+    <%= "User email: #{membership_request.user.email}" %>
+    <br>
+    <%= "Role: #{membership_request.organization_role}" %>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <div class="flex items-center gap-1">
+      <%= button_to t("membership_requests.buttons.approve"), approve_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-primary" %>
+      <%= button_to t("membership_requests.buttons.reject"), reject_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-error" %>
+    </div>
+  </div>
+</div>

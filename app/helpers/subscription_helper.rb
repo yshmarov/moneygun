@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SubscriptionHelper
   def subscription_status_label(organization)
     return "🔴" unless organization.payment_processor.subscribed?

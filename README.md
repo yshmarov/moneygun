@@ -20,6 +20,12 @@ A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS appl
 
 > 💡 **Teams as MVP**: [Teams should be an MVP feature!](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/) - Learn why implementing teams early is crucial for SaaS applications.
 
+### Deployment
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/yshmarov/moneygun)
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/yshmarov/moneygun)
+
 ### Developer Experience
 
 - **Complete Test Coverage**
@@ -174,26 +180,6 @@ To enable webhooks:
 
 Example production webhook url: `https://moneygun.com/pay/webhooks/stripe`
 
-## 🎨 Theme Configuration
-
-Moneygun comes with built-in support for multiple themes. The application supports:
-
-- **Default Theme**: Light mode with gray background
-- **Midnight Theme**: Dark mode with a sleek, modern look
-- **GitHub Theme**: GitHub-inspired color scheme
-
-### Switching Themes
-
-Themes can be applied by adding the appropriate class to the HTML element:
-
-```html
-<html lang="en" class="h-full bg-gray-50 text-gray-900"></html>
-<!-- Dark midnight theme -->
-<html lang="en" class="h-full bg-gray-50 text-gray-900 midnight"></html>
-<!-- Dark GitHub theme -->
-<html lang="en" class="h-full bg-gray-50 text-gray-900 github"></html>
-```
-
 #### Require active subscription to access a resource
 
 You can use the `require_subscription` before_action to protect routes:
@@ -289,9 +275,17 @@ bundle exec erb_lint --lint-all -a
 bundle exec rubocop -A
 ```
 
-## 🤝 Contributing
+```bash
+# Alphabetically sort i18n keys
+i18n-tasks normalize
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+# ✨ Contributors
+
+<a href="https://avohq.io/contributors">
+  <img src="https://contrib.rocks/image?repo=yshmarov/moneygun" />
+</a>
+<!--  https://contrib.rocks -->
 
 ## 📝 License
 

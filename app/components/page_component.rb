@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PageComponent < ViewComponent::Base
   renders_one :action_list
 
@@ -21,7 +19,7 @@ class PageComponent < ViewComponent::Base
 
   def width_class
     if @full_width == true
-      "w-full"
+      "max-w-7xl w-full"
     else
       "max-w-xl w-full"
     end
