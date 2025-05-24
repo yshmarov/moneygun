@@ -1,6 +1,6 @@
 <% content_for :title, t("organizations.memberships.new.title") %>
 
-<%= render "shared/dialog" do %>
+<%= render "shared/modal" do %>
   <%= render PageComponent.new(title: t("organizations.memberships.new.title")) do |component| %>
     <%= form_with model: @form, url: organization_memberships_path(@organization), class: "contents space-y-4" do |form| %>
       <%= render "shared/errors", object: form.object %>

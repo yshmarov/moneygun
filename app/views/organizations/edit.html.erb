@@ -1,6 +1,6 @@
 <% content_for :title, t("organizations.edit.title") %>
 
-<%= render "shared/dialog" do %>
+<%= render "shared/modal" do %>
   <%= render PageComponent.new(title: t("organizations.edit.title"), content_container: false, full_width: false) do |component| %>
     <%= render "form", organization: @organization %>
   <% end %>
