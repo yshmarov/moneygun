@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @current_membership&.organization
+    Current.membership&.organization
   end
 
   helper_method :current_organization
