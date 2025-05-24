@@ -9,16 +9,7 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || organizations_path
   end
 
-  include Pundit::Authorization
-
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
-  private
-
-  def user_not_authorized
-    flash[:alert] = t("shared.errors.not_authorized")
-    redirect_to(request.referer || root_path)
-  end
+  include Authorization
 
   def current_organization
     Current.membership&.organization
