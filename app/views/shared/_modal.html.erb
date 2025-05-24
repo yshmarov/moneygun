@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :modal do %>
-  <dialog class="du-modal du-modal-end transition-none" data-controller="dialog" data-action="click->dialog#clickOutside turbo:submit-end->dialog#hideOnSubmit">
+  <dialog class="du-modal transition-none max-lg:du-modal-bottom" data-controller="dialog" data-action="click->dialog#clickOutside turbo:submit-end->dialog#hideOnSubmit">
     <div class="du-modal-box">
       <form method="dialog" class="absolute right-4 top-4">
         <button class="du-btn du-btn-ghost du-btn-sm">
