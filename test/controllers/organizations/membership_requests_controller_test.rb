@@ -18,8 +18,7 @@ class Organizations::MembershipRequestsControllerTest < ActionDispatch::Integrat
 
     approved_request = @organization.user_requests.create!(
       user: users(:two),
-      status: :approved,
-      resources: { organization_role: "member" }.to_json
+      status: :approved
     )
 
     get organization_membership_requests_url(@organization)

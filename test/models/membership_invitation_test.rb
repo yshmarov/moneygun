@@ -13,8 +13,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     invitation = MembershipInvitation.new(
       email: "newuser@example.com",
       organization: @organization,
-      inviter: @first_admin_membership.user,
-      role: Membership.roles[:member]
+      inviter: @first_admin_membership.user
     )
     assert invitation.valid?
     assert_difference -> { User.count }, 1 do
@@ -32,46 +31,37 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     invitation = MembershipInvitation.new(
       email: "invalid-email",
       organization: @organization,
-      inviter: @first_admin_membership.user,
-      role: "member"
+      inviter: @first_admin_membership.user
     )
     assert_not invitation.valid?
     assert_includes invitation.errors.messages[:email], "is invalid"
   end
 
-  test "invalid without role" do
-    invitation = MembershipInvitation.new(
-      email: "newuser@example.com",
-      organization: @organization,
-      inviter: @first_admin_membership.user
-    )
-    assert_not invitation.valid?
-    assert_includes invitation.errors.messages[:role], "can't be blank"
-  end
-
-  test "invalid with non-existent role" do
-    invitation = MembershipInvitation.new(
-      email: "newuser@example.com",
-      organization: @organization,
-      inviter: @first_admin_membership.user,
-      role: "non_existent_role"
-    )
-    assert_not invitation.valid?
-    assert_includes invitation.errors.messages[:role], "is not included in the list"
-    assert_not invitation.save
-  end
-
   test "fails when user is already a member" do
     existing_user = users(:two)
-    @organization.memberships.create(user: existing_user, role: "member")
+    @organization.memberships.create(user: existing_user)
 
     invitation = MembershipInvitation.new(
       email: existing_user.email,
       organization: @organization,
-      inviter: @first_admin_membership.user,
-      role: "member"
+      inviter: @first_admin_membership.user
     )
     assert_not invitation.save
     assert_includes invitation.errors.messages[:base], "#{existing_user.email} is already a member of this organization."
+  end
+
+  test "fails when user already has a pending invitation" do
+    existing_user = users(:two)
+
+    # Create a pending invitation first
+    @organization.user_invitations.create!(user: existing_user)
+
+    invitation = MembershipInvitation.new(
+      email: existing_user.email,
+      organization: @organization,
+      inviter: @first_admin_membership.user
+    )
+    assert_not invitation.save
+    assert_includes invitation.errors.messages[:base], "User already has a pending request"
   end
 end

@@ -63,18 +63,10 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :unprocessable_entity
 
-    # missing role
-    assert_no_difference("User.count") do
-      assert_no_difference("Membership.count") do
-        post organization_memberships_url(@organization), params: { membership_invitation: { email: } }
-      end
-    end
-    assert_response :unprocessable_entity
-
     # success
     assert_difference("User.count") do
       assert_difference("AccessRequest::InviteToOrganization.count") do
-        post organization_memberships_url(@organization), params: { membership_invitation: { email:, role: "member" } }
+        post organization_memberships_url(@organization), params: { membership_invitation: { email: } }
       end
     end
 

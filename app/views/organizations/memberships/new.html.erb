@@ -18,18 +18,6 @@
                             required: true %>
       </div>
 
-      <div class="">
-        <%= form.label :role %>
-        <div>
-          <% Membership.roles.each do |role, _value| %>
-            <div class="flex items-center gap-2">
-              <%= form.radio_button :role, role %>
-              <%= form.label :role, role.humanize, value: role %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
       <div class="inline">
         <%= form.submit "Invite", class: "du-btn du-btn-primary" %>
       </div>
