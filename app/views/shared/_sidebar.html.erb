@@ -27,7 +27,7 @@
         <%= nav_link t("shared.navigation.discover"), public_organizations_path, icon: "🧭" %>
       </div>
       <div class="space-y-1 p-2 border-b">
-        <% current_user.organizations.excluding(current_organization).each do |organization| %>
+        <% Current.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>
       </div>

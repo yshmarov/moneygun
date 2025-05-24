@@ -1,4 +1,4 @@
 class Current < ActiveSupport::CurrentAttributes
-  # attribute :user, :organizations, :membership, :organization
-  attribute :membership
+  # attribute :user, :organization
+  attribute :membership, :organizations
 end
