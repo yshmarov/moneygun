@@ -18,8 +18,7 @@ class Organizations::InvitationsControllerTest < ActionDispatch::IntegrationTest
 
     approved_invitation = @organization.user_invitations.create!(
       user: users(:two),
-      status: :approved,
-      resources: { organization_role: "member" }.to_json
+      status: :approved
     )
 
     get organization_invitations_url(@organization)

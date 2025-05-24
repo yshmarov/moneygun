@@ -1,12 +1,10 @@
 class AccessRequest::InviteToOrganization < AccessRequest
   validates :type, presence: true
 
-  store :resources, accessors: [ :organization_role ]
-
   def approve!
     transaction do
       update!(status: :approved, completed_by: user)
-      user.memberships.create(organization: organization, role: organization_role)
+      user.memberships.create(organization: organization)
     end
   rescue => e
     raise ActiveRecord::Rollback, e.message

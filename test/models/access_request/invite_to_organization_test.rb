@@ -1,11 +1,6 @@
 require "test_helper"
 
 class AccessRequest::InviteToOrganizationTest < ActiveSupport::TestCase
-  test "should return the role from the resources" do
-    access_request = access_requests(:invite_to_organization_one)
-    assert_equal "member", access_request.organization_role
-  end
-
   test "when approved, creates a membership" do
     access_request = access_requests(:invite_to_organization_one)
     user = access_request.user
@@ -14,7 +9,6 @@ class AccessRequest::InviteToOrganizationTest < ActiveSupport::TestCase
     end
 
     assert_equal "approved", access_request.reload.status
-    assert_equal access_request.organization_role, user.memberships.last.role
   end
 
   test "when rejected, updates the access request status" do

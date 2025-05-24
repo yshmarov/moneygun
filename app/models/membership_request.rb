@@ -27,20 +27,16 @@ class MembershipRequest
 
   def request_access
     if organization.privacy_setting_public?
-      user.memberships.create(organization:, role:)
+      user.memberships.create(organization:)
     elsif organization.privacy_setting_restricted?
       if user.organization_requests.find_by(organization:).present?
         errors.add(:base, I18n.t("membership_requests.errors.already_requested"))
         return false
       end
 
-      user.organization_requests.create(organization:, organization_role: role)
+      user.organization_requests.create(organization:)
     end
 
     true
-  end
-
-  def role
-    Membership.roles[:member]
   end
 end

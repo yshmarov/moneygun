@@ -5,18 +5,15 @@ invite_to_organization_one:
   user: unassociated
   status: pending
   type: AccessRequest::InviteToOrganization
-  resources: '{ "organization_role": "member" }'
 
 invite_to_organization_two:
   organization: two
   user: one
   status: pending
   type: AccessRequest::InviteToOrganization
-  resources: '{ "organization_role": "member" }'
 
 membership_request_one:
   organization: one
   user: three
   status: pending
   type: AccessRequest::UserRequestForOrganization
-  resources: '{ "organization_role": "member" }'

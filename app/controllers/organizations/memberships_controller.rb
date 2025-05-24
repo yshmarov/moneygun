@@ -8,7 +8,7 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def new
     authorize @organization.memberships.new
-    @form = MembershipInvitation.new(organization: @organization, role: Membership.roles[:member])
+    @form = MembershipInvitation.new(organization: @organization)
   end
 
   def edit
@@ -16,7 +16,7 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def create
     authorize @organization.memberships.new
-    @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), role: params.dig(:membership_invitation, :role), organization: @organization, inviter: current_user)
+    @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
 
     if @form.save
       respond_to do |format|
