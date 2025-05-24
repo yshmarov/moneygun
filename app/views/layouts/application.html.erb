@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-base-300 text-base-content">
+<html lang="en" class="h-full bg-base-300 text-base-content overflow-hidden">
   <head>
     <%= render "layouts/head" %>
   </head>
 
-  <body class="flex h-dvh" data-controller="mobile-sidebar layout-switcher">
+  <body class="flex h-dvh overflow-hidden" data-controller="mobile-sidebar layout-switcher">
     <% if signed_in? %>
       <% sidebar_layout = cookies[:sidebar_layout] || "default" %>
       <% if sidebar_layout == "default" %>
@@ -14,14 +14,14 @@
       <% end %>
     <% end %>
 
-    <div class="flex-grow overflow-y-auto flex flex-col">
+    <div class="flex-grow flex flex-col">
       <header class="sticky z-30 top-0">
         <%= render "shared/navbar" %>
         <div id="flash" class="absolute right-4 z-40 flex flex-col items-end">
           <%= render "shared/flash" %>
         </div>
       </header>
-      <main class="flex-grow p-2 lg:p-4 lg:m-2 lg:mt-0 lg:ml-0 lg:rounded-lg lg:border border-base-content/20 bg-base-100">
+      <main class="flex-grow p-2 lg:p-4 lg:m-2 lg:mt-0 lg:ml-0 lg:rounded-lg lg:border border-base-content/20 bg-base-100 overflow-y-auto">
         <%= yield %>
       </main>
       <% if signed_in? %>

@@ -1,9 +1,9 @@
 <%# Mobile sidebar backdrop %>
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto flex-shrink-0">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col flex-shrink-0">
   <%# Widescreen sidebar top %>
-  <nav class="flex flex-row flex-grow divide-x divide-base-content/20">
+  <nav class="flex flex-row flex-grow divide-x divide-base-content/20 h-full">
     <div class="flex flex-col max-h-dvh overflow-y-auto p-2">
       <div class="flex flex-col space-y-2">
         <%= link_to root_path, class: "flex items-center justify-center aspect-square" do %>
