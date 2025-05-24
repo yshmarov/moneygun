@@ -155,9 +155,9 @@ en:
     terms:
       title: Terms
   users:
-    membership_requests:
-      index:
-        title: Outgoing membership requests
     invitations:
       index:
         title: Outgoing invitations
+    membership_requests:
+      index:
+        title: Outgoing membership requests
