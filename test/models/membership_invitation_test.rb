@@ -49,4 +49,19 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     assert_not invitation.save
     assert_includes invitation.errors.messages[:base], "#{existing_user.email} is already a member of this organization."
   end
+
+  test "fails when user already has a pending invitation" do
+    existing_user = users(:two)
+
+    # Create a pending invitation first
+    @organization.user_invitations.create!(user: existing_user)
+
+    invitation = MembershipInvitation.new(
+      email: existing_user.email,
+      organization: @organization,
+      inviter: @first_admin_membership.user
+    )
+    assert_not invitation.save
+    assert_includes invitation.errors.messages[:base], "User already has a pending request"
+  end
 end
