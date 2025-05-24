@@ -2,7 +2,7 @@
   <div class="mx-auto">
     <%= render @project %>
 
-    <%= link_to "Edit this project", [ :edit, @organization, @project ], data: { turbo_frame: "dialog_content", action: "click->dialog#open" }, class: "du-btn du-btn-primary" %>
+    <%= link_to "Edit this project", [ :edit, @organization, @project ], data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
     <div class="inline-block ml-2">
       <%= button_to "Destroy this project", [ @organization, @project ], method: :delete, class: "du-btn du-btn-error" %>
     </div>

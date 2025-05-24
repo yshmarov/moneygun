@@ -3,7 +3,7 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-lx lg:text-3xll">Projects</h1>
-    <%= link_to "New project", new_organization_project_path(@organization), data: { turbo_frame: "dialog_content", action: "dialog#open" }, class: "du-btn du-btn-primary" %>
+    <%= link_to "New project", new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   </div>
 
   <div id="projects" class="min-w-full">

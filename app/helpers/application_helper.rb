@@ -17,4 +17,8 @@ module ApplicationHelper
         end
     end
   end
+
+  def modal(&block)
+    render "shared/modal", &block
+  end
 end

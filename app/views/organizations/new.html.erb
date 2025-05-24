@@ -1,6 +1,6 @@
 <% content_for :title, t("organizations.new.title") %>
 
-<%= turbo_frame_tag "dialog_content" do %>
+<%= modal do %>
   <%= render PageComponent.new(title: t("organizations.new.title")) do |component| %>
     <%= render "form", organization: @organization %>
   <% end %>

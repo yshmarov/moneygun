@@ -1,6 +1,6 @@
 <% content_for :title, "Edit #{@membership.user.email} roles" %>
 
-<%= turbo_frame_tag "dialog_content" do %>
+<%= modal do %>
   <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles") do |component| %>
     <%= form_with(model: [ @organization, @membership ], class: "contents") do |form| %>
       <%= render "shared/errors", object: form.object %>
