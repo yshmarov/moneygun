@@ -50,6 +50,6 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   end
 
   def require_current_organization_admin
-    redirect_to organization_url(@organization) unless @current_membership.admin?
+    redirect_to organization_url(@organization) unless Current.membership.admin?
   end
 end
