@@ -1,6 +1,6 @@
 <% content_for :title, t(".title") %>
 
-<% if policy(@current_membership).update? %>
+<% if policy(Current.membership).update? %>
   <%= render PageComponent.new(title: t(".access_settings.title")) do %>
     <%= form_with model: @organization, method: :patch do |form| %>
       <%= form.label :privacy_setting %>
