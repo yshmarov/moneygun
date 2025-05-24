@@ -70,4 +70,22 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to public_organizations_path
     assert_equal I18n.t("organizations.errors.not_found"), flash[:alert]
   end
+
+  test "destroy" do
+    user = users(:one)
+    sign_in user
+
+    organization = organizations(:three)
+    organization.privacy_setting_restricted!
+
+    assert_equal 0, user.reload.organization_requests.pending.count
+    request = MembershipRequest.new(user:, organization:)
+    request.save
+
+    assert_equal 1, user.reload.organization_requests.pending.count
+
+    assert_difference "AccessRequest::UserRequestForOrganization.count", -1 do
+      delete user_membership_request_path(user.reload.organization_requests.pending.first)
+    end
+  end
 end

@@ -1,3 +1,4 @@
+# outgoing requests to join an organization
 class Users::MembershipRequestsController < ApplicationController
   before_action :set_organization, only: %i[create]
 
@@ -19,6 +20,12 @@ class Users::MembershipRequestsController < ApplicationController
                           locals: { organization: @organization }),
       turbo_stream.update("flash", partial: "shared/flash")
     ]
+  end
+
+  def destroy
+    @organization_request = current_user.organization_requests.pending.find(params[:id])
+    @organization_request.destroy
+    redirect_to user_membership_requests_path, notice: t("membership_requests.destroyed")
   end
 
   private

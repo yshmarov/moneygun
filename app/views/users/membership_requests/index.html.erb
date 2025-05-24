@@ -6,6 +6,7 @@
       <div>
         <%= link_to organization_request.organization.name, public_organization_path(organization_request.organization) %>
         <%= organization_request.created_at %>
+        <%= button_to "Cancel request", user_membership_request_path(organization_request), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error" %>
       </div>
     <% end %>
   </div>
