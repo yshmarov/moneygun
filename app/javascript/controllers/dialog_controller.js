@@ -22,6 +22,9 @@ export default class extends Controller {
   open() {
     this.element.showModal()
     document.body.classList.add('overflow-hidden')
+    
+    // Remove focus from auto-focused element (usually close button)
+    document.activeElement.blur()
   }
 
   close() {

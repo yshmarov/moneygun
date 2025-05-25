@@ -4,7 +4,7 @@
 <%# Sidebar content %>
 <aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 w-52 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
-    <details class="group">
+    <details class="group" <% if !current_organization %>open<% end %>>
       <summary class="du-btn du-btn-ghost font-medium text-sm p-2 pl-4 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
         <% if current_organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
