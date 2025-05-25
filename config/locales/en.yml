@@ -59,12 +59,12 @@ en:
         not_found: Invitation not found
       index:
         title: Outgoing invitations
+      create:
+        success: "%{email} invited"
     memberships:
       actions:
         leave: Leave
         remove_member: Remove member
-      create:
-        success: "%{email} invited"
       destroy:
         failed_to_remove_user_from_organization: Failed to remove user from organization
         user_removed_from_organization: User removed from organization
