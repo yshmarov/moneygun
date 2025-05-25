@@ -1,9 +1,9 @@
 <%= render PageComponent.new(title: "Top up") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% UsageCredits.credit_packs.each do |key, credit_pack| %>
-      <div class="bg-gray-100 rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+      <div class="rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
         <div class="text-center space-y-4">
-          <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
+          <h3 class="text-xl font-semibold "><%= credit_pack.name.to_s.titleize %></h3>
 
           <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), organization_credits_path(current_organization, credit_pack_id: key), 
               method: :post, 
@@ -11,7 +11,7 @@
               data: { turbo: "false" } %>
           
           <div class="space-y-2">
-            <p class="text-lg font-medium text-gray-900"><%= format_credits(credit_pack.credits) %></p>
+            <p class="text-lg font-medium "><%= format_credits(credit_pack.credits) %></p>
             <% if credit_pack.bonus_credits > 0 %>
               <p class="text-sm text-green-600">+<%= credit_pack.bonus_credits %> Bonus Credits</p>
             <% end %>
@@ -27,10 +27,10 @@
 <%= render PageComponent.new(title: "Subscription plans") do |component| %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <% UsageCredits.subscription_plans.each do |key, subscription_plan| %>
-      <div class="bg-gray-100 rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+      <div class="rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
         <div class="text-center space-y-4">
           <div class="flex items-center justify-center space-x-2">
-            <h3 class="text-xl font-semibold text-gray-900"><%= subscription_plan.name.to_s.titleize %></h3>
+            <h3 class="text-xl font-semibold "><%= subscription_plan.name.to_s.titleize %></h3>
           </div>
           
           <%= button_to "Subscribe", organization_credits_path(current_organization, subscription_plan_id: key), 
@@ -39,7 +39,7 @@
               data: { turbo: "false" } %>
           
           <div class="space-y-2">
-            <p class="text-lg font-medium text-gray-900"><%= subscription_plan.credits_per_period %> Credits per <%= subscription_plan.fulfillment_period %></p>
+            <p class="text-lg font-medium "><%= subscription_plan.credits_per_period %> Credits per <%= subscription_plan.fulfillment_period %></p>
             <% if subscription_plan.trial_credits > 0 %>
               <p class="text-sm text-blue-600">+<%= subscription_plan.trial_credits %> Trial Credits</p>
             <% end %>
