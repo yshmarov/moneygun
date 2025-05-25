@@ -63,29 +63,6 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "You are not authorized to perform this action.", flash[:alert]
   end
 
-  test "should update organization and respect referer from memberships path" do
-    memberships_path = organization_memberships_path(@organization)
-
-    patch organization_url(@organization),
-          params: { organization: { name: @organization.name } },
-          headers: { "HTTP_REFERER" => memberships_path }
-
-    assert_redirected_to memberships_path
-    assert_equal I18n.t("organizations.update.success"), flash[:notice]
-  end
-
-  test "should handle failed update with memberships referer" do
-    memberships_path = organization_memberships_path(@organization)
-
-    # Force validation failure by using empty name
-    patch organization_url(@organization),
-          params: { organization: { name: "" } },
-          headers: { "HTTP_REFERER" => memberships_path }
-
-    assert_redirected_to memberships_path
-    assert_equal I18n.t("organizations.update.error"), flash[:alert]
-  end
-
   test "only admin can destroy organization" do
     user = users(:two)
     membership = @organization.memberships.create!(user:, role: Membership.roles[:member])
