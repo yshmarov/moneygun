@@ -123,7 +123,7 @@ en:
           open: Open
           reject_invitation: Reject invitation
           request_to_join: Request to join
-          waiting_for_approval: Waiting for approval
+          cancel_request: Cancel request
   routes:
     memberships: teammates
     organizations: organizations
