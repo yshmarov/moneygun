@@ -106,7 +106,7 @@ en:
         title: Pricing
     transfers:
       show:
-        title: Transfer organization
+        title: Transfer organization ownership
       update:
         success: Ownership transferred
     update:
