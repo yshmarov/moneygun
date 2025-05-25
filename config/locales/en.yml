@@ -119,11 +119,11 @@ en:
       show:
         actions:
           accept_invitation: Accept invitation
+          cancel_request: Cancel request
           join: Join
           open: Open
           reject_invitation: Reject invitation
           request_to_join: Request to join
-          waiting_for_approval: Waiting for approval
   routes:
     memberships: teammates
     organizations: organizations

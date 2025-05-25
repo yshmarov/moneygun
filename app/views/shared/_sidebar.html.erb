@@ -2,9 +2,9 @@
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
 <%# Sidebar content %>
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 w-52 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 min-w-52 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
-    <details class="group " <% if !current_organization %>open<% end %>>
+    <details class="group relative" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close" <% if !current_organization %>open<% end %>>
       <summary class="m-2 mb-0 du-btn du-btn-ghost font-medium text-sm p-2 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
         <% if current_organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
@@ -20,11 +20,10 @@
             <%= t("shared.navigation.select_organization") %>
           </div>
         <% end %>
-        <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
+        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
       </summary>
-      <div class="du-menu w-full">
-        <%= nav_link t("organizations.index.title"), organizations_path, icon: "🏠", active: :exclusive %>
-        <%= nav_link t("shared.navigation.discover"), public_organizations_path, icon: "🧭" %>
+      <div class="absolute top-full left-2 right-2 mt-1 bg-base-200 border border-base-content/20 z-50 rounded-lg p-1 du-menu">
+        <%= nav_link t("organizations.index.title"), organizations_path, icon: "svg/home.svg", active: :exclusive %>
         <% Current.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>

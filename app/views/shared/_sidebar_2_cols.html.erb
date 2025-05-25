@@ -10,8 +10,14 @@
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
         <% end %>
 
-        <%= active_link_to "🌏", public_organizations_path, title: t("shared.navigation.discover"), class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-        <%= active_link_to "🏠", organizations_path, active: :exclusive, title: t("organizations.index.title"), class_active: "du-btn-active", class: "du-btn du-btn-ghost p-0" %>
+        <ul class="du-menu">
+          <li>
+            <%= active_link_to organizations_path, class_active: "du-menu-active", active: :exclusive, title: t("organizations.index.title") do %>
+              <%= inline_svg_tag "svg/home.svg" %>
+            <% end %>
+          </li>
+        </ul>
+
         <div class="flex flex-col items-center space-y-1">
           <% Current.organizations.each do |organization| %>
             <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), title: organization.name, class_active: "bg-primary", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-primary hover:bg-primary" do %>
