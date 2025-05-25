@@ -1,4 +1,4 @@
-<% content_for :title, t(".title") %>
+<% content_for :title, @organization.name %>
 
 <%= modal do %>
   <%= render PageComponent.new(title: @organization.name) do |component| %>

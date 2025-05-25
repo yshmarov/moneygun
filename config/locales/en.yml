@@ -106,7 +106,7 @@ en:
         title: Pricing
     transfers:
       show:
-        title: Transfer organization ownership
+        title: Transfer ownership
       update:
         success: Ownership transferred
     update:
@@ -123,7 +123,6 @@ en:
           open: Open
           request_to_join: Request to join
           waiting_for_approval: Waiting for approval
-        title: Discover organizations
   routes:
     memberships: teammates
     organizations: organizations
@@ -139,7 +138,7 @@ en:
       not_subscribed: You need to subscribe to access this page.
       rate_limit: Try again later.
     navigation:
-      discover: Discover Organizations
+      discover: Discover organizations
       edit_profile: Edit profile
       login: Log in
       logout: Log out

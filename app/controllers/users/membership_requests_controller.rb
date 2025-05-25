@@ -14,12 +14,10 @@ class Users::MembershipRequestsController < ApplicationController
       flash[:alert] = request.errors.full_messages.join(", ")
     end
 
-    render turbo_stream: [
-      turbo_stream.replace("organization_#{@organization.id}",
-                          partial: "public/organizations/organization",
-                          locals: { organization: @organization }),
-      turbo_stream.update("flash", partial: "shared/flash")
-    ]
+    respond_to do |format|
+      format.html { redirect_to public_organization_path(@organization) }
+      format.turbo_stream  { render turbo_stream: turbo_stream.redirect_to(public_organization_path(@organization)) }
+    end
   end
 
   def destroy
