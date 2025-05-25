@@ -52,7 +52,7 @@ en:
       title: My organizations
     invitations:
       buttons:
-        cancel: Cancel invitation
+        cancel: Decline invitation
       create:
         success: "%{email} invited"
       destroy:
