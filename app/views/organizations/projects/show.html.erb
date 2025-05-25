@@ -1,15 +1,13 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<% content_for :title, "Project" %>
 
-    <%= render @project %>
-
-    <%= link_to "Edit this project", [ :edit, @organization, @project ], class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to projects", [ @organization, :projects ], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<%= render PageComponent.new(title: "Project") do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to "Edit", [ :edit, @organization, @project ], data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this project", [ @organization, @project ], method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to "Destroy", [ @organization, @project ], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "du-btn du-btn-error" %>
     </div>
-  </div>
-</div>
+  <% end %>
+
+  <%= render @project %>
+
+<% end %>

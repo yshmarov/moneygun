@@ -12,5 +12,5 @@ test:
   <<: *default
 
 production:
-  database: cache
+  database: primary
   <<: *default

@@ -46,10 +46,10 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   end
 
   def require_billing_enabled
-    redirect_to organization_url(@organization) unless Rails.application.credentials.dig(:stripe, :private_key).present?
+    redirect_to organization_url(@organization) if Rails.application.credentials.dig(:stripe, :private_key).blank?
   end
 
   def require_current_organization_admin
-    redirect_to organization_url(@organization) unless @current_membership.admin?
+    redirect_to organization_url(@organization) unless Current.membership.admin?
   end
 end

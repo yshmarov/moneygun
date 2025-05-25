@@ -1,11 +1,9 @@
 class MembershipInvitation
   include ActiveModel::Model
 
-  attr_accessor :email, :organization, :inviter, :role
+  attr_accessor :email, :organization, :inviter
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :role, presence: true
-  validates :role, inclusion: { in: Membership.roles.keys }
 
   def save
     return false unless valid?
@@ -13,7 +11,7 @@ class MembershipInvitation
     user = find_or_invite_user
     return false unless user&.valid?
 
-    add_user_to_organization(user)
+    create_access_request(user)
   end
 
   private
@@ -22,14 +20,21 @@ class MembershipInvitation
     User.find_by(email: email) || User.invite!({ email: }, inviter)
   end
 
-  def add_user_to_organization(user)
+  def create_access_request(user)
     membership = user.memberships.find_by(organization: organization)
     if membership.present?
       errors.add(:base, "#{email} is already a member of this organization.")
       false
     else
-      user.memberships.create(organization: organization, role: role)
-      true
+      invitation = organization.user_invitations.create(user:)
+      if invitation.persisted?
+        true
+      else
+        invitation.errors.full_messages.each do |error_message|
+          errors.add(:base, error_message)
+        end
+        false
+      end
     end
   end
 end

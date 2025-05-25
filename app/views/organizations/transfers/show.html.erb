@@ -1,4 +1,5 @@
-<%= render PageComponent.new(title: "Transfer organization", content_container: true, full_width: false) do |component| %>
-  <%= render "organizations/transfers/form" %>
-  <%= link_to "Cancel", organization_path(current_organization), class: "btn btn-secondary" %>
+<%= modal do %>
+  <%= render PageComponent.new(title: t("organizations.transfers.show.title")) do |component| %>
+    <%= render "organizations/transfers/form" %>
+  <% end %>
 <% end %>

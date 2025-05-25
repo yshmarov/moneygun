@@ -13,6 +13,7 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
     sign_in user
     get organization_paywalled_page_url(organization)
     assert_redirected_to organization_subscriptions_url(organization)
+    assert_equal "You need to subscribe to access this page.", flash[:alert]
 
     organization.set_payment_processor :fake_processor, allow_fake: true
     organization.payment_processor.subscribe(plan: "fake")

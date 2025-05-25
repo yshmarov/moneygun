@@ -7,3 +7,7 @@ one:
 two:
   name: Organization 2
   owner: two
+
+three:
+  name: Organization 3
+  owner: three

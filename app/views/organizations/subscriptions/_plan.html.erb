@@ -2,9 +2,9 @@
 <% access_ends_at_label = subscription.on_grace_period? ? t(".you_will_lose_access_in", distance_of_time_in_words: distance_of_time_in_words(subscription.current_period_end, Time.current)) : t(".next_billing_date") %>
 <% button_label = subscription.on_grace_period? ? t(".resume_subscription") : t(".manage_billing") %>
 
-<%= render PageComponent.new(title: t(".title"), content_container: true) do |component| %>
+<%= render PageComponent.new(title: t(".title")) do |component| %>
   <% component.with_action_list do %>
-    <%= button_to button_label, organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
+    <%= button_to button_label, organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
   <% end %>
 
   <dl class="space-y-2">

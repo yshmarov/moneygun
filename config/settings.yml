@@ -8,21 +8,21 @@ shared:
     - ☑️ Access the paywalled page
     - ☑️ Create more than 1 project
   plans:
-    - id: price_1R68bjLRcgxgTmfQL2kBW5pX
+    - id: price_1RDRzvLRcgxgTmfQZVdAF93B
       unit_amount: 9900
       currency: USD
       interval: month
-    - id: price_1R68c1LRcgxgTmfQijgGMDfT
+    - id: price_1RDRzwLRcgxgTmfQZigxB6ZM
       unit_amount: 99900
       currency: USD
       interval: year
 production:
   plans:
-    - id: price_foo
-      unit_amount: 1900
+    - id: price_1RDRzvLRcgxgTmfQZVdAF93B
+      unit_amount: 9900
       currency: USD
       interval: month
-    - id: price_bar
-      unit_amount: 19000
+    - id: price_1RDRzwLRcgxgTmfQZigxB6ZM
+      unit_amount: 99900
       currency: USD
       interval: year

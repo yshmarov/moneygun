@@ -1,6 +1,6 @@
-<%= link_to organization_dashboard_path(organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100" do %>
+<%= link_to organization_dashboard_path(organization), class: "border border-base-content/20 p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
   <div class="flex items-center gap-2">
-    <%= subscription_status_label(organization) %>
+    <%= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
     <%= organization_avatar(organization) %>
     <%= organization.name %>
   </div>
@@ -8,9 +8,7 @@
   <div class="flex items-center gap-4">
     <div class="flex items-center -space-x-2">
       <% organization.users.each do |user| %>
-        <div class="bg-gray-400 rounded-full size-8 justify-center flex items-center border text-sm" title="<%= user.email %>">
-          <%= user.email[0..1] %>
-        </div>
+        <%= user_avatar(user) %>
       <% end %>
     </div>
 

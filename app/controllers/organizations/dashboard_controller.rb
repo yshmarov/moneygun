@@ -5,15 +5,6 @@ class Organizations::DashboardController < Organizations::BaseController
   end
 
   def paywalled_page
-    render json: { message: "Congrats! If you see this, you're subscribed." }
-  end
-
-  private
-
-  def require_subscription
-    unless current_organization.payment_processor.subscribed?
-      flash[:alert] = "You need to subscribe to access this page."
-      redirect_to organization_subscriptions_url(current_organization)
-    end
+    render inline: "Congrats! If you see this, you're subscribed.", layout: "application"
   end
 end

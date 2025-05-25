@@ -4,7 +4,7 @@
     <%= form.collection_select :user_id, current_organization.users.where.not(users: { id: current_user.id }), :id, :email, { include_blank: true, required: true }, { class: "form-input" } %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "btn btn-primary", data: { turbo_confirm: "Are you sure?" } %>
+  <div class="flex justify-end">
+    <%= form.submit class: "du-btn du-btn-primary", data: { turbo_confirm: t("shared.actions.confirm") } %>
   </div>
 <% end %>

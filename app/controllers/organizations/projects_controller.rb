@@ -28,7 +28,11 @@ class Organizations::ProjectsController < Organizations::BaseController
     authorize @project
 
     if @project.save
-      redirect_to organization_project_url(@organization, @project), notice: "Project was successfully created."
+      respond_to do |format|
+        flash[:notice] = "Project was successfully created."
+        format.html { redirect_to organization_project_url(@organization, @project) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_project_url(@organization, @project)) }
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,7 +41,11 @@ class Organizations::ProjectsController < Organizations::BaseController
   # PATCH/PUT /organizations/1/projects/1
   def update
     if @project.update(project_params)
-      redirect_to organization_project_url(@organization, @project), notice: "Project was successfully updated."
+      respond_to do |format|
+        flash[:notice] = "Project was successfully updated."
+        format.html { redirect_to organization_project_url(@organization, @project) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_project_url(@organization, @project)) }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -51,19 +59,20 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   private
-    def set_project
-      @project = @organization.projects.find(params[:id])
-      authorize @project
-    end
 
-    def project_params
-      params.require(:project).permit(:name)
-    end
+  def project_params
+    params.require(:project).permit(:name)
+  end
 
   def require_subscription
     return true if @organization.projects.count < 1
     return true if @organization.payment_processor.subscribed?
 
     redirect_to organization_subscriptions_path(@organization), alert: "You need to have an active subscription to create more than 1 project."
+  end
+
+  def set_project
+    @project = @organization.projects.find(params[:id])
+    authorize @project
   end
 end

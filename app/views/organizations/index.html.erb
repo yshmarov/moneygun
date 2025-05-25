@@ -1,8 +1,8 @@
-<% content_for :title, "Organizations" %>
+<% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: "Organizations") do |component| %>
+<%= render PageComponent.new(title: t(".title")) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "New", new_organization_path, class: "btn btn-primary" %>
+    <%= link_to t("shared.actions.new"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
 
   <div id="organizations" class="space-y-4">

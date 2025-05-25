@@ -1,4 +1,7 @@
-<%= render PageComponent.new(title: "New organization", content_container: true, full_width: false) do |component| %>
-  <%= render "form", organization: @organization %>
-  <%= link_to "Cancel", organizations_path, class: "btn btn-secondary" %>
+<% content_for :title, t("organizations.new.title") %>
+
+<%= modal do %>
+  <%= render PageComponent.new(title: t("organizations.new.title")) do |component| %>
+    <%= render "form", organization: @organization %>
+  <% end %>
 <% end %>
