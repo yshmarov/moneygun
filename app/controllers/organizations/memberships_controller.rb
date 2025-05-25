@@ -20,7 +20,8 @@ class Organizations::MembershipsController < Organizations::BaseController
 
     if @form.save
       respond_to do |format|
-        format.html { redirect_to organization_memberships_path(@organization), notice: t(".success", email: @form.email) }
+        flash[:notice] = t(".success", email: @form.email)
+        format.html { redirect_to organization_memberships_path(@organization) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
       end
     else
