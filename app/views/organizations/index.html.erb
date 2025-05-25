@@ -1,11 +1,11 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: t(".title")) do |component| %>
+<%= render PageComponent.new(title: t(".title"), full_width: true) do |component| %>
   <% component.with_action_list do %>
     <%= link_to t("shared.actions.new"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
 
-  <div id="organizations" class="space-y-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
     <% @organizations.each do |organization| %>
       <%= render organization %>
     <% end %>
