@@ -53,14 +53,14 @@ en:
     invitations:
       buttons:
         cancel: Cancel invitation
+      create:
+        success: "%{email} invited"
       destroy:
         success: Invitation cancelled
       errors:
         not_found: Invitation not found
       index:
         title: Outgoing invitations
-      create:
-        success: "%{email} invited"
     memberships:
       actions:
         leave: Leave
