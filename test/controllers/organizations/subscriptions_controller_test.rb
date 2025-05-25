@@ -2,7 +2,7 @@ require "test_helper"
 
 class Organizations::SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    skip "Stripe credentials not configured" unless Rails.application.credentials.dig(:stripe, :private_key).present?
+    skip "Stripe credentials not configured" if Rails.application.credentials.dig(:stripe, :private_key).blank?
     @organization = organizations(:one)
     @user = users(:one)
     sign_in @user
@@ -25,7 +25,7 @@ class Organizations::SubscriptionsControllerTest < ActionDispatch::IntegrationTe
   end
 
   test "#checkout" do
-    get organization_subscriptions_checkout_path(@organization, price_id: "price_1NmG52GHcaLYld8Ifu7SVe6y")
+    get organization_subscriptions_checkout_path(@organization, price_id: Rails.application.config_for(:settings).dig(:plans, 0, :id))
     assert_match %r{\Ahttps://checkout.stripe.com/c/pay/cs_test_}, response.redirect_url
   end
 end

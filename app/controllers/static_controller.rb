@@ -1,6 +1,6 @@
 class StaticController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :redirect_if_authenticated, only: [ :index, :pricing ]
+  before_action :redirect_if_authenticated, only: %i[index pricing]
 
   def index
   end

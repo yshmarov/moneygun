@@ -22,35 +22,63 @@ class OrganizationsController < ApplicationController
     @organization.memberships.build(user: current_user, role: Membership.roles[:admin])
 
     if @organization.save
-      redirect_to organization_dashboard_path(@organization), notice: t("organizations.create.success")
+      respond_to do |format|
+        flash[:notice] = t(".success")
+        format.html { redirect_to organization_dashboard_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
+      end
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    if @organization.update(organization_params)
-      redirect_to organization_path(@organization), notice: t("organizations.update.success")
+    updated = @organization.update(organization_params)
+    coming_from_memberships = request.referer.include?(t("routes.memberships"))
+
+    if updated
+      handle_successful_update(coming_from_memberships)
     else
-      render :edit, status: :unprocessable_entity
+      handle_failed_update(coming_from_memberships)
     end
   end
 
   def destroy
     @organization.destroy!
 
-    redirect_to organizations_path, notice: t("organizations.destroy.success")
+    redirect_to organizations_path, notice: t(".success")
   end
 
   private
 
+  def handle_successful_update(came_from_memberships)
+    flash[:notice] = t(".success")
+
+    if came_from_memberships
+      redirect_back fallback_location: organization_memberships_path(@organization)
+    else
+      respond_to do |format|
+        format.html { redirect_to organization_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
+      end
+    end
+  end
+
+  def handle_failed_update(came_from_memberships)
+    if came_from_memberships
+      redirect_back fallback_location: organization_memberships_path(@organization), alert: t(".error")
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def set_organization
     @organization = Organization.find(params[:id])
-    @current_membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.membership ||= current_user.memberships.find_by(organization: @organization)
     authorize @organization
   end
 
   def organization_params
-    params.require(:organization).permit(:name, :logo)
+    params.require(:organization).permit(:name, :logo, :privacy_setting)
   end
 end

@@ -12,8 +12,8 @@ class Organizations::BaseController < ApplicationController
   # end
 
   # def authorize_organization_admin!
-  #   redirect_to organization_path(@organization), alert: "You are not authorized to perform this action." unless @current_membership.admin?
-  #   raise Pundit::NotAuthorizedError unless @current_membership.admin?
+  #   redirect_to organization_path(@organization), alert: "You are not authorized to perform this action." unless Current.membership.admin?
+  #   raise Pundit::NotAuthorizedError unless Current.membership.admin?
   # end
 
   def authorize_organization_owner!
@@ -21,23 +21,25 @@ class Organizations::BaseController < ApplicationController
   end
 
   def require_subscription
-    unless current_organization.payment_processor.subscribed?
-      flash[:alert] = t("shared.errors.not_subscribed")
-      redirect_to organization_subscriptions_url(current_organization)
-    end
+    return if current_organization.payment_processor.subscribed?
+
+    flash[:alert] = t("shared.errors.not_subscribed")
+    redirect_to organization_subscriptions_url(current_organization)
   end
 
   private
 
   def set_organization
     @organization = current_user.organizations.find(params[:organization_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to organizations_path, alert: t("organizations.errors.not_found"), status: :not_found
   end
 
   def set_current_membership
-    @current_membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.membership ||= current_user.memberships.find_by(organization: @organization)
   end
 
   def pundit_user
-    @current_membership
+    Current.membership
   end
 end

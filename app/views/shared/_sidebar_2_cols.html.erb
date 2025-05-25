@@ -1,21 +1,20 @@
 <%# Mobile sidebar backdrop %>
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r bg-gray-100 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col flex-shrink-0">
   <%# Widescreen sidebar top %>
-  <nav class="flex flex-row flex-grow divide-x">
+  <nav class="flex flex-row flex-grow divide-x divide-base-content/20 h-full">
     <div class="flex flex-col max-h-dvh overflow-y-auto p-2">
       <div class="flex flex-col space-y-2">
-        <%= link_to root_path, class: "flex items-center justify-center" do %>
+        <%= link_to root_path, class: "flex items-center justify-center aspect-square" do %>
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
         <% end %>
 
-        <%= active_link_to organizations_path, active: :exclusive, title: t("organizations.index.title"), class_active: "bg-gray-200", class: "aspect-square flex justify-center items-center text-sm rounded-md border-4 border-transparent hover:border-gray-200 hover:bg-gray-200" do %>
-          <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-6" %>
-        <% end %>
+        <%= active_link_to "🌏", public_organizations_path, title: t("shared.navigation.discover"), class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
+        <%= active_link_to "🏠", organizations_path, active: :exclusive, title: t("organizations.index.title"), class_active: "du-btn-active", class: "du-btn du-btn-ghost p-0" %>
         <div class="flex flex-col items-center space-y-1">
-          <% current_user.organizations.each do |organization| %>
-            <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), title: organization.name, class_active: "bg-red-400", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-red-400 hover:bg-red-400" do %>
+          <% Current.organizations.each do |organization| %>
+            <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), title: organization.name, class_active: "bg-primary", class: "flex items-center space-x-2 text-sm rounded-md border-4 border-transparent hover:border-primary hover:bg-primary" do %>
               <%= organization_avatar(organization) %>
             <% end %>
           <% end %>
@@ -27,18 +26,29 @@
     </div>
 
     <% if current_organization %>
-      <div class="flex flex-col justify-between max-w-min max-h-dvh overflow-y-auto space-y-1">
+      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
         <div class="space-y-1 p-2">
+          <%= nav_link current_organization.name, organization_path(current_organization), icon: organization_avatar(current_organization, classes: "size-5"), active: :exclusive %>
           <%= render "shared/sidebar_links" %>
         </div>
-        <div class="border-t space-y-1 p-2">
+        <div class="border-t border-base-content/20 space-y-1 p-2">
           <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
-          <% if @current_membership.admin? %>
+          <% if Current.membership.admin? %>
             <%= nav_link "Refills", organization_refills_path(current_organization), icon: "💸" %>
             <%= nav_link "Credits", organization_credits_path(current_organization), icon: "💳" %>
             <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
             <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
           <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if controller_path.start_with?('users') %>
+      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
+        <div class="space-y-1 p-2">
+          <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
+          <%= nav_link t("shared.navigation.pending_invitations"), user_invitations_path, icon: current_user.organization_invitations.count.to_s %>
+          <%= nav_link t("shared.navigation.pending_requests"), user_membership_requests_path, icon: current_user.organization_requests.count.to_s %>
         </div>
       </div>
     <% end %>

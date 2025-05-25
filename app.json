@@ -1,0 +1,53 @@
+{
+  "name": "moneygun",
+  "description": "Moneygun",
+  "website": "http://github.com/yshmarov/moneygun",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate",
+    "release": "bundle exec rails db:migrate"
+  },
+  "env": {
+    "BUNDLE_WITHOUT": "development:test",
+    "SOLID_QUEUE_IN_PUMA": "true",
+    "JEMALLOC_ENABLED": "true",
+    "MALLOC_ARENA_MAX": "2",
+    "RAILS_MASTER_KEY": {
+      "description": "Secret key for decrypting Rails credentials. You can find it at: config/master.key"
+    },
+    "RAILS_ENV": {
+      "description": "The Rails environment to run: production or staging",
+      "value": "production"
+    },
+    "SENSIBLE_DEFAULTS": "enabled"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": ["heroku-postgresql:essential-0"],
+  "buildpacks": [
+    { "url": "https://github.com/heroku/heroku-buildpack-apt.git" },
+    { "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git" },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-chrome-for-testing.git"
+    },
+    { "url": "heroku/ruby" }
+  ],
+  "environments": {
+    "test": {
+      "env": {
+        "BUNDLE_WITHOUT": "production"
+      },
+      "scripts": {
+        "test": "bundle exec rails test"
+      }
+    }
+  },
+  "stack": "heroku-24",
+  "repository": "https://github.com/yshmarov/moneygun",
+  "success_url": "/up",
+  "logo": "https://superails.com/logo.png"
+}
