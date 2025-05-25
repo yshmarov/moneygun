@@ -1,5 +1,5 @@
 <%= tag.div id: "organization_#{organization.id}", class: "border border-base-content/20 p-4 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
-  <%= link_to public_organization_path(organization), data: { turbo_frame: "modal"}, class: "flex items-center gap-3" do %>
+  <%= link_to public_organization_path(organization), data: { turbo_frame: "modal" }, class: "flex items-center gap-3" do %>
     <%= organization_avatar(organization) %>
     <div>
       <div class="font-medium">
