@@ -25,25 +25,27 @@
       </div>
     </div>
 
-    <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
-      <% if current_organization %>
+    <% if current_organization %>
+      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
         <div class="du-menu w-full">
           <%= nav_link current_organization.name, organization_path(current_organization), icon: organization_avatar(current_organization, classes: "size-5"), active: :exclusive %>
           <%= render "shared/sidebar_links" %>
         </div>
         <div class="du-menu w-full">
-          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
+          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg", badge: current_organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
           <% if Current.membership.admin? %>
             <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
             <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
           <% end %>
         </div>
-      <% end %>
-      <% if controller_path.start_with?('users') %>
+      </div>
+    <% end %>
+    <% if controller_path.start_with?('users') %>
+      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
         <div class="du-menu w-full">
           <%= render "shared/user_links" %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </nav>
 </aside>

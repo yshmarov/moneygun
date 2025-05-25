@@ -53,6 +53,8 @@ en:
     invitations:
       buttons:
         cancel: Cancel invitation
+      create:
+        success: "%{email} invited"
       destroy:
         success: Invitation cancelled
       errors:
@@ -63,8 +65,6 @@ en:
       actions:
         leave: Leave
         remove_member: Remove member
-      create:
-        success: "%{email} invited"
       destroy:
         failed_to_remove_user_from_organization: Failed to remove user from organization
         user_removed_from_organization: User removed from organization
@@ -119,9 +119,9 @@ en:
       show:
         actions:
           accept_invitation: Accept invitation
-          reject_invitation: Reject invitation
           join: Join
           open: Open
+          reject_invitation: Reject invitation
           request_to_join: Request to join
           waiting_for_approval: Waiting for approval
   routes:
