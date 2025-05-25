@@ -32,8 +32,8 @@
     <%= link_to user_membership_requests_path, 
         class: "#{base_classes} #{active_tab == :requests ? active_classes : inactive_classes}" do %>
       <div class="flex items-center gap-2">
-        <span class="text-xs">📤</span>
-        <%= t("membership_requests.index.title") %>
+        <span class="text-xs">⬆️</span>
+        <%= t("shared.navigation.pending_requests") %>
         <% if current_user.organization_requests.pending.count > 0 %>
           <span class="du-badge du-badge-sm"><%= current_user.organization_requests.pending.count %></span>
         <% end %>

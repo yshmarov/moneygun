@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
 <%= render "organizations/tabs", active_tab: :requests do %>
-  <%= render PageComponent.new(title: t("membership_requests.index.title")) do %>
+  <%= render PageComponent.new(title: t("shared.navigation.pending_requests"), full_width: true) do %>
     <div id="invitations" class="space-y-4">
       <% @organization_requests.each do |organization_request| %>
         <div>
