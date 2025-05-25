@@ -1,17 +1,26 @@
 <%= tag.div id: "organization_#{organization.id}", class: "border border-base-content/20 p-4 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
-  <%= link_to public_organization_path(organization), data: { turbo_frame: "modal" }, class: "flex items-center gap-3" do %>
+  <%= link_to public_organization_path(organization), data: { turbo_frame: "modal" }, class: "flex items-center gap-2" do %>
     <%= organization_avatar(organization) %>
-    <div>
-      <div class="font-medium">
-        <%= organization.name %>
-      </div>
-      <div class="text-sm">
-        <%= pluralize(organization.users.count, "member") %>
-      </div>
+    <div class="font-medium">
+      <%= organization.name %>
     </div>
   <% end %>
 
-  <div class="flex gap-2 justify-end">
+  <div class="flex gap-2 justify-between">
+    <div class="du-avatar-group -space-x-6">
+      <% max_count = 1 %>
+      <% organization.users.limit(max_count).each do |user| %>
+        <%= user_avatar(user) %>
+      <% end %>
+      <% if organization.users.count > max_count %>
+        <div class="du-avatar du-avatar-placeholder">
+          <div class="bg-neutral text-neutral-content w-8">
+            <span class="text-xs">+<%= organization.users.count - max_count %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+      
     <% if organization.participant?(current_user) %>
       <%= link_to t("public.organizations.show.actions.open"), organization_dashboard_path(organization), class: "du-btn du-btn-primary", data: { turbo_frame: "_top" } %>
     <% elsif organization.user_requests.pending.exists?(user: current_user) %>
