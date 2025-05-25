@@ -1,14 +1,18 @@
-<%= turbo_frame_tag :modal do %>
-  <dialog class="du-modal transition-none max-lg:du-modal-bottom" data-controller="dialog" data-action="click->dialog#clickOutside turbo:submit-end->dialog#hideOnSubmit">
-    <div class="du-modal-box space-y-2">
-      <div class="flex justify-end">
-        <form method="dialog" class="">
-          <button class="du-btn du-btn-ghost du-btn-sm du-btn-circle">
-            <%= inline_svg_tag "svg/x-mark.svg", class: "size-4" %>
-          </button>        
-        </form>
+<% if turbo_frame_request? %>
+  <%= turbo_frame_tag :modal do %>
+    <dialog class="du-modal transition-none max-lg:du-modal-bottom" data-controller="dialog" data-action="click->dialog#clickOutside turbo:submit-end->dialog#hideOnSubmit">
+      <div class="du-modal-box space-y-2">
+        <div class="flex justify-end">
+          <form method="dialog" class="">
+            <button class="du-btn du-btn-ghost du-btn-sm du-btn-circle">
+              <%= inline_svg_tag "svg/x-mark.svg", class: "size-4" %>
+            </button>        
+          </form>
+        </div>
+        <%= yield %>
       </div>
-      <%= yield %>
-    </div>
-  </dialog>
+    </dialog>
+  <% end %>
+<% else %>
+  <%= yield %>
 <% end %>
