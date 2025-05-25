@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="flex justify-end">
+  <div class="flex gap-2 justify-end">
     <% if organization.participant?(current_user) %>
       <%= link_to t("public.organizations.show.actions.open"), organization_dashboard_path(organization), class: "du-btn du-btn-primary", data: { turbo_frame: "_top" } %>
     <% elsif organization.user_requests.pending.exists?(user: current_user) %>

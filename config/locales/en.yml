@@ -119,6 +119,7 @@ en:
       show:
         actions:
           accept_invitation: Accept invitation
+          reject_invitation: Reject invitation
           join: Join
           open: Open
           request_to_join: Request to join
