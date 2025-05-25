@@ -21,7 +21,8 @@
           <%= render "shared/flash" %>
         </div>
       </header>
-      <main class="flex-grow p-4 lg:m-2 lg:mt-0 lg:ml-0 lg:rounded-lg lg:border border-base-content/20 bg-base-100 overflow-y-auto">
+      <% authenticated_classes = "lg:m-2 lg:mt-0 lg:ml-0 lg:rounded-lg lg:border border-base-content/20" %>
+      <main class="<%= authenticated_classes if signed_in? %> flex-grow p-4 bg-base-100 overflow-y-auto">
         <%= yield %>
       </main>
       <% if signed_in? %>
