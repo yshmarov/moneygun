@@ -9,19 +9,6 @@ Rails.application.routes.draw do
       resources :projects
       get "dashboard", to: "dashboard#index"
       get "paywalled_page", to: "dashboard#paywalled_page"
-
-      resources :credits, only: %i[index create]
-      resources :refills, only: %i[index] do
-        collection do
-          post :add_payment_method
-          post :charge_payment_method
-          post :billing_portal
-          patch :update_auto_refill
-          #
-          patch :spend_some_credits
-          patch :spend_bulk_credits
-        end
-      end
     end
   end
 
