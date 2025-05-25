@@ -27,7 +27,7 @@
 
     <%= link_to organization_invitations_path(@organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
       <div class="flex items-center gap-2">
-        <%= t(".access_settings.invitations") %>
+        <%= t("organizations.memberships.index.access_settings.invitations") %>
       </div>
 
       <div class="flex items-center gap-4">
@@ -42,7 +42,7 @@
     <% if @organization.privacy_setting_restricted? %>
       <%= link_to organization_membership_requests_path(@organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
         <div class="flex items-center gap-2">
-          <%= t(".access_settings.requests_to_join_organization") %>
+          <%= t("organizations.memberships.index.access_settings.requests_to_join_organization") %>
         </div>
 
         <div class="flex items-center gap-4">
@@ -57,16 +57,16 @@
   <% end %>
 <% end %>
 
-<br>
-
-<%= render PageComponent.new(title: t(".title")) do |component| %>
-  <% component.with_action_list do %>
-    <%= link_to t("organizations.memberships.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" if policy(@organization.memberships.new).new? %>
-  <% end %>
-
-  <div id="memberships" class="space-y-4">
-    <% @memberships.each do |membership| %>
-      <%= render membership %>
+<%= render "organizations/memberships/tabs", active_tab: :memberships do %>
+  <%= render PageComponent.new(title: t("organizations.memberships.index.title")) do |component| %>
+    <% component.with_action_list do %>
+      <%= link_to t("organizations.memberships.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" if policy(@organization.memberships.new).new? %>
     <% end %>
-  </div>
+
+    <div id="memberships" class="space-y-4">
+      <% @memberships.each do |membership| %>
+        <%= render membership %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
