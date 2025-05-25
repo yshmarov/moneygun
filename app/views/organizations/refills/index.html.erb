@@ -1,204 +1,197 @@
-<%= render PageComponent.new(title: "Spend credits") do |component| %>
-  <%= button_to "Spend 25 credits; attempt auto-refill", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
-  <% [0, 10, 20, 50, 100].each do |units| %>
-    <%= button_to "Spend 5 + #{units} credits", spend_bulk_credits_organization_refills_path(current_organization, units: units), method: :patch, disabled: !@organization.has_enough_credits_to?(:spend_bulk_credits, units: units), class: "du-btn du-btn-primary", data: { turbo: "false" } %>
-  <% end %>
-<% end %>
-
-<br>
-
-<%= render PageComponent.new(title: "Payment details") do |component| %>
-  <% component.with_action_list do %>
-    <% if @payment_methods.any? %>
-      <%= button_to "Manage billing", billing_portal_organization_refills_path(current_organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
-    <% else %>
-      <%= button_to "Add payment method", add_payment_method_organization_refills_path(current_organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <%= render PageComponent.new(title: "Spend credits") do |component| %>
+    <%= button_to "Spend 25 credits; attempt auto-refill", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+    <% [0, 10, 20, 50, 100].each do |units| %>
+      <%= button_to "Spend 5 + #{units} credits", spend_bulk_credits_organization_refills_path(current_organization, units: units), method: :patch, disabled: !@organization.has_enough_credits_to?(:spend_bulk_credits, units: units), class: "du-btn du-btn-primary", data: { turbo: "false" } %>
     <% end %>
   <% end %>
 
-  <% if @payment_methods.any? %>
-    <div class="space-y-4">
-      <% @payment_methods.each do |payment_method| %>
-        <div class="bg-gray-100 rounded-lg shadow p-2 border border-gray-200 hover:shadow-md transition-shadow">
-          <div class="flex items-center justify-between space-x-6">
-            <div class="h-10 w-auto aspect-video bg-gray-100 rounded flex items-center justify-center">
-              <div class="text-xs font-medium text-gray-500"><%= payment_method.data["brand"] %></div>
-            </div>
-            <div class="text-right">
-              <div class="flex items-center space-x-2">
-                <% if payment_method.default? %>
-                  <span class="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Default</span>
-                <% end %>
-                <p class="font-medium text-gray-900">•••• •••• •••• <%= payment_method.data["last4"] %></p>
+  <%= render PageComponent.new(title: "Payment details") do |component| %>
+    <% component.with_action_list do %>
+      <% if @payment_methods.any? %>
+        <%= button_to "Manage billing", billing_portal_organization_refills_path(current_organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+      <% else %>
+        <%= button_to "Add payment method", add_payment_method_organization_refills_path(current_organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+      <% end %>
+    <% end %>
+
+    <% if @payment_methods.any? %>
+      <div class="space-y-4">
+        <% @payment_methods.each do |payment_method| %>
+          <div class="bg-gray-100 rounded-lg shadow p-2 border border-gray-200 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between space-x-6">
+              <div class="h-10 w-auto aspect-video bg-gray-100 rounded flex items-center justify-center">
+                <div class="text-xs font-medium text-gray-500"><%= payment_method.data["brand"] %></div>
               </div>
-              <p class="text-sm text-gray-500 mt-1">Expires <%= payment_method.data["exp_month"] %>/<%= payment_method.data["exp_year"] %></p>
+              <div class="text-right">
+                <div class="flex items-center space-x-2">
+                  <% if payment_method.default? %>
+                    <span class="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Default</span>
+                  <% end %>
+                  <p class="font-medium text-gray-900">•••• •••• •••• <%= payment_method.data["last4"] %></p>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Expires <%= payment_method.data["exp_month"] %>/<%= payment_method.data["exp_year"] %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="bg-gray-100 rounded-lg shadow p-8 border border-gray-200 text-center">
+        No payment methods found
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render PageComponent.new(title: "Top up") do |component| %>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <% UsageCredits.credit_packs.each do |key, credit_pack| %>
+
+        <div class="bg-gray-100 rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+          <div class="text-center space-y-4">
+            <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
+            
+            <%= button_to format_credit_price(credit_pack.price_cents), charge_payment_method_organization_refills_path(current_organization, credit_pack: key), 
+                method: :post, 
+                class: "du-btn du-btn-primary",
+                disabled: !@payment_methods.any?,
+                data: { turbo: "false" } %>
+            
+            <div class="space-y-2">
+              <p class="text-lg font-medium text-gray-900"><%= format_credits(credit_pack.credits) %></p>
+              <% if credit_pack.bonus_credits > 0 %>
+                <p class="text-sm text-green-600">+<%= credit_pack.bonus_credits %> Bonus Credits</p>
+              <% end %>
             </div>
           </div>
         </div>
       <% end %>
     </div>
-  <% else %>
-    <div class="bg-gray-100 rounded-lg shadow p-8 border border-gray-200 text-center">
-      No payment methods found
-    </div>
   <% end %>
-<% end %>
 
-<br>
+  <%= render PageComponent.new(title: "Auto-top-ups") do |component| %>
+    <%= form_with(model: [current_organization, current_organization.wallet], url: update_auto_refill_organization_refills_path(current_organization), method: :patch) do |form| %>
+      <%= render "shared/errors", object: form.object %>
+      <div class="space-y-6">
+        <div class="flex items-center space-x-2">
+          <%= form.check_box :auto_refill_enabled, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+          <%= form.label :auto_refill_enabled, "Enable auto top-ups", class: "text-sm font-medium text-gray-700" %>
+        </div>
 
-<%= render PageComponent.new(title: "Top up") do |component| %>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <% UsageCredits.credit_packs.each do |key, credit_pack| %>
+        <div class="space-y-2">
+          <%= form.label :auto_refill_credit_pack, "Automatically top up", class: "block text-sm font-medium text-gray-700" %>
+          <% if true %>
+            <div class="space-y-2">
+              <% UsageCredits.credit_packs.each do |key, pack| %>
+                <div class="flex items-center">
+                  <%= form.radio_button :auto_refill_credit_pack, key, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" %>
+                  <%= form.label "auto_refill_credit_pack_#{key}", credit_pack_label(pack), class: "ml-2 text-sm font-medium text-gray-700" %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <%= form.select :auto_refill_credit_pack, UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] } %>
+          <% end %>
+        </div>
 
-      <div class="bg-gray-100 rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
-        <div class="text-center space-y-4">
-          <h3 class="text-xl font-semibold text-gray-900"><%= credit_pack.name.to_s.titleize %></h3>
-          
-          <%= button_to format_credit_price(credit_pack.price_cents), charge_payment_method_organization_refills_path(current_organization, credit_pack: key), 
-              method: :post, 
-              class: "du-btn du-btn-primary",
-              disabled: !@payment_methods.any?,
-              data: { turbo: "false" } %>
-          
-          <div class="space-y-2">
-            <p class="text-lg font-medium text-gray-900"><%= format_credits(credit_pack.credits) %></p>
-            <% if credit_pack.bonus_credits > 0 %>
-              <p class="text-sm text-green-600">+<%= credit_pack.bonus_credits %> Bonus Credits</p>
-            <% end %>
+        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <div class="flex items-center space-x-2">
+            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-sm text-gray-600">
+              Auto-refill will trigger when your balance falls below <span class="font-semibold text-gray-900"><%= UsageCredits.configuration.low_balance_threshold %> credits</span>
+            </p>
           </div>
+        </div>
+
+        <div class="flex justify-end">
+          <%= form.submit "Save", class: "du-btn du-btn-primary", disabled: !@payment_methods.any? %>
         </div>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
 
-<br>
-
-<%= render PageComponent.new(title: "Auto-top-ups") do |component| %>
-  <%= form_with(model: [current_organization, current_organization.wallet], url: update_auto_refill_organization_refills_path(current_organization), method: :patch) do |form| %>
-    <%= render "shared/errors", object: form.object %>
-    <div class="space-y-6">
-      <div class="flex items-center space-x-2">
-        <%= form.check_box :auto_refill_enabled, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
-        <%= form.label :auto_refill_enabled, "Enable auto top-ups", class: "text-sm font-medium text-gray-700" %>
-      </div>
-
-      <div class="space-y-2">
-        <%= form.label :auto_refill_credit_pack, "Automatically top up", class: "block text-sm font-medium text-gray-700" %>
-        <% if true %>
-          <div class="space-y-2">
-            <% UsageCredits.credit_packs.each do |key, pack| %>
-              <div class="flex items-center">
-                <%= form.radio_button :auto_refill_credit_pack, key, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" %>
-                <%= form.label "auto_refill_credit_pack_#{key}", credit_pack_label(pack), class: "ml-2 text-sm font-medium text-gray-700" %>
+  <%= render PageComponent.new(title: "Payment history") do |component| %>
+    <div class="grid grid-cols-1 gap-6">
+      <% @charges.each do |charge| %>
+        <div class="bg-gray-100 rounded-lg shadow p-4 border border-gray-200">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="text-sm text-gray-500 uppercase font-medium">
+                <%= charge.data["brand"] %>
               </div>
-            <% end %>
+              <div>
+                <p class="font-medium text-gray-900">•••• •••• •••• <%= charge.data["last4"] %></p>
+                <p class="text-sm text-gray-500">Expires <%= charge.data["exp_month"] %>/<%= charge.data["exp_year"] %></p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-semibold text-gray-900"><%= number_to_currency(charge.amount.to_f / 100, unit: charge.currency.upcase) %></p>
+              <p class="text-sm text-gray-500"><%= Time.at(charge.created_at).strftime("%B %d, %Y %I:%M %p") %></p>
+            </div>
           </div>
-        <% else %>
-          <%= form.select :auto_refill_credit_pack, UsageCredits.credit_packs.map { |key, pack| [credit_pack_label(pack), key] } %>
-        <% end %>
-      </div>
-
-      <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-        <div class="flex items-center space-x-2">
-          <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-          </svg>
-          <p class="text-sm text-gray-600">
-            Auto-refill will trigger when your balance falls below <span class="font-semibold text-gray-900"><%= UsageCredits.configuration.low_balance_threshold %> credits</span>
-          </p>
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <div class="flex justify-between items-center">
+              <div class="space-y-2 flex justify-between w-full">
+                <div class="flex items-center space-x-3">
+                  <span class="px-2 py-1 rounded-full <%= charge.data["amount_captured"] > 0 ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800" %>">
+                    <%= charge.data["amount_captured"] > 0 ? "Succeeded" : "Pending" %>
+                  </span>
+                  <%= link_to "Receipt", charge.data["stripe_receipt_url"], target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+                </div>
+                <div class="text-sm text-gray-600">
+                  <% if charge.metadata.present? %>
+                    <p>Credit Pack: <%= charge.metadata["pack_name"]&.titleize %></p>
+                    <p>Credits: <%= charge.metadata["credits"] %></p>
+                    <% if charge.metadata["bonus_credits"].to_i > 0 %>
+                      <p class="text-green-600">+<%= charge.metadata["bonus_credits"] %> Bonus Credits</p>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="flex justify-end">
-        <%= form.submit "Save", class: "du-btn du-btn-primary", disabled: !@payment_methods.any? %>
-      </div>
+      <% end %>
     </div>
   <% end %>
-<% end %>
 
-<br>
-
-<%= render PageComponent.new(title: "Payment history") do |component| %>
-  <div class="grid grid-cols-1 gap-6">
-    <% @charges.each do |charge| %>
-      <div class="bg-gray-100 rounded-lg shadow p-4 border border-gray-200">
-        <div class="flex items-center justify-between">
+  <%# Credit History Section %>
+  <%= render PageComponent.new(title: "Transaction history") do |component| %>
+    <div class="space-y-2">
+      <% @organization.wallet.transactions.order(created_at: :desc).each do |transaction| %>
+        <div class="flex items-center justify-between p-3 bg-gray-100 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
           <div class="flex items-center space-x-4">
-            <div class="text-sm text-gray-500 uppercase font-medium">
-              <%= charge.data["brand"] %>
+            <div class="flex-shrink-0">
+              <div class="h-10 w-10 rounded-full flex items-center justify-center <%= transaction.amount.positive? ? 'bg-green-100' : 'bg-red-100' %>">
+                <svg class="h-5 w-5 <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <% if transaction.amount.positive? %>
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  <% else %>
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  <% end %>
+                </svg>
+              </div>
             </div>
             <div>
-              <p class="font-medium text-gray-900">•••• •••• •••• <%= charge.data["last4"] %></p>
-              <p class="text-sm text-gray-500">Expires <%= charge.data["exp_month"] %>/<%= charge.data["exp_year"] %></p>
+              <p class="text-sm font-medium text-gray-900">
+                <%= transaction.category.titleize %>:
+                <%= transaction.metadata["operation"]&.titleize || transaction.metadata["reason"]&.titleize || transaction.category.titleize %>
+              </p>
+              <p class="text-xs text-gray-500">
+                <%= transaction.created_at.strftime("%b %d, %Y %I:%M %p") %>
+              </p>
             </div>
           </div>
           <div class="text-right">
-            <p class="text-lg font-semibold text-gray-900"><%= number_to_currency(charge.amount.to_f / 100, unit: charge.currency.upcase) %></p>
-            <p class="text-sm text-gray-500"><%= Time.at(charge.created_at).strftime("%B %d, %Y %I:%M %p") %></p>
-          </div>
-        </div>
-        <div class="mt-4 pt-4 border-t border-gray-100">
-          <div class="flex justify-between items-center">
-            <div class="space-y-2 flex justify-between w-full">
-              <div class="flex items-center space-x-3">
-                <span class="px-2 py-1 rounded-full <%= charge.data["amount_captured"] > 0 ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800" %>">
-                  <%= charge.data["amount_captured"] > 0 ? "Succeeded" : "Pending" %>
-                </span>
-                <%= link_to "Receipt", charge.data["stripe_receipt_url"], target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
-              </div>
-              <div class="text-sm text-gray-600">
-                <% if charge.metadata.present? %>
-                  <p>Credit Pack: <%= charge.metadata["pack_name"]&.titleize %></p>
-                  <p>Credits: <%= charge.metadata["credits"] %></p>
-                  <% if charge.metadata["bonus_credits"].to_i > 0 %>
-                    <p class="text-green-600">+<%= charge.metadata["bonus_credits"] %> Bonus Credits</p>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
-<br>
-
-<%# Credit History Section %>
-<%= render PageComponent.new(title: "Transaction history") do |component| %>
-  <div class="space-y-2">
-    <% @organization.wallet.transactions.order(created_at: :desc).each do |transaction| %>
-      <div class="flex items-center justify-between p-3 bg-gray-100 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-        <div class="flex items-center space-x-4">
-          <div class="flex-shrink-0">
-            <div class="h-10 w-10 rounded-full flex items-center justify-center <%= transaction.amount.positive? ? 'bg-green-100' : 'bg-red-100' %>">
-              <svg class="h-5 w-5 <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <% if transaction.amount.positive? %>
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                <% else %>
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                <% end %>
-              </svg>
-            </div>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-gray-900">
-              <%= transaction.category.titleize %>:
-              <%= transaction.metadata["operation"]&.titleize || transaction.metadata["reason"]&.titleize || transaction.category.titleize %>
-            </p>
-            <p class="text-xs text-gray-500">
-              <%= transaction.created_at.strftime("%b %d, %Y %I:%M %p") %>
+            <p class="text-sm font-semibold <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>">
+              <%= transaction.formatted_amount %>
             </p>
           </div>
         </div>
-        <div class="text-right">
-          <p class="text-sm font-semibold <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>">
-            <%= transaction.formatted_amount %>
-          </p>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>
