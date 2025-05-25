@@ -1,10 +1,13 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <%= render @project %>
+<% content_for :title, "Project" %>
 
-    <%= link_to "Edit this project", [ :edit, @organization, @project ], data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
+<%= render PageComponent.new(title: "Project") do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to "Edit", [ :edit, @organization, @project ], data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this project", [ @organization, @project ], method: :delete, class: "du-btn du-btn-error" %>
+      <%= button_to "Destroy", [ @organization, @project ], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "du-btn du-btn-error" %>
     </div>
-  </div>
-</div>
+  <% end %>
+
+  <%= render @project %>
+
+<% end %>
