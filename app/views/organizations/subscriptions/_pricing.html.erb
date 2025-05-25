@@ -1,7 +1,7 @@
 <%= render PageComponent.new(title: t(".title")) do %>
 	<div class="grid lg:grid-cols-2 gap-8">
 		<% Rails.application.config_for(:settings)[:plans].each do |plan| %>
-			<div class="shadow border rounded-xl text-center flex flex-col">
+			<div class="border border-base-content/20 rounded-xl text-center flex flex-col">
 				<div class="leading-none grow">
 					<% if plan[:interval].to_s == "year" %>
 						<span class="inline-block bg-green-100 text-green-700 text-xs font-medium px-2.5 py-0.5 rounded-full mt-2">
