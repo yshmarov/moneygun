@@ -44,7 +44,8 @@
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
         <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 du-menu">
-          <%= render "shared/user_links" %>
+          <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
+          <%= nav_link t("shared.navigation.logout"), destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") } %>
         </div>
       </details>
     <% else %>
