@@ -12,11 +12,6 @@
 
         <ul class="du-menu">
           <li>
-            <%= active_link_to public_organizations_path, class_active: "du-menu-active", title: t("shared.navigation.discover") do %>
-              <%= inline_svg_tag "svg/globe-europe-africa.svg" %>
-            <% end %>
-          </li>
-          <li>
             <%= active_link_to organizations_path, class_active: "du-menu-active", active: :exclusive, title: t("organizations.index.title") do %>
               <%= inline_svg_tag "svg/home.svg" %>
             <% end %>
