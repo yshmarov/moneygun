@@ -1,0 +1,3 @@
+<%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
+<%= nav_link t("shared.navigation.pending_invitations"), user_invitations_path, badge: current_user.organization_invitations.count.to_s %>
+<%= nav_link t("shared.navigation.pending_requests"), user_membership_requests_path, badge: current_user.organization_requests.count.to_s %>

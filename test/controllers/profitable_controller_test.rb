@@ -5,7 +5,7 @@ class ProfitableControllerTest < ActionDispatch::IntegrationTest
     get "/profitable"
     assert_redirected_to "/users/sign_in"
 
-    user = users(:one)
+    user = users(:two)
     sign_in user
     get "/profitable"
     assert_response :not_found

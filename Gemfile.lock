@@ -85,6 +85,23 @@ GEM
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.3)
+    avo (3.20.2)
+      actionview (>= 6.1)
+      active_link_to
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
+      addressable
+      avo-heroicons (>= 0.1.1)
+      docile
+      inline_svg
+      meta-tags
+      pagy (>= 7.0.0)
+      prop_initializer (>= 0.2.0)
+      turbo-rails (>= 2.0.0)
+      turbo_power (>= 0.6.0)
+      view_component (>= 3.7.0)
+      zeitwerk (>= 2.6.12)
+    avo-heroicons (0.1.1)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
@@ -209,6 +226,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    meta-tags (2.22.1)
+      actionpack (>= 6.0.0, < 8.1)
     method_source (1.1.0)
     mini_magick (5.2.0)
       benchmark
@@ -257,6 +276,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
+    pagy (9.3.4)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -271,6 +291,8 @@ GEM
     profitable (0.2.3)
       activesupport (>= 5.2)
       pay (>= 7.0.0)
+    prop_initializer (0.2.0)
+      zeitwerk (>= 2.6.18)
     propshaft (1.1.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -328,6 +350,10 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
+    ransack (4.3.0)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
     rdoc (6.13.1)
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
@@ -474,6 +500,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_link_to (~> 1.0)
+  avo (>= 3.2)
   bootsnap
   capybara
   debug
@@ -495,6 +522,7 @@ DEPENDENCIES
   puma (>= 5.0)
   pundit (~> 2.3)
   rails (~> 8.0.1)
+  ransack (~> 4.2)
   rubocop-rails-omakase
   selenium-webdriver
   simplecov (~> 0.22.0)
