@@ -21,7 +21,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
       post user_membership_requests_url(organization_id: requested_organization.id)
     end
 
-    assert_equal 200, response.status
+    assert_response :redirect
     assert_equal I18n.t("membership_requests.success"), flash[:notice]
   end
 
@@ -37,7 +37,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
       post user_membership_requests_url(organization_id: requested_organization.id)
     end
 
-    assert_equal 200, response.status
+    assert_response :redirect
     assert_equal I18n.t("membership_requests.success"), flash[:notice]
   end
 
@@ -54,7 +54,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_equal 200, response.status
+    assert_response :redirect
     assert_equal I18n.t("membership_requests.errors.already_participant"), flash[:alert]
   end
 

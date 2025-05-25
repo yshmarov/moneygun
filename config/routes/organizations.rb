@@ -4,9 +4,9 @@ end
 
 resources :organizations, path: I18n.t("routes.organizations") do
   scope module: :organizations do
-    resources :memberships, except: %i[show], path: I18n.t("routes.memberships")
     resource :transfer, only: %i[show update]
-    resources :invitations, only: %i[index destroy]
+    resources :memberships, except: %i[new create], path: I18n.t("routes.memberships")
+    resources :invitations, except: %i[edit update]
     resources :membership_requests, only: %i[index] do
       member do
         post :approve

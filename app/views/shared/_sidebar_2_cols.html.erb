@@ -25,13 +25,13 @@
       </div>
     </div>
 
-    <% if current_organization %>
-      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
-        <div class="space-y-1 p-2">
+    <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
+      <% if current_organization %>
+        <div class="du-menu w-full">
           <%= nav_link current_organization.name, organization_path(current_organization), icon: organization_avatar(current_organization, classes: "size-5"), active: :exclusive %>
           <%= render "shared/sidebar_links" %>
         </div>
-        <div class="border-t border-base-content/20 space-y-1 p-2">
+        <div class="du-menu w-full">
           <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg" %>
           <% if Current.membership.admin? %>
             <%= nav_link "Refills", organization_refills_path(current_organization), icon: "💸" %>
@@ -40,17 +40,14 @@
             <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
           <% end %>
         </div>
-      </div>
-    <% end %>
-
-    <% if controller_path.start_with?('users') %>
-      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
-        <div class="space-y-1 p-2">
-          <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
-          <%= nav_link t("shared.navigation.pending_invitations"), user_invitations_path, icon: current_user.organization_invitations.count.to_s %>
-          <%= nav_link t("shared.navigation.pending_requests"), user_membership_requests_path, icon: current_user.organization_requests.count.to_s %>
+      <% end %>
+      <% if controller_path.start_with?('users') %>
+        <div class="du-menu w-full">
+          <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "svg/cog-6-tooth.svg" %>
+          <%= nav_link t("shared.navigation.pending_invitations"), user_invitations_path, badge: current_user.organization_invitations.count.to_s %>
+          <%= nav_link t("shared.navigation.pending_requests"), user_membership_requests_path, badge: current_user.organization_requests.count.to_s %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </nav>
 </aside>
