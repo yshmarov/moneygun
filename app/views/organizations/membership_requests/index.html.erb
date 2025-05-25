@@ -1,7 +1,7 @@
 <% content_for :title, t("membership_requests.index.title") %>
 
 <%= render "organizations/memberships/tabs", active_tab: :requests do %>
-  <%= render PageComponent.new(title: t("membership_requests.index.title")) do |component| %>
+  <%= render PageComponent.new(title: t("membership_requests.index.title"), full_width: true) do |component| %>
     <div id="membership_requests" class="space-y-4">
       <% @membership_requests.each do |membership_request| %>
         <%= render membership_request, membership_request: %>
