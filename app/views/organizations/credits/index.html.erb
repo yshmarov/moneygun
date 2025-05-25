@@ -7,7 +7,7 @@
 
           <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), organization_credits_path(current_organization, credit_pack_id: key), 
               method: :post, 
-              class: "btn btn-primary",
+              class: "du-btn du-btn-primary",
               data: { turbo: "false" } %>
           
           <div class="space-y-2">
@@ -35,7 +35,7 @@
           
           <%= button_to "Subscribe", organization_credits_path(current_organization, subscription_plan_id: key), 
               method: :post, 
-              class: "btn btn-primary",
+              class: "du-btn du-btn-primary",
               data: { turbo: "false" } %>
           
           <div class="space-y-2">
