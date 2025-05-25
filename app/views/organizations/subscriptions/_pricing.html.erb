@@ -1,7 +1,7 @@
 <%= render PageComponent.new(title: t(".title")) do %>
 	<div class="grid lg:grid-cols-2 gap-8">
 		<% Rails.application.config_for(:settings)[:plans].each do |plan| %>
-			<div class="shadow border rounded-xl text-center flex flex-col">
+			<div class="border border-base-content/20 rounded-xl text-center flex flex-col">
 				<div class="leading-none grow">
 					<% if plan[:interval].to_s == "year" %>
 						<span class="inline-block bg-green-100 text-green-700 text-xs font-medium px-2.5 py-0.5 rounded-full mt-2">
@@ -25,16 +25,16 @@
 						<% if user_signed_in? && @organization.present? %>
 							<% if @organization.payment_processor.subscribed? %>
 								<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
-									<%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
+									<%= button_tag t(".current_plan"), class: "du-btn du-btn-secondary", disabled: true %>
 								<% else %>
-									<%= button_to t(".manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "btn btn-secondary" %>
+									<%= button_to t(".manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
 								<% end %>
 
 							<% else %>
-								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
+								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "du-btn du-btn-primary" %>
 							<% end %>
 						<% else %>
-							<%= link_to t(".subscribe"), new_user_registration_path, class: "btn btn-primary" %>
+							<%= link_to t(".subscribe"), new_user_registration_path, class: "du-btn du-btn-primary" %>
 						<% end %>
 					</div>
 				</div>

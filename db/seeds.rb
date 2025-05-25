@@ -21,7 +21,7 @@ organization = Organization.create!(name: "Buzzsprout", owner: user)
 organization.memberships.create!(user:, role: Membership.roles[:admin])
 organization.logo.attach(io: File.open(Rails.root.join("test/fixtures/files/buzzsprout-logo.png")), filename: "buzzsprout.png")
 
-# if Rails.application.credentials.dig(:stripe, :secret_key).present?
+# if Rails.application.credentials.dig(:stripe, :private_key).present?
 #   product = Stripe::Product.create(name: "Pro plan")
 #   Stripe::Price.create(
 #     product: product.id,

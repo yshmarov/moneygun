@@ -21,7 +21,7 @@
   </div>
 
 <% end -%>
-  <div class="inline">
-    <%%= form.submit class: "btn btn-primary" %>
+  <div class="flex justify-end">
+    <%%= form.submit class: "du-btn du-btn-primary" %>
   </div>
 <%% end %>

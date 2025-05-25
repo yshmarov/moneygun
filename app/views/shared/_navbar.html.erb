@@ -1,4 +1,4 @@
-<nav class="flex justify-between px-4 py-2 bg-gray-100 border-b">
+<nav class="flex justify-between px-4 py-3 bg-base-300">
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
@@ -14,31 +14,34 @@
           </div>
         <% end %>
       </button>
+
     <% else %>
       <%= link_to root_path, class: "no-underline" do %>
         <%= image_tag "logo.png", class: "size-8" %>
       <% end %>
-      <%= active_link_to "Pricing", pricing_path, class_active: "bg-gray-200", class: "btn btn-transparent" %>
+      <%= active_link_to "Pricing", pricing_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
     <% end %>
   </div>
 
   <%# auth %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
-      <details class="relative group" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
+      <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
         <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
           <%= user_avatar(current_user) %>
           <%= current_user.email %>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
-        <div class="absolute right-0 mt-1 bg-gray-100 border rounded-lg p-1 space-y-1">
-          <%= active_link_to t("shared.navigation.edit_profile"), edit_user_registration_path, class_active: "bg-gray-200", class: "btn btn-transparent block w-full text-left" %>
-          <%= button_to t("shared.navigation.logout"), destroy_user_session_path, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-transparent block w-full text-left" %>
+        <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
+          <%= active_link_to t("shared.navigation.edit_profile"), edit_user_registration_path, class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+          <%= active_link_to t("shared.navigation.pending_invitations"), user_invitations_path, class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+          <%= active_link_to t("shared.navigation.pending_requests"), user_membership_requests_path, class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+          <%= button_to t("shared.navigation.logout"), destroy_user_session_path, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
         </div>
       </details>
     <% else %>
-      <%= active_link_to t("shared.navigation.login"), new_user_session_path, class_active: "bg-gray-200", class: "btn btn-transparent" %>
-      <%= active_link_to t("shared.navigation.register"), new_user_registration_path, class_active: "bg-gray-200", class: "btn btn-transparent" %>
+      <%= active_link_to t("shared.navigation.login"), new_user_session_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
+      <%= active_link_to t("shared.navigation.register"), new_user_registration_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
     <% end %>
   </div>
 </nav>
