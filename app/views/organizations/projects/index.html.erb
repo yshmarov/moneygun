@@ -1,6 +1,6 @@
 <% content_for :title, "Projects" %>
 
-<%= render PageComponent.new(title: "Projects") do |component| %>
+<%= render PageComponent.new(title: "Projects", full_width: true) do |component| %>
   <% component.with_action_list do %>
     <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
