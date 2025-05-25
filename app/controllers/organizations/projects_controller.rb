@@ -65,10 +65,16 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   def require_subscription
+    return false if Rails.application.credentials.dig(:stripe, :private_key).blank?
     return true if @organization.projects.count < 1
     return true if @organization.payment_processor.subscribed?
 
-    redirect_to organization_subscriptions_path(@organization), alert: "You need to have an active subscription to create more than 1 project."
+    flash[:alert] = "You need to have an active subscription to create more than 1 project."
+
+    if turbo_frame_request?
+      return render turbo_stream: turbo_stream.redirect_to(organization_subscriptions_path(@organization))
+    end
+    redirect_to organization_subscriptions_path(@organization)
   end
 
   def set_project
