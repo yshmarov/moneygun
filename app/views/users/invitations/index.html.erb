@@ -1,9 +1,11 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: t(".title")) do |component| %>
-  <div id="invitations" class="space-y-4">
-    <% @invitations.each do |invitation| %>
-      <%= render invitation, invitation: %>
-    <% end %>
-  </div>
+<%= render "organizations/tabs", active_tab: :invitations do %>
+  <%= render PageComponent.new(title: t("invitations.index.title")) do |component| %>
+    <div id="invitations" class="space-y-4">
+      <% @invitations.each do |invitation| %>
+        <%= render invitation, invitation: %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
