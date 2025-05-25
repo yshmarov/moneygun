@@ -5,7 +5,7 @@ class AvoAuthTest < ActionDispatch::IntegrationTest
     user = users(:one)
     sign_in user
     get Avo.configuration.root_path
-    assert_redirected_to "/avo/resources/users"
+    assert_redirected_to "/admin/avo/resources/users"
     follow_redirect!
     assert_response :success
   end

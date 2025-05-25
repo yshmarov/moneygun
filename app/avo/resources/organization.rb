@@ -2,8 +2,7 @@ class Avo::Resources::Organization < Avo::BaseResource
   self.title = -> {
     [ record.id, record.name ].join("/")
   }
-  # self.includes = []
-  # self.attachments = []
+  self.attachments = [ :logo ]
   self.search = {
     query: -> { query.ransack(id_eq: params[:q], name_cont: params[:q], m: "or").result(distinct: false) },
     item: -> {
