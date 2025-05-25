@@ -4,8 +4,8 @@
 <%# Sidebar content %>
 <aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 w-52 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
-    <details class="group" <% if !current_organization %>open<% end %>>
-      <summary class="du-btn du-btn-ghost font-medium text-sm p-2 pl-4 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
+    <details class="group m-2" <% if !current_organization %>open<% end %>>
+      <summary class="du-btn du-btn-ghost font-medium text-sm p-2 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
         <% if current_organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
           <div>
@@ -22,11 +22,11 @@
         <% end %>
         <%= inline_svg_tag "svg/chevron-up-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200" %>
       </summary>
-      <div class="space-y-1 p-2 border-b border-base-content/20">
+      <div class="space-y-1 py-2 border-b border-base-content/20">
         <%= nav_link t("organizations.index.title"), organizations_path, icon: "🏠", active: :exclusive %>
         <%= nav_link t("shared.navigation.discover"), public_organizations_path, icon: "🧭" %>
       </div>
-      <div class="space-y-1 p-2 border-b border-base-content/20">
+      <div class="space-y-1 py-2 border-b border-base-content/20">
         <% Current.organizations.excluding(current_organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>
