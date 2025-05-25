@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  authenticate :user, ->(user) { user.admin? } do
-    mount Avo::Engine, at: Avo.configuration.root_path
-  end
-
   draw :users
   draw :organizations
   draw :admin

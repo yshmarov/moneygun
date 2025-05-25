@@ -20,17 +20,6 @@ class Avo::Resources::User < Avo::BaseResource
         field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
         field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
       end
-      sidebar do
-        field :invitation_token, as: :text
-        field :invitation_created_at, as: :date_time
-        field :invitation_sent_at, as: :date_time
-        field :invitation_accepted_at, as: :date_time
-        field :invitation_limit, as: :number
-        # field :invited_by_type, as: :text
-        # field :invited_by_id, as: :number
-        field :invitations_count, as: :number
-        # field :invited_by, as: :belongs_to
-      end
     end
 
     tabs do

@@ -2,17 +2,8 @@
 # The values disaplayed here are the default ones. Uncomment and change them to fit your needs.
 Avo.configure do |config|
   ## == Routing ==
-  config.root_path = "/avo"
-  # used only when you have custom `map` configuration in your config.ru
-  # config.prefix_path = "/internal"
-
-  # Sometimes you might want to mount Avo's engines yourself.
-  # https://docs.avohq.io/3.0/routing.html
-  # config.mount_avo_engines = true
-
-  # Where should the user be redirected when visiting the `/avo` url
-  # config.home_path = nil
-  config.home_path = "/avo/resources/users"
+  config.root_path = "/admin/avo"
+  config.home_path = "/admin/avo/resources/users"
 
   ## == Licensing ==
   # config.license_key = ENV['AVO_LICENSE_KEY']
@@ -28,20 +19,6 @@ Avo.configure do |config|
   # config.authenticate_with do
   # end
 
-  ## == Authorization ==
-  # config.is_admin_method = :is_admin
-  # config.is_developer_method = :is_developer
-  # config.authorization_methods = {
-  #   index: 'index?',
-  #   show: 'show?',
-  #   edit: 'edit?',
-  #   new: 'new?',
-  #   update: 'update?',
-  #   create: 'create?',
-  #   destroy: 'destroy?',
-  #   search: 'search?',
-  # }
-  # config.raise_error_on_missing_policy = false
   config.authorization_client = nil
   config.explicit_authorization = true
 
@@ -84,27 +61,6 @@ Avo.configure do |config|
   ## provide a lambda to enable or disable cache_resource_filters per user/resource.
   # config.cache_resource_filters = -> { current_user.cache_resource_filters? }
 
-  ## == Turbo options ==
-  # config.turbo = -> do
-  #   {
-  #     instant_click: true
-  #   }
-  # end
-
-  ## == Logger ==
-  # config.logger = -> {
-  #   file_logger = ActiveSupport::Logger.new(Rails.root.join("log", "avo.log"))
-  #
-  #   file_logger.datetime_format = "%Y-%m-%d %H:%M:%S"
-  #   file_logger.formatter = proc do |severity, time, progname, msg|
-  #     "[Avo] #{time}: #{msg}\n".tap do |i|
-  #       puts i
-  #     end
-  #   end
-  #
-  #   file_logger
-  # }
-
   ## == Customization ==
   config.click_row_to_view_record = true
   # config.app_name = 'Avocadelicious'
@@ -123,42 +79,12 @@ Avo.configure do |config|
   # config.first_sorting_option = :desc # :desc or :asc
   # config.exclude_from_status = []
 
-  ## == Branding ==
-  # config.branding = {
-  #   colors: {
-  #     background: "248 246 242",
-  #     100 => "#CEE7F8",
-  #     400 => "#399EE5",
-  #     500 => "#0886DE",
-  #     600 => "#066BB2",
-  #   },
-  #   chart_colors: ["#0B8AE2", "#34C683", "#2AB1EE", "#34C6A8"],
-  #   logo: "/avo-assets/logo.png",
-  #   logomark: "/avo-assets/logomark.png",
-  #   placeholder: "/avo-assets/placeholder.svg",
-  #   favicon: "/avo-assets/favicon.ico"
-  # }
-
   ## == Breadcrumbs ==
   # config.display_breadcrumbs = true
   # config.set_initial_breadcrumbs do
   #   add_breadcrumb "Home", '/avo'
   # end
 
-  ## == Menus ==
-  # config.main_menu = -> {
-  #   section "Dashboards", icon: "avo/dashboards" do
-  #     all_dashboards
-  #   end
-
-  #   section "Resources", icon: "avo/resources" do
-  #     all_resources
-  #   end
-
-  #   section "Tools", icon: "avo/tools" do
-  #     all_tools
-  #   end
-  # }
   # config.profile_menu = -> {
   #   link "Profile", path: "/avo/profile", icon: "heroicons/outline/user-circle"
   # }
