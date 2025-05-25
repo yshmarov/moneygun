@@ -81,10 +81,10 @@ gem "view_component"
 gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
 
-gem "nested_scaffold", github: "yshmarov/nested_scaffold"
+# admin
 gem "avo", ">= 3.2"
-
 gem "ransack", "~> 4.2"
+
 # payments
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
