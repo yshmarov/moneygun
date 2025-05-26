@@ -2,16 +2,17 @@ class Organizations::InvitationsController < Organizations::BaseController
   before_action :set_invitation, only: %i[destroy]
 
   def index
+    authorize Membership, :create?
     @invitations = @organization.user_invitations.pending
   end
 
   def new
-    authorize @organization.memberships.new
+    authorize Membership, :create?
     @form = MembershipInvitation.new(organization: @organization)
   end
 
   def create
-    authorize @organization.memberships.new
+    authorize Membership, :new?
     @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
 
     if @form.save
@@ -26,6 +27,7 @@ class Organizations::InvitationsController < Organizations::BaseController
   end
 
   def destroy
+    authorize Membership, :destroy?
     @invitation.destroy
     redirect_to organization_invitations_path(@organization), notice: t("organizations.invitations.destroy.success")
   end
