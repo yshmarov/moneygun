@@ -45,3 +45,30 @@
 .form-input {
   @apply block shadow-sm rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full;
 }
+
+/* Responsive table that displays as cards on mobile and table on desktop */
+.table-responsive {
+  @apply overflow-x-auto rounded-box border border-base-content/5 bg-base-100;
+}
+
+.table-responsive table {
+  /* @apply du-table du-table-zebra du-table-xs du-table-pin-rows w-full; */
+}
+
+.table-responsive thead {
+  @apply hidden lg:table-header-group;
+}
+
+.table-responsive tbody {
+  @apply block lg:table-row-group;
+}
+
+.table-responsive tr {
+  @apply block lg:table-row lg:mb-0 overflow-hidden lg:overflow-auto;
+}
+
+.table-responsive td {
+  @apply block lg:table-cell lg:text-left;
+  @apply before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2;
+  @apply lg:before:content-none;
+}
