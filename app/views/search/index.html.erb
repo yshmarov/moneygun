@@ -7,7 +7,7 @@
     <%= turbo_frame_tag :results do %>
       <% if @organizations.present? %>
         <ul class="du-list bg-base-100 rounded-box shadow-md">
-          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Search Results</li>
+          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Organizations</li>
           <% @organizations.each do |organization| %>
             <li>
               <%= link_to organization_path(organization), data: { turbo_frame: :_top }, class: "du-list-row flex items-center gap-3 p-3 hover:bg-base-200 transition-colors" do %>
@@ -35,6 +35,16 @@
             </li>
           <% end %>
         </ul>
+      <% elsif params[:query].present? %>
+        <div class="bg-base-100 rounded-box shadow-md p-6 text-center">
+          <div class="text-base-content/60 mb-2">
+            <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-12 mx-auto mb-2" %>
+          </div>
+          <div class="font-medium text-base-content/80">No results found</div>
+          <div class="text-sm text-base-content/60 mt-1">
+            Try adjusting your search terms
+          </div>
+        </div>
       <% end %>
     <% end %>
   </div>
