@@ -161,3 +161,6 @@ en:
     membership_requests:
       index:
         title: Outgoing membership requests
+  search:
+    index:
+      title: Search...
