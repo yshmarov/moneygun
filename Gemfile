@@ -80,6 +80,7 @@ gem "pundit", "~> 2.3"
 gem "view_component"
 gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
+gem "turbo_power", "~> 0.7.0"
 
 # admin
 gem "avo", ">= 3.2"
@@ -89,5 +90,4 @@ gem "ransack", "~> 4.2"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
-
-gem "turbo_power", "~> 0.7.0"
+gem "usage_credits"
