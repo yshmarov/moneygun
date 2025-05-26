@@ -1,11 +1,9 @@
 <div class="border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-gray-100">
-  <div class="flex items-center gap-2">
+  <div class="font-medium">
     <%= invitation.user.email %>
   </div>
 
   <div class="flex items-center gap-4">
-    <div class="flex items-center gap-1">
-      <%= button_to t("organizations.invitations.buttons.cancel"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "du-btn du-btn-error" %>
-    </div>
+    <%= button_to t("organizations.invitations.buttons.cancel"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "du-btn du-btn-error" %>
   </div>
 </div>
