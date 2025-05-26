@@ -1,16 +1,18 @@
-<h2>Forgot your password?</h2>
+<%= render PageComponent.new(title: "Forgot your password?") do %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "space-y-4" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
+    <div class="">
+      <%= f.submit "Send me reset password instructions", class: "du-btn du-btn-primary" %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+
 <% end %>
-
-<%= render "devise/shared/links" %>
