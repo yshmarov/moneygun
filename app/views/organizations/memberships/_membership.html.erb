@@ -1,7 +1,12 @@
 <div class="border border-base-content/20 p-2 rounded-lg space-y-2">
   <div class="flex items-center gap-2">
-    <div class="font-medium">
-      <%= membership.user.email %>
+    <div class="font-medium flex items-center gap-2">
+      <%= user_avatar(membership.user) %>
+      <% if Current.membership.admin? %>
+        <%= membership.user.email %>
+      <% else %>
+        <%= membership.user.email.split("@").first %>
+      <% end %>
     </div>
     <div class="du-badge du-badge-xs du-badge-soft capitalize">
       <%= membership.role %>
