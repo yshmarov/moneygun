@@ -4,7 +4,7 @@
 <%# Sidebar content %>
 <aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 min-w-52 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
-    <details class="group relative" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close" <% if !current_organization %>open<% end %>>
+    <details class="group relative" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close" <% if !current_organization %>open data-dropdown-close-on-click-outside-value="false"<% end %>>
       <summary class="m-2 mb-0 du-btn du-btn-ghost font-medium text-sm p-2 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
         <% if current_organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
