@@ -23,7 +23,12 @@
         <tbody class="block lg:table-row-group">
           <% @organizations.each do |organization| %>
             <tr class="block lg:table-row lg:mb-0 overflow-hidden lg:overflow-auto">
-              <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Name:"><%= organization.name %></td>
+              <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Name:">
+                <div class="flex items-center gap-2">
+                  <%= organization_avatar(organization) %>
+                  <%= organization.name %>
+                </div>
+              </td>
               <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Members count:"><%= organization.memberships.count %></td>
               <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Created At:"><%= time_ago_in_words(organization.created_at) %> ago</td>
               <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Actions:"><%= link_to "Show", organization_path(organization), class: "text-blue-600 hover:underline" %></td>
