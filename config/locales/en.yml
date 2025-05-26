@@ -162,5 +162,7 @@ en:
       index:
         title: Outgoing invitations
     membership_requests:
+      destroy:
+        success: Membership request revoked
       index:
         title: Outgoing membership requests
