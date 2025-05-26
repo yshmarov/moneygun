@@ -3,8 +3,8 @@
     <%= membership_request.user.email %>
   </div>
 
-  <div class="flex items-center gap-4">
-    <%= button_to t("membership_requests.buttons.approve"), approve_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-primary" %>
-    <%= button_to t("membership_requests.buttons.reject"), reject_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-error" %>
+  <div class="flex items-center gap-2">
+    <%= button_to t("membership_requests.buttons.approve"), approve_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-sm du-btn-primary" %>
+    <%= button_to t("membership_requests.buttons.reject"), reject_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-sm du-btn-error" %>
   </div>
 </div>

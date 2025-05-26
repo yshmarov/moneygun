@@ -3,7 +3,7 @@
     <%= invitation.user.email %>
   </div>
 
-  <div class="flex items-center gap-4">
-    <%= button_to t("organizations.invitations.buttons.cancel"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "du-btn du-btn-error" %>
+  <div class="flex items-center gap-2">
+    <%= button_to t("organizations.invitations.buttons.cancel"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "du-btn du-btn-sm du-btn-error" %>
   </div>
 </div>
