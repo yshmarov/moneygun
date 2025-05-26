@@ -3,7 +3,8 @@ class Users::MembershipRequestsController < ApplicationController
   before_action :set_organization, only: %i[create]
 
   def index
-    @organization_requests = current_user.organization_requests.pending
+    organization_requests = current_user.organization_requests.pending
+    @organizations = organization_requests.map(&:organization)
   end
 
   def create
