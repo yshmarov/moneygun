@@ -6,10 +6,8 @@
       <%= link_to t("organizations.memberships.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" if policy(@organization.memberships.new).new? %>
     <% end %>
 
-    <div id="invitations" class="space-y-4">
-      <% @invitations.each do |invitation| %>
-        <%= render invitation, invitation: %>
-      <% end %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <%= render collection: @invitations, partial: "organizations/invitations/invitation", as: :invitation %>
     </div>
   <% end %>
 <% end %>
