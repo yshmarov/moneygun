@@ -1,4 +1,4 @@
-<%= tag.div id: "organization_#{organization.id}", class: "border border-base-content/20 p-4 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
+<%= tag.div id: dom_id(organization), class: "border border-base-content/20 p-4 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
   <%= tag.div class: "flex items-center gap-2" do %>
     <%#= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
     <%= organization_avatar(organization) %>
