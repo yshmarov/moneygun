@@ -24,7 +24,7 @@
         <span class="text-xs">⬇️</span>
         <%= t("invitations.index.title") %>
         <% if current_user.organization_invitations.pending.count > 0 %>
-          <span class="du-badge du-badge-outline du-badge-sm"><%= current_user.organization_invitations.pending.count %></span>
+          <span class="du-badge du-badge-sm du-badge-warning"><%= current_user.organization_invitations.pending.count %></span>
         <% end %>
       </div>
     <% end %>
@@ -35,7 +35,7 @@
         <span class="text-xs">⬆️</span>
         <%= t("shared.navigation.pending_requests") %>
         <% if current_user.organization_requests.pending.count > 0 %>
-          <span class="du-badge du-badge-outline du-badge-sm"><%= current_user.organization_requests.pending.count %></span>
+          <span class="du-badge du-badge-sm du-badge-warning"><%= current_user.organization_requests.pending.count %></span>
         <% end %>
       </div>
     <% end %>
