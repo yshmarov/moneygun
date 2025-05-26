@@ -8,19 +8,7 @@
   <% end %>
 
   <div class="flex gap-2 justify-between">
-    <div class="du-avatar-group -space-x-6">
-      <% max_count = 3 %>
-      <% organization.users.limit(max_count).each do |user| %>
-        <%= user_avatar(user) %>
-      <% end %>
-      <% if organization.users.count > max_count %>
-        <div class="du-avatar du-avatar-placeholder">
-          <div class="bg-neutral text-neutral-content w-8">
-            <span class="text-xs">+<%= organization.users.count - max_count %></span>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render "organizations/users_list", organization: %>
       
     <% if organization.participant?(current_user) %>
       <%= link_to t("public.organizations.show.actions.open"), organization_dashboard_path(organization), class: "du-btn du-btn-primary", data: { turbo_frame: "_top" } %>

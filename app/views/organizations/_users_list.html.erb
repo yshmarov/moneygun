@@ -1,0 +1,13 @@
+<div class="du-avatar-group -space-x-6">
+  <% max_count = 3 %>
+  <% organization.users.limit(max_count).each do |user| %>
+    <%= user_avatar(user) %>
+  <% end %>
+  <% if organization.users.count > max_count %>
+    <div class="du-avatar du-avatar-placeholder">
+      <div class="bg-neutral text-neutral-content w-8">
+        <span class="text-xs">+<%= organization.users.count - max_count %></span>
+      </div>
+    </div>
+  <% end %>
+</div>
