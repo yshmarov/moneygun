@@ -10,9 +10,9 @@
       <%#= render collection: @organizations, partial: "organizations/organization", as: :organization %>
     </div>
 
-    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-      <table class="du-table du-table-zebra du-table-xs du-table-pin-rows w-full">
-        <thead class="hidden lg:table-header-group">
+    <div class="table-responsive">
+      <table>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Members count</th>
@@ -20,18 +20,18 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody class="block lg:table-row-group">
+        <tbody>
           <% @organizations.each do |organization| %>
-            <tr class="block lg:table-row lg:mb-0 overflow-hidden lg:overflow-auto">
-              <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Name:">
+            <tr>
+              <td data-label="Name:">
                 <div class="flex items-center gap-2">
                   <%= organization_avatar(organization) %>
                   <%= organization.name %>
                 </div>
               </td>
-              <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Members count:"><%= organization.memberships.count %></td>
-              <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Created At:"><%= time_ago_in_words(organization.created_at) %> ago</td>
-              <td class="block lg:table-cell lg:text-left before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Actions:"><%= link_to "Show", organization_path(organization), class: "text-blue-600 hover:underline" %></td>
+              <td data-label="Members count:"><%= organization.memberships.count %></td>
+              <td data-label="Created At:"><%= time_ago_in_words(organization.created_at) %> ago</td>
+              <td data-label="Actions:"><%= link_to "Show", organization_path(organization), class: "text-blue-600 hover:underline" %></td>
             </tr>
           <% end %>
         </tbody>
