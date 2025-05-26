@@ -21,7 +21,12 @@
       <% end %>
       <%= active_link_to "Pricing", pricing_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
     <% end %>
-    <%= active_link_to "Search", search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
+    <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "du-input gap-2 cursor-pointer" do %>
+      <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4" %>
+      <span class="grow">Search...</span>
+      <kbd class="kbd kbd-sm">⌘</kbd>
+      <kbd class="kbd kbd-sm">K</kbd>
+    <% end %>
   </div>
 
   <%# auth %>
