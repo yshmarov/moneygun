@@ -5,22 +5,10 @@ export default class extends Controller {
     this.open()
     // needed because ESC key does not trigger close event
     this.element.addEventListener("close", this.enableBodyScroll.bind(this))
-    // Add ESC key listener to handle cases where input fields have focus
-    this.handleEscape = this.handleEscape.bind(this)
-    document.addEventListener("keydown", this.handleEscape)
   }
 
   disconnect() {
     this.element.removeEventListener("close", this.enableBodyScroll.bind(this))
-    document.removeEventListener("keydown", this.handleEscape)
-  }
-
-  // Handle ESC key to close modal even when input fields have focus
-  handleEscape(event) {
-    if (event.key === "Escape" && this.element.open) {
-      event.preventDefault()
-      this.close()
-    }
   }
 
   // hide modal on successful form submission
