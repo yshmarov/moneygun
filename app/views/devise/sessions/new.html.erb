@@ -1,27 +1,31 @@
 <%= render PageComponent.new(title: "Log in") do %>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+    <div class="space-y-2">
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: "Enter your email" %>
     </div>
 
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password", class: "form-input" %>
+    <div class="space-y-2">
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-input", placeholder: "Enter your password" %>
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="field">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+      <div class="space-y-2">
+        <label class="du-label cursor-pointer justify-start gap-3">
+          <%= f.check_box :remember_me, class: "du-checkbox du-checkbox-primary" %>
+          <span class="du-label-text">Remember me</span>
+        </label>
       </div>
     <% end %>
 
-    <div class="">
-      <%= f.submit "Log in", class: "du-btn du-btn-primary" %>
+    <div class="pt-4">
+      <%= f.submit "Log in", class: "du-btn du-btn-primary du-btn-block" %>
     </div>
   <% end %>
 
-  <%= render "devise/shared/links" %>
+  <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center space-y-2">
+    <%= render "devise/shared/links" %>
+  </div>
 <% end %>

@@ -1,45 +1,63 @@
 <%= render PageComponent.new(title: "Edit #{resource_name.to_s.humanize}") do %>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-4" }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
     <%= render "shared/errors", object: resource %>
 
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
+    <div class="space-y-2">
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: "Enter your email" %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <div class="du-alert du-alert-info">
+        <div>
+          <strong>Pending confirmation:</strong> Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+        </div>
+      </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-input" %>
+    <div class="space-y-2">
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <p class="text-xs text-gray-500 mt-1">Leave blank if you don't want to change it</p>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-input", placeholder: "New password" %>
       <% if @minimum_password_length %>
-        <br />
-        <em><%= @minimum_password_length %> characters minimum</em>
+        <p class="text-xs text-gray-500 mt-1"><%= @minimum_password_length %> characters minimum</p>
       <% end %>
     </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input" %>
+    <div class="space-y-2">
+      <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input", placeholder: "Confirm new password" %>
     </div>
 
-    <div class="field">
-      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-input" %>
+    <div class="space-y-2">
+      <%= f.label :current_password, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <p class="text-xs text-gray-500 mt-1">We need your current password to confirm your changes</p>
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-input", placeholder: "Current password" %>
     </div>
 
-    <div class="">
-      <%= f.submit "Update", class: "du-btn du-btn-primary" %>
+    <div class="pt-4">
+      <%= f.submit "Update", class: "du-btn du-btn-primary du-btn-block" %>
     </div>
   <% end %>
 
-  <h3>Cancel my account</h3>
+  <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <div class="du-card du-bg-error/10 du-border-error/20">
+      <div class="du-card-body">
+        <h3 class="du-card-title text-error">Danger Zone</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Once you delete your account, there is no going back. Please be certain.
+        </p>
+        <%= button_to "Delete my account", registration_path(resource_name), 
+            data: { confirm: "Are you sure? This action cannot be undone.", turbo_confirm: "Are you sure? This action cannot be undone." }, 
+            method: :delete, 
+            class: "du-btn du-btn-error du-btn-outline" %>
+      </div>
+    </div>
+  </div>
 
-  <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "du-btn du-btn-error" %></div>
-
-  <%= link_to "Back", :back %>
+  <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center space-y-2">
+    <%= link_to "Back", :back, class: "block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-200 hover:underline" %>
+  </div>
 
 <% end %>
