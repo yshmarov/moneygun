@@ -9,5 +9,29 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
       <%= render collection: @organizations, partial: "organizations/organization", as: :organization %>
     </div>
+
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+      <table class="du-table du-table-zebra du-table-xs du-table-pin-rows w-full">
+        <thead class="hidden lg:table-header-group">
+          <tr>
+            <th>Name</th>
+            <th>Members count</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="block lg:table-row-group">
+          <% @organizations.each do |organization| %>
+            <tr class="block lg:table-row mb-4 lg:mb-0 border overflow-hidden lg:overflow-auto">
+              <td class="block lg:table-cell lg:text-left border-b lg:border-b-0 before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Name:"><%= organization.name %></td>
+              <td class="block lg:table-cell lg:text-left border-b lg:border-b-0 before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Members count:"><%= organization.memberships.count %></td>
+              <td class="block lg:table-cell lg:text-left border-b lg:border-b-0 before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Created At:"><%= time_ago_in_words(organization.created_at) %> ago</td>
+              <td class="block lg:table-cell lg:text-left border-b lg:border-b-0 before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2 lg:before:content-none" data-label="Actions:"><%= link_to "Show", organization_path(organization), class: "text-blue-600 hover:underline" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
   <% end %>
 <% end %>
