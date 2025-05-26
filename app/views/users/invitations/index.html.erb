@@ -3,8 +3,8 @@
 <%= render "organizations/tabs", active_tab: :invitations do %>
   <%= render PageComponent.new(title: t("invitations.index.title"), full_width: true) do |component| %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      <% @invitations.each do |invitation| %>
-        <%= render invitation, invitation: %>
+      <% @organizations.each do |organization| %>
+        <%= render "organizations/organization", organization: organization %>
       <% end %>
     </div>
   <% end %>
