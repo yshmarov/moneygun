@@ -1,6 +1,6 @@
 <%= render PageComponent.new(title: "Log in") do %>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
     <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
@@ -18,7 +18,7 @@
       </div>
     <% end %>
 
-    <div class="actions">
+    <div class="">
       <%= f.submit "Log in", class: "du-btn du-btn-primary" %>
     </div>
   <% end %>
