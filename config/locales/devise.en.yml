@@ -2,6 +2,84 @@
 
 en:
   devise:
+    views:
+      sessions:
+        new:
+          title: "Log in"
+          email_label: "Email"
+          email_placeholder: "Enter your email"
+          password_label: "Password"
+          password_placeholder: "Enter your password"
+          remember_me: "Remember me"
+          submit: "Log in"
+      registrations:
+        new:
+          title: "Sign up"
+          email_label: "Email"
+          email_placeholder: "Enter your email"
+          password_label: "Password"
+          password_placeholder: "Create a password"
+          password_confirmation_label: "Password confirmation"
+          password_confirmation_placeholder: "Confirm your password"
+          password_minimum: "(%{count} characters minimum)"
+          submit: "Sign up"
+        edit:
+          title: "Edit %{email}"
+          email_label: "Email"
+          email_placeholder: "Enter your email"
+          password_label: "Password"
+          password_placeholder: "New password"
+          password_help: "Leave blank if you don't want to change it"
+          password_confirmation_label: "Password confirmation"
+          password_confirmation_placeholder: "Confirm new password"
+          current_password_label: "Current password"
+          current_password_placeholder: "Current password"
+          current_password_help: "We need your current password to confirm your changes"
+          password_minimum: "%{count} characters minimum"
+          submit: "Update"
+          pending_confirmation: "Currently waiting confirmation for: %{email}"
+          danger_zone:
+            title: "Danger Zone"
+            description: "Once you delete your account, there is no going back. Please be certain."
+            button: "Delete my account"
+            confirm: "Are you sure? This action cannot be undone."
+      passwords:
+        new:
+          title: "Forgot your password?"
+          email_label: "Email"
+          email_placeholder: "Enter your email"
+          email_help: "We'll send you a link to reset your password"
+          submit: "Send me reset password instructions"
+        edit:
+          title: "Change your password"
+          password_label: "New password"
+          password_placeholder: "Enter new password"
+          password_confirmation_label: "Confirm new password"
+          password_confirmation_placeholder: "Confirm new password"
+          password_minimum: "(%{count} characters minimum)"
+          submit: "Change my password"
+      confirmations:
+        new:
+          title: "Resend confirmation instructions"
+          email_label: "Email"
+          email_placeholder: "Enter your email"
+          email_help: "We'll send you a new confirmation email"
+          submit: "Resend confirmation instructions"
+      unlocks:
+        new:
+          title: "Resend unlock instructions"
+          email_label: "Email"
+          email_placeholder: "Enter your email"
+          email_help: "We'll send you instructions to unlock your account"
+          submit: "Resend unlock instructions"
+      shared:
+        links:
+          sign_in: "Log in"
+          sign_up: "Sign up"
+          forgot_password: "Forgot your password?"
+          confirmation_instructions: "Didn't receive confirmation instructions?"
+          unlock_instructions: "Didn't receive unlock instructions?"
+          oauth_separator: "Or continue with:"
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."

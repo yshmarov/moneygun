@@ -1,27 +1,27 @@
-<%= render PageComponent.new(title: "Log in") do %>
+<%= render PageComponent.new(title: t("devise.views.sessions.new.title")) do %>
 
   <%= form_with model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-6" do |f| %>
     <div class="space-y-2">
-      <%= f.label :email, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: "Enter your email" %>
+      <%= f.label :email, t("devise.views.sessions.new.email_label"), class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: t("devise.views.sessions.new.email_placeholder") %>
     </div>
 
     <div class="space-y-2">
-      <%= f.label :password, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
-      <%= f.password_field :password, autocomplete: "current-password", class: "form-input", placeholder: "Enter your password" %>
+      <%= f.label :password, t("devise.views.sessions.new.password_label"), class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-input", placeholder: t("devise.views.sessions.new.password_placeholder") %>
     </div>
 
     <% if devise_mapping.rememberable? %>
       <div class="space-y-2">
         <label class="du-label cursor-pointer justify-start gap-3">
           <%= f.check_box :remember_me, class: "du-checkbox du-checkbox-primary" %>
-          <span class="du-label-text">Remember me</span>
+          <span class="du-label-text"><%= t("devise.views.sessions.new.remember_me") %></span>
         </label>
       </div>
     <% end %>
 
     <div class="pt-4">
-      <%= f.submit "Log in", class: "du-btn du-btn-primary du-btn-block" %>
+      <%= f.submit t("devise.views.sessions.new.submit"), class: "du-btn du-btn-primary du-btn-block" %>
     </div>
   <% end %>
 
