@@ -25,14 +25,16 @@
   </div>
 
   <%# center %>
-  <div class="flex items-center gap-2">
-    <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "du-input gap-2 cursor-pointer lg:min-w-64" do %>
-      <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4" %>
-      <span class="grow hidden lg:block"><%= t("search.index.title") %></span>
-      <kbd class="kbd kbd-sm hidden lg:inline-flex">⌘</kbd>
-      <kbd class="kbd kbd-sm hidden lg:inline-flex">K</kbd>
-    <% end %>
-  </div>
+  <% if signed_in? %>
+    <div class="flex items-center gap-2">
+      <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "du-input gap-2 cursor-pointer lg:min-w-64" do %>
+        <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4" %>
+        <span class="grow hidden lg:block"><%= t("search.index.title") %></span>
+        <kbd class="kbd kbd-sm hidden lg:inline-flex">⌘</kbd>
+        <kbd class="kbd kbd-sm hidden lg:inline-flex">K</kbd>
+      <% end %>
+    </div>
+  <% end %>
 
   <%# right %>
   <div class="flex items-center gap-2">
