@@ -1,17 +1,27 @@
-<%= link_to organization_dashboard_path(organization), class: "border border-base-content/20 p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
-  <div class="flex items-center gap-2">
+<%= tag.div id: "organization_#{organization.id}", class: "border border-base-content/20 p-4 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
+  <%= tag.div class: "flex items-center gap-2" do %>
     <%= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
     <%= organization_avatar(organization) %>
-    <%= organization.name %>
-  </div>
+    <div class="font-medium">
+      <%= organization.name %>
+    </div>
+  <% end %>
 
-  <div class="flex items-center gap-4">
-    <div class="flex items-center -space-x-2">
-      <% organization.users.each do |user| %>
+  <div class="flex gap-2 justify-between">
+    <div class="du-avatar-group -space-x-6">
+      <% max_count = 3 %>
+      <% organization.users.limit(max_count).each do |user| %>
         <%= user_avatar(user) %>
       <% end %>
+      <% if organization.users.count > max_count %>
+        <div class="du-avatar du-avatar-placeholder">
+          <div class="bg-neutral text-neutral-content w-8">
+            <span class="text-xs">+<%= organization.users.count - max_count %></span>
+          </div>
+        </div>
+      <% end %>
     </div>
-
-    <%= inline_svg_tag "svg/chevron-right.svg", class: "size-5" %>
+      
+    <%= link_to t("public.organizations.show.actions.open"), organization_dashboard_path(organization), class: "du-btn du-btn-primary", data: { turbo_frame: "_top" } %>
   </div>
 <% end %>
