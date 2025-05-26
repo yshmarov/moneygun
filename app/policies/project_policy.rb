@@ -1,10 +1,10 @@
 class ProjectPolicy < Organization::BasePolicy
   def index?
-    membership.admin?
+    true
   end
 
   def show?
-    membership.admin?
+    true
   end
 
   def new?
