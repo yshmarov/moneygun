@@ -127,6 +127,9 @@ en:
   routes:
     memberships: teammates
     organizations: organizations
+  search:
+    index:
+      title: Search...
   shared:
     actions:
       cancel: Cancel
