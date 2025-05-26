@@ -1,7 +1,7 @@
 <%= modal close_on_submit: false do %>
   <div class="flex flex-col gap-4">
     <%= form_with url: search_path, method: :get, data: { turbo_frame: :results } do |form| %>
-      <%= form.search_field :query, oninput: "this.form.requestSubmit()", placeholder: "Search for an organization" %>
+      <%= form.search_field :query, autofocus: true, oninput: "this.form.requestSubmit()", class: "form-input", placeholder: "Search..." %>
     <% end %>
 
     <%= turbo_frame_tag :results do %>
