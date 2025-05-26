@@ -1,4 +1,5 @@
 <nav class="flex justify-between px-4 py-3 bg-base-300">
+  <%# left %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
@@ -23,7 +24,17 @@
     <% end %>
   </div>
 
-  <%# auth %>
+  <%# center %>
+  <div class="flex items-center gap-2">
+    <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "du-input gap-2 cursor-pointer lg:min-w-64" do %>
+      <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4" %>
+      <span class="grow hidden lg:block"><%= t("search.index.title") %></span>
+      <kbd class="kbd kbd-sm hidden lg:inline-flex">⌘</kbd>
+      <kbd class="kbd kbd-sm hidden lg:inline-flex">K</kbd>
+    <% end %>
+  </div>
+
+  <%# right %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
@@ -44,7 +55,8 @@
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
         <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 du-menu">
-          <%= render "shared/user_links" %>
+          <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
+          <%= nav_link t("shared.navigation.logout"), destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") } %>
         </div>
       </details>
     <% else %>

@@ -1,13 +1,15 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: t(".title")) do %>
-  <div id="invitations" class="space-y-4">
-    <% @organization_requests.each do |organization_request| %>
-      <div>
-        <%= link_to organization_request.organization.name, public_organization_path(organization_request.organization) %>
-        <%= organization_request.created_at %>
-        <%= button_to "Cancel request", user_membership_request_path(organization_request), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error" %>
-      </div>
-    <% end %>
-  </div>
+<%= render "organizations/tabs", active_tab: :requests do %>
+  <%= render PageComponent.new(title: t("shared.navigation.pending_requests"), full_width: true) do %>
+    <div id="invitations" class="space-y-4">
+      <% @organization_requests.each do |organization_request| %>
+        <div>
+          <%= link_to organization_request.organization.name, public_organization_path(organization_request.organization) %>
+          <%= organization_request.created_at %>
+          <%= button_to "Cancel request", user_membership_request_path(organization_request), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

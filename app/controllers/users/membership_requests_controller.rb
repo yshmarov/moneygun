@@ -23,7 +23,7 @@ class Users::MembershipRequestsController < ApplicationController
   def destroy
     @organization_request = current_user.organization_requests.pending.find(params[:id])
     @organization_request.destroy
-    redirect_to user_membership_requests_path, notice: t("membership_requests.destroyed")
+    redirect_to user_membership_requests_path, notice: t(".success")
   end
 
   private
