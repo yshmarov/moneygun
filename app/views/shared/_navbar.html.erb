@@ -1,4 +1,5 @@
 <nav class="flex justify-between px-4 py-3 bg-base-300">
+  <%# left %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
@@ -21,6 +22,10 @@
       <% end %>
       <%= active_link_to "Pricing", pricing_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
     <% end %>
+  </div>
+
+  <%# center %>
+  <div class="flex items-center gap-2">
     <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "du-input gap-2 cursor-pointer lg:min-w-64" do %>
       <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4" %>
       <span class="grow hidden lg:block">Search...</span>
@@ -29,7 +34,7 @@
     <% end %>
   </div>
 
-  <%# auth %>
+  <%# right %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
