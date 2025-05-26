@@ -1,0 +1,21 @@
+<%= render PageComponent.new(title: "Resend unlock instructions") do %>
+
+  <%= form_with model: resource, as: resource_name, url: unlock_path(resource_name), method: :post, class: "space-y-6" do |f| %>
+    <%= render "shared/errors", object: resource %>
+
+    <div class="space-y-2">
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: "Enter your email" %>
+      <p class="text-xs text-gray-500 mt-1">We'll send you instructions to unlock your account</p>
+    </div>
+
+    <div class="pt-4">
+      <%= f.submit "Resend unlock instructions", class: "du-btn du-btn-primary du-btn-block" %>
+    </div>
+  <% end %>
+
+  <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center space-y-2">
+    <%= render "devise/shared/links" %>
+  </div>
+
+<% end %>
