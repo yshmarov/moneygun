@@ -5,11 +5,37 @@
     <% end %>
 
     <%= turbo_frame_tag :results do %>
-      <div class="flex flex-col gap-2">
-        <% @organizations.each do |organization| %>
-          <%= link_to highlight(organization.name, params[:query]), organization_path(organization), class: "du-btn du-btn-ghost" %>
-        <% end %>
-      </div>
+      <% if @organizations.present? %>
+        <ul class="du-list bg-base-100 rounded-box shadow-md">
+          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Search Results</li>
+          <% @organizations.each do |organization| %>
+            <li>
+              <%= link_to organization_path(organization), data: { turbo_frame: :_top }, class: "du-list-row flex items-center gap-3 p-3 hover:bg-base-200 transition-colors" do %>
+                <%= organization_avatar(organization) %>
+                <div class="flex-1">
+                  <div class="font-medium">
+                    <%= highlight(organization.name, params[:query]) %>
+                  </div>
+                  <% if organization.respond_to?(:description) && organization.description.present? %>
+                    <div class="text-xs uppercase font-semibold opacity-60">
+                      <%= truncate(organization.description, length: 50) %>
+                    </div>
+                  <% elsif organization.respond_to?(:category) && organization.category.present? %>
+                    <div class="text-xs uppercase font-semibold opacity-60">
+                      <%= organization.category %>
+                    </div>
+                  <% end %>
+                </div>
+                <svg class="size-[1.2em] opacity-60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </g>
+                </svg>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 <% end %>
