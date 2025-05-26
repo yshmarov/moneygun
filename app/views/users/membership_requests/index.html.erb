@@ -2,13 +2,9 @@
 
 <%= render "organizations/tabs", active_tab: :requests do %>
   <%= render PageComponent.new(title: t("shared.navigation.pending_requests"), full_width: true) do %>
-    <div id="invitations" class="space-y-4">
-      <% @organization_requests.each do |organization_request| %>
-        <div>
-          <%= link_to organization_request.organization.name, public_organization_path(organization_request.organization) %>
-          <%= organization_request.created_at %>
-          <%= button_to "Cancel request", user_membership_request_path(organization_request), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error" %>
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <% @organizations.each do |organization| %>
+        <%= render "organizations/organization", organization: organization %>
       <% end %>
     </div>
   <% end %>
