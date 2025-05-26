@@ -1,6 +1,6 @@
 <%= render PageComponent.new(title: "Resend confirmation instructions") do %>
 
-  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "space-y-6" }) do |f| %>
+  <%= form_with model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, class: "space-y-6" do |f| %>
     <%= render "shared/errors", object: resource %>
 
     <div class="space-y-2">

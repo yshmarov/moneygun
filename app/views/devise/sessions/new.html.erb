@@ -1,6 +1,6 @@
 <%= render PageComponent.new(title: "Log in") do %>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+  <%= form_with model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-6" do |f| %>
     <div class="space-y-2">
       <%= f.label :email, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: "Enter your email" %>

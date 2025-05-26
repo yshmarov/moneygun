@@ -1,6 +1,6 @@
 <%= render PageComponent.new(title: "Change your password") do %>
 
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+  <%= form_with model: resource, as: resource_name, url: password_path(resource_name), method: :put, class: "space-y-6" do |f| %>
     <%= render "shared/errors", object: resource %>
     <%= f.hidden_field :reset_password_token %>
 

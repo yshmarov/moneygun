@@ -1,6 +1,6 @@
 <%= render PageComponent.new(title: "Edit #{resource_name.to_s.humanize}") do %>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+  <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), method: :put, class: "space-y-6" do |f| %>
     <%= render "shared/errors", object: resource %>
 
     <div class="space-y-2">
