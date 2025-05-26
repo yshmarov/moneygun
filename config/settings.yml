@@ -1,5 +1,8 @@
 # Rails.application.config_for(:settings).dig(:site, :name)
+# Rails.application.config_for(:settings).dig(:app_features, :b2b)
 shared:
+  app_features:
+    b2b: false
   site:
     name: Moneygun
     email: hello@superails.com

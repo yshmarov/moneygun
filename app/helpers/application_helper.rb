@@ -19,4 +19,8 @@ module ApplicationHelper
   def modal(**options, &block)
     render "shared/modal", **options, &block
   end
+
+  def b2b_enabled?
+    Rails.application.config_for(:settings).dig(:app_features, :b2b) == true
+  end
 end

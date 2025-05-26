@@ -12,7 +12,7 @@
       <%= t("organizations.memberships.index.title") %>
     <% end %>
 
-    <% if policy(Membership).create? %>
+    <% if b2b_enabled? && policy(Membership).create? %>
       <%= link_to organization_invitations_path(@organization), 
           class: "#{base_classes} #{active_tab == :invitations ? active_classes : inactive_classes}" do %>
         <div class="flex items-center gap-2">
@@ -25,7 +25,7 @@
       <% end %>
     <% end %>
 
-    <% if policy(Membership).create? %>
+    <% if b2b_enabled? && policy(Membership).create? %>
       <% if @organization.privacy_setting_restricted? %>
         <%= link_to organization_membership_requests_path(@organization), 
             class: "#{base_classes} #{active_tab == :requests ? active_classes : inactive_classes}" do %>

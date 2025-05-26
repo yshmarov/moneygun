@@ -10,9 +10,11 @@
       <span class="du-dock-label">Projects</span>
     <% end %>
   <% else %>
-    <%= active_link_to public_organizations_path, active: :exclusive, class_active: "du-dock-active", class: "" do %>
-      🧭
-      <span class="du-dock-label">Discover</span>
+    <% if b2b_enabled? %>
+      <%= active_link_to public_organizations_path, active: :exclusive, class_active: "du-dock-active", class: "" do %>
+        🧭
+        <span class="du-dock-label">Discover</span>
+      <% end %>
     <% end %>
     <%= active_link_to organizations_path, active: :exclusive, class_active: "du-dock-active", class: "" do %>
       🏠

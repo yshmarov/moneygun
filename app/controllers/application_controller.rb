@@ -6,7 +6,15 @@ class ApplicationController < ActionController::Base
   before_action :set_current_organizations, if: :user_signed_in?
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || organizations_path
+    return stored_location_for(resource) if stored_location_for(resource)
+
+    if b2b_enabled?
+      organizations_path
+    else
+      # When B2B is disabled, redirect to the user's default organization
+      default_org = resource.organizations.first
+      default_org ? organization_dashboard_path(default_org) : organizations_path
+    end
   end
 
   include Authorization
@@ -19,5 +27,11 @@ class ApplicationController < ActionController::Base
 
   def set_current_organizations
     Current.organizations = current_user.organizations
+  end
+
+  private
+
+  def b2b_enabled?
+    Rails.application.config_for(:settings).dig(:app_features, :b2b) == true
   end
 end
