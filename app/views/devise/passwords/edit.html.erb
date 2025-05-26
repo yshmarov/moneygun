@@ -1,7 +1,7 @@
 <%= render PageComponent.new(title: "Change your password") do %>
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "space-y-4" }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= render "shared/errors", object: resource %>
     <%= f.hidden_field :reset_password_token %>
 
     <div class="field">
