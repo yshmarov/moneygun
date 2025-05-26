@@ -10,7 +10,8 @@
           <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Organizations</li>
           <% @organizations.each do |organization| %>
             <li>
-              <%= link_to organization_path(organization), data: { turbo_frame: :_top }, class: "du-list-row flex items-center gap-3 p-3 hover:bg-base-200 transition-colors" do %>
+              <% path = organization.owner?(current_user) ? organization_path(organization) : public_organization_path(organization) %>
+              <%= link_to path, data: { turbo_frame: :_top }, class: "du-list-row flex items-center gap-3 p-3 hover:bg-base-200 transition-colors" do %>
                 <%= organization_avatar(organization) %>
                 <div class="flex-1">
                   <div class="font-medium">
