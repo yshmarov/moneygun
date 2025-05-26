@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static values = { closeOnClickOutside: { type: Boolean, default: true } }
+
   connect() {
     this.handleClickOutside = this.handleClickOutside.bind(this)
     
@@ -13,7 +15,10 @@ export default class extends Controller {
 
   handleClickOutside(event) {
     if (!this.element.contains(event.target)) {
-      this.close()
+      // Only close if closeOnClickOutside is true
+      if (this.closeOnClickOutsideValue) {
+        this.close()
+      }
     }
   }
 
