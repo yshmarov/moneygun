@@ -127,6 +127,9 @@ en:
   routes:
     memberships: teammates
     organizations: organizations
+  search:
+    index:
+      title: Search...
   shared:
     actions:
       cancel: Cancel
@@ -161,6 +164,3 @@ en:
     membership_requests:
       index:
         title: Outgoing membership requests
-  search:
-    index:
-      title: Search...

@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: Organization 1
+  name: OpenAI
   owner: one
 
 two:
-  name: Organization 2
+  name: Apple
   owner: two
 
 three:
-  name: Organization 3
+  name: Google
   owner: three
