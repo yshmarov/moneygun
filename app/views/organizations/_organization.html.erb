@@ -7,8 +7,8 @@
     </div>
   <% end %>
 
-  <div class="flex gap-2 justify-between">
-    <%= render "organizations/users_list", organization: %>
+  <%= render "organizations/users_list", organization: %>
+  <div class="flex gap-2 justify-end">
     <%= render "organizations/membership_actions", organization: %>
   </div>
 <% end %>

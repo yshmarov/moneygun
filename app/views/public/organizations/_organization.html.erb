@@ -1,4 +1,4 @@
-<%= tag.div id: dom_id(organization), class: "border border-base-content/20 p-4 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
+<%= tag.div id: dom_id(organization), class: "border border-base-content/20 p-2 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
   <%= link_to public_organization_path(organization), data: { turbo_frame: "modal" }, class: "flex items-center gap-2" do %>
     <%= organization_avatar(organization) %>
     <div class="font-medium">
@@ -6,8 +6,8 @@
     </div>
   <% end %>
 
-  <div class="flex gap-2 justify-between">
-    <%= render "organizations/users_list", organization: %>
+  <%= render "organizations/users_list", organization: %>
+  <div class="flex gap-2 justify-end">
     <%= render "organizations/membership_actions", organization: %>
   </div>
 <% end %>
