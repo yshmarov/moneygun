@@ -12,27 +12,31 @@
       <%= t("organizations.memberships.index.title") %>
     <% end %>
 
-    <%= link_to organization_invitations_path(@organization), 
-        class: "#{base_classes} #{active_tab == :invitations ? active_classes : inactive_classes}" do %>
-      <div class="flex items-center gap-2">
-        <span class="text-xs">⬆️</span>
-        <%= t("organizations.invitations.index.title") %>
-        <% if @organization.user_invitations.pending.count > 0 %>
-          <span class="du-badge du-badge-sm du-badge-warning"><%= @organization.user_invitations.pending.count %></span>
-        <% end %>
-      </div>
-    <% end %>
-
-    <% if @organization.privacy_setting_restricted? %>
-      <%= link_to organization_membership_requests_path(@organization), 
-          class: "#{base_classes} #{active_tab == :requests ? active_classes : inactive_classes}" do %>
+    <% if policy(Membership).create? %>
+      <%= link_to organization_invitations_path(@organization), 
+          class: "#{base_classes} #{active_tab == :invitations ? active_classes : inactive_classes}" do %>
         <div class="flex items-center gap-2">
-          <span class="text-xs">⬇️</span>
-          <%= t("membership_requests.index.title") %>
-          <% if @organization.user_requests.pending.count > 0 %>
-            <span class="du-badge du-badge-sm du-badge-warning"><%= @organization.user_requests.pending.count %></span>
+          <span class="text-xs">⬆️</span>
+          <%= t("organizations.invitations.index.title") %>
+          <% if @organization.user_invitations.pending.count > 0 %>
+            <span class="du-badge du-badge-sm du-badge-warning"><%= @organization.user_invitations.pending.count %></span>
           <% end %>
         </div>
+      <% end %>
+    <% end %>
+
+    <% if policy(Membership).create? %>
+      <% if @organization.privacy_setting_restricted? %>
+        <%= link_to organization_membership_requests_path(@organization), 
+            class: "#{base_classes} #{active_tab == :requests ? active_classes : inactive_classes}" do %>
+          <div class="flex items-center gap-2">
+            <span class="text-xs">⬇️</span>
+            <%= t("membership_requests.index.title") %>
+            <% if @organization.user_requests.pending.count > 0 %>
+              <span class="du-badge du-badge-sm du-badge-warning"><%= @organization.user_requests.pending.count %></span>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </nav>
