@@ -71,9 +71,6 @@ class Organizations::ProjectsController < Organizations::BaseController
 
     flash[:alert] = "You need to have an active subscription to create more than 1 project."
 
-    if turbo_frame_request?
-      return render turbo_stream: turbo_stream.redirect_to(organization_subscriptions_path(@organization))
-    end
     redirect_to organization_subscriptions_path(@organization)
   end
 
