@@ -1,0 +1,8 @@
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<div id="g_id_onload"
+  data-client_id="<%= Rails.application.credentials.dig(:google_oauth2, :key) %>"
+  data-login_uri="<%= google_onetap_callback_url %>"
+  data-authenticity_token="<%= form_authenticity_token %>"
+  data-itp_support="true"
+>
+</div>
