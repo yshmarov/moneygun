@@ -7,6 +7,8 @@ module User::Authentication
     devise :invitable, :database_authenticatable, :registerable,
            :recoverable, :rememberable, :validatable,
            :omniauthable, omniauth_providers: Devise.omniauth_configs.keys
+
+    has_many :connected_accounts, dependent: :destroy
   end
 
   class_methods do

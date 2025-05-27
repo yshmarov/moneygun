@@ -6,6 +6,7 @@ devise_for :users, controllers: {
 
 resource :user do
   scope module: :users do
+    resources :connected_accounts
     resources :invitations, only: %i[index] do
       member do
         post :approve

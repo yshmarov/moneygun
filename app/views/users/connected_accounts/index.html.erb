@@ -1,0 +1,27 @@
+<div class="max-w-screen-xl mx-auto py-8">
+  <div class="grid grid-cols-12 gap-x-6">
+    <div class="col-span-12 md:col-span-6 lg:col-span-8">
+      <div class="bg-white border border-zinc-200 rounded-lg py-4 px-6">
+        <h2 class="text-lg font-bold text-zinc-950">Connected OAuth Account</h2>
+        <% if current_user.connected_accounts.any? %>
+          <ul class="flex items-center gap-x-2 px-4 py-2 rounded-md border border-gray-300">
+            <% current_user.connected_accounts.each do |service| %>
+              <%= render "connected_accounts/service", service: service %>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-zinc-600">You have not connected any OAuth accounts yet.</p>
+        <% end %>
+        <div class="flex items-center gap-x-2 mt-3">
+          <% Devise.omniauth_configs.keys.reject { |provider| ConnectedAccount.where(provider: provider, user: current_user).exists? }.each do |provider| %>
+            <div class="flex items-center gap-x-2 px-4 py-2 rounded-md border border-gray-300">
+              <%= form_tag "/users/auth/#{provider}", method: :post, data: {turbo: false} do %>
+                <%= button_tag "Connect #{OmniAuth::Utils.camelize(provider)}", class: "text-sm text-gray-500" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
