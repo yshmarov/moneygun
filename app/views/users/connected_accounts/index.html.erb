@@ -1,63 +1,61 @@
 <% content_for :title, "Connected Accounts" %>
 
 <%= render PageComponent.new(title: "Connected Accounts") do |component| %>
-  <div class="border border-base-content/20 p-6 rounded-lg">
     <h2 class="text-lg font-semibold mb-4">Your Connected Accounts</h2>
     
-    <% if current_user.connected_accounts.any? %>
-      <div class="space-y-3">
-        <% current_user.connected_accounts.each do |connected_account| %>
-          <%= render "connected_accounts/connected_account", connected_account: connected_account %>
-        <% end %>
-      </div>
-    <% else %>
+  <% if current_user.connected_accounts.any? %>
+    <div class="space-y-3">
+      <% current_user.connected_accounts.each do |connected_account| %>
+        <%= render "connected_accounts/connected_account", connected_account: connected_account %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="border border-base-content/20 p-6 rounded-lg">
       <div class="text-center py-8">
         <div class="text-4xl mb-3">🔗</div>
         <p class="text-base-content/70 mb-4">You haven't connected any OAuth accounts yet.</p>
         <p class="text-sm text-base-content/60">Connect your accounts to enable seamless authentication.</p>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
   <% available_providers = Devise.omniauth_configs.keys.reject { |provider| ConnectedAccount.where(provider: provider, user: current_user).exists? } %>
   <% if available_providers.any? %>
-    <div class="border border-base-content/20 p-6 rounded-lg">
-      <h2 class="text-lg font-semibold mb-4">Available Connections</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <% available_providers.each do |provider| %>
-          <div class="border border-base-content/20 p-4 rounded-lg hover:bg-base-200 transition-colors">
-            <%= form_tag "/users/auth/#{provider}", method: :post, data: {turbo: false}, class: "w-full" do %>
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="text-2xl">
-                    <% case provider.to_s %>
-                    <% when 'google_oauth2' %>
-                      🔍
-                    <% when 'github' %>
-                      🐙
-                    <% when 'facebook' %>
-                      📘
-                    <% when 'twitter' %>
-                      🐦
-                    <% else %>
-                      🔗
-                    <% end %>
+    <h2 class="text-lg font-semibold mb-4">Available Connections</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <% available_providers.each do |provider| %>
+        <div class="border border-base-content/20 p-4 rounded-lg hover:bg-base-200 transition-colors">
+          <%= form_tag "/users/auth/#{provider}", method: :post, data: {turbo: false}, class: "w-full" do %>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="text-2xl">
+                  <% case provider.to_s %>
+                  <% when 'google_oauth2' %>
+                    🔍
+                  <% when 'github' %>
+                    🐙
+                  <% when 'facebook' %>
+                    📘
+                  <% when 'twitter' %>
+                    🐦
+                  <% else %>
+                    🔗
+                  <% end %>
+                </div>
+                <div>
+                  <div class="font-medium">
+                    <%= OmniAuth::Utils.camelize(provider) %>
                   </div>
-                  <div>
-                    <div class="font-medium">
-                      <%= OmniAuth::Utils.camelize(provider) %>
-                    </div>
-                    <div class="text-sm text-base-content/70">
-                      Connect your <%= OmniAuth::Utils.camelize(provider) %> account
-                    </div>
+                  <div class="text-sm text-base-content/70">
+                    Connect your <%= OmniAuth::Utils.camelize(provider) %> account
                   </div>
                 </div>
-                <%= button_tag "Connect", class: "du-btn du-btn-sm du-btn-primary" %>
               </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+              <%= button_tag "Connect", class: "du-btn du-btn-sm du-btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <% end %>
