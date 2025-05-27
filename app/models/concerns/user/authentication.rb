@@ -8,4 +8,21 @@ module User::Authentication
            :recoverable, :rememberable, :validatable,
            :omniauthable, omniauth_providers: Devise.omniauth_configs.keys
   end
+
+  class_methods do
+    def from_omniauth(auth_payload)
+      data = auth_payload.info
+      user = User.where(email: data["email"]).first_or_initialize do |user|
+        user.email = data["email"]
+        user.password = Devise.friendly_token[0, 20] if user.password.blank?
+      end
+
+      # user.name = auth_payload.info.name
+      # user.image = auth_payload.info.image
+      # user.provider = auth_payload.provider
+      # user.uid = auth_payload.uid
+      user.save
+      user
+    end
+  end
 end
