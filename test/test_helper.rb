@@ -21,3 +21,14 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
   end
 end
+
+module GoogleOauth2Helper
+  def login_with_google_oauth2_oauth
+    file = File.read("test/fixtures/google_oauth2.json")
+    parsed_file = JSON.parse(file, object_class: OpenStruct)
+
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:google_oauth2] = parsed_file
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+  end
+end
