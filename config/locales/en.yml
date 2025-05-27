@@ -82,7 +82,7 @@ en:
     new:
       title: New organization
     show:
-      title: Organization settings
+      title: Settings
     subscriptions:
       features:
         title: Features
