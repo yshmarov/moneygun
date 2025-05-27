@@ -71,15 +71,22 @@ end
 # active record
 gem "sqids" # for obfuscating IDs
 
-# authentication and authorization
+# authentication
 gem "devise", "~> 4.9"
 gem "devise_invitable", "~> 2.0"
+
+# oauth
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection" # for omniauth 2.0
+
+# authorization
 gem "pundit", "~> 2.3"
 
 # frontend
 gem "view_component"
 gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
+gem "turbo_power", "~> 0.7.0"
 
 # admin
 gem "avo", ">= 3.2"
@@ -89,5 +96,3 @@ gem "ransack", "~> 4.2"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
-
-gem "turbo_power", "~> 0.7.0"
