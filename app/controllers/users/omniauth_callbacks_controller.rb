@@ -1,7 +1,11 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def google_oauth2
-    handle_auth "Google"
+  Devise.omniauth_configs.keys.each do |provider|
+    define_method provider do
+      handle_auth provider
+    end
   end
+
+  private
 
   def handle_auth(kind)
     user = User.from_omniauth(request.env["omniauth.auth"])
