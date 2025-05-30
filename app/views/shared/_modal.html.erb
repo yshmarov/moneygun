@@ -1,9 +1,14 @@
 <% close_on_submit = true if close_on_submit.nil? %>
-<% fixed_top_classes = "items-start pt-10" %>
+
+<% if params[:drawer].present? %>
+  <% dialog_position = "du-modal-end" %>
+<% else %>
+  <% dialog_position = "items-start pt-10" %>
+<% end %>
 
 <% if turbo_frame_request? %>
   <%= turbo_frame_tag :modal do %>
-    <dialog class="du-modal <%= fixed_top_classes %> transition-none" data-controller="dialog" data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>">
+    <dialog class="du-modal <%= dialog_position %> transition-none" data-controller="dialog" data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>">
       <div class="du-modal-box space-y-2">
         <div class="flex justify-end">
           <form method="dialog" class="">
