@@ -10,7 +10,7 @@
     <% else %>
       <div class="border border-base-content/20 p-6 rounded-lg text-center">
         <div class="text-4xl mb-3">🔗</div>
-        <p class="text-base-content/70 mb-4">You haven't connected any OAuth accounts yet.</p>
+        <p class="text-base-content mb-4">You haven't connected any OAuth accounts yet.</p>
         <p class="text-sm text-base-content/60">Connect your accounts to enable seamless authentication.</p>
       </div>
     <% end %>
@@ -34,7 +34,7 @@
                     <div class="font-medium">
                       <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
                     </div>
-                    <div class="text-sm text-base-content/70">
+                    <div class="text-sm text-base-content">
                       Connect your <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %> account
                     </div>
                   </div>
