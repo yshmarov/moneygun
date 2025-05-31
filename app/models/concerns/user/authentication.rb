@@ -16,19 +16,12 @@ module User::Authentication
       email = auth_payload.info&.email
       email ||= auth_payload.uid if auth_payload.provider == "saml"
 
-      unless email
-        Rails.logger.error "OmniAuth: Email not found in payload for provider #{auth_payload.provider}"
-        return nil
-      end
-
       user = User.where(email: email).first_or_initialize do |user|
         user.email = email
         user.password = Devise.friendly_token[0, 20] if user.password.blank?
       end
 
-      user.save
-
-      if user.persisted?
+      if user.save
         ConnectedAccount.create_or_update_from_omniauth(auth_payload, user)
       end
 

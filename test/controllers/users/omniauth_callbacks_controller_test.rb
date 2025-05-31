@@ -32,7 +32,7 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
     post user_google_oauth2_omniauth_callback_path
 
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_registration_path
     assert_nil controller.current_user
   end
 end
