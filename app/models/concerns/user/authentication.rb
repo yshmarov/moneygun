@@ -18,10 +18,6 @@ module User::Authentication
         user.password = Devise.friendly_token[0, 20] if user.password.blank?
       end
 
-      # user.name = payload["name"]
-      # user.image = payload["picture"]
-      # user.provider = "google_oauth2"
-      # user.uid = payload["sub"]
       user.save
       user
     end
@@ -33,18 +29,21 @@ module User::Authentication
         user.password = Devise.friendly_token[0, 20] if user.password.blank?
       end
 
-      # user.name = auth_payload.info.name
-      # user.image = auth_payload.info.image
-      # user.provider = auth_payload.provider
-      # user.uid = auth_payload.uid
       user.save
 
-      # Create or update connected account
       connected_account = user.connected_accounts.find_or_initialize_by(
         provider: auth_payload.provider,
         uid: auth_payload.uid
       )
-      connected_account.payload = auth_payload.to_h # Store the entire payload
+      connected_account.payload = auth_payload.to_h
+
+      credentials = auth_payload.credentials
+      if credentials.present?
+        connected_account.access_token = credentials.token
+        connected_account.refresh_token = credentials.refresh_token
+        connected_account.expires_at = Time.at(credentials.expires_at) if credentials.expires_at.present?
+      end
+
       connected_account.save
 
       user
