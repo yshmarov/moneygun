@@ -19,6 +19,11 @@ module User::Authentication
       end
 
       user.save
+
+      if user.persisted?
+        ConnectedAccount.create_or_update_from_omniauth(payload, user)
+      end
+
       user
     end
 
