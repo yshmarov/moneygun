@@ -77,7 +77,7 @@
   @apply block lg:table-cell text-sm lg:text-left px-3 lg:px-4 pt-2 pb-2 lg:pt-3 lg:pb-3 align-middle;
   @apply lg:flex-none; /* Ensure flex is not applied on larger screens if set below */
   @apply border-t border-base-content/10 lg:border-t-0; /* Separator for card items */
-  @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/60 before:mr-2 before:mb-1 lg:before:mb-0;
+  @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/60 before:mr-2 lg:before:mb-0;
   @apply lg:before:content-none;
   /* On mobile, treat td as a flex container to align label and value */
   @apply flex flex-row items-center lg:table-cell;
