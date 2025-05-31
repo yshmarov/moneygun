@@ -4,6 +4,8 @@
 @source "../../../app/javascript/**/*.js";
 @source "../../../app/views/**/*";
 
+@import "./components/table.css";
+
 @plugin "./daisyui.js" {
   themes: light --default, dark --prefersdark;
   prefix: "du-";
@@ -44,51 +46,4 @@
 
 .form-input {
   @apply block shadow-sm rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full;
-}
-
-/* Responsive table that displays as cards on mobile and table on desktop */
-.table-responsive {
-  @apply overflow-x-auto rounded-lg p-2 md:p-0; /* Container styling, no explicit bg, cards will have it. Padding for mobile. */
-}
-
-.table-responsive table {
-  @apply table-auto relative w-full border-collapse; /* Use table-auto for better column sizing */
-}
-
-.table-responsive thead {
-  @apply hidden lg:table-header-group;
-}
-
-.table-responsive thead th {
-  @apply text-sm font-semibold whitespace-nowrap px-4 py-3 text-left border-b border-base-content/20 bg-base-200/40 text-base-content; /* Thinner border */
-}
-
-.table-responsive tbody {
-  @apply block lg:table-row-group;
-}
-
-.table-responsive tr {
-  @apply block lg:table-row mb-3 lg:mb-0 overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none border border-base-content/15 lg:border-x-0 lg:border-t-0 lg:border-b lg:border-base-content/10 bg-base-100 lg:bg-transparent;
-  @apply lg:even:bg-base-200/50 lg:hover:bg-base-300/50 transition-colors duration-150;
-  @apply lg:last:border-b-0; /* No bottom border for the last row in desktop table */
-}
-
-.table-responsive td {
-  @apply block lg:table-cell text-sm lg:text-left px-3 lg:px-4 pt-2 pb-2 lg:pt-3 lg:pb-3 align-middle;
-  @apply lg:flex-none; /* Ensure flex is not applied on larger screens if set below */
-  @apply border-t border-base-content/10 lg:border-t-0; /* Separator for card items */
-  @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/60 before:mr-2 lg:before:mb-0;
-  @apply lg:before:content-none;
-  /* On mobile, treat td as a flex container to align label and value */
-  @apply flex flex-row items-center lg:table-cell;
-}
-
-/* Adjust the ::before pseudo-element for flex alignment on mobile */
-.table-responsive td::before {
-  @apply lg:hidden flex-shrink-0;
-}
-
-/* First td in a card (mobile view) should not have a top border as the card 'tr' has its own border */
-.table-responsive tr td:first-child {
-  @apply border-t-0 lg:border-t-0; /* Keep lg:border-t-0 in case other rules apply it */
 }
