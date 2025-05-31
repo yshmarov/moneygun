@@ -46,21 +46,28 @@
   @apply block shadow-sm rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full;
 }
 
-/* Responsive table that displays as cards on mobile and table on desktop */
 .table-responsive {
   @apply overflow-x-auto rounded-box border border-base-content/5 bg-base-100;
 }
 
 .table-responsive table {
-  /* @apply du-table du-table-zebra du-table-xs du-table-pin-rows w-full; */
+  @apply table relative w-full;
 }
 
 .table-responsive thead {
   @apply hidden lg:table-header-group;
 }
 
+.table-responsive thead th {
+  @apply text-sm font-semibold whitespace-nowrap px-2 py-1 text-left border-b border-base-content/5;
+}
+
 .table-responsive tbody {
   @apply block lg:table-row-group;
+}
+
+.table-responsive tbody tr {
+  @apply text-xs even:bg-[var(--color-base-200)];
 }
 
 .table-responsive tr {
@@ -68,7 +75,7 @@
 }
 
 .table-responsive td {
-  @apply block lg:table-cell lg:text-left;
+  @apply block lg:table-cell lg:text-left px-2 py-1;
   @apply before:content-[attr(data-label)] before:font-bold before:inline-block before:mr-2;
   @apply lg:before:content-none;
 }

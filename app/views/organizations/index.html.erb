@@ -15,7 +15,7 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Members count</th>
+            <th>Members</th>
             <th>Created</th>
             <th>Actions</th>
           </tr>
@@ -23,15 +23,19 @@
         <tbody>
           <% @organizations.each do |organization| %>
             <tr>
-              <td data-label="Name:">
-                <div class="flex items-center gap-2">
+              <td data-label="Name">
+                <div class="inline-flex items-center gap-2">
                   <%= organization_avatar(organization) %>
                   <%= organization.name %>
                 </div>
               </td>
-              <td data-label="Members count:"><%= organization.memberships.count %></td>
-              <td data-label="Created At:"><%= time_ago_in_words(organization.created_at) %> ago</td>
-              <td data-label="Actions:"><%= link_to "Show", organization_path(organization), class: "text-blue-600 hover:underline" %></td>
+              <td data-label="Members">
+                <div class="inline-block">
+                  <%= render "organizations/users_list", organization: organization %>
+                </div>
+              </td>
+              <td data-label="Created"><%= time_ago_in_words(organization.created_at) %> ago</td>
+              <td data-label="Actions"><%= link_to "Show", organization_path(organization), class: "text-blue-600 hover:underline" %></td>
             </tr>
           <% end %>
         </tbody>
