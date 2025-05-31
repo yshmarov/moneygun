@@ -80,6 +80,7 @@ en:
           confirmation_instructions: "Didn't receive confirmation instructions?"
           unlock_instructions: "Didn't receive unlock instructions?"
           oauth_separator: OR
+          sign_in_with: Sign in with %{provider}
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
