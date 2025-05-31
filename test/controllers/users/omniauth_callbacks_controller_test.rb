@@ -3,6 +3,10 @@ require "test_helper"
 class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
   include GoogleOauth2Helper
 
+  setup do
+    skip if Devise.omniauth_configs.keys.empty?
+  end
+
   test "oauth success" do
     assert_difference "User.count", 1 do
       login_with_google_oauth2_oauth

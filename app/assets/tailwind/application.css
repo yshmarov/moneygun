@@ -4,6 +4,8 @@
 @source "../../../app/javascript/**/*.js";
 @source "../../../app/views/**/*";
 
+@import "./components/table.css";
+
 @plugin "./daisyui.js" {
   themes: light --default, dark --prefersdark;
   prefix: "du-";
