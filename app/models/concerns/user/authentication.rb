@@ -11,6 +11,10 @@ module User::Authentication
     has_many :connected_accounts, dependent: :destroy
   end
 
+  def remember_me
+    true
+  end
+
   class_methods do
     def from_omniauth(auth_payload)
       email = auth_payload.info&.email
