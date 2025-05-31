@@ -28,7 +28,7 @@
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   <div class="text-2xl">
-                    <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon] %>
+                    <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-8 h-8" %>
                   </div>
                   <div>
                     <div class="font-medium">

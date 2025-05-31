@@ -4,11 +4,11 @@ class ConnectedAccount < ApplicationRecord
   PROVIDER_CONFIG = {
     google_oauth2: {
       name: "Google",
-      icon: "🔍"
+      icon: :google
     },
     github: {
       name: "GitHub",
-      icon: "🐙"
+      icon: :github
     }
   }.freeze
 

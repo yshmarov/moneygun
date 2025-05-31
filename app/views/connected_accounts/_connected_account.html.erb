@@ -4,7 +4,7 @@
       <% if connected_account.image_url.present? %>
         <img src="<%= connected_account.image_url %>" alt="<%= connected_account.name %>" class="w-8 h-8 rounded-full">
       <% else %>
-        <%= ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon] %>
+        <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon]}.svg", class: "w-8 h-8" %>
       <% end %>
     </div>
     <div>
