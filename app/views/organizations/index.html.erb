@@ -7,40 +7,7 @@
     <% end %>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-      <%#= render collection: @organizations, partial: "organizations/organization", as: :organization %>
+      <%= render collection: @organizations, partial: "organizations/organization", as: :organization %>
     </div>
-
-    <div class="table-responsive">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Members</th>
-            <th>Created</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @organizations.each do |organization| %>
-            <tr>
-              <td data-label="Name">
-                <div class="inline-flex items-center gap-2">
-                  <%= organization_avatar(organization) %>
-                  <%= organization.name %>
-                </div>
-              </td>
-              <td data-label="Members">
-                <div class="inline-block">
-                  <%= render "organizations/users_list", organization: organization %>
-                </div>
-              </td>
-              <td data-label="Created"><%= time_ago_in_words(organization.created_at) %> ago</td>
-              <td data-label="Actions"><%= link_to "Show", organization_path(organization), class: "text-blue-600 hover:underline" %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-
   <% end %>
 <% end %>
