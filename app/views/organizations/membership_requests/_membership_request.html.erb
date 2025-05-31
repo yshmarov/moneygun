@@ -1,5 +1,6 @@
 <div class="border border-base-content/20 p-2 rounded-lg space-y-2">
-  <div class="font-medium">
+  <div class="font-medium flex items-center gap-2">
+    <%= user_avatar(membership_request.user) %>
     <%= membership_request.user.email %>
   </div>
 

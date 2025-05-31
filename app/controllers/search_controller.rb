@@ -1,7 +1,12 @@
 class SearchController < ApplicationController
   def index
     @organizations = if params[:query].present?
-      current_user.organizations.where("name ILIKE ?", "%#{params[:query]}%")
+      # Combine user's organizations + public/restricted organizations
+      Organization.where(id: [
+        current_user.organizations.pluck(:id),
+        Organization.not_privacy_setting_private.pluck(:id)
+      ].flatten.uniq)
+      .where("name ILIKE ?", "%#{params[:query]}%")
     else
       Organization.none
     end
