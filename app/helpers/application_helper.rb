@@ -8,7 +8,7 @@ module ApplicationHelper
 
   def nav_link(label, path, icon: nil, badge: nil, **options)
     icon = inline_svg_tag icon, class: "size-5" if icon&.match?(/svg/)
-    badge_span = content_tag(:span, badge, class: "du-badge du-badge-xs du-badge-warning") if badge
+    badge_span = content_tag(:span, badge, class: "du-badge du-badge-xs du-badge-warning") if badge && badge.to_i.positive?
     content_tag(:li) do
       active_link_to path, class_active: "du-menu-active", class: "whitespace-nowrap", **options do
         safe_join([ icon, " ", label, badge_span ].compact)
