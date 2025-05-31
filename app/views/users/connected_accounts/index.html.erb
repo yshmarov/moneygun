@@ -29,13 +29,8 @@
                   <div class="text-2xl">
                     <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-8 h-8" %>
                   </div>
-                  <div>
-                    <div class="font-medium">
-                      <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
-                    </div>
-                    <div class="text-sm text-base-content">
-                      <%= t(".connect_provider_account", provider_name: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
-                    </div>
+                  <div class="font-medium">
+                    <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
                   </div>
                 </div>
                 <%= button_tag t(".connect_button"), class: "du-btn du-btn-sm du-btn-primary" %>
