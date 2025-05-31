@@ -1,7 +1,7 @@
 {"provider": "google_oauth2",
  "uid": "820491782",
  "info": {"name": "Linwood Mann", "first_name": "Linwood", "last_name": "Mann", "email": "mann.linwood@gibson.test", "image": "https://via.placeholder.com/300x300.png"},
- "credentials": {"token": "fbb07f2bbc76dd14165a699862c17146", "refresh_token": "e43ddadc06a27d5cee713b8d482ce9bb", "expires_at": 1754160940, "expires": true},
+ "credentials": {"token": "foo_123", "refresh_token": "bar_456", "expires_at": 1754160940, "expires": true},
  "extra":
   {
     "raw_info":
