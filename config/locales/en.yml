@@ -158,6 +158,21 @@ en:
     terms:
       title: Terms
   users:
+    connected_accounts:
+      connected_account:
+        confirm_disconnect_message: Are you sure you want to disconnect this account?
+        connected_time_ago: Connected %{time} ago
+        disconnect_button: Disconnect
+      destroy:
+        success: Account disconnected successfully.
+      index:
+        available_connections: Available connections
+        connect_button: Connect
+        connect_provider_account: Connect your %{provider_name} account
+        connect_to_enable_auth: Connect your accounts to enable seamless authentication.
+        no_accounts_connected: You haven't connected any OAuth accounts yet.
+        title: Connected accounts
+        your_connected_accounts: Your connected accounts
     invitations:
       index:
         title: Outgoing invitations

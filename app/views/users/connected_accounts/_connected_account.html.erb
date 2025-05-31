@@ -1,0 +1,32 @@
+<div class="border border-base-content/20 p-3 rounded-lg flex items-center justify-between hover:bg-base-200">
+  <div class="flex items-center gap-3">
+    <div class="text-2xl">
+      <% if connected_account.image_url.present? %>
+        <%= image_tag connected_account.image_url, alt: connected_account.name || ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:name], class: "w-8 h-8 rounded-full" %>
+      <% else %>
+        <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon]}.svg", class: "w-8 h-8" %>
+      <% end %>
+    </div>
+    <div>
+      <% if connected_account.name.present? %>
+        <div class="font-medium">
+          <%= connected_account.name %>
+        </div>
+      <% end %>
+      <div class="font-medium flex items-center gap-2">
+        <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
+        <%= ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:name] %>
+      </div>
+      <div class="text-sm text-base-content">
+        <%= t(".connected_time_ago", time: time_ago_in_words(connected_account.created_at)) %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="flex items-center gap-2">
+    <%= button_to t(".disconnect_button"), user_connected_account_path(connected_account),
+        method: :delete,
+        data: { turbo_confirm: t(".confirm_disconnect_message") },
+        class: "du-btn du-btn-sm du-btn-error" %>
+  </div>
+</div> 
