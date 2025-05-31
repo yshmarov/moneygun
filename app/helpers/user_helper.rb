@@ -1,6 +1,6 @@
 module UserHelper
   def user_avatar(user)
-    if user.connected_accounts.any?
+    if user.connected_accounts.any? && user.connected_accounts.first.image_url.present?
       image_tag user.connected_accounts.first.image_url, alt: user.connected_accounts.first.name, class: "w-8 h-8 rounded-full"
     else
       tag.div class: "du-avatar du-avatar-placeholder" do
