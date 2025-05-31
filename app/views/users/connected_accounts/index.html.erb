@@ -28,25 +28,14 @@
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   <div class="text-2xl">
-                    <% case provider.to_s %>
-                    <% when 'google_oauth2' %>
-                      🔍
-                    <% when 'github' %>
-                      🐙
-                    <% when 'facebook' %>
-                      📘
-                    <% when 'twitter' %>
-                      🐦
-                    <% else %>
-                      🔗
-                    <% end %>
+                    <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon] %>
                   </div>
                   <div>
                     <div class="font-medium">
-                      <%= OmniAuth::Utils.camelize(provider) %>
+                      <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
                     </div>
                     <div class="text-sm text-base-content/70">
-                      Connect your <%= OmniAuth::Utils.camelize(provider) %> account
+                      Connect your <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %> account
                     </div>
                   </div>
                 </div>
