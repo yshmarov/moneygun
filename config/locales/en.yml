@@ -12,6 +12,9 @@ en:
     models:
       membership: Member
       organization: Organization
+  connected_accounts:
+    destroy:
+      success: Account disconnected successfully.
   invitations:
     approve:
       success: Invitation approved

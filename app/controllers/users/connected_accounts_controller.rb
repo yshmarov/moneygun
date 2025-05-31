@@ -1,5 +1,5 @@
 class Users::ConnectedAccountsController < ApplicationController
-  before_action :set_connected_account, only: [ :destroy ]
+  before_action :set_connected_account, only: %i[destroy]
 
   def index
     @connected_accounts = current_user.connected_accounts
@@ -7,7 +7,7 @@ class Users::ConnectedAccountsController < ApplicationController
 
   def destroy
     @connected_account.destroy
-    redirect_to user_connected_accounts_path, notice: "Account disconnected successfully."
+    redirect_to user_connected_accounts_path, notice: I18n.t("connected_accounts.destroy.success")
   end
 
   private

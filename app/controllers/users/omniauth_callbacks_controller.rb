@@ -20,6 +20,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    redirect_to new_user_registration_url, alert: "Something went wrong. Please try again"
+    redirect_to new_user_registration_url, alert: I18n.t("devise.omniauth_callbacks.failure")
   end
 end
