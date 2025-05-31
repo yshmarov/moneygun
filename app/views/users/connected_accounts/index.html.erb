@@ -1,5 +1,6 @@
   <% content_for :title, "Connected Accounts" %>
 
+<div class="space-y-6">
   <%= render PageComponent.new(title: "Your Connected Accounts") do |component| %>
     <% if @connected_accounts.any? %>
       <div class="space-y-3">
@@ -8,15 +9,13 @@
         <% end %>
       </div>
     <% else %>
-      <div class="border border-base-content/20 p-6 rounded-lg text-center">
-        <div class="text-4xl mb-3">🔗</div>
-        <p class="text-base-content mb-4">You haven't connected any OAuth accounts yet.</p>
+      <div class="border border-base-content/20 p-6 rounded-lg text-center flex flex-col items-center gap-3">
+        <div class="text-4xl">🔗</div>
+        <p class="text-base-content">You haven't connected any OAuth accounts yet.</p>
         <p class="text-sm text-base-content/60">Connect your accounts to enable seamless authentication.</p>
       </div>
     <% end %>
   <% end %>
-
-  <br>
 
   <% available_providers = Devise.omniauth_configs.keys.reject { |provider| ConnectedAccount.where(provider: provider, user: current_user).exists? } %>
   <% if available_providers.any? %>
@@ -47,3 +46,4 @@
       </div>
     <% end %>
   <% end %>
+</div>
