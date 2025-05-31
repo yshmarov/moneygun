@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "supports/simplecov"
 require_relative "../config/environment"
 require "rails/test_help"
+require "ostruct"
 
 module ActiveSupport
   class TestCase

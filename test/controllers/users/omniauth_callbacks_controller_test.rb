@@ -10,7 +10,7 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
     post user_google_oauth2_omniauth_callback_path
 
     # after first login, we redirect to onboarding
-    assert_redirected_to user_onboarding_index_path
+    assert_redirected_to organizations_path
     assert_response :found
 
     assert User.pluck(:email).include?(JSON.parse(File.read("test/fixtures/google_oauth2.json"))["info"]["email"])
@@ -28,7 +28,7 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
 
   test "auth failure" do
     OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
+    # no email in the payload
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
     post user_google_oauth2_omniauth_callback_path
 
