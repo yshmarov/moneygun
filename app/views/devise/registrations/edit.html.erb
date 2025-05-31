@@ -41,16 +41,16 @@
     </div>
   <% end %>
 
-  <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-    <div class="du-card du-bg-error/10 du-border-error/20">
-      <div class="du-card-body">
-        <h3 class="du-card-title text-error text-base"><%= t("devise.views.registrations.edit.danger_zone.title") %></h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-          <%= t("devise.views.registrations.edit.danger_zone.description") %>
-        </p>
-        <%= button_to t("devise.views.registrations.edit.danger_zone.button"), registration_path(resource_name), 
-            data: { confirm: t("devise.views.registrations.edit.danger_zone.confirm"), turbo_confirm: t("devise.views.registrations.edit.danger_zone.confirm") }, 
-            method: :delete, 
+  <div class="pt-6 border-t border-gray-200 dark:border-gray-700">
+    <div class="space-y-3">
+      <h3 class="font-semibold text-error text-lg"><%= t("devise.views.registrations.edit.danger_zone.title") %></h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        <%= t("devise.views.registrations.edit.danger_zone.description") %>
+      </p>
+      <div>
+        <%= button_to t("devise.views.registrations.edit.danger_zone.button"), registration_path(resource_name),
+            data: { confirm: t("devise.views.registrations.edit.danger_zone.confirm"), turbo_confirm: t("devise.views.registrations.edit.danger_zone.confirm") },
+            method: :delete,
             class: "du-btn du-btn-error du-btn-outline du-btn-sm" %>
       </div>
     </div>
