@@ -79,7 +79,7 @@ en:
           forgot_password: "Forgot your password?"
           confirmation_instructions: "Didn't receive confirmation instructions?"
           unlock_instructions: "Didn't receive unlock instructions?"
-          oauth_separator: "Or continue with:"
+          oauth_separator: OR
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."

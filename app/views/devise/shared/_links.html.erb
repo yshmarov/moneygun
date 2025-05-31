@@ -19,12 +19,10 @@
 <% end %>
 
 <% if devise_mapping.omniauthable? && resource_class.omniauth_providers.any? %>
-  <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3"><%= t("devise.views.shared.links.oauth_separator") %></p>
-    <% resource_class.omniauth_providers.each do |provider| %>
-      <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), 
-          data: { turbo: false }, 
-          class: "du-btn du-btn-outline du-btn-block mb-2" %>
-    <% end %>
-  </div>
+  <div class="du-divider"><%= t("devise.views.shared.links.oauth_separator") %></div>
+  <% resource_class.omniauth_providers.each do |provider| %>
+    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider),
+        data: { turbo: false },
+        class: "du-btn du-btn-outline du-btn-block mb-2" %>
+  <% end %>
 <% end %>
