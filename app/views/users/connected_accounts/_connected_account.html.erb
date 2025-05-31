@@ -18,15 +18,15 @@
         <%= ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:name] %>
       </div>
       <div class="text-sm text-base-content">
-        Connected <%= time_ago_in_words(connected_account.created_at) %> ago
+        <%= t(".connected_time_ago", time: time_ago_in_words(connected_account.created_at)) %>
       </div>
     </div>
   </div>
   
   <div class="flex items-center gap-2">
-    <%= button_to "Disconnect", user_connected_account_path(connected_account), 
-        method: :delete, 
-        data: { turbo_confirm: "Are you sure you want to disconnect this account?" },
+    <%= button_to t(".disconnect_button"), user_connected_account_path(connected_account),
+        method: :delete,
+        data: { turbo_confirm: t(".confirm_disconnect_message") },
         class: "du-btn du-btn-sm du-btn-error" %>
   </div>
 </div> 

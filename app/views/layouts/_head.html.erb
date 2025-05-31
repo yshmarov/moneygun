@@ -1,4 +1,4 @@
-<title><%= [content_for(:title), current_organization&.name || Rails.application.config_for(:settings).dig(:site, :name)].compact.join(" - ") %></title>
+<title><%= [ content_for(:title), current_organization&.name || Rails.application.config_for(:settings).dig(:site, :name) ].compact.join(" - ") %></title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
