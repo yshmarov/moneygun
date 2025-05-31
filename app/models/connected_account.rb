@@ -11,4 +11,12 @@ class ConnectedAccount < ApplicationRecord
       icon: "🐙"
     }
   }.freeze
+
+  def name
+    payload&.dig("info", "name")
+  end
+
+  def image_url
+    payload&.dig("info", "image")
+  end
 end

@@ -38,6 +38,15 @@ module User::Authentication
       # user.provider = auth_payload.provider
       # user.uid = auth_payload.uid
       user.save
+
+      # Create or update connected account
+      connected_account = user.connected_accounts.find_or_initialize_by(
+        provider: auth_payload.provider,
+        uid: auth_payload.uid
+      )
+      connected_account.payload = auth_payload.to_h # Store the entire payload
+      connected_account.save
+
       user
     end
   end

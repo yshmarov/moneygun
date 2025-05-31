@@ -1,11 +1,15 @@
 <div class="border border-base-content/20 p-3 rounded-lg flex items-center justify-between hover:bg-base-200">
   <div class="flex items-center gap-3">
     <div class="text-2xl">
-      <%= ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon] %>
+      <% if connected_account.image_url.present? %>
+        <img src="<%= connected_account.image_url %>" alt="<%= connected_account.name %>" class="w-8 h-8 rounded-full">
+      <% else %>
+        <%= ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon] %>
+      <% end %>
     </div>
     <div>
       <div class="font-medium">
-        <%= ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:name] %>
+        <%= connected_account.name || ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:name] %>
       </div>
       <div class="text-sm text-base-content/70">
         Connected <%= time_ago_in_words(connected_account.created_at) %> ago
