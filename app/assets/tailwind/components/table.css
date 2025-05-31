@@ -4,7 +4,7 @@
 }
 
 .table-responsive table {
-  @apply table-auto relative w-full border-collapse; /* Use table-auto for better column sizing */
+  @apply table-auto relative w-full border-collapse lg:rounded-lg lg:overflow-hidden lg:border lg:border-base-content/10; /* Ensure table is rounded, clips content, and has a border on lg screens */
 }
 
 .table-responsive thead {
@@ -12,7 +12,16 @@
 }
 
 .table-responsive thead th {
-  @apply text-sm font-semibold whitespace-nowrap px-4 py-3 text-left border-b border-base-content/20 bg-base-200/40 text-base-content; /* Thinner border */
+  @apply text-sm font-semibold whitespace-nowrap px-4 py-3 text-left border-b border-base-content/10 bg-base-200/50 text-base-content; /* Unified opacities */
+}
+
+/* Add rounded corners to desktop table header */
+.table-responsive thead th:first-child {
+  @apply lg:rounded-tl-lg;
+}
+
+.table-responsive thead th:last-child {
+  @apply lg:rounded-tr-lg;
 }
 
 .table-responsive tbody {
@@ -20,8 +29,8 @@
 }
 
 .table-responsive tr {
-  @apply block lg:table-row mb-3 lg:mb-0 overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none border border-base-content/15 lg:border-x-0 lg:border-t-0 lg:border-b lg:border-base-content/10 bg-base-100 lg:bg-transparent;
-  @apply lg:even:bg-base-200/50 lg:hover:bg-base-300/50 transition-colors duration-150;
+  @apply block lg:table-row mb-3 lg:mb-0 overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none border border-base-content/10 bg-base-100 lg:bg-transparent; /* Unified border opacity */
+  @apply hover:bg-base-200/30 lg:even:bg-base-200/50 lg:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
   @apply lg:last:border-b-0; /* No bottom border for the last row in desktop table */
 }
 
@@ -29,7 +38,7 @@
   @apply block lg:table-cell text-sm lg:text-left px-3 lg:px-4 pt-2 pb-2 lg:pt-3 lg:pb-3 align-middle;
   @apply lg:flex-none; /* Ensure flex is not applied on larger screens if set below */
   @apply border-t border-base-content/10 lg:border-t-0; /* Separator for card items */
-  @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/60 before:mr-2 lg:before:mb-0;
+  @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/75 before:mr-2 lg:before:mb-0; /* Increased opacity for data-label */
   @apply lg:before:content-none;
   /* On mobile, treat td as a flex container to align label and value */
   @apply flex flex-row items-center lg:table-cell;
@@ -43,4 +52,9 @@
 /* First td in a card (mobile view) should not have a top border as the card 'tr' has its own border */
 .table-responsive tr td:first-child {
   @apply border-t-0 lg:border-t-0; /* Keep lg:border-t-0 in case other rules apply it */
+}
+
+/* Align content of the last cell to the end/right */
+.table-responsive tr td:last-child {
+  @apply justify-end lg:text-right;
 } 
