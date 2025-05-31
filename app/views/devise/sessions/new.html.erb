@@ -12,12 +12,7 @@
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="space-y-1">
-        <label class="du-label cursor-pointer justify-start gap-3">
-          <%= f.check_box :remember_me, class: "du-checkbox du-checkbox-primary" %>
-          <span class="du-label-text"><%= t("devise.views.sessions.new.remember_me") %></span>
-        </label>
-      </div>
+      <%= f.hidden_field :remember_me, value: "1" %>
     <% end %>
 
     <div class="pt-2">
