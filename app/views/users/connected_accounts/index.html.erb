@@ -4,7 +4,7 @@
     <% if @connected_accounts.any? %>
       <div class="space-y-3">
         <% current_user.connected_accounts.each do |connected_account| %>
-          <%= render "connected_accounts/connected_account", connected_account: connected_account %>
+          <%= render "connected_account", connected_account: connected_account %>
         <% end %>
       </div>
     <% else %>
