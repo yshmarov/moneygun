@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_current_organizations, if: :user_signed_in?
 
+  set_referral_cookie
+
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || organizations_path
   end

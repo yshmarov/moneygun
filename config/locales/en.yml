@@ -180,3 +180,14 @@ en:
         success: Membership request revoked
       index:
         title: Outgoing membership requests
+    referrals:
+      index:
+        clicks: Link clicks
+        clicks_description: How many times your unique link has been clicked.
+        completed: Completed referrals
+        completed_description: Friends who've signed up and made their first purchase.
+        referrals: Successful signups
+        referrals_description: Friends who've joined using your link.
+        subtitle: Share your unique referral link and earn rewards when your friends
+          sign up and make their first purchase.
+        title: Invite friends, get rewards

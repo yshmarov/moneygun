@@ -401,6 +401,8 @@ GEM
     rdoc (6.14.0)
       erb
       psych (>= 4.0.0)
+    refer (1.0.2)
+      rails (>= 7.1.0)
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -572,6 +574,7 @@ DEPENDENCIES
   pundit (~> 2.3)
   rails (~> 8.0.1)
   ransack (~> 4.2)
+  refer
   rubocop-rails-omakase
   selenium-webdriver
   simplecov (~> 0.22.0)
