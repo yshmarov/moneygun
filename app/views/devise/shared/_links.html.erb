@@ -25,7 +25,7 @@
   <% resource_class.omniauth_providers.each do |provider| %>
     <%= button_to omniauth_authorize_path(resource_name, provider),
         data: { turbo: false },
-        class: "du-btn du-btn-outline du-btn-block mb-2" do %>
+        class: "du-btn du-btn-outline du-btn-block" do %>
         <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
         <%= t("devise.views.shared.links.sign_in_with", provider: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
       <% end %>
