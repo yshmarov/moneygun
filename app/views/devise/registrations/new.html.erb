@@ -4,14 +4,14 @@
     <%= render "shared/errors", object: resource %>
 
     <div class="space-y-1">
-      <%= f.label :email, t("devise.views.registrations.new.email_label"), class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.label :email, t("devise.views.registrations.new.email_label"), class: "block text-sm font-medium" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: t("devise.views.registrations.new.email_placeholder") %>
     </div>
 
     <div class="space-y-1">
-      <%= f.label :password, t("devise.views.registrations.new.password_label"), class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.label :password, t("devise.views.registrations.new.password_label"), class: "block text-sm font-medium" %>
       <% if @minimum_password_length %>
-        <p class="text-xs text-gray-500"><%= t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) %></p>
+        <p class="text-xs"><%= t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) %></p>
       <% end %>
       <%= f.password_field :password, autocomplete: "new-password", class: "form-input", placeholder: t("devise.views.registrations.new.password_placeholder") %>
     </div>

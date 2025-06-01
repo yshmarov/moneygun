@@ -4,9 +4,9 @@
     <%= render "shared/errors", object: resource %>
 
     <div class="space-y-1">
-      <%= f.label :email, t("devise.views.confirmations.new.email_label"), class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.label :email, t("devise.views.confirmations.new.email_label"), class: "block text-sm font-medium" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-input", placeholder: t("devise.views.confirmations.new.email_placeholder") %>
-      <p class="text-xs text-gray-500"><%= t("devise.views.confirmations.new.email_help") %></p>
+      <p class="text-xs"><%= t("devise.views.confirmations.new.email_help") %></p>
     </div>
 
     <div class="pt-2">

@@ -5,15 +5,15 @@
     <%= f.hidden_field :reset_password_token %>
 
     <div class="space-y-1">
-      <%= f.label :password, t("devise.views.passwords.edit.password_label"), class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.label :password, t("devise.views.passwords.edit.password_label"), class: "block text-sm font-medium" %>
       <% if @minimum_password_length %>
-        <p class="text-xs text-gray-500"><%= t("devise.views.passwords.edit.password_minimum", count: @minimum_password_length) %></p>
+        <p class="text-xs"><%= t("devise.views.passwords.edit.password_minimum", count: @minimum_password_length) %></p>
       <% end %>
       <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-input", placeholder: t("devise.views.passwords.edit.password_placeholder") %>
     </div>
 
     <div class="space-y-1">
-      <%= f.label :password_confirmation, t("devise.views.passwords.edit.password_confirmation_label"), class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= f.label :password_confirmation, t("devise.views.passwords.edit.password_confirmation_label"), class: "block text-sm font-medium" %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input", placeholder: t("devise.views.passwords.edit.password_confirmation_placeholder") %>
     </div>
 
