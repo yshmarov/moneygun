@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_24_174421) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_01_151853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_174421) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "connected_accounts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "provider"
+    t.string "uid"
+    t.string "access_token"
+    t.string "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "payload"
+    t.index ["user_id"], name: "index_connected_accounts_on_user_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -178,6 +191,43 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_174421) do
     t.datetime "updated_at", null: false
     t.index ["name", "organization_id"], name: "index_projects_on_name_and_organization_id", unique: true
     t.index ["organization_id"], name: "index_projects_on_organization_id"
+  end
+
+  create_table "refer_referral_codes", force: :cascade do |t|
+    t.string "referrer_type", null: false
+    t.bigint "referrer_id", null: false
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "referrals_count", default: 0
+    t.integer "visits_count", default: 0
+    t.index ["code"], name: "index_refer_referral_codes_on_code", unique: true
+    t.index ["referrer_type", "referrer_id"], name: "index_refer_referral_codes_on_referrer"
+  end
+
+  create_table "refer_referrals", force: :cascade do |t|
+    t.string "referrer_type", null: false
+    t.bigint "referrer_id", null: false
+    t.string "referee_type", null: false
+    t.bigint "referee_id", null: false
+    t.bigint "referral_code_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "completed_at", precision: nil
+    t.index ["referee_type", "referee_id"], name: "index_refer_referrals_on_referee"
+    t.index ["referral_code_id"], name: "index_refer_referrals_on_referral_code_id"
+    t.index ["referrer_type", "referrer_id"], name: "index_refer_referrals_on_referrer"
+  end
+
+  create_table "refer_visits", force: :cascade do |t|
+    t.bigint "referral_code_id", null: false
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["referral_code_id"], name: "index_refer_visits_on_referral_code_id"
   end
 
   create_table "solid_cable_messages", force: :cascade do |t|
@@ -410,6 +460,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_174421) do
   add_foreign_key "access_requests", "users", column: "completed_by"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "connected_accounts", "users"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
   add_foreign_key "organizations", "users", column: "owner_id"
@@ -418,6 +469,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_174421) do
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
   add_foreign_key "projects", "organizations"
+  add_foreign_key "refer_visits", "refer_referral_codes", column: "referral_code_id"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

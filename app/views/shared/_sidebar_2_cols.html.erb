@@ -12,8 +12,8 @@
 
         <ul class="du-menu">
           <li>
-            <%= active_link_to organizations_path, class_active: "du-menu-active", active: :exclusive, title: t("organizations.index.title") do %>
-              <%= inline_svg_tag "svg/home.svg" %>
+            <%= active_link_to organizations_path, class_active: "du-menu-active", active: :exclusive, title: t("organizations.index.title"), active: [ [ "organizations", "public/organizations", "users/invitations", "users/membership_requests" ], [] ] do %>
+              <%= inline_svg_tag "svg/globe-europe-africa.svg" %>
             <% end %>
           </li>
         </ul>
@@ -45,13 +45,6 @@
             <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
             <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
           <% end %>
-        </div>
-      </div>
-    <% end %>
-    <% if controller_path.start_with?('users') %>
-      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
-        <div class="du-menu w-full">
-          <%= render "shared/user_links" %>
         </div>
       </div>
     <% end %>

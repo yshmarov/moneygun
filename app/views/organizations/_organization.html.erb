@@ -1,18 +1,18 @@
-<%= link_to organization_dashboard_path(organization), class: "border border-base-content/20 p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
-  <div class="flex items-center gap-2">
-    <%= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-    <%= organization_avatar(organization) %>
-    <%= organization.name %>
-  </div>
-
-  <div class="flex items-center gap-4">
-    <%= render CreditsBadgeComponent.new(organization:) %>
-    <div class="flex items-center -space-x-2">
-      <% organization.users.each do |user| %>
-        <%= user_avatar(user) %>
-      <% end %>
+<%= tag.div id: dom_id(organization), class: "border border-base-content/20 p-4 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
+  <%= tag.div class: "flex items-center gap-2 justify-between" do %>
+    <div class="flex items-center gap-2">
+      <%#= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+      <%= organization_avatar(organization) %>
+      <div class="font-medium">
+        <%= organization.name %>
+      </div>
     </div>
 
-    <%= inline_svg_tag "svg/chevron-right.svg", class: "size-5" %>
+    <%= privacy_setting_icon(organization.privacy_setting) %>
+  <% end %>
+
+  <%= render "organizations/users_list", organization: %>
+  <div class="flex gap-2 justify-end">
+    <%= render "organizations/membership_actions", organization: %>
   </div>
 <% end %>

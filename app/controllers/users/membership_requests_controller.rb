@@ -3,7 +3,8 @@ class Users::MembershipRequestsController < ApplicationController
   before_action :set_organization, only: %i[create]
 
   def index
-    @organization_requests = current_user.organization_requests.pending
+    organization_requests = current_user.organization_requests.pending
+    @organizations = organization_requests.map(&:organization)
   end
 
   def create
@@ -23,7 +24,7 @@ class Users::MembershipRequestsController < ApplicationController
   def destroy
     @organization_request = current_user.organization_requests.pending.find(params[:id])
     @organization_request.destroy
-    redirect_to user_membership_requests_path, notice: t("membership_requests.destroyed")
+    redirect_to user_membership_requests_path, notice: t(".success")
   end
 
   private

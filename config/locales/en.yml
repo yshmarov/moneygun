@@ -82,7 +82,7 @@ en:
     new:
       title: New organization
     show:
-      title: Organization settings
+      title: Settings
     subscriptions:
       features:
         title: Features
@@ -127,6 +127,9 @@ en:
   routes:
     memberships: teammates
     organizations: organizations
+  search:
+    index:
+      title: Search...
   shared:
     actions:
       cancel: Cancel
@@ -155,9 +158,36 @@ en:
     terms:
       title: Terms
   users:
+    connected_accounts:
+      connected_account:
+        confirm_disconnect_message: Are you sure you want to disconnect this account?
+        connected_time_ago: Connected %{time} ago
+        disconnect_button: Disconnect
+      destroy:
+        success: Account disconnected successfully.
+      index:
+        available_connections: Available connections
+        connect_button: Connect
+        connect_to_enable_auth: Connect your accounts to enable seamless authentication.
+        no_accounts_connected: You haven't connected any OAuth accounts yet.
+        title: Connected accounts
+        your_connected_accounts: Connected accounts
     invitations:
       index:
         title: Outgoing invitations
     membership_requests:
+      destroy:
+        success: Membership request revoked
       index:
         title: Outgoing membership requests
+    referrals:
+      index:
+        clicks: Link clicks
+        clicks_description: How many times your unique link has been clicked.
+        completed: Completed referrals
+        completed_description: Friends who've signed up and made their first purchase.
+        referrals: Successful signups
+        referrals_description: Friends who've joined using your link.
+        subtitle: Share your unique referral link and earn rewards when your friends
+          sign up and make their first purchase.
+        title: Invite friends, get rewards

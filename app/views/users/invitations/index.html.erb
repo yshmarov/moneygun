@@ -2,10 +2,8 @@
 
 <%= render "organizations/tabs", active_tab: :invitations do %>
   <%= render PageComponent.new(title: t("invitations.index.title"), full_width: true) do |component| %>
-    <div id="invitations" class="space-y-4">
-      <% @invitations.each do |invitation| %>
-        <%= render invitation, invitation: %>
-      <% end %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <%= render collection: @organizations, partial: "organizations/organization", as: :organization %>
     </div>
   <% end %>
 <% end %>

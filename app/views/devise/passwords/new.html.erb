@@ -1,0 +1,21 @@
+<%= render PageComponent.new(title: t("devise.views.passwords.new.title")) do %>
+
+  <%= form_with model: resource, as: resource_name, url: password_path(resource_name), method: :post, class: "space-y-4" do |f| %>
+    <%= render "shared/errors", object: resource %>
+
+    <div class="space-y-1">
+      <%= f.label :email, t("devise.views.passwords.new.email_label"), class: "block text-sm font-medium" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: t("devise.views.passwords.new.email_placeholder") %>
+      <p class="text-xs"><%= t("devise.views.passwords.new.email_help") %></p>
+    </div>
+
+    <div class="pt-2">
+      <%= f.submit t("devise.views.passwords.new.submit"), class: "du-btn du-btn-primary du-btn-block" %>
+    </div>
+  <% end %>
+
+  <div class="mt-4 text-center space-y-1">
+    <%= render "devise/shared/links" %>
+  </div>
+
+<% end %>

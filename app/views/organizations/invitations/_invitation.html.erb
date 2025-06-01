@@ -1,0 +1,10 @@
+<div class="border border-base-content/20 p-2 rounded-lg space-y-2">
+  <div class="font-medium flex items-center gap-2">
+    <%= user_avatar(invitation.user) %>
+    <%= invitation.user.email %>
+  </div>
+
+  <div class="flex items-center justify-end gap-2">
+    <%= button_to t("organizations.invitations.buttons.cancel"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "du-btn du-btn-sm du-btn-error" %>
+  </div>
+</div>

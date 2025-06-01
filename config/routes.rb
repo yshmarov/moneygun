@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   get "pricing", to: "static#pricing"
   get "terms", to: "static#terms"
   get "privacy", to: "static#privacy"
+
+  get "search", to: "search#index"
 end

@@ -1,7 +1,13 @@
-devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
+devise_for :users, controllers: {
+  registrations: "users/registrations",
+  sessions: "users/sessions",
+  omniauth_callbacks: "users/omniauth_callbacks"
+}
 
 resource :user do
   scope module: :users do
+    resources :connected_accounts
+    resources :referrals, only: %i[index]
     resources :invitations, only: %i[index] do
       member do
         post :approve

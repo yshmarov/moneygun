@@ -13,7 +13,7 @@ class Organization < ApplicationRecord
   has_many :projects, dependent: :destroy
 
   validates :name, presence: true
-  validates :name, length: { maximum: 20 }
+  validates :name, length: { minimum: 3, maximum: 20 }
 
   has_one_attached :logo do |attachable|
     attachable.variant :thumb, resize_to_limit: [ 100, 100 ]

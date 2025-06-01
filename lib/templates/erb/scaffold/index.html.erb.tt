@@ -5,12 +5,31 @@
     <%%= link_to t("shared.actions.new"), new_<%= singular_route_name %>_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <%% end %>
 
-  <div id="<%= plural_table_name %>" class="space-y-4">
-    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-      <%%= render <%= singular_table_name %> %>
-      <p>
-        <%%= link_to "Show this <%= human_name.downcase %>", <%= model_resource_name(singular_table_name) %>, class: "du-btn du-btn-secondary" %>
-      </p>
-    <%% end %>
+  <div class="table-responsive">
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <%% <%= model_class_name %>.attribute_names.each do |attr| %>
+            <th><%%= <%= model_class_name %>.human_attribute_name(attr) %></th>
+          <%% end %>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="<%= plural_table_name %>">
+        <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+          <tr>
+            <%% <%= model_class_name %>.attribute_names.each do |attr| %>
+              <td data-label="<%%= <%= model_class_name %>.human_attribute_name(attr) %>">
+                <%%= <%= singular_table_name %>.send(attr) %>
+              </td>
+            <%% end %>
+            <td>
+              <%%= link_to t("shared.actions.show"), <%= model_resource_name(singular_table_name) %>, class: "du-btn du-btn-sm du-btn-secondary" %>
+              <%# Add other actions like edit and destroy here if needed %>
+            </td>
+          </tr>
+        <%% end %>
+      </tbody>
+    </table>
   </div>
 <%% end %>

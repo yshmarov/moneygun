@@ -1,12 +1,13 @@
 class PageComponent < ViewComponent::Base
   renders_one :action_list
 
-  def initialize(title:, full_width: false)
+  def initialize(title:, full_width: false, subtitle: nil)
     @title = title
     @full_width = full_width
+    @subtitle = subtitle
   end
 
-  attr_reader :title
+  attr_reader :title, :subtitle
 
   def width_class
     if @full_width == true

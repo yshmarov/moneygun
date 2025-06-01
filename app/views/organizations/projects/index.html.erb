@@ -5,12 +5,28 @@
     <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
 
-  <div id="projects" class="space-y-4">
-    <% @projects.each do |project| %>
-      <%= render project %>
-      <p>
-        <%= link_to "Show this project", [ @organization, project ], class: "du-btn du-btn-primary" %>
-      </p>
-    <% end %>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th><%= Project.human_attribute_name(:name) %></th>
+          <th><%= Project.human_attribute_name(:created_at) %></th>
+          <th><%= Project.human_attribute_name(:updated_at) %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="projects">
+        <% @projects.each do |project| %>
+          <tr>
+            <td data-label="<%= Project.human_attribute_name(:name) %>"><%= project.name %></td>
+            <td data-label="<%= Project.human_attribute_name(:created_at) %>"><%= l project.created_at, format: :short %></td>
+            <td data-label="<%= Project.human_attribute_name(:updated_at) %>"><%= l project.updated_at, format: :short %></td>
+            <td>
+              <%= link_to t("shared.actions.show"), [ @organization, project ], class: "du-btn du-btn-sm du-btn-secondary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 <% end %>

@@ -65,15 +65,21 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem "simplecov", "~> 0.22.0", require: false
 end
 
 # active record
 gem "sqids" # for obfuscating IDs
 
-# authentication and authorization
+# authentication
 gem "devise", "~> 4.9"
 gem "devise_invitable", "~> 2.0"
+
+# oauth
+gem "omniauth-google-oauth2"
+gem "omniauth-github"
+gem "omniauth-rails_csrf_protection" # for omniauth 2.0
+
+# authorization
 gem "pundit", "~> 2.3"
 
 # frontend
@@ -91,3 +97,6 @@ gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
 gem "usage_credits"
+
+# business logic
+gem "refer"

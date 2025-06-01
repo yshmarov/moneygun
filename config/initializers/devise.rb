@@ -162,7 +162,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.years
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
@@ -270,6 +270,19 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  if Rails.application.credentials.dig(:github, :key).present? && Rails.application.credentials.dig(:github, :secret).present?
+    config.omniauth :github,
+                    Rails.application.credentials.dig(:github, :key),
+                    Rails.application.credentials.dig(:github, :secret),
+                    scope: "user:email"
+  end
+
+  if Rails.application.credentials.dig(:google_oauth2, :key).present? && Rails.application.credentials.dig(:google_oauth2, :secret).present?
+    config.omniauth :google_oauth2,
+                    Rails.application.credentials.dig(:google_oauth2, :key),
+                    Rails.application.credentials.dig(:google_oauth2, :secret),
+                    scope: "email,profile"
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
