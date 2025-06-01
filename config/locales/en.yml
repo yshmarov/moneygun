@@ -158,6 +158,16 @@ en:
     terms:
       title: Terms
   users:
+    referrals:
+      index:
+        title: Invite friends, get rewards
+        subtitle: Share your unique referral link and earn rewards when your friends sign up and make their first purchase.
+        clicks: Link clicks
+        clicks_description: How many times your unique link has been clicked.
+        referrals: Successful signups
+        referrals_description: Friends who've joined using your link.
+        completed: Completed referrals
+        completed_description: Friends who've signed up and made their first purchase.
     connected_accounts:
       connected_account:
         confirm_disconnect_message: Are you sure you want to disconnect this account?
