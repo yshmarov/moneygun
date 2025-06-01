@@ -1,0 +1,5 @@
+<%= render PageComponent.new(title: t(".title"), subtitle: t(".subtitle")) do |component| %>
+  <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, class: "form-input" %>
+
+  <%= render MetricsGridComponent.new(metrics: @metrics) %>
+<% end %>
