@@ -1,5 +1,7 @@
 <%= render PageComponent.new(title: t(".title"), subtitle: t(".subtitle")) do |component| %>
-  <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, class: "form-input" %>
-
+  <div data-controller="clipboard" data-clipboard-success-content-value="Copied!" class="flex items-center gap-2">
+    <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, data: { clipboard_target: "source" }, class: "form-input" %>
+    <button type="button" data-action="clipboard#copy" data-clipboard-target="button" class="du-btn du-btn-neutral">Copy</button>
+  </div>
   <%= render MetricsGridComponent.new(metrics: @metrics) %>
 <% end %>
