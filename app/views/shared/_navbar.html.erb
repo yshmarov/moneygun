@@ -39,17 +39,19 @@
   <%# right %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
-      <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-        <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
-          <span class="font-medium font-mono">Admin</span>
-          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
-        </summary>
-        <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
-          <%= active_link_to "Avo", "/admin/avo/resources/users", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "Profitable", "/profitable", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "Jobs", "/jobs", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-        </div>
-      </details>
+      <% if current_user.admin? %>
+        <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
+          <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
+            <span class="font-medium font-mono">Admin</span>
+            <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
+          </summary>
+          <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
+            <%= active_link_to "Avo", "/admin/avo/resources/users", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+            <%= active_link_to "Profitable", "/profitable", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+            <%= active_link_to "Jobs", "/jobs", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+          </div>
+        </details>
+      <% end %>
       <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
         <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
           <%= user_avatar(current_user) %>
