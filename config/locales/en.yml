@@ -124,7 +124,6 @@ en:
       title: Search...
   shared:
     actions:
-      cancel: Cancel
       confirm: Are you sure?
       destroy: Destroy
       edit: Edit
