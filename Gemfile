@@ -87,6 +87,7 @@ gem "view_component"
 gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
 gem "turbo_power", "~> 0.7.0"
+gem "rails-i18n"
 
 # admin
 gem "avo", ">= 3.2"
