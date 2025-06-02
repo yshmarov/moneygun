@@ -22,7 +22,7 @@
         class: "#{base_classes} #{active_tab == :invitations ? active_classes : inactive_classes}" do %>
       <div class="flex items-center gap-2">
         <span class="text-xs">⬇️</span>
-        <%= t("invitations.index.title") %>
+        <%= t("users.invitations.index.title") %>
         <% if current_user.organization_invitations.pending.count > 0 %>
           <span class="du-badge du-badge-sm du-badge-warning"><%= current_user.organization_invitations.pending.count %></span>
         <% end %>
@@ -33,7 +33,7 @@
         class: "#{base_classes} #{active_tab == :requests ? active_classes : inactive_classes}" do %>
       <div class="flex items-center gap-2">
         <span class="text-xs">⬆️</span>
-        <%= t("shared.navigation.pending_requests") %>
+        <%= t("users.membership_requests.index.title") %>
         <% if current_user.organization_requests.pending.count > 0 %>
           <span class="du-badge du-badge-sm du-badge-warning"><%= current_user.organization_requests.pending.count %></span>
         <% end %>

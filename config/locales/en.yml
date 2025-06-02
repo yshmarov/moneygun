@@ -15,9 +15,6 @@ en:
   invitations:
     approve:
       success: Invitation approved
-    buttons:
-      approve: Join
-      reject: Reject
     errors:
       not_found: Invitation not found
     index:
@@ -70,10 +67,6 @@ en:
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
-        access_settings:
-          invitations: Outgoing invitations
-          requests_to_join_organization: Incoming membership requests
-          title: Access Settings
         title: Teammates
       new:
         title: Invite teammate
@@ -110,7 +103,6 @@ en:
       update:
         success: Ownership transferred
     update:
-      error: An error occurred while updating the organization
       success: Organization updated
   public:
     organizations:
@@ -143,12 +135,9 @@ en:
       not_subscribed: You need to subscribe to access this page.
       rate_limit: Try again later.
     navigation:
-      discover: Discover organizations
       edit_profile: Edit profile
       login: Log in
       logout: Log out
-      pending_invitations: Incoming invitations
-      pending_requests: Outgoing requests
       register: Register
       select_organization: Select organization
   static:
@@ -175,7 +164,7 @@ en:
         your_connected_accounts: Connected accounts
     invitations:
       index:
-        title: Outgoing invitations
+        title: Incoming invitations
     membership_requests:
       destroy:
         success: Membership request revoked
