@@ -39,6 +39,11 @@ en:
   organizations:
     create:
       success: Organization created
+    dashboard:
+      index:
+        title: Dashboard
+      paywalled_page:
+        title: Paywalled page
     destroy:
       success: Organization destroyed
     edit:
@@ -123,6 +128,8 @@ en:
   shared:
     actions:
       confirm: Are you sure?
+      copied: Copied!
+      copy: Copy
       destroy: Destroy
       edit: Edit
       new: New
