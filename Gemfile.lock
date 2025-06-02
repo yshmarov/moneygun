@@ -567,6 +567,7 @@ DEPENDENCIES
   puma (>= 5.0)
   pundit (~> 2.3)
   rails (~> 8.0.1)
+  rails-i18n
   ransack (~> 4.2)
   refer
   rubocop-rails-omakase
