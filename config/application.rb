@@ -25,8 +25,8 @@ module Moneygun
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.mission_control.jobs.http_basic_auth_enabled = false
-    config.i18n.default_locale = :en
-    config.i18n.available_locales = %i[en]
+    config.i18n.default_locale = :uk
+    config.i18n.available_locales = %i[en uk]
     config.i18n.fallbacks = true
   end
 end
