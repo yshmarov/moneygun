@@ -6,7 +6,6 @@ class I18nTest < ActiveSupport::TestCase
   end
 
   def test_no_missing_keys
-    skip
     missing_keys = @i18n.missing_keys
     assert_empty missing_keys,
                  "Missing #{missing_keys.leaves.count} i18n keys, run `i18n-tasks missing' to show them"
