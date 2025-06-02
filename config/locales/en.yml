@@ -82,11 +82,9 @@ en:
       index:
         title: Billing
       plan:
-        features: Current plan features
         manage_billing: Manage billing
         next_billing_date: Next billing date
         resume_subscription: Resume subscription
-        subscribe: Subscribe
         subscription_active: Subscription active
         subscription_cancelled: Subscription cancelled
         title: Manage subscription
