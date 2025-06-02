@@ -1,5 +1,7 @@
 # Rails.application.config_for(:settings).dig(:site, :name)
+# Rails.application.config_for(:settings).dig(:site, :only_personal_accounts)
 shared:
+  only_personal_accounts: true
   site:
     name: Moneygun
     email: hello@superails.com
