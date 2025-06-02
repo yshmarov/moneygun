@@ -1,7 +1,7 @@
-<% content_for :title, t(".title") %>
+<% content_for :title, t("users.membership_requests.index.title") %>
 
 <%= render "organizations/tabs", active_tab: :requests do %>
-  <%= render PageComponent.new(title: t("shared.navigation.pending_requests"), full_width: true) do %>
+  <%= render PageComponent.new(title: t("users.membership_requests.index.title"), full_width: true) do %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
       <%= render collection: @organizations, partial: "organizations/organization", as: :organization %>
     </div>
