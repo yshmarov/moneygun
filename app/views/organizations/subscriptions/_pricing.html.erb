@@ -27,7 +27,7 @@
 								<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
 									<%= button_tag t(".current_plan"), class: "du-btn du-btn-secondary", disabled: true %>
 								<% else %>
-									<%= button_to t(".manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
+									<%= button_to t("organizations.subscriptions.plan.manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
 								<% end %>
 
 							<% else %>
