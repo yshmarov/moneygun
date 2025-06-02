@@ -1,9 +1,8 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show edit update destroy]
+  before_action :redirect_to_dashboard, if: -> { Rails.application.config_for(:settings).dig(:only_personal_accounts) }
 
   def index
-    return redirect_to organization_dashboard_path(current_organization) if Rails.application.config_for(:settings).dig(:only_personal_accounts)
-
     @organizations = current_user.organizations.includes(:users)
   end
 
@@ -62,5 +61,9 @@ class OrganizationsController < ApplicationController
 
   def organization_params
     params.require(:organization).permit(:name, :logo, :privacy_setting)
+  end
+
+  def redirect_to_dashboard
+    redirect_to organization_dashboard_path(current_organization)
   end
 end
