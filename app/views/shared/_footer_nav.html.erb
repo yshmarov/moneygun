@@ -5,9 +5,9 @@
       <span class="du-dock-label">Dashboard</span>
     <% end %>
 
-    <%= active_link_to organization_projects_path(@current_organization), class_active: "du-dock-active", class: "" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-[1.2em]" %>
-      <span class="du-dock-label">Projects</span>
+    <%= active_link_to organization_subscriptions_path(@current_organization), class_active: "du-dock-active", class: "" do %>
+      <%= subscription_status_label(@current_organization) %>
+      <span class="du-dock-label"><%= t("organizations.subscriptions.index.title") %></span>
     <% end %>
   <% else %>
     <%= active_link_to organizations_path, active: :exclusive, class_active: "du-dock-active", class: "" do %>
