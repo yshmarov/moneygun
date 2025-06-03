@@ -12,6 +12,10 @@ class ConnectedAccount < ApplicationRecord
     github: {
       name: "GitHub",
       icon: :github
+    },
+    telegram: {
+      name: "Telegram",
+      icon: :telegram
     }
   }.freeze
 
