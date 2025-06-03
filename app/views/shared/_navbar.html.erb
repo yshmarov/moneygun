@@ -10,7 +10,7 @@
       <% if Rails.application.config_for(:settings).dig(:only_personal_accounts) %>
         <div class="du-menu du-menu-horizontal">
           <%= render "shared/sidebar_links" %>
-          <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+          <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), class: "hidden lg:block", icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
         </div>
         <% else %>
         <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
