@@ -5,7 +5,7 @@
   </head>
 
   <body class="flex h-dvh overflow-hidden" data-controller="mobile-sidebar layout-switcher">
-    <% if signed_in? %>
+    <% if signed_in? && !Rails.application.config_for(:settings).dig(:only_personal_accounts) %>
       <% sidebar_layout = cookies[:sidebar_layout] || "default" %>
       <% if sidebar_layout == "default" %>
         <%= render "shared/sidebar" %>
@@ -21,7 +21,7 @@
           <%= render "shared/flash" %>
         </div>
       </header>
-      <% authenticated_classes = "lg:m-2 lg:mt-0 lg:ml-0 lg:rounded-lg lg:border border-base-content/20" %>
+      <% authenticated_classes = "lg:m-2 lg:mt-0 lg:rounded-lg lg:border border-base-content/20" %>
       <main class="<%= authenticated_classes if signed_in? %> flex-grow p-4 bg-base-100 overflow-y-auto">
         <%= yield %>
       </main>

@@ -14,16 +14,16 @@ class Organizations::SubscriptionsController < Organizations::BaseController
 
     @checkout_session = @organization.payment_processor.checkout(
       mode: "subscription",
-      locale: I18n.locale,
+      locale: "ru",
       line_items: [ {
         price:,
         quantity: 1
       } ],
       allow_promotion_codes: true,
-      automatic_tax: { enabled: true },
-      tax_id_collection: { enabled: true },
+      # automatic_tax: { enabled: true },
+      # tax_id_collection: { enabled: true },
       # consent_collection: { terms_of_service: :required },
-      customer_update: { address: :auto, name: :auto },
+      # customer_update: { address: :auto, name: :auto },
       success_url: organization_subscriptions_url(@organization),
       cancel_url: organization_subscriptions_url(@organization)
     )
@@ -46,10 +46,10 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   end
 
   def require_billing_enabled
-    redirect_to organization_url(@organization) if Rails.application.credentials.dig(:stripe, :private_key).blank?
+    redirect_to organization_dashboard_url(@organization) if Rails.application.credentials.dig(:stripe, :private_key).blank?
   end
 
   def require_current_organization_admin
-    redirect_to organization_url(@organization) unless Current.membership.admin?
+    redirect_to organization_dashboard_url(@organization) unless Current.membership.admin?
   end
 end

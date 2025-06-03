@@ -283,6 +283,11 @@ Devise.setup do |config|
                     Rails.application.credentials.dig(:google_oauth2, :secret),
                     scope: "email,profile"
   end
+  if Rails.application.credentials.dig(:telegram, :bot_nickname).present? && Rails.application.credentials.dig(:telegram, :bot_secret).present?
+    config.omniauth :telegram,
+                    Rails.application.credentials.dig(:telegram, :bot_nickname),
+                    Rails.application.credentials.dig(:telegram, :bot_secret)
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

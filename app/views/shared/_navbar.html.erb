@@ -2,19 +2,26 @@
   <%# left %>
   <div class="flex items-center gap-2">
     <% if signed_in? %>
-      <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
-        <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
-        <% if current_organization %>
-          <div class="inline-flex items-center gap-2 no-underline">
-            <div>
-              <%= organization_avatar(@organization) %>
+      <% if Rails.application.config_for(:settings).dig(:only_personal_accounts) %>
+        <div class="du-menu du-menu-horizontal">
+          <%= render "shared/sidebar_links" %>
+          <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+        </div>
+        <% else %>
+        <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
+          <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
+          <% if current_organization %>
+            <div class="inline-flex items-center gap-2 no-underline">
+              <div>
+                <%= organization_avatar(@organization) %>
+              </div>
+              <div class="truncate">
+                <%= @organization.name %>
+              </div>
             </div>
-            <div class="truncate">
-              <%= @organization.name %>
-            </div>
-          </div>
-        <% end %>
-      </button>
+          <% end %>
+        </button>
+      <% end %>
 
     <% else %>
       <%= link_to root_path, class: "no-underline" do %>
@@ -66,8 +73,7 @@
         </div>
       </details>
     <% else %>
-      <%= active_link_to t("shared.navigation.login"), new_user_session_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-      <%= active_link_to t("shared.navigation.register"), new_user_registration_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
+      <%= render "devise/shared/oauth_links" %>
     <% end %>
   </div>
 </nav>
