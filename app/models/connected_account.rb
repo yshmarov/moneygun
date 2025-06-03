@@ -27,6 +27,10 @@ class ConnectedAccount < ApplicationRecord
     payload&.dig("info", "image")
   end
 
+  def nickname
+    payload&.dig("info", "nickname")
+  end
+
   def self.create_or_update_from_omniauth(auth_payload, user)
     # Check if this OAuth account is already connected to a different user
     existing_account = ConnectedAccount.find_by(
