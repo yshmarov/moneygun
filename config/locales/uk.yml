@@ -98,7 +98,7 @@ uk:
         current_plan: Поточний план
         save_yearly: Найкраща цінність
         subscribe: Почати
-        title: Ціни
+        title: 👑 VIP доступ
     transfers:
       show:
         title: Передача власності
@@ -142,10 +142,12 @@ uk:
       register: Зареєструватися
       select_organization: Вибрати організацію
   static:
+    index:
+      title: Головна
     refunds:
       title: Повернення коштів
     pricing:
-      title: Ціни
+      title: 👑 VIP доступ
     privacy:
       title: Конфіденційність
     terms:

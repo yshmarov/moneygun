@@ -145,6 +145,8 @@ en:
       register: Register
       select_organization: Select organization
   static:
+    index:
+      title: Home
     refunds:
       title: Refunds
     pricing:
