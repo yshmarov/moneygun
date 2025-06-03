@@ -11,7 +11,7 @@ class DeviseAuthTest < ActionDispatch::IntegrationTest
     if Rails.application.config_for(:settings).dig(:only_personal_accounts)
       get organizations_path
       assert_response :redirect
-      assert_redirected_to organization_dashboard_path(user.organizations.first)
+      assert_redirected_to organization_dashboard_path(user.default_organization)
     else
       get organizations_path
       assert_response :success

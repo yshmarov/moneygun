@@ -14,16 +14,16 @@ class Organizations::SubscriptionsController < Organizations::BaseController
 
     @checkout_session = @organization.payment_processor.checkout(
       mode: "subscription",
-      locale: I18n.locale,
+      locale: "ru",
       line_items: [ {
         price:,
         quantity: 1
       } ],
       allow_promotion_codes: true,
-      automatic_tax: { enabled: true },
-      tax_id_collection: { enabled: true },
+      # automatic_tax: { enabled: true },
+      # tax_id_collection: { enabled: true },
       # consent_collection: { terms_of_service: :required },
-      customer_update: { address: :auto, name: :auto },
+      # customer_update: { address: :auto, name: :auto },
       success_url: organization_subscriptions_url(@organization),
       cancel_url: organization_subscriptions_url(@organization)
     )
