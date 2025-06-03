@@ -40,7 +40,7 @@ uk:
       index:
         title: Панель керування
       paywalled_page:
-        title: Платна сторінка
+        title: Доступ
     create:
       success: Організацію створено
     destroy:

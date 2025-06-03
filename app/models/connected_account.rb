@@ -19,6 +19,8 @@ class ConnectedAccount < ApplicationRecord
     }
   }.freeze
 
+  scope :telegram, -> { where(provider: "telegram") }
+
   def name
     payload&.dig("info", "name")
   end
