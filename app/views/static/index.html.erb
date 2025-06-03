@@ -18,7 +18,7 @@
           <% end %>
         </div>
         <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex">
-          <%= button_to omniauth_authorize_path(User, :google_oauth2), class: "du-btn du-btn-outline du-btn-block rounded-full du-btn-xl" do %>
+          <%= button_to omniauth_authorize_path(User, :google_oauth2), data: { turbo: false }, class: "du-btn du-btn-outline du-btn-block rounded-full du-btn-xl" do %>
             <%= inline_svg_tag "svg/google.svg", class: "w-4 h-4" %>
             <%= t("devise.views.shared.links.sign_in_with", provider: "Google") %>
           <% end %>
@@ -121,7 +121,7 @@
               <% end %>
             </ul>
             
-            <%= button_to omniauth_authorize_path(User, :google_oauth2), class: "du-btn du-btn-outline du-btn-block rounded-full du-btn-xl" do %>
+            <%= button_to omniauth_authorize_path(User, :google_oauth2), data: { turbo: false }, class: "du-btn du-btn-outline du-btn-block rounded-full du-btn-xl" do %>
               <%= inline_svg_tag "svg/google.svg", class: "w-4 h-4" %>
               <%= t("devise.views.shared.links.sign_in_with", provider: "Google") %>
             <% end %>

@@ -21,7 +21,7 @@ class SubscriptionProcessor
     stripe_plan = subscription.data["subscription_items"].first["price"]
 
     message = <<~MSG
-      wow #{user.email} paid #{stripe_plan["unit_amount"].to_f / 100}
+      #{user.email} paid #{stripe_plan["unit_amount"].to_f / 100}
     MSG
     Telegrama.send_message(message, chat_id: Rails.application.config_for(:settings).dig(:telegram, :admin_chat_id))
   end
