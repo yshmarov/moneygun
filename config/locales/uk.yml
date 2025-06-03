@@ -142,6 +142,8 @@ uk:
       register: Зареєструватися
       select_organization: Вибрати організацію
   static:
+    refunds:
+      title: Повернення коштів
     pricing:
       title: Ціни
     privacy:

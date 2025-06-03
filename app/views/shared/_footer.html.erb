@@ -1,11 +1,17 @@
-<footer class="p-4 text-center border-t border-base-content/20 bg-base-300 space-y-2">
-  <div>
-    <%= active_link_to "Terms", terms_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-    <%= active_link_to "Privacy", privacy_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-  </div>
-
-  <div>
+<footer class="du-footer du-footer-horizontal p-4 text-center border-t border-base-content/20 bg-base-300 space-y-2">
+  <aside>
+    <%= image_tag "logo.png", class: "size-10" %>
     &copy; <%= Time.now.year %>
-    <%= Rails.application.config_for(:settings).dig(:site, :name) %>. All rights reserved.
-  </div>
+    <%= Rails.application.config_for(:settings).dig(:site, :name) %>.
+    All rights reserved.
+  </aside>
+
+  <nav>
+    <%= active_link_to t("static.pricing.title"), pricing_path, class_active: "du-link-active", class: "du-link du-link-hover" %>
+  </nav>
+  <nav>
+    <%= active_link_to t("static.terms.title"), terms_path, class_active: "du-link-active", class: "du-link du-link-hover" %>
+    <%= active_link_to t("static.privacy.title"), privacy_path, class_active: "du-link-active", class: "du-link du-link-hover" %>
+    <%= active_link_to t("static.refunds.title"), refunds_path, class_active: "du-link-active", class: "du-link du-link-hover" %>
+  </nav>
 </footer>

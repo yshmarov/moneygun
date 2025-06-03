@@ -145,6 +145,8 @@ en:
       register: Register
       select_organization: Select organization
   static:
+    refunds:
+      title: Refunds
     pricing:
       title: Pricing
     privacy:

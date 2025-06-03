@@ -3,9 +3,9 @@
 shared:
   only_personal_accounts: true
   site:
-    name: Moneygun
-    email: hello@superails.com
-    address: Warsaw, Poland, 02-691
+    name: AudioRezka
+    email: hello@audiorezka.com
+    address: Warszawa, Polska
   pro_features:
     - ✅ Топ 100 аудіокниг українською — з приємною озвучкою + pdf
   plans:
