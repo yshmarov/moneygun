@@ -101,3 +101,5 @@ gem "profitable"
 
 # business logic
 gem "refer"
+gem "telegrama"
+gem "faraday"
