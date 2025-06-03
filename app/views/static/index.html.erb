@@ -1,4 +1,133 @@
-<div>
-  <h1 class="font-bold text-lx lg:text-3xll">Static#index</h1>
-  <p>Find me in app/views/static/index.html.erb</p>
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white">
+  <div class="container mx-auto px-6 py-20">
+    <div class="flex flex-col lg:flex-row items-center">
+      <div class="lg:w-1/2 lg:pr-10">
+        <h1 class="text-4xl lg:text-6xl font-bold mb-6">
+          <%= Rails.application.config_for(:settings).dig(:site, :name) %>
+        </h1>
+        <p class="text-xl lg:text-2xl mb-8 opacity-90">
+          Ексклюзивна колекція українських аудіокниг та PDF у приватній Telegram групі
+        </p>
+        <div class="space-y-4 mb-8">
+          <% Rails.application.config_for(:settings).dig(:pro_features).each do |feature| %>
+            <div class="flex items-center">
+              <span class="text-2xl mr-3"><%= feature.split(' ').first %></span>
+              <span class="text-lg"><%= feature.split(' ', 2).last %></span>
+            </div>
+          <% end %>
+        </div>
+        <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex">
+          <%= button_to omniauth_authorize_path(User, :google_oauth2), class: "du-btn du-btn-outline du-btn-block rounded-full du-btn-xl" do %>
+            <%= inline_svg_tag "svg/google.svg", class: "w-4 h-4" %>
+            <%= t("devise.views.shared.links.sign_in_with", provider: "Google") %>
+          <% end %>
+        </div>
+      </div>
+      <div class="lg:w-1/2 mt-10 lg:mt-0">
+        <%= image_tag "promo_assets/banner-grid-3x3-books.JPG", alt: "Колекція аудіокниг", class: "rounded-lg shadow-2xl w-full" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div id="features" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-800 mb-4">Чому AudioRezka?</h2>
+      <p class="text-xl text-gray-600">Найкраща колекція українських аудіокниг в одному місці</p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+        <div class="text-4xl mb-4">📚</div>
+        <h3 class="text-xl font-bold mb-4">Величезна бібліотека</h3>
+        <p class="text-gray-600">Тисячі українських аудіокниг та PDF у високій якості</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+        <div class="text-4xl mb-4">🎧</div>
+        <h3 class="text-xl font-bold mb-4">Якісна озвучка</h3>
+        <p class="text-gray-600">Професійні диктори з приємними голосами</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="text-xl font-bold mb-4">Швидкий доступ</h3>
+        <p class="text-gray-600">Миттєвий доступ через приватну Telegram групу</p>
+      </div>
+    </div>
+
+    <!-- Product Screenshots -->
+    <div class="flex flex-col gap-8">
+      <div class="space-y-6">
+        <h3 class="text-2xl font-bold text-gray-800">Подивіться як це працює</h3>
+        <p class="text-gray-600">Простий доступ до всіх книг прямо в Telegram</p>
+      </div>
+      <div class="space-y-6 flex flex-row items-center gap-4">
+        <%= image_tag "promo_assets/telegram-book-audio-example-1.PNG", alt: "Приклад аудіокниги в Telegram", class: "rounded-lg shadow-lg w-auto max-h-96" %>
+        <%= image_tag "promo_assets/telegram-book-audio-example-3.PNG", alt: "Ще один приклад", class: "rounded-lg shadow-lg w-auto max-h-96" %>
+        <%= image_tag "promo_assets/telegram-book-audio-grid-4-books-example-1.JPG", alt: "Сітка книг в Telegram", class: "rounded-lg shadow-lg w-auto max-h-96" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-800 mb-4">Що кажуть наші користувачі</h2>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="bg-gray-50 p-8 rounded-lg">
+        <%= image_tag "promo_assets/testimonial-1.jpg", alt: "Відгук користувача", class: "w-full rounded-lg shadow-lg" %>
+      </div>
+      <div class="bg-gray-50 p-8 rounded-lg">
+        <%= image_tag "promo_assets/testimonial-2.jpg", alt: "Відгук користувача", class: "w-full rounded-lg shadow-lg" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pricing Section -->
+<div class="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">Оберіть свій план</h2>
+      <p class="text-xl opacity-90">Доступні ціни для всіх</p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <% Rails.application.config_for(:settings).dig(:plans).each do |plan| %>
+        <div class="bg-white text-gray-800 p-8 rounded-lg shadow-xl">
+          <div class="text-center">
+            <h3 class="text-2xl font-bold mb-4">
+              <%= plan[:interval] == 'місяць' ? 'Місячний' : 'Річний' %> план
+            </h3>
+            <div class="text-4xl font-bold mb-2">
+              <%= plan[:unit_amount] / 100 %> <%= plan[:currency].upcase %>
+            </div>
+            <div class="text-gray-600 mb-8">за <%= plan[:interval] == 'місяць' ? 'місяць' : 'рік' %></div>
+            
+            <ul class="text-left space-y-3 mb-8">
+              <% Rails.application.config_for(:settings).dig(:pro_features).each do |feature| %>
+                <li class="flex items-center">
+                  <span class="mr-3"><%= feature.split(' ').first %></span>
+                  <span><%= feature.split(' ', 2).last %></span>
+                </li>
+              <% end %>
+            </ul>
+            
+            <%= button_to omniauth_authorize_path(User, :google_oauth2), class: "du-btn du-btn-outline du-btn-block rounded-full du-btn-xl" do %>
+              <%= inline_svg_tag "svg/google.svg", class: "w-4 h-4" %>
+              <%= t("devise.views.shared.links.sign_in_with", provider: "Google") %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
