@@ -36,6 +36,11 @@ uk:
       success: Запит на участь відхилено
     success: Запит на доступ успішно надіслано
   organizations:
+    dashboard:
+      index:
+        title: Панель керування
+      paywalled_page:
+        title: Платна сторінка
     create:
       success: Організацію створено
     destroy:
