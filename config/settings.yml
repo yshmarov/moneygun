@@ -15,7 +15,7 @@ shared:
     - id: price_1RVpRpLRcgxgTmfQZANjO18k
       unit_amount: 2900
       currency: PLN
-      interval: month
+      interval: місяць
     - id: price_1RVpSELRcgxgTmfQSSCA9v4X
       unit_amount: 9900
       currency: PLN
@@ -25,8 +25,8 @@ production:
     - id: price_1RVrKrLRcgxgTmfQCguQqoIX
       unit_amount: 2900
       currency: PLN
-      interval: month
+      interval: місяць
     - id: price_1RVrL9LRcgxgTmfQlbYLNxKU
       unit_amount: 9900
       currency: PLN
-      interval: year
+      interval: рік
