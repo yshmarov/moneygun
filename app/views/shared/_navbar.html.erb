@@ -67,7 +67,9 @@
         <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
           <%= user_avatar(current_user) %>
           <%= current_user.email.split("@").first %>
-          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
+          <div>
+            <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
+          </div>
         </summary>
         <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 du-menu">
           <%= nav_link t("users.referrals.index.title"), user_referrals_path, icon: "👥" %>
