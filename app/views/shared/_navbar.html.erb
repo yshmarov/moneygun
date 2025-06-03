@@ -1,6 +1,11 @@
 <nav class="flex justify-between px-4 py-2 bg-base-300">
   <%# left %>
   <div class="flex items-center gap-2">
+    <%= link_to root_path, class: "no-underline" do %>
+      <%= image_tag "logo.png", class: "size-8 lg:hidden" %>
+      <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block" %>
+    <% end %>
+
     <% if signed_in? %>
       <% if Rails.application.config_for(:settings).dig(:only_personal_accounts) %>
         <div class="du-menu du-menu-horizontal">
@@ -24,10 +29,6 @@
       <% end %>
 
     <% else %>
-      <%= link_to root_path, class: "no-underline" do %>
-        <%= image_tag "logo.png", class: "size-8 lg:hidden" %>
-        <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block" %>
-      <% end %>
       <div class="du-menu du-menu-horizontal">
         <%= nav_link t("static.pricing.title"), pricing_path %>
       </div>
