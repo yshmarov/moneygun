@@ -22,6 +22,8 @@ class Avo::Resources::User < Avo::BaseResource
       end
     end
 
+    field :connected_accounts, as: :has_many
+
     tabs do
       field :memberships, as: :has_many,
             attach_scope: lambda {
