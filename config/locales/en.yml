@@ -144,6 +144,8 @@ en:
       logout: Log out
       register: Register
       select_organization: Select organization
+    footer:
+      all_rights_reserved: All rights reserved.
   static:
     index:
       title: Welcome to the app!

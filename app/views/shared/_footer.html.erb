@@ -3,7 +3,7 @@
     <%= image_tag "logo.png", class: "size-10" %>
     &copy; <%= Time.now.year %>
     <%= Rails.application.config_for(:settings).dig(:site, :name) %>.
-    All rights reserved.
+    <%= t(".all_rights_reserved") %>
   </aside>
 
   <nav>
