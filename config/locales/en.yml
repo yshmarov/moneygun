@@ -145,6 +145,10 @@ en:
       register: Register
       select_organization: Select organization
   static:
+    index:
+      title: Welcome to the app!
+    refunds:
+      title: Refunds
     pricing:
       title: Pricing
     privacy:

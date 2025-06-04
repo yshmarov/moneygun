@@ -24,4 +24,9 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
     get privacy_url
     assert_response :success
   end
+
+  test "should get refunds" do
+    get refunds_url
+    assert_response :success
+  end
 end
