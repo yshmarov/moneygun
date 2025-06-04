@@ -100,3 +100,5 @@ gem "profitable"
 
 # business logic
 gem "refer"
+
+gem "redcarpet", "~> 3.6"
