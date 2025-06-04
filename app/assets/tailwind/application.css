@@ -6,6 +6,8 @@
 
 @import "./components/table.css";
 
+@plugin "@tailwindcss/typography";
+
 @plugin "./daisyui.js" {
   themes: light --default, dark --prefersdark;
   prefix: "du-";
