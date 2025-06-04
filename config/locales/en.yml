@@ -79,6 +79,9 @@ en:
         success: User updated
     new:
       title: New organization
+    projects:
+      index:
+        title: Projects
     show:
       title: Settings
     subscriptions:
