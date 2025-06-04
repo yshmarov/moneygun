@@ -128,8 +128,8 @@ en:
   shared:
     actions:
       confirm: Are you sure?
-      copied: ✅ Copied!
-      copy: 📋 Copy
+      copied: "✅ Copied!"
+      copy: "📋 Copy"
       destroy: Destroy
       edit: Edit
       new: New
@@ -138,23 +138,23 @@ en:
       not_authorized: You are not authorized to perform this action.
       not_subscribed: You need to subscribe to access this page.
       rate_limit: Try again later.
+    footer:
+      all_rights_reserved: All rights reserved.
     navigation:
       edit_profile: Edit profile
       login: Log in
       logout: Log out
       register: Register
       select_organization: Select organization
-    footer:
-      all_rights_reserved: All rights reserved.
   static:
     index:
       title: Welcome to the app!
-    refunds:
-      title: Refunds
     pricing:
       title: Pricing
     privacy:
       title: Privacy
+    refunds:
+      title: Refunds
     terms:
       title: Terms
   users:
