@@ -43,3 +43,7 @@ envVarGroups:
         value: "true"
       - key: MALLOC_ARENA_MAX
         value: 2
+      - key: BUNDLE_WITHOUT
+        value: "development:test"
+      - key: NODE_MODULES_CACHE
+        value: "true"
