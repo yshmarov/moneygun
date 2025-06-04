@@ -12,6 +12,10 @@ class ConnectedAccount < ApplicationRecord
     github: {
       name: "GitHub",
       icon: :github
+    },
+    telegram: {
+      name: "Telegram",
+      icon: :telegram
     }
   }.freeze
 
@@ -21,6 +25,10 @@ class ConnectedAccount < ApplicationRecord
 
   def image_url
     payload&.dig("info", "image")
+  end
+
+  def nickname
+    payload&.dig("info", "nickname")
   end
 
   def self.create_or_update_from_omniauth(auth_payload, user)
