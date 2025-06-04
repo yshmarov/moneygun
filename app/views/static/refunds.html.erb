@@ -2,8 +2,6 @@
 
 <%= modal do %>
   <%= render PageComponent.new do |component| %>
-    <div class="prose">
-      <%= markdown_to_html(File.read(Rails.root.join('app/views/static/refunds.md'))) %>
-    </div>
+    <%= markdown_to_html(File.read(Rails.root.join('app/views/static/refunds.md'))) %>
   <% end %>
 <% end %>

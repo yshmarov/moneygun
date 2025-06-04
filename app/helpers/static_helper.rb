@@ -29,6 +29,8 @@ module StaticHelper
     }
 
     markdown = Redcarpet::Markdown.new(renderer, extensions)
-    markdown.render(markdown_text).html_safe
+    tag.div(class: "prose text-base-content max-w-none sm:max-w-prose overflow-x-auto") do
+      markdown.render(markdown_text).html_safe
+    end
   end
 end

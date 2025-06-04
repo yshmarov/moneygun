@@ -1,9 +1,7 @@
 <% content_for :title, t(".title") %>
 
 <%= modal do %>
-  <%= render PageComponent.new(title: t("static.index.title")) do |component| %>
-    <div class="prose">
-      <%= markdown_to_html(File.read(Rails.root.join('README.md'))) %>
-    </div>
+  <%= render PageComponent.new do |component| %>
+    <%= markdown_to_html(File.read(Rails.root.join('README.md'))) %>
   <% end %>
 <% end %>
