@@ -128,8 +128,8 @@ en:
   shared:
     actions:
       confirm: Are you sure?
-      copied: Copied!
-      copy: Copy
+      copied: ✅ Copied!
+      copy: 📋 Copy
       destroy: Destroy
       edit: Edit
       new: New
