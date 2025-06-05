@@ -1,0 +1,142 @@
+uk:
+  devise:
+    views:
+      sessions:
+        new:
+          title: "Увійти"
+          email_label: "Електронна пошта"
+          email_placeholder: "Введіть вашу електронну пошту"
+          password_label: "Пароль"
+          password_placeholder: "Введіть ваш пароль"
+          remember_me: "Запам’ятати мене"
+          submit: "Увійти"
+      registrations:
+        new:
+          title: "Реєстрація"
+          email_label: "Електронна пошта"
+          email_placeholder: "Введіть вашу електронну пошту"
+          password_label: "Пароль"
+          password_placeholder: "Створіть пароль"
+          password_confirmation_label: "Підтвердження пароля"
+          password_confirmation_placeholder: "Підтвердіть ваш пароль"
+          password_minimum: "(мінімум %{count} символів)"
+          submit: "Зареєструватися"
+        edit:
+          title: "Редагувати %{email}"
+          email_label: "Електронна пошта"
+          email_placeholder: "Введіть вашу електронну пошту"
+          password_label: "Пароль"
+          password_placeholder: "Новий пароль"
+          password_help: "Залиште порожнім, якщо не хочете змінювати"
+          password_confirmation_label: "Підтвердження пароля"
+          password_confirmation_placeholder: "Підтвердіть новий пароль"
+          current_password_label: "Поточний пароль"
+          current_password_placeholder: "Поточний пароль"
+          current_password_help: "Нам потрібен ваш поточний пароль для підтвердження змін"
+          password_minimum: "мінімум %{count} символів"
+          submit: "Оновити"
+          pending_confirmation: "Очікує підтвердження: %{email}"
+          danger_zone:
+            title: "Небезпечна зона"
+            description: "Після видалення облікового запису ви не зможете його відновити. Будьте впевнені у своєму рішенні."
+            button: "Видалити мій обліковий запис"
+            confirm: "Ви впевнені? Цю дію неможливо скасувати."
+      passwords:
+        new:
+          title: "Забули пароль?"
+          email_label: "Електронна пошта"
+          email_placeholder: "Введіть вашу електронну пошту"
+          email_help: "Ми надішлемо вам посилання для скидання пароля"
+          submit: "Надіслати інструкції для скидання пароля"
+        edit:
+          title: "Зміна пароля"
+          password_label: "Новий пароль"
+          password_placeholder: "Введіть новий пароль"
+          password_confirmation_label: "Підтвердити новий пароль"
+          password_confirmation_placeholder: "Підтвердьте новий пароль"
+          password_minimum: "(мінімум %{count} символів)"
+          submit: "Змінити мій пароль"
+      confirmations:
+        new:
+          title: "Надіслати інструкції повторно"
+          email_label: "Електронна пошта"
+          email_placeholder: "Введіть вашу електронну пошту"
+          email_help: "Ми надішлемо вам нове підтвердження"
+          submit: "Надіслати інструкції підтвердження"
+      unlocks:
+        new:
+          title: "Надіслати інструкції розблокування"
+          email_label: "Електронна пошта"
+          email_placeholder: "Введіть вашу електронну пошту"
+          email_help: "Ми надішлемо вам інструкції для розблокування облікового запису"
+          submit: "Надіслати інструкції розблокування"
+      shared:
+        links:
+          sign_in: "Увійти"
+          sign_up: "Зареєструватися"
+          forgot_password: "Забули пароль?"
+          confirmation_instructions: "Не отримали інструкції підтвердження?"
+          unlock_instructions: "Не отримали інструкції розблокування?"
+          oauth_separator: АБО
+          sign_in_with: Увійти через %{provider}
+    confirmations:
+      confirmed: "Вашу електронну адресу успішно підтверджено."
+      send_instructions: "Невдовзі ви отримаєте лист з інструкціями щодо підтвердження вашої електронної адреси."
+      send_paranoid_instructions: "Якщо ваша електронна адреса є в нашій базі, ви отримаєте лист з інструкціями щодо її підтвердження."
+    failure:
+      already_authenticated: "Ви вже увійшли в систему."
+      inactive: "Ваш обліковий запис ще не активовано."
+      invalid: "Неправильні %{authentication_keys} або пароль."
+      locked: "Ваш обліковий запис заблоковано."
+      last_attempt: "У вас залишилася одна спроба перед блокуванням облікового запису."
+      not_found_in_database: "Неправильні %{authentication_keys} або пароль."
+      timeout: "Сесія завершилася. Будь ласка, увійдіть знову."
+      unauthenticated: "Увійдіть або зареєструйтеся, щоб продовжити."
+      unconfirmed: "Підтвердіть свою електронну адресу, щоб продовжити."
+    mailer:
+      confirmation_instructions:
+        subject: "Інструкції підтвердження"
+      reset_password_instructions:
+        subject: "Інструкції для скидання пароля"
+      unlock_instructions:
+        subject: "Інструкції для розблокування"
+      email_changed:
+        subject: "Електронну адресу змінено"
+      password_change:
+        subject: "Пароль змінено"
+    omniauth_callbacks:
+      failure: Щось пішло не так. Спробуйте ще раз
+      success: "Успішно автентифіковано через %{kind}."
+    passwords:
+      no_token: "Ви не можете отримати доступ до цієї сторінки без посилання з листа для скидання пароля. Переконайтеся, що ви використовуєте повне URL-посилання."
+      send_instructions: "Невдовзі ви отримаєте лист з інструкціями щодо скидання пароля."
+      send_paranoid_instructions: "Якщо ваша електронна адреса є в нашій базі, ви отримаєте лист з посиланням для відновлення пароля."
+      updated: "Ваш пароль успішно змінено. Ви увійшли в систему."
+      updated_not_active: "Ваш пароль успішно змінено."
+    registrations:
+      destroyed: "Бувайте! Ваш обліковий запис було успішно видалено. Сподіваємося побачити вас знову."
+      signed_up: "Ласкаво просимо! Ви успішно зареєструвалися."
+      signed_up_but_inactive: "Ви успішно зареєструвалися, але ваш обліковий запис ще не активовано."
+      signed_up_but_locked: "Ви успішно зареєструвалися, але ваш обліковий запис заблоковано."
+      signed_up_but_unconfirmed: "На вашу електронну адресу надіслано лист з посиланням для підтвердження. Перейдіть за посиланням, щоб активувати обліковий запис."
+      update_needs_confirmation: "Ваш обліковий запис оновлено, але необхідно підтвердити нову електронну адресу. Перевірте пошту та перейдіть за посиланням."
+      updated: "Ваш обліковий запис успішно оновлено."
+      updated_but_not_signed_in: "Ваш обліковий запис оновлено, але через зміну пароля потрібно увійти знову."
+    sessions:
+      signed_in: "Вхід успішний."
+      signed_out: "Вихід успішний."
+      already_signed_out: "Вихід успішний."
+    unlocks:
+      send_instructions: "Невдовзі ви отримаєте лист з інструкціями для розблокування облікового запису."
+      send_paranoid_instructions: "Якщо ваш обліковий запис існує, ви отримаєте лист з інструкціями для його розблокування."
+      unlocked: "Ваш обліковий запис успішно розблоковано. Увійдіть, щоб продовжити."
+  errors:
+    messages:
+      already_confirmed: "вже підтверджено, спробуйте увійти"
+      confirmation_period_expired: "потрібно підтвердити протягом %{period}, будь ласка, надішліть запит повторно"
+      expired: "термін дії минув, надішліть запит повторно"
+      not_found: "не знайдено"
+      not_locked: "не був заблокований"
+      not_saved:
+        one: "1 помилка не дозволила зберегти %{resource}:"
+        other: "%{count} помилки не дозволили зберегти %{resource}:"

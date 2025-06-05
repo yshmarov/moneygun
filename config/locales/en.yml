@@ -151,7 +151,9 @@ en:
       select_organization: Select organization
   static:
     index:
-      title: Welcome to the app!
+      title: Home
+    refunds:
+      title: Refunds
     pricing:
       title: Pricing
     privacy:

@@ -9,4 +9,8 @@ module User::Multitenancy
     has_many :organization_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
     has_many :organization_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
   end
+
+  def default_organization
+    organizations.first
+  end
 end

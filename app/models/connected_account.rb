@@ -19,6 +19,8 @@ class ConnectedAccount < ApplicationRecord
     }
   }.freeze
 
+  scope :telegram, -> { where(provider: "telegram") }
+
   def name
     payload&.dig("info", "name")
   end
@@ -32,6 +34,23 @@ class ConnectedAccount < ApplicationRecord
   end
 
   def self.create_or_update_from_omniauth(auth_payload, user)
+    # Check if this OAuth account is already connected to a different user
+    existing_account = ConnectedAccount.find_by(
+      provider: auth_payload.provider,
+      uid: auth_payload.uid
+    )
+
+    if existing_account && existing_account.user != user
+      # OAuth account is already connected to a different user
+      new_account = ConnectedAccount.new(
+        provider: auth_payload.provider,
+        uid: auth_payload.uid,
+        user: user
+      )
+      new_account.errors.add(:base, "This #{auth_payload.provider.humanize} account is already connected to another user")
+      return new_account
+    end
+
     connected_account = user.connected_accounts.find_or_initialize_by(
       provider: auth_payload.provider,
       uid: auth_payload.uid

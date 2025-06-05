@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   layout :determine_layout
 
   before_action :set_current_organizations, if: :user_signed_in?
+  before_action :current_organization, if: :signed_in?
 
   set_referral_cookie
 
@@ -25,5 +26,11 @@ class ApplicationController < ActionController::Base
 
   def determine_layout
     user_signed_in? ? "application" : "marketing"
+  end
+
+  def current_organization
+    return unless Rails.application.config_for(:settings).dig(:only_personal_accounts)
+
+    @current_organization ||= current_user&.organizations&.first
   end
 end

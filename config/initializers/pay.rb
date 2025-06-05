@@ -5,6 +5,10 @@ Pay.setup do |config|
   config.support_email = "#{Rails.application.config_for(:settings).dig(:site, :name)} <#{Rails.application.config_for(:settings).dig(:site, :email)}>"
   config.enabled_processors = [ :stripe ]
   config.send_emails = false
+
+  ActiveSupport.on_load(:pay) do
+    Pay::Webhooks.delegator.subscribe "stripe.customer.subscription.created", SubscriptionProcessor.new
+  end
 end
 
 # Pay::Charge.new.respond_to?(:complete_referral, true)
