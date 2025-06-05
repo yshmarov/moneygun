@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :books
   draw :users
   draw :organizations
   draw :admin

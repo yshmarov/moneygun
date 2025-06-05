@@ -1,0 +1,30 @@
+<% content_for :title, "Books" %>
+
+<%= render PageComponent.new(title: "Books", full_width: true) do |component| %>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th><%= Book.human_attribute_name(:title) %></th>
+          <th><%= Book.human_attribute_name(:created_at) %></th>
+          <th><%= Book.human_attribute_name(:updated_at) %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="books">
+        <% @books.each do |book| %>
+          <tr>
+            <td data-label="<%= Book.human_attribute_name(:id) %>"><%= image_tag book.thumbnail_url, class: "w-10 h-10" %></td>
+            <td data-label="<%= Book.human_attribute_name(:title) %>"><%= book.title %></td>
+            <td data-label="<%= Book.human_attribute_name(:created_at) %>"><%= l book.created_at, format: :short %></td>
+            <td data-label="<%= Book.human_attribute_name(:updated_at) %>"><%= l book.updated_at, format: :short %></td>
+            <td>
+              <%= link_to t("shared.actions.show"), [ @organization, book ], class: "du-btn du-btn-sm du-btn-secondary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
