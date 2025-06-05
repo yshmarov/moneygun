@@ -2,14 +2,15 @@ module StaticHelper
   def markdown_to_html(markdown_text)
     return "" if markdown_text.blank?
 
-    renderer = Redcarpet::Render::HTML.new(
-      filter_html: false,
-      no_images: false,
-      no_links: false,
+    render_options = {
+      filter_html: true,
       hard_wrap: true,
-      escape_html: false,
-      link_attributes: { target: "_blank", rel: "noopener noreferrer" }
-    )
+      link_attributes: { target: "_blank", rel: "noopener noreferrer" },
+      prettify: true,
+      space_after_headers: true
+    }
+
+    renderer = Redcarpet::Render::HTML.new(render_options)
 
     extensions = {
       hard_wrap: true,
@@ -29,7 +30,7 @@ module StaticHelper
     }
 
     markdown = Redcarpet::Markdown.new(renderer, extensions)
-    tag.div(class: "prose text-base-content max-w-none sm:max-w-prose overflow-x-auto") do
+      tag.div(class: "break-normal prose dark:prose-invert") do
       markdown.render(markdown_text).html_safe
     end
   end
