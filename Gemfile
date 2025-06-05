@@ -106,3 +106,5 @@ gem "redcarpet", "~> 3.6"
 gem "telegrama"
 gem "faraday"
 gem "active_analytics"
+
+gem "httparty", "~> 0.23.1"
