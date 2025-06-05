@@ -1,6 +1,6 @@
 <%# content_for :title, t(".title") %>
 
-<div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white">
+<div class="w-full overflow-x-hidden bg-gradient-to-r from-blue-600 to-purple-700 text-white">
   <div class="container mx-auto px-6 py-20">
     <div class="flex flex-col lg:flex-row items-center">
       <div class="lg:w-1/2 lg:pr-10">
@@ -33,7 +33,7 @@
 </div>
 
 <!-- Features Section -->
-<div id="features" class="py-20 bg-gray-50">
+<div id="features" class="w-full overflow-x-hidden py-20 bg-gray-50">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16">
       <h2 class="text-4xl font-bold text-gray-800 mb-4">Чому AudioRezka?</h2>
@@ -66,17 +66,17 @@
         <h3 class="text-2xl font-bold text-gray-800">Подивіться як це працює</h3>
         <p class="text-gray-600">Простий доступ до всіх книг прямо в Telegram</p>
       </div>
-      <div class="space-y-6 flex flex-row items-center gap-4">
-        <%= image_tag "promo_assets/telegram-book-audio-example-1.PNG", alt: "Приклад аудіокниги в Telegram", class: "rounded-lg shadow-lg w-auto max-h-96" %>
-        <%= image_tag "promo_assets/telegram-book-audio-example-3.PNG", alt: "Ще один приклад", class: "rounded-lg shadow-lg w-auto max-h-96" %>
-        <%= image_tag "promo_assets/telegram-book-audio-grid-4-books-example-1.JPG", alt: "Сітка книг в Telegram", class: "rounded-lg shadow-lg w-auto max-h-96" %>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+        <%= image_tag "promo_assets/telegram-book-audio-example-1.PNG", alt: "Приклад аудіокниги в Telegram", class: "rounded-lg shadow-lg w-full h-auto max-h-96 object-contain" %>
+        <%= image_tag "promo_assets/telegram-book-audio-example-3.PNG", alt: "Ще один приклад", class: "rounded-lg shadow-lg w-full h-auto max-h-96 object-contain" %>
+        <%= image_tag "promo_assets/telegram-book-audio-grid-4-books-example-1.JPG", alt: "Сітка книг в Telegram", class: "rounded-lg shadow-lg w-full h-auto max-h-96 object-contain" %>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Testimonials Section -->
-<div class="py-20 bg-white">
+<div class="w-full overflow-x-hidden py-20 bg-white">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16">
       <h2 class="text-4xl font-bold text-gray-800 mb-4">Що кажуть наші користувачі</h2>
@@ -94,7 +94,7 @@
 </div>
 
 <!-- Pricing Section -->
-<div class="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+<div class="w-full overflow-x-hidden py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16">
       <h2 class="text-4xl font-bold mb-4">Оберіть свій план</h2>

@@ -119,8 +119,8 @@ uk:
           reject_invitation: Відхилити запрошення
           request_to_join: Запросити приєднання
   routes:
-    memberships: команда
-    organizations: організації
+    memberships: team
+    organizations: organizations
   search:
     index:
       title: Пошук...
