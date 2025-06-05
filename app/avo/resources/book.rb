@@ -9,5 +9,7 @@ class Avo::Resources::Book < Avo::BaseResource
     field :id, as: :id
     field :title, as: :text
     field :payload, as: :code, disabled: true
+    field :pdfs, as: :file, attach_many: true
+    field :audios, as: :file, attach_many: true
   end
 end
