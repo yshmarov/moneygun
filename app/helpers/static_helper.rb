@@ -30,7 +30,7 @@ module StaticHelper
     }
 
     markdown = Redcarpet::Markdown.new(renderer, extensions)
-      tag.div(class: "break-normal prose dark:prose-invert") do
+      tag.div(class: "prose dark:prose-invert") do
       markdown.render(markdown_text).html_safe
     end
   end
