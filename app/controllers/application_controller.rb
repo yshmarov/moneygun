@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   include Authentication
   include Authorization
+  include Analytics
 
   def current_organization
     Current.membership&.organization
