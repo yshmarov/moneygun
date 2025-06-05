@@ -1,10 +1,6 @@
 <% close_on_submit = true if close_on_submit.nil? %>
 
-<% if params[:drawer].present? %>
-  <% dialog_position = "du-modal-end" %>
-<% else %>
-  <% dialog_position = "items-start pt-10" %>
-<% end %>
+<% dialog_position = params[:drawer].present? ? "du-modal-end" : "" %>
 
 <% if turbo_frame_request? %>
   <%= turbo_frame_tag :modal do %>

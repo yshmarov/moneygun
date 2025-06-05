@@ -1,38 +1,7 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: t(".title")) do %>
-  <h2 class="text-2xl font-bold mb-4">
-    Information We Collect
-  </h2>
-  <p>
-    We collect information you provide directly to us, such as when you create an account, subscribe to our services, or communicate with us. This information may include your name, email address, and payment information.
-  </p>
-
-  <h2 class="text-2xl font-bold mb-4">
-    How We Use Your Information
-  </h2>
-  <p>
-    We use the information we collect to provide, maintain, and improve our services. We may also use the information to communicate with you, such as to send you service updates and promotional messages.
-  </p>
-
-  <h2 class="text-2xl font-bold mb-4">
-    How We Share Your Information
-  </h2>
-  <p>
-    We do not share your personal information with third parties without your consent, except in the following circumstances: to comply with legal process, to protect our rights and property, or in connection with a sale or transfer of our business.
-  </p>
-
-  <h2 class="text-2xl font-bold mb-4">
-    Your Choices
-  </h2>
-  <p>
-    You may contact us if you wish to delete your account.
-  </p>
-
-  <h2 class="text-2xl font-bold mb-4">
-    Changes to This Privacy Policy
-  </h2>
-  <p>
-    We may update this privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page.
-  </p>
+<%= modal do %>
+  <%= render PageComponent.new do |component| %>
+    <%= markdown_to_html(File.read(Rails.root.join('app/views/static/privacy.md'))) %>
+  <% end %>
 <% end %>

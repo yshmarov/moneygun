@@ -1,15 +1,8 @@
-<%= render PageComponent.new(title: t(".title")) do %>
-  <h2 class="text-2xl font-bold mb-4">
-    Cancellations
-  </h2>
-  <p>
-    You can cancel your subscription at any time. No questions asked. Subscription will be active until the end of the billing cycle.
-  </p>
+<% content_for :title, t(".title") %>
 
-  <h2 class="text-2xl font-bold mb-4">
-    Refunds
-  </h2>
-  <p>
-    The subscription is non-refundable. If you cancel your subscription, you will not be refunded for the remaining days of the billing cycle.
-  </p>
+<%= modal do %>
+  <%= render PageComponent.new do |component| %>
+    <%= markdown_to_html(File.read(Rails.root.join('app/views/static/refunds.md'))) %>
+  <% end %>
 <% end %>
+
