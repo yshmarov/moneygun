@@ -10,9 +10,11 @@
     <div>
       <% if connected_account.name.present? %>
         <div class="font-medium">
-          <%= connected_account.name %> 
+          <%= connected_account.name %>
           <% if connected_account.nickname.present? %>
-            (@<%= connected_account.nickname %>)
+            <span class="text-sm text-base-content/60">
+              @<%= connected_account.nickname %>
+            </span>
           <% end %>
         </div>
       <% end %>
@@ -23,7 +25,7 @@
       <div class="text-sm text-base-content/70 font-mono">
         <%= connected_account.uid %>
       </div>
-      <div class="text-sm text-base-content">
+      <div class="text-sm">
         <%= t(".connected_time_ago", time: time_ago_in_words(connected_account.created_at)) %>
       </div>
     </div>
