@@ -89,6 +89,7 @@ gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
 gem "turbo_power", "~> 0.7.0"
 gem "rails-i18n"
+gem "redcarpet", "~> 3.6"
 
 # admin
 gem "avo", ">= 3.2"
@@ -104,3 +105,4 @@ gem "refer"
 gem "redcarpet", "~> 3.6"
 gem "telegrama"
 gem "faraday"
+gem "active_analytics"

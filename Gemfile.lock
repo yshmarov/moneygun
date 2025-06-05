@@ -51,6 +51,9 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    active_analytics (0.4.1)
+      browser (>= 1.0.0)
+      rails (>= 5.2.0)
     active_link_to (1.0.5)
       actionpack
       addressable
@@ -117,6 +120,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.6)
       msgpack (~> 1.2)
+    browser (6.2.0)
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -548,6 +552,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_analytics
   active_link_to (~> 1.0)
   avo (>= 3.2)
   bootsnap
