@@ -8,5 +8,18 @@ module User::Multitenancy
 
     has_many :organization_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
     has_many :organization_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
+
+    after_create :create_default_organization, if: -> { Rails.application.config_for(:settings).dig(:only_personal_accounts) }
+  end
+
+  def default_organization
+    organizations.first
+  end
+
+  private
+
+  def create_default_organization
+    organization = organizations.first_or_create(name: "Default", owner: self)
+    organization.memberships.first.update(role: Membership.roles[:admin])
   end
 end
