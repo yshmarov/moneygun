@@ -15,6 +15,11 @@ class Avo::Resources::User < Avo::BaseResource
       field :id, as: :id
       field :email, as: :text, disabled: true, sortable: true
       field :admin, as: :boolean, sortable: true
+      field :login_as, as: :text, as_html: true do
+        unless record.id == current_user.id
+          link_to "Login as", helpers.avo_masquerade_path(record), target: "_blank", rel: "noopener"
+        end
+      end
 
       sidebar do
         field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
