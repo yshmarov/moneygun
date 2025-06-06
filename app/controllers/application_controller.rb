@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # allow_browser versions: :modern
 
   before_action :set_current_organizations, if: :user_signed_in?
+  before_action :current_organization, if: :user_signed_in?
 
   set_referral_cookie
 
@@ -18,5 +19,11 @@ class ApplicationController < ActionController::Base
 
   def set_current_organizations
     Current.organizations = current_user.organizations
+  end
+
+  def current_organization
+    return unless Rails.application.config_for(:settings).dig(:only_personal_accounts)
+
+    @current_organization ||= current_user&.organizations&.first
   end
 end

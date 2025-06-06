@@ -5,11 +5,13 @@
   </head>
 
   <body class="flex h-dvh overflow-hidden" data-controller="mobile-sidebar layout-switcher">
-    <% sidebar_layout = cookies[:sidebar_layout] || "default" %>
-    <% if sidebar_layout == "default" %>
-      <%= render "shared/sidebar" %>
-    <% else %>
-      <%= render "shared/sidebar_2_cols" %>
+    <% unless Rails.application.config_for(:settings).dig(:only_personal_accounts) %>
+      <% sidebar_layout = cookies[:sidebar_layout] || "default" %>
+      <% if sidebar_layout == "default" %>
+        <%= render "shared/sidebar" %>
+      <% else %>
+        <%= render "shared/sidebar_2_cols" %>
+      <% end %>
     <% end %>
 
     <div class="flex-grow flex flex-col bg-base-300">

@@ -9,13 +9,20 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get organizations_url
-    assert_response :success
+    if Rails.application.config_for(:settings).dig(:only_personal_accounts)
+      get organizations_url
+      assert_response :redirect
+      assert_redirected_to organization_dashboard_path(@organization)
+      assert_response :found
+    else
+      get organizations_url
+      assert_response :success
 
-    # displays only organizations that the user is a member of
-    assert_match @organization.name, response.body
-    organization2 = organizations(:two)
-    assert_no_match organization2.name, response.body
+      # displays only organizations that the user is a member of
+      assert_match @organization.name, response.body
+      organization2 = organizations(:two)
+      assert_no_match organization2.name, response.body
+    end
   end
 
   test "should get new" do
