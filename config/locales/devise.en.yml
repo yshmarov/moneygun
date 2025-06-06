@@ -5,13 +5,13 @@ en:
     views:
       sessions:
         new:
-          title: "Log in"
+          title: "Sign in"
           email_label: "Email"
           email_placeholder: "Enter your email"
           password_label: "Password"
           password_placeholder: "Enter your password"
           remember_me: "Remember me"
-          submit: "Log in"
+          submit: "Sign in"
       registrations:
         new:
           title: "Sign up"
@@ -74,7 +74,7 @@ en:
           submit: "Resend unlock instructions"
       shared:
         links:
-          sign_in: "Log in"
+          sign_in: "Sign in"
           sign_up: "Sign up"
           forgot_password: "Forgot your password?"
           confirmation_instructions: "Didn't receive confirmation instructions?"

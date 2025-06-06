@@ -19,15 +19,3 @@
     <%= link_to t("devise.views.shared.links.unlock_instructions"), new_unlock_path(resource_name), class: "du-link du-link-primary" %>
   <% end %>
 </div>
-
-<% if devise_mapping.omniauthable? && resource_class.omniauth_providers.any? %>
-  <div class="du-divider"><%= t("devise.views.shared.links.oauth_separator") %></div>
-  <% resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to omniauth_authorize_path(resource_name, provider),
-        data: { turbo: false },
-        class: "du-btn du-btn-outline du-btn-block" do %>
-        <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
-        <%= t("devise.views.shared.links.sign_in_with", provider: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
-      <% end %>
-  <% end %>
-<% end %>

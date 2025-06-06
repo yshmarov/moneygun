@@ -1,4 +1,5 @@
 <%= render PageComponent.new(title: t("devise.views.sessions.new.title")) do %>
+  <%= render "devise/shared/oauth_links" %>
 
   <%= form_with model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-4" do |f| %>
     <div class="space-y-1">
@@ -16,7 +17,5 @@
     </div>
   <% end %>
 
-  <div class="text-center space-y-1">
-    <%= render "devise/shared/links" %>
-  </div>
+  <%= render "devise/shared/links" %>
 <% end %>

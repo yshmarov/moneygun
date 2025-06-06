@@ -145,8 +145,8 @@ en:
       all_rights_reserved: All rights reserved.
     navigation:
       edit_profile: Edit profile
-      login: Log in
-      logout: Log out
+      login: Sign in
+      logout: Sign out
       register: Register
       select_organization: Select organization
   static:

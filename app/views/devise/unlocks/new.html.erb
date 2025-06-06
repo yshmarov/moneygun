@@ -1,4 +1,5 @@
 <%= render PageComponent.new(title: t("devise.views.unlocks.new.title")) do %>
+  <%= render "devise/shared/oauth_links" %>
 
   <%= form_with model: resource, as: resource_name, url: unlock_path(resource_name), method: :post, class: "space-y-4" do |f| %>
     <%= render "shared/errors", object: resource %>
@@ -14,8 +15,5 @@
     </div>
   <% end %>
 
-  <div class="text-center space-y-1">
-    <%= render "devise/shared/links" %>
-  </div>
-
+  <%= render "devise/shared/links" %>
 <% end %>
