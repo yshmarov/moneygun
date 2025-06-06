@@ -2,6 +2,6 @@
 
 <%= modal do %>
   <%= render PageComponent.new do |component| %>
-    <%= markdown_to_html(File.read(Rails.root.join('app/views/static/terms.md'))) %>
+    <%= markdown_to_html(File.read(Rails.root.join("app/views/static/terms.md"))) %>
   <% end %>
 <% end %>
