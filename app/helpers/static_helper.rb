@@ -3,7 +3,7 @@ module StaticHelper
     return "" if markdown_text.blank?
 
     render_options = {
-      filter_html: true,
+      filter_html: false,
       hard_wrap: true,
       link_attributes: { target: "_blank", rel: "noopener noreferrer" },
       prettify: true,
