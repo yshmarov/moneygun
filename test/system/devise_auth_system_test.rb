@@ -20,7 +20,7 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
 
     fill_in "Email", with: email
     fill_in "Password", with: password
-    click_button "Log in"
+    click_button "Sign in"
 
     assert_current_path organizations_path
     assert_text "Signed in successfully."
