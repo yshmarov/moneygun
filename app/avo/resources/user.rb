@@ -17,8 +17,7 @@ class Avo::Resources::User < Avo::BaseResource
       field :admin, as: :boolean, sortable: true
       field :login_as, as: :text, as_html: true do
         unless record.id == current_user.id
-          link_to "Login as", helpers.avo_masquerade_path(record), target: "_blank", rel: "noopener"
-          # link_to "Login as", main_app.masquerade_path(record), target: "_blank", rel: "noopener"
+          link_to "Login as", helpers.avo_masquerade_path(record)
         end
       end
 
