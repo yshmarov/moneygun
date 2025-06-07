@@ -16,6 +16,10 @@ class ConnectedAccount < ApplicationRecord
     telegram: {
       name: "Telegram",
       icon: :telegram
+    },
+    developer: {
+      name: "Developer",
+      icon: "rocket-launch"
     }
   }.freeze
 

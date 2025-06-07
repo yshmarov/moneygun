@@ -4,7 +4,7 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
   include GoogleOauth2Helper
 
   setup do
-    skip if Devise.omniauth_configs.keys.empty?
+    skip if Devise.omniauth_configs.keys.exclude?(:google_oauth2)
   end
 
   test "oauth success" do

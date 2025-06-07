@@ -4,7 +4,7 @@ devise_for :users, controllers: {
   omniauth_callbacks: "users/omniauth_callbacks"
 }
 
-resource :user do
+resource :user, path: I18n.t("routes.user") do
   scope module: :users do
     resources :connected_accounts
     resources :referrals, only: %i[index]

@@ -88,4 +88,22 @@ Avo.configure do |config|
   # config.profile_menu = -> {
   #   link "Profile", path: "/avo/profile", icon: "heroicons/outline/user-circle"
   # }
+  config.click_row_to_view_record = true
+
+  config.branding = {
+    logo: ActionController::Base.helpers.asset_path("logo-long.png"),
+    logomark: ActionController::Base.helpers.asset_path("logo.png")
+  }
+end
+
+if defined?(Avo::MediaLibrary)
+  Avo::MediaLibrary.configure do |config|
+    config.enabled = true
+    config.visible = true
+  end
+end
+
+unless defined?(Avo::Pro)
+  Rails.autoloaders.main.ignore(Rails.root.join("app/avo/cards"))
+  Rails.autoloaders.main.ignore(Rails.root.join("app/avo/dashboards"))
 end

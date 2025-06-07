@@ -15,6 +15,9 @@ class Avo::Resources::Organization < Avo::BaseResource
   def fields
     main_panel do
       field :id, as: :id
+      field :subscription_status, as: :text do
+        helpers.subscription_status_label(record)
+      end
       field :logo, as: :file, is_image: true
       field :name, as: :text, sortable: true
       field :owner, as: :belongs_to
@@ -23,6 +26,12 @@ class Avo::Resources::Organization < Avo::BaseResource
         field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
         field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
       end
+    end
+
+    tabs title: "Billing" do
+      field :subscriptions, as: :has_many
+      field :pay_customers, as: :has_many
+      field :charges, as: :has_many
     end
 
     tabs do
@@ -36,4 +45,14 @@ class Avo::Resources::Organization < Avo::BaseResource
       }
     end
   end
+
+  self.profile_photo = {
+    source: -> {
+      if view.index?
+        ActionController::Base.helpers.asset_path("logo.png")
+      else
+        record.logo
+      end
+    }
+  }
 end
