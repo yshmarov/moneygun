@@ -73,6 +73,7 @@ gem "sqids" # for obfuscating IDs
 # authentication
 gem "devise", "~> 4.9"
 gem "devise_invitable", "~> 2.0"
+gem "devise_masquerade"
 
 # oauth
 gem "omniauth-google-oauth2"

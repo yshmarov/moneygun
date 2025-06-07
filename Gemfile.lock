@@ -167,6 +167,10 @@ GEM
     devise_invitable (2.0.11)
       actionmailer (>= 5.0)
       devise (>= 4.6)
+    devise_masquerade (2.1.4)
+      devise (>= 4.7.0)
+      globalid (>= 0.3.6)
+      railties (>= 5.2.0)
     docile (1.4.1)
     dotenv (3.1.8)
     drb (2.2.3)
@@ -576,6 +580,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   devise_invitable (~> 2.0)
+  devise_masquerade
   erb_lint
   i18n-tasks
   image_processing (~> 1.2)
