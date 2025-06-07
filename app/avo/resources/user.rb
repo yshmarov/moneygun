@@ -22,8 +22,6 @@ class Avo::Resources::User < Avo::BaseResource
       end
     end
 
-    field :connected_accounts, as: :has_many
-
     tabs do
       field :memberships, as: :has_many,
             attach_scope: lambda {
@@ -35,5 +33,8 @@ class Avo::Resources::User < Avo::BaseResource
             }
       field :owned_organizations, as: :has_many
     end
+
+    field :connected_accounts, as: :has_many
+    field :referrals, as: :has_many
   end
 end
