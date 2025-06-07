@@ -9,6 +9,6 @@ class CreateActiveAnalyticsBrowsersPerDays < ActiveRecord::Migration[7.1]
       t.bigint :total, null: false, default: 1
       t.timestamps
     end
-    add_index :active_analytics_browsers_per_days, [:date, :site, :name, :version]
+    add_index :active_analytics_browsers_per_days, [ :date, :site, :name, :version ]
   end
 end
