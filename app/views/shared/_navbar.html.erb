@@ -45,7 +45,7 @@
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <% if user_masquerade? %>
-        <%= link_to "⚠ STOP IMPERSONATING", back_masquerade_path(current_user), class: "du-btn du-btn-warning" %>
+        <%= link_to t("masquerade.back"), back_masquerade_path(current_user), class: "du-btn du-btn-warning du-btn-sm uppercase" %>
       <% end %>
 
       <% if current_user.admin? %>
