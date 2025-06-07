@@ -1,6 +1,11 @@
 <footer class="du-footer lg:du-footer-horizontal p-4 text-center border-t border-base-content/20 bg-base-300 space-y-2">
   <aside>
-    <%= image_tag "logo.png", class: "size-10" %>
+    <div>
+      <%= link_to root_path, class: "no-underline" do %>
+        <%= image_tag "logo.png", class: "size-8 lg:hidden" %>
+        <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block" %>
+      <% end %>
+    </div>
     &copy; <%= Time.now.year %>
     <%= Rails.application.config_for(:settings).dig(:site, :name) %>.
     <%= t(".all_rights_reserved") %>
