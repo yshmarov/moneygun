@@ -17,5 +17,18 @@ resources :organizations, path: I18n.t("routes.organizations") do
     get "subscriptions", to: "subscriptions#index"
     get "subscriptions/checkout", to: "subscriptions#checkout"
     post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
+
+    resources :credits, only: %i[index create]
+    resources :refills, only: %i[index] do
+      collection do
+        post :add_payment_method
+        post :charge_payment_method
+        post :billing_portal
+        patch :update_auto_refill
+        #
+        patch :spend_some_credits
+        patch :spend_bulk_credits
+      end
+    end
   end
 end
