@@ -1,7 +1,7 @@
 <%= tag.div id: dom_id(organization), class: "border border-base-content/20 p-2 rounded-lg gap-2 flex flex-col hover:bg-base-200" do %>
   <%= link_to public_organization_path(organization), data: { turbo_frame: "modal" }, class: "flex items-center gap-2 justify-between" do %>
     <div class="flex items-center gap-2">
-      <%#= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :secret_key).present? %>
+      <%#= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
       <%= organization_avatar(organization) %>
       <div class="font-medium">
         <%= organization.name %>
