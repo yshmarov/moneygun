@@ -23,7 +23,9 @@
           <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block" %>
         <% end %>
       </div>
-      <%= active_link_to "Pricing", pricing_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
+      <div class="du-menu du-menu-horizontal">
+        <%= nav_link t("static.pricing.title"), pricing_path %>
+      </div>
     <% end %>
   </div>
 
@@ -75,8 +77,10 @@
         </div>
       </details>
     <% else %>
-      <%= active_link_to t("shared.navigation.login"), new_user_session_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-      <%= active_link_to t("shared.navigation.register"), new_user_registration_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
+      <div class="du-menu du-menu-horizontal">
+        <%= nav_link t("shared.navigation.login"), new_user_session_path %>
+        <%= nav_link t("shared.navigation.register"), new_user_registration_path %>
+      </div>
     <% end %>
   </div>
 </nav>
