@@ -91,9 +91,14 @@ gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
 
 # admin
-gem "avo", ">= 3.2"
-gem "ransack", "~> 4.2"
 gem "active_storage_dashboard"
+gem "avo", ">= 3.2"
+group :avo, optional: true do
+  source "https://packager.dev/avo-hq/" do
+    gem "avo-pro"
+  end
+end
+gem "ransack", "~> 4.2"
 
 # payments
 gem "pay", "~> 8.0"
