@@ -5,6 +5,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def failure
+    redirect_to new_user_registration_url, alert: I18n.t("devise.omniauth_callbacks.failure")
+  end
+
   private
 
   def handle_auth(kind)
@@ -17,9 +21,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session["devise.auth_data"] = request.env["omniauth.auth"].except(:extra)
       redirect_to new_user_registration_url, alert: user.errors.full_messages.join("\n")
     end
-  end
-
-  def failure
-    redirect_to new_user_registration_url, alert: I18n.t("devise.omniauth_callbacks.failure")
   end
 end
