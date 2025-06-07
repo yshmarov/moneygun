@@ -93,6 +93,7 @@ gem "redcarpet", "~> 3.6"
 # admin
 gem "avo", ">= 3.2"
 gem "ransack", "~> 4.2"
+gem "active_storage_dashboard"
 
 # payments
 gem "pay", "~> 8.0"
