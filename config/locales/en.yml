@@ -9,6 +9,16 @@ en:
         logo: Logo
         name: Name
         privacy_setting: Privacy
+        privacy_settings:
+          private:
+            display_text: Private
+            description_text: Only invited users can join
+          restricted:
+            display_text: Restricted
+            description_text: People must submit an application to be approved to join
+          public:
+            display_text: Public
+            description_text: Anyone can join
     models:
       membership: Member
       organization: Organization

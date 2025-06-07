@@ -13,22 +13,22 @@ module OrganizationsHelper
     case key
     when "private"
       {
-        display_text: "Invite only",
-        description_text: "People can join your server directly with an invite",
+        display_text: I18n.t("activerecord.attributes.organization.privacy_settings.private.display_text"),
+        description_text: I18n.t("activerecord.attributes.organization.privacy_settings.private.description_text"),
         # icon_path: "svg/lock.svg"
         icon_path: "🔒"
       }
     when "restricted"
       {
-        display_text: "Apply to join",
-        description_text: "People must submit an application to be approved to join",
+        display_text: I18n.t("activerecord.attributes.organization.privacy_settings.restricted.display_text"),
+        description_text: I18n.t("activerecord.attributes.organization.privacy_settings.restricted.description_text"),
         # icon_path: "svg/envelope.svg"
         icon_path: "📩"
       }
     when "public"
       {
-        display_text: "Discoverable",
-        description_text: "Anyone can join your server directly through Server Discovery",
+        display_text: I18n.t("activerecord.attributes.organization.privacy_settings.public.display_text"),
+        description_text: I18n.t("activerecord.attributes.organization.privacy_settings.public.description_text"),
         # icon_path: "svg/globe.svg"
         icon_path: "🌍"
       }
