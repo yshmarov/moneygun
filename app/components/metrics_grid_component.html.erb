@@ -1,14 +1,24 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   <% @metrics.each do |metric| %>
+    <% 
+      if metric[:type] == :money
+        end_value = metric[:value].to_f/100
+        display_value = number_to_currency(end_value)
+      else
+        end_value = metric[:value]
+        display_value = number_with_delimiter(metric[:value])
+      end
+    %>
     <div class="du-card du-bg-base-100 du-shadow-xl border">
       <div class="du-card-body space-y-2">
         <h2 class="du-card-title text-base-content/70 text-sm uppercase tracking-wider"><%= metric[:title] %></h2>
         <p class="text-4xl font-bold text-primary">
-          <% if metric[:type] == :money %>
-            <%= number_to_currency(metric[:value].to_f/100) %>
-          <% elsif metric[:type] == :number %>
-            <%= number_with_delimiter(metric[:value]) %>
-          <% end %>
+          <span data-controller="animated-number" 
+                data-animated-number-start-value="0" 
+                data-animated-number-end-value="<%= end_value %>" 
+                data-animated-number-duration-value="300">
+            <%= display_value %>
+          </span>
         </p>
         <p class="text-sm text-base-content/60"><%= metric[:subtitle] %></p>
       </div>
