@@ -25,6 +25,12 @@ class Avo::Resources::Organization < Avo::BaseResource
       end
     end
 
+    tabs title: "Pay" do
+      field :subscriptions, as: :has_many
+      field :pay_customers, as: :has_many
+      field :charges, as: :has_many
+    end
+
     tabs do
       field :memberships, as: :has_many,
             attach_scope: lambda {
