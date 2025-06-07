@@ -32,7 +32,7 @@ en:
       already_requested: You have already requested access to this organization
       not_found: Membership request not found
     index:
-      title: Incoming membership requests
+      title: ⬇️ Incoming membership requests
     reject:
       success: Membership request rejected
     success: Requested access successfully
@@ -51,7 +51,7 @@ en:
     errors:
       not_found: Organization not found
     index:
-      title: My organizations
+      title: 🏡 My organizations
     invitations:
       buttons:
         cancel: Decline invitation
@@ -62,7 +62,7 @@ en:
       errors:
         not_found: Invitation not found
       index:
-        title: Outgoing invitations
+        title: ⬆️ Outgoing invitations
     memberships:
       actions:
         leave: Leave
@@ -113,7 +113,7 @@ en:
   public:
     organizations:
       index:
-        title: Discover organizations
+        title: 🌎 Discover organizations
       show:
         actions:
           accept_invitation: Accept invitation
@@ -178,12 +178,12 @@ en:
         your_connected_accounts: Connected accounts
     invitations:
       index:
-        title: Incoming invitations
+        title: ⬇️ Incoming invitations
     membership_requests:
       destroy:
         success: Membership request revoked
       index:
-        title: Outgoing membership requests
+        title: ⬆️ Outgoing membership requests
     referrals:
       index:
         clicks: Link clicks
