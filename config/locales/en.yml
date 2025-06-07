@@ -125,6 +125,7 @@ en:
   routes:
     memberships: teammates
     organizations: organizations
+    user: me
   search:
     index:
       title: Search...
