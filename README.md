@@ -123,7 +123,7 @@ Add the following structure:
 
 ```yaml
 stripe:
-  private_key: sk_
+  publishable_key: sk_
   public_key: pk_
   webhook_receive_test_events: true
   signing_secret:

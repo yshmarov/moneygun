@@ -270,6 +270,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :developer unless Rails.env.production?
   if Rails.application.credentials.dig(:github, :key).present? && Rails.application.credentials.dig(:github, :secret).present?
     config.omniauth :github,
                     Rails.application.credentials.dig(:github, :key),

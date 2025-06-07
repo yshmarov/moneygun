@@ -6,6 +6,24 @@ GIT
     nested_scaffold (1.1.0)
 
 GEM
+  remote: https://packager.dev/avo-hq/
+  specs:
+    avo-dashboards (3.20.3)
+      avo (= 3.20.3)
+      turbo-rails
+      view_component (>= 3.7.0)
+      zeitwerk (>= 2.6.12)
+    avo-menu (3.20.3)
+      avo (= 3.20.3)
+      docile
+      zeitwerk (>= 2.6.12)
+    avo-pro (3.20.3)
+      avo (= 3.20.3)
+      avo-dashboards (= 3.20.3)
+      avo-menu (= 3.20.3)
+      zeitwerk (>= 2.6.12)
+
+GEM
   remote: https://rubygems.org/
   specs:
     actioncable (8.0.2)
@@ -57,6 +75,8 @@ GEM
     active_link_to (1.0.5)
       actionpack
       addressable
+    active_storage_dashboard (0.1.8)
+      rails (>= 5.2.0)
     activejob (8.0.2)
       activesupport (= 8.0.2)
       globalid (>= 0.3.6)
@@ -552,7 +572,9 @@ PLATFORMS
 DEPENDENCIES
   active_analytics
   active_link_to (~> 1.0)
+  active_storage_dashboard
   avo (>= 3.2)
+  avo-pro!
   bootsnap
   capybara
   debug

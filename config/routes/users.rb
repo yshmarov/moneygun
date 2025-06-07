@@ -5,7 +5,7 @@ devise_for :users, controllers: {
   masquerades: "users/masquerades"
 }
 
-resource :user do
+resource :user, path: I18n.t("routes.user") do
   scope module: :users do
     resources :connected_accounts
     resources :referrals, only: %i[index]
