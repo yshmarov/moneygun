@@ -45,7 +45,7 @@
   <div class="flex items-center gap-2">
     <% if signed_in? %>
       <% if user_masquerade? %>
-        <%= link_to t("masquerade.back"), back_masquerade_path(current_user), class: "du-btn du-btn-warning du-btn-sm uppercase" %>
+        <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "du-btn du-btn-warning du-btn-sm uppercase" %>
       <% end %>
 
       <% if current_user.admin? %>
@@ -60,6 +60,7 @@
             <%= active_link_to "⚙️ Jobs", "/jobs", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
             <%= active_link_to "📊 Analytics", "/analytics", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
             <%= active_link_to "💾 Active Storage", "/active_storage_dashboard", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
+            <%= active_link_to "👀 Lookbook", "/lookbook", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if Rails.env.development? %>
           </div>
         </details>
       <% end %>

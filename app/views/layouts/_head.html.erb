@@ -1,4 +1,8 @@
-<title><%= [ content_for(:title), current_organization&.name || Rails.application.config_for(:settings).dig(:site, :name) ].compact.join(" - ") %></title>
+<% if content_for(:title).present? %>
+  <title><%= content_for(:title) %></title>
+<% else %>
+  <title><%= [ if defined?(current_organization) && current_organization&.name.present? then current_organization.name else Rails.application.config_for(:settings).dig(:site, :name) end ].compact.join(" - ") %></title>
+<% end %>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">

@@ -5,3 +5,7 @@ authenticate :user, ->(user) { user.admin? } do
   mount ActiveAnalytics::Engine, at: "analytics"
   mount ActiveStorageDashboard::Engine, at: "/active_storage_dashboard"
 end
+
+if Rails.env.development?
+  mount Lookbook::Engine, at: "/lookbook"
+end

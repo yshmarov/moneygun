@@ -59,6 +59,7 @@ group :development do
   gem "web-console"
   gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
   gem "i18n-tasks"
+  gem "lookbook", ">= 2.3.9"
 end
 
 group :test do
