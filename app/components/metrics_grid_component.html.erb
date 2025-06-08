@@ -8,7 +8,7 @@
                 data-animated-number-end-value="<%= metric[:end_value] %>" 
                 data-animated-number-type-value="<%= metric[:type] %>"
                 <% if metric[:type] == :money %>
-                  data-animated-number-currency-value="<%= metric[:currency] || 'USD' %>"
+                  data-animated-number-currency-value="<%= metric[:currency] || "USD" %>"
                 <% end %>>
             <%= metric[:display_value] %>
           </span>
