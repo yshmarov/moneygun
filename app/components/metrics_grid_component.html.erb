@@ -5,9 +5,11 @@
         <h2 class="du-card-title text-base-content/70 text-sm uppercase tracking-wider"><%= metric[:title] %></h2>
         <p class="text-4xl font-bold text-primary">
           <span data-controller="animated-number" 
-                data-animated-number-start-value="0" 
                 data-animated-number-end-value="<%= metric[:end_value] %>" 
-                data-animated-number-duration-value="300">
+                data-animated-number-type-value="<%= metric[:type] %>"
+                <% if metric[:type] == :money %>
+                  data-animated-number-currency-value="<%= metric[:currency] || 'USD' %>"
+                <% end %>>
             <%= metric[:display_value] %>
           </span>
         </p>
