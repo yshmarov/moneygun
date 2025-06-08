@@ -2,8 +2,9 @@
   <%= render PageComponent.new(title: t("devise.views.sessions.new.title")) do %>
     <%= render "devise/shared/oauth_links" %>
 
-    <% if params[:email].present? %>
-      <%= form_with model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-4" do |f| %>
+    <% if params[:via_email].present? || params.dig(:user, :via_email).present? %>
+      <%= form_with model: resource, as: resource_name, url: session_path(resource_name), data: { turbo_frame: "_top" }, class: "space-y-4" do |f| %>
+        <%= f.hidden_field :via_email, value: params[:via_email] || params.dig(:user, :via_email) %>
         <div class="space-y-1">
           <%= f.label :email, t("devise.views.sessions.new.email_label"), class: "block text-sm font-medium" %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: t("devise.views.sessions.new.email_placeholder") %>
@@ -21,7 +22,7 @@
 
       <%= render "devise/shared/links" %>
     <% else %>
-      <%= link_to t("devise.views.sessions.new.sign_in_with_email"), new_session_path(resource_name, email: true), class: "du-btn du-btn-primary du-btn-block" %>
+      <%= link_to t("devise.views.sessions.new.sign_in_with_email"), new_user_session_path(via_email: true), class: "du-btn du-btn-primary du-btn-block" %>
     <% end %>
   <% end %>
 <% end %>
