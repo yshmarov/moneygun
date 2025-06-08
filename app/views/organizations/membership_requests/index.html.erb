@@ -1,9 +1,9 @@
 <% content_for :title, t("membership_requests.index.title") %>
 
-<%= render "organizations/memberships/tabs", active_tab: :requests do %>
-  <%= render PageComponent.new(title: t("membership_requests.index.title"), full_width: true) do |component| %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-      <%= render collection: @membership_requests, partial: "organizations/membership_requests/membership_request", as: :membership_request %>
-    </div>
-  <% end %>
+<%= render "organizations/memberships/tabs", active_tab: :requests %>
+
+<%= render PageComponent.new(title: t("membership_requests.index.title"), full_width: true) do |component| %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+    <%= render collection: @membership_requests, partial: "organizations/membership_requests/membership_request", as: :membership_request %>
+  </div>
 <% end %>

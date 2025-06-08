@@ -1,11 +1,6 @@
 class TabsComponentPreview < ViewComponent::Preview
-  # @label Custom Content
-  def custom_content
-    render TabsComponent.new(active_tab: :custom, tabs: tabs_with_custom_content) do
-      content_tag :div, class: "p-4 bg-base-100 rounded" do
-        "Content"
-      end
-    end
+  def default
+    render TabsComponent.new(active_tab: :custom, tabs: tabs_with_custom_content)
   end
 
   private
