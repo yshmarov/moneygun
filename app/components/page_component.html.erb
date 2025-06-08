@@ -15,9 +15,7 @@
   <% end %>
 
   <% if subtitle %>
-    <p class="text-sm text-base-content/60">
-      <%= subtitle %>
-    </p>
+    <%= simple_format(subtitle, class: "text-sm text-base-content/60") %>
   <% end %>
 
   <div class="space-y-4">
