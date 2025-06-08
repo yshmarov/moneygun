@@ -70,6 +70,8 @@ end
 
 # active record
 gem "sqids" # for obfuscating IDs
+gem "pagy", "~> 9.3"
+gem "ransack", "~> 4.2"
 
 # authentication
 gem "devise", "~> 4.9"
@@ -100,7 +102,6 @@ group :avo, optional: true do
     gem "avo-pro"
   end
 end
-gem "ransack", "~> 4.2"
 
 # payments
 gem "pay", "~> 8.0"

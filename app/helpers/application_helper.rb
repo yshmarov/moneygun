@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def flash_style(type)
     case type
     when "notice" then "du-alert-info"

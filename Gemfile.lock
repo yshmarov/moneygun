@@ -612,6 +612,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  pagy (~> 9.3)
   pay (~> 8.0)
   pg (~> 1.1)
   profitable

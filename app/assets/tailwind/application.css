@@ -5,6 +5,7 @@
 @source "../../../app/views/**/*";
 
 @import "./components/table.css";
+@import "./components/pagy.css";
 
 @plugin "@tailwindcss/typography";
 
