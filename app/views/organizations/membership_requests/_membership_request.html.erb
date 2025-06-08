@@ -5,7 +5,7 @@
   </div>
 
   <div class="flex items-center justify-end gap-2">
-    <%= button_to t("membership_requests.buttons.approve"), approve_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-sm du-btn-primary" %>
     <%= button_to t("membership_requests.buttons.reject"), reject_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-sm du-btn-error" %>
+    <%= button_to t("membership_requests.buttons.approve"), approve_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-sm du-btn-primary" %>
   </div>
 </div>
