@@ -7,17 +7,17 @@ class Organizations::BaseController < ApplicationController
   # after_action :verify_authorized
 
   # def authorize_membership!
-  #   redirect_to root_path, alert: "You are not authorized to perform this action." unless @organization.users.include?(current_user)
+  #   redirect_to root_path, alert: I18n.t("shared.errors.not_authorized") unless @organization.users.include?(current_user)
   #   raise Pundit::NotAuthorizedError unless @organization.users.include?(current_user)
   # end
 
   # def authorize_organization_admin!
-  #   redirect_to organization_path(@organization), alert: "You are not authorized to perform this action." unless Current.membership.admin?
+  #   redirect_to organization_path(@organization), alert: I18n.t("shared.errors.not_authorized") unless Current.membership.admin?
   #   raise Pundit::NotAuthorizedError unless Current.membership.admin?
   # end
 
   def authorize_organization_owner!
-    redirect_to organization_path(@organization), alert: t("shared.errors.not_authorized") unless @organization.owner?(current_user)
+    redirect_to organization_path(@organization), alert: I18n.t("shared.errors.not_authorized") unless @organization.owner?(current_user)
   end
 
   def require_subscription
@@ -32,7 +32,7 @@ class Organizations::BaseController < ApplicationController
   def set_organization
     @organization = current_user.organizations.find(params[:organization_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to organizations_path, alert: t("organizations.errors.not_found"), status: :not_found
+    redirect_to organizations_path, alert: t("shared.errors.not_authorized")
   end
 
   def set_current_membership
