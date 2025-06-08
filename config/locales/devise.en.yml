@@ -12,6 +12,7 @@ en:
           password_placeholder: "Enter your password"
           remember_me: "Remember me"
           submit: "Sign in"
+          sign_in_with_email: "Sign in with Email and Password"
       registrations:
         new:
           title: "Sign up"
