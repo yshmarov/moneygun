@@ -78,8 +78,8 @@
       </details>
     <% else %>
       <div class="du-menu du-menu-horizontal">
-        <%= nav_link t("shared.navigation.login"), new_user_session_path %>
-        <%= nav_link t("shared.navigation.register"), new_user_registration_path %>
+        <%= nav_link t("shared.navigation.login"), new_user_session_path, data: { turbo_frame: :modal } %>
+        <%= nav_link t("shared.navigation.register"), new_user_registration_path, data: { turbo_frame: :modal } %>
       </div>
     <% end %>
   </div>
