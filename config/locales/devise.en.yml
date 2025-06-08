@@ -132,6 +132,8 @@ en:
       send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+    masquerade:
+      back: "⚠ Stop impersonating"
   errors:
     messages:
       already_confirmed: "was already confirmed, please try signing in"
@@ -142,5 +144,3 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  masquerade:
-    back: "⚠ Stop impersonating"
