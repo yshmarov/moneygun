@@ -10,7 +10,6 @@
                 <% if metric[:type] == :money %>
                   data-animated-number-currency-value="<%= metric[:currency] || "USD" %>"
                 <% end %>>
-            <%= metric[:display_value] %>
           </span>
         </p>
         <p class="text-sm text-base-content/60"><%= metric[:subtitle] %></p>
