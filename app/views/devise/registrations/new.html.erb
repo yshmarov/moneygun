@@ -1,3 +1,4 @@
+<%= modal do %>
 <%= render PageComponent.new(title: t("devise.views.registrations.new.title")) do %>
   <%= render "devise/shared/oauth_links" %>
 
@@ -23,4 +24,5 @@
   <% end %>
 
   <%= render "devise/shared/links" %>
+<% end %>
 <% end %>
