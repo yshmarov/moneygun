@@ -32,4 +32,13 @@ module ApplicationHelper
 
     Rails.application.routes.url_helpers.send(:"#{scope}_masquerade_index_path", opts, *args)
   end
+
+  def locale_to_flag(locale)
+    locales = {
+      en: "🇺🇸",
+      es: "🇪🇸",
+      uk: "🇺🇦"
+    }
+    locales[locale.to_sym]
+  end
 end
