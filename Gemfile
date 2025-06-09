@@ -72,6 +72,7 @@ end
 gem "sqids" # for obfuscating IDs
 gem "pagy", "~> 9.3"
 gem "ransack", "~> 4.2"
+gem "active_storage_validations"
 
 # authentication
 gem "devise", "~> 4.9"
