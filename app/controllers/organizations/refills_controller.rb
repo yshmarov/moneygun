@@ -1,7 +1,14 @@
 class Organizations::RefillsController < Organizations::BaseController
   def index
     @payment_methods = @organization.payment_processor.payment_methods
-    @charges = @organization.payment_processor.charges
+  end
+
+  def charges
+    @charges = @organization.payment_processor.charges.order(created_at: :desc)
+  end
+
+  def transactions
+    @transactions = @organization.wallet.transactions.order(created_at: :desc)
   end
 
   # POST /credits/add_payment_method

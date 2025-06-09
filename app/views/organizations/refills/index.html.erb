@@ -1,3 +1,5 @@
+<%= render "tabs", active_tab: :index %>
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
   <%= render PageComponent.new(title: "Spend credits") do |component| %>
     <%= button_to "Spend 25 credits; attempt auto-refill", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
@@ -111,87 +113,4 @@
       </div>
     <% end %>
   <% end %>
-
-  <%= render PageComponent.new(title: "Payment history") do |component| %>
-    <div class="grid grid-cols-1 gap-6">
-      <% @charges.each do |charge| %>
-        <div class="rounded-lg shadow p-4 border border-gray-200">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-              <div class="text-sm uppercase font-medium">
-                <%= charge.data["brand"] %>
-              </div>
-              <div>
-                <p class="font-medium">•••• •••• •••• <%= charge.data["last4"] %></p>
-                <p class="text-sm">Expires <%= charge.data["exp_month"] %>/<%= charge.data["exp_year"] %></p>
-              </div>
-            </div>
-            <div class="text-right">
-              <p class="text-lg font-semibold"><%= number_to_currency(charge.amount.to_f / 100, unit: charge.currency.upcase) %></p>
-              <p class="text-sm"><%= Time.at(charge.created_at).strftime("%B %d, %Y %I:%M %p") %></p>
-            </div>
-          </div>
-          <div class="mt-4 pt-4 border-t border-gray-100">
-            <div class="flex justify-between items-center">
-              <div class="space-y-2 flex justify-between w-full">
-                <div class="flex items-center space-x-3">
-                  <span class="px-2 py-1 rounded-full <%= charge.data["amount_captured"] > 0 ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800" %>">
-                    <%= charge.data["amount_captured"] > 0 ? "Succeeded" : "Pending" %>
-                  </span>
-                  <%= link_to "Receipt", charge.data["stripe_receipt_url"], target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
-                </div>
-                <div class="text-sm">
-                  <% if charge.metadata.present? %>
-                    <p>Credit Pack: <%= charge.metadata["pack_name"]&.titleize %></p>
-                    <p>Credits: <%= charge.metadata["credits"] %></p>
-                    <% if charge.metadata["bonus_credits"].to_i > 0 %>
-                      <p class="text-green-600">+<%= charge.metadata["bonus_credits"] %> Bonus Credits</p>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-
-  <%# Credit History Section %>
-  <%= render PageComponent.new(title: "Transaction history") do |component| %>
-    <div class="space-y-2">
-      <% @organization.wallet.transactions.order(created_at: :desc).each do |transaction| %>
-        <div class="flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <div class="h-10 w-10 rounded-full flex items-center justify-center <%= transaction.amount.positive? ? 'bg-green-100' : 'bg-red-100' %>">
-                <svg class="h-5 w-5 <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <% if transaction.amount.positive? %>
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                  <% else %>
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                  <% end %>
-                </svg>
-              </div>
-            </div>
-            <div>
-              <p class="text-sm font-medium">
-                <%= transaction.category.titleize %>:
-                <%= transaction.metadata["operation"]&.titleize || transaction.metadata["reason"]&.titleize || transaction.category.titleize %>
-              </p>
-              <p class="text-xs">
-                <%= transaction.created_at.strftime("%b %d, %Y %I:%M %p") %>
-              </p>
-            </div>
-          </div>
-          <div class="text-right">
-            <p class="text-sm font-semibold <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>">
-              <%= transaction.formatted_amount %>
-            </p>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-
 </div>

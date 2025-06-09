@@ -1,0 +1,23 @@
+<%
+  tabs = [
+    {
+      key: :index,
+      path: organization_refills_path(current_organization),
+      label: "Refills"
+    },
+    {
+      key: :charges,
+      path: charges_organization_refills_path(current_organization),
+      label: "Charges"
+    },
+    {
+      key: :transactions,
+      path: transactions_organization_refills_path(current_organization),
+      label: "Transactions"
+    }
+  ]
+%>
+
+<%= render TabsComponent.new(active_tab: active_tab, tabs: tabs) do %>
+  <%= yield %>
+<% end %>
