@@ -3,8 +3,8 @@
 
 <aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col flex-shrink-0">
   <%# Widescreen sidebar top %>
-  <nav class="flex flex-row flex-grow divide-x divide-base-content/20 h-full">
-    <div class="flex flex-col max-h-dvh overflow-y-auto p-2">
+  <nav class="flex flex-row flex-grow h-full">
+    <div class="flex flex-col max-h-dvh overflow-y-auto p-2 pr-0">
       <div class="flex flex-col space-y-2">
         <%= link_to root_path, class: "flex items-center justify-center aspect-square" do %>
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
@@ -32,7 +32,7 @@
     </div>
 
     <% if current_organization %>
-      <div class="flex flex-col justify-between max-h-dvh overflow-y-auto space-y-1 max-w-min">
+      <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-lg border border-base-content/20 justify-between flex flex-col max-h-dvh">
         <div class="du-menu w-full">
           <%= nav_link current_organization.name, organization_path(current_organization), icon: organization_avatar(current_organization, classes: "size-5"), active: :exclusive %>
           <%= render "shared/sidebar_links" %>
@@ -43,6 +43,14 @@
             <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
             <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
           <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if controller_path.start_with?('users') %>
+      <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-lg border border-base-content/20 justify-between flex flex-col max-h-dvh">
+        <div class="du-menu w-full">
+          <%= render "shared/user_links" %>
         </div>
       </div>
     <% end %>
