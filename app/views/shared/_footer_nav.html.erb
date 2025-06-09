@@ -2,12 +2,12 @@
   <% if current_organization %>
     <%= active_link_to organization_dashboard_path(@organization), class_active: "du-dock-active", class: "" do %>
       <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]" %>
-      <span class="du-dock-label">Dashboard</span>
+      <span class="du-dock-label"><%= t("organizations.dashboard.index.title") %></span>
     <% end %>
 
     <%= active_link_to organization_projects_path(@organization), class_active: "du-dock-active", class: "" do %>
       <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-[1.2em]" %>
-      <span class="du-dock-label">Projects</span>
+      <span class="du-dock-label"><%= t("organizations.projects.index.title") %></span>
     <% end %>
   <% else %>
     <%= active_link_to organizations_path, active: :exclusive, class_active: "du-dock-active", class: "" do %>

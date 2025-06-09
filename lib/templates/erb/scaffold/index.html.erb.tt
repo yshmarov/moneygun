@@ -9,20 +9,18 @@
     <table class="min-w-full">
       <thead>
         <tr>
-          <%% <%= model_class_name %>.attribute_names.each do |attr| %>
-            <th><%%= <%= model_class_name %>.human_attribute_name(attr) %></th>
-          <%% end %>
+    <% attributes.reject(&:password_digest?).each do |attribute| -%>
+          <th scope='col'><%%= <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %></th>
+    <% end -%>
           <th></th>
         </tr>
       </thead>
       <tbody id="<%= plural_table_name %>">
         <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
           <tr>
-            <%% <%= model_class_name %>.attribute_names.each do |attr| %>
-              <td data-label="<%%= <%= model_class_name %>.human_attribute_name(attr) %>">
-                <%%= <%= singular_table_name %>.send(attr) %>
-              </td>
-            <%% end %>
+  <% attributes.reject(&:password_digest?).each do |attribute| -%>
+            <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+  <% end -%>
             <td>
               <%%= link_to t("shared.actions.show"), <%= model_resource_name(singular_table_name) %>, class: "du-btn du-btn-sm du-btn-secondary" %>
               <%# Add other actions like edit and destroy here if needed %>

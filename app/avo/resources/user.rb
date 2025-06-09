@@ -15,6 +15,11 @@ class Avo::Resources::User < Avo::BaseResource
       field :id, as: :id
       field :email, as: :text, disabled: true, sortable: true
       field :admin, as: :boolean, sortable: true
+      field :login_as, as: :text, as_html: true do
+        unless record.id == current_user.id
+          link_to "Login as", helpers.avo_masquerade_path(record)
+        end
+      end
 
       sidebar do
         field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
@@ -33,5 +38,8 @@ class Avo::Resources::User < Avo::BaseResource
             }
       field :owned_organizations, as: :has_many
     end
+
+    field :connected_accounts, as: :has_many
+    field :referrals, as: :has_many
   end
 end

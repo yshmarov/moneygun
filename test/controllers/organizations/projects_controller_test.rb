@@ -14,7 +14,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     get organization_projects_url(organizations(:two))
-    assert_response :not_found
+    assert_redirected_to organizations_url
+    assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
 
     sign_in users(:two)
     membership = @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
@@ -51,7 +52,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
 
     get organization_project_url(organizations(:two), projects(:two))
-    assert_response :not_found
+    assert_redirected_to organizations_url
+    assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
 
     sign_in users(:two)
     membership = @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
@@ -80,7 +82,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_no_changes -> { project.reload.name } do
       patch organization_project_url(organizations(:two), project), params: { project: { name: "changed" } }
     end
-    assert_response :not_found
+    assert_redirected_to organizations_url
+    assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
 
     # member can't update
     sign_in users(:two)
@@ -90,7 +93,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :redirect
     assert_redirected_to root_url
-    assert_match "You are not authorized to perform this action.", flash[:alert]
+    assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
   end
 
   test "should destroy project" do

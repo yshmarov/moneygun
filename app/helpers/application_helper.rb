@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def flash_style(type)
     case type
     when "notice" then "du-alert-info"
@@ -18,5 +20,16 @@ module ApplicationHelper
 
   def modal(**options, &block)
     render "shared/modal", **options, &block
+  end
+
+  def avo_masquerade_path(resource, *args)
+    scope = Devise::Mapping.find_scope!(resource)
+
+    opts = args.shift || {}
+    opts[:masqueraded_resource_class] = resource.class.name
+
+    opts[Devise.masquerade_param] = resource.masquerade_key
+
+    Rails.application.routes.url_helpers.send(:"#{scope}_masquerade_index_path", opts, *args)
   end
 end

@@ -1,0 +1,21 @@
+<div class="border-b border-base-300 mb-6">
+  <nav class="flex space-x-4">
+    <% tabs.each do |tab| %>
+      <% if tab[:condition].nil? || tab[:condition] %>
+        <%= link_to tab[:path], class: tab_classes(tab[:key]) do %>
+          <% if tab[:content] %>
+            <%= tab[:content] %>
+          <% else %>
+            <% if tab[:icon] %>
+              <%= tab[:icon] %>
+            <% end %>
+            <%= tab[:label] %>
+            <% if tab[:badge_count] && tab[:badge_count] > 0 %>
+              <span class="du-badge du-badge-sm du-badge-warning"><%= tab[:badge_count] %></span>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </nav>
+</div>

@@ -5,13 +5,14 @@ en:
     views:
       sessions:
         new:
-          title: "Log in"
+          title: "Sign in"
           email_label: "Email"
           email_placeholder: "Enter your email"
           password_label: "Password"
           password_placeholder: "Enter your password"
           remember_me: "Remember me"
-          submit: "Log in"
+          submit: "Sign in"
+          sign_in_with_email: "Sign in with Email and Password"
       registrations:
         new:
           title: "Sign up"
@@ -74,7 +75,7 @@ en:
           submit: "Resend unlock instructions"
       shared:
         links:
-          sign_in: "Log in"
+          sign_in: "Sign in"
           sign_up: "Sign up"
           forgot_password: "Forgot your password?"
           confirmation_instructions: "Didn't receive confirmation instructions?"
@@ -132,6 +133,8 @@ en:
       send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+    masquerade:
+      back: "⚠ Stop impersonating"
   errors:
     messages:
       already_confirmed: "was already confirmed, please try signing in"

@@ -46,7 +46,8 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
     sign_in @user2
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
-    assert_response :not_found
+    assert_redirected_to organizations_url
+    assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
     assert_equal @user, @organization.reload.owner
   end
 end

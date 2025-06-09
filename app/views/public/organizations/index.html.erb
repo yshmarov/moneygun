@@ -1,9 +1,9 @@
 <% content_for :title, t(".title") %>
 
-<%= render "organizations/tabs", active_tab: :browse_organizations do %>
-  <%= render PageComponent.new(title: t("public.organizations.index.title"), full_width: true) do %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-      <%= render collection: @organizations, partial: "public/organizations/organization", as: :organization %>
-    </div>
-  <% end %>
+<%= render "organizations/tabs", active_tab: :browse_organizations %>
+
+<%= render PageComponent.new(title: t("public.organizations.index.title"), full_width: true) do %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+    <%= render collection: @organizations, partial: "public/organizations/organization", as: :organization %>
+  </div>
 <% end %>

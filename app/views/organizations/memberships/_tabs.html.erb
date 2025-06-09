@@ -1,45 +1,28 @@
-<div class="border-b border-base-300 mb-6">
-  <nav class="flex space-x-4">
-    <% 
-      active_classes = "border-primary text-primary"
-      inactive_classes = "border-transparent text-base-content/70 hover:text-base-content hover:border-base-300"
-      base_classes = "flex items-center gap-1 py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200"
-    %>
+<%
+  tabs = [
+    {
+      key: :memberships,
+      path: organization_memberships_path(@organization),
+      icon: "🤝",
+      label: t("organizations.memberships.index.title")
+    },
+    {
+      key: :invitations,
+      path: organization_invitations_path(@organization),
+      label: t("organizations.invitations.index.title"),
+      badge_count: @organization.user_invitations.pending.count,
+      condition: policy(Membership).create?
+    },
+    {
+      key: :requests,
+      path: organization_membership_requests_path(@organization),
+      label: t("membership_requests.index.title"),
+      badge_count: @organization.user_requests.pending.count,
+      condition: policy(Membership).create? && @organization.privacy_setting_restricted?
+    }
+  ]
+%>
 
-    <%= link_to organization_memberships_path(@organization), 
-        class: "#{base_classes} #{active_tab == :memberships ? active_classes : inactive_classes}" do %>
-      🧑‍🧑‍🧒‍🧒
-      <%= t("organizations.memberships.index.title") %>
-    <% end %>
-
-    <% if policy(Membership).create? %>
-      <%= link_to organization_invitations_path(@organization), 
-          class: "#{base_classes} #{active_tab == :invitations ? active_classes : inactive_classes}" do %>
-        <div class="flex items-center gap-2">
-          <span class="text-xs">⬆️</span>
-          <%= t("organizations.invitations.index.title") %>
-          <% if @organization.user_invitations.pending.count > 0 %>
-            <span class="du-badge du-badge-sm du-badge-warning"><%= @organization.user_invitations.pending.count %></span>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-
-    <% if policy(Membership).create? %>
-      <% if @organization.privacy_setting_restricted? %>
-        <%= link_to organization_membership_requests_path(@organization), 
-            class: "#{base_classes} #{active_tab == :requests ? active_classes : inactive_classes}" do %>
-          <div class="flex items-center gap-2">
-            <span class="text-xs">⬇️</span>
-            <%= t("membership_requests.index.title") %>
-            <% if @organization.user_requests.pending.count > 0 %>
-              <span class="du-badge du-badge-sm du-badge-warning"><%= @organization.user_requests.pending.count %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-  </nav>
-</div>
-
-<%= yield %> 
+<%= render TabsComponent.new(active_tab: active_tab, tabs: tabs) do %>
+  <%= yield %>
+<% end %>

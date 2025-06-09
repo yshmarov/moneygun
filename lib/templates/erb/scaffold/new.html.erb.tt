@@ -1,8 +1,8 @@
-<% content_for :title, "New <%= human_name.downcase %>" %>
+<%% content_for :title, "New <%= human_name.downcase %>" %>
 
 <%%= modal do %>
   <%%= render PageComponent.new(title: "New <%= human_name.downcase %>") do |component| %>
     <%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
-    <%%= link_to "Cancel", <%= index_helper %>_path, class: "du-btn du-btn-secondary" %>
+    <%%= link_to "Cancel", <%= index_helper(type: :path) %>, class: "du-btn du-btn-secondary" %>
   <%% end %>
 <%% end %>

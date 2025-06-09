@@ -1,11 +1,23 @@
-<footer class="p-4 text-center border-t border-base-content/20 bg-base-300 space-y-2">
-  <div>
-    <%= active_link_to "Terms", terms_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-    <%= active_link_to "Privacy", privacy_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-  </div>
-
-  <div>
+<footer class="du-footer lg:du-footer-horizontal p-4 text-center border-t border-base-content/20 bg-base-300 space-y-2">
+  <aside>
+    <div>
+      <%= link_to root_path, class: "no-underline" do %>
+        <%= image_tag "logo.png", class: "size-8 lg:hidden" %>
+        <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block" %>
+      <% end %>
+    </div>
     &copy; <%= Time.now.year %>
-    <%= Rails.application.config_for(:settings).dig(:site, :name) %>. All rights reserved.
-  </div>
+    <%= Rails.application.config_for(:settings).dig(:site, :name) %>.
+    <%= t(".all_rights_reserved") %>
+  </aside>
+
+  <nav>
+    <%= active_link_to t("static.index.title"), root_path, class_active: "du-link-active", class: "du-link du-link-hover" %>
+    <%= active_link_to t("static.pricing.title"), pricing_path, class_active: "du-link-active", class: "du-link du-link-hover" %>
+  </nav>
+  <nav>
+    <%= active_link_to t("static.terms.title"), terms_path, data: { turbo_frame: :modal }, class_active: "du-link-active", class: "du-link du-link-hover" %>
+    <%= active_link_to t("static.privacy.title"), privacy_path, data: { turbo_frame: :modal }, class_active: "du-link-active", class: "du-link du-link-hover" %>
+    <%= active_link_to t("static.refunds.title"), refunds_path, data: { turbo_frame: :modal }, class_active: "du-link-active", class: "du-link du-link-hover" %>
+  </nav>
 </footer>

@@ -1,22 +1,28 @@
-<%= render PageComponent.new(title: t("devise.views.sessions.new.title")) do %>
+<%= modal do %>
+  <%= render PageComponent.new(title: t("devise.views.sessions.new.title")) do %>
+    <%= render "devise/shared/oauth_links" %>
 
-  <%= form_with model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-4" do |f| %>
-    <div class="space-y-1">
-      <%= f.label :email, t("devise.views.sessions.new.email_label"), class: "block text-sm font-medium" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: t("devise.views.sessions.new.email_placeholder") %>
-    </div>
+    <% if params[:via_email].present? || params.dig(:user, :via_email).present? %>
+      <%= form_with model: resource, as: resource_name, url: session_path(resource_name), data: { turbo_frame: "_top" }, class: "space-y-4" do |f| %>
+        <%= f.hidden_field :via_email, value: params[:via_email] || params.dig(:user, :via_email) %>
+        <div class="space-y-1">
+          <%= f.label :email, t("devise.views.sessions.new.email_label"), class: "block text-sm font-medium" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: t("devise.views.sessions.new.email_placeholder") %>
+        </div>
 
-    <div class="space-y-1">
-      <%= f.label :password, t("devise.views.sessions.new.password_label"), class: "block text-sm font-medium" %>
-      <%= f.password_field :password, autocomplete: "current-password", class: "form-input", placeholder: t("devise.views.sessions.new.password_placeholder") %>
-    </div>
+        <div class="space-y-1">
+          <%= f.label :password, t("devise.views.sessions.new.password_label"), class: "block text-sm font-medium" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-input", placeholder: t("devise.views.sessions.new.password_placeholder") %>
+        </div>
 
-    <div class="pt-2">
-      <%= f.submit t("devise.views.sessions.new.submit"), class: "du-btn du-btn-primary du-btn-block" %>
-    </div>
+        <div class="pt-2">
+          <%= f.submit t("devise.views.sessions.new.submit"), class: "du-btn du-btn-primary du-btn-block" %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+    <% else %>
+      <%= link_to t("devise.views.sessions.new.sign_in_with_email"), new_user_session_path(via_email: true), class: "du-btn du-btn-primary du-btn-block" %>
+    <% end %>
   <% end %>
-
-  <div class="mt-4 text-center space-y-1">
-    <%= render "devise/shared/links" %>
-  </div>
 <% end %>

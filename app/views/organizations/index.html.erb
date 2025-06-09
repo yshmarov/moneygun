@@ -1,13 +1,15 @@
 <% content_for :title, t(".title") %>
 
-<%= render "organizations/tabs", active_tab: :my_organizations do %>
-  <%= render PageComponent.new(title: t("organizations.index.title"), full_width: true) do |component| %>
-    <% component.with_action_list do %>
-      <%= link_to t("shared.actions.new"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
-    <% end %>
+<%= render "organizations/tabs", active_tab: :my_organizations %>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-      <%= render collection: @organizations, partial: "organizations/organization", as: :organization %>
-    </div>
+<%= render PageComponent.new(title: t("organizations.index.title"), full_width: true) do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to t("shared.actions.new"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+    <%= render collection: @organizations, partial: "organizations/organization", as: :organization %>
+  </div>
+
+  <%= render "shared/pagination", pagy: @pagy %>
 <% end %>
