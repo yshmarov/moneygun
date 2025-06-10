@@ -105,36 +105,9 @@ search:
   ## See this example of a custom scanner: https://github.com/glebm/i18n-tasks/wiki/A-custom-scanner-example
 
 ## Translation Services
-# translation:
-#   # Google Translate
-#   # Get an API key and set billing info at https://code.google.com/apis/console to use Google Translate
-#   google_translate_api_key: "AbC-dEf5"
-#   # DeepL Pro Translate
-#   # Get an API key and subscription at https://www.deepl.com/pro to use DeepL Pro
-#   deepl_api_key: "48E92789-57A3-466A-9959-1A1A1A1A1A1A"
-#   # deepl_host: "https://api.deepl.com"
-#   # deepl_version: "v2"
-#   # deepl_glossary_ids:
-#   #   - f28106eb-0e06-489e-82c6-8215d6f95089
-#   #   - 2c6415be-1852-4f54-9e1b-d800463496b4
-#   # add additional options to the DeepL.translate call: https://www.deepl.com/docs-api/translate-text/translate-text/
-#   deepl_options:
-#     formality: prefer_less
-#   # OpenAI
-#   openai_api_key: "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-#   # openai_model: "gpt-4o-mini" # see https://platform.openai.com/docs/models
-#   # may contain `%{from}` and `%{to}`, which will be replaced by source and target locale codes, respectively (using `Kernel.format`)
-#   # openai_system_prompt: >-
-#   #   You are a professional translator that translates content from the %{from} locale
-#   #   to the %{to} locale in an i18n locale array.
-#   #
-#   #   The array has a structured format and contains multiple strings. Your task is to translate
-#   #   each of these strings and create a new array with the translated strings.
-#   #
-#   #   HTML markups (enclosed in < and > characters) must not be changed under any circumstance.
-#   #   Variables (starting with %%{ and ending with }) must not be changed under any circumstance.
-#   #
-#   #   Keep in mind the context of all the strings for a more accurate translation.
+translation:
+  openai_api_key: "sk-proj-"
+  openai_model: "gpt-4o-mini" # see https://platform.openai.com/docs/models
 
 ## Do not consider these keys missing:
 ignore_missing:
@@ -146,6 +119,7 @@ ignore_unused:
 - 'activerecord.attributes.*'
 - 'activerecord.models.*'
 - 'routes.*'
+- '{devise,errors.messages}.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

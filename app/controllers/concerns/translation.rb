@@ -2,7 +2,7 @@ module Translation
   extend ActiveSupport::Concern
 
   included do
-    # before_action :set_locale
+    before_action :set_locale
   end
 
   private
@@ -21,7 +21,7 @@ module Translation
     if params[:locale].present? && valid_locale?(params[:locale])
       params[:locale]
     else
-      current_user&.locale || cookies[:locale] || I18n.default_locale
+      current_user&.language || cookies[:locale] || I18n.default_locale
     end
   end
 

@@ -37,7 +37,8 @@ module ApplicationHelper
     locales = {
       en: "🇺🇸",
       es: "🇪🇸",
-      uk: "🇺🇦"
+      uk: "🇺🇦",
+      fr: "🇫🇷"
     }
     locales[locale.to_sym]
   end
