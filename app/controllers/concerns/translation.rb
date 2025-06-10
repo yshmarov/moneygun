@@ -2,12 +2,12 @@ module Translation
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_locale
+    around_action :set_locale
   end
 
   private
 
-  def set_locale
+  def set_locale(&action)
     locale = determine_locale
     update_locale_for_user_and_cookies(locale)
     I18n.locale = locale
@@ -15,6 +15,8 @@ module Translation
     fallback_locale = I18n.default_locale
     update_locale_for_user_and_cookies(fallback_locale)
     I18n.locale = fallback_locale
+  ensure
+    action.call
   end
 
   def determine_locale
