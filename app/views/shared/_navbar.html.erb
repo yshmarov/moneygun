@@ -68,15 +68,11 @@
         </summary>
         <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 du-menu">
           <%= render "shared/user_links" %>
+          <%= render "shared/language_picker" %>
         </div>
       </details>
     <% else %>
-      <div class="inline-flex space-x-2">
-        <% I18n.available_locales.each do |locale| %>
-          <%= link_to locale_to_flag(locale), url_for(locale:), class: (locale == I18n.locale ? "underline" : "") %>
-        <% end %>
-      </div>
-
+      <%= render "shared/language_picker" %>
       <div class="du-menu du-menu-horizontal">
         <%= nav_link t("shared.navigation.login"), new_user_session_path, data: { turbo_frame: :modal } %>
         <%= nav_link t("shared.navigation.register"), new_user_registration_path, data: { turbo_frame: :modal } %>
