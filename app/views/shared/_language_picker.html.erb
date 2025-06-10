@@ -1,0 +1,9 @@
+<% if I18n.available_locales.count > 1 %>
+  <div class="du-menu du-menu-horizontal">
+    <% I18n.available_locales.each do |locale| %>
+      <li>
+        <%= link_to locale_to_flag(locale), url_for(locale: locale), class: (locale == I18n.locale ? "underline" : "") %>
+      </li>
+    <% end %>
+  </div>
+<% end %>

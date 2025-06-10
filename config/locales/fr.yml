@@ -1,0 +1,350 @@
+---
+fr:
+  activerecord:
+    attributes:
+      membership:
+        email: Email
+        role: Rôle
+      organization:
+        logo: Logo
+        name: Nom
+        privacy_setting: Confidentialité
+        privacy_settings:
+          private:
+            description_text: Seuls les utilisateurs invités peuvent rejoindre
+            display_text: Privé
+          public:
+            description_text: Tout le monde peut rejoindre
+            display_text: Public
+          restricted:
+            description_text: Les personnes doivent soumettre une demande pour être approuvées pour rejoindre
+            display_text: Restreint
+    models:
+      membership: Membre
+      organization: Organisation
+  devise:
+    confirmations:
+      confirmed: Votre adresse e-mail a été confirmée avec succès.
+      send_instructions: Vous recevrez un e-mail avec des instructions sur la façon de confirmer votre adresse e-mail dans quelques minutes.
+      send_paranoid_instructions: Si votre adresse e-mail existe dans notre base de données, vous recevrez un e-mail avec des instructions sur la façon de confirmer votre adresse e-mail dans quelques minutes.
+    failure:
+      already_authenticated: Vous êtes déjà connecté.
+      inactive: Votre compte n'est pas encore activé.
+      invalid: "%{authentication_keys} ou mot de passe invalide."
+      last_attempt: Il vous reste une tentative avant que votre compte ne soit verrouillé.
+      locked: Votre compte est verrouillé.
+      not_found_in_database: "%{authentication_keys} ou mot de passe invalide."
+      timeout: Votre session a expiré. Veuillez vous reconnecter pour continuer.
+      unauthenticated: Vous devez vous connecter ou vous inscrire avant de continuer.
+      unconfirmed: Vous devez confirmer votre adresse e-mail avant de continuer.
+    mailer:
+      confirmation_instructions:
+        subject: Instructions de confirmation
+      email_changed:
+        subject: E-mail changé
+      password_change:
+        subject: Mot de passe changé
+      reset_password_instructions:
+        subject: Instructions de réinitialisation du mot de passe
+      unlock_instructions:
+        subject: Instructions de déverrouillage
+    masquerade:
+      back: "⚠ Arrêtez de vous faire passer pour quelqu'un d'autre"
+    omniauth_callbacks:
+      failure: Quelque chose s'est mal passé. Veuillez réessayer
+      success: Authentifié avec succès depuis le compte %{kind}.
+    passwords:
+      no_token: Vous ne pouvez pas accéder à cette page sans venir d'un e-mail de réinitialisation de mot de passe. Si vous venez d'un e-mail de réinitialisation de mot de passe, veuillez vous assurer d'avoir utilisé l'URL complète fournie.
+      send_instructions: Vous recevrez un e-mail avec des instructions sur la façon de réinitialiser votre mot de passe dans quelques minutes.
+      send_paranoid_instructions: Si votre adresse e-mail existe dans notre base de données, vous recevrez un lien de récupération de mot de passe à votre adresse e-mail dans quelques minutes.
+      updated: Votre mot de passe a été changé avec succès. Vous êtes maintenant connecté.
+      updated_not_active: Votre mot de passe a été changé avec succès.
+    registrations:
+      destroyed: Au revoir ! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt.
+      signed_up: Bienvenue ! Vous vous êtes inscrit avec succès.
+      signed_up_but_inactive: Vous vous êtes inscrit avec succès. Cependant, nous n'avons pas pu vous connecter car votre compte n'est pas encore activé.
+      signed_up_but_locked: Vous vous êtes inscrit avec succès. Cependant, nous n'avons pas pu vous connecter car votre compte est verrouillé.
+      signed_up_but_unconfirmed: Un message avec un lien de confirmation a été envoyé à votre adresse e-mail. Veuillez suivre le lien pour activer votre compte.
+      update_needs_confirmation: Vous avez mis à jour votre compte avec succès, mais nous devons vérifier votre nouvelle adresse e-mail. Veuillez vérifier votre e-mail et suivre le lien de confirmation pour confirmer votre nouvelle adresse e-mail.
+      updated: Votre compte a été mis à jour avec succès.
+      updated_but_not_signed_in: Votre compte a été mis à jour avec succès, mais comme votre mot de passe a été changé, vous devez vous reconnecter.
+    sessions:
+      already_signed_out: Déconnecté avec succès.
+      signed_in: Connecté avec succès.
+      signed_out: Déconnecté avec succès.
+    unlocks:
+      send_instructions: Vous recevrez un e-mail avec des instructions sur la façon de déverrouiller votre compte dans quelques minutes.
+      send_paranoid_instructions: Si votre compte existe, vous recevrez un e-mail avec des instructions sur la façon de le déverrouiller dans quelques minutes.
+      unlocked: Votre compte a été déverrouillé avec succès. Veuillez vous connecter pour continuer.
+    views:
+      confirmations:
+        new:
+          email_help: Nous vous enverrons un nouvel e-mail de confirmation
+          email_label: Email
+          email_placeholder: Entrez votre email
+          submit: Renvoyer les instructions de confirmation
+          title: Renvoyer les instructions de confirmation
+      passwords:
+        edit:
+          password_confirmation_label: Confirmez le nouveau mot de passe
+          password_confirmation_placeholder: Confirmez le nouveau mot de passe
+          password_label: Nouveau mot de passe
+          password_minimum: "(%{count} caractères minimum)"
+          password_placeholder: Entrez le nouveau mot de passe
+          submit: Changer mon mot de passe
+          title: Changer votre mot de passe
+        new:
+          email_help: Nous vous enverrons un lien pour réinitialiser votre mot de passe
+          email_label: Email
+          email_placeholder: Entrez votre email
+          submit: Envoyez-moi les instructions de réinitialisation du mot de passe
+          title: Mot de passe oublié ?
+      registrations:
+        edit:
+          current_password_help: Nous avons besoin de votre mot de passe actuel pour confirmer vos modifications
+          current_password_label: Mot de passe actuel
+          current_password_placeholder: Mot de passe actuel
+          danger_zone:
+            button: Supprimer mon compte
+            confirm: Êtes-vous sûr ? Cette action ne peut pas être annulée.
+            description: Une fois que vous supprimez votre compte, il n'y a pas de retour en arrière. Veuillez en être certain.
+            title: Zone de danger
+          email_label: Email
+          email_placeholder: Entrez votre email
+          password_confirmation_label: Confirmation du mot de passe
+          password_confirmation_placeholder: Confirmez le nouveau mot de passe
+          password_help: Laissez vide si vous ne souhaitez pas le changer
+          password_label: Mot de passe
+          password_minimum: "%{count} caractères minimum"
+          password_placeholder: Nouveau mot de passe
+          pending_confirmation: 'En attente de confirmation pour : %{email}'
+          submit: Mettre à jour
+          title: Modifier %{email}
+        new:
+          email_label: Email
+          email_placeholder: Entrez votre email
+          password_confirmation_label: Confirmation du mot de passe
+          password_confirmation_placeholder: Confirmez votre mot de passe
+          password_label: Mot de passe
+          password_minimum: "(%{count} caractères minimum)"
+          password_placeholder: Créer un mot de passe
+          submit: S'inscrire
+          title: S'inscrire
+      sessions:
+        new:
+          email_label: Email
+          email_placeholder: Entrez votre email
+          password_label: Mot de passe
+          password_placeholder: Entrez votre mot de passe
+          remember_me: Se souvenir de moi
+          sign_in_with_email: Se connecter avec l'email et le mot de passe
+          submit: Se connecter
+          title: Se connecter
+      shared:
+        links:
+          confirmation_instructions: Vous n'avez pas reçu les instructions de confirmation ?
+          forgot_password: Mot de passe oublié ?
+          oauth_separator: OU
+          sign_in: Se connecter
+          sign_in_with: Se connecter avec %{provider}
+          sign_up: S'inscrire
+          unlock_instructions: Vous n'avez pas reçu les instructions de déverrouillage ?
+      unlocks:
+        new:
+          email_help: Nous vous enverrons des instructions pour déverrouiller votre compte
+          email_label: E-mail
+          email_placeholder: Entrez votre e-mail
+          submit: Renvoyer les instructions de déverrouillage
+          title: Renvoyer les instructions de déverrouillage
+  errors:
+    messages:
+      already_confirmed: a déjà été confirmé, veuillez essayer de vous connecter
+      confirmation_period_expired: doit être confirmé dans %{period}, veuillez en demander un nouveau
+      expired: a expiré, veuillez en demander un nouveau
+      not_found: non trouvé
+      not_locked: n'était pas verrouillé
+      not_saved:
+        one: '1 erreur a empêché ce %{resource} d''être enregistré :'
+        other: "%{count} erreurs ont empêché ce %{resource} d'être enregistré :"
+  invitations:
+    approve:
+      success: Invitation approuvée
+    errors:
+      not_found: Invitation non trouvée
+    index:
+      title: Invitations entrantes
+    reject:
+      success: Invitation rejetée
+  membership_requests:
+    approve:
+      success: Demande d'adhésion approuvée
+    buttons:
+      approve: Approuver
+      reject: Rejeter
+    errors:
+      already_participant: Vous êtes déjà membre de cette organisation
+      already_requested: Vous avez déjà demandé l'accès à cette organisation
+      not_found: Demande d'adhésion non trouvée
+    index:
+      title: "⬇️ Demandes d'adhésion entrantes"
+    reject:
+      success: Demande d'adhésion rejetée
+    success: Accès demandé avec succès
+  organizations:
+    create:
+      success: Organisation créée
+    dashboard:
+      index:
+        title: Tableau de bord
+      paywalled_page:
+        title: Page payante
+    destroy:
+      success: Organisation détruite
+    edit:
+      title: Modifier l'organisation
+    errors:
+      not_found: Organisation non trouvée
+    index:
+      title: "🏡 Mes organisations"
+    invitations:
+      buttons:
+        cancel: Décliner l'invitation
+      create:
+        success: "%{email} invité"
+      destroy:
+        success: Invitation annulée
+      errors:
+        not_found: Invitation non trouvée
+      index:
+        title: "⬆️ Invitations sortantes"
+    memberships:
+      actions:
+        leave: Quitter
+        remove_member: Retirer le membre
+      destroy:
+        failed_to_remove_user_from_organization: Échec de la suppression de l'utilisateur de l'organisation
+        user_removed_from_organization: Utilisateur retiré de l'organisation
+        you_have_left_the_organization: Vous avez quitté l'organisation
+      index:
+        title: Camarades d'équipe
+      new:
+        title: Inviter un camarade d'équipe
+      update:
+        success: Utilisateur mis à jour
+    new:
+      title: Nouvelle organisation
+    projects:
+      index:
+        title: Projets
+    show:
+      title: Paramètres
+    subscriptions:
+      features:
+        title: Fonctionnalités
+      index:
+        title: Facturation
+      plan:
+        manage_billing: Gérer la facturation
+        next_billing_date: Date de prochaine facturation
+        resume_subscription: Reprendre l'abonnement
+        subscription_active: Abonnement actif
+        subscription_cancelled: Abonnement annulé
+        title: Gérer l'abonnement
+        you_will_lose_access_in: Vous perdrez l'accès dans %{distance_of_time_in_words}
+      pricing:
+        cancel_security: "🛡️ Annulez à tout moment. Sécurisé par Stripe."
+        current_plan: Plan actuel
+        save_yearly: Meilleure valeur
+        subscribe: Commencer
+        title: Tarification
+    transfers:
+      show:
+        title: Transférer la propriété
+      update:
+        success: Propriété transférée
+    update:
+      success: Organisation mise à jour
+  public:
+    organizations:
+      index:
+        title: "🌎 Découvrir les organisations"
+      show:
+        actions:
+          accept_invitation: Accepter l'invitation
+          cancel_request: Annuler la demande
+          join: Rejoindre
+          open: Ouvrir
+          reject_invitation: Rejeter l'invitation
+          request_to_join: Demande de rejoindre
+  routes:
+    memberships: coéquipiers
+    organizations: organisations
+    user: moi
+  search:
+    index:
+      title: Rechercher...
+  shared:
+    actions:
+      confirm: Êtes-vous sûr ?
+      copied: "✅ Copié !"
+      copy: "📋 Copier"
+      destroy: Détruire
+      edit: Modifier
+      new: Nouveau
+      show: Afficher
+    errors:
+      not_authorized: Vous n'êtes pas autorisé à effectuer cette action.
+      not_subscribed: Vous devez vous abonner pour accéder à cette page.
+      rate_limit: Réessayez plus tard.
+    footer:
+      all_rights_reserved: Tous droits réservés.
+    navigation:
+      edit_profile: Modifier le profil
+      login: Se connecter
+      logout: Se déconnecter
+      register: Commencer
+      select_organization: Sélectionner l'organisation
+  static:
+    index:
+      title: Bienvenue dans l'application !
+    pricing:
+      title: Tarification
+    privacy:
+      title: Confidentialité
+    refunds:
+      title: Remboursements
+    terms:
+      title: Conditions
+  users:
+    connected_accounts:
+      connected_account:
+        confirm_disconnect_message: Êtes-vous sûr de vouloir déconnecter ce compte ?
+        connected_time_ago: Connecté il y a %{time}
+        disconnect_button: Déconnexion
+      destroy:
+        success: Compte déconnecté avec succès.
+      index:
+        available_connections: Connexions disponibles
+        connect_button: Se connecter
+        connect_to_enable_auth: Connectez vos comptes pour activer une authentification sans faille.
+        no_accounts_connected: Vous n'avez pas encore connecté de comptes OAuth.
+        title: Comptes connectés
+        your_connected_accounts: Comptes connectés
+    invitations:
+      index:
+        title: "⬇️ Invitations entrantes"
+    membership_requests:
+      destroy:
+        success: Demande d'adhésion révoquée
+      index:
+        title: "⬆️ Demandes d'adhésion sortantes"
+    referrals:
+      index:
+        clicks: Clics sur les liens
+        clicks_description: Combien de fois votre lien unique a été cliqué.
+        completed: Références complètes
+        completed_description: Amis qui se sont inscrits et ont effectué leur premier achat.
+        referrals: Inscriptions réussies
+        referrals_description: Amis qui ont rejoint en utilisant votre lien.
+        subtitle: Partagez votre lien de parrainage unique et gagnez des récompenses lorsque vos amis s'inscrivent et effectuent leur premier achat.
+        title: Programme D'affiliation
