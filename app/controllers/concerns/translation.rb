@@ -10,13 +10,11 @@ module Translation
   def set_locale(&action)
     locale = determine_locale
     update_locale_for_user_and_cookies(locale)
-    I18n.locale = locale
+    I18n.with_locale(locale, &action)
   rescue I18n::InvalidLocale
     fallback_locale = I18n.default_locale
     update_locale_for_user_and_cookies(fallback_locale)
-    I18n.locale = fallback_locale
-  ensure
-    action.call
+    I18n.with_locale(fallback_locale, &action)
   end
 
   def determine_locale
