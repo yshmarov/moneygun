@@ -32,6 +32,7 @@ class Organization < ApplicationRecord
   end
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
+  has_credits
 
   delegate :email, to: :owner
 
@@ -50,5 +51,11 @@ class Organization < ApplicationRecord
 
   def participant?(user)
     users.include?(user)
+  end
+
+  after_create :reward_new_organization
+
+  def reward_new_organization
+    give_credits(10, reason: "new_organization_created")
   end
 end
