@@ -1,0 +1,23 @@
+<nav class="flex justify-between px-6 py-2 bg-base-300">
+  <%# left %>
+  <div class="flex items-center gap-2">
+    <div>
+      <%= link_to root_path, class: "no-underline" do %>
+        <%= image_tag "logo.png", class: "size-8 lg:hidden dark:invert" %>
+        <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block dark:invert" %>
+      <% end %>
+    </div>
+    <div class="du-menu du-menu-horizontal">
+      <%= nav_link t("static.pricing.title"), pricing_path %>
+    </div>
+  </div>
+
+  <%# right %>
+  <div class="flex items-center gap-2">
+    <%= render "shared/language_picker" %>
+    <div class="du-menu du-menu-horizontal">
+      <%= nav_link t("shared.navigation.login"), new_user_session_path, data: { turbo_frame: :modal } %>
+      <%= nav_link t("shared.navigation.register"), new_user_registration_path, data: { turbo_frame: :modal } %>
+    </div>
+  </div>
+</nav>
