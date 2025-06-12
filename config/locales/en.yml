@@ -186,7 +186,7 @@ en:
       already_requested: You have already requested access to this organization
       not_found: Membership request not found
     index:
-      title: "⬇️ Incoming membership requests"
+      title: "⬇️ Waitlist"
     reject:
       success: Membership request rejected
     success: Requested access successfully
@@ -216,7 +216,7 @@ en:
       errors:
         not_found: Invitation not found
       index:
-        title: "⬆️ Outgoing invitations"
+        title: "⬆️ Invites"
     memberships:
       actions:
         leave: Leave
