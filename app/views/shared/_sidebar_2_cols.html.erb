@@ -32,7 +32,7 @@
     </div>
 
     <% if current_organization %>
-      <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh">
+      <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh min-w-64">
         <div class="du-menu w-full">
           <%= nav_link current_organization.name, organization_path(current_organization), icon: organization_avatar(current_organization, classes: "size-5"), active: :exclusive %>
           <%= render "shared/sidebar_links" %>
@@ -48,7 +48,7 @@
     <% end %>
 
     <% if controller_path.start_with?('users') %>
-      <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh">
+      <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh min-w-64">
         <div class="du-menu w-full">
           <%= render "shared/user_links" %>
         </div>
