@@ -1,6 +1,16 @@
 <% content_for :title, t("organizations.new.title") %>
 
-<%= render PageComponent.new(title: t("organizations.new.title"), content_container: true, full_width: false) do |component| %>
-  <%= render "form", organization: @organization %>
-  <%= link_to t("shared.actions.cancel"), organizations_path, class: "du-btn du-btn-secondary" %>
-<% end %>
+<div class="flex flex-col justify-center items-center bg-gradient-to-br from-gray-50 to-rose-50">
+  <%= link_to organizations_path, class: "absolute top-6 left-6 p-2.5 rounded-lg hover:bg-white/80 transition-all duration-300 shadow-sm" do %>
+    <svg class="stroke-gray600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15h-6v4l-7-7 7-7v4h6v6z"/></svg>
+  <% end %>
+
+  <div class="bg-white/90 backdrop-blur-lg shadow-xl shadow-gray200/50 border border-gray200/50 p-10 lg:w-[480px] md:w-[480px] w-[340px] flex flex-col items-center rounded-2xl gap-10 animate-fade-in-up">
+    <div class="text-center">
+      <h2 class="text-graycolor-800 font-bold text-3xl bg-gradient-to-r from-blue-700 to-base-500 bg-clip-text text-transparent mb-2"><%= t("organizations.new.title") %></h2>
+      <p class="text-graycolor-500 text-sm">Create a new organization</p>
+    </div>
+
+    <%= render "form", organization: @organization %>
+  </div>
+</div>

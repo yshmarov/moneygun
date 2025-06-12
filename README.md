@@ -193,11 +193,11 @@ Moneygun comes with built-in support for multiple themes. The application suppor
 Themes can be applied by adding the appropriate class to the HTML element:
 
 ```html
-<html lang="en" class="h-full bg-gray-50 text-gray-900"></html>
+<html lang="en" class="h-full bg-gray-50 text-gray900"></html>
 <!-- Dark midnight theme -->
-<html lang="en" class="h-full bg-gray-50 text-gray-900 midnight"></html>
+<html lang="en" class="h-full bg-gray-50 text-gray900 midnight"></html>
 <!-- Dark GitHub theme -->
-<html lang="en" class="h-full bg-gray-50 text-gray-900 github"></html>
+<html lang="en" class="h-full bg-gray-50 text-gray900 github"></html>
 ```
 
 #### Require active subscription to access a resource

@@ -1,4 +1,4 @@
-<%= link_to organization_dashboard_path(organization), class: "border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
+<%= link_to organization_dashboard_path(organization), class: "group w-full border p-4 rounded-lg flex items-center justify-between gap-2 hover:bg-base-200" do %>
   <div class="flex items-center gap-2">
     <%= subscription_status_label(organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
     <%= organization_avatar(organization) %>
@@ -6,12 +6,12 @@
   </div>
 
   <div class="flex items-center gap-4">
-    <div class="flex items-center -space-x-2">
+    <div class="flex items-center -space-x-2 mr-10">
       <% organization.users.each do |user| %>
         <%= user_avatar(user) %>
       <% end %>
     </div>
 
-    <%= inline_svg_tag "svg/chevron-right.svg", class: "size-5" %>
+    <%= inline_svg_tag "svg/chevron-right.svg", class: "size-5 absolute right-68 group-hover:right-66 transition-all" %>
   </div>
 <% end %>

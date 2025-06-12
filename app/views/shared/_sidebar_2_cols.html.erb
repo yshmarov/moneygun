@@ -1,7 +1,7 @@
 <%# Mobile sidebar backdrop %>
-<div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
+<div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-primary/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
-<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r bg-base-200 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto flex-shrink-0">
+<aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative border-r bg-base-200 h-dvh -trangray-x-full lg:trangray-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto flex-shrink-0">
   <%# Widescreen sidebar top %>
   <nav class="flex flex-row flex-grow divide-x">
     <div class="flex flex-col max-h-dvh overflow-y-auto p-2">
@@ -11,7 +11,7 @@
         <% end %>
 
         <%= active_link_to organizations_path, active: :exclusive, title: t("organizations.index.title"), class_active: "du-btn-active", class: "du-btn du-btn-ghost p-0" do %>
-          <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-6" %>
+          <%= inline_svg_tag "svg/rocket-launch.svg", class: "size-6 " %>
         <% end %>
         <div class="flex flex-col items-center space-y-1">
           <% current_user.organizations.each do |organization| %>

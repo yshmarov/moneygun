@@ -1,13 +1,17 @@
-<% content_for :title, t("organizations.index.title") %>
-
-<%= render PageComponent.new(title: t("organizations.index.title")) do |component| %>
-  <% component.with_action_list do %>
-    <%= link_to t("shared.actions.new"), new_organization_path, class: "du-btn du-btn-primary" %>
-  <% end %>
-
-  <div id="organizations" class="space-y-4">
-    <% @organizations.each do |organization| %>
-      <%= render organization %>
+<div class="flex gap-5 w-full">
+  <% content_for :title, t("organizations.index.title") %>
+  
+  <%= render PageComponent.new(title: t("organizations.index.title")) do |component| %>
+    <% component.with_action_list do %>
+      <div class="absolute bottom-5 right-5 flex items-center gap-1 bg-primary font-semibold text-graycolor-50 py-1.5 px-3 rounded-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>        <%= link_to t("shared.actions.new"), new_organization_path %>
+      </div>  
     <% end %>
-  </div>
-<% end %>
+  
+    <div id="organizations" class="w-full space-y-4">
+      <% @organizations.each do |organization| %>
+        <%= render organization %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

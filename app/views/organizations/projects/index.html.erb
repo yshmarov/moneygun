@@ -1,21 +1,33 @@
-<div class="w-full">
+<div class="min-h-screen bg-gradient-to-br from-base-50 to-base-100 py-12 px-4 sm:px-6 lg:px-8">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <div class="max-w-7xl mx-auto mb-8">
+      <p class="py-3 px-4 bg-green-50 text-green-700 font-medium rounded-lg inline-block shadow-sm" id="notice"><%= notice %></p>
+    </div>
   <% end %>
 
   <% content_for :title, "Projects" %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-lx lg:text-3xll">Projects</h1>
-    <%= link_to "New project", new_organization_project_path(@organization), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+  <div class="max-w-7xl mx-auto">
+    <div class="bg-white/90 backdrop-blur-lg shadow-xl shadow-base-200/50 border border-base-200/50 rounded-2xl p-8">
+      <div class="flex justify-between items-center mb-8">
+        <div>
+          <h1 class="text-graycolor-800 font-bold text-3xl bg-gradient-to-r from-base-600 to-base-500 bg-clip-text text-transparent">Projects</h1>
+          <p class="text-graycolor-500 text-sm mt-1">Manage your organization's projects</p>
+        </div>
+        <%= link_to new_organization_project_path(@organization), 
+            class: "inline-flex items-center gap-2 rounded-xl py-3 px-5 bg-primary text-white font-semibold hover:shadow-lg hover:shadow-base-200/50 transition-all duration-300 hover:-trangray-y-0.5" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          New project
+        <% end %>
+      </div>
 
-  <div id="projects" class="min-w-full">
-    <% @projects.each do |project| %>
-      <%= render project %>
-      <p>
-        <%= link_to "Show this project", [ @organization, project ], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
+      <div id="projects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @projects.each do |project| %>
+          <%= render project %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

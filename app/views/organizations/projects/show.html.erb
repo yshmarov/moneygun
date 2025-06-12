@@ -4,12 +4,16 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
+    <%= link_to [ @organization, :projects ], class: "flex group items-center gap-1.5 p-2 absolute left-60 top-24 font-medium" do %>
+      <svg class="group-hover:-ml-2 mt-1 transition-all" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-icon lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> 
+    <%end%>
     <%= render @project %>
+    <div class="flex gap-5 items-baseline md:flex-col flex-row ">
 
-    <%= link_to "Edit this project", [ :edit, @organization, @project ], class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to projects", [ @organization, :projects ], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this project", [ @organization, @project ], method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= link_to "Edit this project", [ :edit, @organization, @project ], class: "mt-2 rounded-lg py-3 px-5 bg-primary-500 text-graycolor-50 inline-block font-medium" %>
+      <div class="flex items-center justify-center bg-red-200 text-red-600 font-semibold rounded-lg mt-2">
+        <%= button_to "Destroy this project", [ @organization, @project ], method: :delete, class: "rounded-lg py-3 px-5 bg-green-200 inline-block font-medium" %>
+      </div>
     </div>
   </div>
 </div>

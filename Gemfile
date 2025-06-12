@@ -17,7 +17,8 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+gem "tailwindcss-ruby", "~> 3.4"
+gem "tailwindcss-rails", "~> 3.3.1"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -84,3 +85,5 @@ gem "active_link_to", "~> 1.0"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
+
+

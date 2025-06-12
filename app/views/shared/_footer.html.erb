@@ -1,11 +1,13 @@
-<footer class="p-4 text-center border-t space-y-2">
-  <div>
-    <%= active_link_to "Terms", terms_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-    <%= active_link_to "Privacy", privacy_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost" %>
-  </div>
+<footer class="flex justify-center items-center">
 
-  <div>
+  <div class="py-5 px-2 text-graycolor-500 flex text-sm  justify-center items-center">
     &copy; <%= Time.now.year %>
-    <%= Rails.application.config_for(:settings).dig(:site, :name) %>. All rights reserved.
+    <%= Rails.application.config_for(:settings).dig(:site, :name) %>. All rights reserved.      
   </div>
-</footer>
+      <div class="flex gap-5 ml-10 text-graycolor-500">
+        <%= active_link_to "Terms", terms_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost hover:underline w-fit" %>
+        <%= active_link_to "Privacy", privacy_path, class_active: "du-btn-active", class: "du-btn du-btn-ghost hover:underline  w-fit" %>
+      </div>
+      
+  </footer>
+
