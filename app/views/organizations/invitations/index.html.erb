@@ -26,9 +26,7 @@
               </div>
             </td>
             <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>">
-              <div class="du-badge du-badge-xs du-badge-soft capitalize">
-                <%= invitation.created_at.strftime("%d/%m/%Y") %>
-              </div>
+              <%= invitation.created_at.strftime("%d/%m/%Y") %>
             </td>
             <td>
               <div class="flex items-center gap-2 justify-end">
