@@ -218,6 +218,7 @@ en:
         not_found: Invitation not found
       index:
         title: "⬆️ Invites"
+        cancel_invitation: Cancel invitation
     memberships:
       actions:
         leave: Leave
