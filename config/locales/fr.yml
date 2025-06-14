@@ -199,6 +199,7 @@ fr:
       paywalled_page:
         title: Page payante
     destroy:
+      error: Impossible de supprimer l'organisation
       success: Organisation détruite
     edit:
       title: Modifier l'organisation
