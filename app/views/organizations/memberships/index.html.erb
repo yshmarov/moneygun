@@ -7,7 +7,46 @@
     <%= link_to t("organizations.memberships.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" if policy(@organization.memberships.new).new? %>
   <% end %>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-    <%= render collection: @memberships, partial: "organizations/memberships/membership", as: :membership %>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th><%= Membership.human_attribute_name(:user) %></th>
+          <th><%= Membership.human_attribute_name(:role) %></th>
+          <th><%= Membership.human_attribute_name(:created_at) %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="memberships">
+        <% @memberships.each do |membership| %>
+          <tr>
+            <td data-label="<%= Membership.human_attribute_name(:user) %>">
+              <div class="font-medium flex items-center gap-2">
+                <%= user_avatar(membership.user) %>
+                <% if Current.membership.admin? %>
+                  <%= membership.user.email %>
+                <% else %>
+                  <%= membership.user.email.split("@").first %>
+                <% end %>
+              </div>
+            </td>
+            <td data-label="<%= Membership.human_attribute_name(:role) %>">
+              <div class="du-badge du-badge-xs du-badge-soft capitalize">
+                <%= membership.role %>
+              </div>
+            </td>
+            <td data-label="<%= Membership.human_attribute_name(:created_at) %>">
+              <%= l membership.created_at, format: :short %>
+            </td>
+            <td>
+              <div class="flex items-center gap-2 justify-end">
+                <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), data: { turbo_frame: :modal }, class: "du-btn du-btn-sm du-btn-secondary" if policy(membership).edit? %>
+                <%= button_to Current.membership == membership ? t("organizations.memberships.actions.leave") : t("organizations.memberships.actions.remove_member"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-sm du-btn-error" if policy(membership).destroy? %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 <% end %>
