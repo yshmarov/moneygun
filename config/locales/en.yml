@@ -208,8 +208,6 @@ en:
     index:
       title: "🏡 My organizations"
     invitations:
-      buttons:
-        cancel: Decline invitation
       create:
         success: "%{email} invited"
       destroy:
@@ -217,8 +215,8 @@ en:
       errors:
         not_found: Invitation not found
       index:
-        title: "⬆️ Invites"
         cancel_invitation: Cancel invitation
+        title: "⬆️ Invites"
     memberships:
       actions:
         leave: Leave
