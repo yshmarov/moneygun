@@ -63,4 +63,10 @@ class OrganizationsController < ApplicationController
   def organization_params
     params.require(:organization).permit(:name, :logo, :privacy_setting)
   end
+
+  def pundit_user
+    return super if Current.membership.nil?
+
+    Current.membership
+  end
 end
