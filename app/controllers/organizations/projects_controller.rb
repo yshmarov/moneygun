@@ -1,5 +1,6 @@
 class Organizations::ProjectsController < Organizations::BaseController
-  before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_project, only: %i[ show edit update destroy ]
+  before_action :require_subscription, only: %i[ new create ]
 
   # GET /organizations/1/projects
   def index
@@ -59,12 +60,22 @@ class Organizations::ProjectsController < Organizations::BaseController
 
   private
 
+  def project_params
+    params.require(:project).permit(:name)
+  end
+
+  def require_subscription
+    return false if Rails.application.credentials.dig(:stripe, :private_key).blank?
+    return true if @organization.projects.count < 1
+    return true if @organization.payment_processor.subscribed?
+
+    flash[:alert] = "You need to have an active subscription to create more than 1 project."
+
+    redirect_to organization_subscriptions_path(@organization)
+  end
+
   def set_project
     @project = @organization.projects.find(params[:id])
     authorize @project
-  end
-
-  def project_params
-    params.require(:project).permit(:name)
   end
 end

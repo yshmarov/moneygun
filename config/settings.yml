@@ -6,6 +6,7 @@ shared:
     address: Warsaw, Poland, 02-691
   pro_features:
     - ☑️ Access the paywalled page
+    - ☑️ Create more than 1 project
   plans:
     - id: price_1RDRzvLRcgxgTmfQZVdAF93B
       unit_amount: 9900

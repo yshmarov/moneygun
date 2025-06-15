@@ -2,7 +2,7 @@
 
 <%= render PageComponent.new(title: "Projects", full_width: true) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
+    <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal, turbo_prefetch: false }, class: "du-btn du-btn-primary" %>
   <% end %>
 
   <div class="table-responsive">
