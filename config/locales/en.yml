@@ -206,7 +206,7 @@ en:
     errors:
       not_found: Organization not found
     index:
-      title: "🏡 My organizations"
+      title: "My organizations"
     invitations:
       create:
         success: "%{email} invited"
@@ -332,12 +332,12 @@ en:
         your_connected_accounts: Connected accounts
     invitations:
       index:
-        title: "⬇️ Incoming invitations"
+        title: "⬇️ Invitations"
     membership_requests:
       destroy:
         success: Membership request revoked
       index:
-        title: "⬆️ Outgoing membership requests"
+        title: "⬆️ Waitlists"
     referrals:
       index:
         clicks: Link clicks
