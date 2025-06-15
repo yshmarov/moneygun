@@ -1,6 +1,10 @@
 module Organization::Transfer
   extend ActiveSupport::Concern
 
+  included do
+    belongs_to :owner, class_name: "User"
+  end
+
   def transfer_ownership(user_id)
     # previous_owner = owner
 
