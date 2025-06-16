@@ -9,11 +9,18 @@
 
 <%= render PageComponent.new(title:, full_width: false) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.edit"), edit_organization_path(@organization, drawer: true), data: { turbo_frame: :modal }, class: "du-btn du-btn-secondary du-btn-sm" if policy(@organization).edit? %>
-    <%= link_to t("organizations.transfers.show.title"), organization_transfer_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-error du-btn-sm" if @organization.can_transfer?(current_user) %>
-    <div class="inline-block">
-      <%= button_to t("shared.actions.destroy"), @organization, method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error du-btn-sm" if policy(@organization).destroy? %>
-    </div>
+    <details class="max-w-min relative group flex items-center details-with-menu" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
+      <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden rounded-full aspect-square w-8 justify-center leading-none group-open:bg-base-200 group-open:border hover:border border-base-content/20">
+        ...
+      </summary>
+      <div class="absolute max-lg:left-0 lg:right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 du-menu">
+        <%= nav_link t("shared.actions.edit"), edit_organization_path(@organization, drawer: true), data: { turbo_frame: :modal } if policy(@organization).edit? %>
+        <%= nav_link t("organizations.transfers.show.title"), organization_transfer_path(@organization), data: { turbo_frame: :modal } if @organization.can_transfer?(current_user) %>
+        <li>
+          <%= link_to t("shared.actions.destroy"), @organization, data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") }, class: "" if policy(@organization).destroy? %>
+        </li>
+      </div>
+    </details>
   <% end %>
 
   <div class="flex items-center gap-2">

@@ -189,7 +189,7 @@ en:
       title: "⬇️ Waitlist"
     reject:
       success: Membership request rejected
-    success: Requested access successfully
+    success: Access granted
   organizations:
     create:
       success: Organization created

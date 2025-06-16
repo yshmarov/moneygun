@@ -4,12 +4,7 @@
         data: { turbo: false },
         class: "du-btn du-btn-outline du-btn-block" do %>
         <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
-        <span class="hidden md:block">
-          <%= t("devise.views.shared.links.sign_in_with", provider: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
-        </span>
-        <span class="block md:hidden">
-          <%= t("devise.views.shared.links.sign_in", provider: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
-        </span>
+        <%= t("devise.views.shared.links.sign_in_with", provider: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
       <% end %>
   <% end %>
   <div class="du-divider"><%= t("devise.views.shared.links.oauth_separator") %></div>

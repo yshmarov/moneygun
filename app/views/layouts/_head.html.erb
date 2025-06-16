@@ -1,5 +1,5 @@
 <% if content_for(:title).present? %>
-  <title><%= content_for(:title) %></title>
+  <title><%= content_for(:title) %> - <%= Rails.application.config_for(:settings).dig(:site, :name) %></title>
 <% else %>
   <title><%= [ if defined?(current_organization) && current_organization&.name.present? then current_organization.name else Rails.application.config_for(:settings).dig(:site, :name) end ].compact.join(" - ") %></title>
 <% end %>
