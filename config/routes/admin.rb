@@ -8,4 +8,5 @@ end
 
 if Rails.env.development?
   mount Lookbook::Engine, at: "/lookbook"
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
 end

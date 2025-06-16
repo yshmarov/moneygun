@@ -44,6 +44,7 @@
           <%= active_link_to "📊 Analytics", "/analytics", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
           <%= active_link_to "💾 Active Storage", "/active_storage_dashboard", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
           <%= active_link_to "👀 Lookbook", "/lookbook", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if Rails.env.development? %>
+          <%= active_link_to "📨 Letter Opener", "/letter_opener", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if Rails.env.development? %>
         </div>
       </details>
     <% end %>

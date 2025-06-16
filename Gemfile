@@ -60,6 +60,8 @@ group :development do
   gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
   gem "i18n-tasks"
   gem "lookbook", ">= 2.3.9"
+  gem "letter_opener"
+  gem "letter_opener_web"
 end
 
 group :test do
