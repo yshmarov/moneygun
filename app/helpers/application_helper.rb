@@ -4,7 +4,7 @@ module ApplicationHelper
   def flash_style(type)
     case type
     when "notice" then "du-alert-info"
-    when "alert" then "du-alert-error"
+    when "alert", "error" then "du-alert-error"
     end
   end
 
