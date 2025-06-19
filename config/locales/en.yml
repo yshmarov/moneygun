@@ -12,13 +12,13 @@ en:
         privacy_settings:
           private:
             description_text: Only invited users can join
-            display_text: Private
+            display_text: "🔒 Private"
           public:
             description_text: Anyone can join
-            display_text: Public
+            display_text: "🌍 Public"
           restricted:
             description_text: People must submit an application to be approved to join
-            display_text: Restricted
+            display_text: "📩 Restricted"
     models:
       membership: Member
       organization: Organization
@@ -206,7 +206,7 @@ en:
     errors:
       not_found: Organization not found
     index:
-      title: "My organizations"
+      title: My organizations
     invitations:
       create:
         success: "%{email} invited"

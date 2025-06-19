@@ -206,7 +206,7 @@ fr:
     errors:
       not_found: Organisation non trouvée
     index:
-      title: "Mes organisations"
+      title: Mes organisations
     invitations:
       create:
         success: "%{email} invité"
