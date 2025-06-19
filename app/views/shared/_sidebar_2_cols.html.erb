@@ -1,3 +1,5 @@
+<% show_user_links = controller_path.start_with?('users') && !controller_path.start_with?('users/invitations', 'users/membership_requests') %>
+
 <%# Mobile sidebar backdrop %>
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
 
@@ -37,7 +39,7 @@
       </div>
     <% end %>
 
-    <% if controller_path.start_with?('users') %>
+    <% if show_user_links %>
       <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh min-w-64">
         <div class="du-menu w-full">
           <%= render "shared/user_links" %>
