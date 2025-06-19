@@ -77,7 +77,7 @@ gem "ransack", "~> 4.2"
 gem "active_storage_validations"
 
 # authentication
-gem "devise", "~> 4.9"
+gem "devise", github: "heartcombo/devise", branch: "main"
 gem "devise_invitable", "~> 2.0"
 gem "devise_masquerade"
 
