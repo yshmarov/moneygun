@@ -4,6 +4,7 @@ class Organization < ApplicationRecord
   include Organization::Billing
 
   enum :privacy_setting, { private: "private", restricted: "restricted", public: "public" }, default: :private, prefix: true
+  validate :public_privacy_setting_requirements
 
   has_many :projects, dependent: :destroy
 
@@ -24,5 +25,18 @@ class Organization < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     []
+  end
+
+  def self.discoverable
+    not_privacy_setting_private
+    .left_joins(:logo_attachment).where.not(active_storage_attachments: { id: nil })
+  end
+
+  private
+
+  def public_privacy_setting_requirements
+    return if privacy_setting_private? || logo.attached?
+
+    errors.add(:privacy_setting, "requires logo to be discoverable for restricted and public organizations")
   end
 end

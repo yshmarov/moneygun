@@ -1,0 +1,14 @@
+openai_logo_attachment:
+  name: logo
+  record: one (Organization)
+  blob: openai_logo_blob
+
+apple_logo_attachment:
+  name: logo
+  record: two (Organization)
+  blob: apple_logo_blob
+
+google_logo_attachment:
+  name: logo
+  record: three (Organization)
+  blob: google_logo_blob
