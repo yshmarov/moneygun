@@ -9,11 +9,15 @@ module ApplicationHelper
   end
 
   def nav_link(label, path, icon: nil, badge: nil, **options)
-    icon = inline_svg_tag icon, class: "size-5 w-5 h-5" if icon&.match?(/svg/)
+    icon = inline_svg_tag icon, class: "size-6 w-6 h-6" if icon&.match?(/svg/)
     badge_span = content_tag(:span, badge, class: "du-badge du-badge-xs du-badge-warning") if badge && badge.to_i.positive?
     content_tag(:li) do
-      active_link_to path, class_active: "du-menu-active", class: "whitespace-nowrap", **options do
-        safe_join([ icon, " ", label, badge_span ].compact)
+      active_link_to path, class_active: "du-menu-active", class: "whitespace-nowrap justify-start [[data-expanded=false]_&]:justify-center", title: label, **options do
+        safe_join([
+          icon,
+          content_tag(:span, label, class: "[[data-expanded=false]_&]:hidden"),
+          badge_span
+        ].compact)
       end
     end
   end

@@ -10,21 +10,12 @@
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
         <% end %>
 
-        <ul class="du-menu">
-          <li>
-            <%= active_link_to organizations_path, class_active: "du-menu-active", active: :exclusive, title: t("organizations.index.title"), active: [ [ "organizations", "public/organizations", "users/invitations", "users/membership_requests" ], [] ] do %>
-              <%= inline_svg_tag "svg/globe-europe-africa.svg" %>
-            <% end %>
-          </li>
-        </ul>
-
-        <div class="flex flex-col items-center space-y-1">
+        <ul class="du-menu" data-expanded="false">
+          <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
           <% Current.organizations.each do |organization| %>
-            <%= active_link_to organization_path(organization, redirect_to: organization_dashboard_path(organization)), class: "aspect-square leading-none p-1", class_active: "du-menu-active bg-primary rounded", title: organization.name do %>
-              <%= organization_avatar(organization) %>
-            <% end %>
+            <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6"), active: :exclusive %>
           <% end %>
-        </div>
+        </ul>
       </div>
       <div class="mt-auto p-2">
         <%= render "shared/sidebar_toggle" %>
