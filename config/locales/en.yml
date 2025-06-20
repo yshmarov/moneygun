@@ -175,6 +175,11 @@ en:
       title: Incoming invitations
     reject:
       success: Invitation rejected
+  membership_mailer:
+    invitation_email:
+      subject: Join %{organization_name}
+    request_accepted_email:
+      subject: Welcome to %{organization_name}
   membership_requests:
     approve:
       success: Membership request approved
@@ -190,6 +195,16 @@ en:
     reject:
       success: Membership request rejected
     success: Access granted
+  notifications:
+    index:
+      title: "🔔 All Notifications"
+  notifiers:
+    membership_invitation_notifier:
+      notification:
+        message: You've been invited to join %{organization_name}
+    membership_request_accepted_notifier:
+      notification:
+        message: Your membership request has been accepted for %{organization_name}
   organizations:
     create:
       success: Organization created

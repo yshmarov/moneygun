@@ -49,6 +49,10 @@
       </details>
     <% end %>
 
+    <div class="relative right-2">
+      <%= render "notifications/bell", user: current_user %>
+    </div>
+
     <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
       <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
         <%= user_avatar(current_user) %>

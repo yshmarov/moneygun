@@ -357,6 +357,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
+    noticed (2.7.0)
+      rails (>= 6.1.0)
     oauth2 (2.0.12)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
@@ -637,6 +639,7 @@ DEPENDENCIES
   lookbook (>= 2.3.9)
   mission_control-jobs
   nested_scaffold!
+  noticed
   omniauth-github
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
