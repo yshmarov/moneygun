@@ -21,8 +21,13 @@ default: &default
 
 
 development:
-  <<: *default
-  database: moneygun_development
+  primary: &primary_development
+    <<: *default
+    database: moneygun_development
+  cable:
+    <<: *primary_development
+    database: moneygun_development_cable
+    migrations_paths: db/cable_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.

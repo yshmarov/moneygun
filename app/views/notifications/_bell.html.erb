@@ -1,0 +1,7 @@
+<%= link_to notifications_path, class: "relative text-2xl" do %>
+  🔔
+  <%= turbo_stream_from "notifications_index_#{current_user.id}" %>
+  <div id="notification_index_count">
+    <%= render "notifications/notifications_count", unread: user.unread_notifications_count %>
+  </div>
+<% end %>
