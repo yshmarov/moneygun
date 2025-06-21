@@ -6,7 +6,6 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    redirect_to params[:redirect_to] if params[:redirect_to].present?
   end
 
   def new
