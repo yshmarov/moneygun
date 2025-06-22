@@ -1,6 +1,6 @@
 /* Responsive table that displays as cards on mobile and table on desktop */
 .table-responsive {
-  @apply overflow-x-auto rounded-lg p-2 md:p-0; /* Container styling, no explicit bg, cards will have it. Padding for mobile. */
+  @apply overflow-x-auto rounded-lg; /* Container styling, no explicit bg, cards will have it. Padding for mobile. */
 }
 
 .table-responsive table {

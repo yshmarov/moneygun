@@ -317,6 +317,7 @@ en:
       edit_profile: Edit profile
       login: Sign in
       logout: Sign out
+      organizations: Organizations
       register: Get started
       select_organization: Select organization
   static:
