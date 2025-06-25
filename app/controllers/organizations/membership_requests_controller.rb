@@ -9,10 +9,6 @@ class Organizations::MembershipRequestsController < Organizations::BaseControlle
   def approve
     authorize Membership, :create?
     @membership_request.approve!(completed_by: current_user)
-    recipient = @membership_request.user
-    if recipient
-      MembershipRequestAcceptedNotifier.with(organization: @organization).deliver(recipient)
-    end
     redirect_to organization_membership_requests_path(@organization), notice: t("membership_requests.approve.success")
   end
 
