@@ -2,7 +2,7 @@
 
 <%= modal do %>
   <%= render PageComponent.new(title: t("organizations.memberships.new.title")) do |component| %>
-    <%= form_with model: @form, url: organization_invitations_path(@organization), class: "contents space-y-4" do |form| %>
+    <%= form_with model: @membership_invitation, url: organization_invitations_path(@organization), class: "contents space-y-4" do |form| %>
       <%= render "shared/errors", object: form.object %>
 
       <div class="">
