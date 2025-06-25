@@ -3,13 +3,13 @@
   <div class="flex items-center gap-4">
     <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
       <%= inline_svg_tag "svg/sidebar-open.svg", class: "size-6" %>
-      <% if current_organization %>
+      <% if Current.organization %>
         <div class="inline-flex items-center gap-2 no-underline">
           <div>
-            <%= organization_avatar(@organization) %>
+            <%= organization_avatar(Current.organization) %>
           </div>
           <div class="truncate">
-            <%= @organization.name %>
+            <%= Current.organization.name %>
           </div>
         </div>
       <% end %>

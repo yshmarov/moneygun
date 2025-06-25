@@ -1,5 +1,5 @@
 <nav class="du-dock du-dock-lg lg:hidden sticky bottom-0 border-t border-base-content/20 bg-base-300">
-  <% if current_organization %>
+  <% if Current.organization %>
     <%= active_link_to organization_dashboard_path(@organization), class_active: "du-dock-active", class: "" do %>
       <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]" %>
       <span class="du-dock-label"><%= t("organizations.dashboard.index.title") %></span>

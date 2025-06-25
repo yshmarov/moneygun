@@ -4,15 +4,15 @@
 <%# Sidebar content %>
 <aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 min-w-52 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <div class="flex-1">
-    <details class="group relative" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close" <% if !current_organization %>open data-dropdown-close-on-click-outside-value="false"<% end %>>
+    <details class="group relative" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close" <% if !Current.organization %>open data-dropdown-close-on-click-outside-value="false"<% end %>>
       <summary class="m-2 mb-0 du-btn du-btn-ghost font-medium text-sm p-2 cursor-pointer [&::-webkit-details-marker]:hidden flex items-center justify-between group-open:bg-base-300">
-        <% if current_organization %>
+        <% if Current.organization %>
         <div class="inline-flex items-center gap-2 max-w-40">
           <div>
-            <%= organization_avatar(current_organization, classes: "size-5") %>
+            <%= organization_avatar(Current.organization, classes: "size-5") %>
           </div>
           <div class="truncate">
-            <%= current_organization.name %>
+            <%= Current.organization.name %>
           </div>
         </div>
         <% else %>
@@ -24,13 +24,13 @@
       </summary>
       <div class="absolute top-full left-2 right-2 mt-1 bg-base-200 border border-base-content/20 z-50 rounded-lg p-1 du-menu">
         <%= nav_link t("organizations.index.title"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [ [ "organizations", "public/organizations", "users/invitations", "users/membership_requests" ], [] ] %>
-        <% Current.organizations.excluding(current_organization).each do |organization| %>
+        <% Current.organizations.excluding(Current.organization).each do |organization| %>
           <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
         <% end %>
       </div>
     </details>
 
-    <% if current_organization %>
+    <% if Current.organization %>
       <div class="du-menu w-full">
         <%= render "shared/sidebar_links" %>
       </div>
@@ -38,11 +38,11 @@
   </div>
 
   <div class="du-menu w-full">
-    <% if current_organization %>
-      <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg", badge: current_organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
+    <% if Current.organization %>
+      <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
       <% if Current.membership.admin? %>
-        <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-        <%= nav_link t("organizations.show.title"), organization_path(current_organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
+        <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+        <%= nav_link t("organizations.show.title"), organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
       <% end %>
     <% end %>
 

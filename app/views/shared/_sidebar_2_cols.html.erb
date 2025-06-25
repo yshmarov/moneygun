@@ -21,16 +21,16 @@
       </div>
     </div>
 
-    <% if current_organization %>
+    <% if Current.organization %>
       <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh min-w-64">
         <div class="du-menu w-full">
-          <%= nav_link current_organization.name, organization_path(current_organization), icon: organization_avatar(current_organization, classes: "size-5"), active: :exclusive %>
+          <%= nav_link Current.organization.name, organization_path(Current.organization), icon: organization_avatar(Current.organization, classes: "size-5"), active: :exclusive %>
           <%= render "shared/sidebar_links" %>
         </div>
         <div class="du-menu w-full">
-          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(current_organization), icon: "svg/user-group.svg", badge: current_organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
+          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
           <% if Current.membership.admin? %>
-            <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(current_organization), icon: subscription_status_label(current_organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+            <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
           <% end %>
         </div>
       </div>
