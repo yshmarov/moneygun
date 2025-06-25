@@ -197,14 +197,14 @@ en:
     success: Access granted
   notifications:
     index:
-      title: "🔔 All Notifications"
+      title: Inbox
   notifiers:
     membership_invitation_notifier:
       notification:
         message: You've been invited to join %{organization_name}
     membership_request_accepted_notifier:
       notification:
-        message: Your membership request has been accepted for %{organization_name}
+        message: "Your request to join %{organization_name} has been approved!"
   organizations:
     create:
       success: Organization created

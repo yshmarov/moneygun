@@ -1,6 +1,6 @@
 <nav class="flex justify-between px-4 lg:pl-0 py-2 bg-base-300">
   <%# left %>
-  <div class="flex items-center gap-2">
+  <div class="flex items-center gap-4">
     <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
       <%= inline_svg_tag "svg/sidebar-open.svg", class: "size-6" %>
       <% if current_organization %>
@@ -24,7 +24,7 @@
   </div>
 
   <%# right %>
-  <div class="flex items-center gap-2">
+  <div class="flex items-center gap-4">
     <% if user_masquerade? %>
       <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "du-btn du-btn-warning du-btn-sm uppercase" %>
     <% end %>
@@ -47,9 +47,7 @@
       </details>
     <% end %>
 
-    <div class="relative right-2">
-      <%= render "notifications/bell", user: current_user %>
-    </div>
+    <%= render "notifications/bell", user: current_user %>
 
     <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
       <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">

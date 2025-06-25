@@ -1,4 +1,4 @@
-<%= link_to notifications_path, class: "flex items-center" do %>
+<%= link_to notifications_path, class: "relative" do %>
   <%= image_tag "svg/bell.svg", class: "size-6" %>
   <%= render "notifications/notifications_count", unread: user.unseen_notifications_count %>
   <%= turbo_stream_from "notifications_index_#{current_user.id}" %>
