@@ -168,13 +168,13 @@ en:
         other: "%{count} errors prohibited this %{resource} from being saved:"
   invitations:
     approve:
-      success: Invitation approved
+      success: Invitation accepted
     errors:
       not_found: Invitation not found
     index:
-      title: Incoming invitations
+      title: "⬇️ Invitations"
     reject:
-      success: Invitation rejected
+      success: Invitation declined
   membership_mailer:
     invitation_email:
       subject: Join %{organization_name}
