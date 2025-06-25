@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   include Analytics
   include Translation
 
+  private
+
   def set_current_organizations
     Current.organizations = current_user.organizations
   end
