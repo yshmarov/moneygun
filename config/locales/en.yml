@@ -168,13 +168,20 @@ en:
         other: "%{count} errors prohibited this %{resource} from being saved:"
   invitations:
     approve:
-      success: Invitation approved
+      success: Invitation accepted
     errors:
       not_found: Invitation not found
     index:
-      title: Incoming invitations
+      title: "⬇️ Invitations"
     reject:
-      success: Invitation rejected
+      success: Invitation declined
+  membership_mailer:
+    invitation_email:
+      subject: Join %{organization_name}
+    request_accepted_email:
+      subject: Welcome to %{organization_name}
+    request_rejected_email:
+      subject: Membership request update for %{organization_name}
   membership_requests:
     approve:
       success: Membership request approved
@@ -190,6 +197,19 @@ en:
     reject:
       success: Membership request rejected
     success: Access granted
+  notifications:
+    index:
+      title: Inbox
+  notifiers:
+    membership_invitation_notifier:
+      notification:
+        message: You've been invited to join %{organization_name}
+    membership_request_accepted_notifier:
+      notification:
+        message: Your request to join %{organization_name} has been approved!
+    membership_request_rejected_notifier:
+      notification:
+        message: Your request to join %{organization_name} has been declined.
   organizations:
     create:
       success: Organization created

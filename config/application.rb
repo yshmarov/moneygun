@@ -29,5 +29,10 @@ module Moneygun
     config.i18n.available_locales = %i[en fr]
     config.i18n.fallbacks = true
     config.view_component.default_preview_layout = "minimal"
+
+    config.to_prepare do
+      Noticed::Event.include Noticed::EventExtensions
+      Noticed::Notification.include Noticed::NotificationExtensions
+    end
   end
 end

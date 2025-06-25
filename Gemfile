@@ -114,3 +114,6 @@ gem "profitable"
 # business logic
 gem "refer"
 gem "active_analytics"
+
+# notifications
+gem "noticed"
