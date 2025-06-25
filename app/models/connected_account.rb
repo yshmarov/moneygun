@@ -7,19 +7,28 @@ class ConnectedAccount < ApplicationRecord
   PROVIDER_CONFIG = {
     google_oauth2: {
       name: "Google",
-      icon: :google
+      icon: :google,
+      sign_in: true
     },
     github: {
       name: "GitHub",
-      icon: :github
+      icon: :github,
+      sign_in: true
     },
     telegram: {
       name: "Telegram",
-      icon: :telegram
+      icon: :telegram,
+      sign_in: false
+    },
+    tiktok: {
+      name: "TikTok",
+      icon: :tiktok,
+      sign_in: false
     },
     developer: {
       name: "Developer",
-      icon: "rocket-launch"
+      icon: "rocket-launch",
+      sign_in: true
     }
   }.freeze
 
