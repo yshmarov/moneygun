@@ -56,5 +56,5 @@
 
 /* Align content of the last cell to the end/right */
 .table-responsive tr td:last-child {
-  @apply justify-end lg:text-right;
+  @apply justify-center lg:text-right;
 } 
