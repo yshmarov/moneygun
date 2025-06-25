@@ -33,6 +33,6 @@ module OrganizationsHelper
   end
 
   def privacy_setting_icon(key)
-    tag.span privacy_setting_options(key)[:icon_path], class: "text-lg", alt: key, title: key
+    tag.span privacy_setting_options(key)[:icon], class: "text-lg", alt: key, title: privacy_setting_options(key)[:display_text]
   end
 end
