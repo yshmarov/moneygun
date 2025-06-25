@@ -15,7 +15,7 @@ class MembershipRequestAcceptedNotifier < Noticed::Event
     end
 
     def url
-      organization_path(params[:organization])
+      organization_url(params[:organization])
     end
   end
 end

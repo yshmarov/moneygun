@@ -15,7 +15,7 @@ class MembershipInvitationNotifier < ApplicationNotifier
     end
 
     def url
-      user_invitations_path
+      user_invitations_url
     end
   end
 end
