@@ -24,14 +24,19 @@
     <% if Current.organization %>
       <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh min-w-64">
         <div class="du-menu w-full">
-          <%= nav_link Current.organization.name, organization_path(Current.organization), icon: organization_avatar(Current.organization, classes: "size-5"), active: :exclusive %>
-          <%= render "shared/sidebar_links" %>
-        </div>
-        <div class="du-menu w-full">
+          <li>
+            <%= active_link_to organization_path(Current.organization), class_active: "du-menu-active", active: :exclusive do %>
+              <%= organization_avatar(Current.organization, classes: "size-6") %>
+              <%= Current.organization.name %>
+            <% end %>
+          <ul>
           <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
           <% if Current.membership.admin? %>
             <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
           <% end %>
+          </ul>
+          </li>
+          <%= render "shared/sidebar_links" %>
         </div>
       </div>
     <% end %>
