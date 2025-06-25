@@ -16,10 +16,6 @@ class Organizations::InvitationsController < Organizations::BaseController
     @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
 
     if @form.save
-      recipient = User.find_by(email: @form.email)
-      if recipient
-        MembershipInvitationNotifier.with(organization: @organization).deliver(recipient)
-      end
       respond_to do |format|
         flash[:notice] = t(".success", email: @form.email)
         format.html { redirect_to organization_memberships_path(@organization) }
