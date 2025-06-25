@@ -1,3 +1,4 @@
+# invited a user to an organization
 class MembershipInvitationNotifier < ApplicationNotifier
   deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
 

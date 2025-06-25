@@ -1,3 +1,4 @@
+# an organization rejected a user's request to join
 class MembershipRequestRejectedNotifier < Noticed::Event
   deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
 

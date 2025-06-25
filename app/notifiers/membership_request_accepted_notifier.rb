@@ -1,3 +1,4 @@
+# an organization accepted a user's request to join
 class MembershipRequestAcceptedNotifier < Noticed::Event
   deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
 
