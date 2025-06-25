@@ -12,7 +12,7 @@ class User < ApplicationRecord
     []
   end
 
-  def unread_notifications_count
-    notifications.unread.count
+  def unseen_notifications_count
+    notifications.unseen.count
   end
 end

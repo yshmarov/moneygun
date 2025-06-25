@@ -2,6 +2,6 @@
   <%= image_tag "svg/bell.svg", class: "size-6" %>
   <%= turbo_stream_from "notifications_index_#{current_user.id}" %>
   <div id="notification_index_count">
-    <%= render "notifications/notifications_count", unread: user.unread_notifications_count %>
+    <%= render "notifications/notifications_count", unread: user.unseen_notifications_count %>
   </div>
 <% end %>
