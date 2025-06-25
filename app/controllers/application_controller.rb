@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   include Translation
 
   def current_organization
-    Current.membership&.organization
+    Current.organization || Current.membership&.organization
   end
 
   helper_method :current_organization

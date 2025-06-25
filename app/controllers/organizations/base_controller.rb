@@ -37,6 +37,7 @@ class Organizations::BaseController < ApplicationController
 
   def set_current_membership
     Current.membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.organization = Current.membership&.organization
   end
 
   def pundit_user
