@@ -27,11 +27,11 @@
 								<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
 									<%= button_tag t(".current_plan"), class: "du-btn du-btn-secondary", disabled: true %>
 								<% else %>
-									<%= button_to t("organizations.subscriptions.plan.manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
+									<%= button_to t("organizations.subscriptions.plan.manage_billing"), organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
 								<% end %>
 
 							<% else %>
-								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "du-btn du-btn-primary" %>
+								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(Current.organization, price_id: plan[:id]), data: { turbo: false }, class: "du-btn du-btn-primary" %>
 							<% end %>
 						<% else %>
 							<%= link_to t(".subscribe"), new_user_registration_path, class: "du-btn du-btn-primary" %>

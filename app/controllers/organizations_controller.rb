@@ -56,6 +56,7 @@ class OrganizationsController < ApplicationController
   def set_organization
     @organization = Organization.find(params[:id])
     Current.membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.organization = Current.membership&.organization
     authorize @organization
   end
 

@@ -13,11 +13,7 @@ class ApplicationController < ActionController::Base
   include Analytics
   include Translation
 
-  def current_organization
-    Current.membership&.organization
-  end
-
-  helper_method :current_organization
+  private
 
   def set_current_organizations
     Current.organizations = current_user.organizations

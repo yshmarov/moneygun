@@ -4,14 +4,14 @@
 
 <%= render PageComponent.new(title: t(".title")) do |component| %>
   <% component.with_action_list do %>
-    <%= button_to button_label, organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
+    <%= button_to button_label, organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
   <% end %>
 
   <dl class="space-y-2">
     <div class="flex justify-between">
       <dt class="font-medium">
         <%= status_label %>
-        <%= subscription_status_label(current_organization) %>
+        <%= subscription_status_label(Current.organization) %>
       </dt>
       <dd>
         <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>/<%= plan_for(subscription)[:interval] %>
