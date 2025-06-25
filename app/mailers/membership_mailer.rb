@@ -15,5 +15,6 @@ class MembershipMailer < ApplicationMailer
     @organization = notification.params[:organization]
     @message = notification.message
     @recipient = notification.recipient
+    @action_url = notification.url
   end
 end
