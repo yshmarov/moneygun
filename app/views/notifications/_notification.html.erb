@@ -1,5 +1,4 @@
-<%= link_to notification_path(notification),
-            data: { turbo_method: :patch },
+<%= tag.div notification_path(notification),
             class: [
               # base card
               "group flex items-center gap-4 p-4 rounded-lg transition",
@@ -8,7 +7,7 @@
               "focus:outline-none focus:ring-2 focus:ring-blue-400",
 
               # read vs unread
-              notification.read? ?
+              notification.seen? ?
                 "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700" :
                 "bg-gray-100 dark:bg-gray-900 border-gray-500"
             ].join(" ") do
@@ -20,10 +19,10 @@
        stroke="currentColor"
        fill="none">
     <circle cx="12" cy="12" r="9"
-          class="<%= notification.read? ? "stroke-green-500" : "stroke-gray-300 group-hover:stroke-green-500" %>"
+          class="<%= notification.seen? ? "stroke-green-500" : "stroke-gray-300 group-hover:stroke-green-500" %>"
           stroke-width="2" />
     <path d="M9 12l2 2 4-4"
-          class="<%= notification.read? ? "stroke-green-500" : "stroke-gray-300 group-hover:stroke-green-500" %>"
+          class="<%= notification.seen? ? "stroke-green-500" : "stroke-gray-300 group-hover:stroke-green-500" %>"
           stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
   </svg>
 
