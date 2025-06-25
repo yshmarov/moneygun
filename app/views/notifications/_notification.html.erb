@@ -1,37 +1,37 @@
-<%= tag.div notification_path(notification),
+<%= link_to notification.url, 
             class: [
-              # base card
-              "group flex items-center gap-4 p-4 rounded-lg transition",
-              "border",               
-              "hover:bg-gray-100 dark:hover:bg-gray-700",
-              "focus:outline-none focus:ring-2 focus:ring-blue-400",
+              # base card - Twitter-like styling with DaisyUI colors
+              "group block p-4 transition-colors duration-200",
+              "border-b border-base-content/20",
+              "hover:bg-base-200",
+              "focus:outline-none focus:bg-base-200",
 
               # read vs unread
               notification.seen? ?
-                "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700" :
-                "bg-gray-100 dark:bg-gray-900 border-gray-500"
+                "bg-base-100" :
+                "bg-primary/10"
             ].join(" ") do
 %>
-  <svg xmlns="http://www.w3.org/2000/svg"
-       viewBox="0 0 24 24"
-       class="w-6 h-6 flex-none transition-colors"
-       aria-hidden="true"
-       stroke="currentColor"
-       fill="none">
-    <circle cx="12" cy="12" r="9"
-          class="<%= notification.seen? ? "stroke-green-500" : "stroke-gray-300 group-hover:stroke-green-500" %>"
-          stroke-width="2" />
-    <path d="M9 12l2 2 4-4"
-          class="<%= notification.seen? ? "stroke-green-500" : "stroke-gray-300 group-hover:stroke-green-500" %>"
-          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </svg>
+  <div class="flex items-start space-x-3">
+    <!-- Icon -->
+    <div class="flex-shrink-0 mt-0.5">
+      <%= inline_svg_tag "svg/bell.svg", 
+                        class: [
+                          "w-5 h-5 transition-colors",
+                          notification.seen? ? 
+                            "text-base-content/60 group-hover:text-success" : 
+                            "text-success"
+                        ].join(" ") %>
+    </div>
 
-  <div class="flex-1 space-y-1">
-    <p class="text-sm text-gray-800 dark:text-gray-100">
-      <%= notification.message %>
-    </p>
-    <p class="text-xs text-gray-500 dark:text-gray-400">
-      <%= time_ago_in_words(notification.created_at) %> ago
-    </p>
+    <!-- Content -->
+    <div class="flex-1 min-w-0">
+      <p class="text-sm text-base-content leading-5">
+        <%= notification.message %>
+      </p>
+      <p class="text-xs text-base-content/60 mt-1">
+        <%= time_ago_in_words(notification.created_at) %> ago
+      </p>
+    </div>
   </div>
 <% end %>

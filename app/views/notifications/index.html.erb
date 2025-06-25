@@ -3,11 +3,9 @@
 <%= render PageComponent.new(title: t(".title"), full_width: false) do |component| %>
   <%= turbo_stream_from "notifications_index_list_#{current_user.id}" %>
 
-  <div class="space-y-2" id="notifications">
+  <div id="notifications">
     <% @notifications.each do |notification| %>
-      <div>
         <%= turbo_frame_tag notification, src: notification_path(notification), loading: :lazy, target: :_top %>
-      </div>
     <% end %>
   </div>
 
