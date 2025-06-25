@@ -15,7 +15,7 @@ class MembershipInvitationNotifier < ApplicationNotifier
     end
 
     def url
-      organization_path(params[:organization])
+      user_invitations_path
     end
   end
 end
