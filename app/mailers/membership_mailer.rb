@@ -9,6 +9,11 @@ class MembershipMailer < ApplicationMailer
     mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
   end
 
+  def request_rejected_email(notification)
+    setup(notification)
+    mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
+  end
+
   private
 
   def setup(notification)

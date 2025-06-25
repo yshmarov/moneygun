@@ -19,4 +19,14 @@ class MembershipMailerPreview < ActionMailer::Preview
 
     MembershipMailer.request_accepted_email(notification)
   end
+
+  def request_rejected_email
+    organization = Organization.first
+    user = User.first
+
+    MembershipRequestRejectedNotifier.with(organization: organization).deliver(user)
+    notification = user.notifications.last
+
+    MembershipMailer.request_rejected_email(notification)
+  end
 end

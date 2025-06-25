@@ -179,7 +179,9 @@ fr:
     invitation_email:
       subject: Rejoindre %{organization_name}
     request_accepted_email:
-      subject: Bienvenue dans %{organization_name}
+      subject: Bienvenue chez %{organization_name}
+    request_rejected_email:
+      subject: Mise à jour de la demande d'adhésion pour %{organization_name}
   membership_requests:
     approve:
       success: Demande d'adhésion approuvée
@@ -205,6 +207,9 @@ fr:
     membership_request_accepted_notifier:
       notification:
         message: Votre demande d'adhésion a été acceptée pour %{organization_name}
+    membership_request_rejected_notifier:
+      notification:
+        message: Votre demande d'adhésion a été refusée pour %{organization_name}
   organizations:
     create:
       success: Organisation créée
