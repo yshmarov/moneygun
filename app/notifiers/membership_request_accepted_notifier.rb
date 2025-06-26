@@ -12,7 +12,7 @@ class MembershipRequestAcceptedNotifier < Noticed::Event
 
   notification_methods do
     def message
-      t(".message", organization_name: params[:organization].name)
+      t("notifiers.membership_request_accepted_notifier.notification.message", organization_name: params[:organization].name)
     end
 
     def url
