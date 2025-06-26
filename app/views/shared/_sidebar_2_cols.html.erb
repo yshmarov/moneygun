@@ -25,7 +25,7 @@
       <div class="bg-base-100 overflow-y-auto ml-0 m-2 rounded-xl border border-base-content/20 justify-between flex flex-col max-h-dvh min-w-64">
         <ul class="du-menu w-full">
           <li>
-            <details>
+            <details data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
               <summary>
                 <%= organization_avatar(Current.organization, classes: "size-6") %>
                 <%= Current.organization.name %>
