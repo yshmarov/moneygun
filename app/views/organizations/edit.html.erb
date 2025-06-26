@@ -1,7 +1,14 @@
 <% content_for :title, t("organizations.edit.title") %>
 
-<%= modal do %>
-  <%= render PageComponent.new(title: t("organizations.edit.title")) do |component| %>
-    <%= render "form", organization: @organization %>
+<%= render PageComponent.new(title: t("organizations.edit.title")) do |component| %>
+  <%= render "form", organization: @organization %>
+<% end %>
+
+<br class="my-4"/>
+
+<%= render PageComponent.new do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to t("organizations.transfers.show.title"), organization_transfer_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-error du-btn-outline" if @organization.can_transfer?(current_user) %>
+    <%= link_to t("shared.actions.destroy"), @organization, data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error du-btn-outline" if policy(@organization).destroy? %>
   <% end %>
 <% end %>

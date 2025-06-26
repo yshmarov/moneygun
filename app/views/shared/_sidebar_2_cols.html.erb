@@ -32,8 +32,9 @@
               </summary>
               <ul>
                 <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
+                <%= nav_link t("organizations.show.title"), organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "show" ] ] %>
                 <% if Current.membership.admin? %>
-                  <%= nav_link t("organizations.show.title"), organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit", "show" ] ] %>
+                  <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "edit" ] ] %>
                   <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
                 <% end %>
               </ul>

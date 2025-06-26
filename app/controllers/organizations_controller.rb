@@ -35,8 +35,7 @@ class OrganizationsController < ApplicationController
     if @organization.update(organization_params)
       flash[:notice] = t(".success")
       respond_to do |format|
-        format.html { redirect_to organization_path(@organization) }
-        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
+        format.html { redirect_to edit_organization_path(@organization) }
       end
     else
       render :edit, status: :unprocessable_entity
