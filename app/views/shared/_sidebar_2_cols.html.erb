@@ -1,4 +1,4 @@
-<% show_user_links = controller_path.start_with?('users') && !controller_path.start_with?('users/invitations', 'users/membership_requests') %>
+<% show_user_links = controller_path.start_with?("users") && !controller_path.start_with?("users/invitations", "users/membership_requests") %>
 
 <%# Mobile sidebar backdrop %>
 <div data-mobile-sidebar-target="backdrop" class="lg:hidden fixed inset-0 bg-gray-800/50 z-40 hidden" data-action="click->mobile-sidebar#close"></div>
@@ -11,7 +11,7 @@
         <%= link_to root_path, class: "flex items-center justify-left mb-2 px-2" do %>
           <%= image_tag "logo.png", alt: "logo", class: "size-8" %>
         <% end %>
-        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
+        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [ [ "organizations", "public/organizations", "users/invitations", "users/membership_requests" ], [ "index" ] ] %>
         <% Current.organizations.each do |organization| %>
           <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6"), active: :inclusive %>
         <% end %>
