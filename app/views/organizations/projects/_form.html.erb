@@ -1,4 +1,4 @@
-<%= form_with(model: [ @organization, project ], class: "contents space-y-4") do |form| %>
+<%= form_with(model: [ @organization, project ], class: "contents space-y-4", data: { controller: "form", action: "keydown.ctrl+enter->form#submit keydown.meta+enter->form#submit" }) do |form| %>
   <%= render "shared/errors", object: form.object %>
 
   <div class="">
