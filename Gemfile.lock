@@ -282,6 +282,7 @@ GEM
       railties (>= 6.1)
       rexml
     lint_roller (1.1.0)
+    local_time (3.0.3)
     logger (1.7.0)
     loofah (2.24.1)
       crass (~> 1.0.2)
@@ -636,6 +637,7 @@ DEPENDENCIES
   kamal
   letter_opener
   letter_opener_web
+  local_time
   lookbook (>= 2.3.9)
   mission_control-jobs
   nested_scaffold!
