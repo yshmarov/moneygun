@@ -9,3 +9,4 @@ pin "turbo_power" # @0.7.1
 pin "@stimulus-components/clipboard", to: "@stimulus-components--clipboard.js" # @5.0.0
 pin "autonumeric", to: "https://ga.jspm.io/npm:autonumeric@4.6.0/dist/autoNumeric.min.js"
 pin "@stimulus-components/animated-number", to: "@stimulus-components--animated-number.js" # @5.0.0
+pin "@stimulus-components/auto-submit", to: "@stimulus-components--auto-submit.js" # @6.0.0

@@ -1,4 +1,4 @@
-<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4") do |form| %>
+<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
   <%%= render "shared/errors", object: form.object %>
 
 <% attributes.each do |attribute| -%>
