@@ -47,7 +47,7 @@
       </details>
     <% end %>
 
-    <%= render "notifications/bell", user: current_user %>
+    <%= render "users/notifications/bell", user: current_user %>
 
     <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
       <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">

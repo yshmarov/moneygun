@@ -199,9 +199,6 @@ fr:
     success:
       access_granted: Accès accordé
       access_requested: Accès demandé
-  notifications:
-    index:
-      title: "🔔 Toutes les notifications"
   notifiers:
     membership_invitation_notifier:
       notification:
@@ -361,6 +358,9 @@ fr:
         success: Demande d'adhésion révoquée
       index:
         title: "⬆️ Demandes d'adhésion sortantes"
+    notifications:
+      index:
+        title: "🔔 Toutes les notifications"
     referrals:
       index:
         clicks: Clics sur les liens

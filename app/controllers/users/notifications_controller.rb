@@ -1,4 +1,4 @@
-class NotificationsController < ApplicationController
+class Users::NotificationsController < ApplicationController
   before_action :load_notifications, only: [ :index ]
   after_action :mark_as_seen, only: [ :index ]
 

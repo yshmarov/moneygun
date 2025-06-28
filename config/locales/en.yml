@@ -199,9 +199,6 @@ en:
     success:
       access_granted: Access granted
       access_requested: Access requested
-  notifications:
-    index:
-      title: Inbox
   notifiers:
     membership_invitation_notifier:
       notification:
@@ -361,6 +358,9 @@ en:
         success: Membership request revoked
       index:
         title: "⬆️ Waitlists"
+    notifications:
+      index:
+        title: Inbox
     referrals:
       index:
         clicks: Link clicks

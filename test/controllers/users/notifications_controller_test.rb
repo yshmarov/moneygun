@@ -1,6 +1,6 @@
 require "test_helper"
 
-class NotificationsControllerTest < ActionDispatch::IntegrationTest
+class Users::NotificationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
     @organization = organizations(:one)
@@ -12,7 +12,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     notification = @user.notifications.last
     assert_not notification.seen?
 
-    get notifications_url
+    get user_notifications_url
     assert_response :success
 
     notification.reload
