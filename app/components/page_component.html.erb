@@ -1,8 +1,8 @@
-<section class="space-y-4 mx-auto <%= width_class %>">
+<section class="space-y-4 mx-auto <%= width_class %> @container">
   <% if title.present? || action_list.present? %>
-    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+    <div class="flex flex-col @3xl:flex-row @3xl:justify-between gap-4">
       <% if title.present? %>
-        <h1 class="font-bold text-2xl lg:text-3xl">
+        <h1 class="font-medium text-2xl @3xl:text-3xl">
           <%= title %>
         </h1>
       <% end %>
