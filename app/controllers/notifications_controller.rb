@@ -1,24 +1,18 @@
 class NotificationsController < ApplicationController
-  before_action :set_notification, only: [ :show ]
-  after_action :mark_as_seen, only: [ :show ]
+  before_action :load_notifications, only: [ :index ]
+  after_action :mark_as_seen, only: [ :index ]
 
   def index
-    @pagy, @notifications = pagy(current_user.notifications.newest_first)
-  end
-
-  def show
-    redirect_to action: :index unless turbo_frame_request?
+    @pagy, @notifications = pagy(@notifications, limit: 10)
   end
 
   private
 
-  def set_notification
-    @notification = current_user.notifications.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to notifications_path
+  def load_notifications
+    @notifications = current_user.notifications.newest_first
   end
 
   def mark_as_seen
-    @notification.mark_as_seen
+    @notifications.unseen.mark_as_seen
   end
 end

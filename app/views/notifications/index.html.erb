@@ -4,9 +4,7 @@
   <%= turbo_stream_from "notifications_index_list_#{current_user.id}" %>
 
   <div id="notifications">
-    <% @notifications.each do |notification| %>
-        <%= turbo_frame_tag notification, src: notification_path(notification), loading: :lazy, target: :_top %>
-    <% end %>
+    <%= render collection: @notifications, partial: "notification", as: :notification %>
   </div>
 
   <%= render "shared/pagination", pagy: @pagy %>
