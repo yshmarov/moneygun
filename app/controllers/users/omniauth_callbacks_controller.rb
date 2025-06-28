@@ -18,17 +18,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # User is already logged in, add OAuth account to current user
       connected_account = ConnectedAccount.create_or_update_from_omniauth(auth_payload, current_user)
       if connected_account.persisted?
-        flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: kind)
+        flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: ConnectedAccount::PROVIDER_CONFIG[kind][:name])
         redirect_to user_connected_accounts_path
       else
-        flash[:alert] = "Failed to connect #{kind} account: #{connected_account.errors.full_messages.join(', ')}"
+        flash[:alert] = "Failed to connect #{ConnectedAccount::PROVIDER_CONFIG[kind][:name]} account: #{connected_account.errors.full_messages.join(', ')}"
         redirect_to user_connected_accounts_path
       end
     else
       user = User.from_omniauth(auth_payload)
       if user.persisted?
         session[:new_user] = true if user.saved_change_to_id?
-        flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: kind
+        flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: ConnectedAccount::PROVIDER_CONFIG[kind][:name]
         sign_in_and_redirect user, event: :authentication
       else
         session["devise.auth_data"] = auth_payload.except(:extra)
