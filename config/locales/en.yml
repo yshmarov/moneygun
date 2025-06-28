@@ -196,7 +196,9 @@ en:
       title: "⬇️ Waitlist"
     reject:
       success: Membership request rejected
-    success: Access granted
+    success:
+      access_granted: Access granted
+      access_requested: Access requested
   notifications:
     index:
       title: Inbox

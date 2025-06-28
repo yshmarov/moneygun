@@ -196,7 +196,9 @@ fr:
       title: "⬇️ Demandes d'adhésion entrantes"
     reject:
       success: Demande d'adhésion rejetée
-    success: Accès demandé avec succès
+    success:
+      access_granted: Accès accordé
+      access_requested: Accès demandé
   notifications:
     index:
       title: "🔔 Toutes les notifications"

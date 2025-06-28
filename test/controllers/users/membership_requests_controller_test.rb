@@ -22,7 +22,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_equal I18n.t("membership_requests.success"), flash[:notice]
+    assert_equal I18n.t("membership_requests.success.access_granted"), flash[:notice]
   end
 
   test "should create membership request for restricted organization" do
@@ -38,7 +38,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_equal I18n.t("membership_requests.success"), flash[:notice]
+    assert_equal I18n.t("membership_requests.success.access_requested"), flash[:notice]
   end
 
   test "should not create membership request if request params are not valid" do
