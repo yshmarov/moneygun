@@ -4,11 +4,18 @@ class ConnectedAccount < ApplicationRecord
   validates :provider, presence: true
   validates :uid, presence: true, uniqueness: { scope: :provider }
 
+  encrypts :access_token, :refresh_token
+
   PROVIDER_CONFIG = {
     google_oauth2: {
       name: "Google",
       icon: :google,
       sign_in: true
+    },
+    youtube: {
+      name: "YouTube",
+      icon: :youtube,
+      sign_in: false
     },
     github: {
       name: "GitHub",
@@ -42,6 +49,19 @@ class ConnectedAccount < ApplicationRecord
 
   def nickname
     payload&.dig("info", "nickname")
+  end
+
+  def platform_url
+    case provider
+    when "google_oauth2"
+      payload&.dig("extra", "raw_info", "profile_deep_link")
+    when "github"
+      payload&.dig("extra", "raw_info", "html_url")
+    when "tiktok"
+      payload&.dig("extra", "raw_info", "profile_deep_link")
+    else
+      nil
+    end
   end
 
   def self.create_or_update_from_omniauth(auth_payload, user)

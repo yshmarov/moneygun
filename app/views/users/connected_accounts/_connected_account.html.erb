@@ -8,23 +8,15 @@
       <% end %>
     </div>
     <div>
-      <% if connected_account.name.present? %>
-        <div class="font-medium">
-          <%= connected_account.name %>
-          <% if connected_account.nickname.present? %>
-            <span class="text-sm text-base-content/60">
-              @<%= connected_account.nickname %>
-            </span>
-          <% end %>
-        </div>
-      <% end %>
+      <%= tag.span connected_account.name, class: "font-medium" %>
+      <%= tag.span "@#{connected_account.nickname}", class: "text-sm text-base-content/60" if connected_account.nickname.present? %>
+      <%= link_to "↗️", connected_account.platform_url, class: "text-xs", target: "_blank", rel: "noopener noreferrer" if connected_account.platform_url.present? %>
+
       <div class="font-medium flex items-center gap-2">
         <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
         <%= ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:name] %>
       </div>
-      <div class="text-sm text-base-content/70 font-mono">
-        <%= connected_account.uid %>
-      </div>
+
       <div class="text-sm">
         <%= t(".connected_time_ago", time: time_ago_in_words(connected_account.created_at)) %>
       </div>
