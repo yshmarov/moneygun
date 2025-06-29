@@ -2,6 +2,6 @@
 
 <%= render "organizations/tabs", active_tab: :requests %>
 
-<%= render PageComponent.new(title: t("users.membership_requests.index.title"), full_width: true) do %>
+<%= render PageComponent.new(full_width: true) do %>
   <%= render "organizations/table" %>
 <% end %>
