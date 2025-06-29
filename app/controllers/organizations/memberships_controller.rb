@@ -41,6 +41,6 @@ class Organizations::MembershipsController < Organizations::BaseController
   end
 
   def membership_params
-    params.require(:membership).permit(:role)
+    params.expect(membership: [ :role ])
   end
 end
