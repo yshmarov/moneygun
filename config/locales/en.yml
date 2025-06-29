@@ -225,7 +225,7 @@ en:
     errors:
       not_found: Organization not found
     index:
-      title: My organizations
+      title: Joined
     invitations:
       create:
         success: "%{email} invited"
@@ -286,7 +286,7 @@ en:
   public:
     organizations:
       index:
-        title: "🌎 Discover organizations"
+        title: "🌎 Discover"
       show:
         actions:
           accept_invitation: Accept invitation
@@ -357,7 +357,7 @@ en:
       destroy:
         success: Membership request revoked
       index:
-        title: "⬆️ Waitlists"
+        title: "⬆️ Waitlisted"
     notifications:
       index:
         title: Inbox
