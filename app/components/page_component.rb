@@ -1,5 +1,6 @@
 class PageComponent < ViewComponent::Base
   renders_one :action_list
+  renders_one :title_content
 
   def initialize(title: nil, subtitle: nil, full_width: true)
     @title = title
