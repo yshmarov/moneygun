@@ -71,7 +71,7 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
   config.active_job.queue_adapter = :solid_queue
   # CUSTOM
-  Rails.application.routes.default_url_options = { host: "localhost", port: 3000 }
+  routes.default_url_options = { host: "localhost", port: 3000 }
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
