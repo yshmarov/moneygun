@@ -27,7 +27,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       user = User.from_omniauth(auth_payload)
       if user.persisted?
-        session[:new_user] = true if user.saved_change_to_id?
+        if user.saved_change_to_id?
+          session[:new_user] = true if user.saved_change_to_id?
+          refer user
+        end
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: ConnectedAccount::PROVIDER_CONFIG[kind][:name]
         sign_in_and_redirect user, event: :authentication
       else
