@@ -27,7 +27,7 @@
 
 <%= render PageComponent.new(title: t("shared.navigation.organizations")) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.new"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
+    <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
 
   <%= render TabsComponent.new(active_tab: active_tab, tabs:) %>

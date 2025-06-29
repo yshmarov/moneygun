@@ -307,6 +307,7 @@ en:
       confirm: Are you sure?
       copied: "✅ Copied!"
       copy: "📋 Copy"
+      create: Create
       destroy: Destroy
       edit: Edit
       new: New

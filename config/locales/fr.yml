@@ -304,9 +304,10 @@ fr:
       title: Rechercher...
   shared:
     actions:
-      confirm: Êtes-vous sûr ?
-      copied: "✅ Copié !"
+      confirm: Êtes-vous sûr?
+      copied: "✅ Copié!"
       copy: "📋 Copier"
+      create: Créer
       destroy: Détruire
       edit: Modifier
       new: Nouveau
@@ -360,7 +361,7 @@ fr:
         title: "⬆️ Demandes d'adhésion sortantes"
     notifications:
       index:
-        title: "🔔 Toutes les notifications"
+        title: Toutes les notifications
     referrals:
       index:
         clicks: Clics sur les liens
