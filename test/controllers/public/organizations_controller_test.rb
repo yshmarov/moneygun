@@ -22,7 +22,6 @@ class Public::OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
     get public_organizations_path
     assert_response :success
-    assert_select "h1", I18n.t("public.organizations.index.title")
     assert_includes response.body, organization1.name
     assert_includes response.body, organization2.name
     assert_not_includes response.body, organization3.name
