@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: t("devise.invitations.new.header")) do %>
+<%= render PageComponent.new(title: t("devise.invitations.new.header"), full_width: false) do %>
   <%= form_with model: resource, as: resource_name, url: invitation_path(resource_name), method: :post, class: "space-y-4" do |f| %>
     <%= render "shared/errors", object: resource %>
 
