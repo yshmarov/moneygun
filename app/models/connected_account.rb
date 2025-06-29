@@ -43,6 +43,10 @@ class ConnectedAccount < ApplicationRecord
     payload&.dig("info", "name")
   end
 
+  def email
+    payload&.dig("info", "email") unless provider == "youtube"
+  end
+
   def image_url
     payload&.dig("info", "image")
   end

@@ -9,8 +9,12 @@
     </div>
     <div>
       <%= tag.span connected_account.name, class: "font-medium" %>
-      <%= tag.span "@#{connected_account.nickname}", class: "text-sm text-base-content/60" if connected_account.nickname.present? %>
       <%= link_to "↗️", connected_account.platform_url, class: "text-xs", target: "_blank", rel: "noopener noreferrer" if connected_account.platform_url.present? %>
+
+      <div class="flex items-center gap-2">
+        <%= tag.span "@#{connected_account.nickname}", class: "text-sm text-base-content/60" if connected_account.nickname.present? %>
+        <%= tag.span connected_account.email, class: "text-sm text-base-content/60" if connected_account.email.present? %>
+      </div>
 
       <div class="font-medium flex items-center gap-2">
         <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[connected_account.provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
@@ -27,6 +31,6 @@
     <%= button_to t(".disconnect_button"), user_connected_account_path(connected_account),
         method: :delete,
         data: { turbo_confirm: t(".confirm_disconnect_message") },
-        class: "du-btn du-btn-sm du-btn-error" %>
+        class: "du-btn du-btn-sm du-btn-error du-btn-outline" %>
   </div>
 </div> 
