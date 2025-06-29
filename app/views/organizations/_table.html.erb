@@ -1,0 +1,37 @@
+<div class="table-responsive">
+  <table>
+    <thead>
+      <tr>
+        <th><%= Organization.human_attribute_name(:name) %></th>
+        <th><%= Organization.human_attribute_name(:privacy_setting) %></th>
+        <th>Members</th>
+        <th><%= Organization.human_attribute_name(:created_at) %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="organizations">
+      <% @organizations.each do |organization| %>
+        <tr>
+          <td data-label="<%= Organization.human_attribute_name(:name) %>">
+            <div class="flex items-center gap-2">
+              <%= organization_avatar(organization) %>
+              <span class="font-medium"><%= organization.name %></span>
+            </div>
+          </td>
+          <td data-label="<%= Organization.human_attribute_name(:privacy_setting) %>">
+            <%= privacy_setting_options(organization.privacy_setting)[:display_text] %>
+          </td>
+          <td data-label="Members">
+            <%= render "organizations/users_list", organization: %>
+          </td>
+          <td data-label="<%= Organization.human_attribute_name(:created_at) %>">
+            <%= local_time(organization.created_at, format: :short) %>
+          </td>
+          <td>
+            <%= render "organizations/membership_actions", organization: organization %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

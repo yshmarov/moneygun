@@ -7,9 +7,7 @@
     <%= link_to t("shared.actions.new"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-    <%= render collection: @organizations, partial: "organizations/organization", as: :organization %>
-  </div>
+  <%= render "organizations/table" %>
 
   <%= render "shared/pagination", pagy: @pagy %>
 <% end %>
