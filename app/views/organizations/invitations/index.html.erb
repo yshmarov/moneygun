@@ -2,11 +2,7 @@
 
 <%= render "organizations/memberships/tabs", active_tab: :invitations %>
 
-<%= render PageComponent.new(title: t("organizations.invitations.index.title"), full_width: true) do |component| %>
-  <% component.with_action_list do %>
-    <%= link_to t("organizations.memberships.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" if policy(@organization.memberships.new).new? %>
-  <% end %>
-
+<%= render PageComponent.new(full_width: true) do %>
   <div class="table-responsive">
     <table>
       <thead>
