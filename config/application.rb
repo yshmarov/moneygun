@@ -29,6 +29,8 @@ module Moneygun
     config.i18n.available_locales = %i[en fr]
     config.i18n.fallbacks = true
     config.view_component.default_preview_layout = "minimal"
+    config.active_record.encryption.support_unencrypted_data = true
+    config.active_record.encryption.extend_queries = true
 
     config.to_prepare do
       Noticed::Event.include Noticed::EventExtensions
