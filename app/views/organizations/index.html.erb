@@ -2,7 +2,7 @@
 
 <%= render "organizations/tabs", active_tab: :my_organizations %>
 
-<%= render PageComponent.new(full_width: true) do |component| %>
+<%= render PageComponent.new do |component| %>
   <%= render "organizations/table" %>
 
   <%= render "shared/pagination", pagy: @pagy %>

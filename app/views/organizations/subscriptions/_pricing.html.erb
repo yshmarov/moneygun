@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: t(".title")) do %>
+<%= render PageComponent.new(title: t(".title"), full_width: false) do %>
 	<div class="grid lg:grid-cols-2 gap-8">
 		<% Rails.application.config_for(:settings)[:plans].each do |plan| %>
 			<div class="border border-base-content/20 rounded-xl text-center flex flex-col">

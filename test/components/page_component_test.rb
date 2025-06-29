@@ -16,7 +16,7 @@ class PageComponentTest < ViewComponent::TestCase
   end
 
   def test_component_renders_with_full_width
-    render_inline(PageComponent.new(title: "Page Title", full_width: true))
+    render_inline(PageComponent.new(title: "Page Title"))
 
     assert_selector "section", class: "max-w-7xl"
   end
