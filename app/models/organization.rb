@@ -3,7 +3,7 @@ class Organization < ApplicationRecord
   include Organization::Transfer
   include Organization::Billing
 
-  enum :privacy_setting, { private: "private", restricted: "restricted", public: "public" }, default: :private, prefix: true
+  enum :privacy_setting, %w[ private restricted public ].index_by(&:itself), default: :private, prefix: true
   validate :public_privacy_setting_requirements
 
   has_many :projects, dependent: :destroy

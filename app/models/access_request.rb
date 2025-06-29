@@ -3,7 +3,7 @@ class AccessRequest < ApplicationRecord
   belongs_to :user
   belongs_to :completed_by, class_name: "User", optional: true, foreign_key: :completed_by
 
-  enum :status, { pending: "pending", approved: "approved", rejected: "rejected" }, default: :pending
+  enum :status, %w[ pending approved rejected ].index_by(&:itself), default: :pending
 
   validates :status, presence: true
   validates :user_id, uniqueness: { scope: :organization_id, message: "already has a pending request" }
