@@ -17,14 +17,14 @@ export default class extends Controller {
     }
     const url = event.currentTarget.dataset.url
     if (url) {
-      window.location.href = url
+      Turbo.visit(url)
     }
   }
 
   isInteractiveElement(element) {
     // Check for common interactive elements, those with tabindex, and specific elements like dialog and details
     return element.closest(
-      'a, button, input, select, textarea dialog, details, summary, [role="menu"], [role="button"], [role="link"]'
+      'a, button, input, select, textarea dialog, details, summary, [role="menu"], [role="button"]'
     )
   }
 
