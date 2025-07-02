@@ -1,5 +1,5 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new do |component| %>
+<%= render PageComponent.new(full_width: false) do |component| %>
   <%= markdown_to_html(File.read(Rails.root.join("README.md"))) %>
 <% end %>
