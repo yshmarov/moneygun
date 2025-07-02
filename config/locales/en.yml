@@ -361,7 +361,7 @@ en:
         title: "⬆️ Waitlisted"
     notifications:
       index:
-        title: Inbox
+        title: Notifications
     referrals:
       index:
         clicks: Link clicks
@@ -371,4 +371,13 @@ en:
         referrals: Successful signups
         referrals_description: Friends who've joined using your link.
         subtitle: Share your unique referral link and earn rewards when your friends sign up and make their first purchase.
-        title: Affiliates
+        table:
+          completed_at: Purchased at
+          no_referrals: No referrals yet. Start sharing your link to earn rewards!
+          referee: Referred User
+          referrals_list: Your Referrals
+          referred_at: Signed up at
+          status: Status
+          status_completed: Purchased
+          status_pending: Signed up
+        title: Refer friends
