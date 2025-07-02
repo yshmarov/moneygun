@@ -9,9 +9,9 @@
         <th></th>
       </tr>
     </thead>
-    <tbody id="organizations">
+    <tbody id="organizations" data-controller="clickable-row">
       <% @organizations.each do |organization| %>
-        <tr>
+        <tr class="cursor-pointer" data-clickable-row-target="row" data-url="<%= organization_path(organization) %>">
           <td data-label="<%= Organization.human_attribute_name(:name) %>">
             <div class="flex items-center gap-2">
               <%= organization_avatar(organization) %>
