@@ -1,6 +1,6 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: t(".title"), full_width: false) do |component| %>
+<%= render PageComponent.new(title: t(".title")) do |component| %>
   <%= turbo_stream_from "notifications_index_list_#{current_user.id}" %>
 
   <div id="notifications">

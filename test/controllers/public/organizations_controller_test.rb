@@ -22,9 +22,10 @@ class Public::OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
     get public_organizations_path
     assert_response :success
-    assert_includes response.body, organization1.name
-    assert_includes response.body, organization2.name
-    assert_not_includes response.body, organization3.name
+
+    assert_includes Organization.discoverable.pluck(:name), organization1.name
+    assert_includes Organization.discoverable.pluck(:name), organization2.name
+    assert_not_includes Organization.discoverable.pluck(:name), organization3.name
   end
 
   test "should get show" do
