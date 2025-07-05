@@ -8,17 +8,25 @@ module ApplicationHelper
     end
   end
 
-  def nav_link(label, path, icon: nil, badge: nil, **options)
+  def nav_link(label, path, icon: nil, badge: nil, todo_dot: false, wrapper: :li, **options)
     icon = inline_svg_tag icon, class: "size-6 w-6 h-6" if icon&.match?(/svg/)
     badge_span = content_tag(:span, badge, class: "du-badge du-badge-xs du-badge-warning") if badge && badge.to_i.positive?
-    content_tag(:li) do
-      active_link_to path, class_active: "du-menu-active", class: "whitespace-nowrap justify-start [[data-expanded=false]_&]:justify-center", title: label, **options do
-        safe_join([
-          icon,
-          content_tag(:span, label, class: "[[data-expanded=false]_&]:hidden"),
-          badge_span
-        ].compact)
-      end
+    todo_dot_span = content_tag(:span, "", class: "bg-warning rounded-full w-2 h-2 ml-auto") if todo_dot
+
+    link_content = active_link_to path, class_active: "du-menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start", title: label, **options do
+      safe_join([
+        icon,
+        content_tag(:span, label, class: "[[data-expanded=false]_&]:hidden"),
+        badge_span,
+        todo_dot_span
+      ].compact)
+    end
+
+    case wrapper
+    when false, nil
+      link_content
+    else
+      tag.send(wrapper) { link_content }
     end
   end
 
