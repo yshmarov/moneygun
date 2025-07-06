@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="click"
 export default class extends Controller {
   click(event) {
-    const formElements = ['INPUT', 'TEXTAREA', 'SELECT', 'TRIX-EDITOR']
+    const formElements = ['INPUT', 'TEXTAREA', 'SELECT', 'TRIX-EDITOR', 'RHINO-EDITOR']
     if (formElements.includes(event.target.tagName)) {
       return
     }
