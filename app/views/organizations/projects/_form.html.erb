@@ -1,9 +1,13 @@
-<%= form_with(model: [ @organization, project ], class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
+<%= semantic_form_for([ @organization, project ], class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
   <%= render "shared/errors", object: form.object %>
 
   <div class="">
     <%= form.label :name %>
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.inputs "Basic" do %>
+      <%= form.input :name %>
+      <%= form.semantic_errors :name %>
+    <% end %>
   </div>
 
   <div class="flex justify-end">

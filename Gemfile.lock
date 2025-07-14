@@ -214,6 +214,8 @@ GEM
     ffi (1.17.2-x86-linux-gnu)
     ffi (1.17.2-x86_64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
+    formtastic (5.0.0)
+      actionpack (>= 6.0.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -629,6 +631,7 @@ DEPENDENCIES
   devise_invitable (~> 2.0)
   devise_masquerade
   erb_lint
+  formtastic (~> 5.0)
   i18n-tasks
   image_processing (~> 1.2)
   importmap-rails

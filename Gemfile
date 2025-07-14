@@ -118,3 +118,5 @@ gem "active_analytics"
 
 # notifications
 gem "noticed"
+
+gem "formtastic", "~> 5.0"
