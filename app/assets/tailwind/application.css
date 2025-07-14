@@ -6,6 +6,7 @@
 
 @import "./components/table.css";
 @import "./components/pagy.css";
+@import "./components/formtastic.css";
 
 @plugin "@tailwindcss/typography";
 

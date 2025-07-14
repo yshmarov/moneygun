@@ -1,0 +1,117 @@
+/* Simple Formtastic + DaisyUI Integration */
+
+/* Form container */
+.formtastic {
+  @apply space-y-6;
+}
+
+/* Field wrapper */
+.formtastic li {
+  @apply list-none;
+}
+
+.formtastic li.input {
+  @apply space-y-2;
+}
+
+/* Labels */
+.formtastic label {
+  @apply du-label font-medium text-base-content;
+}
+
+.formtastic label abbr {
+  @apply text-error no-underline;
+}
+
+/* Text inputs */
+.formtastic input[type='text'],
+.formtastic input[type='email'],
+.formtastic input[type='password'],
+.formtastic input[type='url'],
+.formtastic input[type='tel'],
+.formtastic input[type='number'],
+.formtastic input[type='search'],
+.formtastic input[type='date'],
+.formtastic input[type='datetime-local'],
+.formtastic input[type='time'],
+.formtastic input[type='month'],
+.formtastic input[type='week'] {
+  @apply du-input w-full;
+}
+
+/* Textarea */
+.formtastic textarea {
+  @apply du-textarea w-full min-h-[120px];
+}
+
+/* Select dropdowns */
+.formtastic select {
+  @apply du-select w-full;
+}
+
+/* Checkboxes */
+.formtastic input[type='checkbox'] {
+  @apply du-checkbox du-checkbox-primary;
+}
+
+/* Radio buttons */
+.formtastic input[type='radio'] {
+  @apply du-radio du-radio-primary;
+}
+
+/* File inputs */
+.formtastic input[type='file'] {
+  @apply du-file-input w-full;
+}
+
+/* Error states */
+.formtastic li.input.error input,
+.formtastic li.input.error textarea,
+.formtastic li.input.error select {
+  @apply du-input-error;
+}
+
+.formtastic li.input.error label {
+  @apply text-error;
+}
+
+/* Inline errors */
+.formtastic .inline-errors {
+  @apply du-badge du-badge-error du-badge-sm mt-1;
+}
+
+/* Hints */
+.formtastic .inline-hints {
+  @apply du-badge du-badge-info du-badge-sm mt-1;
+}
+
+/* Error list */
+.formtastic .errors {
+  @apply du-alert du-alert-error mb-4;
+}
+
+.formtastic .errors ul {
+  @apply list-disc list-inside;
+}
+
+/* Actions (buttons) */
+.formtastic .actions {
+  @apply du-card-actions justify-end;
+}
+
+.formtastic .actions input[type='submit'] {
+  @apply du-btn du-btn-primary;
+}
+
+/* Boolean inputs (checkboxes with labels) */
+.formtastic li.boolean {
+  @apply flex items-center space-x-2;
+}
+
+.formtastic li.boolean label {
+  @apply order-2;
+}
+
+.formtastic li.boolean input[type='checkbox'] {
+  @apply order-1;
+}

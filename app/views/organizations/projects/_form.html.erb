@@ -1,16 +1,35 @@
-<%= semantic_form_for([ @organization, project ], class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
+<%= semantic_form_for([ @organization, project ], 
+    html: { class: "formtastic space-y-6", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } }) do |form| %>
+  
   <%= render "shared/errors", object: form.object %>
 
-  <div class="">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-    <%= form.inputs "Basic" do %>
-      <%= form.input :name %>
-      <%= form.semantic_errors :name %>
-    <% end %>
-  </div>
+  <%= form.inputs "Project Details" do %>
+    <%= form.input :name, 
+        label: "Project Name",
+        hint: "Enter a descriptive name for your project" %>
+    
+    <%= form.input :description, 
+        as: :text,
+        label: "Description",
+        hint: "Brief description of the project",
+        input_html: { rows: 4 } %>
+    
+    <%= form.input :status, 
+        as: :select,
+        label: "Status",
+        hint: "Current project status",
+        collection: [
+          ['Active', 'active'],
+          ['On Hold', 'on_hold'],
+          ['Completed', 'completed'],
+          ['Cancelled', 'cancelled']
+        ],
+        include_blank: 'Select status' %>
+  <% end %>
 
-  <div class="flex justify-end">
-    <%= form.submit class: "du-btn du-btn-primary" %>
-  </div>
+  <%= form.actions do %>
+    <%= link_to "Cancel", organization_projects_path(@organization), 
+        class: "du-btn du-btn-outline" %>
+    <%= form.action :submit, label: "Save Project" %>
+  <% end %>
 <% end %>
