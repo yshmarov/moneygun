@@ -47,10 +47,6 @@
   }
 }
 
-.form-input {
-  @apply block shadow-sm rounded-md border border-gray-400 outline-hidden px-3 py-2 w-full;
-}
-
 .prose pre {
   @apply max-lg:w-sm;
 }

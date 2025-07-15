@@ -1,7 +1,7 @@
 <%= form_with url: organization_transfer_path(Current.organization), method: :patch, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } do |form| %>
   <div class="">
     <%= form.label :user_id %>
-    <%= form.collection_select :user_id, Current.organization.users.where.not(users: { id: current_user.id }), :id, :email, { include_blank: true, required: true }, { class: "form-input" } %>
+    <%= form.collection_select :user_id, Current.organization.users.where.not(users: { id: current_user.id }), :id, :email, { include_blank: true, required: true }, { class: "du-input w-full" } %>
   </div>
 
   <div class="flex justify-end">
