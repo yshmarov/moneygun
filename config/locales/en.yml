@@ -364,20 +364,20 @@ en:
         title: Notifications
     referrals:
       index:
-        clicks: Link clicks
-        clicks_description: How many times your unique link has been clicked.
-        completed: Completed referrals
-        completed_description: Friends who've signed up and made their first purchase.
-        referrals: Successful signups
-        referrals_description: Friends who've joined using your link.
-        subtitle: Share your unique referral link and earn rewards when your friends sign up and make their first purchase.
+        clicks: Referral Link Performance
+        clicks_description: Total number of clicks generated through your unique referral link.
+        completed: Converted Referrals
+        completed_description: Referred users who have completed their first purchase and generated commission.
+        referrals: Active Referrals
+        referrals_description: Users who have successfully registered through your referral link.
+        subtitle: Generate revenue through our affiliate program by sharing your unique referral link. Earn commissions when referred users complete their first purchase.
         table:
-          completed_at: Purchased at
-          no_referrals: No referrals yet. Start sharing your link to earn rewards!
+          completed_at: Conversion Date
+          no_referrals: No referrals recorded. Begin sharing your referral link to start earning commissions.
           referee: Referred User
-          referrals_list: Your Referrals
-          referred_at: Signed up at
-          status: Status
-          status_completed: Purchased
-          status_pending: Signed up
-        title: Refer friends
+          referrals_list: Referral Activity
+          referred_at: Registration Date
+          status: Conversion Status
+          status_completed: Converted
+          status_pending: Registered
+        title: Affiliate Program
