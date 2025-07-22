@@ -100,7 +100,7 @@ gem "local_time"
 
 # admin
 gem "active_storage_dashboard"
-gem "avo", ">= 3.2"
+gem "avo", ">= 3.22.0"
 group :avo, optional: true do
   source "https://packager.dev/avo-hq/" do
     gem "avo-pro"

@@ -1,10 +1,10 @@
 /* Responsive table that displays as cards on mobile and table on desktop */
 .table-responsive {
-  @apply overflow-x-auto rounded-lg; /* Container styling, no explicit bg, cards will have it. Padding for mobile. */
+  @apply rounded-lg; /* Container styling, no explicit bg, cards will have it. Padding for mobile. */
 }
 
 .table-responsive table {
-  @apply table-auto relative w-full border-collapse lg:rounded-lg lg:overflow-hidden lg:border lg:border-base-content/10; /* Ensure table is rounded, clips content, and has a border on lg screens */
+  @apply table-auto relative w-full border-collapse lg:rounded-lg lg:border lg:border-base-content/10; /* Ensure table is rounded and has a border on lg screens */
 }
 
 .table-responsive thead {
@@ -29,7 +29,7 @@
 }
 
 .table-responsive tr {
-  @apply block lg:table-row mb-3 lg:mb-0 overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none border border-base-content/10 bg-base-100 lg:bg-transparent; /* Unified border opacity */
+  @apply block lg:table-row mb-3 lg:mb-0 rounded-lg lg:rounded-none shadow-md lg:shadow-none border border-base-content/10 bg-base-100 lg:bg-transparent; /* Unified border opacity */
   @apply hover:bg-base-200/30 lg:even:bg-base-200/50 lg:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
   @apply lg:last:border-b-0; /* No bottom border for the last row in desktop table */
 }
@@ -57,4 +57,4 @@
 /* Align content of the last cell to the end/right */
 .table-responsive tr td:last-child {
   @apply justify-center lg:text-right;
-} 
+}
