@@ -34,17 +34,6 @@ module ApplicationHelper
     render "shared/modal", **options, &block
   end
 
-  def avo_masquerade_path(resource, *args)
-    scope = Devise::Mapping.find_scope!(resource)
-
-    opts = args.shift || {}
-    opts[:masqueraded_resource_class] = resource.class.name
-
-    opts[Devise.masquerade_param] = resource.masquerade_key
-
-    Rails.application.routes.url_helpers.send(:"#{scope}_masquerade_index_path", opts, *args)
-  end
-
   def locale_to_flag(locale)
     locales = {
       en: "🇺🇸",
