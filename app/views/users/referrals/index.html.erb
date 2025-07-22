@@ -23,23 +23,23 @@
         <tbody>
           <% @referrals.each do |referral| %>
             <tr>
-              <td data-label="<%= t('.table.referee') %>">
+              <td data-label="<%= t(".table.referee") %>">
                 <div class="flex items-center gap-2">
                   <%= user_avatar(referral.referee) %>
                   <span class="font-medium"><%= referral.referee.email %></span>
                 </div>
               </td>
-              <td data-label="<%= t('.table.referred_at') %>">
+              <td data-label="<%= t(".table.referred_at") %>">
                 <%= local_time(referral.created_at, format: :short) %>
               </td>
-              <td data-label="<%= t('.table.status') %>">
+              <td data-label="<%= t(".table.status") %>">
                 <% if referral.completed_at.present? %>
                   <span class="badge badge-success"><%= t(".table.status_completed") %></span>
                 <% else %>
                   <span class="badge badge-warning"><%= t(".table.status_pending") %></span>
                 <% end %>
               </td>
-              <td data-label="<%= t('.table.completed_at') %>">
+              <td data-label="<%= t(".table.completed_at") %>">
                 <% if referral.completed_at %>
                   <%= local_time(referral.completed_at, format: :short) %>
                 <% else %>
