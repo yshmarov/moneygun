@@ -1,17 +1,6 @@
 <div class="flex items-center gap-2 justify-end">
   <% if organization.participant?(current_user) %>
-    <details class="relative" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-      <summary class="du-btn du-btn-sm du-btn-ghost cursor-pointer [&::-webkit-details-marker]:hidden">
-        <%= inline_svg_tag "svg/bars-3.svg", class: "w-4 h-4" %>
-      </summary>
-      <div class="absolute right-0 top-full mt-2 bg-base-200 border border-base-content/20 z-50 rounded-lg p-1 space-y-1 min-w-32">
-        <%= link_to "Show", organization_path(organization), class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if policy(organization).show? %>
-        <%= link_to "Edit", edit_organization_path(organization), class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if policy(organization).edit? %>
-        <%= button_to "Destroy", organization_path(organization), method: :delete,
-            data: { turbo_confirm: "Are you sure you want to delete this organization?" },
-            class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full text-error" if policy(organization).destroy? %>
-      </div>
-    </details>
+    <%= link_to t("public.organizations.show.actions.open"), organization_path(organization), class: "du-btn du-btn-sm du-btn-primary", data: { turbo_frame: "_top" } %>
   <% elsif organization.user_requests.pending.exists?(user: current_user) %>
     <%= button_to t("public.organizations.show.actions.cancel_request"), user_membership_request_path(organization.user_requests.pending.find_by(user: current_user)), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-sm du-btn-error" %>
   <% elsif organization.user_invitations.pending.exists?(user: current_user) %>
