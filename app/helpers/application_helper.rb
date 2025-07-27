@@ -43,4 +43,12 @@ module ApplicationHelper
     }
     locales[locale.to_sym]
   end
+
+  def back_path_with_fallback(fallback_path = root_path)
+    if request.referrer.present? && URI(request.referrer).host == request.host && request.referrer != request.original_url
+      :back
+    else
+      fallback_path
+    end
+  end
 end
