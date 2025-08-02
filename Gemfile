@@ -109,6 +109,7 @@ end
 # feature flags
 # https://www.flippercloud.io/docs/get-started/self-hosted
 # https://github.com/flippercloud/flipper?tab=readme-ov-file#getting-started
+# gem "flipper"
 gem "flipper-active_record"
 gem "flipper-ui"
 

@@ -43,3 +43,13 @@ end
 # Flipper.register(:admins) do |actor|
 #  actor.respond_to?(:admin?) && actor.admin?
 # end
+
+# Flipper.configure { |config| config.default { Flipper.new(Flipper::Adapters::ActiveRecord.new) } }
+Flipper.register(:users) { |actor| actor.value.start_with?("User:") }
+Flipper.register(:organizations) { |actor| actor.value.start_with?("Organization:") }
+Flipper::UI.configure do |config|
+  config.fun = false
+  config.cloud_recommendation = false
+  config.show_feature_description_in_list = true
+end
+# Flipper[:accounting_codes].enable
