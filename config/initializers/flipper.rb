@@ -54,4 +54,3 @@ Flipper::UI.configure do |config|
   config.cloud_recommendation = false
   config.show_feature_description_in_list = true
 end
-# Flipper[:accounting_codes].enable
