@@ -1,3 +1,5 @@
+# https://www.flippercloud.io/docs/get-started/self-hosted
+# https://github.com/flippercloud/flipper?tab=readme-ov-file#getting-started
 Rails.application.configure do
   ## Memoization ensures that only one adapter call is made per feature per request.
   ## For more info, see https://www.flippercloud.io/docs/optimization#memoization
