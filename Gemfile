@@ -106,6 +106,11 @@ group :avo, optional: true do
     gem "avo-pro"
   end
 end
+# feature flags
+# https://www.flippercloud.io/docs/get-started/self-hosted
+# https://github.com/flippercloud/flipper?tab=readme-ov-file#getting-started
+gem "flipper-active_record"
+gem "flipper-ui"
 
 # payments
 gem "pay", "~> 8.0"
