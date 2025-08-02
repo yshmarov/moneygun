@@ -106,6 +106,9 @@ group :avo, optional: true do
     gem "avo-pro"
   end
 end
+# feature flags
+gem "flipper-active_record"
+gem "flipper-ui"
 
 # payments
 gem "pay", "~> 8.0"
