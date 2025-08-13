@@ -17,5 +17,10 @@ resources :organizations, path: I18n.t("routes.organizations") do
     get "subscriptions", to: "subscriptions#index"
     get "subscriptions/checkout", to: "subscriptions#checkout"
     post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
+
+    # put application-specific resources scoped to the organization below
+    resources :projects
+    get "dashboard", to: "dashboard#index"
+    get "paywalled_page", to: "dashboard#paywalled_page"
   end
 end
