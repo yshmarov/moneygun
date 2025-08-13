@@ -30,7 +30,7 @@
                 </div>
               </td>
               <td data-label="<%= t(".table.referred_at") %>">
-                <%= local_time(referral.created_at, format: :short) %>
+                <%= local_time(referral.created_at, format: :long) %>
               </td>
               <td data-label="<%= t(".table.status") %>">
                 <% if referral.completed_at.present? %>
