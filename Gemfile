@@ -102,12 +102,15 @@ gem "simple_form-tailwind"
 
 # admin
 gem "active_storage_dashboard"
-gem "avo", ">= 3.2"
+gem "avo", ">= 3.22.0"
 group :avo, optional: true do
   source "https://packager.dev/avo-hq/" do
     gem "avo-pro"
   end
 end
+# feature flags
+gem "flipper-active_record"
+gem "flipper-ui"
 
 # payments
 gem "pay", "~> 8.0"

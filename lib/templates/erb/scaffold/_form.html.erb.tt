@@ -16,7 +16,7 @@
     <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
 <% else -%>
     <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
-    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-input" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "du-input w-full" %>
 <% end -%>
   </div>
 

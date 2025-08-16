@@ -16,7 +16,7 @@
             <% end %>
           </summary>
           <ul>
-            <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
+            <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [ [ "organizations", "public/organizations", "users/invitations", "users/membership_requests" ], [ "index" ] ] %>
             <% Current.organizations.excluding(Current.organization).each do |organization| %>
               <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-5") %>
             <% end %>

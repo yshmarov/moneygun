@@ -12,13 +12,13 @@ en:
         privacy_settings:
           private:
             description_text: Only invited users can join
-            display_text: "🔒 Private"
+            display_text: '🔒 Private'
           public:
             description_text: Anyone can join
-            display_text: "🌍 Public"
+            display_text: '🌍 Public'
           restricted:
             description_text: People must submit an application to be approved to join
-            display_text: "📩 Restricted"
+            display_text: '📩 Restricted'
     models:
       membership: Member
       organization: Organization
@@ -49,7 +49,7 @@ en:
       unlock_instructions:
         subject: Unlock instructions
     masquerade:
-      back: "⚠ Stop impersonating"
+      back: '⚠ Stop impersonating'
     omniauth_callbacks:
       failure: Something went wrong. Please try again
       success: Successfully authenticated from %{kind} account.
@@ -89,7 +89,7 @@ en:
           password_confirmation_label: Confirm new password
           password_confirmation_placeholder: Confirm new password
           password_label: New password
-          password_minimum: "(%{count} characters minimum)"
+          password_minimum: '(%{count} characters minimum)'
           password_placeholder: Enter new password
           submit: Change my password
           title: Change your password
@@ -115,7 +115,7 @@ en:
           password_confirmation_placeholder: Confirm new password
           password_help: Leave blank if you don't want to change it
           password_label: Password
-          password_minimum: "%{count} characters minimum"
+          password_minimum: '%{count} characters minimum'
           password_placeholder: New password
           pending_confirmation: 'Currently waiting confirmation for: %{email}'
           submit: Update
@@ -126,7 +126,7 @@ en:
           password_confirmation_label: Password confirmation
           password_confirmation_placeholder: Confirm your password
           password_label: Password
-          password_minimum: "(%{count} characters minimum)"
+          password_minimum: '(%{count} characters minimum)'
           password_placeholder: Create a password
           submit: Sign up
           title: Sign up
@@ -165,14 +165,14 @@ en:
       not_locked: was not locked
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        other: '%{count} errors prohibited this %{resource} from being saved:'
   invitations:
     approve:
       success: Invitation accepted
     errors:
       not_found: Invitation not found
     index:
-      title: "⬇️ Invitations"
+      title: '⬇️ Invitations'
     reject:
       success: Invitation declined
   membership_mailer:
@@ -193,7 +193,7 @@ en:
       already_requested: You have already requested access to this organization
       not_found: Membership request not found
     index:
-      title: "⬇️ Waitlist"
+      title: '⬇️ Waitlist'
     reject:
       success: Membership request rejected
     success:
@@ -228,14 +228,14 @@ en:
       title: Joined
     invitations:
       create:
-        success: "%{email} invited"
+        success: '%{email} invited'
       destroy:
         success: Invitation cancelled
       errors:
         not_found: Invitation not found
       index:
         cancel_invitation: Cancel invitation
-        title: "⬆️ Invites"
+        title: '⬆️ Invites'
     memberships:
       actions:
         leave: Leave
@@ -271,7 +271,7 @@ en:
         title: Manage subscription
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
       pricing:
-        cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
+        cancel_security: '🛡️ Cancel anytime. Secured by Stripe.'
         current_plan: Current plan
         save_yearly: Best value
         subscribe: Get started
@@ -286,7 +286,7 @@ en:
   public:
     organizations:
       index:
-        title: "🌎 Discover"
+        title: '🌎 Discover'
       show:
         actions:
           accept_invitation: Accept invitation
@@ -305,8 +305,8 @@ en:
   shared:
     actions:
       confirm: Are you sure?
-      copied: "✅ Copied!"
-      copy: "📋 Copy"
+      copied: '✅ Copied!'
+      copy: '📋 Copy'
       create: Create
       destroy: Destroy
       edit: Edit
@@ -353,31 +353,31 @@ en:
         your_connected_accounts: Connected accounts
     invitations:
       index:
-        title: "⬇️ Invitations"
+        title: '⬇️ Invitations'
     membership_requests:
       destroy:
         success: Membership request revoked
       index:
-        title: "⬆️ Waitlisted"
+        title: '⬆️ Waitlisted'
     notifications:
       index:
         title: Notifications
     referrals:
       index:
-        clicks: Link clicks
-        clicks_description: How many times your unique link has been clicked.
-        completed: Completed referrals
-        completed_description: Friends who've signed up and made their first purchase.
-        referrals: Successful signups
-        referrals_description: Friends who've joined using your link.
-        subtitle: Share your unique referral link and earn rewards when your friends sign up and make their first purchase.
+        clicks: Referral Link Performance
+        clicks_description: Total number of clicks generated through your unique referral link.
+        completed: Converted Referrals
+        completed_description: Referred users who have completed their first purchase and generated commission.
+        referrals: Sign-ups
+        referrals_description: Users who have successfully registered through your referral link.
+        subtitle: Generate revenue through our affiliate program by sharing your unique referral link. Earn commissions when referred users complete their first purchase.
         table:
-          completed_at: Purchased at
-          no_referrals: No referrals yet. Start sharing your link to earn rewards!
+          completed_at: Conversion Date
+          no_referrals: No referrals recorded. Begin sharing your referral link to start earning commissions.
           referee: Referred User
-          referrals_list: Your Referrals
-          referred_at: Signed up at
-          status: Status
-          status_completed: Purchased
-          status_pending: Signed up
-        title: Refer friends
+          referrals_list: Referral Activity
+          referred_at: Registration Date
+          status: Conversion Status
+          status_completed: Converted
+          status_pending: Registered
+        title: Affiliate Program
