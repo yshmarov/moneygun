@@ -11,10 +11,11 @@
           <div class="truncate">
             <%= Current.organization.name %>
           </div>
-          <%= render CreditsBadgeComponent.new(organization: Current.organization, counter: false, link: true) %>
         </div>
       <% end %>
     </button>
+
+    <%= render CreditsBadgeComponent.new(organization: Current.organization, counter: false, link: true) if Current.organization %>
 
     <%# if Flipper.enabled?(:search, current_user) %>
     <%# if Flipper[:search].enabled?(current_user) %>

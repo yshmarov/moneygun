@@ -9,6 +9,6 @@ class CreditsBadgeComponent < ViewComponent::Base
   end
 
   def wrapper_classes
-    "!font-extrabold du-badge du-badge-warning"
+    "!font-extrabold du-badge du-badge-warning whitespace-nowrap"
   end
 end
