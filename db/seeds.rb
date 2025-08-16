@@ -8,17 +8,14 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.create!(email: "hello@superails.com", password: "hello@superails.com")
+user = User.create!(email: "hello@superails.com", password: "hello@superails.com", admin: true)
 organization = Organization.create!(name: "SupeRails", owner: user)
-organization.memberships.create!(user:, role: Membership.roles[:admin])
 organization.logo.attach(io: File.open(Rails.root.join("test/fixtures/files/superails-logo.png")), filename: "superails.png")
 
 organization = Organization.create!(name: "Avo", owner: user)
-organization.memberships.create!(user:, role: Membership.roles[:admin])
 organization.logo.attach(io: File.open(Rails.root.join("test/fixtures/files/avo-logo.png")), filename: "avo.png")
 
 organization = Organization.create!(name: "Buzzsprout", owner: user)
-organization.memberships.create!(user:, role: Membership.roles[:admin])
 organization.logo.attach(io: File.open(Rails.root.join("test/fixtures/files/buzzsprout-logo.png")), filename: "buzzsprout.png")
 
 # if Rails.application.credentials.dig(:stripe, :private_key).present?

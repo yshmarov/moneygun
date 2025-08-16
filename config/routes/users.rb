@@ -7,6 +7,7 @@ devise_for :users, controllers: {
 
 resource :user, path: I18n.t("routes.user") do
   scope module: :users do
+    resources :notifications, only: %i[index]
     resources :connected_accounts
     resources :referrals, only: %i[index]
     resources :invitations, only: %i[index] do

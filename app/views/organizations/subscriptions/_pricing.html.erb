@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: t(".title")) do %>
+<%= render PageComponent.new(title: t(".title"), full_width: false) do %>
 	<div class="grid lg:grid-cols-2 gap-8">
 		<% Rails.application.config_for(:settings)[:plans].each do |plan| %>
 			<div class="border border-base-content/20 rounded-xl text-center flex flex-col">
@@ -27,11 +27,11 @@
 								<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
 									<%= button_tag t(".current_plan"), class: "du-btn du-btn-secondary", disabled: true %>
 								<% else %>
-									<%= button_to t("organizations.subscriptions.plan.manage_billing"), organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
+									<%= button_to t("organizations.subscriptions.plan.manage_billing"), organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
 								<% end %>
 
 							<% else %>
-								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(current_organization, price_id: plan[:id]), data: { turbo: false }, class: "du-btn du-btn-primary" %>
+								<%= link_to t(".subscribe"), organization_subscriptions_checkout_path(Current.organization, price_id: plan[:id]), data: { turbo: false }, class: "du-btn du-btn-primary" %>
 							<% end %>
 						<% else %>
 							<%= link_to t(".subscribe"), new_user_registration_path, class: "du-btn du-btn-primary" %>
@@ -42,7 +42,7 @@
 		<% end %>
 	</div>
 
-	<div class="text-center text-gray-400 font-medium text-sm">
+	<div class="text-center text-base-content/50 font-medium text-sm">
 		<%= t(".cancel_security") %>
 	</div>
 <% end %>

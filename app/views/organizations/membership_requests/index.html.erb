@@ -2,8 +2,37 @@
 
 <%= render "organizations/memberships/tabs", active_tab: :requests %>
 
-<%= render PageComponent.new(title: t("membership_requests.index.title"), full_width: true) do |component| %>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-    <%= render collection: @membership_requests, partial: "organizations/membership_requests/membership_request", as: :membership_request %>
+<%= render PageComponent.new do %>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th><%= AccessRequest.human_attribute_name(:user) %></th>
+          <th><%= AccessRequest.human_attribute_name(:created_at) %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="membership_requests">
+        <% @membership_requests.each do |membership_request| %>
+          <tr>
+            <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
+              <div class="font-medium flex items-center gap-2">
+                <%= user_avatar(membership_request.user) %>
+                <%= membership_request.user.email %>
+              </div>
+            </td>
+            <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>">
+              <%= membership_request.created_at.strftime("%d/%m/%Y") %>
+            </td>
+            <td>
+              <div class="flex items-center justify-end gap-2">
+                <%= button_to t("membership_requests.buttons.reject"), reject_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-sm du-btn-error" %>
+                <%= button_to t("membership_requests.buttons.approve"), approve_organization_membership_request_path(@organization, membership_request), method: :post, class: "du-btn du-btn-sm du-btn-primary" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 <% end %>

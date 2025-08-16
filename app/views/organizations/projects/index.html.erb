@@ -1,6 +1,6 @@
 <% content_for :title, "Projects" %>
 
-<%= render PageComponent.new(title: "Projects", full_width: true) do |component| %>
+<%= render PageComponent.new(title: "Projects") do |component| %>
   <% component.with_action_list do %>
     <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
   <% end %>
@@ -19,8 +19,8 @@
         <% @projects.each do |project| %>
           <tr>
             <td data-label="<%= Project.human_attribute_name(:name) %>"><%= project.name %></td>
-            <td data-label="<%= Project.human_attribute_name(:created_at) %>"><%= l project.created_at, format: :short %></td>
-            <td data-label="<%= Project.human_attribute_name(:updated_at) %>"><%= l project.updated_at, format: :short %></td>
+            <td data-label="<%= Project.human_attribute_name(:created_at) %>"><%= local_time(project.created_at, format: :short) %></td>
+            <td data-label="<%= Project.human_attribute_name(:updated_at) %>"><%= local_time(project.updated_at, format: :short) %></td>
             <td>
               <%= link_to t("shared.actions.show"), [ @organization, project ], class: "du-btn du-btn-sm du-btn-secondary" %>
             </td>

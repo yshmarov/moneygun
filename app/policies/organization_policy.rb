@@ -1,11 +1,10 @@
 class OrganizationPolicy < ApplicationPolicy
   def show?
-    record.users.include?(user)
+    record.memberships.include?(membership)
   end
 
   def edit?
-    membership = record.memberships.find_by(user:)
-    membership&.admin?
+    record.memberships.include?(membership) && membership.admin?
   end
 
   def update?
@@ -14,5 +13,11 @@ class OrganizationPolicy < ApplicationPolicy
 
   def destroy?
     edit?
+  end
+
+  private
+
+  def membership
+    user
   end
 end

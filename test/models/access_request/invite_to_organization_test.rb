@@ -1,6 +1,20 @@
 require "test_helper"
 
 class AccessRequest::InviteToOrganizationTest < ActiveSupport::TestCase
+  test "when created, sends invitation notification" do
+    organization = organizations(:two)
+    user = users(:three)
+
+    assert_difference "Noticed::Notification.count", 1 do
+      invitation = organization.user_invitations.create!(user: user)
+    end
+
+    # Check that notification was sent to the correct user
+    notification = user.notifications.last
+    assert_equal "MembershipInvitationNotifier::Notification", notification.type
+    assert_equal organization, notification.params[:organization]
+  end
+
   test "when approved, creates a membership" do
     access_request = access_requests(:invite_to_organization_one)
     user = access_request.user

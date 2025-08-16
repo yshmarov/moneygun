@@ -52,7 +52,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     patch organization_url(@organization),
             params: { organization: { name: @organization.name } },
             headers: { "HTTP_REFERER" => organization_path(@organization) }
-    assert_redirected_to organization_url(@organization)
+    assert_redirected_to edit_organization_url(@organization)
   end
 
   test "should not update organization he does not belong to" do

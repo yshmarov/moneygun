@@ -32,5 +32,10 @@ resources :organizations, path: I18n.t("routes.organizations") do
         patch :spend_bulk_credits
       end
     end
+
+    # put application-specific resources scoped to the organization below
+    resources :projects
+    get "dashboard", to: "dashboard#index"
+    get "paywalled_page", to: "dashboard#paywalled_page"
   end
 end

@@ -2,16 +2,16 @@
 <% access_ends_at_label = subscription.on_grace_period? ? t(".you_will_lose_access_in", distance_of_time_in_words: distance_of_time_in_words(subscription.current_period_end, Time.current)) : t(".next_billing_date") %>
 <% button_label = subscription.on_grace_period? ? t(".resume_subscription") : t(".manage_billing") %>
 
-<%= render PageComponent.new(title: t(".title")) do |component| %>
+<%= render PageComponent.new(title: t(".title"), full_width: false) do |component| %>
   <% component.with_action_list do %>
-    <%= button_to button_label, organization_subscriptions_billing_portal_path(current_organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
+    <%= button_to button_label, organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
   <% end %>
 
   <dl class="space-y-2">
     <div class="flex justify-between">
       <dt class="font-medium">
         <%= status_label %>
-        <%= subscription_status_label(current_organization) %>
+        <%= subscription_status_label(Current.organization) %>
       </dt>
       <dd>
         <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>/<%= plan_for(subscription)[:interval] %>

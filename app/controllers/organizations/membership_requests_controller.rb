@@ -1,5 +1,5 @@
 class Organizations::MembershipRequestsController < Organizations::BaseController
-  before_action :set_membership_request, only: %i[approve reject  ]
+  before_action :set_membership_request, only: %i[approve reject]
 
   def index
     authorize Membership, :create?

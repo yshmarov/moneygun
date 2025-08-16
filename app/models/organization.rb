@@ -1,14 +1,10 @@
 class Organization < ApplicationRecord
-  has_many :memberships, dependent: :destroy
-  has_many :users, through: :memberships
-  belongs_to :owner, class_name: "User"
+  include Organization::Multitenancy
+  include Organization::Transfer
+  include Organization::Billing
 
-  has_many :user_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
-  has_many :user_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
-
-  enum :privacy_setting, { private: "private", restricted: "restricted", public: "public" }, default: :private, prefix: true
-
-  include Transfer
+  enum :privacy_setting, %w[ private restricted public ].index_by(&:itself), default: :private, prefix: true
+  validate :public_privacy_setting_requirements
 
   has_many :projects, dependent: :destroy
 
@@ -31,26 +27,17 @@ class Organization < ApplicationRecord
     []
   end
 
-  pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
-  has_credits
-
-  delegate :email, to: :owner
-
-  def stripe_attributes(pay_customer)
-    {
-      metadata: {
-        pay_customer_id: pay_customer.id,
-        organization_id: id
-      }
-    }
+  def self.discoverable
+    not_privacy_setting_private
+    .left_joins(:logo_attachment).where.not(active_storage_attachments: { id: nil })
   end
 
-  def pay_should_sync_customer?
-    super || saved_change_to_owner_id?
-  end
+  private
 
-  def participant?(user)
-    users.include?(user)
+  def public_privacy_setting_requirements
+    return if privacy_setting_private? || logo.attached?
+
+    errors.add(:privacy_setting, "requires logo to be discoverable for restricted and public organizations")
   end
 
   after_create :reward_new_organization

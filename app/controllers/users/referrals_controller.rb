@@ -6,5 +6,6 @@ class Users::ReferralsController < ApplicationController
       { title: t("users.referrals.index.referrals"), subtitle: t("users.referrals.index.referrals_description"), value: @referral_code.referrals.count, type: :number },
       { title: t("users.referrals.index.completed"), subtitle: t("users.referrals.index.completed_description"), value: @referral_code.referrals.completed.count, type: :number }
     ]
+    @referrals = current_user.referrals.order(created_at: :desc)
   end
 end

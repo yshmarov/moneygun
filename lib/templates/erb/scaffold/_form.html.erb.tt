@@ -1,4 +1,4 @@
-<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4") do |form| %>
+<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
   <%%= render "shared/errors", object: form.object %>
 
 <% attributes.each do |attribute| -%>
@@ -16,7 +16,7 @@
     <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
 <% else -%>
     <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
-    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-input" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "du-input w-full" %>
 <% end -%>
   </div>
 

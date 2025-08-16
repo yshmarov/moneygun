@@ -60,6 +60,8 @@ group :development do
   gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
   gem "i18n-tasks"
   gem "lookbook", ">= 2.3.9"
+  gem "letter_opener"
+  gem "letter_opener_web"
 end
 
 group :test do
@@ -75,7 +77,7 @@ gem "ransack", "~> 4.2"
 gem "active_storage_validations"
 
 # authentication
-gem "devise", "~> 4.9"
+gem "devise", github: "heartcombo/devise", branch: "main"
 gem "devise_invitable", "~> 2.0"
 gem "devise_masquerade"
 
@@ -94,15 +96,19 @@ gem "active_link_to", "~> 1.0"
 gem "turbo_power", "~> 0.7.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
+gem "local_time"
 
 # admin
 gem "active_storage_dashboard"
-gem "avo", ">= 3.2"
+gem "avo", ">= 3.22.0"
 group :avo, optional: true do
   source "https://packager.dev/avo-hq/" do
     gem "avo-pro"
   end
 end
+# feature flags
+gem "flipper-active_record"
+gem "flipper-ui"
 
 # payments
 gem "pay", "~> 8.0"
@@ -113,3 +119,6 @@ gem "usage_credits"
 # business logic
 gem "refer"
 gem "active_analytics"
+
+# notifications
+gem "noticed"

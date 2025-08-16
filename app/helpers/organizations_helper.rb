@@ -15,27 +15,24 @@ module OrganizationsHelper
       {
         display_text: I18n.t("activerecord.attributes.organization.privacy_settings.private.display_text"),
         description_text: I18n.t("activerecord.attributes.organization.privacy_settings.private.description_text"),
-        # icon_path: "svg/lock.svg"
-        icon_path: "🔒"
+        icon: "🔒"
       }
     when "restricted"
       {
         display_text: I18n.t("activerecord.attributes.organization.privacy_settings.restricted.display_text"),
         description_text: I18n.t("activerecord.attributes.organization.privacy_settings.restricted.description_text"),
-        # icon_path: "svg/envelope.svg"
-        icon_path: "📩"
+        icon: "📩"
       }
     when "public"
       {
         display_text: I18n.t("activerecord.attributes.organization.privacy_settings.public.display_text"),
         description_text: I18n.t("activerecord.attributes.organization.privacy_settings.public.description_text"),
-        # icon_path: "svg/globe.svg"
-        icon_path: "🌍"
+        icon: "🌍"
       }
     end
   end
 
   def privacy_setting_icon(key)
-    tag.span privacy_setting_options(key)[:icon_path], class: "text-lg", alt: key, title: key
+    tag.span privacy_setting_options(key)[:icon], class: "text-lg", alt: key, title: privacy_setting_options(key)[:display_text]
   end
 end

@@ -45,7 +45,7 @@ Unlike traditional approaches (subdomains, user.organization_id), Moneygun uses 
 1. **Row-level Route-based Multitenancy**
    Learn how to implement row-level route-based multitenancy in Ruby on Rails
 
-   <a href="https://superails.com/posts/row-level-route-based-multitenancy">
+   <a href="https://superails.com/posts/rails-7-115-multitenancy-teams-and-roles-without-a-gem">
      <img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" title="Row-level route-based multitenancy in Ruby on Rails" width="50%" />
    </a>
 
@@ -190,9 +190,9 @@ before_action :require_subscription
 private
 
 def require_subscription
-  unless current_organization.payment_processor.subscribed?
+  unless Current.organization.payment_processor.subscribed?
     flash[:alert] = "You need to subscribe to access this page."
-    redirect_to organization_subscriptions_url(current_organization)
+    redirect_to organization_subscriptions_url(Current.organization)
   end
 end
 ```

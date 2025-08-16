@@ -1,14 +1,14 @@
 /* Responsive table that displays as cards on mobile and table on desktop */
 .table-responsive {
-  @apply overflow-x-auto rounded-lg p-2 md:p-0; /* Container styling, no explicit bg, cards will have it. Padding for mobile. */
+  @apply @container overflow-x-auto rounded-lg; /* Container styling with @container for container queries, no explicit bg, cards will have it. Padding for mobile. */
 }
 
 .table-responsive table {
-  @apply table-auto relative w-full border-collapse lg:rounded-lg lg:overflow-hidden lg:border lg:border-base-content/10; /* Ensure table is rounded, clips content, and has a border on lg screens */
+  @apply table-auto relative w-full border-collapse @xl:rounded-lg @xl:overflow-hidden @xl:border @xl:border-base-content/10; /* Ensure table is rounded, clips content, and has a border on @xl container size */
 }
 
 .table-responsive thead {
-  @apply hidden lg:table-header-group;
+  @apply hidden @xl:table-header-group;
 }
 
 .table-responsive thead th {
@@ -17,44 +17,48 @@
 
 /* Add rounded corners to desktop table header */
 .table-responsive thead th:first-child {
-  @apply lg:rounded-tl-lg;
+  @apply @xl:rounded-tl-lg;
 }
 
 .table-responsive thead th:last-child {
-  @apply lg:rounded-tr-lg;
+  @apply @xl:rounded-tr-lg @xl:text-right;
 }
 
 .table-responsive tbody {
-  @apply block lg:table-row-group;
+  @apply block @xl:table-row-group;
 }
 
 .table-responsive tr {
-  @apply block lg:table-row mb-3 lg:mb-0 overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none border border-base-content/10 bg-base-100 lg:bg-transparent; /* Unified border opacity */
-  @apply hover:bg-base-200/30 lg:even:bg-base-200/50 lg:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
-  @apply lg:last:border-b-0; /* No bottom border for the last row in desktop table */
+  @apply block @xl:table-row mb-3 @xl:mb-0 overflow-hidden rounded-lg @xl:rounded-none shadow-md @xl:shadow-none border border-base-content/10 bg-base-100 @xl:bg-transparent; /* Unified border opacity */
+  @apply hover:bg-base-200/30 @xl:even:bg-base-200/50 @xl:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
+  @apply @xl:last:border-b-0; /* No bottom border for the last row in desktop table */
 }
 
 .table-responsive td {
-  @apply block lg:table-cell text-sm lg:text-left px-3 lg:px-4 pt-2 pb-2 lg:pt-3 lg:pb-3 align-middle;
-  @apply lg:flex-none; /* Ensure flex is not applied on larger screens if set below */
-  @apply border-t border-base-content/10 lg:border-t-0; /* Separator for card items */
-  @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/75 before:mr-2 lg:before:mb-0; /* Increased opacity for data-label */
-  @apply lg:before:content-none;
+  @apply block @xl:table-cell text-sm @xl:text-left px-3 @xl:px-4 pt-2 pb-2 @xl:pt-3 @xl:pb-3 align-middle;
+  @apply @xl:flex-none; /* Ensure flex is not applied on larger screens if set below */
+  @apply border-t border-base-content/10 @xl:border-t-0; /* Separator for card items */
+  @apply @xl:before:content-none;
   /* On mobile, treat td as a flex container to align label and value */
-  @apply flex flex-row items-center lg:table-cell;
+  @apply flex flex-row items-center @xl:table-cell;
+}
+
+/* Only apply data-label styling when the attribute exists */
+.table-responsive td[data-label]:not([data-label='']) {
+  @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/75 before:mr-2 @xl:before:mb-0; /* Increased opacity for data-label */
 }
 
 /* Adjust the ::before pseudo-element for flex alignment on mobile */
-.table-responsive td::before {
-  @apply lg:hidden flex-shrink-0;
+.table-responsive td[data-label]:not([data-label=''])::before {
+  @apply @xl:hidden flex-shrink-0;
 }
 
 /* First td in a card (mobile view) should not have a top border as the card 'tr' has its own border */
 .table-responsive tr td:first-child {
-  @apply border-t-0 lg:border-t-0; /* Keep lg:border-t-0 in case other rules apply it */
+  @apply border-t-0 @xl:border-t-0; /* Keep @xl:border-t-0 in case other rules apply it */
 }
 
 /* Align content of the last cell to the end/right */
 .table-responsive tr td:last-child {
-  @apply justify-end lg:text-right;
-} 
+  @apply @xl:text-right;
+}

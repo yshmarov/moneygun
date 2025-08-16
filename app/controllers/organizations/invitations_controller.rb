@@ -8,16 +8,16 @@ class Organizations::InvitationsController < Organizations::BaseController
 
   def new
     authorize Membership, :create?
-    @form = MembershipInvitation.new(organization: @organization)
+    @membership_invitation = MembershipInvitation.new(organization: @organization)
   end
 
   def create
     authorize Membership, :new?
-    @form = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
+    @membership_invitation = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
 
-    if @form.save
+    if @membership_invitation.save
       respond_to do |format|
-        flash[:notice] = t(".success", email: @form.email)
+        flash[:notice] = t(".success", email: @membership_invitation.email)
         format.html { redirect_to organization_memberships_path(@organization) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
       end

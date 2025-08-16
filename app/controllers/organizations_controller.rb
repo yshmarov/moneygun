@@ -6,7 +6,6 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    redirect_to params[:redirect_to] if params[:redirect_to].present?
   end
 
   def new
@@ -19,7 +18,6 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     @organization.owner = current_user
-    @organization.memberships.build(user: current_user, role: Membership.roles[:admin])
 
     if @organization.save
       respond_to do |format|
@@ -36,8 +34,7 @@ class OrganizationsController < ApplicationController
     if @organization.update(organization_params)
       flash[:notice] = t(".success")
       respond_to do |format|
-        format.html { redirect_to organization_path(@organization) }
-        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
+        format.html { redirect_to edit_organization_path(@organization) }
       end
     else
       render :edit, status: :unprocessable_entity
@@ -45,9 +42,11 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    @organization.destroy!
-
-    redirect_to organizations_path, notice: t(".success")
+    if @organization.destroy
+      redirect_to organizations_path, notice: t(".success")
+    else
+      redirect_to organization_path(@organization), alert: t(".error")
+    end
   end
 
   private
@@ -55,10 +54,17 @@ class OrganizationsController < ApplicationController
   def set_organization
     @organization = Organization.find(params[:id])
     Current.membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.organization = Current.membership&.organization
     authorize @organization
   end
 
   def organization_params
-    params.require(:organization).permit(:name, :logo, :privacy_setting)
+    params.expect(organization: [ :name, :logo, :privacy_setting ])
+  end
+
+  def pundit_user
+    return super if Current.membership.nil?
+
+    Current.membership
   end
 end

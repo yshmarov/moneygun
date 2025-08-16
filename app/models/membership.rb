@@ -2,7 +2,7 @@ class Membership < ApplicationRecord
   belongs_to :organization
   belongs_to :user
 
-  enum :role, { member: "member", admin: "admin" }
+  enum :role, %w[ member admin ].index_by(&:itself)
 
   validates :user_id, uniqueness: { scope: :organization_id }
   validates :organization_id, uniqueness: { scope: :user_id }

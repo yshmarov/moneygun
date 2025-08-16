@@ -1,0 +1,3 @@
+openai_logo_blob: <%= ActiveStorage::FixtureSet.blob filename: "avo-logo.png" %>
+apple_logo_blob: <%= ActiveStorage::FixtureSet.blob filename: "avo-logo.png" %>
+google_logo_blob: <%= ActiveStorage::FixtureSet.blob filename: "avo-logo.png" %>

@@ -18,6 +18,18 @@ module User::Authentication
 
   class_methods do
     def from_omniauth(auth_payload)
+      # First, check if there's already a connected account with this provider and UID
+      existing_connected_account = ConnectedAccount.find_by(
+        provider: auth_payload.provider,
+        uid: auth_payload.uid
+      )
+
+      if existing_connected_account
+        # Return the user associated with this connected account
+        return existing_connected_account.user
+      end
+
+      # If no existing connected account, proceed with email-based lookup
       email = auth_payload.info&.email
       email ||= auth_payload.uid if auth_payload.provider == "saml"
 

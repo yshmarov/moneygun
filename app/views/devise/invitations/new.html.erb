@@ -1,0 +1,16 @@
+<%= render PageComponent.new(title: t("devise.invitations.new.header"), full_width: false) do %>
+  <%= form_with model: resource, as: resource_name, url: invitation_path(resource_name), method: :post, class: "space-y-4" do |f| %>
+    <%= render "shared/errors", object: resource %>
+
+    <% resource.class.invite_key_fields.each do |field| %>
+      <div class="space-y-1">
+        <%= f.label field, class: "block text-sm font-medium" %>
+        <%= f.text_field field, class: "du-input w-full", autofocus: true %>
+      </div>
+    <% end %>
+
+    <div class="pt-2">
+      <%= f.submit t("devise.invitations.new.submit_button"), class: "du-btn du-btn-primary du-btn-block" %>
+    </div>
+  <% end %>
+<% end %>
