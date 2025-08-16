@@ -1,0 +1,37 @@
+<%= render "tabs", active_tab: :transactions %>
+
+<%= render PageComponent.new(title: "Transaction history") do |component| %>
+  <div class="space-y-2">
+    <% @transactions.each do |transaction| %>
+      <div class="flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+        <div class="flex items-center space-x-4">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 rounded-full flex items-center justify-center <%= transaction.amount.positive? ? 'bg-green-100' : 'bg-red-100' %>">
+              <svg class="h-5 w-5 <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <% if transaction.amount.positive? %>
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                <% else %>
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                <% end %>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <p class="text-sm font-medium">
+              <%= transaction.category.titleize %>:
+              <%= transaction.metadata["operation"]&.titleize || transaction.metadata["reason"]&.titleize || transaction.category.titleize %>
+            </p>
+            <p class="text-xs">
+              <%= transaction.created_at.strftime("%b %d, %Y %I:%M %p") %>
+            </p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="text-sm font-semibold <%= transaction.amount.positive? ? 'text-green-600' : 'text-red-600' %>">
+            <%= transaction.formatted_amount %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

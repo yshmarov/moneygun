@@ -114,6 +114,7 @@ gem "flipper-ui"
 gem "pay", "~> 8.0"
 gem "stripe", "~> 13.0"
 gem "profitable"
+gem "usage_credits"
 
 # business logic
 gem "refer"

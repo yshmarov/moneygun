@@ -18,6 +18,21 @@ resources :organizations, path: I18n.t("routes.organizations") do
     get "subscriptions/checkout", to: "subscriptions#checkout"
     post "subscriptions/billing_portal", to: "subscriptions#billing_portal"
 
+    resources :credits, only: %i[index create]
+    resources :refills, only: %i[index] do
+      collection do
+        get :charges
+        get :transactions
+        post :add_payment_method
+        post :charge_payment_method
+        post :billing_portal
+        patch :update_auto_refill
+        #
+        patch :spend_some_credits
+        patch :spend_bulk_credits
+      end
+    end
+
     # put application-specific resources scoped to the organization below
     resources :projects
     get "dashboard", to: "dashboard#index"
