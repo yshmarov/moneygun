@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.create!(email: "hello@superails.com", password: "hello@superails.com")
+user = User.create!(email: "hello@superails.com", password: "hello@superails.com", admin: true)
 organization = Organization.create!(name: "SupeRails", owner: user)
 organization.logo.attach(io: File.open(Rails.root.join("test/fixtures/files/superails-logo.png")), filename: "superails.png")
 
