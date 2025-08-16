@@ -5,7 +5,7 @@ shared:
     email: hello@superails.com
     address: Warsaw, Poland, 02-691
   pro_features:
-    - ☑️ Access the paywalled page
+    - ✅ Access the paywalled page
   plans:
     - id: price_1RDRzvLRcgxgTmfQZVdAF93B
       unit_amount: 9900
