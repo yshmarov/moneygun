@@ -1,0 +1,9 @@
+<% if I18n.available_locales.count > 1 %>
+  <select onchange="window.location.href=this.value">
+    <% I18n.available_locales.each do |locale| %>
+      <option value="<%= url_for(locale: locale) %>" <%= "selected" if locale == I18n.locale %>>
+        <%= locale_to_flag(locale) %>
+      </option>
+    <% end %>
+  </select>
+<% end %>

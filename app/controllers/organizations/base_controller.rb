@@ -5,17 +5,28 @@ class Organizations::BaseController < ApplicationController
   before_action :set_organization
   before_action :set_current_membership
   # ensure Pundit "authorize" is called for every controller action
-  after_action :verify_authorized
+  # after_action :verify_authorized
 
   # def authorize_membership!
-  #   redirect_to root_path, alert: "You are not authorized to perform this action." unless @organization.users.include?(current_user)
+  #   redirect_to root_path, alert: I18n.t("shared.errors.not_authorized") unless @organization.users.include?(current_user)
   #   raise Pundit::NotAuthorizedError unless @organization.users.include?(current_user)
   # end
 
   # def authorize_organization_admin!
-  #   redirect_to organization_path(@organization), alert: "You are not authorized to perform this action." unless @current_membership.admin?
-  #   raise Pundit::NotAuthorizedError unless @current_membership.admin?
+  #   redirect_to organization_path(@organization), alert: I18n.t("shared.errors.not_authorized") unless Current.membership.admin?
+  #   raise Pundit::NotAuthorizedError unless Current.membership.admin?
   # end
+
+  def authorize_organization_owner!
+    redirect_to organization_path(@organization), alert: I18n.t("shared.errors.not_authorized") unless @organization.owner?(current_user)
+  end
+
+  def require_subscription
+    return if Current.organization.payment_processor.subscribed?
+
+    flash[:alert] = t("shared.errors.not_subscribed")
+    redirect_to organization_subscriptions_url(Current.organization)
+  end
 
   private
 
@@ -23,13 +34,16 @@ class Organizations::BaseController < ApplicationController
     current_account = current_user.organizations.find(params[:organization_id])
     set_current_tenant(current_account)
     @organization = current_account
+  rescue ActiveRecord::RecordNotFound
+    redirect_to organizations_path, alert: t("shared.errors.not_authorized")
   end
 
   def set_current_membership
-    @current_membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.organization = Current.membership&.organization
   end
 
   def pundit_user
-    @current_membership
+    Current.membership
   end
 end

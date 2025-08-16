@@ -20,8 +20,17 @@ class MembershipTest < ActiveSupport::TestCase
     assert_not membership.try_destroy
     assert new_membership.try_destroy
 
-    # destroys admin if there is another admin
+    # does not destroy owner even if there is another admin
     new_membership = organization.memberships.create(user: users(:two), role: "admin")
+    assert_not membership.try_destroy
+
+    # destroy previous owner
+    membership.organization.transfer_ownership(users(:two))
+    assert membership.try_destroy
+    assert_not new_membership.try_destroy
+
+    # destroys non-owner admin if there is another admin
+    membership = organization.memberships.create(user: users(:one), role: "admin")
     assert membership.try_destroy
     assert_not new_membership.try_destroy
   end

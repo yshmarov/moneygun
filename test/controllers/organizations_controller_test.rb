@@ -28,7 +28,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
       post organizations_url, params: { organization: { name: @organization.name } }
     end
 
-    assert_redirected_to organization_url(Organization.last)
+    assert_redirected_to organization_dashboard_path(Organization.last)
     assert_equal @user, Organization.last.users.first
     assert_equal "admin", @user.memberships.last.role
   end
@@ -49,8 +49,10 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update organization" do
-    patch organization_url(@organization), params: { organization: { name: @organization.name } }
-    assert_redirected_to organization_url(@organization)
+    patch organization_url(@organization),
+            params: { organization: { name: @organization.name } },
+            headers: { "HTTP_REFERER" => organization_path(@organization) }
+    assert_redirected_to edit_organization_url(@organization)
   end
 
   test "should not update organization he does not belong to" do
@@ -58,7 +60,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     patch organization_url(organization), params: { organization: { name: organization.name } }
     assert_redirected_to root_url
     assert_equal organization.name, organization.reload.name
-    assert_equal "You are not authorized to perform this action.", flash[:alert]
+    assert_equal I18n.t("shared.errors.not_authorized"), flash[:alert]
   end
 
   test "only admin can destroy organization" do

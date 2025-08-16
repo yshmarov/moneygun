@@ -1,0 +1,27 @@
+<%%= form_with(model: <%= model_resource_name %>, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
+  <%%= render "shared/errors", object: form.object %>
+
+<% attributes.each do |attribute| -%>
+  <div>
+<% if attribute.password_digest? -%>
+    <%%= form.label :password, style: "display: block" %>
+    <%%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%%= form.label :password_confirmation, style: "display: block" %>
+    <%%= form.password_field :password_confirmation %>
+<% elsif attribute.attachments? -%>
+    <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+<% else -%>
+    <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "du-input w-full" %>
+<% end -%>
+  </div>
+
+<% end -%>
+  <div class="flex justify-end">
+    <%%= form.submit class: "du-btn du-btn-primary" %>
+  </div>
+<%% end %>

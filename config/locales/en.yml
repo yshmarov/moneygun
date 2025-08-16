@@ -1,31 +1,383 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
+---
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      membership:
+        email: Email
+        role: Role
+      organization:
+        logo: Logo
+        name: Name
+        privacy_setting: Privacy
+        privacy_settings:
+          private:
+            description_text: Only invited users can join
+            display_text: '🔒 Private'
+          public:
+            description_text: Anyone can join
+            display_text: '🌍 Public'
+          restricted:
+            description_text: People must submit an application to be approved to join
+            display_text: '📩 Restricted'
+    models:
+      membership: Member
+      organization: Organization
+  devise:
+    confirmations:
+      confirmed: Your email address has been successfully confirmed.
+      send_instructions: You will receive an email with instructions for how to confirm your email address in a few minutes.
+      send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.
+    failure:
+      already_authenticated: You are already signed in.
+      inactive: Your account is not activated yet.
+      invalid: Invalid %{authentication_keys} or password.
+      last_attempt: You have one more attempt before your account is locked.
+      locked: Your account is locked.
+      not_found_in_database: Invalid %{authentication_keys} or password.
+      timeout: Your session expired. Please sign in again to continue.
+      unauthenticated: You need to sign in or sign up before continuing.
+      unconfirmed: You have to confirm your email address before continuing.
+    mailer:
+      confirmation_instructions:
+        subject: Confirmation instructions
+      email_changed:
+        subject: Email Changed
+      password_change:
+        subject: Password Changed
+      reset_password_instructions:
+        subject: Reset password instructions
+      unlock_instructions:
+        subject: Unlock instructions
+    masquerade:
+      back: '⚠ Stop impersonating'
+    omniauth_callbacks:
+      failure: Something went wrong. Please try again
+      success: Successfully authenticated from %{kind} account.
+    passwords:
+      no_token: You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided.
+      send_instructions: You will receive an email with instructions on how to reset your password in a few minutes.
+      send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
+      updated: Your password has been changed successfully. You are now signed in.
+      updated_not_active: Your password has been changed successfully.
+    registrations:
+      destroyed: Bye! Your account has been successfully cancelled. We hope to see you again soon.
+      signed_up: Welcome! You have signed up successfully.
+      signed_up_but_inactive: You have signed up successfully. However, we could not sign you in because your account is not yet activated.
+      signed_up_but_locked: You have signed up successfully. However, we could not sign you in because your account is locked.
+      signed_up_but_unconfirmed: A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.
+      update_needs_confirmation: You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirmation link to confirm your new email address.
+      updated: Your account has been updated successfully.
+      updated_but_not_signed_in: Your account has been updated successfully, but since your password was changed, you need to sign in again.
+    sessions:
+      already_signed_out: Signed out successfully.
+      signed_in: Signed in successfully.
+      signed_out: Signed out successfully.
+    unlocks:
+      send_instructions: You will receive an email with instructions for how to unlock your account in a few minutes.
+      send_paranoid_instructions: If your account exists, you will receive an email with instructions for how to unlock it in a few minutes.
+      unlocked: Your account has been unlocked successfully. Please sign in to continue.
+    views:
+      confirmations:
+        new:
+          email_help: We'll send you a new confirmation email
+          email_label: Email
+          email_placeholder: Enter your email
+          submit: Resend confirmation instructions
+          title: Resend confirmation instructions
+      passwords:
+        edit:
+          password_confirmation_label: Confirm new password
+          password_confirmation_placeholder: Confirm new password
+          password_label: New password
+          password_minimum: '(%{count} characters minimum)'
+          password_placeholder: Enter new password
+          submit: Change my password
+          title: Change your password
+        new:
+          email_help: We'll send you a link to reset your password
+          email_label: Email
+          email_placeholder: Enter your email
+          submit: Send me reset password instructions
+          title: Forgot your password?
+      registrations:
+        edit:
+          current_password_help: We need your current password to confirm your changes
+          current_password_label: Current password
+          current_password_placeholder: Current password
+          danger_zone:
+            button: Delete my account
+            confirm: Are you sure? This action cannot be undone.
+            description: Once you delete your account, there is no going back. Please be certain.
+            title: Danger Zone
+          email_label: Email
+          email_placeholder: Enter your email
+          password_confirmation_label: Password confirmation
+          password_confirmation_placeholder: Confirm new password
+          password_help: Leave blank if you don't want to change it
+          password_label: Password
+          password_minimum: '%{count} characters minimum'
+          password_placeholder: New password
+          pending_confirmation: 'Currently waiting confirmation for: %{email}'
+          submit: Update
+          title: Edit %{email}
+        new:
+          email_label: Email
+          email_placeholder: Enter your email
+          password_confirmation_label: Password confirmation
+          password_confirmation_placeholder: Confirm your password
+          password_label: Password
+          password_minimum: '(%{count} characters minimum)'
+          password_placeholder: Create a password
+          submit: Sign up
+          title: Sign up
+      sessions:
+        new:
+          email_label: Email
+          email_placeholder: Enter your email
+          password_label: Password
+          password_placeholder: Enter your password
+          remember_me: Remember me
+          sign_in_with_email: Sign in with Email and Password
+          submit: Sign in
+          title: Sign in
+      shared:
+        links:
+          confirmation_instructions: Didn't receive confirmation instructions?
+          forgot_password: Forgot your password?
+          oauth_separator: OR
+          sign_in: Sign in
+          sign_in_with: Sign in with %{provider}
+          sign_up: Sign up
+          unlock_instructions: Didn't receive unlock instructions?
+      unlocks:
+        new:
+          email_help: We'll send you instructions to unlock your account
+          email_label: Email
+          email_placeholder: Enter your email
+          submit: Resend unlock instructions
+          title: Resend unlock instructions
+  errors:
+    messages:
+      already_confirmed: was already confirmed, please try signing in
+      confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
+      expired: has expired, please request a new one
+      not_found: not found
+      not_locked: was not locked
+      not_saved:
+        one: '1 error prohibited this %{resource} from being saved:'
+        other: '%{count} errors prohibited this %{resource} from being saved:'
+  invitations:
+    approve:
+      success: Invitation accepted
+    errors:
+      not_found: Invitation not found
+    index:
+      title: '⬇️ Invitations'
+    reject:
+      success: Invitation declined
+  membership_mailer:
+    invitation_email:
+      subject: Join %{organization_name}
+    request_accepted_email:
+      subject: Welcome to %{organization_name}
+    request_rejected_email:
+      subject: Membership request update for %{organization_name}
+  membership_requests:
+    approve:
+      success: Membership request approved
+    buttons:
+      approve: Approve
+      reject: Reject
+    errors:
+      already_participant: You're already a member of this organization
+      already_requested: You have already requested access to this organization
+      not_found: Membership request not found
+    index:
+      title: '⬇️ Waitlist'
+    reject:
+      success: Membership request rejected
+    success:
+      access_granted: Access granted
+      access_requested: Access requested
+  notifiers:
+    membership_invitation_notifier:
+      notification:
+        message: You've been invited to join %{organization_name}
+    membership_request_accepted_notifier:
+      notification:
+        message: Your request to join %{organization_name} has been approved!
+    membership_request_rejected_notifier:
+      notification:
+        message: Your request to join %{organization_name} has been declined.
+  organizations:
+    create:
+      success: Organization created
+    dashboard:
+      index:
+        title: Dashboard
+      paywalled_page:
+        title: Paywalled page
+    destroy:
+      error: Organization could not be destroyed
+      success: Organization destroyed
+    edit:
+      title: Edit organization
+    errors:
+      not_found: Organization not found
+    index:
+      title: Joined
+    invitations:
+      create:
+        success: '%{email} invited'
+      destroy:
+        success: Invitation cancelled
+      errors:
+        not_found: Invitation not found
+      index:
+        cancel_invitation: Cancel invitation
+        title: '⬆️ Invites'
+    memberships:
+      actions:
+        leave: Leave
+        remove_member: Remove member
+      destroy:
+        failed_to_remove_user_from_organization: Failed to remove user from organization
+        user_removed_from_organization: User removed from organization
+        you_have_left_the_organization: You have left the organization
+      index:
+        title: Teammates
+      new:
+        title: Invite teammate
+      update:
+        success: User updated
+    new:
+      title: New organization
+    projects:
+      index:
+        title: Projects
+    show:
+      title: Organization profile
+    subscriptions:
+      features:
+        title: Features
+      index:
+        title: Billing
+      plan:
+        manage_billing: Manage billing
+        next_billing_date: Next billing date
+        resume_subscription: Resume subscription
+        subscription_active: Subscription active
+        subscription_cancelled: Subscription cancelled
+        title: Manage subscription
+        you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
+      pricing:
+        cancel_security: '🛡️ Cancel anytime. Secured by Stripe.'
+        current_plan: Current plan
+        save_yearly: Best value
+        subscribe: Get started
+        title: Pricing
+    transfers:
+      show:
+        title: Transfer ownership
+      update:
+        success: Ownership transferred
+    update:
+      success: Organization updated
+  public:
+    organizations:
+      index:
+        title: '🌎 Discover'
+      show:
+        actions:
+          accept_invitation: Accept invitation
+          cancel_request: Cancel request
+          join: Join
+          open: Open
+          reject_invitation: Reject invitation
+          request_to_join: Join waitlist
+  routes:
+    memberships: teammates
+    organizations: organizations
+    user: me
+  search:
+    index:
+      title: Search...
+  shared:
+    actions:
+      confirm: Are you sure?
+      copied: '✅ Copied!'
+      copy: '📋 Copy'
+      create: Create
+      destroy: Destroy
+      edit: Edit
+      new: New
+      show: Show
+    errors:
+      not_authorized: You are not authorized to perform this action.
+      not_subscribed: You need to subscribe to access this page.
+      rate_limit: Try again later.
+    footer:
+      all_rights_reserved: All rights reserved.
+    navigation:
+      edit_profile: Edit profile
+      login: Sign in
+      logout: Sign out
+      organizations: Organizations
+      register: Get started
+      select_organization: Select organization
+  static:
+    index:
+      title: Welcome to the app!
+    pricing:
+      title: Pricing
+    privacy:
+      title: Privacy
+    refunds:
+      title: Refunds
+    terms:
+      title: Terms
+  users:
+    connected_accounts:
+      connected_account:
+        confirm_disconnect_message: Are you sure you want to disconnect this account?
+        connected_time_ago: Connected %{time} ago
+        disconnect_button: Disconnect
+      destroy:
+        success: Account disconnected successfully.
+      index:
+        available_connections: Available connections
+        connect_button: Connect
+        connect_to_enable_auth: Connect your accounts to enable seamless authentication.
+        no_accounts_connected: You haven't connected any OAuth accounts yet.
+        title: Connected accounts
+        your_connected_accounts: Connected accounts
+    invitations:
+      index:
+        title: '⬇️ Invitations'
+    membership_requests:
+      destroy:
+        success: Membership request revoked
+      index:
+        title: '⬆️ Waitlisted'
+    notifications:
+      index:
+        title: Notifications
+    referrals:
+      index:
+        clicks: Referral Link Performance
+        clicks_description: Total number of clicks generated through your unique referral link.
+        completed: Converted Referrals
+        completed_description: Referred users who have completed their first purchase and generated commission.
+        referrals: Sign-ups
+        referrals_description: Users who have successfully registered through your referral link.
+        subtitle: Generate revenue through our affiliate program by sharing your unique referral link. Earn commissions when referred users complete their first purchase.
+        table:
+          completed_at: Conversion Date
+          no_referrals: No referrals recorded. Begin sharing your referral link to start earning commissions.
+          referee: Referred User
+          referrals_list: Referral Activity
+          referred_at: Registration Date
+          status: Conversion Status
+          status_completed: Converted
+          status_pending: Registered
+        title: Affiliate Program

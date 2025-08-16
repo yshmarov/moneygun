@@ -1,0 +1,21 @@
+<%= modal close_on_submit: false do %>
+  <div class="flex flex-col gap-4">
+    <%= form_with url: search_path, method: :get, data: { turbo_frame: :results, controller: "debounce" } do |form| %>
+      <%= form.search_field :query, autofocus: true, data: { action: "keydown.esc->dialog#close debounce#submit" }, class: "du-input w-full", placeholder: t("search.index.title") %>
+    <% end %>
+
+    <%= turbo_frame_tag :results do %>
+      <% if @organizations.present? %>
+        <%= render PageComponent.new(title: "Organizations") do %>
+          <%= render "organizations/table", organizations: @organizations %>
+        <% end %>
+      <% elsif params[:query].present? %>
+        <%= render EmptyStateComponent.new(title: "No results found", subtitle: "Try adjusting your search terms") do |c| %>
+          <% c.with_icon do %>
+            <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-12 mx-auto" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

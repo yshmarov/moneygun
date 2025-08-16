@@ -1,4 +1,7 @@
-<div>
-  <h1 class="font-bold text-4xl">Static#privacy</h1>
-  <p>Find me in app/views/static/privacy.html.erb</p>
-</div>
+<% content_for :title, t(".title") %>
+
+<%= modal do %>
+  <%= render PageComponent.new(full_width: false) do |component| %>
+    <%= markdown_to_html(File.read(Rails.root.join("app/views/static/privacy.md"))) %>
+  <% end %>
+<% end %>

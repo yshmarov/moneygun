@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-base-300 text-base-content">
+  <head>
+    <%= render "layouts/head" %>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <div class="flex-grow flex flex-col bg-base-300">
+      <header class="sticky z-30 top-0">
+        <%= render "shared/unauthenticated_navbar" %>
+        <div id="flash" class="fixed bottom-24 lg:bottom-6 right-4 z-40 flex flex-col items-end">
+          <%= render "shared/flash" %>
+        </div>
+      </header>
+      <main class="flex-grow p-4 bg-base-100">
+        <%= yield %>
+      </main>
+      <%= render "shared/footer" %>
+    </div>
+    <%= turbo_frame_tag :modal %>
+  </body>
+</html> 

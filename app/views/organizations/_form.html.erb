@@ -1,17 +1,39 @@
-<%= form_with(model: organization, class: "contents space-y-4") do |form| %>
+<%= form_with(model: organization, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
   <%= render "shared/errors", object: form.object %>
 
   <div class="">
     <%= form.label :name %>
-    <%= form.text_field :name, class: "form-input", autofocus: true %>
+    <%= form.text_field :name,
+                        class: "du-input w-full",
+                        autocomplete: "off",
+                        autocorrect: "off",
+                        autocapitalize: "off",
+                        spellcheck: "false",
+                        autofocus: !turbo_native_app?,
+                        required: true %>
   </div>
 
   <div class="">
     <%= form.label :logo %>
-    <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "form-input" %>
+    <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "du-input w-full" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "btn btn-primary" %>
+  <div class="">
+    <%= form.label :privacy_setting, class: "sr-only" %>
+    <div class="space-y-3">
+      <% Organization.privacy_settings.each do |key, value| %>
+        <div class="flex items-center gap-3">
+          <%= form.radio_button :privacy_setting, value, class: "mt-1" %>
+          <%= form.label "privacy_setting_#{key}".to_sym, class: "flex flex-col" do %>
+            <span class="font-medium"><%= privacy_setting_options(key)[:display_text] %></span>
+            <span class="text-sm text-base-content opacity-70"><%= privacy_setting_options(key)[:description_text] %></span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit class: "du-btn du-btn-primary" %>
   </div>
 <% end %>

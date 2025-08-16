@@ -1,0 +1,58 @@
+<% content_for :title, t(".title") %>
+
+<div class="space-y-6">
+  <% available_providers = Devise.omniauth_configs.keys %>
+  <% if available_providers.any? %>
+    <%= render PageComponent.new(title: t(".available_connections")) do |component| %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <% available_providers.each do |provider| %>
+          <div class="border border-base-content/20 p-4 rounded-lg hover:bg-base-200 transition-colors">
+            <%= form_tag "/users/auth/#{provider}", method: :post, data: { turbo: false }, class: "w-full" do %>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="text-2xl">
+                    <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-8 h-8" %>
+                  </div>
+                  <div class="font-medium">
+                    <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
+                  </div>
+                </div>
+                <%= button_tag t(".connect_button"), class: "du-btn du-btn-sm du-btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render PageComponent.new(title: t(".your_connected_accounts")) do |component| %>
+    <% if @connected_accounts.any? %>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Name</th>
+              <th>Handle</th>
+              <th>Email</th>
+              <th>Connected</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% current_user.connected_accounts.each do |connected_account| %>
+              <%= render "connected_account", connected_account: connected_account %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="border border-base-content/20 p-6 rounded-lg text-center flex flex-col items-center gap-3">
+        <div class="text-4xl">🔗</div>
+        <p class="text-base-content"><%= t(".no_accounts_connected") %></p>
+        <p class="text-sm text-base-content/60"><%= t(".connect_to_enable_auth") %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

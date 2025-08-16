@@ -1,0 +1,8 @@
+<%% content_for :title, "Editing <%= human_name.downcase %>" %>
+
+<%%= modal do %>
+  <%%= render PageComponent.new(title: "Editing <%= human_name.downcase %>") do |component| %>
+    <%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
+    <%%= link_to "Cancel", <%= model_resource_name(prefix: "@") %>, class: "du-btn du-btn-secondary" %>
+  <%% end %>
+<%% end %>

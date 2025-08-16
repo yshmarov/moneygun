@@ -1,14 +1,28 @@
-<section class="space-y-8 mx-auto <%= width_class %>">
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">
-      <%= title %>
-    </h1>
-    <div class="whitespace-nowrap">
-      <%= action_list %>
+<section class="space-y-4 mx-auto <%= width_class %> @container">
+  <% if title.present? || title_content.present? || action_list.present? %>
+    <div class="flex flex-col @3xl:flex-row @3xl:justify-between gap-4">
+      <% if title_content.present? %>
+        <div class="flex-1">
+          <%= title_content %>
+        </div>
+      <% elsif title.present? %>
+        <h1 class="font-medium text-2xl @3xl:text-3xl">
+          <%= title %>
+        </h1>
+      <% end %>
+      <% if action_list.present? %>
+        <div class="whitespace-nowrap">
+          <%= action_list %>
+        </div>
+      <% end %>
     </div>
-  </div>
+  <% end %>
 
-  <div class="<%= content_container_class %>">
+  <% if subtitle %>
+    <%= simple_format(subtitle, class: "text-sm text-base-content/60") %>
+  <% end %>
+
+  <div class="space-y-4">
     <%= content %>
   </div>
 </section>

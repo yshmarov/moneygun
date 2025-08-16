@@ -1,4 +1,15 @@
-<%= render PageComponent.new(title: "Editing organization", content_container: true, full_width: false) do |component| %>
+<% content_for :title, t("organizations.edit.title") %>
+
+<%= render PageComponent.new(title: t("organizations.edit.title"), full_width: false) do |component| %>
   <%= render "form", organization: @organization %>
-  <%= link_to "Cancel", @organization, class: "btn btn-secondary" %>
+<% end %>
+
+
+<%= render PageComponent.new(full_width: false) do %>
+  <div class="du-divider"></div>
+
+  <div class="flex items-center gap-2">
+    <%= link_to t("organizations.transfers.show.title"), organization_transfer_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-error du-btn-outline" if @organization.can_transfer?(current_user) %>
+    <%= link_to t("shared.actions.destroy"), @organization, data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-error du-btn-outline" if policy(@organization).destroy? %>
+  </div>
 <% end %>

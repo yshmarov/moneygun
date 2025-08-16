@@ -1,30 +1,18 @@
-<nav class="justify-around flex items-center lg:hidden sticky bottom-0 px-3 md:px-6 pt-2 pb-8 bg-slate-300">
-  <% if current_organization %>
-    <%= active_link_to organization_inboxes_path(@organization), class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/user-group.svg", class: "size-8" %>
-      <div class="text-xs">
-        Inboxes
-      </div>
+<nav class="du-dock du-dock-lg lg:hidden sticky bottom-0 border-t border-base-content/20 bg-base-300">
+  <% if Current.organization %>
+    <%= active_link_to organization_dashboard_path(Current.organization), class_active: "du-dock-active", class: "" do %>
+      <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]" %>
+      <span class="du-dock-label"><%= t("organizations.dashboard.index.title") %></span>
     <% end %>
 
-    <%= active_link_to organization_memberships_path(@organization), class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
-      <div class="text-xs">
-        Users
-      </div>
+    <%= active_link_to organization_projects_path(Current.organization), class_active: "du-dock-active", class: "" do %>
+      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-[1.2em]" %>
+      <span class="du-dock-label"><%= t("organizations.projects.index.title") %></span>
     <% end %>
   <% else %>
-    <%= active_link_to root_path, active: :exclusive, class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
-      <div class="text-xs">
-        Home
-      </div>
-    <% end %>
-    <%= active_link_to organizations_path, active: :exclusive, class_active: "text-blue-600", class: "flex flex-col items-center" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-8" %>
-      <div class="text-xs">
-        Organizations
-      </div>
+    <%= active_link_to organizations_path, active: :exclusive, class_active: "du-dock-active", class: "" do %>
+      <%= inline_svg_tag "svg/globe-europe-africa.svg", class: "size-[1.2em]" %>
+      <span class="du-dock-label"><%= t("organizations.index.title") %></span>
     <% end %>
   <% end %>
 </nav>

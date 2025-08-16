@@ -1,0 +1,5 @@
+<%= modal do %>
+  <%= render PageComponent.new(title: t("organizations.transfers.show.title")) do |component| %>
+    <%= render "organizations/transfers/form" %>
+  <% end %>
+<% end %>

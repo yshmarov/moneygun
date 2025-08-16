@@ -24,5 +24,17 @@ module Moneygun
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.mission_control.jobs.http_basic_auth_enabled = false
+    config.i18n.default_locale = :en
+    config.i18n.available_locales = %i[en fr]
+    config.i18n.fallbacks = true
+    config.view_component.default_preview_layout = "minimal"
+    config.active_record.encryption.support_unencrypted_data = true
+    config.active_record.encryption.extend_queries = true
+
+    config.to_prepare do
+      Noticed::Event.include Noticed::EventExtensions
+      Noticed::Notification.include Noticed::NotificationExtensions
+    end
   end
 end

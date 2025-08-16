@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@source "../../../public/*.html";
+@source "../../../app/helpers/**/*.rb";
+@source "../../../app/javascript/**/*.js";
+@source "../../../app/views/**/*";
+
+@import "./components/table.css";
+@import "./components/pagy.css";
+
+@plugin "@tailwindcss/typography";
+
+@plugin "./daisyui.js" {
+  themes: light --default, dark --prefersdark;
+  prefix: "du-";
+}
+
+/* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
+@plugin "./daisyui-theme.js"{
+  /* custom theme here */
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  input:not([type='checkbox']):not([type='radio']):not([type='submit']) {
+    border-width: 1px;
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  button:not(:disabled),
+  input[type="submit"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.prose pre {
+  @apply max-lg:w-sm;
+}

@@ -6,6 +6,13 @@
 #
 one:
   email: yaro@superails.com
+  admin: true
 
 two:
   email: hello@superails.com
+
+three:
+  email: natan@superails.com
+
+unassociated:
+  email: unassociated@superails.com

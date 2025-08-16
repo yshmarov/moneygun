@@ -1,63 +1,70 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show edit update destroy]
 
-  # GET /organizations
   def index
-    @organizations = current_user.organizations.includes(:users)
+    @pagy, @organizations = pagy(current_user.organizations.includes(:users))
   end
 
-  # GET /organizations/1
   def show
   end
 
-  # GET /organizations/new
   def new
     @organization = Organization.new
   end
 
-  # GET /organizations/1/edit
   def edit
   end
 
-  # POST /organizations
   def create
     @organization = Organization.new(organization_params)
-    @organization.memberships.build(user: current_user, role: Membership.roles[:admin])
+    @organization.owner = current_user
 
     if @organization.save
-      redirect_to organization_url(@organization), notice: "Organization was successfully created."
+      respond_to do |format|
+        flash[:notice] = t(".success")
+        format.html { redirect_to organization_dashboard_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
+      end
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /organizations/1
   def update
     if @organization.update(organization_params)
-      redirect_to organization_url(@organization), notice: "Organization was successfully updated."
+      flash[:notice] = t(".success")
+      respond_to do |format|
+        format.html { redirect_to edit_organization_path(@organization) }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /organizations/1
   def destroy
     ActsAsTenant.with_tenant(@organization) do
       @organization.destroy!
     end
 
-    redirect_to organizations_url, notice: "Organization was successfully destroyed."
+    redirect_to organizations_url, notice: t(".success")
   end
 
   private
 
   def set_organization
     @organization = Organization.find(params[:id])
-    @current_membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.organization = Current.membership&.organization
     authorize @organization
   end
 
   def organization_params
-    params.require(:organization).permit(:name, :logo)
+    params.expect(organization: [ :name, :logo, :privacy_setting ])
+  end
+
+  def pundit_user
+    return super if Current.membership.nil?
+
+    Current.membership
   end
 end

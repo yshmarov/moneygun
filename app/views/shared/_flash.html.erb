@@ -1,7 +1,12 @@
 <% flash.each do |type, message| %>
   <% if message.is_a?(String) %>
     <%= tag.div message,
-                class: [ "mx-2 mt-2 rounded-xl p-2 shadow opacity-90 cursor-pointer break-normal", flash_style(type) ],
-                data: { controller: "element-remove", action: "click->element-remove#click", turbo_temporary: true } %>
+                class: [ "du-alert mx-2 mt-2 rounded-xl p-2 shadow opacity-90 cursor-pointer break-normal font-medium", flash_style(type) ],
+                data: {
+                  controller: "auto-remove element-remove",
+                  auto_remove_delay_value: 5000,
+                  action: "click->element-remove#click",
+                  turbo_temporary: true
+                } %>
   <% end %>
 <% end %>

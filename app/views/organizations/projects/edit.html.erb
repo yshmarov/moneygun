@@ -1,0 +1,7 @@
+<% content_for :title, "Editing project" %>
+
+<%= modal do %>
+  <%= render PageComponent.new(title: "Editing project") do |component| %>
+    <%= render "form", project: @project %>
+  <% end %>
+<% end %>

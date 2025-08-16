@@ -4,6 +4,10 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get root_url
     assert_response :success
+
+    sign_in users(:one)
+    get root_url
+    assert_redirected_to organizations_path
   end
 
   test "should get pricing" do
@@ -18,6 +22,11 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
 
   test "should get privacy" do
     get privacy_url
+    assert_response :success
+  end
+
+  test "should get refunds" do
+    get refunds_url
     assert_response :success
   end
 end

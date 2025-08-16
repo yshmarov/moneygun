@@ -1,0 +1,34 @@
+<%
+  tabs = [
+    {
+      key: :my_organizations,
+      path: organizations_path,
+      label: t("organizations.index.title")
+    },
+    {
+      key: :browse_organizations,
+      path: public_organizations_path,
+      label: t("public.organizations.index.title")
+    },
+    {
+      key: :invitations,
+      path: user_invitations_path,
+      label: t("users.invitations.index.title"),
+      badge_count: current_user.organization_invitations.pending.count
+    },
+    {
+      key: :requests,
+      path: user_membership_requests_path,
+      label: t("users.membership_requests.index.title"),
+      badge_count: current_user.organization_requests.pending.count
+    }
+  ]
+%>
+
+<%= render PageComponent.new(title: t("shared.navigation.organizations")) do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
+  <% end %>
+
+  <%= render TabsComponent.new(active_tab: active_tab, tabs:) %>
+<% end %>

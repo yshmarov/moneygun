@@ -1,0 +1,37 @@
+<% content_for :title, t("organizations.invitations.index.title") %>
+
+<%= render "organizations/memberships/tabs", active_tab: :invitations %>
+
+<%= render PageComponent.new do %>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th><%= AccessRequest.human_attribute_name(:user) %></th>
+          <th><%= AccessRequest.human_attribute_name(:created_at) %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="invitations">
+        <% @invitations.each do |invitation| %>
+          <tr>
+            <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
+              <div class="font-medium flex items-center gap-2">
+                <%= user_avatar(invitation.user) %>
+                <%= invitation.user.email %>
+              </div>
+            </td>
+            <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>">
+              <%= invitation.created_at.strftime("%d/%m/%Y") %>
+            </td>
+            <td>
+              <div class="flex items-center gap-2 justify-end">
+                <%= button_to t(".cancel_invitation"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "du-btn du-btn-sm du-btn-error" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

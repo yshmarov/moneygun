@@ -1,8 +1,15 @@
-<%= render PageComponent.new(title: "Organizations / #{@organization.name}") do |component| %>
-  <% component.with_action_list do %>
-    <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary" if policy(@organization).edit? %>
-    <div class="inline-block">
-      <%= button_to "Destroy", @organization, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(@organization).destroy? %>
-    </div>
-  <% end %>
+<% content_for :title, t("organizations.show.title") %>
+
+<% title = capture do %>
+  <div class="flex items-center gap-2">
+    <%= organization_avatar(@organization) %>
+    <%= @organization.name %>
+  </div>
+<% end %>
+
+<%= render PageComponent.new(title:, full_width: false) do |component| %>
+  <div class="flex items-center gap-2">
+    <%= privacy_setting_icon(@organization.privacy_setting) %>
+    <%= render "organizations/users_list", organization: @organization %>
+  </div>
 <% end %>

@@ -1,0 +1,11 @@
+<% content_for :title, t(".title") %>
+
+<%= render PageComponent.new(title: t(".title")) do |component| %>
+  <%= turbo_stream_from "notifications_index_list_#{current_user.id}" %>
+
+  <div id="notifications">
+    <%= render collection: @notifications, partial: "notification", as: :notification %>
+  </div>
+
+  <%= render "shared/pagination", pagy: @pagy %>
+<% end %>

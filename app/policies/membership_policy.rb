@@ -20,12 +20,15 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def destroy?
-    membership&.admin? || record.user == user
+    return true if membership&.admin? # Admins can remove anyone
+    return true if membership&.member? && record.user_id == membership.user_id # Members can remove themselves
+
+    false
   end
 
   private
 
   def membership
-    record.organization.memberships.find_by(user:)
+    user # Because we're passing the current_membership as the pundit user
   end
 end
