@@ -1,0 +1,11 @@
+<div class="text-center p-10 text-base-content/50 bg-base-200 rounded-2xl border border-base-content/5 flex flex-col items-center justify-center gap-6">
+  <%= icon %>
+
+  <h3 class="text-xl font-semibold"><%= @title %></h3>
+
+  <% if @subtitle.present? %>
+    <p class="text-base-content/60 text-sm"><%= @subtitle %></p>
+  <% end %>
+
+  <%= content %>
+</div>

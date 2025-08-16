@@ -15,7 +15,7 @@
           <td data-label="<%= Organization.human_attribute_name(:name) %>">
             <div class="flex items-center gap-2">
               <%= organization_avatar(organization) %>
-              <span class="font-medium"><%= organization.name %></span>
+              <span class="font-medium"><%= highlight(organization.name, params[:query]) %></span>
             </div>
           </td>
           <td data-label="<%= Organization.human_attribute_name(:privacy_setting) %>">
