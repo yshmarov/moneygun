@@ -6,6 +6,7 @@ class UserTest < ActiveSupport::TestCase
     organization = organizations(:one)
     user = users(:one)
 
+    ActsAsTenant.current_tenant = organization
     assert_difference "Organization.count", -1 do
       assert_difference "Membership.count", -1 do
         user.destroy
