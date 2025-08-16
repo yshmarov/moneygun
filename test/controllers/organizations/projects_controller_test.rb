@@ -33,12 +33,15 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create project" do
+    ActsAsTenant.current_tenant = @organization
     assert_no_difference("Project.count") do
       post organization_projects_url(@organization), params: { project: { organization_id: @organization.id, name: @project.name } }
+      ActsAsTenant.current_tenant = @organization
     end
 
     assert_difference("Project.count") do
       post organization_projects_url(@organization), params: { project: { organization_id: @organization.id, name: "New name" } }
+      ActsAsTenant.current_tenant = @organization
     end
 
     assert_redirected_to organization_project_url(@organization, Project.last)
@@ -97,8 +100,11 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy project" do
+    ActsAsTenant.current_tenant = @organization
+
     assert_difference("Project.count", -1) do
       delete organization_project_url(@organization, @project)
+      ActsAsTenant.current_tenant = @organization
     end
 
     assert_redirected_to organization_projects_url(@organization)
