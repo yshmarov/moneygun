@@ -2,18 +2,18 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
   <%= render PageComponent.new(title: "Spend credits") do |component| %>
-    <%= button_to "Spend 25 credits; attempt auto-refill", spend_some_credits_organization_refills_path(current_organization), method: :patch, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+    <%= button_to "Spend 25 credits; attempt auto-refill", spend_some_credits_organization_refills_path(Current.organization), method: :patch, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
     <% [0, 10, 20, 50, 100].each do |units| %>
-      <%= button_to "Spend 5 + #{units} credits", spend_bulk_credits_organization_refills_path(current_organization, units: units), method: :patch, disabled: !@organization.has_enough_credits_to?(:spend_bulk_credits, units: units), class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+      <%= button_to "Spend 5 + #{units} credits", spend_bulk_credits_organization_refills_path(Current.organization, units: units), method: :patch, disabled: !@organization.has_enough_credits_to?(:spend_bulk_credits, units: units), class: "du-btn du-btn-primary", data: { turbo: "false" } %>
     <% end %>
   <% end %>
 
   <%= render PageComponent.new(title: "Payment details") do |component| %>
     <% component.with_action_list do %>
       <% if @payment_methods.any? %>
-        <%= button_to "Manage billing", billing_portal_organization_refills_path(current_organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+        <%= button_to "Manage billing", billing_portal_organization_refills_path(Current.organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
       <% else %>
-        <%= button_to "Add payment method", add_payment_method_organization_refills_path(current_organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
+        <%= button_to "Add payment method", add_payment_method_organization_refills_path(Current.organization), method: :post, class: "du-btn du-btn-primary", data: { turbo: "false" } %>
       <% end %>
     <% end %>
 
@@ -39,9 +39,7 @@
         <% end %>
       </div>
     <% else %>
-      <div class="rounded-lg shadow p-8 border border-gray-200 text-center">
-        No payment methods found
-      </div>
+      <%= render EmptyStateComponent.new(title: "No payment methods found") %>
     <% end %>
   <% end %>
 
@@ -53,7 +51,7 @@
           <div class="text-center space-y-4">
             <h3 class="text-xl font-semibold"><%= credit_pack.name.to_s.titleize %></h3>
             
-            <%= button_to format_credit_price(credit_pack.price_cents), charge_payment_method_organization_refills_path(current_organization, credit_pack: key), 
+            <%= button_to format_credit_price(credit_pack.price_cents), charge_payment_method_organization_refills_path(Current.organization, credit_pack: key), 
                 method: :post, 
                 class: "du-btn du-btn-primary",
                 disabled: !@payment_methods.any?,
@@ -71,8 +69,8 @@
     </div>
   <% end %>
 
-  <%= render PageComponent.new(title: "Auto-top-ups") do |component| %>
-    <%= form_with(model: [current_organization, current_organization.wallet], url: update_auto_refill_organization_refills_path(current_organization), method: :patch) do |form| %>
+  <%= render PageComponent.new(title: "Auto top-ups") do |component| %>
+    <%= form_with(model: [Current.organization, Current.organization.wallet], url: update_auto_refill_organization_refills_path(Current.organization), method: :patch) do |form| %>
       <%= render "shared/errors", object: form.object %>
       <div class="space-y-6">
         <div class="flex items-center space-x-2">

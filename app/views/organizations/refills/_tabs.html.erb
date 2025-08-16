@@ -2,17 +2,17 @@
   tabs = [
     {
       key: :index,
-      path: organization_refills_path(current_organization),
+      path: organization_refills_path(Current.organization),
       label: "Refills"
     },
     {
       key: :charges,
-      path: charges_organization_refills_path(current_organization),
+      path: charges_organization_refills_path(Current.organization),
       label: "Charges"
     },
     {
       key: :transactions,
-      path: transactions_organization_refills_path(current_organization),
+      path: transactions_organization_refills_path(Current.organization),
       label: "Transactions"
     }
   ]

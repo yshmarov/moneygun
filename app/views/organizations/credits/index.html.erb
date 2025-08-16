@@ -5,7 +5,7 @@
         <div class="text-center space-y-4">
           <h3 class="text-xl font-semibold "><%= credit_pack.name.to_s.titleize %></h3>
 
-          <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), organization_credits_path(current_organization, credit_pack_id: key), 
+          <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), organization_credits_path(Current.organization, credit_pack_id: key), 
               method: :post, 
               class: "du-btn du-btn-primary",
               data: { turbo: "false" } %>
@@ -33,7 +33,7 @@
             <h3 class="text-xl font-semibold "><%= subscription_plan.name.to_s.titleize %></h3>
           </div>
           
-          <%= button_to "Subscribe", organization_credits_path(current_organization, subscription_plan_id: key), 
+          <%= button_to "Subscribe", organization_credits_path(Current.organization, subscription_plan_id: key), 
               method: :post, 
               class: "du-btn du-btn-primary",
               data: { turbo: "false" } %>
