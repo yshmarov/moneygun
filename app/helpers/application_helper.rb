@@ -51,4 +51,55 @@ module ApplicationHelper
       fallback_path
     end
   end
+
+  def admin_link_options
+    [ {
+      name: "Admin",
+      path: "/admin/avo/resources/users",
+      icon: "👮"
+    },
+    {
+      name: "Profitable",
+      path: "/profitable",
+      icon: "🤑"
+    },
+    {
+      name: "Jobs",
+      path: "/jobs",
+      icon: "⚙️"
+    },
+    {
+      name: "Analytics",
+      path: "/analytics",
+      icon: "📊"
+    },
+    {
+      name: "Active Storage",
+      path: "/active_storage_dashboard",
+      icon: "💾"
+    },
+    {
+      name: "Feature Flags",
+      path: "/feature_flags",
+      icon: "🎛️"
+    },
+    {
+      name: "Lookbook",
+      path: "/lookbook",
+      icon: "👀"
+    },
+    {
+      name: "Letter Opener",
+      path: "/letter_opener",
+      icon: "📨"
+    } ]
+  end
+
+  def boolean_to_icon(value)
+    if value
+      "✅"
+    else
+      "❌"
+    end
+  end
 end

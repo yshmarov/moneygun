@@ -40,14 +40,12 @@
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
         <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
-          <%= active_link_to "👮 Admin", "/admin/avo/resources/users", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "🤑 Profitable", "/profitable", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "⚙️ Jobs", "/jobs", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "📊 Analytics", "/analytics", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "💾 Active Storage", "/active_storage_dashboard", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "🎛️ Feature Flags", "/feature_flags", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "👀 Lookbook", "/lookbook", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if Rails.env.development? %>
-          <%= active_link_to "📨 Letter Opener", "/letter_opener", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if Rails.env.development? %>
+          <% admin_link_options.each do |link| %>
+            <%= active_link_to link[:path], class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" do %>
+              <%= link[:icon] %>
+              <%= link[:name] %>
+            <% end %>
+          <% end %>
         </div>
       </details>
     <% end %>
