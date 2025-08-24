@@ -1,10 +1,35 @@
 <% content_for :title, t(".title") %>
 
-<%= render PageComponent.new(title: t(".title")) do |component| %>
-  <%= turbo_stream_from "notifications_index_list_#{current_user.id}" %>
+<% content_for :head do %>
+  <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+<% end %>
 
-  <div id="notifications">
-    <%= render collection: @notifications, partial: "notification", as: :notification %>
+<%= turbo_stream_from "notifications_index_#{current_user.id}" %>
+
+<%= render PageComponent.new(title: t(".title")) do |component| %>
+  <div class="table-responsive">
+    <table>
+      <tbody id="notifications">
+        <% @notifications.each do |notification| %>
+          <tr class="<%= notification.seen? ? 'bg-base-100' : 'bg-primary/10' %> hover:bg-base-200 transition-colors duration-200 cursor-pointer"
+              onclick="window.location='<%= notification.url %>'">
+            <td data-label="Notification">
+              <div class="flex items-center gap-3">
+                <% if notification.respond_to?(:icon) && notification.icon.present? %>
+                  <%= notification.icon %>
+                <% else %>
+                  <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6 flex-shrink-0" %>
+                <% end %>
+                <span class="text-sm text-base-content"><%= notification.message %></span>
+              </div>
+            </td>
+            <td>
+              <%= time_ago_in_words(notification.created_at) %> ago
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
   <%= render "shared/pagination", pagy: @pagy %>

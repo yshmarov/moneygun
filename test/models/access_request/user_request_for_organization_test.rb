@@ -15,7 +15,7 @@ class AccessRequest::UserRequestForOrganizationTest < ActiveSupport::TestCase
 
     # Check that notification was sent to the correct user
     notification = user.notifications.last
-    assert_equal "MembershipRequestAcceptedNotifier::Notification", notification.type
+    assert_equal "Membership::RequestAcceptedNotifier::Notification", notification.type
     assert_equal access_request.organization, notification.params[:organization]
   end
 
@@ -32,7 +32,7 @@ class AccessRequest::UserRequestForOrganizationTest < ActiveSupport::TestCase
 
     # Check that notification was sent to the correct user
     notification = access_request.user.notifications.last
-    assert_equal "MembershipRequestRejectedNotifier::Notification", notification.type
+    assert_equal "Membership::RequestRejectedNotifier::Notification", notification.type
     assert_equal access_request.organization, notification.params[:organization]
   end
 end

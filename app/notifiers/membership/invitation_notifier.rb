@@ -1,5 +1,5 @@
 # invited a user to an organization
-class MembershipInvitationNotifier < ApplicationNotifier
+class Membership::InvitationNotifier < ApplicationNotifier
   deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
 
   deliver_by :email do |config|
@@ -12,11 +12,15 @@ class MembershipInvitationNotifier < ApplicationNotifier
 
   notification_methods do
     def message
-      t("notifiers.membership_invitation_notifier.notification.message", organization_name: params[:organization].name)
+      t("notifiers.membership.invitation_notifier.notification.message", organization_name: params[:organization].name)
     end
 
     def url
       user_invitations_url
+    end
+
+    def icon
+      "📩"
     end
   end
 end

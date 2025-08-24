@@ -4,7 +4,7 @@ class MembershipMailerPreview < ActionMailer::Preview
     organization = Organization.first
     user = User.first
 
-    MembershipInvitationNotifier.with(organization: organization).deliver(user)
+    Membership::InvitationNotifier.with(organization: organization).deliver(user)
     notification = user.notifications.last
 
     MembershipMailer.invitation_email(notification)
@@ -14,7 +14,7 @@ class MembershipMailerPreview < ActionMailer::Preview
     organization = Organization.first
     user = User.first
 
-    MembershipRequestAcceptedNotifier.with(organization: organization).deliver(user)
+    Membership::RequestAcceptedNotifier.with(organization: organization).deliver(user)
     notification = user.notifications.last
 
     MembershipMailer.request_accepted_email(notification)
@@ -24,7 +24,7 @@ class MembershipMailerPreview < ActionMailer::Preview
     organization = Organization.first
     user = User.first
 
-    MembershipRequestRejectedNotifier.with(organization: organization).deliver(user)
+    Membership::RequestRejectedNotifier.with(organization: organization).deliver(user)
     notification = user.notifications.last
 
     MembershipMailer.request_rejected_email(notification)

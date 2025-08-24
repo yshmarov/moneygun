@@ -11,7 +11,7 @@ class AccessRequest::InviteToOrganizationTest < ActiveSupport::TestCase
 
     # Check that notification was sent to the correct user
     notification = user.notifications.last
-    assert_equal "MembershipInvitationNotifier::Notification", notification.type
+    assert_equal "Membership::InvitationNotifier::Notification", notification.type
     assert_equal organization, notification.params[:organization]
   end
 

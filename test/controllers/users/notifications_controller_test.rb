@@ -8,7 +8,7 @@ class Users::NotificationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#index" do
-    MembershipInvitationNotifier.with(organization: @organization).deliver(@user)
+    Membership::InvitationNotifier.with(organization: @organization).deliver(@user)
     notification = @user.notifications.last
     assert_not notification.seen?
 

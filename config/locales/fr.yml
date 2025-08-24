@@ -200,15 +200,16 @@ fr:
       access_granted: Accès accordé
       access_requested: Accès demandé
   notifiers:
-    membership_invitation_notifier:
-      notification:
-        message: Vous avez été invité à rejoindre %{organization_name}
-    membership_request_accepted_notifier:
-      notification:
-        message: Votre demande d'adhésion a été acceptée pour %{organization_name}
-    membership_request_rejected_notifier:
-      notification:
-        message: Votre demande d'adhésion a été refusée pour %{organization_name}
+    membership:
+      invitation_notifier:
+        notification:
+          message: Vous avez été invité à rejoindre %{organization_name}
+      request_accepted_notifier:
+        notification:
+          message: Votre demande d'adhésion a été acceptée pour %{organization_name}
+      request_rejected_notifier:
+        notification:
+          message: Votre demande d'adhésion a été refusée pour %{organization_name}
   organizations:
     create:
       success: Organisation créée

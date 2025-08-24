@@ -19,6 +19,6 @@ class AccessRequest::InviteToOrganization < AccessRequest
   private
 
   def send_invitation_notification
-    MembershipInvitationNotifier.with(organization: organization).deliver(user)
+    Membership::InvitationNotifier.with(organization: organization).deliver(user)
   end
 end
