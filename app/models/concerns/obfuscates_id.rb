@@ -44,11 +44,13 @@ module ObfuscatesId
       super.tap { |r| r.extend ClassMethods }
     end
 
+    # rubocop:disable Naming/PredicatePrefix
     def has_many(*args, &)
       options = args.extract_options!
       options[:extend] = Array(options[:extend]).push(ClassMethods)
       super(*args, **options, &)
     end
+    # rubocop:enable Naming/PredicatePrefix
 
     def find_by_obfuscated_id(id)
       find_by(id: decode_id(id))
