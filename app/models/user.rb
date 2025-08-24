@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include User::Authentication
   include User::Multitenancy
+
   has_referrals
   has_many :notifications, as: :recipient, class_name: "Noticed::Notification"
 

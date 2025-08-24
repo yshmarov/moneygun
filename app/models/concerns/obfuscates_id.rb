@@ -44,10 +44,10 @@ module ObfuscatesId
       super.tap { |r| r.extend ClassMethods }
     end
 
-    def has_many(*args, &block)
+    def has_many(*args, &)
       options = args.extract_options!
       options[:extend] = Array(options[:extend]).push(ClassMethods)
-      super(*args, **options, &block)
+      super(*args, **options, &)
     end
 
     def find_by_obfuscated_id(id)

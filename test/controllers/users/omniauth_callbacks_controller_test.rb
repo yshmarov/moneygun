@@ -25,7 +25,7 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
   test "oauth with existing connected account returns correct user" do
     # First, create a user and connected account
     user = users(:one)
-    connected_account = user.connected_accounts.create!(
+    user.connected_accounts.create!(
       provider: "google_oauth2",
       uid: "test_uid_123",
       payload: { "info" => { "email" => "test@example.com" } }
@@ -57,6 +57,6 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     # Check that the user is signed in by verifying the session
     assert_equal user.id, session["warden.user.user.key"].first.first
-    # Note: The redirect path may vary depending on app logic (e.g., /campaigns or /me/onboarding)
+    # NOTE: The redirect path may vary depending on app logic (e.g., /campaigns or /me/onboarding)
   end
 end
