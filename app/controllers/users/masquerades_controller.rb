@@ -1,5 +1,7 @@
 class Users::MasqueradesController < Devise::MasqueradesController
+  # rubocop:disable Rails/LexicallyScopedActionFilter
   before_action :authorize_admin, except: :back
+  # rubocop:enable Rails/LexicallyScopedActionFilter
 
   protected
 

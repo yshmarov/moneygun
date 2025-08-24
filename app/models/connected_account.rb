@@ -57,12 +57,10 @@ class ConnectedAccount < ApplicationRecord
 
   def platform_url
     case provider
-    when "google_oauth2"
+    when "google_oauth2", "tiktok"
       payload&.dig("extra", "raw_info", "profile_deep_link")
     when "github"
       payload&.dig("extra", "raw_info", "html_url")
-    when "tiktok"
-      payload&.dig("extra", "raw_info", "profile_deep_link")
     end
   end
 

@@ -13,13 +13,9 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.4
   Exclude:
-    - vendor/bundle/**/*
     - '**/db/schema.rb'
     - '**/db/**/*'
     - 'config/**/*'
-    - 'bin/*'
-    - 'config.ru'
-    - 'Rakefile'
 
 FrozenStringLiteralComment:
   Enabled: false
@@ -67,10 +63,6 @@ Metrics/MethodLength:
 Metrics/CyclomaticComplexity:
   Enabled: false
 
-Naming/VariableNumber:
-  Exclude:
-    - 'test/**/*'
-
 Layout/LineLength:
   Enabled: false
 
@@ -88,4 +80,7 @@ Style/OpenStructUse:
   Enabled: false
 
 Naming/PredicateMethod:
+  Enabled: false
+
+Metrics/ParameterLists:
   Enabled: false
