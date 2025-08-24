@@ -12,7 +12,7 @@
       </thead>
       <tbody id="organizations" data-controller="clickable-row">
         <% organizations.each do |organization| %>
-          <tr class="cursor-pointer" data-clickable-row-target="row" data-url="<%= organization_path(organization) %>">
+          <tr class="cursor-pointer" data-clickable-row-target="row" data-url="<%= organization.participant?(current_user) ? organization_path(organization) : public_organization_path(organization) %>">
             <td data-label="<%= Organization.human_attribute_name(:name) %>">
               <div class="flex items-center gap-2">
                 <%= organization_avatar(organization) %>
@@ -20,7 +20,9 @@
               </div>
             </td>
             <td data-label="<%= Organization.human_attribute_name(:privacy_setting) %>">
-              <%= privacy_setting_options(organization.privacy_setting)[:display_text] %>
+              <span class="font-medium text-sm">
+                <%= privacy_setting_options(organization.privacy_setting)[:display_text] %>
+              </span>
             </td>
             <td data-label="Members">
               <%= render "organizations/users_list", organization: %>
