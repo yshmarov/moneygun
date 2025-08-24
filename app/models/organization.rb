@@ -3,7 +3,7 @@ class Organization < ApplicationRecord
   include Organization::Transfer
   include Organization::Billing
 
-  enum :privacy_setting, %w[ private restricted public ].index_by(&:itself), default: :private, prefix: true
+  enum :privacy_setting, %w[private restricted public].index_by(&:itself), default: :private, prefix: true
   validate :public_privacy_setting_requirements
 
   has_many :projects, dependent: :destroy
@@ -29,7 +29,7 @@ class Organization < ApplicationRecord
 
   def self.discoverable
     not_privacy_setting_private
-    .left_joins(:logo_attachment).where.not(active_storage_attachments: { id: nil })
+      .left_joins(:logo_attachment).where.not(active_storage_attachments: { id: nil })
   end
 
   private

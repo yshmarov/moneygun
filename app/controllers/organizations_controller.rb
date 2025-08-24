@@ -59,7 +59,7 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.expect(organization: [ :name, :logo, :privacy_setting ])
+    params.expect(organization: %i[name logo privacy_setting])
   end
 
   def pundit_user

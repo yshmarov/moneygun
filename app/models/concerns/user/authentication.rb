@@ -38,9 +38,7 @@ module User::Authentication
         user.password = Devise.friendly_token[0, 20] if user.password.blank?
       end
 
-      if user.save
-        ConnectedAccount.create_or_update_from_omniauth(auth_payload, user)
-      end
+      ConnectedAccount.create_or_update_from_omniauth(auth_payload, user) if user.save
 
       user
     end

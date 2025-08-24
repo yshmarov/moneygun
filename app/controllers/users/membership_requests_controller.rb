@@ -10,18 +10,18 @@ class Users::MembershipRequestsController < ApplicationController
   def create
     request = MembershipRequest.new(organization: @organization, user: current_user)
     if request.save
-      if @organization.privacy_setting_public?
-        flash[:notice] = t("membership_requests.success.access_granted")
-      else
-        flash[:notice] = t("membership_requests.success.access_requested")
-      end
+      flash.now[:notice] = if @organization.privacy_setting_public?
+                             t("membership_requests.success.access_granted")
+                           else
+                             t("membership_requests.success.access_requested")
+                           end
     else
-      flash[:alert] = request.errors.full_messages.join(", ")
+      flash.now[:alert] = request.errors.full_messages.join(", ")
     end
 
     respond_to do |format|
       format.html { redirect_to public_organization_path(@organization) }
-      format.turbo_stream  { render turbo_stream: turbo_stream.redirect_to(public_organization_path(@organization)) }
+      format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(public_organization_path(@organization)) }
     end
   end
 

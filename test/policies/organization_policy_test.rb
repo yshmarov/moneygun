@@ -17,7 +17,7 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
     assert OrganizationPolicy.new(@membership, @organization).edit?
 
     @new_membership = @organization.memberships.create(user: users(:two), role: Membership.roles[:member])
-    refute OrganizationPolicy.new(@new_membership, @organization).edit?
+    assert_not OrganizationPolicy.new(@new_membership, @organization).edit?
   end
 
   def test_update
@@ -26,6 +26,6 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
 
   def test_destroy
     assert OrganizationPolicy.new(@membership, @organization).destroy?
-    refute OrganizationPolicy.new(memberships(:two), @organization).destroy?
+    assert_not OrganizationPolicy.new(memberships(:two), @organization).destroy?
   end
 end

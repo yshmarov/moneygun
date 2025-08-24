@@ -32,7 +32,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "from_omniauth returns existing user when connected account exists" do
     user = users(:one)
-    connected_account = user.connected_accounts.create!(
+    user.connected_accounts.create!(
       provider: "google_oauth2",
       uid: "123456789",
       payload: { "info" => { "email" => "test@example.com" } }

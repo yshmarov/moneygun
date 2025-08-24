@@ -13,7 +13,8 @@ class Organizations::InvitationsController < Organizations::BaseController
 
   def create
     authorize Membership, :new?
-    @membership_invitation = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
+    @membership_invitation = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization,
+                                                      inviter: current_user)
 
     if @membership_invitation.save
       respond_to do |format|
@@ -29,7 +30,7 @@ class Organizations::InvitationsController < Organizations::BaseController
   def destroy
     authorize Membership, :destroy?
     @invitation.destroy
-    redirect_to organization_invitations_path(@organization), notice: t("organizations.invitations.destroy.success")
+    redirect_to organization_invitations_path(@organization), notice: t(".success")
   end
 
   private

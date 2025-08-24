@@ -7,7 +7,7 @@ class MetricsGridComponentTest < ViewComponent::TestCase
     metrics = [
       {
         title: "Revenue",
-        value: 150000,
+        value: 150_000,
         type: :money,
         subtitle: "This month"
       },

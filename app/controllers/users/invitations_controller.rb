@@ -1,6 +1,6 @@
 # incoming invitations to join an organization
 class Users::InvitationsController < ApplicationController
-  before_action :set_invitation, only: [ :approve, :reject ]
+  before_action :set_invitation, only: %i[approve reject]
 
   def index
     organization_ids = current_user.organization_invitations.pending.pluck(:organization_id)
