@@ -14,6 +14,11 @@ class MembershipMailer < ApplicationMailer
     mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
   end
 
+  def removal_email(notification)
+    setup(notification)
+    mail(to: @recipient.email, subject: notification.message)
+  end
+
   private
 
   def setup(notification)

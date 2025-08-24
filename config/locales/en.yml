@@ -204,6 +204,9 @@ en:
       invitation_notifier:
         notification:
           message: You've been invited to join %{organization_name}
+      removal_notifier:
+        notification:
+          message: You have been removed from %{organization_name}
       request_accepted_notifier:
         notification:
           message: Your request to join %{organization_name} has been approved!

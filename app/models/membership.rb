@@ -11,6 +11,8 @@ class Membership < ApplicationRecord
   validate :cannot_change_role_if_only_admin, on: :update
   validate :cannot_demote_owner_from_admin, on: :update
 
+  after_destroy :notify_user_removed
+
   def try_destroy
     return false if organization.memberships.count == 1
     return false if role == "admin" && organization.memberships.where(role: "admin").count == 1
@@ -20,6 +22,10 @@ class Membership < ApplicationRecord
   end
 
   private
+
+  def notify_user_removed
+    Membership::RemovalNotifier.with(organization: organization).deliver(user)
+  end
 
   def cannot_change_role_if_only_admin
     return if organization.memberships.where(role: "admin").count > 1

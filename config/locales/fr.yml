@@ -204,6 +204,9 @@ fr:
       invitation_notifier:
         notification:
           message: Vous avez été invité à rejoindre %{organization_name}
+      removal_notifier:
+        notification:
+          message: Vous avez été retiré de %{organization_name}
       request_accepted_notifier:
         notification:
           message: Votre demande d'adhésion a été acceptée pour %{organization_name}
