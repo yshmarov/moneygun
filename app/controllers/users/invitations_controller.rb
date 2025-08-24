@@ -3,8 +3,8 @@ class Users::InvitationsController < ApplicationController
   before_action :set_invitation, only: [ :approve, :reject ]
 
   def index
-    invitations = current_user.organization_invitations.pending.includes(:organization)
-    @organizations = invitations.map(&:organization)
+    organization_ids = current_user.organization_invitations.pending.pluck(:organization_id)
+    @pagy, @organizations = pagy(Organization.where(id: organization_ids))
   end
 
   def approve

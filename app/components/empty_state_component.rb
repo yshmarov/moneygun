@@ -8,7 +8,7 @@
 class EmptyStateComponent < ViewComponent::Base
   renders_one :icon
 
-  def initialize(title:, subtitle: nil)
+  def initialize(title: nil, subtitle: nil)
     @title = title
     @subtitle = subtitle
   end

@@ -3,8 +3,8 @@ class Users::MembershipRequestsController < ApplicationController
   before_action :set_organization, only: %i[create]
 
   def index
-    organization_requests = current_user.organization_requests.pending
-    @organizations = organization_requests.map(&:organization)
+    organization_ids = current_user.organization_requests.pending.pluck(:organization_id)
+    @pagy, @organizations = pagy(Organization.where(id: organization_ids))
   end
 
   def create
