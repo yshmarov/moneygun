@@ -22,5 +22,15 @@ resources :organizations, path: I18n.t("routes.organizations") do
     resources :projects
     get "dashboard", to: "dashboard#index"
     get "paywalled_page", to: "dashboard#paywalled_page"
+
+    namespace :stripe do
+      resource :connect, only: %i[show] do
+        collection do
+          get :setup
+          get :dashboard
+          post :restart
+        end
+      end
+    end
   end
 end

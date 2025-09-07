@@ -1,0 +1,17 @@
+<%= render PageComponent.new(title: t("organizations.stripe.connect.show.title"), subtitle: t("organizations.stripe.connect.show.subtitle")) do |c| %>
+  <% c.with_action_list do %>
+    <div class="flex gap-2">
+    <% if @organization.merchant_processor.present? %>
+      <% if @organization.merchant_processor.onboarding_complete? %>
+        <%= link_to "Dashboard", dashboard_organization_stripe_connect_path(@organization), class: "du-btn du-btn-primary" %>
+        <%= link_to "My account", setup_organization_stripe_connect_path(@organization), class: "du-btn du-btn-primary" %>
+      <% else %>
+        <%= link_to "Continue verification", setup_organization_stripe_connect_path(@organization), class: "du-btn du-btn-warning" %>
+        <%= button_to "Restart", restart_organization_stripe_connect_path(@organization), class: "du-btn du-btn-error" %>
+      <% end %>
+    <% else %>
+      <%= link_to "Set up payments", setup_organization_stripe_connect_path(@organization), class: "du-btn du-btn-primary" %>
+    <% end %>
+    </div>
+  <% end %>
+<% end %> 
