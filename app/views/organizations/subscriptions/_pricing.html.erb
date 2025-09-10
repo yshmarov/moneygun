@@ -1,5 +1,5 @@
 <%= render PageComponent.new(title: t(".title"), full_width: false) do %>
-	<div class="grid lg:grid-cols-2 gap-8">
+	<div class="grid gap-8">
 		<% Rails.application.config_for(:settings)[:plans].each do |plan| %>
 			<div class="border border-base-content/20 rounded-xl text-center flex flex-col">
 				<div class="leading-none grow">
@@ -10,7 +10,7 @@
 					<% end %>
 				</div>
 
-				<div class="p-4 flex flex-row lg:flex-col gap-8 items-center justify-between">
+				<div class="p-4 flex flex-row gap-8 items-center justify-between">
 					<div class="inline-flex gap-0 items-baseline">
 						<span class="text-5xl font-medium">
 							<%= number_to_currency (plan[:unit_amount].to_f / 100), unit: currency_symbol(plan[:currency]), strip_insignificant_zeros: true %>
