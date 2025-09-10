@@ -278,10 +278,10 @@ Devise.setup do |config|
                     scope: "user:email"
   end
 
-  if Rails.application.credentials.dig(:google_oauth2, :key).present? && Rails.application.credentials.dig(:google_oauth2, :secret).present?
+  if Rails.application.credentials.dig(:google_oauth2, :client_id).present? && Rails.application.credentials.dig(:google_oauth2, :client_secret).present?
     config.omniauth :google_oauth2,
-                    Rails.application.credentials.dig(:google_oauth2, :key),
-                    Rails.application.credentials.dig(:google_oauth2, :secret),
+                    Rails.application.credentials.dig(:google_oauth2, :client_id),
+                    Rails.application.credentials.dig(:google_oauth2, :client_secret),
                     scope: "email,profile"
   end
 
