@@ -1,0 +1,57 @@
+<%= render PageComponent.new(title: "Top up") do |component| %>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <% UsageCredits.credit_packs.each do |key, credit_pack| %>
+      <div class="rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+        <div class="text-center space-y-4">
+          <h3 class="text-xl font-semibold "><%= credit_pack.name.to_s.titleize %></h3>
+
+          <%= button_to number_to_currency(credit_pack.price_cents.to_f / 100, unit: credit_pack.price_currency), organization_credits_path(Current.organization, credit_pack_id: key), 
+              method: :post, 
+              class: "du-btn du-btn-primary",
+              data: { turbo: "false" } %>
+          
+          <div class="space-y-2">
+            <p class="text-lg font-medium "><%= format_credits(credit_pack.credits) %></p>
+            <% if credit_pack.bonus_credits > 0 %>
+              <p class="text-sm text-green-600">+<%= credit_pack.bonus_credits %> Bonus Credits</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<br>
+
+<%= render PageComponent.new(title: "Subscription plans") do |component| %>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <% UsageCredits.subscription_plans.each do |key, subscription_plan| %>
+      <div class="rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+        <div class="text-center space-y-4">
+          <div class="flex items-center justify-center space-x-2">
+            <h3 class="text-xl font-semibold "><%= subscription_plan.name.to_s.titleize %></h3>
+          </div>
+          
+          <%= button_to "Subscribe", organization_credits_path(Current.organization, subscription_plan_id: key), 
+              method: :post, 
+              class: "du-btn du-btn-primary",
+              data: { turbo: "false" } %>
+          
+          <div class="space-y-2">
+            <p class="text-lg font-medium "><%= subscription_plan.credits_per_period %> Credits per <%= subscription_plan.fulfillment_period %></p>
+            <% if subscription_plan.trial_credits > 0 %>
+              <p class="text-sm text-blue-600">+<%= subscription_plan.trial_credits %> Trial Credits</p>
+            <% end %>
+            <% if subscription_plan.signup_bonus_credits > 0 %>
+              <p class="text-sm text-green-600">+<%= subscription_plan.signup_bonus_credits %> Signup Bonus Credits</p>
+            <% end %>
+            <% if subscription_plan.rollover_enabled %>
+              <p class="text-sm text-blue-600">Credits roll over to next period</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
