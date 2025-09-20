@@ -1,5 +1,5 @@
 class ConnectedAccount < ApplicationRecord
-  belongs_to :user
+  belongs_to :owner, polymorphic: true
 
   validates :provider, presence: true
   validates :uid, presence: true, uniqueness: { scope: :provider }
@@ -68,8 +68,8 @@ class ConnectedAccount < ApplicationRecord
     end
   end
 
-  def self.create_or_update_from_omniauth(auth_payload, user)
-    connected_account = user.connected_accounts.find_or_initialize_by(
+  def self.create_or_update_from_omniauth(auth_payload, owner)
+    connected_account = owner.connected_accounts.find_or_initialize_by(
       provider: auth_payload.provider,
       uid: auth_payload.uid
     )
