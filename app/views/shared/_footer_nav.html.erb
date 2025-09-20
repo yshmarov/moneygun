@@ -15,4 +15,14 @@
       <span class="du-dock-label"><%= t("organizations.index.title") %></span>
     <% end %>
   <% end %>
+
+  <%= active_link_to search_path, class_active: "du-dock-active", data: { turbo_frame: :modal } do %>
+    <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-[1.2em]" %>
+    <span class="du-dock-label"><%= t("search.index.title") %></span>
+  <% end %>
+
+  <%= active_link_to user_notifications_path, class_active: "du-dock-active" do %>
+    <%= inline_svg_tag "svg/bell.svg", class: "size-[1.2em]" %>
+    <span class="du-dock-label"><%= t("users.notifications.index.title") %></span>
+  <% end %>
 </nav>
