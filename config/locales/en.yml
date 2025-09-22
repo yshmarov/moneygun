@@ -261,6 +261,11 @@ en:
         title: Projects
     show:
       title: Organization profile
+    stripe:
+      connect:
+        show:
+          subtitle: Verify your organization account to withdraw funds
+          title: Stripe Connect
     subscriptions:
       features:
         title: Features
