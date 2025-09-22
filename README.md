@@ -97,8 +97,7 @@ cd your_project_name
 2. Set up the application:
 
 ```bash
-bundle install
-rails db:create db:migrate
+bin/setup
 ```
 
 3. Start the development server:
