@@ -102,4 +102,14 @@ module ApplicationHelper
       "❌"
     end
   end
+
+  def formatted_title
+    app_name = Rails.application.config_for(:settings).dig(:site, :name)
+    org_name = defined?(Current.organization) && Current.organization&.name.present? ? Current.organization.name : nil
+
+    title = content_for(:title).present? ? content_for(:title) : "#{controller_name.humanize} #{action_name.humanize}"
+
+    parts = [ title, org_name, app_name ].compact
+    parts.join(" - ")
+  end
 end
