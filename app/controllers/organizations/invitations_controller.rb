@@ -22,7 +22,7 @@ class Organizations::InvitationsController < Organizations::BaseController
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
       end
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

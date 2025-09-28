@@ -72,14 +72,14 @@ class Organizations::InvitationsControllerTest < ActionDispatch::IntegrationTest
         post organization_invitations_url(@organization), params: { membership_invitation: { email: nil } }
       end
     end
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
 
     assert_no_difference("User.count") do
       assert_no_difference("Membership.count") do
         post organization_invitations_url(@organization)
       end
     end
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
 
     # invalid email
     assert_no_difference("User.count") do
@@ -87,7 +87,7 @@ class Organizations::InvitationsControllerTest < ActionDispatch::IntegrationTest
         post organization_invitations_url(@organization), params: { membership_invitation: { email: "foo" } }
       end
     end
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
 
     # success
     assert_difference("User.count") do
@@ -105,7 +105,7 @@ class Organizations::InvitationsControllerTest < ActionDispatch::IntegrationTest
         post organization_invitations_url(@organization), params: { membership_invitation: { email: } }
       end
     end
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "#destroy removes invitation" do

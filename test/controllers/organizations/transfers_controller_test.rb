@@ -38,7 +38,7 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal @user, @organization.reload.owner
   end
 

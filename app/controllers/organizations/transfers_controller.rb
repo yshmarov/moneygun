@@ -13,7 +13,7 @@ class Organizations::TransfersController < Organizations::BaseController
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
       end
     else
-      render :show, status: :unprocessable_entity
+      render :show, status: :unprocessable_content
     end
   end
 end
