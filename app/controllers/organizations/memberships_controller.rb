@@ -3,7 +3,7 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def index
     authorize Membership
-    @memberships = @organization.memberships.includes(:user)
+    @memberships = @organization.memberships.includes(user: :connected_accounts)
   end
 
   def edit
