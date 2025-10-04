@@ -1,6 +1,6 @@
 <section class="space-y-4 mx-auto <%= width_class %> @container">
   <% if title.present? || title_content.present? || action_list.present? %>
-    <div class="flex flex-col @3xl:flex-row @3xl:justify-between gap-4">
+    <div class="flex justify-between gap-4 flex-wrap">
       <% if title_content.present? %>
         <div class="flex-1">
           <%= title_content %>
