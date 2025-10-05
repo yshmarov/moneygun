@@ -39,4 +39,10 @@ class Organization < ApplicationRecord
 
     errors.add(:privacy_setting, "requires logo to be discoverable for restricted and public organizations")
   end
+
+  after_create :reward_new_organization
+
+  def reward_new_organization
+    give_credits(10, reason: "new_organization_created")
+  end
 end

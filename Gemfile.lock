@@ -600,6 +600,9 @@ GEM
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     uri (1.0.3)
+    usage_credits (0.1.1)
+      pay (~> 8.3)
+      rails (>= 6.1)
     useragent (0.16.11)
     version_gem (1.1.8)
     view_component (4.0.2)
@@ -687,6 +690,7 @@ DEPENDENCIES
   turbo-rails
   turbo_power (~> 0.7.0)
   tzinfo-data
+  usage_credits
   view_component
   web-console
 

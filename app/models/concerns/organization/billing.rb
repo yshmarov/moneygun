@@ -3,6 +3,7 @@ module Organization::Billing
 
   included do
     pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
+    has_credits
   end
 
   def stripe_attributes(pay_customer)

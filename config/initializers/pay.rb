@@ -7,6 +7,20 @@ Pay.setup do |config|
   config.send_emails = false
 end
 
+module PaymentMethodExtensions
+  extend ActiveSupport::Concern
+
+  included do
+    after_create_commit :reward_first_payment_method
+  end
+
+  def reward_first_payment_method
+    return if customer.owner.payment_processor.payment_methods.count > 1
+
+    customer.owner.give_credits(100, reason: "first_payment_method_added")
+  end
+end
+
 # Pay::Charge.new.respond_to?(:complete_referral, true)
 module ChargeExtensions
   extend ActiveSupport::Concern
@@ -21,5 +35,6 @@ module ChargeExtensions
 end
 
 Rails.configuration.to_prepare do
+  Pay::PaymentMethod.include PaymentMethodExtensions
   Pay::Charge.include ChargeExtensions
 end
