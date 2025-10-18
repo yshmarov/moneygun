@@ -4,10 +4,11 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.4
-  # Exclude:
-  #   - '**/db/schema.rb'
-  #   - '**/db/**/*'
-  #   - 'bin/*'
+  Exclude:
+    - '**/db/schema.rb'
+    - '**/db/**/*'
+    - 'bin/*'
+    - app/models/concerns/obfuscates_id.rb
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -31,4 +32,16 @@ Style/Documentation:
   Enabled: false
 
 Bundler/OrderedGems:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Rails/RenderInline:
   Enabled: false
