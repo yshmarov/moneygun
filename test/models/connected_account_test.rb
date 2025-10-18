@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ConnectedAccountTest < ActiveSupport::TestCase
   # test "the truth" do

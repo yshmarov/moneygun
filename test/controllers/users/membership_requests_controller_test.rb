@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
-  test 'should get index' do
+  test "should get index" do
     user = users(:one)
     sign_in user
 
@@ -9,7 +9,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should create membership for public organization' do
+  test "should create membership for public organization" do
     membership = memberships(:one)
     user = membership.user
     requested_organization = organizations(:three)
@@ -17,15 +17,15 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in user
 
-    assert_difference 'Membership.count', 1 do
+    assert_difference "Membership.count", 1 do
       post user_membership_requests_url(organization_id: requested_organization.id)
     end
 
     assert_response :redirect
-    assert_equal I18n.t('membership_requests.success.access_granted'), flash[:notice]
+    assert_equal I18n.t("membership_requests.success.access_granted"), flash[:notice]
   end
 
-  test 'should create membership request for restricted organization' do
+  test "should create membership request for restricted organization" do
     membership = memberships(:one)
     user = membership.user
     requested_organization = organizations(:three)
@@ -33,45 +33,45 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in user
 
-    assert_difference 'AccessRequest::UserRequestForOrganization.count', 1 do
+    assert_difference "AccessRequest::UserRequestForOrganization.count", 1 do
       post user_membership_requests_url(organization_id: requested_organization.id)
     end
 
     assert_response :redirect
-    assert_equal I18n.t('membership_requests.success.access_requested'), flash[:notice]
+    assert_equal I18n.t("membership_requests.success.access_requested"), flash[:notice]
   end
 
-  test 'should not create membership request if request params are not valid' do
+  test "should not create membership request if request params are not valid" do
     membership = memberships(:one)
     user = membership.user
     requested_organization = organizations(:one)
 
     sign_in user
 
-    assert_no_difference 'AccessRequest::UserRequestForOrganization.count' do
-      assert_no_difference 'Membership.count' do
+    assert_no_difference "AccessRequest::UserRequestForOrganization.count" do
+      assert_no_difference "Membership.count" do
         post user_membership_requests_url(organization_id: requested_organization.id)
       end
     end
 
     assert_response :redirect
-    assert_equal I18n.t('membership_requests.errors.already_participant'), flash[:alert]
+    assert_equal I18n.t("membership_requests.errors.already_participant"), flash[:alert]
   end
 
-  test 'should catch error if organization is not found' do
+  test "should catch error if organization is not found" do
     membership = memberships(:one)
     user = membership.user
-    organization_id = 'invalid'
+    organization_id = "invalid"
 
     sign_in user
 
     post user_membership_requests_url(organization_id:)
 
     assert_redirected_to public_organizations_path
-    assert_equal I18n.t('organizations.errors.not_found'), flash[:alert]
+    assert_equal I18n.t("organizations.errors.not_found"), flash[:alert]
   end
 
-  test 'destroy' do
+  test "destroy" do
     user = users(:one)
     sign_in user
 
@@ -84,10 +84,10 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 1, user.reload.organization_requests.pending.count
 
-    assert_difference 'AccessRequest::UserRequestForOrganization.count', -1 do
+    assert_difference "AccessRequest::UserRequestForOrganization.count", -1 do
       delete user_membership_request_path(user.reload.organization_requests.pending.first)
       assert_response :redirect
-      assert_equal I18n.t('users.membership_requests.destroy.success'), flash[:notice]
+      assert_equal I18n.t("users.membership_requests.destroy.success"), flash[:notice]
     end
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class MembershipInvitationTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
@@ -9,9 +9,9 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     @first_admin_membership = @organization.memberships.admin.first
   end
 
-  test 'valid membership invitation with correct attributes creates an access request' do
+  test "valid membership invitation with correct attributes creates an access request" do
     invitation = MembershipInvitation.new(
-      email: 'newuser@example.com',
+      email: "newuser@example.com",
       organization: @organization,
       inviter: @first_admin_membership.user
     )
@@ -22,22 +22,22 @@ class MembershipInvitationTest < ActiveSupport::TestCase
       end
     end
 
-    user = User.find_by(email: 'newuser@example.com')
+    user = User.find_by(email: "newuser@example.com")
     assert user.present?
-    assert_equal 'newuser@example.com', @organization.user_invitations.last.user.email
+    assert_equal "newuser@example.com", @organization.user_invitations.last.user.email
   end
 
-  test 'invalid with incorrect email format' do
+  test "invalid with incorrect email format" do
     invitation = MembershipInvitation.new(
-      email: 'invalid-email',
+      email: "invalid-email",
       organization: @organization,
       inviter: @first_admin_membership.user
     )
     assert_not invitation.valid?
-    assert_includes invitation.errors.messages[:email], 'is invalid'
+    assert_includes invitation.errors.messages[:email], "is invalid"
   end
 
-  test 'fails when user is already a member' do
+  test "fails when user is already a member" do
     existing_user = users(:two)
     @organization.memberships.create(user: existing_user)
 
@@ -50,7 +50,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     assert_includes invitation.errors.messages[:base], "#{existing_user.email} is already a member of this organization."
   end
 
-  test 'fails when user already has a pending invitation' do
+  test "fails when user already has a pending invitation" do
     existing_user = users(:two)
 
     # Create a pending invitation first
@@ -62,6 +62,6 @@ class MembershipInvitationTest < ActiveSupport::TestCase
       inviter: @first_admin_membership.user
     )
     assert_not invitation.save
-    assert_includes invitation.errors.messages[:base], 'User already has a pending request'
+    assert_includes invitation.errors.messages[:base], "User already has a pending request"
   end
 end

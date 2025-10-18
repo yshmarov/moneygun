@@ -6,7 +6,7 @@ class SearchController < ApplicationController
                          current_user.organizations.pluck(:id),
                          Organization.discoverable.pluck(:id)
                        ].flatten.uniq)
-                                   .where('name ILIKE ?', "%#{params[:query]}%")
+                                   .where("name ILIKE ?", "%#{params[:query]}%")
                      else
                        Organization.none
                      end

@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
 
     if @organization.save
       respond_to do |format|
-        flash[:notice] = t('.success')
+        flash[:notice] = t(".success")
         format.html { redirect_to organization_dashboard_path(@organization) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
       end
@@ -30,7 +30,7 @@ class OrganizationsController < ApplicationController
 
   def update
     if @organization.update(organization_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
       respond_to do |format|
         format.html { redirect_to edit_organization_path(@organization) }
       end
@@ -41,9 +41,9 @@ class OrganizationsController < ApplicationController
 
   def destroy
     if @organization.destroy
-      redirect_to organizations_path, notice: t('.success')
+      redirect_to organizations_path, notice: t(".success")
     else
-      redirect_to organization_path(@organization), alert: t('.error')
+      redirect_to organization_path(@organization), alert: t(".error")
     end
   end
 

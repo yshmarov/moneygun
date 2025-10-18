@@ -7,17 +7,17 @@ class TabsComponentPreview < ViewComponent::Preview
 
   def tabs_with_custom_content
     [
-      { key: :normal, label: 'Normal Tab', path: '#normal' },
+      { key: :normal, label: "Normal Tab", path: "#normal" },
       {
         key: :custom,
-        path: '#custom',
-        content: content_tag(:div, class: 'flex items-center gap-2') do
-          content_tag(:span, '🌟', class: '') +
-            content_tag(:span, 'Special', class: 'font-bold') +
-            content_tag(:span, 'NEW', class: 'badge badge-xs badge-accent')
+        path: "#custom",
+        content: content_tag(:div, class: "flex items-center gap-2") do
+          content_tag(:span, "🌟", class: "") +
+            content_tag(:span, "Special", class: "font-bold") +
+            content_tag(:span, "NEW", class: "badge badge-xs badge-accent")
         end
       },
-      { key: :another, label: 'With Badge', path: '#another', badge_count: 10 }
+      { key: :another, label: "With Badge", path: "#another", badge_count: 10 }
     ]
   end
 end

@@ -6,7 +6,7 @@ class Avo::Resources::PayCharge < Avo::BaseResource
   self.model_class = ::Pay::Charge
 
   self.search = {
-    query: -> { query.ransack(id_eq: params[:q], processor_id_cont: params[:q], m: 'or').result(distinct: false) },
+    query: -> { query.ransack(id_eq: params[:q], processor_id_cont: params[:q], m: "or").result(distinct: false) },
     item: lambda {
       {
         title: record.processor_id

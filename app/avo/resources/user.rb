@@ -2,10 +2,10 @@ class Avo::Resources::User < Avo::BaseResource
   self.title = :email
   self.includes = %i[organizations memberships]
   self.search = {
-    query: -> { query.ransack(id_eq: params[:q], email_cont: params[:q], m: 'or').result(distinct: false) },
+    query: -> { query.ransack(id_eq: params[:q], email_cont: params[:q], m: "or").result(distinct: false) },
     item: lambda {
       {
-        title: [record.id, record.email].join('/')
+        title: [record.id, record.email].join("/")
       }
     }
   }
@@ -16,12 +16,12 @@ class Avo::Resources::User < Avo::BaseResource
       field :email, as: :text, disabled: true, sortable: true
       field :admin, as: :boolean, sortable: true
       field :login_as, as: :text, as_html: true do
-        link_to 'Login as', masquerade_path(record) unless record.id == current_user.id
+        link_to "Login as", masquerade_path(record) unless record.id == current_user.id
       end
 
       sidebar do
-        field :created_at, as: :date_time, disabled: true, format: 'DDDD, T'
-        field :updated_at, as: :date_time, disabled: true, format: 'DDDD, T'
+        field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
+        field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
       end
     end
 

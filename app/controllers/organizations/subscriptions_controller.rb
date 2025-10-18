@@ -12,7 +12,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
     return redirect_to organization_subscriptions_url(@organization) if price.nil?
 
     @checkout_session = @organization.payment_processor.checkout(
-      mode: 'subscription',
+      mode: "subscription",
       locale: I18n.locale,
       line_items: [{
         price:,
@@ -41,7 +41,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
 
   def sync_subscriptions
     @organization.set_payment_processor :stripe
-    @organization.payment_processor.sync_subscriptions(status: 'all') unless Rails.env.test?
+    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
   end
 
   def require_billing_enabled

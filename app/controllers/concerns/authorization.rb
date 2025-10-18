@@ -10,7 +10,7 @@ module Authorization
   private
 
   def user_not_authorized
-    flash[:alert] = t('shared.errors.not_authorized')
+    flash[:alert] = t("shared.errors.not_authorized")
     redirect_to(request.referer || root_path)
   end
 end

@@ -1,13 +1,13 @@
-require 'test_helper'
+require "test_helper"
 
 class AccessRequestTest < ActiveSupport::TestCase
-  test 'should not be valid if user already has an access request for that organization' do
+  test "should not be valid if user already has an access request for that organization" do
     access_request = AccessRequest.new(user: users(:one), organization: organizations(:two))
     assert_not access_request.valid?
-    assert_includes access_request.errors.messages[:user_id], 'already has a pending request'
+    assert_includes access_request.errors.messages[:user_id], "already has a pending request"
   end
 
-  test 'should return only pending access requests' do
+  test "should return only pending access requests" do
     rejected_access_request = AccessRequest.create!(status: :rejected, user: users(:one), organization: organizations(:one))
     pending_access_requests = AccessRequest.pending
 
@@ -17,14 +17,14 @@ class AccessRequestTest < ActiveSupport::TestCase
     assert_not_includes pending_access_requests, rejected_access_request
   end
 
-  test 'approve' do
+  test "approve" do
     access_request = AccessRequest.new
     assert_raises NotImplementedError do
       access_request.approve!
     end
   end
 
-  test 'reject' do
+  test "reject" do
     access_request = AccessRequest.new
     assert_raises NotImplementedError do
       access_request.reject!

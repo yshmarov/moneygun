@@ -1,24 +1,24 @@
-require 'test_helper'
+require "test_helper"
 
 class Public::OrganizationsControllerTest < ActionDispatch::IntegrationTest
-  test 'should get index' do
+  test "should get index" do
     sign_in users(:one)
 
     get public_organizations_path
     assert_response :success
   end
 
-  test 'should not get index if not signed in' do
+  test "should not get index if not signed in" do
     get public_organizations_path
     assert_redirected_to new_user_session_path
   end
 
-  test 'should see only public and restricted organizations' do
+  test "should see only public and restricted organizations" do
     sign_in users(:one)
 
-    organization1 = Organization.create!(privacy_setting: :public, owner: users(:one), name: 'Organization One', logo: active_storage_blobs(:openai_logo_blob))
-    organization2 = Organization.create!(privacy_setting: :restricted, owner: users(:one), name: 'Organization Two', logo: active_storage_blobs(:apple_logo_blob))
-    organization3 = Organization.create!(privacy_setting: :private, owner: users(:one), name: 'Organization Three', logo: active_storage_blobs(:google_logo_blob))
+    organization1 = Organization.create!(privacy_setting: :public, owner: users(:one), name: "Organization One", logo: active_storage_blobs(:openai_logo_blob))
+    organization2 = Organization.create!(privacy_setting: :restricted, owner: users(:one), name: "Organization Two", logo: active_storage_blobs(:apple_logo_blob))
+    organization3 = Organization.create!(privacy_setting: :private, owner: users(:one), name: "Organization Three", logo: active_storage_blobs(:google_logo_blob))
 
     get public_organizations_path
     assert_response :success
@@ -28,10 +28,10 @@ class Public::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes Organization.discoverable.pluck(:name), organization3.name
   end
 
-  test 'should get show' do
+  test "should get show" do
     sign_in users(:one)
 
-    organization = Organization.create!(privacy_setting: :public, owner: users(:one), name: 'Organization One', logo: active_storage_blobs(:openai_logo_blob))
+    organization = Organization.create!(privacy_setting: :public, owner: users(:one), name: "Organization One", logo: active_storage_blobs(:openai_logo_blob))
 
     get public_organization_path(organization)
     assert_response :success

@@ -3,7 +3,7 @@ class User < ApplicationRecord
   include User::Multitenancy
 
   has_referrals
-  has_many :notifications, as: :recipient, class_name: 'Noticed::Notification', dependent: :destroy
+  has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[id email]

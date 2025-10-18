@@ -8,28 +8,28 @@ class MetricsGridComponentPreview < ViewComponent::Preview
   def metrics
     [
       {
-        title: 'Monthly Revenue',
+        title: "Monthly Revenue",
         value: 150_000,
         type: :money,
-        subtitle: 'Up 12% from last month'
+        subtitle: "Up 12% from last month"
       },
       {
-        title: 'Active Users',
+        title: "Active Users",
         value: 1_250,
         type: :number,
-        subtitle: 'Currently online'
+        subtitle: "Currently online"
       },
       {
-        title: 'Total Orders',
+        title: "Total Orders",
         value: 425,
         type: :number,
-        subtitle: 'This week'
+        subtitle: "This week"
       },
       {
-        title: 'Average Order',
+        title: "Average Order",
         value: 8_500,
         type: :money,
-        subtitle: 'Per transaction'
+        subtitle: "Per transaction"
       }
     ]
   end

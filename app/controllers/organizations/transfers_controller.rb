@@ -5,7 +5,7 @@ class Organizations::TransfersController < Organizations::BaseController
 
   def update
     if @organization.transfer_ownership(params[:user_id])
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
 
       respond_to do |format|
         format.html { redirect_to organization_path(@organization) }

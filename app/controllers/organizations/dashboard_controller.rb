@@ -4,6 +4,6 @@ class Organizations::DashboardController < Organizations::BaseController
   def index; end
 
   def paywalled_page
-    render inline: "Congrats! If you see this, you're subscribed.", layout: 'application'
+    render inline: "Congrats! If you see this, you're subscribed.", layout: "application"
   end
 end

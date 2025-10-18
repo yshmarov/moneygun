@@ -2,7 +2,7 @@ class Organization::BasePolicy
   attr_reader :membership, :record
 
   def initialize(membership, record)
-    raise Pundit::NotAuthorizedError, 'must be logged in' unless membership
+    raise Pundit::NotAuthorizedError, "must be logged in" unless membership
 
     @membership = membership
     @record = record
@@ -38,7 +38,7 @@ class Organization::BasePolicy
 
   class Scope
     def initialize(membership, scope)
-      raise Pundit::NotAuthorizedError, 'must be logged in' unless membership
+      raise Pundit::NotAuthorizedError, "must be logged in" unless membership
 
       @membership = membership
       @scope = scope

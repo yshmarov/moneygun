@@ -31,7 +31,7 @@ module User::Authentication
 
       # If no existing connected account, proceed with email-based lookup
       email = auth_payload.info&.email
-      email ||= auth_payload.uid if auth_payload.provider == 'saml'
+      email ||= auth_payload.uid if auth_payload.provider == "saml"
 
       user = User.where(email: email).first_or_initialize do |user|
         user.email = email

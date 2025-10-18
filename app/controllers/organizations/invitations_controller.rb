@@ -17,7 +17,7 @@ class Organizations::InvitationsController < Organizations::BaseController
 
     if @membership_invitation.save
       respond_to do |format|
-        flash[:notice] = t('.success', email: @membership_invitation.email)
+        flash[:notice] = t(".success", email: @membership_invitation.email)
         format.html { redirect_to organization_memberships_path(@organization) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
       end
@@ -29,7 +29,7 @@ class Organizations::InvitationsController < Organizations::BaseController
   def destroy
     authorize Membership, :destroy?
     @invitation.destroy
-    redirect_to organization_invitations_path(@organization), notice: t('.success')
+    redirect_to organization_invitations_path(@organization), notice: t(".success")
   end
 
   private
@@ -37,6 +37,6 @@ class Organizations::InvitationsController < Organizations::BaseController
   def set_invitation
     @invitation = @organization.user_invitations.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to organization_invitations_path(@organization), alert: t('organizations.invitations.errors.not_found')
+    redirect_to organization_invitations_path(@organization), alert: t("organizations.invitations.errors.not_found")
   end
 end

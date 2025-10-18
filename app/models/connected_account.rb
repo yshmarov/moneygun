@@ -8,59 +8,59 @@ class ConnectedAccount < ApplicationRecord
 
   PROVIDER_CONFIG = {
     google_oauth2: {
-      name: 'Google',
+      name: "Google",
       icon: :google,
       sign_in: true
     },
     youtube: {
-      name: 'YouTube',
+      name: "YouTube",
       icon: :youtube,
       sign_in: false
     },
     github: {
-      name: 'GitHub',
+      name: "GitHub",
       icon: :github,
       sign_in: true
     },
     telegram: {
-      name: 'Telegram',
+      name: "Telegram",
       icon: :telegram,
       sign_in: false
     },
     tiktok: {
-      name: 'TikTok',
+      name: "TikTok",
       icon: :tiktok,
       sign_in: false
     },
     developer: {
-      name: 'Developer',
-      icon: 'rocket-launch',
+      name: "Developer",
+      icon: "rocket-launch",
       sign_in: true
     }
   }.freeze
 
   def name
-    payload&.dig('info', 'name')
+    payload&.dig("info", "name")
   end
 
   def email
-    payload&.dig('info', 'email') unless provider == 'youtube'
+    payload&.dig("info", "email") unless provider == "youtube"
   end
 
   def image_url
-    payload&.dig('info', 'image')
+    payload&.dig("info", "image")
   end
 
   def nickname
-    payload&.dig('info', 'nickname')
+    payload&.dig("info", "nickname")
   end
 
   def platform_url
     case provider
-    when 'google_oauth2', 'tiktok'
-      payload&.dig('extra', 'raw_info', 'profile_deep_link')
-    when 'github'
-      payload&.dig('extra', 'raw_info', 'html_url')
+    when "google_oauth2", "tiktok"
+      payload&.dig("extra", "raw_info", "profile_deep_link")
+    when "github"
+      payload&.dig("extra", "raw_info", "html_url")
     end
   end
 

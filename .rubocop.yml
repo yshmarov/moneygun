@@ -65,3 +65,6 @@ Style/OpenStructUse:
 
 Rails/OutputSafety:
   Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

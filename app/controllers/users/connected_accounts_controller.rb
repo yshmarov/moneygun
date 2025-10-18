@@ -7,7 +7,7 @@ class Users::ConnectedAccountsController < ApplicationController
 
   def destroy
     @connected_account.destroy
-    redirect_to user_connected_accounts_path, notice: I18n.t('users.connected_accounts.destroy.success')
+    redirect_to user_connected_accounts_path, notice: I18n.t("users.connected_accounts.destroy.success")
   end
 
   private
