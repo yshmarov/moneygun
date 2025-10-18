@@ -1,8 +1,8 @@
 class Avo::Resources::Membership < Avo::BaseResource
-  self.title = -> {
-    [ record.id, record.user.email, record.organization.name ].join(" / ")
+  self.title = lambda {
+    [record.id, record.user.email, record.organization.name].join(' / ')
   }
-  self.includes = [ :organization, :user ]
+  self.includes = %i[organization user]
   self.visible_on_sidebar = false
 
   def fields
@@ -13,8 +13,8 @@ class Avo::Resources::Membership < Avo::BaseResource
       field :user, as: :belongs_to, disabled: true
 
       sidebar do
-        field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
-        field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
+        field :created_at, as: :date_time, disabled: true, format: 'DDDD, T'
+        field :updated_at, as: :date_time, disabled: true, format: 'DDDD, T'
       end
     end
   end

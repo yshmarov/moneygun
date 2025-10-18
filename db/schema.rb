@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_18_141428) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_18_181639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_141428) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
+    t.index ["user_id", "organization_id"], name: "index_access_requests_on_user_id_and_organization_id", unique: true
     t.index ["user_id"], name: "index_access_requests_on_user_id"
   end
 
@@ -101,6 +102,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_141428) do
     t.bigint "owner_id", null: false
     t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner"
     t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner_type_and_owner_id"
+    t.index ["uid", "provider"], name: "index_connected_accounts_on_uid_and_provider", unique: true
   end
 
   create_table "flipper_features", force: :cascade do |t|

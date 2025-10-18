@@ -6,12 +6,11 @@ class Organizations::MembershipsController < Organizations::BaseController
     @memberships = @organization.memberships.includes(user: :connected_accounts)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @membership.update(membership_params)
-      flash[:notice] = t(".success")
+      flash[:notice] = t('.success')
       respond_to do |format|
         format.html { redirect_to organization_memberships_path(@organization) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
@@ -24,12 +23,12 @@ class Organizations::MembershipsController < Organizations::BaseController
   def destroy
     if @membership.try_destroy
       if @membership.user == current_user
-        redirect_to organizations_path, notice: t(".you_have_left_the_organization")
+        redirect_to organizations_path, notice: t('.you_have_left_the_organization')
       else
-        redirect_to organization_memberships_path(@organization), notice: t(".user_removed_from_organization")
+        redirect_to organization_memberships_path(@organization), notice: t('.user_removed_from_organization')
       end
     else
-      redirect_to organization_memberships_path(@organization), alert: t(".failed_to_remove_user_from_organization")
+      redirect_to organization_memberships_path(@organization), alert: t('.failed_to_remove_user_from_organization')
     end
   end
 
@@ -41,6 +40,6 @@ class Organizations::MembershipsController < Organizations::BaseController
   end
 
   def membership_params
-    params.expect(membership: [ :role ])
+    params.expect(membership: [:role])
   end
 end

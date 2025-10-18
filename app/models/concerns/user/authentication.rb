@@ -31,16 +31,14 @@ module User::Authentication
 
       # If no existing connected account, proceed with email-based lookup
       email = auth_payload.info&.email
-      email ||= auth_payload.uid if auth_payload.provider == "saml"
+      email ||= auth_payload.uid if auth_payload.provider == 'saml'
 
       user = User.where(email: email).first_or_initialize do |user|
         user.email = email
         user.password = Devise.friendly_token[0, 20] if user.password.blank?
       end
 
-      if user.save
-        ConnectedAccount.create_or_update_from_omniauth(auth_payload, user)
-      end
+      ConnectedAccount.create_or_update_from_omniauth(auth_payload, user) if user.save
 
       user
     end

@@ -7,7 +7,7 @@ class AccessRequest::UserRequestForOrganization < AccessRequest
       organization.memberships.create(user:)
       Membership::RequestAcceptedNotifier.with(organization: organization).deliver(user)
     end
-  rescue => e
+  rescue StandardError => e
     raise ActiveRecord::Rollback, e.message
   end
 

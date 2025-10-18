@@ -1,10 +1,9 @@
 class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_billing_enabled
   before_action :require_current_organization_admin
-  before_action :sync_subscriptions, only: [ :checkout ]
+  before_action :sync_subscriptions, only: [:checkout]
 
-  def index
-  end
+  def index; end
 
   def checkout
     return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
@@ -13,12 +12,12 @@ class Organizations::SubscriptionsController < Organizations::BaseController
     return redirect_to organization_subscriptions_url(@organization) if price.nil?
 
     @checkout_session = @organization.payment_processor.checkout(
-      mode: "subscription",
+      mode: 'subscription',
       locale: I18n.locale,
-      line_items: [ {
+      line_items: [{
         price:,
         quantity: 1
-      } ],
+      }],
       allow_promotion_codes: true,
       automatic_tax: { enabled: true },
       tax_id_collection: { enabled: true },
@@ -42,7 +41,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
 
   def sync_subscriptions
     @organization.set_payment_processor :stripe
-    @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
+    @organization.payment_processor.sync_subscriptions(status: 'all') unless Rails.env.test?
   end
 
   def require_billing_enabled

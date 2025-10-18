@@ -159,6 +159,7 @@ en:
   errors:
     messages:
       already_confirmed: was already confirmed, please try signing in
+      already_has_pending_request: already has a pending request
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       expired: has expired, please request a new one
       not_found: not found

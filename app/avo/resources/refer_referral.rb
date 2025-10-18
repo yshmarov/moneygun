@@ -11,8 +11,8 @@ class Avo::Resources::ReferReferral < Avo::BaseResource
     field :id, as: :id
     field :referral_code_id, as: :number
     field :completed_at, as: :date_time
-    field :referrer, as: :belongs_to, polymorphic_as: :referrer, types: [ User ]
-    field :referee, as: :belongs_to, polymorphic_as: :referee, types: [ User ]
+    field :referrer, as: :belongs_to, polymorphic_as: :referrer, types: [User]
+    field :referee, as: :belongs_to, polymorphic_as: :referee, types: [User]
     # field :referral_code, as: :belongs_to
   end
 end

@@ -5,15 +5,13 @@ class OrganizationsController < ApplicationController
     @pagy, @organizations = pagy(current_user.organizations.includes(:users))
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @organization = Organization.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @organization = Organization.new(organization_params)
@@ -21,7 +19,7 @@ class OrganizationsController < ApplicationController
 
     if @organization.save
       respond_to do |format|
-        flash[:notice] = t(".success")
+        flash[:notice] = t('.success')
         format.html { redirect_to organization_dashboard_path(@organization) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
       end
@@ -32,7 +30,7 @@ class OrganizationsController < ApplicationController
 
   def update
     if @organization.update(organization_params)
-      flash[:notice] = t(".success")
+      flash[:notice] = t('.success')
       respond_to do |format|
         format.html { redirect_to edit_organization_path(@organization) }
       end
@@ -43,9 +41,9 @@ class OrganizationsController < ApplicationController
 
   def destroy
     if @organization.destroy
-      redirect_to organizations_path, notice: t(".success")
+      redirect_to organizations_path, notice: t('.success')
     else
-      redirect_to organization_path(@organization), alert: t(".error")
+      redirect_to organization_path(@organization), alert: t('.error')
     end
   end
 
@@ -59,7 +57,7 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.expect(organization: [ :name, :logo, :privacy_setting ])
+    params.expect(organization: %i[name logo privacy_setting])
   end
 
   def pundit_user

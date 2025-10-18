@@ -12,9 +12,9 @@ class PageComponent < ViewComponent::Base
 
   def width_class
     if @full_width == true
-      "max-w-7xl w-full"
+      'max-w-7xl w-full'
     else
-      "lg:max-w-xl w-full"
+      'lg:max-w-xl w-full'
     end
   end
 end

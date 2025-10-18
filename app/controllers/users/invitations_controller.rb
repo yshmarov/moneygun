@@ -1,6 +1,6 @@
 # incoming invitations to join an organization
 class Users::InvitationsController < ApplicationController
-  before_action :set_invitation, only: [ :approve, :reject ]
+  before_action :set_invitation, only: %i[approve reject]
 
   def index
     organization_ids = current_user.organization_invitations.pending.pluck(:organization_id)
@@ -9,12 +9,12 @@ class Users::InvitationsController < ApplicationController
 
   def approve
     @invitation.approve!
-    redirect_back(fallback_location: user_invitations_path, notice: t("invitations.approve.success"))
+    redirect_back(fallback_location: user_invitations_path, notice: t('invitations.approve.success'))
   end
 
   def reject
     @invitation.reject!
-    redirect_back(fallback_location: user_invitations_path, notice: t("invitations.reject.success"))
+    redirect_back(fallback_location: user_invitations_path, notice: t('invitations.reject.success'))
   end
 
   private
@@ -22,6 +22,6 @@ class Users::InvitationsController < ApplicationController
   def set_invitation
     @invitation = current_user.organization_invitations.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to user_invitations_path, alert: t("invitations.errors.not_found")
+    redirect_to user_invitations_path, alert: t('invitations.errors.not_found')
   end
 end

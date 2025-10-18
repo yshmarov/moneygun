@@ -21,7 +21,7 @@ class MembershipRequest
   def user_already_participant?
     return false if user.memberships.find_by(organization: organization).blank?
 
-    errors.add(:base, I18n.t("membership_requests.errors.already_participant"))
+    errors.add(:base, I18n.t('membership_requests.errors.already_participant'))
     true
   end
 
@@ -30,7 +30,7 @@ class MembershipRequest
       user.memberships.create(organization:)
     elsif organization.privacy_setting_restricted?
       if user.organization_requests.find_by(organization:).present?
-        errors.add(:base, I18n.t("membership_requests.errors.already_requested"))
+        errors.add(:base, I18n.t('membership_requests.errors.already_requested'))
         return false
       end
 
