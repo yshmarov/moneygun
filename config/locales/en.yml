@@ -257,8 +257,14 @@ en:
     new:
       title: New organization
     projects:
+      create:
+        success: Project was successfully created.
+      destroy:
+        success: Project was successfully destroyed.
       index:
         title: Projects
+      update:
+        success: Project was successfully updated.
     show:
       title: Organization profile
     subscriptions:

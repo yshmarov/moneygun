@@ -45,3 +45,9 @@ Metrics/CyclomaticComplexity:
 
 Rails/RenderInline:
   Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
