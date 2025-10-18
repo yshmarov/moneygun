@@ -4,7 +4,7 @@
 
 <%= render PageComponent.new(title: t(".title"), full_width: false) do |component| %>
   <% component.with_action_list do %>
-    <%= button_to button_label, organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "du-btn du-btn-secondary" %>
+    <%= button_to button_label, organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "btn btn-secondary" %>
   <% end %>
 
   <dl class="space-y-2">

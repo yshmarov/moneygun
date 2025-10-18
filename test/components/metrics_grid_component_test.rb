@@ -22,7 +22,7 @@ class MetricsGridComponentTest < ViewComponent::TestCase
     render_inline(MetricsGridComponent.new(metrics: metrics))
 
     assert_selector ".grid", count: 1
-    assert_selector ".du-card", count: 2
+    assert_selector ".card", count: 2
     assert_text "Revenue"
     assert_text "Users"
   end

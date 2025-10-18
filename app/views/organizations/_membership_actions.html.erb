@@ -1,12 +1,12 @@
 <div class="flex items-center gap-2 justify-end">
   <% if organization.participant?(current_user) %>
-    <%= link_to t("public.organizations.show.actions.open"), organization_path(organization), class: "du-btn du-btn-sm du-btn-primary", data: { turbo_frame: "_top" } %>
+    <%= link_to t("public.organizations.show.actions.open"), organization_path(organization), class: "btn btn-sm btn-primary", data: { turbo_frame: "_top" } %>
   <% elsif organization.user_requests.pending.exists?(user: current_user) %>
-    <%= button_to t("public.organizations.show.actions.cancel_request"), user_membership_request_path(organization.user_requests.pending.find_by(user: current_user)), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-sm du-btn-error" %>
+    <%= button_to t("public.organizations.show.actions.cancel_request"), user_membership_request_path(organization.user_requests.pending.find_by(user: current_user)), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-sm btn-error" %>
   <% elsif organization.user_invitations.pending.exists?(user: current_user) %>
-    <%= button_to t("public.organizations.show.actions.accept_invitation"), approve_user_invitation_path(organization.user_invitations.pending.find_by(user: current_user)), method: :post, class: "du-btn du-btn-sm du-btn-primary" %>
-    <%= button_to t("public.organizations.show.actions.reject_invitation"), reject_user_invitation_path(organization.user_invitations.pending.find_by(user: current_user)), method: :post, class: "du-btn du-btn-sm du-btn-error" %>
+    <%= button_to t("public.organizations.show.actions.accept_invitation"), approve_user_invitation_path(organization.user_invitations.pending.find_by(user: current_user)), method: :post, class: "btn btn-sm btn-primary" %>
+    <%= button_to t("public.organizations.show.actions.reject_invitation"), reject_user_invitation_path(organization.user_invitations.pending.find_by(user: current_user)), method: :post, class: "btn btn-sm btn-error" %>
   <% else %>
-    <%= button_to t("public.organizations.show.actions.#{organization.privacy_setting_public? ? "join" : "request_to_join"}"), user_membership_requests_path(organization_id: organization.id), method: :post, class: "du-btn du-btn-sm du-btn-primary" %>
+    <%= button_to t("public.organizations.show.actions.#{organization.privacy_setting_public? ? "join" : "request_to_join"}"), user_membership_requests_path(organization_id: organization.id), method: :post, class: "btn btn-sm btn-primary" %>
   <% end %>
 </div>

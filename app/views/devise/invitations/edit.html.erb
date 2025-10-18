@@ -5,23 +5,23 @@
 
     <div class="space-y-1">
       <%= f.label :email, class: "block text-sm font-medium" %>
-      <%= f.email_field :email, class: "du-input w-full", disabled: true %>
+      <%= f.email_field :email, class: "input w-full", disabled: true %>
     </div>
 
     <% if f.object.class.require_password_on_accepting %>
       <div class="space-y-1">
         <%= f.label :password, class: "block text-sm font-medium" %>
-        <%= f.password_field :password, class: "du-input w-full", autocomplete: "new-password" %>
+        <%= f.password_field :password, class: "input w-full", autocomplete: "new-password" %>
       </div>
 
       <div class="space-y-1">
         <%= f.label :password_confirmation, class: "block text-sm font-medium" %>
-        <%= f.password_field :password_confirmation, class: "du-input w-full", autocomplete: "new-password" %>
+        <%= f.password_field :password_confirmation, class: "input w-full", autocomplete: "new-password" %>
       </div>
     <% end %>
 
     <div class="pt-2">
-      <%= f.submit t("devise.invitations.edit.submit_button"), class: "du-btn du-btn-primary du-btn-block" %>
+      <%= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-primary btn-block" %>
     </div>
   <% end %>
 <% end %>

@@ -7,7 +7,7 @@
         <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block dark:invert" %>
       <% end %>
     </div>
-    <div class="du-menu du-menu-horizontal">
+    <div class="menu menu-horizontal">
       <%= nav_link t("static.pricing.title"), pricing_path %>
     </div>
   </div>
@@ -15,7 +15,7 @@
   <%# right %>
   <div class="flex items-center gap-2">
     <%= render "shared/language_picker" %>
-    <div class="du-menu du-menu-horizontal">
+    <div class="menu menu-horizontal">
       <%= nav_link t("shared.navigation.login"), new_user_session_path, data: { turbo_frame: :modal } %>
       <%= nav_link t("shared.navigation.register"), new_user_registration_path, data: { turbo_frame: :modal } %>
     </div>

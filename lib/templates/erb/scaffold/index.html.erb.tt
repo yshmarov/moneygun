@@ -2,7 +2,7 @@
 
 <%%= render PageComponent.new(title: "<%= human_name.pluralize %>") do |component| %>
   <%% component.with_action_list do %>
-    <%%= link_to t("shared.actions.new"), new_<%= singular_route_name %>_path, data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
+    <%%= link_to t("shared.actions.new"), new_<%= singular_route_name %>_path, data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <%% end %>
 
   <div class="table-responsive">
@@ -22,7 +22,7 @@
             <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
   <% end -%>
             <td>
-              <%%= link_to t("shared.actions.show"), <%= model_resource_name(singular_table_name) %>, class: "du-btn du-btn-sm du-btn-secondary" %>
+              <%%= link_to t("shared.actions.show"), <%= model_resource_name(singular_table_name) %>, class: "btn btn-sm btn-secondary" %>
               <%# Add other actions like edit and destroy here if needed %>
             </td>
           </tr>

@@ -3,7 +3,7 @@
 
 <%# Sidebar content %>
 <aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
-  <ul class="du-menu du-menu-xl w-full flex-1">
+  <ul class="menu menu-xl w-full flex-1">
     <li>
       <details <% if !Current.organization %>open<% end %>>
         <summary>
@@ -27,7 +27,7 @@
     <% end %>
   </ul>
 
-  <ul class="du-menu du-menu-xl w-full mb-8">
+  <ul class="menu menu-xl w-full mb-8">
     <% if Current.organization %>
       <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [ [ "organizations/memberships", "organizations/invitations", "organizations/membership_requests" ], [] ] %>
       <%= nav_link t("organizations.show.title"), organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [ [ "organizations" ], [ "show" ] ] %>

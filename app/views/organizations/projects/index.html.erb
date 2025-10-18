@@ -2,7 +2,7 @@
 
 <%= render PageComponent.new(title: "Projects") do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
+    <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <% end %>
 
   <div class="table-responsive">
@@ -22,7 +22,7 @@
             <td data-label="<%= Project.human_attribute_name(:created_at) %>"><%= local_time(project.created_at, format: :short) %></td>
             <td data-label="<%= Project.human_attribute_name(:updated_at) %>"><%= local_time(project.updated_at, format: :short) %></td>
             <td>
-              <%= link_to t("shared.actions.show"), [ @organization, project ], class: "du-btn du-btn-sm du-btn-secondary" %>
+              <%= link_to t("shared.actions.show"), [ @organization, project ], class: "btn btn-sm btn-secondary" %>
             </td>
           </tr>
         <% end %>

@@ -16,12 +16,12 @@
     <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
 <% else -%>
     <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
-    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "du-input w-full" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "input w-full" %>
 <% end -%>
   </div>
 
 <% end -%>
   <div class="flex justify-end">
-    <%%= form.submit class: "du-btn du-btn-primary" %>
+    <%%= form.submit class: "btn btn-primary" %>
   </div>
 <%% end %>

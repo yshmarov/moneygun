@@ -1,14 +1,14 @@
 <% close_on_submit = true if close_on_submit.nil? %>
 
-<% dialog_position = params[:drawer].present? ? "du-modal-end" : "" %>
+<% dialog_position = params[:drawer].present? ? "modal-end" : "" %>
 
 <% if turbo_frame_request? %>
   <%= turbo_frame_tag :modal do %>
-    <dialog class="du-modal <%= dialog_position %> backdrop-blur-lg transition-none" data-controller="dialog" data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>">
-      <div class="du-modal-box space-y-2 transition-none">
+    <dialog class="modal <%= dialog_position %> backdrop-blur-lg transition-none" data-controller="dialog" data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>">
+      <div class="modal-box space-y-2 transition-none">
         <div class="absolute top-2 right-2 z-10">
           <form method="dialog" class="">
-            <button class="du-btn du-btn-ghost du-btn-sm du-btn-circle">
+            <button class="btn btn-ghost btn-sm btn-circle">
               <%= inline_svg_tag "svg/x-mark.svg", class: "size-4" %>
             </button>        
           </form>

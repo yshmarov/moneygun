@@ -1,21 +1,20 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @source "../../../public/*.html";
 @source "../../../app/helpers/**/*.rb";
 @source "../../../app/javascript/**/*.js";
 @source "../../../app/views/**/*";
 
-@import "./components/table.css";
-@import "./components/pagy.css";
+@import './components/table.css';
+@import './components/pagy.css';
 
 @plugin "@tailwindcss/typography";
 
 @plugin "./daisyui.js" {
   themes: light --default, dark --prefersdark;
-  prefix: "du-";
 }
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
-@plugin "./daisyui-theme.js"{
+@plugin "./daisyui-theme.js" {
   /* custom theme here */
 }
 
@@ -42,7 +41,7 @@
   }
 
   button:not(:disabled),
-  input[type="submit"]:not(:disabled) {
+  input[type='submit']:not(:disabled) {
     cursor: pointer;
   }
 }

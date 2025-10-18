@@ -4,12 +4,12 @@
 
     <div class="space-y-1">
       <%= f.label :email, t("devise.views.passwords.new.email_label"), class: "block text-sm font-medium" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "du-input w-full", placeholder: t("devise.views.passwords.new.email_placeholder") %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full", placeholder: t("devise.views.passwords.new.email_placeholder") %>
       <p class="text-xs"><%= t("devise.views.passwords.new.email_help") %></p>
     </div>
 
     <div class="pt-2">
-      <%= f.submit t("devise.views.passwords.new.submit"), class: "du-btn du-btn-primary du-btn-block" %>
+      <%= f.submit t("devise.views.passwords.new.submit"), class: "btn btn-primary btn-block" %>
     </div>
   <% end %>
 

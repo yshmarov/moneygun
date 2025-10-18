@@ -4,7 +4,7 @@
   <div class="">
     <%= form.label :name %>
     <%= form.text_field :name,
-                        class: "du-input w-full",
+                        class: "input w-full",
                         autocomplete: "off",
                         autocorrect: "off",
                         autocapitalize: "off",
@@ -15,7 +15,7 @@
 
   <div class="">
     <%= form.label :logo %>
-    <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "du-input w-full" %>
+    <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "input w-full" %>
   </div>
 
   <div class="">
@@ -34,6 +34,6 @@
   </div>
 
   <div class="flex justify-end">
-    <%= form.submit class: "du-btn du-btn-primary" %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
