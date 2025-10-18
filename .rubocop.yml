@@ -29,14 +29,6 @@ Metrics/MethodLength:
 
 Style/Documentation:
   Enabled: false
-# bundle exec rubocop -A --only Style/StringLiterals
-# bundle exec rubocop -A --only Rails/RefuteMethods
-# bundle exec rubocop -A --only Rails/RootPathnameMethods
-# bundle exec rubocop -A --only Rails/FilePath
-# bundle exec rubocop -A --only Layout/IndentationWidth
-# bundle exec rubocop -A --only Style/SymbolArray
-# bundle exec rubocop -A --only Style/WordArray
-# bundle exec rubocop -A --only Layout/SpaceInsideArrayLiteralBrackets
-# bundle exec rubocop -A --only Style/NumericLiterals
-# bundle exec rubocop -A --only Lint/UnusedMethodArgument
-# bundle exec rubocop -A --only Layout/MultilineOperationIndentation
+
+Bundler/OrderedGems:
+  Enabled: false

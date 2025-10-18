@@ -29,7 +29,7 @@ class Organizations::InvitationsController < Organizations::BaseController
   def destroy
     authorize Membership, :destroy?
     @invitation.destroy
-    redirect_to organization_invitations_path(@organization), notice: t('organizations.invitations.destroy.success')
+    redirect_to organization_invitations_path(@organization), notice: t('.success')
   end
 
   private

@@ -3,7 +3,7 @@ class Avo::Resources::User < Avo::BaseResource
   self.includes = %i[organizations memberships]
   self.search = {
     query: -> { query.ransack(id_eq: params[:q], email_cont: params[:q], m: 'or').result(distinct: false) },
-    item: -> {
+    item: lambda {
       {
         title: [record.id, record.email].join('/')
       }
@@ -16,9 +16,7 @@ class Avo::Resources::User < Avo::BaseResource
       field :email, as: :text, disabled: true, sortable: true
       field :admin, as: :boolean, sortable: true
       field :login_as, as: :text, as_html: true do
-        unless record.id == current_user.id
-          link_to 'Login as', masquerade_path(record)
-        end
+        link_to 'Login as', masquerade_path(record) unless record.id == current_user.id
       end
 
       sidebar do
@@ -29,13 +27,13 @@ class Avo::Resources::User < Avo::BaseResource
 
     tabs do
       field :memberships, as: :has_many,
-            attach_scope: lambda {
-              query.where.not(id: parent.memberships.select(:id)).order(created_at: :desc)
-            }
+                          attach_scope: lambda {
+                            query.where.not(id: parent.memberships.select(:id)).order(created_at: :desc)
+                          }
       field :organizations, as: :has_many, through: :memberships,
-            attach_scope: lambda {
-              query.where.not(id: parent.memberships.select(:organization_id)).order(name: :asc)
-            }
+                            attach_scope: lambda {
+                              query.where.not(id: parent.memberships.select(:organization_id)).order(name: :asc)
+                            }
       field :owned_organizations, as: :has_many
     end
 

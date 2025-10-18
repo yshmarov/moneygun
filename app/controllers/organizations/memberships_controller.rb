@@ -6,8 +6,7 @@ class Organizations::MembershipsController < Organizations::BaseController
     @memberships = @organization.memberships.includes(user: :connected_accounts)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @membership.update(membership_params)

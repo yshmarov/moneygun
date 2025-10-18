@@ -2,7 +2,7 @@ class Membership < ApplicationRecord
   belongs_to :organization
   belongs_to :user
 
-  enum :role, %w[ member admin ].index_by(&:itself)
+  enum :role, %w[member admin].index_by(&:itself)
 
   validates :user_id, uniqueness: { scope: :organization_id }
   validates :organization_id, uniqueness: { scope: :user_id }
@@ -14,8 +14,8 @@ class Membership < ApplicationRecord
   after_destroy :notify_user_removed
 
   def try_destroy
-    return false if organization.memberships.count == 1
-    return false if role == 'admin' && organization.memberships.where(role: 'admin').count == 1
+    return false if organization.memberships.one?
+    return false if role == 'admin' && organization.memberships.where(role: 'admin').one?
     return false if user_id == organization.owner_id
 
     destroy
@@ -28,7 +28,7 @@ class Membership < ApplicationRecord
   end
 
   def cannot_change_role_if_only_admin
-    return if organization.memberships.where(role: 'admin').count > 1
+    return if organization.memberships.where(role: 'admin').many?
 
     return unless role_changed? && role_was == 'admin'
 

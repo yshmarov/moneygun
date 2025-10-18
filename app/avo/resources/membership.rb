@@ -1,5 +1,5 @@
 class Avo::Resources::Membership < Avo::BaseResource
-  self.title = -> {
+  self.title = lambda {
     [record.id, record.user.email, record.organization.name].join(' / ')
   }
   self.includes = %i[organization user]

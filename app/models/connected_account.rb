@@ -63,8 +63,6 @@ class ConnectedAccount < ApplicationRecord
       payload&.dig('extra', 'raw_info', 'html_url')
     when 'tiktok'
       payload&.dig('extra', 'raw_info', 'profile_deep_link')
-    else
-      nil
     end
   end
 
@@ -80,7 +78,7 @@ class ConnectedAccount < ApplicationRecord
     if credentials.present?
       connected_account.access_token = credentials.token
       connected_account.refresh_token = credentials.refresh_token
-      connected_account.expires_at = Time.at(credentials.expires_at) if credentials.expires_at.present?
+      connected_account.expires_at = Time.zone.at(credentials.expires_at) if credentials.expires_at.present?
     end
 
     connected_account.save

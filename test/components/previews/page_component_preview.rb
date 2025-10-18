@@ -8,7 +8,7 @@ class PageComponentPreview < ViewComponent::Preview
 
     component.with_action_list do
       content_tag(:li, 'Link', class: 'btn btn-link') +
-      content_tag(:button, 'Button', class: 'btn btn-primary')
+        content_tag(:button, 'Button', class: 'btn btn-primary')
     end
 
     render component do

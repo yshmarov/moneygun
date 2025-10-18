@@ -13,8 +13,8 @@ class TabsComponentPreview < ViewComponent::Preview
         path: '#custom',
         content: content_tag(:div, class: 'flex items-center gap-2') do
           content_tag(:span, '🌟', class: '') +
-          content_tag(:span, 'Special', class: 'font-bold') +
-          content_tag(:span, 'NEW', class: 'badge badge-xs badge-accent')
+            content_tag(:span, 'Special', class: 'font-bold') +
+            content_tag(:span, 'NEW', class: 'badge badge-xs badge-accent')
         end
       },
       { key: :another, label: 'With Badge', path: '#another', badge_count: 10 }

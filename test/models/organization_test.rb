@@ -12,7 +12,7 @@ class OrganizationTest < ActiveSupport::TestCase
     organization = Organization.new(
       name: 'Test Org',
       owner: user,
-      privacy_setting: :public,
+      privacy_setting: :public
     )
 
     assert_not organization.valid?

@@ -7,10 +7,10 @@ module Translation
 
   private
 
-  def set_locale(&action)
+  def set_locale(&)
     locale = determine_locale
     update_locale_for_user_and_cookies(locale)
-    I18n.with_locale(locale, &action)
+    I18n.with_locale(locale, &)
   end
 
   def determine_locale
@@ -30,8 +30,8 @@ module Translation
   def update_locale_for_user_and_cookies(locale)
     cookies[:locale] = { value: locale.to_s, expires: 1.year.from_now }
 
-    if user_signed_in? && current_user.locale.to_s != locale.to_s
-      current_user.update(locale: locale)
-    end
+    return unless user_signed_in? && current_user.locale.to_s != locale.to_s
+
+    current_user.update(locale: locale)
   end
 end

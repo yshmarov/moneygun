@@ -3,8 +3,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_current_organization_admin
   before_action :sync_subscriptions, only: [:checkout]
 
-  def index
-  end
+  def index; end
 
   def checkout
     return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
