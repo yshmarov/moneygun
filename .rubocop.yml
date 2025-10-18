@@ -9,6 +9,8 @@ AllCops:
     - '**/db/**/*'
     - 'config/**/*'
     - 'bin/*'
+    - 'vendor/bundle/**/*'
+    - 'node_modules/**/*'
     - app/models/concerns/obfuscates_id.rb
 
 Style/FrozenStringLiteralComment:
