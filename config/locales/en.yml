@@ -331,7 +331,7 @@ en:
       select_organization: Select organization
   static:
     index:
-      title: Welcome to the app!
+      title: Home
     pricing:
       title: Pricing
     privacy:
