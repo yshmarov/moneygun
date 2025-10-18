@@ -62,6 +62,7 @@ group :development do
   gem 'lookbook', '>= 2.3.9'
   gem 'letter_opener'
   gem 'letter_opener_web'
+  gem 'reactionview'
 end
 
 group :test do

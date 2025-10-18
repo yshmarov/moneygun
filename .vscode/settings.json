@@ -14,5 +14,10 @@
   "files.associations": {
     "*.html.erb": "erb"
   },
-  "erb-formatter.lineLength": 150
+  "erb-formatter.lineLength": 150,
+  "languageServerHerb.linter.enabled": true,
+  "languageServerHerb.linter.excludedRules": [
+    "parser-no-errors",
+    "html-tag-name-lowercase"
+  ]
 }
