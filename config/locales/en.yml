@@ -2,8 +2,6 @@
 en:
   activerecord:
     attributes:
-      access_request:
-        user_id: User
       membership:
         email: Email
         role: Role
@@ -22,7 +20,6 @@ en:
             description_text: People must submit an application to be approved to join
             display_text: "📩 Restricted"
     models:
-      access_request: Access Request
       membership: Member
       organization: Organization
   devise:
@@ -162,7 +159,6 @@ en:
   errors:
     messages:
       already_confirmed: was already confirmed, please try signing in
-      already_has_pending_request: already has a pending request
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       expired: has expired, please request a new one
       not_found: not found
@@ -261,14 +257,8 @@ en:
     new:
       title: New organization
     projects:
-      create:
-        success: Project was successfully created.
-      destroy:
-        success: Project was successfully destroyed.
       index:
         title: Projects
-      update:
-        success: Project was successfully updated.
     show:
       title: Organization profile
     subscriptions:

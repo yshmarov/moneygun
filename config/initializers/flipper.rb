@@ -47,8 +47,8 @@ end
 # end
 
 # Flipper.configure { |config| config.default { Flipper.new(Flipper::Adapters::ActiveRecord.new) } }
-Flipper.register(:users) { |actor| actor.value.start_with?('User:') }
-Flipper.register(:organizations) { |actor| actor.value.start_with?('Organization:') }
+Flipper.register(:users) { |actor| actor.value.start_with?("User:") }
+Flipper.register(:organizations) { |actor| actor.value.start_with?("Organization:") }
 Flipper::UI.configure do |config|
   config.fun = false
   config.cloud_recommendation = false

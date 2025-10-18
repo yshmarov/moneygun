@@ -2,8 +2,8 @@
 # The values disaplayed here are the default ones. Uncomment and change them to fit your needs.
 Avo.configure do |config|
   ## == Routing ==
-  config.root_path = '/admin/avo'
-  config.home_path = '/admin/avo/resources/users'
+  config.root_path = "/admin/avo"
+  config.home_path = "/admin/avo/resources/users"
 
   ## == Licensing ==
   # config.license_key = ENV['AVO_LICENSE_KEY']
@@ -41,6 +41,7 @@ Avo.configure do |config|
 
   ## == Response messages dismiss time ==
   # config.alert_dismiss_time = 5000
+
 
   ## == Number of search results to display ==
   # config.search_results_count = 8
@@ -90,8 +91,8 @@ Avo.configure do |config|
   config.click_row_to_view_record = true
 
   config.branding = {
-    logo: ActionController::Base.helpers.asset_path('logo-long.png'),
-    logomark: ActionController::Base.helpers.asset_path('logo.png')
+    logo: ActionController::Base.helpers.asset_path("logo-long.png"),
+    logomark: ActionController::Base.helpers.asset_path("logo.png")
   }
 end
 
@@ -103,6 +104,6 @@ if defined?(Avo::MediaLibrary)
 end
 
 unless defined?(Avo::Pro)
-  Rails.autoloaders.main.ignore(Rails.root.join('app/avo/cards'))
-  Rails.autoloaders.main.ignore(Rails.root.join('app/avo/dashboards'))
+  Rails.autoloaders.main.ignore(Rails.root.join("app/avo/cards"))
+  Rails.autoloaders.main.ignore(Rails.root.join("app/avo/dashboards"))
 end

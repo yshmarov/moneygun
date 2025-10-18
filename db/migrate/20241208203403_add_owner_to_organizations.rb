@@ -2,7 +2,7 @@ class AddOwnerToOrganizations < ActiveRecord::Migration[8.0]
   def change
     add_reference :organizations, :owner, foreign_key: { to_table: :users }
 
-    Organization.find_each do |organization|
+    Organization.all.each do |organization|
       user = organization.memberships.admin.first&.user
       organization.update(owner: user)
     end

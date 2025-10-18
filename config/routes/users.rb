@@ -1,11 +1,11 @@
 devise_for :users, controllers: {
-  registrations: 'users/registrations',
-  sessions: 'users/sessions',
-  omniauth_callbacks: 'users/omniauth_callbacks',
-  masquerades: 'users/masquerades'
+  registrations: "users/registrations",
+  sessions: "users/sessions",
+  omniauth_callbacks: "users/omniauth_callbacks",
+  masquerades: "users/masquerades"
 }
 
-resource :user, path: I18n.t('routes.user') do
+resource :user, path: I18n.t("routes.user") do
   scope module: :users do
     resources :notifications, only: %i[index]
     resources :connected_accounts

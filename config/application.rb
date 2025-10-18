@@ -1,6 +1,6 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -28,7 +28,7 @@ module Moneygun
     config.i18n.default_locale = :en
     config.i18n.available_locales = %i[en fr]
     config.i18n.fallbacks = true
-    config.view_component.default_preview_layout = 'minimal'
+    config.view_component.default_preview_layout = "minimal"
     config.active_record.encryption.support_unencrypted_data = true
     config.active_record.encryption.extend_queries = true
 
