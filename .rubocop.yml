@@ -69,5 +69,7 @@ Rails/OutputSafety:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
+# important for erb lint not to remove opening <% tags in html.erb files
+
 Layout/LeadingEmptyLines:
   Enabled: false
