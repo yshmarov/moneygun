@@ -1,4 +1,4 @@
-<nav class="dock dock-lg lg:hidden border-t border-base-content/20">
+<nav class="dock dock-lg sticky bottom-0 lg:hidden border-t border-base-content/20">
   <% if Current.organization %>
     <%= active_link_to organization_dashboard_path(Current.organization), class_active: "dock-active", class: "" do %>
       <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]" %>
