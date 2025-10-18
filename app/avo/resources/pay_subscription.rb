@@ -2,11 +2,11 @@
 
 class Avo::Resources::PaySubscription < Avo::BaseResource
   self.title = :processor_id
-  self.includes = [ :customer ]
+  self.includes = [:customer]
   self.model_class = ::Pay::Subscription
 
   self.search = {
-    query: -> { query.ransack(id_eq: params[:q], processor_id_cont: params[:q], m: "or").result(distinct: false) },
+    query: -> { query.ransack(id_eq: params[:q], processor_id_cont: params[:q], m: 'or').result(distinct: false) },
     item: lambda {
       {
         title: record.processor_id

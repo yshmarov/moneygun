@@ -28,7 +28,7 @@ class Organizations::ProjectsController < Organizations::BaseController
 
     if @project.save
       respond_to do |format|
-        flash[:notice] = "Project was successfully created."
+        flash[:notice] = 'Project was successfully created.'
         format.html { redirect_to organization_project_url(@organization, @project) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_project_url(@organization, @project)) }
       end
@@ -41,7 +41,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   def update
     if @project.update(project_params)
       respond_to do |format|
-        flash[:notice] = "Project was successfully updated."
+        flash[:notice] = 'Project was successfully updated.'
         format.html { redirect_to organization_project_url(@organization, @project) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_project_url(@organization, @project)) }
       end
@@ -54,7 +54,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   def destroy
     @project.destroy!
 
-    redirect_to organization_projects_url(@organization), notice: "Project was successfully destroyed."
+    redirect_to organization_projects_url(@organization), notice: 'Project was successfully destroyed.'
   end
 
   private
@@ -65,6 +65,6 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   def project_params
-    params.expect(project: [ :name ])
+    params.expect(project: [:name])
   end
 end

@@ -3,20 +3,20 @@ module ApplicationHelper
 
   def flash_style(type)
     case type
-    when "notice" then "alert-info"
-    when "alert", "error" then "alert-error"
+    when 'notice' then 'alert-info'
+    when 'alert', 'error' then 'alert-error'
     end
   end
 
   def nav_link(label, path, icon: nil, badge: nil, todo_dot: false, wrapper: :li, **options)
-    icon = inline_svg_tag icon, class: "size-6 w-6 h-6" if icon&.match?(/svg/)
-    badge_span = content_tag(:span, badge, class: "badge badge-xs badge-warning") if badge && badge.to_i.positive?
-    todo_dot_span = content_tag(:span, "", class: "bg-warning rounded-full w-2 h-2 ml-auto") if todo_dot
+    icon = inline_svg_tag icon, class: 'size-6 w-6 h-6' if icon&.match?(/svg/)
+    badge_span = content_tag(:span, badge, class: 'badge badge-xs badge-warning') if badge && badge.to_i.positive?
+    todo_dot_span = content_tag(:span, '', class: 'bg-warning rounded-full w-2 h-2 ml-auto') if todo_dot
 
-    link_content = active_link_to path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start", title: label, **options do
+    link_content = active_link_to path, class_active: 'menu-active', class: 'flex justify-between items-center whitespace-nowrap justify-start', title: label, **options do
       safe_join([
         icon,
-        content_tag(:span, label, class: "[[data-expanded=false]_&]:hidden"),
+        content_tag(:span, label, class: '[[data-expanded=false]_&]:hidden'),
         badge_span,
         todo_dot_span
       ].compact)
@@ -31,15 +31,15 @@ module ApplicationHelper
   end
 
   def modal(**options, &block)
-    render "shared/modal", **options, &block
+    render 'shared/modal', **options, &block
   end
 
   def locale_to_flag(locale)
     locales = {
-      en: "🇺🇸",
-      es: "🇪🇸",
-      uk: "🇺🇦",
-      fr: "🇫🇷"
+      en: '🇺🇸',
+      es: '🇪🇸',
+      uk: '🇺🇦',
+      fr: '🇫🇷'
     }
     locales[locale.to_sym]
   end
@@ -53,53 +53,53 @@ module ApplicationHelper
   end
 
   def admin_link_options
-    [ {
-      name: "Admin",
-      path: "/admin/avo/resources/users",
-      icon: "👮"
+    [{
+      name: 'Admin',
+      path: '/admin/avo/resources/users',
+      icon: '👮'
     },
     {
-      name: "Profitable",
-      path: "/profitable",
-      icon: "🤑"
+      name: 'Profitable',
+      path: '/profitable',
+      icon: '🤑'
     },
     {
-      name: "Jobs",
-      path: "/jobs",
-      icon: "⚙️"
+      name: 'Jobs',
+      path: '/jobs',
+      icon: '⚙️'
     },
     {
-      name: "Analytics",
-      path: "/analytics",
-      icon: "📊"
+      name: 'Analytics',
+      path: '/analytics',
+      icon: '📊'
     },
     {
-      name: "Active Storage",
-      path: "/active_storage_dashboard",
-      icon: "💾"
+      name: 'Active Storage',
+      path: '/active_storage_dashboard',
+      icon: '💾'
     },
     {
-      name: "Feature Flags",
-      path: "/feature_flags",
-      icon: "🎛️"
+      name: 'Feature Flags',
+      path: '/feature_flags',
+      icon: '🎛️'
     },
     {
-      name: "Lookbook",
-      path: "/lookbook",
-      icon: "👀"
+      name: 'Lookbook',
+      path: '/lookbook',
+      icon: '👀'
     },
     {
-      name: "Letter Opener",
-      path: "/letter_opener",
-      icon: "📨"
-    } ]
+      name: 'Letter Opener',
+      path: '/letter_opener',
+      icon: '📨'
+    }]
   end
 
   def boolean_to_icon(value)
     if value
-      "✅"
+      '✅'
     else
-      "❌"
+      '❌'
     end
   end
 
@@ -109,7 +109,7 @@ module ApplicationHelper
 
     title = content_for(:title).present? ? content_for(:title) : "#{controller_name.humanize} #{action_name.humanize}"
 
-    parts = [ title, org_name, app_name ].compact
-    parts.join(" - ")
+    parts = [title, org_name, app_name].compact
+    parts.join(' - ')
   end
 end

@@ -11,6 +11,6 @@ class MakeConnectedAccountsPolymorphic < ActiveRecord::Migration[8.0]
     add_reference :connected_accounts, :owner, polymorphic: true, null: false, index: true
 
     # Add index for polymorphic relationship
-    add_index :connected_accounts, [ :owner_type, :owner_id ]
+    add_index :connected_accounts, %i[owner_type owner_id]
   end
 end

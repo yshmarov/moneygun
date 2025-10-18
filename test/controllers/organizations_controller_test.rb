@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -8,7 +8,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get organizations_url
     assert_response :success
 
@@ -18,22 +18,22 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_no_match organization2.name, response.body
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_organization_url
     assert_response :success
   end
 
-  test "should create organization" do
-    assert_difference("Organization.count") do
+  test 'should create organization' do
+    assert_difference('Organization.count') do
       post organizations_url, params: { organization: { name: @organization.name } }
     end
 
     assert_redirected_to organization_dashboard_path(Organization.last)
     assert_equal @user, Organization.last.users.first
-    assert_equal "admin", @user.memberships.last.role
+    assert_equal 'admin', @user.memberships.last.role
   end
 
-  test "should show organization" do
+  test 'should show organization' do
     get organization_url(@organization)
     assert_response :success
 
@@ -43,37 +43,37 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_organization_url(@organization)
     assert_response :success
   end
 
-  test "should update organization" do
+  test 'should update organization' do
     patch organization_url(@organization),
             params: { organization: { name: @organization.name } },
-            headers: { "HTTP_REFERER" => organization_path(@organization) }
+            headers: { 'HTTP_REFERER' => organization_path(@organization) }
     assert_redirected_to edit_organization_url(@organization)
   end
 
-  test "should not update organization he does not belong to" do
+  test 'should not update organization he does not belong to' do
     organization = organizations(:two)
     patch organization_url(organization), params: { organization: { name: organization.name } }
     assert_redirected_to root_url
     assert_equal organization.name, organization.reload.name
-    assert_equal I18n.t("shared.errors.not_authorized"), flash[:alert]
+    assert_equal I18n.t('shared.errors.not_authorized'), flash[:alert]
   end
 
-  test "only admin can destroy organization" do
+  test 'only admin can destroy organization' do
     user = users(:two)
     membership = @organization.memberships.create!(user:, role: Membership.roles[:member])
     sign_in(user)
 
-    assert_no_difference("Organization.count") do
+    assert_no_difference('Organization.count') do
       delete organization_url(@organization)
     end
 
     membership.update!(role: Membership.roles[:admin])
-    assert_difference("Organization.count", -1) do
+    assert_difference('Organization.count', -1) do
       delete organization_url(@organization)
     end
 

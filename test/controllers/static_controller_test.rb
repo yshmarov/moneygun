@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class StaticControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
+  test 'should get index' do
     get root_url
     assert_response :success
 
@@ -10,22 +10,22 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to organizations_path
   end
 
-  test "should get pricing" do
+  test 'should get pricing' do
     get pricing_url
     assert_response :success
   end
 
-  test "should get terms" do
+  test 'should get terms' do
     get terms_url
     assert_response :success
   end
 
-  test "should get privacy" do
+  test 'should get privacy' do
     get privacy_url
     assert_response :success
   end
 
-  test "should get refunds" do
+  test 'should get refunds' do
     get refunds_url
     assert_response :success
   end

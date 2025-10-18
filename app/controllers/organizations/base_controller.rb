@@ -17,13 +17,13 @@ class Organizations::BaseController < ApplicationController
   # end
 
   def authorize_organization_owner!
-    redirect_to organization_path(@organization), alert: I18n.t("shared.errors.not_authorized") unless @organization.owner?(current_user)
+    redirect_to organization_path(@organization), alert: I18n.t('shared.errors.not_authorized') unless @organization.owner?(current_user)
   end
 
   def require_subscription
     return if Current.organization.payment_processor.subscribed?
 
-    flash[:alert] = t("shared.errors.not_subscribed")
+    flash[:alert] = t('shared.errors.not_subscribed')
     redirect_to organization_subscriptions_url(Current.organization)
   end
 
@@ -32,7 +32,7 @@ class Organizations::BaseController < ApplicationController
   def set_organization
     @organization = current_user.organizations.find(params[:organization_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to organizations_path, alert: t("shared.errors.not_authorized")
+    redirect_to organizations_path, alert: t('shared.errors.not_authorized')
   end
 
   def set_current_membership

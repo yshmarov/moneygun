@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class OrganizationTransferTest < ActiveSupport::TestCase
-  test "transfer_ownership" do
+  test 'transfer_ownership' do
     organization = organizations(:one)
     user = users(:two)
 

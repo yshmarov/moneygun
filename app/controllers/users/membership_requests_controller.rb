@@ -11,12 +11,12 @@ class Users::MembershipRequestsController < ApplicationController
     request = MembershipRequest.new(organization: @organization, user: current_user)
     if request.save
       if @organization.privacy_setting_public?
-        flash[:notice] = t("membership_requests.success.access_granted")
+        flash[:notice] = t('membership_requests.success.access_granted')
       else
-        flash[:notice] = t("membership_requests.success.access_requested")
+        flash[:notice] = t('membership_requests.success.access_requested')
       end
     else
-      flash[:alert] = request.errors.full_messages.join(", ")
+      flash[:alert] = request.errors.full_messages.join(', ')
     end
 
     respond_to do |format|
@@ -28,7 +28,7 @@ class Users::MembershipRequestsController < ApplicationController
   def destroy
     @organization_request = current_user.organization_requests.pending.find(params[:id])
     @organization_request.destroy
-    redirect_to user_membership_requests_path, notice: t(".success")
+    redirect_to user_membership_requests_path, notice: t('.success')
   end
 
   private
@@ -36,6 +36,6 @@ class Users::MembershipRequestsController < ApplicationController
   def set_organization
     @organization = Organization.find(params[:organization_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_back(fallback_location: public_organizations_path, alert: t("organizations.errors.not_found"))
+    redirect_back(fallback_location: public_organizations_path, alert: t('organizations.errors.not_found'))
   end
 end

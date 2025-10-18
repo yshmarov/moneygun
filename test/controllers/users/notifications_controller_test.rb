@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class Users::NotificationsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -7,7 +7,7 @@ class Users::NotificationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "#index" do
+  test '#index' do
     Membership::InvitationNotifier.with(organization: @organization).deliver(@user)
     notification = @user.notifications.last
     assert_not notification.seen?

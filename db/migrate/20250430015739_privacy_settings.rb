@@ -1,6 +1,6 @@
 class PrivacySettings < ActiveRecord::Migration[8.0]
   def change
-    add_column :organizations, :privacy_setting, :string, default: "private", null: false
+    add_column :organizations, :privacy_setting, :string, default: 'private', null: false
 
     create_table :access_requests do |t|
       t.references :organization, null: false, foreign_key: true

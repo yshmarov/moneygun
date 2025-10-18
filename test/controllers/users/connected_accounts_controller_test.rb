@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class Users::ConnectedAccountsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -8,7 +8,7 @@ class Users::ConnectedAccountsControllerTest < ActionDispatch::IntegrationTest
     skip if Devise.omniauth_configs.keys.empty?
   end
 
-  test "get #index" do
+  test 'get #index' do
     get user_connected_accounts_url
     assert_response :success
   end

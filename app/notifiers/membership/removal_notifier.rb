@@ -1,11 +1,11 @@
 # user was removed from an organization
 class Membership::RemovalNotifier < ApplicationNotifier
-  deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
+  deliver_by :turbo_stream, class: 'DeliveryMethods::TurboStream'
 
   deliver_by :email do |config|
-    config.mailer = "MembershipMailer"
+    config.mailer = 'MembershipMailer'
     config.method = :removal_email
-    config.args   = -> { [ self ] }
+    config.args   = -> { [self] }
     config.message = -> { message }
   end
 
@@ -13,7 +13,7 @@ class Membership::RemovalNotifier < ApplicationNotifier
 
   notification_methods do
     def message
-      t("notifiers.membership.removal_notifier.notification.message", organization_name: params[:organization].name)
+      t('notifiers.membership.removal_notifier.notification.message', organization_name: params[:organization].name)
     end
 
     def url
@@ -21,7 +21,7 @@ class Membership::RemovalNotifier < ApplicationNotifier
     end
 
     def icon
-      "🚪"
+      '🚪'
     end
   end
 end

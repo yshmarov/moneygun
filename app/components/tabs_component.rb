@@ -9,15 +9,15 @@ class TabsComponent < ViewComponent::Base
   attr_reader :active_tab, :tabs
 
   def active_classes
-    "border-primary text-primary"
+    'border-primary text-primary'
   end
 
   def inactive_classes
-    "border-transparent text-base-content/70 hover:text-base-content hover:border-base-300"
+    'border-transparent text-base-content/70 hover:text-base-content hover:border-base-300'
   end
 
   def base_classes
-    "flex items-center gap-1 py-2 px-1 border-b-2 font-medium text-sm lg:text-base transition-colors duration-200"
+    'flex items-center gap-1 py-2 px-1 border-b-2 font-medium text-sm lg:text-base transition-colors duration-200'
   end
 
   def tab_classes(tab_key)

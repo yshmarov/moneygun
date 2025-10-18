@@ -1,17 +1,17 @@
 class MembershipMailer < ApplicationMailer
   def invitation_email(notification)
     setup(notification)
-    mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
+    mail(to: @recipient.email, subject: t('.subject', organization_name: @organization.name))
   end
 
   def request_accepted_email(notification)
     setup(notification)
-    mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
+    mail(to: @recipient.email, subject: t('.subject', organization_name: @organization.name))
   end
 
   def request_rejected_email(notification)
     setup(notification)
-    mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
+    mail(to: @recipient.email, subject: t('.subject', organization_name: @organization.name))
   end
 
   def removal_email(notification)

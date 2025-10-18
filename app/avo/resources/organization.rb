@@ -1,13 +1,13 @@
 class Avo::Resources::Organization < Avo::BaseResource
   self.title = -> {
-    [ record.id, record.name ].join("/")
+    [record.id, record.name].join('/')
   }
-  self.attachments = [ :logo ]
+  self.attachments = [:logo]
   self.search = {
-    query: -> { query.ransack(id_eq: params[:q], name_cont: params[:q], m: "or").result(distinct: false) },
+    query: -> { query.ransack(id_eq: params[:q], name_cont: params[:q], m: 'or').result(distinct: false) },
     item: -> {
       {
-        title: [ record.id, record.name ].join(" ")
+        title: [record.id, record.name].join(' ')
       }
     }
   }
@@ -23,12 +23,12 @@ class Avo::Resources::Organization < Avo::BaseResource
       field :owner, as: :belongs_to
 
       sidebar do
-        field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
-        field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
+        field :created_at, as: :date_time, disabled: true, format: 'DDDD, T'
+        field :updated_at, as: :date_time, disabled: true, format: 'DDDD, T'
       end
     end
 
-    tabs title: "Billing" do
+    tabs title: 'Billing' do
       field :subscriptions, as: :has_many
       field :pay_customers, as: :has_many
       field :charges, as: :has_many
@@ -49,7 +49,7 @@ class Avo::Resources::Organization < Avo::BaseResource
   self.profile_photo = {
     source: -> {
       if view.index?
-        ActionController::Base.helpers.asset_path("logo.png")
+        ActionController::Base.helpers.asset_path('logo.png')
       else
         record.logo
       end

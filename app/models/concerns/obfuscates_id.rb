@@ -12,14 +12,14 @@ module ObfuscatesId
       # breaking bookmarks to pages within your application, etc. For this reason, we don't want the Sqids salt
       # configurable via an ENV value.
       @sqids ||= Sqids.new(
-        alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         min_length: 6,
         salt: "Default ID Obfuscation Salt for #{name}"
       )
     end
 
     def encode_id(id)
-      sqids.encode([ id ])
+      sqids.encode([id])
     end
 
     def decode_id(id)

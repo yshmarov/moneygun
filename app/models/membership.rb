@@ -15,7 +15,7 @@ class Membership < ApplicationRecord
 
   def try_destroy
     return false if organization.memberships.count == 1
-    return false if role == "admin" && organization.memberships.where(role: "admin").count == 1
+    return false if role == 'admin' && organization.memberships.where(role: 'admin').count == 1
     return false if user_id == organization.owner_id
 
     destroy
@@ -28,16 +28,16 @@ class Membership < ApplicationRecord
   end
 
   def cannot_change_role_if_only_admin
-    return if organization.memberships.where(role: "admin").count > 1
+    return if organization.memberships.where(role: 'admin').count > 1
 
-    return unless role_changed? && role_was == "admin"
+    return unless role_changed? && role_was == 'admin'
 
-    errors.add(:base, "Role cannot be changed because this is the only admin.")
+    errors.add(:base, 'Role cannot be changed because this is the only admin.')
   end
 
   def cannot_demote_owner_from_admin
-    return unless role_changed? && role_was == "admin" && user_id == organization.owner_id
+    return unless role_changed? && role_was == 'admin' && user_id == organization.owner_id
 
-    errors.add(:base, "Organization owner cannot be demoted from admin role.")
+    errors.add(:base, 'Organization owner cannot be demoted from admin role.')
   end
 end

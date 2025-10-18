@@ -16,7 +16,7 @@ module DeviseMasquerade
   module Controllers
     module UrlHelpers
       def method_missing(method_name, *args, &block)
-        if method_name.to_s.end_with?("_masquerade_index_path")
+        if method_name.to_s.end_with?('_masquerade_index_path')
           ::Rails.application.routes.url_helpers.send(method_name, *args, &block)
         else
           super
@@ -24,7 +24,7 @@ module DeviseMasquerade
       end
 
       def respond_to_missing?(method_name, include_private = false)
-        if method_name.to_s.end_with?("_masquerade_index_path")
+        if method_name.to_s.end_with?('_masquerade_index_path')
           ::Rails.application.routes.url_helpers.respond_to?(method_name)
         else
           super
