@@ -1,2 +1,0 @@
-module Noticed::EventExtensions
-end

@@ -33,7 +33,6 @@ module Moneygun
     config.active_record.encryption.extend_queries = true
 
     config.to_prepare do
-      Noticed::Event.include Noticed::EventExtensions
       Noticed::Notification.include Noticed::NotificationExtensions
     end
   end
