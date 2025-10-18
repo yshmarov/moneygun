@@ -54,3 +54,11 @@ Metrics/ParameterLists:
 
 Naming/PredicateMethod:
   Enabled: false
+
+# would like to enable these later
+
+Style/OpenStructUse:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
