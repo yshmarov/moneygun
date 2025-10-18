@@ -281,7 +281,7 @@ i18n-tasks normalize
 
 # ✨ Contributors
 
-<a href="https://avohq.io/contributors">
+<a href="https://github.com/yshmarov/moneygun">
   <img src="https://contrib.rocks/image?repo=yshmarov/moneygun" />
 </a>
 <!--  https://contrib.rocks -->
