@@ -2,11 +2,11 @@
   <% if title.present? || title_content.present? || action_list.present? %>
     <div class="flex justify-between gap-4 flex-wrap">
       <% if title_content.present? %>
-        <div class="flex-1">
+        <div class="flex-1 min-w-0">
           <%= title_content %>
         </div>
       <% elsif title.present? %>
-        <h1 class="font-medium text-2xl @3xl:text-3xl">
+        <h1 class="font-medium text-2xl @3xl:text-3xl min-w-0">
           <%= title %>
         </h1>
       <% end %>
