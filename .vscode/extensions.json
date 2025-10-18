@@ -3,7 +3,6 @@
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
     "eamodio.gitlens",
-    "elia.erb-formatter",
-    "marcoroth.herb-lsp"
+    "elia.erb-formatter"
   ]
 }

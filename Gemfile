@@ -52,7 +52,6 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails", require: false
   gem "erb_lint", require: false
-  gem "reactionview"
 end
 
 group :development do

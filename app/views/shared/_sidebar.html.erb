@@ -5,7 +5,7 @@
 <aside data-mobile-sidebar-target="sidebar" class="fixed lg:relative bg-base-300 h-dvh -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 flex flex-col overflow-y-auto">
   <ul class="menu menu-xl w-full flex-1">
     <li>
-      <details <%= "open" unless Current.organization %>>
+      <details <% if !Current.organization %>open<% end %>>
         <summary>
           <% if Current.organization %>
             <%= organization_avatar(Current.organization, classes: "size-5") %>
