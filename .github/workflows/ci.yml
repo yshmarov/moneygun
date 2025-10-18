@@ -3,11 +3,12 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,17 +18,10 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
 
   scan_js:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,14 +31,6 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -61,16 +47,8 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-
       - name: Lint code for consistent style
-        run: bin/rubocop -f github --parallel
+        run: bin/rubocop -f github
 
   test:
     runs-on: ubuntu-latest
@@ -92,25 +70,8 @@ jobs:
       #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - name: Cache apt packages
-        uses: actions/cache@v4
-        with:
-          path: /var/cache/apt
-          key: ${{ runner.os }}-apt-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
-
       - name: Install packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y \
-            build-essential \
-            git \
-            libpq-dev \
-            libyaml-dev \
-            pkg-config \
-            google-chrome-stable \
-            libvips-dev
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config google-chrome-stable libvips-dev
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -121,27 +82,13 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-
-      - name: Prepare test database
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: bin/rails db:test:prepare
-
       - name: Run unit tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           COVERAGE: true
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails test --parallel
+        run: bin/rails db:test:prepare test
 
       - name: Run system tests
         env:
@@ -149,7 +96,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           COVERAGE: false
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails test:system
+        run: bin/rails db:test:prepare test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
