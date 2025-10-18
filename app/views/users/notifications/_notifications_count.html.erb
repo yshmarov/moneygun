@@ -1,3 +1,5 @@
 <span id="notification_count" class="absolute top-0 right-0 px-1 rounded-full bg-red-500 text-white text-xs">
-  <%= unread > 9 ? "9+" : unread if unread.positive? %>
+  <%= if unread.positive?
+        unread > 9 ? "9+" : unread
+      end %>
 </span>

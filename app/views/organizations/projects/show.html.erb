@@ -2,9 +2,9 @@
 
 <%= render PageComponent.new(title: "Project") do |component| %>
   <% component.with_action_list do %>
-    <%= link_to "Edit", [ :edit, @organization, @project ], data: { turbo_frame: :modal }, class: "btn btn-primary" %>
+    <%= link_to "Edit", [:edit, @organization, @project], data: { turbo_frame: :modal }, class: "btn btn-primary" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy", [ @organization, @project ], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-error" %>
+      <%= button_to "Destroy", [@organization, @project], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-error" %>
     </div>
   <% end %>
 

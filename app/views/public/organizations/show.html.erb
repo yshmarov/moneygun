@@ -1,5 +1,5 @@
 <% content_for :title, @organization.name %>
 
 <%= modal do %>
-  <%= render "organizations/table", organizations: [ @organization ] %>
+  <%= render "organizations/table", organizations: [@organization] %>
 <% end %>

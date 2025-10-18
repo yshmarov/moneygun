@@ -11,7 +11,7 @@
     <table>
       <tbody id="notifications">
         <% @notifications.each do |notification| %>
-          <tr class="<%= notification.seen? ? 'bg-base-100' : 'bg-primary/10' %> hover:bg-base-200 transition-colors duration-200 cursor-pointer"
+          <tr class="<%= notification.seen? ? "bg-base-100" : "bg-primary/10" %> hover:bg-base-200 transition-colors duration-200 cursor-pointer"
               onclick="window.location='<%= notification.url %>'">
             <td data-label="Notification">
               <div class="flex items-center gap-3">

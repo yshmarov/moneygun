@@ -68,3 +68,6 @@ Rails/OutputSafety:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Layout/LeadingEmptyLines:
+  Enabled: false

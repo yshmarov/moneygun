@@ -24,7 +24,7 @@
       <% Organization.privacy_settings.each do |key, value| %>
         <div class="flex items-center gap-3">
           <%= form.radio_button :privacy_setting, value, class: "mt-1" %>
-          <%= form.label "privacy_setting_#{key}".to_sym, class: "flex flex-col" do %>
+          <%= form.label :"privacy_setting_#{key}", class: "flex flex-col" do %>
             <span class="font-medium"><%= privacy_setting_options(key)[:display_text] %></span>
             <span class="text-sm text-base-content opacity-70"><%= privacy_setting_options(key)[:description_text] %></span>
           <% end %>

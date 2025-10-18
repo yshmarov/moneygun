@@ -6,7 +6,7 @@
         <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block dark:invert" %>
       <% end %>
     </div>
-    &copy; <%= Time.now.year %>
+    &copy; <%= Time.zone.now.year %>
     <%= Rails.application.config_for(:settings).dig(:site, :name) %>.
     <%= t(".all_rights_reserved") %>
   </aside>
