@@ -365,7 +365,7 @@ fr:
         title: "⬆️ Demandes d'adhésion sortantes"
     notifications:
       index:
-        title: Toutes les notifications
+        title: Notifications
     referrals:
       index:
         clicks: Clics sur les liens

@@ -1,6 +1,6 @@
 <nav class="px-4 navbar flex justify-between lg:border-b border-base-content/20">
   <%# left %>
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-1">
     <%# logo %>
     <%= link_to Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "max-lg:hidden btn btn-ghost text-xl" %>
 
@@ -10,48 +10,27 @@
     </button>
 
     <%# select org dropdown %>
-    <details class="lg:hidden relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-      <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden whitespace-nowrap">
+    <div class="lg:hidden dropdown dropdown-start group">
+      <div tabindex="0" role="button" class="btn btn-ghost">
         <% if Current.organization %>
           <%= organization_avatar(Current.organization, classes: "size-8") %>
           <%= Current.organization.name %>
         <% else %>
           <%= t("shared.navigation.select_organization") %>
         <% end %>
-        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
-      </summary>
-      <div class="absolute left-0 mt-8 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 menu">
-        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
-        <% Current.organizations.excluding(Current.organization).each do |organization| %>
-          <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
-        <% end %>
+        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
       </div>
-    </details>
-
-    <%# select org dropdown %>
-    <div class="lg:hidden dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn btn-ghost">
-        <% if Current.organization %>
-          <%= organization_avatar(Current.organization, classes: "size-5") %>
-          <%= Current.organization.name %>
-        <% else %>
-          <%= t("shared.navigation.select_organization") %>
-        <% end %>
-      </div>
-      <ul
-        tabindex="-1"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow border border-base-content/20">
+      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
         <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
         <% Current.organizations.excluding(Current.organization).each do |organization| %>
           <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
         <% end %>
       </ul>
     </div>
-
   </div>
 
   <%# center %>
-  <div class="navbar-center gap-1">
+  <div class="flex items-center gap-1">
     <%# search %>
     <%# if Flipper.enabled?(:search, current_user) %>
     <%# if Flipper[:search].enabled?(current_user) %>
@@ -63,52 +42,41 @@
       <kbd class="kbd kbd-sm hidden lg:inline-flex">K</kbd>
     <% end %>
     <%# end %>
-
   </div>
 
   <%# right %>
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-1">
     <% if user_masquerade? %>
       <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning btn-sm uppercase" %>
     <% end %>
 
     <% if current_user.admin? %>
-      <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-        <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
+      <div class="dropdown dropdown-end group">
+        <div tabindex="0" role="button" class="btn btn-ghost">
           <span class="font-medium font-mono">Admin</span>
-          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
-        </summary>
-        <div class="absolute left-0 mt-8 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
+          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
+        </div>
+        <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
           <% admin_link_options.each do |link| %>
             <%= active_link_to link[:path], class_active: "btn-active", class: "whitespace-nowrap btn btn-ghost justify-start w-full" do %>
               <%= link[:icon] %>
               <%= link[:name] %>
             <% end %>
           <% end %>
-        </div>
-      </details>
+        </ul>
+      </div>
     <% end %>
 
     <%= render "users/notifications/bell", user: current_user %>
 
-    <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-      <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
+    <div class="dropdown dropdown-end group">
+      <div tabindex="0" role="button" class="btn btn-ghost">
         <%= user_avatar(current_user) %>
-        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
-      </summary>
-      <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 menu">
-        <%= render "shared/user_links" %>
+        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
       </div>
-    </details>
-
-    <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <%= user_avatar(current_user, classes: "size-8") %>
-      </div>
-      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow border border-base-content/20">
+      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
         <%= render "shared/user_links" %>
       </ul>
     </div>
-
   </div>
 </nav>
