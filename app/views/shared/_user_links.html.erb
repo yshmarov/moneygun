@@ -1,4 +1,4 @@
-<%= nav_link t("users.referrals.index.title"), user_referrals_path, icon: "🎁" %>
+<%= nav_link t("users.referrals.index.title"), user_referrals_path, icon: "🎁", badge: "New" %>
 <%= nav_link t("users.connected_accounts.index.title"), user_connected_accounts_path, icon: "🔗" if Devise.omniauth_configs.keys.any? %>
 <li></li>
 <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
