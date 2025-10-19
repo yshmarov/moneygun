@@ -1,30 +1,69 @@
-<nav class="flex justify-between p-4 lg:border-b border-base-content/20">
+<nav class="px-4 navbar flex justify-between lg:border-b border-base-content/20">
   <%# left %>
   <div class="flex items-center gap-4">
-    <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
-      <%= inline_svg_tag "svg/sidebar-open.svg", class: "size-6" %>
-      <% if Current.organization %>
-        <div class="inline-flex items-center gap-2 no-underline">
-          <div>
-            <%= organization_avatar(Current.organization) %>
-          </div>
-          <div class="truncate">
-            <%= Current.organization.name %>
-          </div>
-        </div>
-      <% end %>
+    <%# logo %>
+    <%= link_to Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "max-lg:hidden btn btn-ghost text-xl" %>
+
+    <%# mobile sidebar toggle %>
+    <button data-action="click->mobile-sidebar#open" class="lg:hidden btn btn-ghost btn-square">
+      <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
     </button>
 
+    <%# select org dropdown %>
+    <details class="lg:hidden relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
+      <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden whitespace-nowrap">
+        <% if Current.organization %>
+          <%= organization_avatar(Current.organization, classes: "size-8") %>
+          <%= Current.organization.name %>
+        <% else %>
+          <%= t("shared.navigation.select_organization") %>
+        <% end %>
+        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
+      </summary>
+      <div class="absolute left-0 mt-8 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 menu">
+        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
+        <% Current.organizations.excluding(Current.organization).each do |organization| %>
+          <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
+        <% end %>
+      </div>
+    </details>
+
+    <%# select org dropdown %>
+    <div class="lg:hidden dropdown dropdown-start">
+      <div tabindex="0" role="button" class="btn btn-ghost">
+        <% if Current.organization %>
+          <%= organization_avatar(Current.organization, classes: "size-5") %>
+          <%= Current.organization.name %>
+        <% else %>
+          <%= t("shared.navigation.select_organization") %>
+        <% end %>
+      </div>
+      <ul
+        tabindex="-1"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow border border-base-content/20">
+        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
+        <% Current.organizations.excluding(Current.organization).each do |organization| %>
+          <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+
+  <%# center %>
+  <div class="navbar-center gap-1">
+    <%# search %>
     <%# if Flipper.enabled?(:search, current_user) %>
     <%# if Flipper[:search].enabled?(current_user) %>
     <%# if Flipper[:search].enabled? %>
-    <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "max-lg:hidden input input-sm gap-2 cursor-pointer lg:min-w-64 rounded-lg" do %>
+    <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "max-lg:hidden input input-sm gap-1 cursor-pointer lg:min-w-64 rounded-lg" do %>
       <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4 w-4 h-4" %>
       <span class="grow hidden lg:block"><%= t("search.index.title") %></span>
       <kbd class="kbd kbd-sm hidden lg:inline-flex">⌘</kbd>
       <kbd class="kbd kbd-sm hidden lg:inline-flex">K</kbd>
     <% end %>
     <%# end %>
+
   </div>
 
   <%# right %>
@@ -39,7 +78,7 @@
           <span class="font-medium font-mono">Admin</span>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
         </summary>
-        <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
+        <div class="absolute left-0 mt-8 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
           <% admin_link_options.each do |link| %>
             <%= active_link_to link[:path], class_active: "btn-active", class: "whitespace-nowrap btn btn-ghost justify-start w-full" do %>
               <%= link[:icon] %>
@@ -61,5 +100,15 @@
         <%= render "shared/user_links" %>
       </div>
     </details>
+
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <%= user_avatar(current_user, classes: "size-8") %>
+      </div>
+      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow border border-base-content/20">
+        <%= render "shared/user_links" %>
+      </ul>
+    </div>
+
   </div>
 </nav>
