@@ -12,7 +12,7 @@
 }
 
 .table-responsive thead th {
-  @apply text-sm font-normal whitespace-nowrap px-4 py-3 text-left border-b border-base-content/10 bg-base-200/50 text-base-content; /* Unified opacities */
+  @apply text-sm font-normal whitespace-nowrap px-4 py-3 text-left border-b border-base-content/10 text-base-content; /* Unified opacities */
 }
 
 /* Add rounded corners to desktop table header */
@@ -30,8 +30,11 @@
 
 .table-responsive tr {
   @apply block @xl:table-row mb-3 @xl:mb-0 overflow-hidden rounded-lg @xl:rounded-none shadow-md @xl:shadow-none border border-base-content/10 bg-base-100 @xl:bg-transparent; /* Unified border opacity */
-  @apply hover:bg-base-200/30 @xl:even:bg-base-200/50 @xl:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
   @apply @xl:last:border-b-0; /* No bottom border for the last row in desktop table */
+}
+
+.table-responsive tbody tr {
+  @apply hover:bg-base-200/30 @xl:even:bg-base-200/50 @xl:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
 }
 
 .table-responsive td {
