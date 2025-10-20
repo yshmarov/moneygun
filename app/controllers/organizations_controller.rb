@@ -40,11 +40,11 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    if @organization.destroy
-      redirect_to organizations_path, notice: t(".success")
-    else
-      redirect_to organization_path(@organization), alert: t(".error")
+    ActsAsTenant.with_tenant(@organization) do
+      @organization.destroy!
     end
+
+    redirect_to organizations_url, notice: t(".success")
   end
 
   private

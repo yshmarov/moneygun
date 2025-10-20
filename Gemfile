@@ -88,6 +88,7 @@ gem "omniauth-rails_csrf_protection" # for omniauth 2.0
 
 # authorization
 gem "pundit", "~> 2.3"
+gem "acts_as_tenant"
 
 # frontend
 gem "view_component"
