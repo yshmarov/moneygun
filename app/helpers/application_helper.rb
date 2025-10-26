@@ -9,14 +9,18 @@ module ApplicationHelper
   end
 
   def nav_link(label, path, icon: nil, badge: nil, todo_dot: false, wrapper: :li, **)
-    icon = inline_svg_tag icon, class: "size-6 w-6 h-6" if icon&.match?(/svg/)
-    icon = image_tag icon, class: "size-6 w-6 h-6" if icon&.match?(/png/)
+    resolved_icon = if icon&.match?(/svg/)
+                      inline_svg_tag icon, class: "size-6 w-6 h-6"
+                    elsif icon&.match?(/png|jpg|webp|avif|gif/) || icon&.start_with?("http")
+                      image_tag icon, class: "size-6 w-6 h-6 rounded"
+                    end
+
     badge_span = content_tag(:span, badge, class: "badge badge-xs badge-warning") if badge.present?
     todo_dot_span = content_tag(:span, "", class: "bg-warning rounded-full w-2 h-2 ml-auto") if todo_dot
 
     link_content = active_link_to(path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start", title: label, **) do
       safe_join([
-        icon,
+        resolved_icon,
         content_tag(:span, label, class: "[[data-expanded=false]_&]:hidden"),
         badge_span,
         todo_dot_span
