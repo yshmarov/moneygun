@@ -15,22 +15,12 @@
   @apply text-sm font-normal whitespace-nowrap px-4 py-3 text-left border-b border-base-content/10 text-base-content; /* Unified opacities */
 }
 
-/* Add rounded corners to desktop table header */
-.table-responsive thead th:first-child {
-  @apply @xl:rounded-tl-lg;
-}
-
-.table-responsive thead th:last-child {
-  @apply @xl:rounded-tr-lg @xl:text-right;
-}
-
 .table-responsive tbody {
   @apply block @xl:table-row-group;
 }
 
 .table-responsive tr {
   @apply block @xl:table-row mb-3 @xl:mb-0 overflow-hidden rounded-lg @xl:rounded-none shadow-md @xl:shadow-none border border-base-content/10 bg-base-100 @xl:bg-transparent; /* Unified border opacity */
-  @apply @xl:last:border-b-0; /* No bottom border for the last row in desktop table */
 }
 
 .table-responsive tbody tr {
@@ -51,7 +41,7 @@
   @apply before:content-[attr(data-label)] before:font-semibold before:text-xs before:uppercase before:tracking-wider before:text-base-content/75 before:mr-2 @xl:before:mb-0; /* Increased opacity for data-label */
 }
 
-/* Adjust the ::before pseudo-element for flex alignment on mobile */
+/* hide mobile label on desktop */
 .table-responsive td[data-label]:not([data-label=''])::before {
   @apply @xl:hidden flex-shrink-0;
 }
