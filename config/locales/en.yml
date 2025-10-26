@@ -226,7 +226,7 @@ en:
       error: Organization could not be destroyed
       success: Organization destroyed
     edit:
-      title: Organization settings
+      title: Settings
     errors:
       not_found: Organization not found
     index:
@@ -261,7 +261,7 @@ en:
       index:
         title: Projects
     show:
-      title: Organization profile
+      title: Account
     subscriptions:
       features:
         title: Features
@@ -306,7 +306,7 @@ en:
     user: me
   search:
     index:
-      title: Search...
+      title: Search
   shared:
     actions:
       confirm: Are you sure?
