@@ -9,11 +9,13 @@
 #   end
 
 user = User.create!(email: 'hello@superails.com', password: 'hello@superails.com', admin: true)
-organization = Organization.create!(name: 'SupeRails', owner: user, privacy_setting: :public)
+organization = Organization.create!(name: 'SupeRails', owner: user)
 organization.logo.attach(io: Rails.root.join('test/fixtures/files/superails-logo.png').open, filename: 'superails.png')
+organization.update!(privacy_setting: :public)
 
-organization = Organization.create!(name: 'Avo', owner: user, privacy_setting: :restricted)
+organization = Organization.create!(name: 'Avo', owner: user)
 organization.logo.attach(io: Rails.root.join('test/fixtures/files/avo-logo.png').open, filename: 'avo.png')
+organization.update!(privacy_setting: :restricted)
 
 organization = Organization.create!(name: 'Buzzsprout', owner: user, privacy_setting: :private)
 organization.logo.attach(io: Rails.root.join('test/fixtures/files/buzzsprout-logo.png').open, filename: 'buzzsprout.png')
