@@ -5,9 +5,9 @@
     <%= link_to Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "max-lg:hidden btn btn-ghost text-xl" %>
 
     <%# mobile sidebar toggle %>
-    <button data-action="click->mobile-sidebar#open" class="lg:hidden btn btn-ghost btn-square">
+    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden">
       <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
-    </button>
+    </label>
 
     <%# select org dropdown %>
     <div class="lg:hidden dropdown dropdown-start group">
@@ -20,7 +20,7 @@
         <% end %>
         <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
       </div>
-      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+      <ul tabindex="-1" class="menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
         <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
         <% Current.organizations.excluding(Current.organization).each do |organization| %>
           <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
@@ -56,7 +56,7 @@
           <span class="font-medium font-mono">Admin</span>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
         </div>
-        <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+        <ul tabindex="-1" class="menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
           <% admin_link_options.each do |link| %>
             <%= active_link_to link[:path], class_active: "btn-active", class: "whitespace-nowrap btn btn-ghost justify-start w-full" do %>
               <%= link[:icon] %>
@@ -74,7 +74,7 @@
         <%= user_avatar(current_user) %>
         <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
       </div>
-      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+      <ul tabindex="-1" class="menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
         <%= render "shared/user_links" %>
       </ul>
     </div>
