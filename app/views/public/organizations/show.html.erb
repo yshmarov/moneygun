@@ -1,5 +1,7 @@
 <% content_for :title, @organization.name %>
 
 <%= modal do %>
-  <%= render "organizations/table", organizations: [@organization] %>
+  <%= render PageComponent.new(full_width: false) do |component| %>
+    <%= render "organizations/table", organizations: [@organization] %>
+  <% end %>
 <% end %>

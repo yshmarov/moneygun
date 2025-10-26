@@ -35,8 +35,9 @@
       <% end %>
     </ul>
 
-    <ul class="menu menu-xl w-full mb-8">
+    <ul class="menu menu-xl w-full">
       <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, icon: "logo.png", active: :exact %>
+      <li></li>
     </ul>
   </aside>
 </div>
