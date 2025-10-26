@@ -13,7 +13,7 @@
     <div class="lg:hidden dropdown dropdown-start group">
       <div tabindex="0" role="button" class="btn btn-ghost">
         <% if Current.organization %>
-          <%= organization_avatar(Current.organization, classes: "size-8") %>
+          <%= organization_avatar(Current.organization, classes: "size-6") %>
           <%= Current.organization.name %>
         <% else %>
           <%= t("shared.navigation.select_organization") %>
