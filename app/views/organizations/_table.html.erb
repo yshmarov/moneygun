@@ -10,9 +10,9 @@
           <th></th>
         </tr>
       </thead>
-      <tbody id="organizations" data-controller="clickable-row">
+      <tbody id="organizations">
         <% organizations.each do |organization| %>
-          <tr class="cursor-pointer" data-clickable-row-target="row" data-url="<%= organization.participant?(current_user) ? organization_path(organization) : public_organization_path(organization) %>">
+          <tr class="cursor-pointer" data-controller="visitable" data-action="click->visitable#visit" data-url="<%= organization.participant?(current_user) ? organization_path(organization) : public_organization_path(organization) %>">
             <td data-label="<%= Organization.human_attribute_name(:name) %>">
               <div class="flex items-center gap-2">
                 <%= organization_avatar(organization) %>

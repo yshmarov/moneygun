@@ -29,9 +29,9 @@
           <th></th>
         </tr>
       </thead>
-      <tbody id="projects" data-controller="clickable-row">
+      <tbody id="projects">
         <% @projects.each do |project| %>
-          <tr class="cursor-pointer" data-clickable-row-target="row" data-url="<%= organization_project_path(@organization, project) %>">
+          <tr class="cursor-pointer" data-controller="visitable" data-action="click->visitable#visit" data-url="<%= organization_project_path(@organization, project) %>">
             <td data-label="<%= Project.human_attribute_name(:name) %>"><%= project.name %></td>
             <td data-label="<%= Project.human_attribute_name(:created_at) %>"><%= local_time(project.created_at, format: :short) %></td>
             <td data-label="<%= Project.human_attribute_name(:updated_at) %>"><%= local_time(project.updated_at, format: :short) %></td>
