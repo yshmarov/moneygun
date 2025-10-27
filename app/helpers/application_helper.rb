@@ -11,8 +11,10 @@ module ApplicationHelper
   def nav_link(label, path, icon: nil, badge: nil, todo_dot: false, wrapper: :li, **)
     resolved_icon = if icon&.match?(/svg/)
                       inline_svg_tag icon, class: "size-6 w-6 h-6"
-                    elsif icon&.match?(/png|jpg|webp|avif|gif/) || icon&.start_with?("http")
+                    elsif icon&.start_with?("http") || icon&.match?(/\.(png|jpg|webp|avif|gif)$/)
                       image_tag icon, class: "size-6 w-6 h-6 rounded"
+                    else
+                      icon
                     end
 
     badge_span = content_tag(:span, badge, class: "badge badge-xs badge-warning") if badge.present?
