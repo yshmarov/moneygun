@@ -329,7 +329,7 @@ en:
       logout: Sign out
       organizations: Organizations
       register: Get started
-      select_organization: Select organization
+      select_organization: Organizations
   static:
     index:
       title: Home

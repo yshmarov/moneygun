@@ -4,7 +4,7 @@
 }
 
 .table-responsive table {
-  @apply table-auto relative w-full border-collapse @xl:rounded-lg @xl:overflow-hidden @xl:border @xl:border-base-content/10; /* Ensure table is rounded, clips content, and has a border on @xl container size */
+  @apply table-auto relative w-full border-collapse @xl:rounded-lg @xl:overflow-hidden; /* Ensure table is rounded and clips content on @xl container size */
 }
 
 .table-responsive thead {
@@ -20,11 +20,11 @@
 }
 
 .table-responsive tr {
-  @apply block @xl:table-row mb-3 @xl:mb-0 overflow-hidden rounded-lg @xl:rounded-none shadow-md @xl:shadow-none border border-base-content/10 bg-base-100 @xl:bg-transparent; /* Unified border opacity */
+  @apply block @xl:table-row mb-3 @xl:mb-0 overflow-hidden rounded-lg @xl:rounded-none shadow-md @xl:shadow-none border border-base-content/10 @xl:border-0 bg-base-100 @xl:bg-transparent; /* Unified border opacity */
 }
 
 .table-responsive tbody tr {
-  @apply hover:bg-base-200/30 @xl:even:bg-base-200/50 @xl:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
+  @apply hover:bg-base-200/30 @xl:border-t @xl:even:bg-base-200/50 @xl:hover:bg-base-300/50 transition-colors duration-150; /* Added mobile hover */
 }
 
 .table-responsive td {
