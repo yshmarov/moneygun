@@ -12,7 +12,7 @@
 }
 
 .table-responsive thead th {
-  @apply text-sm font-normal whitespace-nowrap px-4 py-3 text-left border-b border-base-content/10 text-base-content; /* Unified opacities */
+  @apply text-sm font-normal whitespace-nowrap px-4 py-3 text-left; /* Unified opacities */
 }
 
 .table-responsive tbody {
