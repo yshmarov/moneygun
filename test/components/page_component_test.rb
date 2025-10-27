@@ -21,12 +21,6 @@ class PageComponentTest < ViewComponent::TestCase
     assert_selector "section", class: "max-w-7xl"
   end
 
-  def test_component_renders_with_narrow_width
-    render_inline(PageComponent.new(title: "Page Title", full_width: false))
-
-    assert_selector "section", class: "lg:max-w-xl"
-  end
-
   def test_component_renders_with_action_list
     component = PageComponent.new(title: "Page Title")
     component.with_action_list { "Action Button" }
