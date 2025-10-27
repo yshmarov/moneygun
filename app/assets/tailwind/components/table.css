@@ -1,4 +1,37 @@
 /* Responsive table that displays as cards on mobile and table on desktop */
+
+/* 
+<div class="table-responsive">
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% organizations.each do |organization| %>
+      <tr>
+        <td data-label="Id">
+          <%= organization.id %>
+        </td>
+        <td data-label="Name">
+          <%= organization.name %>
+        </td>
+        <td>
+          <div class="flex items-center gap-2 justify-end">
+            <%= link_to "View", organization_path(organization), class: "btn btn-sm btn-primary" %>
+            <%= link_to "Edit", edit_organization_path(organization), class: "btn btn-sm btn-primary" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+*/
+
 .table-responsive {
   @apply @container overflow-x-auto rounded-lg; /* Container styling with @container for container queries, no explicit bg, cards will have it. Padding for mobile. */
 }
