@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # an organization accepted a user's request to join
 class Membership::RequestAcceptedNotifier < Noticed::Event
   deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
@@ -5,7 +7,7 @@ class Membership::RequestAcceptedNotifier < Noticed::Event
   deliver_by :email do |config|
     config.mailer = "MembershipMailer"
     config.method = :request_accepted_email
-    config.args   = -> { [self] }
+    config.args = -> { [self] }
   end
 
   required_params :organization

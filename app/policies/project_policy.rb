@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectPolicy < Organization::BasePolicy
   def index?
     membership.admin?

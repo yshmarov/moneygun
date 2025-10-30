@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organizations::InvitationsController < Organizations::BaseController
   before_action :set_invitation, only: %i[destroy]
 

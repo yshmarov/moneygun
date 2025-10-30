@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organization < ApplicationRecord
   include Organization::Multitenancy
   include Organization::Transfer
@@ -12,7 +14,7 @@ class Organization < ApplicationRecord
   MAX_NAME_LENGTH = 20
 
   validates :name, presence: true
-  validates :name, length: { minimum: MIN_NAME_LENGTH, maximum: MAX_NAME_LENGTH }
+  validates :name, length: {minimum: MIN_NAME_LENGTH, maximum: MAX_NAME_LENGTH}
 
   validates :logo, content_type: IMAGE_CONTENT_TYPES
   has_one_attached :logo do |attachable|
@@ -29,7 +31,7 @@ class Organization < ApplicationRecord
 
   def self.discoverable
     not_privacy_setting_private
-      .left_joins(:logo_attachment).where.not(active_storage_attachments: { id: nil })
+      .left_joins(:logo_attachment).where.not(active_storage_attachments: {id: nil})
   end
 
   private

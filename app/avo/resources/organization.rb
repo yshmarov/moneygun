@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Avo::Resources::Organization < Avo::BaseResource
   self.title = lambda {
     [record.id, record.name].join("/")
@@ -36,13 +38,13 @@ class Avo::Resources::Organization < Avo::BaseResource
 
     tabs do
       field :memberships, as: :has_many,
-                          attach_scope: lambda {
-                            query.where.not(id: parent.memberships.select(:id)).order(created_at: :desc)
-                          }
+        attach_scope: lambda {
+          query.where.not(id: parent.memberships.select(:id)).order(created_at: :desc)
+        }
       field :users, as: :has_many, through: :memberships,
-                    attach_scope: lambda {
-                      query.where.not(id: parent.memberships.select(:user_id)).order(email: :asc)
-                    }
+        attach_scope: lambda {
+          query.where.not(id: parent.memberships.select(:user_id)).order(email: :asc)
+        }
     end
   end
 

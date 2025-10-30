@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organizations::MembershipsController < Organizations::BaseController
   before_action :set_membership, only: %i[edit update destroy]
 
@@ -6,7 +8,8 @@ class Organizations::MembershipsController < Organizations::BaseController
     @memberships = @organization.memberships.includes(user: :connected_accounts)
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @membership.update(membership_params)

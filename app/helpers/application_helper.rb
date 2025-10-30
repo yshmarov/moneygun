@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   include Pagy::Frontend
 
@@ -10,12 +12,12 @@ module ApplicationHelper
 
   def nav_link(label, path, icon: nil, badge: nil, todo_dot: false, wrapper: :li, **)
     resolved_icon = if icon&.match?(/svg/)
-                      inline_svg_tag icon, class: "size-6 w-6 h-6"
-                    elsif icon&.start_with?("http") || icon&.match?(/\.(png|jpg|webp|avif|gif)$/)
-                      image_tag icon, class: "size-6 w-6 h-6 rounded"
-                    else
-                      icon
-                    end
+      inline_svg_tag icon, class: "size-6 w-6 h-6"
+    elsif icon&.start_with?("http") || icon&.match?(/\.(png|jpg|webp|avif|gif)$/)
+      image_tag icon, class: "size-6 w-6 h-6 rounded"
+    else
+      icon
+    end
 
     badge_span = content_tag(:span, badge, class: "badge badge-xs badge-warning") if badge.present?
     todo_dot_span = content_tag(:span, "", class: "bg-warning rounded-full w-2 h-2 ml-auto") if todo_dot
@@ -65,41 +67,41 @@ module ApplicationHelper
       path: "/admin/avo/resources/users",
       icon: "👮"
     },
-     {
-       name: "Profitable",
-       path: "/profitable",
-       icon: "🤑"
-     },
-     {
-       name: "Jobs",
-       path: "/jobs",
-       icon: "⚙️"
-     },
-     {
-       name: "Analytics",
-       path: "/analytics",
-       icon: "📊"
-     },
-     {
-       name: "Active Storage",
-       path: "/active_storage_dashboard",
-       icon: "💾"
-     },
-     {
-       name: "Feature Flags",
-       path: "/feature_flags",
-       icon: "🎛️"
-     },
-     {
-       name: "Lookbook",
-       path: "/lookbook",
-       icon: "👀"
-     },
-     {
-       name: "Letter Opener",
-       path: "/letter_opener",
-       icon: "📨"
-     }]
+      {
+        name: "Profitable",
+        path: "/profitable",
+        icon: "🤑"
+      },
+      {
+        name: "Jobs",
+        path: "/jobs",
+        icon: "⚙️"
+      },
+      {
+        name: "Analytics",
+        path: "/analytics",
+        icon: "📊"
+      },
+      {
+        name: "Active Storage",
+        path: "/active_storage_dashboard",
+        icon: "💾"
+      },
+      {
+        name: "Feature Flags",
+        path: "/feature_flags",
+        icon: "🎛️"
+      },
+      {
+        name: "Lookbook",
+        path: "/lookbook",
+        icon: "👀"
+      },
+      {
+        name: "Letter Opener",
+        path: "/letter_opener",
+        icon: "📨"
+      }]
   end
 
   def boolean_to_icon(value)
@@ -112,7 +114,7 @@ module ApplicationHelper
 
   def formatted_title
     app_name = Rails.application.config_for(:settings).dig(:site, :name)
-    org_name = defined?(Current.organization) && Current.organization&.name.present? ? Current.organization.name : nil
+    org_name = (defined?(Current.organization) && Current.organization&.name.present?) ? Current.organization.name : nil
 
     title = content_for(:title).presence || "#{controller_name.humanize} #{action_name.humanize}"
 

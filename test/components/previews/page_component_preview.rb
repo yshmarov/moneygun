@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PageComponentPreview < ViewComponent::Preview
   def default
     component = PageComponent.new(

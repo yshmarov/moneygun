@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserHelper
   def user_avatar(user, classes: "w-8 h-8")
     if user.connected_accounts.any? && user.connected_accounts.first.image_url.present?

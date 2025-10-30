@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Avo::Resources::ConnectedAccount < Avo::BaseResource
   self.title = :uid
   # self.includes = []

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organizations::BaseController < ApplicationController
   # the order of the before_actions is important
   before_action :set_organization

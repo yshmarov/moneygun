@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class Organizations::TransfersController < Organizations::BaseController
   before_action :authorize_organization_owner!
 
-  def show; end
+  def show
+  end
 
   def update
     if @organization.transfer_ownership(params[:user_id])

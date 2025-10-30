@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DeliveryMethods::TurboStream < ApplicationDeliveryMethod
   def deliver
     return unless recipient.is_a?(User)

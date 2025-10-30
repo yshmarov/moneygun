@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Avo::Resources::ReferReferral < Avo::BaseResource
   # self.includes = []
   # self.attachments = []

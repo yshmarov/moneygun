@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # incoming invitations to join an organization
 class Users::InvitationsController < ApplicationController
   before_action :set_invitation, only: %i[approve reject]

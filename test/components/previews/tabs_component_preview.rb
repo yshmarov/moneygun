@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TabsComponentPreview < ViewComponent::Preview
   def default
     render TabsComponent.new(active_tab: :custom, tabs: tabs_with_custom_content)

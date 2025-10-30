@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PageComponent < ViewComponent::Base
   renders_one :action_list
   renders_one :title_content

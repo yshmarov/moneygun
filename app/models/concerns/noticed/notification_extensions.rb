@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Noticed::NotificationExtensions
   extend ActiveSupport::Concern
 
@@ -6,7 +8,7 @@ module Noticed::NotificationExtensions
       "notifications_index_#{recipient.id}",
       target: "notification_index_count",
       partial: "users/notifications/notifications_count",
-      locals: { unread: recipient.reload.unseen_notifications_count }
+      locals: {unread: recipient.reload.unseen_notifications_count}
     )
   end
 
@@ -15,7 +17,7 @@ module Noticed::NotificationExtensions
       "notifications_index_list_#{recipient.id}",
       target: "notifications",
       partial: "users/notifications/notification",
-      locals: { notification: self }
+      locals: {notification: self}
     )
   end
 end

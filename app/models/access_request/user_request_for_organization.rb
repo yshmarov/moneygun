@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccessRequest::UserRequestForOrganization < AccessRequest
   validates :type, presence: true
 
@@ -7,7 +9,7 @@ class AccessRequest::UserRequestForOrganization < AccessRequest
       organization.memberships.create(user:)
       Membership::RequestAcceptedNotifier.with(organization: organization).deliver(user)
     end
-  rescue StandardError => e
+  rescue => e
     raise ActiveRecord::Rollback, e.message
   end
 

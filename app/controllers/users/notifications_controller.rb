@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::NotificationsController < ApplicationController
   before_action :load_notifications, only: [:index]
   after_action :mark_as_seen, only: [:index]

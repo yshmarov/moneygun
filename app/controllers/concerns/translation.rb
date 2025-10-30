@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Translation
   extend ActiveSupport::Concern
 
@@ -28,7 +30,7 @@ module Translation
   end
 
   def update_locale_for_user_and_cookies(locale)
-    cookies[:locale] = { value: locale.to_s, expires: 1.year.from_now }
+    cookies[:locale] = {value: locale.to_s, expires: 1.year.from_now}
 
     return unless user_signed_in? && current_user.locale.to_s != locale.to_s
 

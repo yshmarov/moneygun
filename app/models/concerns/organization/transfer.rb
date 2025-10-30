@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Organization::Transfer
   extend ActiveSupport::Concern
 
@@ -17,7 +19,7 @@ module Organization::Transfer
       membership.update!(role: Membership.roles[:admin])
       update!(owner: new_owner)
     end
-  rescue StandardError => e
+  rescue => e
     Rails.logger.error("Ownership transfer failed: #{e.message}")
     false
   end

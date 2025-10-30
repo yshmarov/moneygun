@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::ConnectedAccountsController < ApplicationController
   before_action :set_connected_account, only: %i[destroy]
 

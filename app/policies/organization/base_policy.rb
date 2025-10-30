@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organization::BasePolicy
   attr_reader :membership, :record
 

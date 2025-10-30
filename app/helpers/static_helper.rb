@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StaticHelper
   def markdown_to_html(markdown_text)
     return "" if markdown_text.blank?
@@ -5,7 +7,7 @@ module StaticHelper
     render_options = {
       filter_html: false,
       hard_wrap: true,
-      link_attributes: { target: "_blank", rel: "noopener noreferrer" },
+      link_attributes: {target: "_blank", rel: "noopener noreferrer"},
       prettify: true,
       space_after_headers: true
     }

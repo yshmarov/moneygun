@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Avo::Resources::Membership < Avo::BaseResource
   self.title = lambda {
     [record.id, record.user.email, record.organization.name].join(" / ")

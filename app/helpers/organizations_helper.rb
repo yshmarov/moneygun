@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OrganizationsHelper
   def organization_avatar(organization, classes: "size-8")
     tag.div organization.name[0..1], class: "aspect-square uppercase rounded bg-gray-400 text-xs flex items-center justify-center #{classes}" do

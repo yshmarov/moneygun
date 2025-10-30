@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Public::OrganizationsController < ApplicationController
   def index
     organizations_ids = Organization.discoverable.pluck(:id) - current_user.organizations.pluck(:id)

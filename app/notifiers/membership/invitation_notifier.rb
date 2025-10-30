@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # invited a user to an organization
 class Membership::InvitationNotifier < ApplicationNotifier
   deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
@@ -5,7 +7,7 @@ class Membership::InvitationNotifier < ApplicationNotifier
   deliver_by :email do |config|
     config.mailer = "MembershipMailer"
     config.method = :invitation_email
-    config.args   = -> { [self] }
+    config.args = -> { [self] }
   end
 
   required_params :organization

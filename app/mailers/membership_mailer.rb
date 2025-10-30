@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MembershipMailer < ApplicationMailer
   def invitation_email(notification)
     setup(notification)

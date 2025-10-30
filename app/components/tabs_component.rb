@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TabsComponent < ViewComponent::Base
   def initialize(active_tab:, tabs: [])
     @active_tab = active_tab
@@ -21,6 +23,6 @@ class TabsComponent < ViewComponent::Base
   end
 
   def tab_classes(tab_key)
-    "#{base_classes} #{active_tab == tab_key ? active_classes : inactive_classes}"
+    "#{base_classes} #{(active_tab == tab_key) ? active_classes : inactive_classes}"
   end
 end

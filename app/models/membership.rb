@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class Membership < ApplicationRecord
   belongs_to :organization
   belongs_to :user
 
   enum :role, %w[member admin].index_by(&:itself)
 
-  validates :user_id, uniqueness: { scope: :organization_id }
-  validates :organization_id, uniqueness: { scope: :user_id }
+  validates :user_id, uniqueness: {scope: :organization_id}
+  validates :organization_id, uniqueness: {scope: :user_id}
 
   validates :role, presence: true
   validate :cannot_change_role_if_only_admin, on: :update

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmptyStateComponentPreview < ViewComponent::Preview
   def default
     render EmptyStateComponent.new(title: "No results found", subtitle: "Try adjusting your search terms") do |c|

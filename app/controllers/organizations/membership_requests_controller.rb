@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organizations::MembershipRequestsController < Organizations::BaseController
   before_action :set_membership_request, only: %i[approve reject]
 
