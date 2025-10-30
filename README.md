@@ -91,6 +91,7 @@ This structure provides:
 
 ```bash
 git clone git@github.com:yshmarov/moneygun.git your_project_name
+# git clone https://github.com/yshmarov/moneygun.git your_project_name
 cd your_project_name
 ```
 
