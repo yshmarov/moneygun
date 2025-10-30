@@ -325,10 +325,10 @@ en:
       all_rights_reserved: All rights reserved.
     navigation:
       edit_profile: Edit profile
-      login: Sign in
+      login: Log in
       logout: Sign out
       organizations: Organizations
-      register: Get started
+      register: Sign up
       select_organization: Organizations
   static:
     index:

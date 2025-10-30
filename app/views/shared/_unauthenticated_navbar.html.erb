@@ -15,9 +15,9 @@
   <%# right %>
   <div class="flex items-center gap-2">
     <%= render "shared/language_picker" %>
-    <div class="menu menu-horizontal">
-      <%= nav_link t("shared.navigation.login"), new_user_session_path, data: { turbo_frame: :modal } %>
-      <%= nav_link t("shared.navigation.register"), new_user_registration_path, data: { turbo_frame: :modal } %>
+    <div class="menu menu-horizontal gap-2">
+      <%= nav_link t("shared.navigation.login"), new_user_session_path, class_inactive: "bg-base-200" %>
+      <%= nav_link t("shared.navigation.register"), new_user_registration_path, class_inactive: "bg-base-200" %>
     </div>
   </div>
 </nav>
