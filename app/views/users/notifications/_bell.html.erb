@@ -1,5 +1,0 @@
-<%= active_link_to user_notifications_path, class: "relative max-lg:hidden btn btn-ghost btn-circle" do %>
-  <%= inline_svg_tag "svg/bell.svg", class: "size-6" %>
-  <%= render "users/notifications/notifications_count", unread: user.unseen_notifications_count %>
-<% end %>
-<%= turbo_stream_from "notifications_index_#{current_user.id}" %>

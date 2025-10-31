@@ -67,24 +67,19 @@
       </div>
     <% end %>
 
-    <%= render "users/notifications/bell", user: current_user %>
-
     <%# notifications dropdown %>
+    <%= turbo_stream_from "notifications_index_#{current_user.id}" %>
     <div class="dropdown dropdown-end max-lg:hidden">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <div class="indicator">
-          <%= inline_svg_tag "svg/bell.svg", class: "w-5 h-5" %>
-          <% if current_user.notifications.unseen.any? %>
-          <span class="badge badge-xs badge-primary indicator-item"></span>
-          <% end %>
-        </div>
+        <%= render "users/notifications/notifications_count", unread: current_user.unseen_notifications_count %>
+        <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6" %>
       </div>
-      <ul tabindex="-1" class="w-96 menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+      <div tabindex="-1" class="w-96 p-2 dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
         <div class="w-full flex justify-end">
         <%= link_to "View all", user_notifications_path, class: "link link-hover" %>
         </div>
         <%= turbo_frame_tag :notifications, src: user_notifications_path, loading: :lazy %>
-      </ul>
+      </div>
     </div>
 
     <div class="dropdown dropdown-end group">
