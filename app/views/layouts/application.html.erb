@@ -21,5 +21,6 @@
       <%= render "shared/sidebar" %>
     </div>
     <%= turbo_frame_tag :modal %>
+    <%= turbo_stream_from "notifications_#{current_user.id}" %>
   </body>
 </html>

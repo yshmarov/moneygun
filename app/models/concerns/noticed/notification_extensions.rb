@@ -5,8 +5,8 @@ module Noticed::NotificationExtensions
 
   def broadcast_replace_to_index_count
     Turbo::StreamsChannel.broadcast_replace_to(
-      "notifications_index_#{recipient.id}",
-      target: "notification_index_count",
+      "notifications_#{recipient.id}",
+      target: "notification_count",
       partial: "users/notifications/notifications_count",
       locals: { unread: recipient.reload.unseen_notifications_count }
     )
@@ -14,7 +14,7 @@ module Noticed::NotificationExtensions
 
   def broadcast_prepend_to_index_list
     Turbo::StreamsChannel.broadcast_prepend_to(
-      "notifications_index_list_#{recipient.id}",
+      "notifications_#{recipient.id}",
       target: "notifications",
       partial: "users/notifications/notification",
       locals: { notification: self }
