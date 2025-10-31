@@ -260,6 +260,12 @@ en:
     projects:
       index:
         title: Projects
+      create:
+        success: Project created
+      update:
+        success: Project updated
+      destroy:
+        success: Project destroyed
     show:
       title: Account
     subscriptions:

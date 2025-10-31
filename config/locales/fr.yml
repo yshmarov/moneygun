@@ -259,6 +259,12 @@ fr:
     projects:
       index:
         title: Projets
+      create:
+        success: Projet créé
+      update:
+        success: Projet mis à jour
+      destroy:
+        success: Projet détruit
     show:
       title: Paramètres
     subscriptions:
