@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
 class Users::NotificationsController < ApplicationController
-  before_action :load_notifications, only: [:index]
   after_action :mark_as_seen, only: [:index]
 
   def index
-    @pagy, @notifications = pagy(@notifications, limit: 10)
+    notifications = current_user.notifications.newest_first
+
+    limit = if turbo_frame_request?
+              3
+            else
+              10
+            end
+    @pagy, @notifications = pagy(notifications, limit:)
   end
 
   private
-
-  def load_notifications
-    @notifications = current_user.notifications.newest_first
-  end
 
   def mark_as_seen
     @notifications.unseen.mark_as_seen

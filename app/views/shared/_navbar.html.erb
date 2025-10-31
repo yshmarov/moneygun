@@ -1,4 +1,4 @@
-<nav class="px-4 navbar flex justify-between lg:border-b border-base-content/20">
+<nav class="px-4 navbar flex justify-between">
   <%# left %>
   <div class="flex items-center gap-1">
     <%# logo %>
@@ -68,6 +68,24 @@
     <% end %>
 
     <%= render "users/notifications/bell", user: current_user %>
+
+    <%# notifications dropdown %>
+    <div class="dropdown dropdown-end max-lg:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <div class="indicator">
+          <%= inline_svg_tag "svg/bell.svg", class: "w-5 h-5" %>
+          <% if current_user.notifications.unseen.any? %>
+          <span class="badge badge-xs badge-primary indicator-item"></span>
+          <% end %>
+        </div>
+      </div>
+      <ul tabindex="-1" class="w-96 menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+        <div class="w-full flex justify-end">
+        <%= link_to "View all", user_notifications_path, class: "link link-hover" %>
+        </div>
+        <%= turbo_frame_tag :notifications, src: user_notifications_path, loading: :lazy %>
+      </ul>
+    </div>
 
     <div class="dropdown dropdown-end group">
       <div tabindex="0" role="button" class="btn btn-ghost">
