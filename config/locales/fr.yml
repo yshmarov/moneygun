@@ -275,6 +275,8 @@ fr:
       plan:
         manage_billing: Gérer la facturation
         next_billing_date: Date de prochaine facturation
+        status: Statut de l'abonnement
+        price: Tarif
         resume_subscription: Reprendre l'abonnement
         subscription_active: Abonnement actif
         subscription_cancelled: Abonnement annulé

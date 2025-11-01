@@ -1,4 +1,4 @@
-<% status_label = subscription.on_grace_period? ? t(".subscription_cancelled") : t(".subscription_active") %>
+<% status_label = subscription.on_grace_period? ? t(".cancelled") : t(".active") %>
 <% access_ends_at_label = subscription.on_grace_period? ? t(".you_will_lose_access_in", distance_of_time_in_words: distance_of_time_in_words(subscription.current_period_end, Time.current)) : t(".next_billing_date") %>
 <% button_label = subscription.on_grace_period? ? t(".resume_subscription") : t(".manage_billing") %>
 
@@ -7,24 +7,35 @@
     <%= button_to button_label, organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "btn btn-secondary" %>
   <% end %>
 
-  <dl class="space-y-2">
-    <div class="flex justify-between">
-      <dt class="font-medium">
-        <%= status_label %>
-        <%= subscription_status_label(Current.organization) %>
-      </dt>
-      <dd>
-        <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>/<%= plan_for(subscription)[:interval] %>
-      </dd>
-    </div>
-
-    <div class="flex justify-between">
-      <dt class="font-medium">
-        <%= access_ends_at_label %>
-      </dt>
-      <dd>
-        <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
-      </dd>
-    </div>
-  </dl>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th><%= t(".status") %></th>
+          <th><%= t(".price") %></th>
+          <th><%= access_ends_at_label %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="<%= t(".status") %>">
+            <div class="flex items-center gap-2 flex-1 @max-xl:justify-end">
+              <span class="font-medium"><%= status_label %></span>
+              <%= subscription_status_label(Current.organization) %>
+            </div>
+          </td>
+          <td data-label="<%= t(".price") %>">
+            <div class="flex flex-1 @max-xl:justify-end">
+              <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>/<%= plan_for(subscription)[:interval] %>
+            </div>
+          </td>
+          <td data-label="<%= access_ends_at_label %>">
+            <div class="flex flex-1 @max-xl:justify-end">
+              <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 <% end %>

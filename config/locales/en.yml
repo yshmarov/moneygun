@@ -276,9 +276,11 @@ en:
       plan:
         manage_billing: Manage billing
         next_billing_date: Next billing date
+        status: Subscription status
+        price: Price
         resume_subscription: Resume subscription
-        subscription_active: Subscription active
-        subscription_cancelled: Subscription cancelled
+        active: Active
+        cancelled: Cancelled
         title: Manage subscription
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
       pricing:
