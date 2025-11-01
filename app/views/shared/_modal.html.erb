@@ -1,6 +1,6 @@
 <% close_on_submit = true if close_on_submit.nil? %>
 
-<% dialog_position = params[:drawer].present? ? "modal-end" : "" %>
+<% dialog_position ||= "modal-middle" %>
 
 <% if turbo_frame_request? %>
   <%= turbo_frame_tag :modal do %>
