@@ -28,7 +28,7 @@
               <%= render "organizations/users_list", organization: %>
             </td>
             <td data-label="<%= Organization.human_attribute_name(:created_at) %>">
-              <%= local_time(organization.created_at, format: :short) %>
+              <%= organization.created_at.strftime("%B %d, %Y") %>
             </td>
             <td>
               <%= render "organizations/membership_actions", organization: organization %>
