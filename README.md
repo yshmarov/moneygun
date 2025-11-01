@@ -93,6 +93,9 @@ This structure provides:
 git clone git@github.com:yshmarov/moneygun.git your_project_name
 # git clone https://github.com/yshmarov/moneygun.git your_project_name
 cd your_project_name
+git remote rename origin moneygun
+git remote add origin https://github.com/your-account/your-repo.git # Replace with your new Git repository url
+git push -u origin main
 ```
 
 2. Set up the application:
@@ -117,6 +120,12 @@ Add your Stripe credentials to your Rails credentials:
 
 ```bash
 rails credentials:edit
+
+# advanced usage
+export EDITOR="/Applications/Cursor.app/Contents/MacOS/Cursor --wait"
+rails credentials:edit --environment=development
+rails credentials:edit --environment=test
+rails credentials:edit --environment=production
 ```
 
 Add the following structure:
