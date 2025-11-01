@@ -267,7 +267,7 @@ en:
       destroy:
         success: Project destroyed
     show:
-      title: Account
+      title: Home
     subscriptions:
       features:
         title: Features
