@@ -5,8 +5,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_current_organization_admin
   before_action :sync_subscriptions, only: [:checkout]
 
-  def index
-  end
+  def index; end
 
   def checkout
     return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
@@ -22,10 +21,10 @@ class Organizations::SubscriptionsController < Organizations::BaseController
         quantity: 1
       }],
       allow_promotion_codes: true,
-      automatic_tax: {enabled: true},
-      tax_id_collection: {enabled: true},
+      automatic_tax: { enabled: true },
+      tax_id_collection: { enabled: true },
       # consent_collection: { terms_of_service: :required },
-      customer_update: {address: :auto, name: :auto},
+      customer_update: { address: :auto, name: :auto },
       success_url: organization_subscriptions_url(@organization),
       cancel_url: organization_subscriptions_url(@organization)
     )

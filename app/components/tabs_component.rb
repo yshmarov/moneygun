@@ -23,6 +23,6 @@ class TabsComponent < ViewComponent::Base
   end
 
   def tab_classes(tab_key)
-    "#{base_classes} #{(active_tab == tab_key) ? active_classes : inactive_classes}"
+    "#{base_classes} #{active_tab == tab_key ? active_classes : inactive_classes}"
   end
 end

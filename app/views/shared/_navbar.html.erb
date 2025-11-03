@@ -50,23 +50,6 @@
       <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning btn-sm uppercase" %>
     <% end %>
 
-    <% if current_user.admin? %>
-      <div class="dropdown dropdown-end group">
-        <div tabindex="0" role="button" class="btn btn-ghost">
-          <span class="font-medium font-mono">Admin</span>
-          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
-        </div>
-        <ul tabindex="-1" class="menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
-          <% admin_link_options.each do |link| %>
-            <%= active_link_to link[:path], class_active: "btn-active", class: "whitespace-nowrap btn btn-ghost justify-start w-full" do %>
-              <%= link[:icon] %>
-              <%= link[:name] %>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <%# notifications dropdown %>
     <div class="dropdown dropdown-end max-lg:hidden">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle">

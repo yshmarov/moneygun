@@ -2,6 +2,12 @@
   <label for="main-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
   <aside class="bg-base-300 h-dvh flex flex-col overflow-y-auto w-80">
     <ul class="menu menu-xl w-full flex-1">
+      <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, icon: "logo.png", active: :exact %>
+      <%# search %>
+      <%#= nav_link t("search.index.title"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } %>
+      <%= nav_link t("search.index.title"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal } %>
+      <li></li>
+
       <% if Current.organization %>
         <li>
           <details>
@@ -23,8 +29,39 @@
     </ul>
 
     <ul class="menu menu-xl w-full">
-      <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, icon: "logo.png", active: :exact %>
+      <% if current_user.admin? %>
+        <% unless admin_links.empty? %>
+          <li>
+            <details>
+              <summary>
+                <span class="font-medium font-mono">Admin</span>
+              </summary>
+              <ul>
+                <% admin_links.each do |link| %>
+                  <%= nav_link link[:name], link[:path], icon: link[:icon] %>
+                <% end %>
+              </ul>
+            </details>
+          </li>
+        <% end %>
+
+        <% unless dev_links.empty? %>
+          <li>
+            <details>
+              <summary>
+                <span class="font-medium font-mono">Dev</span>
+              </summary>
+              <ul>
+                <% dev_links.each do |link| %>
+                  <%= nav_link link[:name], link[:path], icon: link[:icon] %>
+                <% end %>
+              </ul>
+            </details>
+          </li>
+        <% end %>
+      <% end %>
       <li></li>
     </ul>
+
   </aside>
 </div>

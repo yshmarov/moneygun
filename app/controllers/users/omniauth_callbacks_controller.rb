@@ -22,7 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if connected_account.persisted?
         flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: ConnectedAccount::PROVIDER_CONFIG[kind][:name])
       else
-        flash[:alert] = "Failed to connect #{ConnectedAccount::PROVIDER_CONFIG[kind][:name]} account: #{connected_account.errors.full_messages.join(", ")}"
+        flash[:alert] = "Failed to connect #{ConnectedAccount::PROVIDER_CONFIG[kind][:name]} account: #{connected_account.errors.full_messages.join(', ')}"
       end
       redirect_to user_connected_accounts_path
     else

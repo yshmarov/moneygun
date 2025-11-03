@@ -10,8 +10,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   # GET /organizations/1/projects/1
-  def show
-  end
+  def show; end
 
   # GET /organizations/1/projects/new
   def new
@@ -20,8 +19,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   # GET /organizations/1/projects/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /organizations/1/projects
   def create

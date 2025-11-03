@@ -13,10 +13,10 @@ class Users::MembershipRequestsController < ApplicationController
     request = MembershipRequest.new(organization: @organization, user: current_user)
     if request.save
       flash.now[:notice] = if @organization.privacy_setting_public?
-        t("membership_requests.success.access_granted")
-      else
-        t("membership_requests.success.access_requested")
-      end
+                             t("membership_requests.success.access_granted")
+                           else
+                             t("membership_requests.success.access_requested")
+                           end
     else
       flash.now[:alert] = request.errors.full_messages.join(", ")
     end

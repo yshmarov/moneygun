@@ -10,7 +10,7 @@ class AccessRequest < ApplicationRecord
   enum :status, %w[pending approved rejected].index_by(&:itself), default: :pending
 
   validates :status, presence: true
-  validates :user_id, uniqueness: {scope: :organization_id, message: :already_has_pending_request}
+  validates :user_id, uniqueness: { scope: :organization_id, message: :already_has_pending_request }
 
   def approve!
     raise NotImplementedError, "Subclasses must implement this method"

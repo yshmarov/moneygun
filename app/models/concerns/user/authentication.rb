@@ -7,9 +7,9 @@ module User::Authentication
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable, :trackable
     devise :invitable, :database_authenticatable, :registerable,
-      :recoverable, :rememberable, :validatable,
-      :masqueradable,
-      :omniauthable, omniauth_providers: Devise.omniauth_configs.keys
+           :recoverable, :rememberable, :validatable,
+           :masqueradable,
+           :omniauthable, omniauth_providers: Devise.omniauth_configs.keys
 
     has_many :connected_accounts, as: :owner, dependent: :destroy
   end

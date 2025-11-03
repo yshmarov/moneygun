@@ -5,7 +5,7 @@ class MembershipInvitation
 
   attr_accessor :email, :organization, :inviter
 
-  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def save
     return false unless valid?
@@ -19,7 +19,7 @@ class MembershipInvitation
   private
 
   def find_or_invite_user
-    User.find_by(email: email) || User.invite!({email:}, inviter)
+    User.find_by(email: email) || User.invite!({ email: }, inviter)
   end
 
   def create_access_request(user)
