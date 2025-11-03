@@ -189,6 +189,9 @@ GEM
       railties (>= 5.2.0)
     docile (1.4.1)
     dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
     erb (5.1.1)
@@ -640,6 +643,7 @@ DEPENDENCIES
   devise!
   devise_invitable (~> 2.0)
   devise_masquerade
+  dotenv-rails
   erb_lint
   flipper-active_record
   flipper-ui
