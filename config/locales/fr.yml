@@ -257,14 +257,14 @@ fr:
     new:
       title: Nouvelle organisation
     projects:
-      index:
-        title: Projets
       create:
         success: Projet créé
-      update:
-        success: Projet mis à jour
       destroy:
         success: Projet détruit
+      index:
+        title: Projets
+      update:
+        success: Projet mis à jour
     show:
       title: Paramètres
     subscriptions:
@@ -273,11 +273,13 @@ fr:
       index:
         title: Facturation
       plan:
+        active: Actif
+        cancelled: Annulé
         manage_billing: Gérer la facturation
         next_billing_date: Date de prochaine facturation
-        status: Statut de l'abonnement
         price: Tarif
         resume_subscription: Reprendre l'abonnement
+        status: Statut de l'abonnement
         subscription_active: Abonnement actif
         subscription_cancelled: Abonnement annulé
         title: Gérer l'abonnement
@@ -332,6 +334,7 @@ fr:
       all_rights_reserved: Tous droits réservés.
     navigation:
       edit_profile: Modifier le profil
+      home: Accueil
       login: Se connecter
       logout: Se déconnecter
       organizations: Organisations

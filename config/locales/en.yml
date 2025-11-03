@@ -258,14 +258,14 @@ en:
     new:
       title: New organization
     projects:
-      index:
-        title: Projects
       create:
         success: Project created
-      update:
-        success: Project updated
       destroy:
         success: Project destroyed
+      index:
+        title: Projects
+      update:
+        success: Project updated
     show:
       title: Home
     subscriptions:
@@ -274,13 +274,13 @@ en:
       index:
         title: Billing
       plan:
-        manage_billing: Manage billing
-        next_billing_date: Next billing date
-        status: Subscription status
-        price: Price
-        resume_subscription: Resume subscription
         active: Active
         cancelled: Cancelled
+        manage_billing: Manage billing
+        next_billing_date: Next billing date
+        price: Price
+        resume_subscription: Resume subscription
+        status: Subscription status
         title: Manage subscription
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
       pricing:
@@ -333,6 +333,7 @@ en:
       all_rights_reserved: All rights reserved.
     navigation:
       edit_profile: Edit profile
+      home: Home
       login: Log in
       logout: Sign out
       organizations: Organizations

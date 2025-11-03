@@ -11,8 +11,8 @@
     <% end %>
   <% else %>
     <%= active_link_to organizations_path, active: :exclusive, class_active: "dock-active", class: "" do %>
-      <%= inline_svg_tag "svg/globe-europe-africa.svg", class: "size-[1.2em]" %>
-      <span class="dock-label"><%= t("organizations.index.title") %></span>
+      <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]" %>
+      <span class="dock-label"><%= t("shared.navigation.home") %></span>
     <% end %>
   <% end %>
 
