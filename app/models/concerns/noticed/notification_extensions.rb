@@ -6,8 +6,8 @@ module Noticed::NotificationExtensions
   def broadcast_update_to_bell
     broadcast_update_to(
       "notifications_#{recipient.id}",
-      target: "notification_bell",
-      partial: "navbar/notifications/bell",
+      target: "notification_count",
+      partial: "users/notifications/notifications_count",
       locals: { user: recipient }
     )
   end
@@ -16,7 +16,7 @@ module Noticed::NotificationExtensions
     broadcast_prepend_to(
       "notifications_index_list_#{recipient.id}",
       target: "notifications",
-      partial: "notifications/notification",
+      partial: "users/notifications/notification",
       locals: { notification: self }
     )
   end
