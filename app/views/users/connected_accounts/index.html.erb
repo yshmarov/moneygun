@@ -1,13 +1,13 @@
 <% content_for :title, t(".title") %>
 
 <div class="space-y-6">
-  <% available_providers = Devise.omniauth_configs.keys %>
+  <% available_providers = Rails.application.config.omniauth_providers %>
   <% if available_providers.any? %>
     <%= render PageComponent.new(title: t(".available_connections")) do |component| %>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <% available_providers.each do |provider| %>
           <div class="border border-base-content/20 p-4 rounded-lg hover:bg-base-200 transition-colors">
-            <%= form_tag "/users/auth/#{provider}", method: :post, data: { turbo: false }, class: "w-full" do %>
+            <%= form_tag "/auth/#{provider}", method: :post, data: { turbo: false }, class: "w-full" do %>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   <div class="text-2xl">

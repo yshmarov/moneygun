@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  Devise.omniauth_configs.each_key do |provider|
-    define_method provider do
-      handle_auth provider
-    end
+  def callback
+    provider = params[:provider].to_sym
+    handle_auth provider
   end
 
   def failure
