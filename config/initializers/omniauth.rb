@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config/initializers/omniauth.rb
 require "omniauth"
 # require "omniauth-google-oauth2"

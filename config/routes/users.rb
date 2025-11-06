@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 devise_for :users, controllers: {
   registrations: "users/registrations",
   sessions: "users/sessions",

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :public do
   resources :organizations, only: %i[index show]
 end
