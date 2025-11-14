@@ -2,7 +2,7 @@
   <label for="main-drawer" aria-label="Close sidebar" class="drawer-overlay"></label>
   <aside class="bg-base-300 h-dvh flex flex-col overflow-y-auto w-80">
     <ul class="menu menu-xl w-full flex-1">
-      <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, icon: "logo.png", active: :exact %>
+      <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-medium", icon: "logo.png", active: :exact %>
       <%# search %>
       <%# = nav_link t("search.index.title"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } %>
       <%= nav_link t("search.index.title"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal } %>
@@ -32,7 +32,7 @@
 
       <%# mobile - sidebar for switching between organizations %>
       <div class="<% if Current.organization %> lg:hidden <% end %>">
-        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: :exact %>
+        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/compass.svg", active: :exact %>
         <% Current.organizations.each do |organization| %>
           <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
         <% end %>
