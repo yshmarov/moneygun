@@ -1,4 +1,4 @@
-<%= modal close_on_submit: false, dialog_position: "modal-middle" do %>
+<%= modal close_on_submit: false, dialog_position: "modal-middle", title: t("search.index.title") do %>
   <div class="flex flex-col gap-4">
     <%= form_with url: search_path, method: :get, data: { turbo_frame: :results, controller: "debounce" } do |form| %>
       <%= form.search_field :query, autofocus: true, data: { action: "keydown.esc->dialog#close debounce#submit" }, class: "input w-full", placeholder: t("search.index.title") %>

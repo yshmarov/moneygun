@@ -1,14 +1,19 @@
 <% close_on_submit = true if close_on_submit.nil? %>
 
 <% dialog_position ||= "modal-middle" %>
+<% title ||= nil %>
 
 <% if turbo_frame_request? %>
   <%= turbo_frame_tag :modal do %>
     <dialog class="modal <%= dialog_position %> backdrop-blur-lg transition-none" data-controller="dialog" data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>">
       <div class="modal-box gap-y-2 transition-none">
-        <div class="flex justify-end mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="font-semibold text-2xl @3xl:text-3xl">
+            <%= title %>
+          </div>
+
           <form method="dialog" class="">
-            <button class="btn btn-sm btn-circle">
+            <button class="btn btn-sm btn-circle btn-ghost">
               <%= inline_svg_tag "svg/x-mark.svg", class: "size-4" %>
             </button>        
           </form>
