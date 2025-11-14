@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_14_150406) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_14_154857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,16 +25,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_14_150406) do
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
     t.index ["user_id", "organization_id"], name: "index_access_requests_on_user_id_and_organization_id", unique: true
     t.index ["user_id"], name: "index_access_requests_on_user_id"
-  end
-
-  create_table "action_text_rich_texts", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "body"
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_analytics_browsers_per_days", force: :cascade do |t|
@@ -354,6 +344,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_14_150406) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["referral_code_id"], name: "index_refer_visits_on_referral_code_id"
+  end
+
+  create_table "solid_cable_messages", force: :cascade do |t|
+    t.binary "channel", null: false
+    t.binary "payload", null: false
+    t.datetime "created_at", null: false
+    t.bigint "channel_hash", null: false
+    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
+    t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
+    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
   end
 
   create_table "solid_cache_entries", force: :cascade do |t|
