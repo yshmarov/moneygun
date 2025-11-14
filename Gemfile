@@ -55,6 +55,7 @@ group :development, :test do
   gem "rubocop-rails", require: false
   gem "erb_lint", require: false
   gem "dotenv-rails"
+  gem "reactionview", "~> 0.1.6"
 end
 
 group :development do
