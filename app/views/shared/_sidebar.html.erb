@@ -31,7 +31,7 @@
       </div>
 
       <%# mobile - sidebar for switching between organizations %>
-      <div class="lg:hidden">
+      <div class="<% if Current.organization %>lg:hidden<% end %>">
         <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: :exact %>
         <% Current.organizations.each do |organization| %>
             <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
