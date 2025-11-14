@@ -31,7 +31,7 @@
               <% if @organization.has_access? %>
                 <% if plan[:interval] == "one_time" %>
                   <%# For one-time payments, allow multiple purchases %>
-                  <%= link_to t(".purchase", default: "Purchase"), organization_subscriptions_checkout_path(Current.organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
+                  <%= link_to t(".purchase"), organization_subscriptions_checkout_path(Current.organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
                 <% else %>
                   <%# For subscriptions, check current subscription %>
                   <% current_plan = plan_for(@organization.payment_processor.subscription) if @organization.payment_processor&.subscription %>
@@ -42,11 +42,11 @@
                   <% end %>
                 <% end %>
               <% else %>
-                <% button_text = plan[:interval] == "one_time" ? t(".purchase", default: "Purchase") : t(".subscribe") %>
+                <% button_text = plan[:interval] == "one_time" ? t(".purchase") : t(".subscribe") %>
                 <%= link_to button_text, organization_subscriptions_checkout_path(Current.organization, price_id: plan[:id]), data: { turbo: false }, class: "btn btn-primary" %>
               <% end %>
             <% else %>
-              <% button_text = plan[:interval] == "one_time" ? t(".purchase", default: "Purchase") : t(".subscribe") %>
+              <% button_text = plan[:interval] == "one_time" ? t(".purchase") : t(".subscribe") %>
               <%= link_to button_text, new_user_registration_path, class: "btn btn-primary" %>
             <% end %>
           </div>
