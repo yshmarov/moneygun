@@ -6,22 +6,14 @@ shared:
     address: Warsaw, Poland, 02-691
   pro_features:
     - ✅ Access the paywalled page
-  plans:
-    - id: price_1RDRzvLRcgxgTmfQZVdAF93B
-      unit_amount: 9900
-      currency: USD
-      interval: month
-    - id: price_1RDRzwLRcgxgTmfQZigxB6ZM
-      unit_amount: 99900
-      currency: USD
-      interval: year
+  # Only store price IDs - prices are fetched from Stripe API
+  # This eliminates manual data entry and keeps pricing in sync with Stripe
+  plan_price_ids:
+    - price_1SSf8nPphrjnyYtLAWa6zXo0
+    # - price_1SSe4DPphrjnyYtL9rLI9coN
+    # - price_1SSe3jPphrjnyYtLc6cRtFY2
 production:
-  plans:
-    - id: price_1RDRzvLRcgxgTmfQZVdAF93B
-      unit_amount: 9900
-      currency: USD
-      interval: month
-    - id: price_1RDRzwLRcgxgTmfQZigxB6ZM
-      unit_amount: 99900
-      currency: USD
-      interval: year
+  plan_price_ids:
+    - price_1RDRzvLRcgxgTmfQZVdAF93B
+    # - price_1RDRzwLRcgxgTmfQZigxB6ZM
+    # - price_1SSf8nPphrjnyYtLAWa6zXo0

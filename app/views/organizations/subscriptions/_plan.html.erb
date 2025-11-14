@@ -1,5 +1,7 @@
 <% status_label = subscription.on_grace_period? ? t(".cancelled") : t(".active") %>
+
 <% access_ends_at_label = subscription.on_grace_period? ? t(".you_will_lose_access_in", distance_of_time_in_words: distance_of_time_in_words(subscription.current_period_end, Time.current)) : t(".next_billing_date") %>
+
 <% button_label = subscription.on_grace_period? ? t(".resume_subscription") : t(".manage_billing") %>
 
 <%= render PageComponent.new(title: t(".title"), full_width: false) do |component| %>
@@ -26,7 +28,14 @@
           </td>
           <td data-label="<%= t(".price") %>">
             <div class="flex flex-1 @max-xl:justify-end">
-              <%= number_to_currency plan_for(subscription)[:unit_amount] / 100, unit: currency_symbol(plan_for(subscription)[:currency]), strip_insignificant_zeros: true %>/<%= plan_for(subscription)[:interval] %>
+              <% current_plan = plan_for(subscription) %>
+              <% if current_plan %>
+                <%= number_to_currency current_plan[:unit_amount] / 100, unit: currency_symbol(current_plan[:currency]), strip_insignificant_zeros: true %>
+                /
+                <%= current_plan[:interval] %>
+              <% else %>
+                <%= t(".price_not_available") %>
+              <% end %>
             </div>
           </td>
           <td data-label="<%= access_ends_at_label %>">
