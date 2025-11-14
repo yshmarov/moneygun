@@ -58,7 +58,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   def sync_charges
     @organization.set_payment_processor :stripe
     # Sync charges from checkout session for one-time payments
-    return unless params[:session_id].present?
+    return if params[:session_id].blank?
 
     Pay::Stripe::Charge.sync_from_checkout_session(params[:session_id]) unless Rails.env.test?
   end
