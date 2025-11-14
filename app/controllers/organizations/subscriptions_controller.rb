@@ -3,7 +3,7 @@
 class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_billing_enabled
   before_action :require_current_organization_admin
-  before_action :sync_subscriptions, only: [:checkout]
+  before_action :sync_subscriptions, only: %i[checkout success]
 
   def index; end
 
@@ -25,11 +25,15 @@ class Organizations::SubscriptionsController < Organizations::BaseController
       tax_id_collection: { enabled: true },
       # consent_collection: { terms_of_service: :required },
       customer_update: { address: :auto, name: :auto },
-      success_url: organization_subscriptions_url(@organization),
+      success_url: organization_subscriptions_success_url(@organization),
       cancel_url: organization_subscriptions_url(@organization)
     )
 
     redirect_to @checkout_session.url, allow_other_host: true, status: :see_other
+  end
+
+  def success
+    redirect_to organization_subscriptions_url(@organization)
   end
 
   def billing_portal
