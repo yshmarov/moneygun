@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# Service to fetch and cache Stripe prices
-# This eliminates the need to manually sync price data between Stripe and settings.yml
+# Fetch and cache Stripe prices
 class StripePriceService
   CACHE_KEY = "stripe_prices"
   CACHE_EXPIRY = 10.minutes

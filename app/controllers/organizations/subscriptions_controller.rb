@@ -4,7 +4,6 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_billing_enabled
   before_action :require_current_organization_admin
   before_action :sync_subscriptions, only: %i[checkout success]
-  before_action :sync_charges, only: %i[success]
 
   def index; end
 
@@ -12,11 +11,9 @@ class Organizations::SubscriptionsController < Organizations::BaseController
     price = Stripe::Price.retrieve(params[:price_id])
     return redirect_to organization_subscriptions_url(@organization) if price.nil?
 
-    # Determine if this is a one-time payment or subscription
     is_one_time = price.recurring.nil?
 
-    # For subscriptions, check if already subscribed
-    return redirect_to organization_subscriptions_url(@organization) if !is_one_time && @organization.payment_processor&.subscribed?
+    return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
 
     @checkout_session = @organization.payment_processor.checkout(
       mode: is_one_time ? "payment" : "subscription",
@@ -53,14 +50,6 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   def sync_subscriptions
     @organization.set_payment_processor :stripe
     @organization.payment_processor.sync_subscriptions(status: "all") unless Rails.env.test?
-  end
-
-  def sync_charges
-    @organization.set_payment_processor :stripe
-    # Sync charges from checkout session for one-time payments
-    return if params[:session_id].blank?
-
-    Pay::Stripe::Charge.sync_from_checkout_session(params[:session_id]) unless Rails.env.test?
   end
 
   def require_billing_enabled

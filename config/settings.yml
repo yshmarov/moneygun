@@ -6,8 +6,6 @@ shared:
     address: Warsaw, Poland, 02-691
   pro_features:
     - ✅ Access the paywalled page
-  # Only store price IDs - prices are fetched from Stripe API
-  # This eliminates manual data entry and keeps pricing in sync with Stripe
   plan_price_ids:
     - price_1SSf8nPphrjnyYtLAWa6zXo0
     - price_1SSe4DPphrjnyYtL9rLI9coN
