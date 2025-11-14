@@ -17,6 +17,16 @@ class StripePriceService
       all.find { |price| price[:id] == price_id }
     end
 
+    def one_time?(price_id)
+      price = find(price_id)
+      price && price[:interval] == "one_time"
+    end
+
+    def recurring?(price_id)
+      price = find(price_id)
+      price && price[:interval] != "one_time"
+    end
+
     def clear_cache
       Rails.cache.delete(CACHE_KEY)
     end

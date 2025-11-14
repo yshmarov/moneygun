@@ -24,7 +24,8 @@ module Organization::Billing
   def has_access?
     return false unless payment_processor
 
-    payment_processor.subscribed?
+    # Check for active subscription OR successful one-time payment (not fully refunded)
+    payment_processor.subscribed? || payment_processor.charges.where("amount_refunded IS NULL OR amount_refunded < amount").exists?
   end
   # rubocop:enable Naming/PredicatePrefix
 
