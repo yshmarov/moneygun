@@ -4,7 +4,7 @@
 # This eliminates the need to manually sync price data between Stripe and settings.yml
 class StripePriceService
   CACHE_KEY = "stripe_prices"
-  CACHE_EXPIRY = 1.hour
+  CACHE_EXPIRY = 10.minutes
 
   class << self
     def all
@@ -14,7 +14,15 @@ class StripePriceService
     end
 
     def find(price_id)
-      all.find { |price| price[:id] == price_id }
+      return nil if price_id.blank?
+
+      # First check cached prices (from settings.yml)
+      cached_price = all.find { |price| price[:id] == price_id }
+      return cached_price if cached_price
+
+      # If not found in cache, fetch directly from Stripe
+      # This handles cases where a subscription exists but the plan was removed from settings.yml
+      fetch_price_directly(price_id)
     end
 
     def one_time?(price_id)
@@ -46,6 +54,18 @@ class StripePriceService
         Rails.logger.error("Failed to fetch Stripe price #{price_id}: #{e.message}")
         nil
       end.compact.sort_by { |p| [p[:interval] == "year" ? 0 : 1, p[:unit_amount]] }
+    end
+
+    def fetch_price_directly(price_id)
+      return nil unless stripe_configured?
+
+      begin
+        price = Stripe::Price.retrieve(price_id)
+        format_price(price)
+      rescue Stripe::StripeError => e
+        Rails.logger.error("Failed to fetch Stripe price #{price_id}: #{e.message}")
+        nil
+      end
     end
 
     def format_price(stripe_price)

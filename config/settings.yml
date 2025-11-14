@@ -10,10 +10,9 @@ shared:
   # This eliminates manual data entry and keeps pricing in sync with Stripe
   plan_price_ids:
     - price_1SSf8nPphrjnyYtLAWa6zXo0
-    # - price_1SSe4DPphrjnyYtL9rLI9coN
-    # - price_1SSe3jPphrjnyYtLc6cRtFY2
+    - price_1SSe4DPphrjnyYtL9rLI9coN
+    - price_1SSe3jPphrjnyYtLc6cRtFY2
 production:
   plan_price_ids:
     - price_1RDRzvLRcgxgTmfQZVdAF93B
-    # - price_1RDRzwLRcgxgTmfQZigxB6ZM
-    # - price_1SSf8nPphrjnyYtLAWa6zXo0
+    - price_1RDRzwLRcgxgTmfQZigxB6ZM
