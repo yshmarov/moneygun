@@ -1,7 +1,7 @@
 <%= form_with(model: organization, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
   <%= render "shared/errors", object: form.object %>
 
-  <div class="">
+  <div>
     <%= form.label :name %>
     <%= form.text_field :name,
                         class: "input w-full",
@@ -13,12 +13,12 @@
                         required: true %>
   </div>
 
-  <div class="">
+  <div>
     <%= form.label :logo %>
     <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "input w-full" %>
   </div>
 
-  <div class="">
+  <div>
     <%= form.label :privacy_setting, class: "sr-only" %>
     <div class="space-y-3">
       <% Organization.privacy_settings.each do |key, value| %>
@@ -26,7 +26,9 @@
           <%= form.radio_button :privacy_setting, value, class: "mt-1" %>
           <%= form.label :"privacy_setting_#{key}", class: "flex flex-col" do %>
             <span class="font-medium"><%= privacy_setting_options(key)[:display_text] %></span>
-            <span class="text-sm text-base-content opacity-70"><%= privacy_setting_options(key)[:description_text] %></span>
+            <span class="text-sm text-base-content opacity-70">
+              <%= privacy_setting_options(key)[:description_text] %>
+            </span>
           <% end %>
         </div>
       <% end %>

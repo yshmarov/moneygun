@@ -1,21 +1,26 @@
 <!DOCTYPE html>
+
 <html lang="en" class="h-full bg-base-300 text-base-content">
-  <head>
-    <%= render "layouts/head" %>
-  </head>
+  <head><%= render "layouts/head" %></head>
   <body class="flex flex-col min-h-screen">
     <div class="flex-grow flex flex-col bg-base-300">
       <header class="sticky z-30 top-0">
         <%= render "shared/unauthenticated_navbar" %>
-        <div id="flash" class="absolute left-1/2 -translate-x-1/2 z-40 flex flex-col items-center">
+        <div
+          id="flash"
+          class="
+            absolute left-1/2 -translate-x-1/2 z-40 flex flex-col
+            items-center
+          "
+        >
           <%= render "shared/flash" %>
         </div>
       </header>
-      <main class="flex-grow p-4 lg:p-10 bg-base-100">
-        <%= yield %>
-      </main>
+
+      <main class="flex-grow p-4 lg:p-10 bg-base-100"><%= yield %></main>
+
       <%= render "shared/footer" %>
     </div>
     <%= turbo_frame_tag :modal %>
   </body>
-</html> 
+</html>

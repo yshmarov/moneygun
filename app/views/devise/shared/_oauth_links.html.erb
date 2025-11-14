@@ -1,12 +1,15 @@
 <% providers = Rails.application.config.omniauth_providers.select { |p| ConnectedAccount::PROVIDER_CONFIG[p.to_sym]&.dig(:sign_in) == true } %>
+
 <% if providers.any? %>
   <% providers.each do |provider| %>
     <%= button_to "/auth/#{provider}",
                   data: { turbo: false },
                   class: "btn btn-outline btn-block" do %>
-        <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
-        <%= t("devise.views.shared.links.sign_in_with", provider: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
-      <% end %>
+      <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
+      <%= t("devise.views.shared.links.sign_in_with", provider: ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name]) %>
+    <% end %>
   <% end %>
-  <div class="divider"><%= t("devise.views.shared.links.oauth_separator") %></div>
+  <div class="divider">
+    <%= t("devise.views.shared.links.oauth_separator") %>
+  </div>
 <% end %>

@@ -1,27 +1,25 @@
-<%
-  tabs = [
-    {
-      key: :memberships,
-      path: organization_memberships_path(@organization),
-      icon: "🤝",
-      label: t("organizations.memberships.index.title")
-    },
-    {
-      key: :invitations,
-      path: organization_invitations_path(@organization),
-      label: t("organizations.invitations.index.title"),
-      badge_count: @organization.user_invitations.pending.count,
-      condition: policy(Membership).create?
-    },
-    {
-      key: :requests,
-      path: organization_membership_requests_path(@organization),
-      label: t("membership_requests.index.title"),
-      badge_count: @organization.user_requests.pending.count,
-      condition: policy(Membership).create? && @organization.privacy_setting_restricted?
-    }
-  ]
-%>
+<% tabs = [
+     {
+       key: :memberships,
+       path: organization_memberships_path(@organization),
+       icon: "🤝",
+       label: t("organizations.memberships.index.title")
+     },
+     {
+       key: :invitations,
+       path: organization_invitations_path(@organization),
+       label: t("organizations.invitations.index.title"),
+       badge_count: @organization.user_invitations.pending.count,
+       condition: policy(Membership).create?
+     },
+     {
+       key: :requests,
+       path: organization_membership_requests_path(@organization),
+       label: t("membership_requests.index.title"),
+       badge_count: @organization.user_requests.pending.count,
+       condition: policy(Membership).create? && @organization.privacy_setting_restricted?
+     }
+   ] %>
 
 <%= render PageComponent.new(title: t("organizations.memberships.index.title")) do |component| %>
   <% component.with_action_list do %>

@@ -3,6 +3,7 @@
   <% organization.users.limit(max_count).each do |user| %>
     <%= user_avatar(user) %>
   <% end %>
+
   <% if organization.users.count > max_count %>
     <div class="avatar rounded-full avatar-placeholder">
       <div class="bg-neutral rounded-full text-neutral-content w-8">
