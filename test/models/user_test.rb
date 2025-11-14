@@ -61,6 +61,27 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "after user creation, default organization is created" do
+    assert_difference "Organization.count", 1 do
+      assert_difference "Membership.count", 1 do
+        user = User.create!(
+          email: "test@example.com",
+          password: "password123",
+          password_confirmation: "password123"
+        )
+
+        organization = user.owned_organizations.first
+        assert_not_nil organization
+        assert_equal "Default", organization.name
+        assert_equal user, organization.owner
+
+        membership = organization.memberships.first
+        assert_equal user, membership.user
+        assert_equal "admin", membership.role
+      end
+    end
+  end
+
   private
 
   def mock_omniauth_payload(provider, uid, email)
