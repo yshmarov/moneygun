@@ -8,24 +8,35 @@
       <%= nav_link t("search.index.title"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal } %>
       <li></li>
 
-      <% if Current.organization %>
-        <li>
-          <details>
-            <summary>
-              <%= organization_avatar(Current.organization, classes: "size-6") %>
-              <%= Current.organization.name %>
-            </summary>
-            <ul>
-              <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
-              <% if Current.membership.admin? %>
-                <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
-                <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-              <% end %>
-            </ul>
-          </details>
-        </li>
-        <%= render "shared/sidebar_links" %>
-      <% end %>
+      <%# desktop - sidebar for current organization actions %>
+      <div class="max-lg:hidden">
+        <% if Current.organization %>
+          <li>
+            <details>
+              <summary>
+                <%= organization_avatar(Current.organization, classes: "size-6") %>
+                <%= Current.organization.name %>
+              </summary>
+              <ul>
+                <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
+                <% if Current.membership.admin? %>
+                  <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
+                  <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+                <% end %>
+              </ul>
+            </details>
+          </li>
+          <%= render "shared/sidebar_links" %>
+        <% end %>
+      </div>
+
+      <%# mobile - sidebar for switching between organizations %>
+      <div class="lg:hidden">
+        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: :exact %>
+        <% Current.organizations.each do |organization| %>
+            <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
+        <% end %>
+      </div>
     </ul>
 
     <ul class="menu menu-xl w-full">
