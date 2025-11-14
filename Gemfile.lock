@@ -559,6 +559,9 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    simple_form (5.3.1)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     smart_properties (1.17.0)
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
@@ -697,6 +700,7 @@ DEPENDENCIES
   rubocop-rails
   ruby_llm!
   selenium-webdriver
+  simple_form
   solid_cable
   solid_cache
   solid_queue
