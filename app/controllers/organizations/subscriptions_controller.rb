@@ -8,13 +8,15 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   def index; end
 
   def checkout
-    return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
-
     price = Stripe::Price.retrieve(params[:price_id])
     return redirect_to organization_subscriptions_url(@organization) if price.nil?
 
+    is_one_time = price.recurring.nil?
+
+    return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
+
     @checkout_session = @organization.payment_processor.checkout(
-      mode: "subscription",
+      mode: is_one_time ? "payment" : "subscription",
       locale: I18n.locale,
       line_items: [{
         price:,

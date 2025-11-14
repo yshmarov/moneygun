@@ -1,0 +1,85 @@
+# frozen_string_literal: true
+
+# Fetch and cache Stripe prices
+class StripePriceService
+  CACHE_KEY = "stripe_prices"
+  CACHE_EXPIRY = 10.minutes
+
+  class << self
+    def all
+      Rails.cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) do
+        fetch_cached_prices
+      end
+    end
+
+    def find(price_id)
+      return nil if price_id.blank?
+
+      # First check cached prices (from settings.yml)
+      cached_price = all.find { |price| price[:id] == price_id }
+      return cached_price if cached_price
+
+      # If not found in cache, fetch directly from Stripe
+      # This handles cases where a subscription exists but the plan was removed from settings.yml
+      fetch_price(price_id)
+    end
+
+    def one_time?(price_id)
+      find(price_id)&.dig(:interval) == "one_time"
+    end
+
+    def recurring?(price_id)
+      find(price_id)&.dig(:interval) != "one_time"
+    end
+
+    def clear_cache
+      Rails.cache.delete(CACHE_KEY)
+    end
+
+    private
+
+    def fetch_cached_prices
+      return [] unless stripe_configured?
+
+      price_ids = configured_price_ids
+      return [] if price_ids.empty?
+
+      prices = price_ids.filter_map { |price_id| fetch_price(price_id) }
+      sort_prices(prices)
+    end
+
+    def fetch_price(price_id)
+      return nil unless stripe_configured?
+
+      stripe_price = Stripe::Price.retrieve(price_id)
+      format_price(stripe_price)
+    rescue Stripe::StripeError => e
+      Rails.logger.error("Failed to fetch Stripe price #{price_id}: #{e.message}")
+      nil
+    end
+
+    def format_price(stripe_price)
+      {
+        id: stripe_price.id,
+        unit_amount: stripe_price.unit_amount,
+        currency: stripe_price.currency.upcase,
+        interval: stripe_price.recurring&.interval || "one_time",
+        product_id: stripe_price.product,
+        active: stripe_price.active,
+        nickname: stripe_price.nickname
+      }
+    end
+
+    def sort_prices(prices)
+      prices.sort_by { |price| [price[:interval] == "year" ? 0 : 1, price[:unit_amount]] }
+    end
+
+    def configured_price_ids
+      Rails.application.config_for(:settings)[:plan_price_ids] || []
+    end
+
+    def stripe_configured?
+      Rails.application.credentials.dig(:stripe, :private_key).present?
+    end
+  end
+end
