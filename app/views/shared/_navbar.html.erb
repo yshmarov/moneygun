@@ -1,9 +1,6 @@
 <nav class="px-4 navbar flex justify-between">
   <%# left %>
   <div class="flex items-center gap-1">
-    <%# logo %>
-    <%= link_to Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "max-lg:hidden btn btn-ghost text-xl" %>
-
     <%# mobile sidebar toggle %>
     <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden">
       <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
@@ -26,10 +23,7 @@
         </ul>
       </div>
     <% end %>
-  </div>
 
-  <%# center %>
-  <div class="flex items-center gap-1">
     <%# search %>
     <%# if Flipper.enabled?(:search, current_user) %>
     <%# if Flipper[:search].enabled?(current_user) %>
