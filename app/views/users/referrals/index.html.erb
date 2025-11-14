@@ -1,8 +1,11 @@
 <%= render PageComponent.new(title: t(".title"), subtitle: t(".subtitle")) do |component| %>
   <div data-controller="clipboard" data-clipboard-success-content-value="<%= t("shared.actions.copied") %>" class="flex items-center gap-2">
-    <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, data: { clipboard_target: "source" }, class: "du-input w-full" %>
-    <button type="button" data-action="clipboard#copy" data-clipboard-target="button" class="du-btn du-btn-neutral"><%= t("shared.actions.copy") %></button>
+    <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, data: { clipboard_target: "source" }, class: "input w-full" %>
+    <button type="button" data-action="clipboard#copy" data-clipboard-target="button" class="btn btn-neutral"><%= t("shared.actions.copy") %></button>
   </div>
+
+  <br>
+
   <%= render MetricsGridComponent.new(metrics: @metrics) %>
 <% end %>
 

@@ -36,7 +36,7 @@ class TabsComponentTest < ViewComponent::TestCase
 
     render_inline(TabsComponent.new(active_tab: :tab1, tabs: tabs))
 
-    assert_selector ".du-badge", text: "5"
+    assert_selector ".badge", text: "5"
   end
 
   def test_component_renders_with_icon

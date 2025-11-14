@@ -2,7 +2,7 @@
 
 <%= modal do %>
   <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles") do |component| %>
-    <%= form_with(model: [ @organization, @membership ], class: "contents") do |form| %>
+    <%= form_with(model: [@organization, @membership], class: "contents") do |form| %>
       <%= render "shared/errors", object: form.object %>
 
       <div class="">
@@ -18,7 +18,7 @@
       </div>
 
       <div class="flex justify-end">
-        <%= form.submit class: "du-btn du-btn-primary" %>
+        <%= form.submit class: "btn btn-primary" %>
       </div>
     <% end %>
   <% end %>

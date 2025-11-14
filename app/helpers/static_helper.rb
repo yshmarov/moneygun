@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StaticHelper
   def markdown_to_html(markdown_text)
     return "" if markdown_text.blank?
@@ -30,7 +32,7 @@ module StaticHelper
     }
 
     markdown = Redcarpet::Markdown.new(renderer, extensions)
-      tag.article(class: "prose dark:prose-invert") do
+    tag.article(class: "prose dark:prose-invert") do
       markdown.render(markdown_text).html_safe
     end
   end

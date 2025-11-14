@@ -1,24 +1,34 @@
-<nav class="flex justify-between px-4 lg:pl-0 py-2 bg-base-300">
+<nav class="px-4 navbar flex justify-between">
   <%# left %>
-  <div class="flex items-center gap-4">
-    <button data-action="click->mobile-sidebar#open" class="lg:hidden cursor-pointer inline-flex items-center gap-2">
-      <%= inline_svg_tag "svg/sidebar-open.svg", class: "size-6" %>
-      <% if Current.organization %>
-        <div class="inline-flex items-center gap-2 no-underline">
-          <div>
-            <%= organization_avatar(Current.organization) %>
-          </div>
-          <div class="truncate">
-            <%= Current.organization.name %>
-          </div>
-        </div>
-      <% end %>
-    </button>
+  <div class="flex items-center gap-1">
+    <%# mobile sidebar toggle %>
+    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden">
+      <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
+    </label>
 
+    <%# select org dropdown %>
+    <% if Current.organization %>
+      <div class="lg:hidden dropdown dropdown-start group">
+        <div tabindex="0" role="button" class="btn btn-ghost">
+            <%= organization_avatar(Current.organization, classes: "size-6") %>
+            <%= Current.organization.name %>
+          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
+        </div>
+        <ul tabindex="-1" class="menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
+          <% if Current.membership.admin? %>
+            <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
+            <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%# search %>
     <%# if Flipper.enabled?(:search, current_user) %>
     <%# if Flipper[:search].enabled?(current_user) %>
     <%# if Flipper[:search].enabled? %>
-    <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "du-input du-input-sm gap-2 cursor-pointer lg:min-w-64 rounded-lg" do %>
+    <%= active_link_to search_path, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "max-lg:hidden input input-sm gap-1 cursor-pointer lg:min-w-64 rounded-lg" do %>
       <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4 w-4 h-4" %>
       <span class="grow hidden lg:block"><%= t("search.index.title") %></span>
       <kbd class="kbd kbd-sm hidden lg:inline-flex">⌘</kbd>
@@ -28,40 +38,39 @@
   </div>
 
   <%# right %>
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-1">
     <% if user_masquerade? %>
-      <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "du-btn du-btn-warning du-btn-sm uppercase" %>
+      <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning btn-sm uppercase" %>
     <% end %>
 
-    <% if current_user.admin? %>
-      <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-        <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
-          <span class="font-medium font-mono">Admin</span>
-          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
-        </summary>
-        <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1">
-          <%= active_link_to "👮 Admin", "/admin/avo/resources/users", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "🤑 Profitable", "/profitable", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "⚙️ Jobs", "/jobs", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "📊 Analytics", "/analytics", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "💾 Active Storage", "/active_storage_dashboard", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "🎛️ Feature Flags", "/feature_flags", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" %>
-          <%= active_link_to "👀 Lookbook", "/lookbook", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if Rails.env.development? %>
-          <%= active_link_to "📨 Letter Opener", "/letter_opener", class_active: "du-btn-active", class: "whitespace-nowrap du-btn du-btn-ghost justify-start w-full" if Rails.env.development? %>
-        </div>
-      </details>
-    <% end %>
-
-    <%= render "users/notifications/bell", user: current_user %>
-
-    <details class="relative group flex items-center" data-controller="dropdown" data-action="keydown.esc@window->dropdown#close">
-      <summary class="inline-flex items-center gap-1 font-medium text-sm cursor-pointer [&::-webkit-details-marker]:hidden">
-        <%= user_avatar(current_user) %>
-        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-open:rotate-180" %>
-      </summary>
-      <div class="absolute right-0 mt-5 bg-base-200 border border-base-content/20 z-1 rounded-lg p-1 space-y-1 du-menu">
-        <%= render "shared/user_links" %>
+    <%# notifications dropdown %>
+    <div class="dropdown dropdown-end max-lg:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <%= render "users/notifications/notifications_count", unread: current_user.unseen_notifications_count %>
+        <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6" %>
       </div>
-    </details>
+      <div tabindex="-1" class="w-96 p-2 dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+        <div class="w-full flex justify-end">
+        <%= link_to "View all", user_notifications_path, class: "link link-hover" %>
+        </div>
+        <%= turbo_frame_tag :notifications, src: user_notifications_path, loading: :lazy %>
+      </div>
+    </div>
+
+    <div class="dropdown dropdown-end group">
+      <div tabindex="0" role="button" class="btn btn-ghost">
+        <%= user_avatar(current_user) %>
+        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
+      </div>
+      <ul tabindex="-1" class="menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow border border-base-content/20">
+        <%= render "shared/user_links" %>
+      </ul>
+    </div>
   </div>
 </nav>
+
+<% if Current.organization %>
+  <div class="menu menu-horizontal lg:hidden">
+    <%= render "shared/sidebar_links" %>
+  </div>
+<% end %>

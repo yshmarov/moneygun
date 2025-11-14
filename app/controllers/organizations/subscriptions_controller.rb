@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 class Organizations::SubscriptionsController < Organizations::BaseController
   before_action :require_billing_enabled
   before_action :require_current_organization_admin
-  before_action :sync_subscriptions, only: [ :checkout ]
+  before_action :sync_subscriptions, only: %i[checkout success]
 
-  def index
-  end
+  def index; end
 
   def checkout
     return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
@@ -15,20 +16,24 @@ class Organizations::SubscriptionsController < Organizations::BaseController
     @checkout_session = @organization.payment_processor.checkout(
       mode: "subscription",
       locale: I18n.locale,
-      line_items: [ {
+      line_items: [{
         price:,
         quantity: 1
-      } ],
+      }],
       allow_promotion_codes: true,
       automatic_tax: { enabled: true },
       tax_id_collection: { enabled: true },
       # consent_collection: { terms_of_service: :required },
       customer_update: { address: :auto, name: :auto },
-      success_url: organization_subscriptions_url(@organization),
+      success_url: organization_subscriptions_success_url(@organization),
       cancel_url: organization_subscriptions_url(@organization)
     )
 
     redirect_to @checkout_session.url, allow_other_host: true, status: :see_other
+  end
+
+  def success
+    redirect_to organization_subscriptions_url(@organization)
   end
 
   def billing_portal

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class Organizations::TransfersController < Organizations::BaseController
   before_action :authorize_organization_owner!
 
-  def show
-  end
+  def show; end
 
   def update
     if @organization.transfer_ownership(params[:user_id])
@@ -13,7 +14,7 @@ class Organizations::TransfersController < Organizations::BaseController
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
       end
     else
-      render :show, status: :unprocessable_entity
+      render :show, status: :unprocessable_content
     end
   end
 end

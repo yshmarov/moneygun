@@ -12,13 +12,13 @@ en:
         privacy_settings:
           private:
             description_text: Only invited users can join
-            display_text: '🔒 Private'
+            display_text: "🔒 Private"
           public:
             description_text: Anyone can join
-            display_text: '🌍 Public'
+            display_text: "🌍 Public"
           restricted:
             description_text: People must submit an application to be approved to join
-            display_text: '📩 Restricted'
+            display_text: "📩 Restricted"
     models:
       membership: Member
       organization: Organization
@@ -49,7 +49,7 @@ en:
       unlock_instructions:
         subject: Unlock instructions
     masquerade:
-      back: '⚠ Stop impersonating'
+      back: "⚠ Stop impersonating"
     omniauth_callbacks:
       failure: Something went wrong. Please try again
       success: Successfully authenticated from %{kind} account.
@@ -89,7 +89,7 @@ en:
           password_confirmation_label: Confirm new password
           password_confirmation_placeholder: Confirm new password
           password_label: New password
-          password_minimum: '(%{count} characters minimum)'
+          password_minimum: "(%{count} characters minimum)"
           password_placeholder: Enter new password
           submit: Change my password
           title: Change your password
@@ -115,7 +115,7 @@ en:
           password_confirmation_placeholder: Confirm new password
           password_help: Leave blank if you don't want to change it
           password_label: Password
-          password_minimum: '%{count} characters minimum'
+          password_minimum: "%{count} characters minimum"
           password_placeholder: New password
           pending_confirmation: 'Currently waiting confirmation for: %{email}'
           submit: Update
@@ -126,7 +126,7 @@ en:
           password_confirmation_label: Password confirmation
           password_confirmation_placeholder: Confirm your password
           password_label: Password
-          password_minimum: '(%{count} characters minimum)'
+          password_minimum: "(%{count} characters minimum)"
           password_placeholder: Create a password
           submit: Sign up
           title: Sign up
@@ -159,20 +159,21 @@ en:
   errors:
     messages:
       already_confirmed: was already confirmed, please try signing in
+      already_has_pending_request: already has a pending request
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       expired: has expired, please request a new one
       not_found: not found
       not_locked: was not locked
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
-        other: '%{count} errors prohibited this %{resource} from being saved:'
+        other: "%{count} errors prohibited this %{resource} from being saved:"
   invitations:
     approve:
       success: Invitation accepted
     errors:
       not_found: Invitation not found
     index:
-      title: '⬇️ Invitations'
+      title: "⬇️ Invitations"
     reject:
       success: Invitation declined
   membership_mailer:
@@ -193,22 +194,26 @@ en:
       already_requested: You have already requested access to this organization
       not_found: Membership request not found
     index:
-      title: '⬇️ Waitlist'
+      title: "⬇️ Waitlist"
     reject:
       success: Membership request rejected
     success:
       access_granted: Access granted
       access_requested: Access requested
   notifiers:
-    membership_invitation_notifier:
-      notification:
-        message: You've been invited to join %{organization_name}
-    membership_request_accepted_notifier:
-      notification:
-        message: Your request to join %{organization_name} has been approved!
-    membership_request_rejected_notifier:
-      notification:
-        message: Your request to join %{organization_name} has been declined.
+    membership:
+      invitation_notifier:
+        notification:
+          message: You've been invited to join %{organization_name}
+      removal_notifier:
+        notification:
+          message: You have been removed from %{organization_name}
+      request_accepted_notifier:
+        notification:
+          message: Your request to join %{organization_name} has been approved!
+      request_rejected_notifier:
+        notification:
+          message: Your request to join %{organization_name} has been declined.
   organizations:
     create:
       success: Organization created
@@ -221,21 +226,21 @@ en:
       error: Organization could not be destroyed
       success: Organization destroyed
     edit:
-      title: Edit organization
+      title: Settings
     errors:
       not_found: Organization not found
     index:
-      title: Joined
+      title: My organizations
     invitations:
       create:
-        success: '%{email} invited'
+        success: "%{email} invited"
       destroy:
         success: Invitation cancelled
       errors:
         not_found: Invitation not found
       index:
         cancel_invitation: Cancel invitation
-        title: '⬆️ Invites'
+        title: "⬆️ Invites"
     memberships:
       actions:
         leave: Leave
@@ -245,7 +250,7 @@ en:
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
-        title: Teammates
+        title: Members
       new:
         title: Invite teammate
       update:
@@ -253,25 +258,33 @@ en:
     new:
       title: New organization
     projects:
+      create:
+        success: Project created
+      destroy:
+        success: Project destroyed
       index:
         title: Projects
+      update:
+        success: Project updated
     show:
-      title: Organization profile
+      title: Home
     subscriptions:
       features:
         title: Features
       index:
         title: Billing
       plan:
+        active: Active
+        cancelled: Cancelled
         manage_billing: Manage billing
         next_billing_date: Next billing date
+        price: Price
         resume_subscription: Resume subscription
-        subscription_active: Subscription active
-        subscription_cancelled: Subscription cancelled
+        status: Subscription status
         title: Manage subscription
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
       pricing:
-        cancel_security: '🛡️ Cancel anytime. Secured by Stripe.'
+        cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
         current_plan: Current plan
         save_yearly: Best value
         subscribe: Get started
@@ -286,7 +299,7 @@ en:
   public:
     organizations:
       index:
-        title: '🌎 Discover'
+        title: "🌎 Discover"
       show:
         actions:
           accept_invitation: Accept invitation
@@ -296,17 +309,17 @@ en:
           reject_invitation: Reject invitation
           request_to_join: Join waitlist
   routes:
-    memberships: teammates
+    memberships: members
     organizations: organizations
     user: me
   search:
     index:
-      title: Search...
+      title: Search
   shared:
     actions:
       confirm: Are you sure?
-      copied: '✅ Copied!'
-      copy: '📋 Copy'
+      copied: "✅ Copied!"
+      copy: "📋 Copy"
       create: Create
       destroy: Destroy
       edit: Edit
@@ -320,14 +333,15 @@ en:
       all_rights_reserved: All rights reserved.
     navigation:
       edit_profile: Edit profile
-      login: Sign in
+      home: Home
+      login: Existing members
       logout: Sign out
       organizations: Organizations
-      register: Get started
-      select_organization: Select organization
+      register: Sign up
+      select_organization: Organizations
   static:
     index:
-      title: Welcome to the app!
+      title: Home
     pricing:
       title: Pricing
     privacy:
@@ -353,12 +367,12 @@ en:
         your_connected_accounts: Connected accounts
     invitations:
       index:
-        title: '⬇️ Invitations'
+        title: "⬇️ Invitations"
     membership_requests:
       destroy:
         success: Membership request revoked
       index:
-        title: '⬆️ Waitlisted'
+        title: "⬆️ Waitlisted"
     notifications:
       index:
         title: Notifications

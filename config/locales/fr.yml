@@ -200,15 +200,19 @@ fr:
       access_granted: Accès accordé
       access_requested: Accès demandé
   notifiers:
-    membership_invitation_notifier:
-      notification:
-        message: Vous avez été invité à rejoindre %{organization_name}
-    membership_request_accepted_notifier:
-      notification:
-        message: Votre demande d'adhésion a été acceptée pour %{organization_name}
-    membership_request_rejected_notifier:
-      notification:
-        message: Votre demande d'adhésion a été refusée pour %{organization_name}
+    membership:
+      invitation_notifier:
+        notification:
+          message: Vous avez été invité à rejoindre %{organization_name}
+      removal_notifier:
+        notification:
+          message: Vous avez été retiré de %{organization_name}
+      request_accepted_notifier:
+        notification:
+          message: Votre demande d'adhésion a été acceptée pour %{organization_name}
+      request_rejected_notifier:
+        notification:
+          message: Votre demande d'adhésion a été refusée pour %{organization_name}
   organizations:
     create:
       success: Organisation créée
@@ -253,8 +257,14 @@ fr:
     new:
       title: Nouvelle organisation
     projects:
+      create:
+        success: Projet créé
+      destroy:
+        success: Projet détruit
       index:
         title: Projets
+      update:
+        success: Projet mis à jour
     show:
       title: Paramètres
     subscriptions:
@@ -263,9 +273,13 @@ fr:
       index:
         title: Facturation
       plan:
+        active: Actif
+        cancelled: Annulé
         manage_billing: Gérer la facturation
         next_billing_date: Date de prochaine facturation
+        price: Tarif
         resume_subscription: Reprendre l'abonnement
+        status: Statut de l'abonnement
         subscription_active: Abonnement actif
         subscription_cancelled: Abonnement annulé
         title: Gérer l'abonnement
@@ -320,6 +334,7 @@ fr:
       all_rights_reserved: Tous droits réservés.
     navigation:
       edit_profile: Modifier le profil
+      home: Accueil
       login: Se connecter
       logout: Se déconnecter
       organizations: Organisations
@@ -361,7 +376,7 @@ fr:
         title: "⬆️ Demandes d'adhésion sortantes"
     notifications:
       index:
-        title: Toutes les notifications
+        title: Notifications
     referrals:
       index:
         clicks: Clics sur les liens

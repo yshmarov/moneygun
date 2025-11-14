@@ -91,14 +91,17 @@ This structure provides:
 
 ```bash
 git clone git@github.com:yshmarov/moneygun.git your_project_name
+# git clone https://github.com/yshmarov/moneygun.git your_project_name
 cd your_project_name
+git remote rename origin moneygun
+git remote add origin https://github.com/your-account/your-repo.git # Replace with your new Git repository url
+git push -u origin main
 ```
 
 2. Set up the application:
 
 ```bash
-bundle install
-rails db:create db:migrate
+bin/setup
 ```
 
 3. Start the development server:
@@ -117,6 +120,12 @@ Add your Stripe credentials to your Rails credentials:
 
 ```bash
 rails credentials:edit
+
+# advanced usage
+export EDITOR="/Applications/Cursor.app/Contents/MacOS/Cursor --wait"
+rails credentials:edit --environment=development
+rails credentials:edit --environment=test
+rails credentials:edit --environment=production
 ```
 
 Add the following structure:
@@ -282,7 +291,7 @@ i18n-tasks normalize
 
 # ✨ Contributors
 
-<a href="https://avohq.io/contributors">
+<a href="https://github.com/yshmarov/moneygun">
   <img src="https://contrib.rocks/image?repo=yshmarov/moneygun" />
 </a>
 <!--  https://contrib.rocks -->

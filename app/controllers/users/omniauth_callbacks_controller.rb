@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  Devise.omniauth_configs.keys.each do |provider|
-    define_method provider do
-      handle_auth provider
-    end
+  def callback
+    provider = params[:provider].to_sym
+    handle_auth provider
   end
 
   def failure
@@ -19,11 +20,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       connected_account = ConnectedAccount.create_or_update_from_omniauth(auth_payload, current_user)
       if connected_account.persisted?
         flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: ConnectedAccount::PROVIDER_CONFIG[kind][:name])
-        redirect_to user_connected_accounts_path
       else
         flash[:alert] = "Failed to connect #{ConnectedAccount::PROVIDER_CONFIG[kind][:name]} account: #{connected_account.errors.full_messages.join(', ')}"
-        redirect_to user_connected_accounts_path
       end
+      redirect_to user_connected_accounts_path
     else
       user = User.from_omniauth(auth_payload)
       if user.persisted?

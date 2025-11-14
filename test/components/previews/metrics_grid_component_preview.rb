@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MetricsGridComponentPreview < ViewComponent::Preview
   def default
     render MetricsGridComponent.new(metrics:)

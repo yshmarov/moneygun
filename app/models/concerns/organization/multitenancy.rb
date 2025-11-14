@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Organization::Multitenancy
   extend ActiveSupport::Concern
 

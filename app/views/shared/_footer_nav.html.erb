@@ -1,18 +1,23 @@
-<nav class="du-dock du-dock-lg lg:hidden sticky bottom-0 border-t border-base-content/20 bg-base-300">
+<nav class="dock dock-lg sticky bottom-0 lg:hidden border-t border-base-content/20">
   <% if Current.organization %>
-    <%= active_link_to organization_dashboard_path(Current.organization), class_active: "du-dock-active", class: "" do %>
+    <%= active_link_to organization_dashboard_path(Current.organization), active: %r{^/organizations/}, class_active: "dock-active", class: "" do %>
       <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]" %>
-      <span class="du-dock-label"><%= t("organizations.dashboard.index.title") %></span>
-    <% end %>
-
-    <%= active_link_to organization_projects_path(Current.organization), class_active: "du-dock-active", class: "" do %>
-      <%= inline_svg_tag "svg/question-mark-circle.svg", class: "size-[1.2em]" %>
-      <span class="du-dock-label"><%= t("organizations.projects.index.title") %></span>
+      <span class="dock-label"><%= t("shared.navigation.home") %></span>
     <% end %>
   <% else %>
-    <%= active_link_to organizations_path, active: :exclusive, class_active: "du-dock-active", class: "" do %>
-      <%= inline_svg_tag "svg/globe-europe-africa.svg", class: "size-[1.2em]" %>
-      <span class="du-dock-label"><%= t("organizations.index.title") %></span>
+    <%= active_link_to organizations_path, active: :exclusive, class_active: "dock-active", class: "" do %>
+      <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]" %>
+      <span class="dock-label"><%= t("shared.navigation.home") %></span>
     <% end %>
+  <% end %>
+
+  <%= active_link_to search_path, class_active: "dock-active", data: { turbo_frame: :modal } do %>
+    <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-[1.2em]" %>
+    <span class="dock-label"><%= t("search.index.title") %></span>
+  <% end %>
+
+  <%= active_link_to user_notifications_path, class_active: "dock-active" do %>
+    <%= inline_svg_tag "svg/bell.svg", class: "size-[1.2em]" %>
+    <span class="dock-label"><%= t("users.notifications.index.title") %></span>
   <% end %>
 </nav>

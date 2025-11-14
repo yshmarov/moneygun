@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PageComponentPreview < ViewComponent::Preview
   def default
     component = PageComponent.new(
@@ -7,8 +9,8 @@ class PageComponentPreview < ViewComponent::Preview
     )
 
     component.with_action_list do
-      content_tag(:li, "Link", class: "du-btn du-btn-link") +
-      content_tag(:button, "Button", class: "du-btn du-btn-primary")
+      content_tag(:li, "Link", class: "btn btn-link") +
+        content_tag(:button, "Button", class: "btn btn-primary")
     end
 
     render component do

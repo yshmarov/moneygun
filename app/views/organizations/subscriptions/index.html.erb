@@ -1,6 +1,6 @@
 <% content_for :title, t(".title") %>
 
-<% if @organization.payment_processor.subscribed? %>
+<% if @organization.has_access? %>
   <%= render "organizations/subscriptions/plan", subscription: @organization.payment_processor.subscription %>
 <% else %>
   <%= render "organizations/subscriptions/pricing" %>

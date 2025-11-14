@@ -2,7 +2,7 @@
 
 class Avo::Resources::PayCustomer < Avo::BaseResource
   self.title = :processor_id
-  self.includes = [ :owner ]
+  self.includes = [:owner]
   self.model_class = ::Pay::Customer
 
   self.search = {
@@ -18,7 +18,7 @@ class Avo::Resources::PayCustomer < Avo::BaseResource
     main_panel do
       field :id, as: :id
       field :processor_id, as: :text, disabled: true
-      field :owner, as: :belongs_to, polymorphic_as: :owner, types: [ ::User ], disabled: true
+      field :owner, as: :belongs_to, polymorphic_as: :owner, types: [::User], disabled: true
       # Pay::Subscription
       # field :charges, as: :has_many
       # field :charges, as: :has_many, use_resource: Avo::Resources::PayCharge

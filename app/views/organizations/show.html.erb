@@ -1,15 +1,5 @@
 <% content_for :title, t("organizations.show.title") %>
 
-<% title = capture do %>
-  <div class="flex items-center gap-2">
-    <%= organization_avatar(@organization) %>
-    <%= @organization.name %>
-  </div>
-<% end %>
-
-<%= render PageComponent.new(title:, full_width: false) do |component| %>
-  <div class="flex items-center gap-2">
-    <%= privacy_setting_icon(@organization.privacy_setting) %>
-    <%= render "organizations/users_list", organization: @organization %>
-  </div>
+<%= render PageComponent.new(full_width: false) do |component| %>
+  <%= render "organizations/table", organizations: [@organization] %>
 <% end %>

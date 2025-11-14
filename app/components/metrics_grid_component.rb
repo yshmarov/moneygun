@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MetricsGridComponent < ViewComponent::Base
   def initialize(metrics:)
     @metrics = metrics

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Organizations::InvitationsController < Organizations::BaseController
   before_action :set_invitation, only: %i[destroy]
 
   def index
     authorize Membership, :create?
-    @invitations = @organization.user_invitations.pending
+    @pagy, @invitations = pagy(@organization.user_invitations.pending)
   end
 
   def new
@@ -22,14 +24,14 @@ class Organizations::InvitationsController < Organizations::BaseController
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
       end
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
   def destroy
     authorize Membership, :destroy?
     @invitation.destroy
-    redirect_to organization_invitations_path(@organization), notice: t("organizations.invitations.destroy.success")
+    redirect_to organization_invitations_path(@organization), notice: t(".success")
   end
 
   private

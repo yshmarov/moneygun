@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.1"
+gem "rails", "~> 8.0.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -50,8 +52,10 @@ group :development, :test do
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
+  gem "rubocop-rails", require: false
   gem "erb_lint", require: false
+  gem "dotenv-rails"
+  gem "reactionview", "~> 0.1.6"
 end
 
 group :development do

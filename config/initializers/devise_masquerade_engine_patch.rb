@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config/initializers/devise_masquerade_engine_patch.rb
 
 # Patch for DeviseMasquerade::Controllers::UrlHelpers
@@ -15,9 +17,9 @@
 module DeviseMasquerade
   module Controllers
     module UrlHelpers
-      def method_missing(method_name, *args, &block)
+      def method_missing(method_name, *, &)
         if method_name.to_s.end_with?("_masquerade_index_path")
-          ::Rails.application.routes.url_helpers.send(method_name, *args, &block)
+          ::Rails.application.routes.url_helpers.send(method_name, *, &)
         else
           super
         end

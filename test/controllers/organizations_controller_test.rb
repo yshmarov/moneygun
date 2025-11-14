@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class OrganizationsControllerTest < ActionDispatch::IntegrationTest
@@ -50,8 +52,8 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update organization" do
     patch organization_url(@organization),
-            params: { organization: { name: @organization.name } },
-            headers: { "HTTP_REFERER" => organization_path(@organization) }
+          params: { organization: { name: @organization.name } },
+          headers: { "HTTP_REFERER" => organization_path(@organization) }
     assert_redirected_to edit_organization_url(@organization)
   end
 

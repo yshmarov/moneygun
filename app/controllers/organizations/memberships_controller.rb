@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 class Organizations::MembershipsController < Organizations::BaseController
   before_action :set_membership, only: %i[edit update destroy]
 
   def index
     authorize Membership
-    @memberships = @organization.memberships.includes(:user)
+    @memberships = @organization.memberships.includes(user: :connected_accounts)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @membership.update(membership_params)
@@ -17,7 +18,7 @@ class Organizations::MembershipsController < Organizations::BaseController
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
       end
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -41,6 +42,6 @@ class Organizations::MembershipsController < Organizations::BaseController
   end
 
   def membership_params
-    params.expect(membership: [ :role ])
+    params.expect(membership: [:role])
   end
 end

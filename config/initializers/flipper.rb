@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # https://www.flippercloud.io/docs/get-started/self-hosted
 # https://github.com/flippercloud/flipper?tab=readme-ov-file#getting-started
 Rails.application.configure do

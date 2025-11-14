@@ -5,7 +5,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "[erb]": {
-    "editor.defaultFormatter": "elia.erb-formatter",
+    "editor.defaultFormatter": "marcoroth.herb-lsp",
     "editor.formatOnSave": true
   },
   "prettier.semi": false,
@@ -14,5 +14,8 @@
   "files.associations": {
     "*.html.erb": "erb"
   },
-  "erb-formatter.lineLength": 150
+  "erb-formatter.lineLength": 150,
+  "languageServerHerb.formatter.enabled": true,
+  "languageServerHerb.formatter.indentWidth": 2,
+  "languageServerHerb.formatter.maxLineLength": 150
 }

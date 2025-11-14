@@ -61,12 +61,10 @@ aliases:
   logs: app logs -f
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
 
-
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
 volumes:
-  - "moneygun_storage:/rails/storage"
-
+  - 'moneygun_storage:/rails/storage'
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
@@ -82,11 +80,10 @@ builder:
   #
   # # Pass arguments and secrets to the Docker build process
   # args:
-  #   RUBY_VERSION: 3.4.1
+  #   RUBY_VERSION: 3.4.5
   # secrets:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
-
 # Use a different ssh user than root
 # ssh:
 #   user: app

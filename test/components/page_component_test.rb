@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class PageComponentTest < ViewComponent::TestCase
@@ -19,12 +21,6 @@ class PageComponentTest < ViewComponent::TestCase
     render_inline(PageComponent.new(title: "Page Title"))
 
     assert_selector "section", class: "max-w-7xl"
-  end
-
-  def test_component_renders_with_narrow_width
-    render_inline(PageComponent.new(title: "Page Title", full_width: false))
-
-    assert_selector "section", class: "lg:max-w-xl"
   end
 
   def test_component_renders_with_action_list

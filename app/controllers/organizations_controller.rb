@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show edit update destroy]
 
@@ -5,15 +7,13 @@ class OrganizationsController < ApplicationController
     @pagy, @organizations = pagy(current_user.organizations.includes(:users))
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @organization = Organization.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @organization = Organization.new(organization_params)
@@ -26,7 +26,7 @@ class OrganizationsController < ApplicationController
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
       end
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -37,7 +37,7 @@ class OrganizationsController < ApplicationController
         format.html { redirect_to edit_organization_path(@organization) }
       end
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -59,7 +59,7 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.expect(organization: [ :name, :logo, :privacy_setting ])
+    params.expect(organization: %i[name logo privacy_setting])
   end
 
   def pundit_user

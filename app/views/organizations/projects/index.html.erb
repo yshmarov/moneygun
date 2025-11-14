@@ -1,8 +1,22 @@
 <% content_for :title, "Projects" %>
 
-<%= render PageComponent.new(title: "Projects") do |component| %>
+<% breadcrumbs = capture do %>
+  <nav aria-label="Breadcrumb">
+    <div class="breadcrumbs text-lg">
+      <ul>
+        <li>
+          <%= link_to organization_projects_path(@organization) do %>
+            <span>Projects</span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+<% end %>
+
+<%= render PageComponent.new(title: breadcrumbs) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
+    <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <% end %>
 
   <div class="table-responsive">
@@ -17,12 +31,12 @@
       </thead>
       <tbody id="projects">
         <% @projects.each do |project| %>
-          <tr>
+          <tr class="cursor-pointer" data-controller="visitable" data-action="click->visitable#visit" data-url="<%= organization_project_path(@organization, project) %>">
             <td data-label="<%= Project.human_attribute_name(:name) %>"><%= project.name %></td>
             <td data-label="<%= Project.human_attribute_name(:created_at) %>"><%= local_time(project.created_at, format: :short) %></td>
             <td data-label="<%= Project.human_attribute_name(:updated_at) %>"><%= local_time(project.updated_at, format: :short) %></td>
             <td>
-              <%= link_to t("shared.actions.show"), [ @organization, project ], class: "du-btn du-btn-sm du-btn-secondary" %>
+              <%= link_to t("shared.actions.show"), [@organization, project], class: "btn btn-sm btn-secondary" %>
             </td>
           </tr>
         <% end %>

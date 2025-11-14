@@ -1,37 +1,45 @@
-<div class="table-responsive">
-  <table>
-    <thead>
-      <tr>
-        <th><%= Organization.human_attribute_name(:name) %></th>
-        <th><%= Organization.human_attribute_name(:privacy_setting) %></th>
-        <th>Members</th>
-        <th><%= Organization.human_attribute_name(:created_at) %></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="organizations" data-controller="clickable-row">
-      <% @organizations.each do |organization| %>
-        <tr class="cursor-pointer" data-clickable-row-target="row" data-url="<%= organization_path(organization) %>">
-          <td data-label="<%= Organization.human_attribute_name(:name) %>">
-            <div class="flex items-center gap-2">
-              <%= organization_avatar(organization) %>
-              <span class="font-medium"><%= highlight(organization.name, params[:query]) %></span>
-            </div>
-          </td>
-          <td data-label="<%= Organization.human_attribute_name(:privacy_setting) %>">
-            <%= privacy_setting_options(organization.privacy_setting)[:display_text] %>
-          </td>
-          <td data-label="Members">
-            <%= render "organizations/users_list", organization: %>
-          </td>
-          <td data-label="<%= Organization.human_attribute_name(:created_at) %>">
-            <%= local_time(organization.created_at, format: :short) %>
-          </td>
-          <td>
-            <%= render "organizations/membership_actions", organization: organization %>
-          </td>
+<% if organizations.any? %>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th><%= Organization.human_attribute_name(:name) %></th>
+          <th><%= Organization.human_attribute_name(:privacy_setting) %></th>
+          <th>Members</th>
+          <th><%= Organization.human_attribute_name(:created_at) %></th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody id="organizations">
+        <% organizations.each do |organization| %>
+          <tr class="cursor-pointer" data-controller="visitable" data-action="click->visitable#visit" data-url="<%= organization.participant?(current_user) ? organization_path(organization) : public_organization_path(organization) %>">
+            <td data-label="<%= Organization.human_attribute_name(:name) %>">
+              <div class="flex items-center gap-2">
+                <%= organization_avatar(organization) %>
+                <span class="font-medium"><%= highlight(organization.name, params[:query]) %></span>
+              </div>
+            </td>
+            <td data-label="<%= Organization.human_attribute_name(:privacy_setting) %>">
+              <span class="font-medium text-sm">
+                <%= privacy_setting_options(organization.privacy_setting)[:display_text] %>
+              </span>
+            </td>
+            <td data-label="Members">
+              <%= render "organizations/users_list", organization: %>
+            </td>
+            <td data-label="<%= Organization.human_attribute_name(:created_at) %>">
+              <%= organization.created_at.strftime("%B %d, %Y") %>
+            </td>
+            <td>
+              <%= render "organizations/membership_actions", organization: organization %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= render "shared/pagination", pagy: @pagy if @pagy.present? %>
+<% else %>
+  <%= render EmptyStateComponent.new %>
+<% end %>

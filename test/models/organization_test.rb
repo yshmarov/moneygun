@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class OrganizationTest < ActiveSupport::TestCase
@@ -12,14 +14,14 @@ class OrganizationTest < ActiveSupport::TestCase
     organization = Organization.new(
       name: "Test Org",
       owner: user,
-      privacy_setting: :public,
+      privacy_setting: :public
     )
 
-    refute organization.valid?
+    assert_not organization.valid?
     assert_includes organization.errors[:privacy_setting], "requires logo to be discoverable for restricted and public organizations"
 
     organization.logo.attach(
-      io: File.open(Rails.root.join("test", "fixtures", "files", "avo-logo.png")),
+      io: Rails.root.join("test/fixtures/files/avo-logo.png").open,
       filename: "logo.png",
       content_type: "image/png"
     )

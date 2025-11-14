@@ -1,15 +1,20 @@
+# frozen_string_literal: true
+
 module User::Authentication
   extend ActiveSupport::Concern
 
   included do
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable, :trackable
-    devise :invitable, :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :validatable,
-           :masqueradable,
-           :omniauthable, omniauth_providers: Devise.omniauth_configs.keys
+    devise :invitable,
+           :database_authenticatable,
+           :registerable,
+           :recoverable,
+           :rememberable,
+           :validatable,
+           :masqueradable
 
-    has_many :connected_accounts, dependent: :destroy
+    has_many :connected_accounts, as: :owner, dependent: :destroy
   end
 
   def remember_me
@@ -25,8 +30,8 @@ module User::Authentication
       )
 
       if existing_connected_account
-        # Return the user associated with this connected account
-        return existing_connected_account.user
+        # Return the owner associated with this connected account
+        return existing_connected_account.owner
       end
 
       # If no existing connected account, proceed with email-based lookup
@@ -38,9 +43,7 @@ module User::Authentication
         user.password = Devise.friendly_token[0, 20] if user.password.blank?
       end
 
-      if user.save
-        ConnectedAccount.create_or_update_from_omniauth(auth_payload, user)
-      end
+      ConnectedAccount.create_or_update_from_omniauth(auth_payload, user) if user.save
 
       user
     end

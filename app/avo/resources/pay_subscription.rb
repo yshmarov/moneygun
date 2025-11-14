@@ -2,7 +2,7 @@
 
 class Avo::Resources::PaySubscription < Avo::BaseResource
   self.title = :processor_id
-  self.includes = [ :customer ]
+  self.includes = [:customer]
   self.model_class = ::Pay::Subscription
 
   self.search = {

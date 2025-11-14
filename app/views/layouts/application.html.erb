@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-base-300 text-base-content">
+<html lang="en" class="h-full bg-base-100 text-base-content">
   <head>
     <%= render "layouts/head" %>
   </head>
-  <body class="flex h-dvh overflow-hidden" data-controller="mobile-sidebar">
-    <%= render "shared/sidebar" %>
-
-    <div class="flex-grow flex flex-col bg-base-300 min-w-0">
-      <header class="sticky z-30 top-0">
-        <%= render "shared/navbar" %>
-        <div id="flash" class="absolute left-1/2 -translate-x-1/2 z-40 flex flex-col items-center">
-          <%= render "shared/flash" %>
-        </div>
-      </header>
-      <main class="flex-grow p-4 bg-base-100 overflow-y-auto lg:m-2 lg:mt-0 lg:ml-0 lg:rounded-xl lg:border border-base-content/20">
-        <%= yield %>
-      </main>
-      <%= render "shared/footer_nav" %>
+  <body class="h-dvh overflow-hidden">
+    <div class="drawer lg:drawer-open">
+      <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content flex flex-col min-w-0 h-dvh">
+        <header class="sticky top-0 z-20">
+          <%= render "shared/navbar" %>
+          <div id="flash" class="absolute left-1/2 -translate-x-1/2 z-40 flex flex-col items-center">
+            <%= render "shared/flash" %>
+          </div>
+        </header>
+        <main class="flex-grow p-4 overflow-y-auto">
+          <%= yield %>
+        </main>
+        <%= render "shared/footer_nav" %>
+      </div>
+      <%= render "shared/sidebar" %>
     </div>
     <%= turbo_frame_tag :modal %>
+    <%= turbo_stream_from "notifications_#{current_user.id}" %>
   </body>
 </html>

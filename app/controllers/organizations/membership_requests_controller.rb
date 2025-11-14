@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Organizations::MembershipRequestsController < Organizations::BaseController
   before_action :set_membership_request, only: %i[approve reject]
 
   def index
     authorize Membership, :create?
-    @membership_requests = @organization.user_requests.pending
+    @pagy, @membership_requests = pagy(@organization.user_requests.pending)
   end
 
   def approve

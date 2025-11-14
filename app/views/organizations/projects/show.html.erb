@@ -1,11 +1,28 @@
 <% content_for :title, "Project" %>
 
-<%= render PageComponent.new(title: "Project") do |component| %>
-  <% component.with_action_list do %>
-    <%= link_to "Edit", [ :edit, @organization, @project ], data: { turbo_frame: :modal }, class: "du-btn du-btn-primary" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy", [ @organization, @project ], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "du-btn du-btn-error" %>
+<% breadcrumbs = capture do %>
+  <nav aria-label="Breadcrumb">
+    <div class="breadcrumbs text-lg">
+      <ul>
+        <li>
+          <%= link_to organization_projects_path(@organization) do %>
+            <span>Projects</span>
+          <% end %>
+        </li>
+        <li aria-current="page">
+          <%= link_to organization_project_path(@organization, @project) do %>
+            <span class="font-medium"><%= @project.name %></span>
+          <% end %>
+        </li>
+      </ul>
     </div>
+  </nav>
+<% end %>
+
+<%= render PageComponent.new(title: breadcrumbs) do |component| %>
+  <% component.with_action_list do %>
+    <%= link_to "Edit", [:edit, @organization, @project], data: { turbo_frame: :modal }, class: "btn btn-primary btn-sm" %>
+    <%= button_to "Destroy", [@organization, @project], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-error btn-sm" %>
   <% end %>
 
   <%= render @project %>

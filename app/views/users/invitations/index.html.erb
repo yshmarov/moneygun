@@ -3,5 +3,5 @@
 <%= render "organizations/tabs", active_tab: :invitations %>
 
 <%= render PageComponent.new do |component| %>
-  <%= render "organizations/table" %>
+  <%= render "organizations/table", organizations: @organizations %>
 <% end %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MembershipMailer < ApplicationMailer
   def invitation_email(notification)
     setup(notification)
@@ -12,6 +14,11 @@ class MembershipMailer < ApplicationMailer
   def request_rejected_email(notification)
     setup(notification)
     mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
+  end
+
+  def removal_email(notification)
+    setup(notification)
+    mail(to: @recipient.email, subject: notification.message)
   end
 
   private

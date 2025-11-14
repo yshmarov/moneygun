@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccessRequest::UserRequestForOrganization < AccessRequest
   validates :type, presence: true
 
@@ -5,14 +7,14 @@ class AccessRequest::UserRequestForOrganization < AccessRequest
     transaction do
       update!(status: :approved, completed_by:)
       organization.memberships.create(user:)
-      MembershipRequestAcceptedNotifier.with(organization: organization).deliver(user)
+      Membership::RequestAcceptedNotifier.with(organization: organization).deliver(user)
     end
-  rescue => e
+  rescue StandardError => e
     raise ActiveRecord::Rollback, e.message
   end
 
   def reject!(completed_by:)
     update!(status: :rejected, completed_by:)
-    MembershipRequestRejectedNotifier.with(organization: organization).deliver(user)
+    Membership::RequestRejectedNotifier.with(organization: organization).deliver(user)
   end
 end

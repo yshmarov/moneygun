@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "application_system_test_case"
 
 class DeviseAuthSystemTest < ApplicationSystemTestCase
@@ -7,7 +9,7 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
 
     visit organizations_path
     assert_current_path organizations_path
-    assert_text "New"
+    assert_text "Create"
   end
 
   test "create user and sign in" do

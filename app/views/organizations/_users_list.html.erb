@@ -4,7 +4,7 @@
     <%= user_avatar(user) %>
   <% end %>
   <% if organization.users.count > max_count %>
-    <div class="du-avatar rounded-full du-avatar-placeholder">
+    <div class="avatar rounded-full avatar-placeholder">
       <div class="bg-neutral rounded-full text-neutral-content w-8">
         <span class="text-xs">+<%= organization.users.count - max_count %></span>
       </div>

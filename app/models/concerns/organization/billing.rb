@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Organization::Billing
   extend ActiveSupport::Concern
 
@@ -17,6 +19,14 @@ module Organization::Billing
   def pay_should_sync_customer?
     super || saved_change_to_owner_id?
   end
+
+  # rubocop:disable Naming/PredicatePrefix
+  def has_access?
+    return false unless payment_processor
+
+    payment_processor.subscribed?
+  end
+  # rubocop:enable Naming/PredicatePrefix
 
   delegate :email, to: :owner
 end

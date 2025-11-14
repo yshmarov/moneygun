@@ -1,7 +1,7 @@
 <% content_for :title, @organization.name %>
 
 <%= modal do %>
-  <%= render PageComponent.new(title: @organization.name) do |component| %>
-    <%= render "public/organizations/organization", organization: @organization %>
+  <%= render PageComponent.new(full_width: false) do |component| %>
+    <%= render "organizations/table", organizations: [@organization] %>
   <% end %>
 <% end %>

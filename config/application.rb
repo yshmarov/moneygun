@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "boot"
 
 require "rails/all"
@@ -33,7 +35,6 @@ module Moneygun
     config.active_record.encryption.extend_queries = true
 
     config.to_prepare do
-      Noticed::Event.include Noticed::EventExtensions
       Noticed::Notification.include Noticed::NotificationExtensions
     end
   end

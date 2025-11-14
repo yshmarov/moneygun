@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_02_134536) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_18_181639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_02_134536) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
+    t.index ["user_id", "organization_id"], name: "index_access_requests_on_user_id_and_organization_id", unique: true
     t.index ["user_id"], name: "index_access_requests_on_user_id"
   end
 
@@ -89,7 +90,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_02_134536) do
   end
 
   create_table "connected_accounts", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "provider"
     t.string "uid"
     t.string "access_token"
@@ -98,7 +98,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_02_134536) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "payload"
-    t.index ["user_id"], name: "index_connected_accounts_on_user_id"
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner"
+    t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner_type_and_owner_id"
+    t.index ["uid", "provider"], name: "index_connected_accounts_on_uid_and_provider", unique: true
   end
 
   create_table "flipper_features", force: :cascade do |t|
@@ -466,7 +470,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_02_134536) do
   add_foreign_key "access_requests", "users", column: "completed_by"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "connected_accounts", "users"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
   add_foreign_key "organizations", "users", column: "owner_id"

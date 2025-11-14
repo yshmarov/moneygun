@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include User::Authentication
   include User::Multitenancy
-  has_referrals
-  has_many :notifications, as: :recipient, class_name: "Noticed::Notification"
 
-  def self.ransackable_attributes(auth_object = nil)
+  has_referrals
+  has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
+
+  def self.ransackable_attributes(_auth_object = nil)
     %w[id email]
   end
 
-  def self.ransackable_associations(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
     []
   end
 

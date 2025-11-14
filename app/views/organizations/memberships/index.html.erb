@@ -27,7 +27,7 @@
               </div>
             </td>
             <td data-label="<%= Membership.human_attribute_name(:role) %>">
-              <div class="du-badge du-badge-xs du-badge-soft capitalize">
+              <div class="badge badge-xs badge-soft capitalize">
                 <%= membership.role %>
               </div>
             </td>
@@ -36,8 +36,8 @@
             </td>
             <td>
               <div class="flex items-center gap-2 justify-end">
-                <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), data: { turbo_frame: :modal }, class: "du-btn du-btn-sm du-btn-secondary" if policy(membership).edit? %>
-                <%= button_to Current.membership == membership ? t("organizations.memberships.actions.leave") : t("organizations.memberships.actions.remove_member"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "du-btn du-btn-sm du-btn-error" if policy(membership).destroy? %>
+                <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), data: { turbo_frame: :modal }, class: "btn btn-sm btn-secondary" if policy(membership).edit? %>
+                <%= button_to Current.membership == membership ? t("organizations.memberships.actions.leave") : t("organizations.memberships.actions.remove_member"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-sm btn-error" if policy(membership).destroy? %>
               </div>
             </td>
           </tr>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class MembershipsControllerTest < ActionDispatch::IntegrationTest
@@ -41,7 +43,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   test "#update" do
     # only admin can't make himself a member
     patch organization_membership_url(@organization, @membership), params: { membership: { role: "member" } }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert @membership.reload.admin?
     assert_match "Role cannot be changed because this is the only admin.", response.body
 
@@ -60,7 +62,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     # organization owner can not demote himself from admin
     first_membership = @organization.memberships.find_by(user: @user)
     patch organization_membership_url(@organization, first_membership), params: { membership: { role: "member" } }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert first_membership.reload.admin?
     assert_match "Organization owner cannot be demoted from admin role.", response.body
 

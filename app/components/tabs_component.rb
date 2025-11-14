@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TabsComponent < ViewComponent::Base
   def initialize(active_tab:, tabs: [])
     @active_tab = active_tab

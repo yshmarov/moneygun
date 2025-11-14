@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PageComponent < ViewComponent::Base
   renders_one :action_list
   renders_one :title_content
@@ -14,7 +16,7 @@ class PageComponent < ViewComponent::Base
     if @full_width == true
       "max-w-7xl w-full"
     else
-      "lg:max-w-xl w-full"
+      "lg:max-w-lg w-full"
     end
   end
 end

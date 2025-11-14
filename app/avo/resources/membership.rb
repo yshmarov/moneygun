@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Avo::Resources::Membership < Avo::BaseResource
-  self.title = -> {
-    [ record.id, record.user.email, record.organization.name ].join(" / ")
+  self.title = lambda {
+    [record.id, record.user.email, record.organization.name].join(" / ")
   }
-  self.includes = [ :organization, :user ]
+  self.includes = %i[organization user]
   self.visible_on_sidebar = false
 
   def fields

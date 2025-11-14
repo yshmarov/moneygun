@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::Multitenancy
   extend ActiveSupport::Concern
 
@@ -8,5 +10,14 @@ module User::Multitenancy
 
     has_many :organization_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
     has_many :organization_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
+
+    after_create_commit :create_default_organization
+  end
+
+  private
+
+  def create_default_organization
+    organization = Organization.create!(name: "Default", owner: self)
+    organization.memberships.first.update(role: Membership.roles[:admin])
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 authenticate :user, ->(user) { user.admin? || Rails.env.development? } do
   mount_avo
   mount Profitable::Engine => "/profitable"

@@ -1,8 +1,72 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+plugins:
+  - rubocop-rails
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.4
+  Exclude:
+    - '**/db/schema.rb'
+    - '**/db/**/*'
+    - 'config/environments/**/*'
+    - 'bin/*'
+    - 'vendor/bundle/**/*'
+    - 'node_modules/**/*'
+    - app/models/concerns/obfuscates_id.rb
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Rails/RenderInline:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Naming/PredicateMethod:
+  Enabled: false
+
+# important for erb lint not to remove opening <% tags in html.erb files
+
+Layout/LeadingEmptyLines:
+  Enabled: false
+
+# would like to enable these later
+
+Style/OpenStructUse:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false

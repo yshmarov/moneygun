@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organizations::ProjectsController < Organizations::BaseController
   before_action :set_project, only: %i[show edit update destroy]
 
@@ -8,8 +10,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   # GET /organizations/1/projects/1
-  def show
-  end
+  def show; end
 
   # GET /organizations/1/projects/new
   def new
@@ -18,8 +19,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   # GET /organizations/1/projects/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /organizations/1/projects
   def create
@@ -28,12 +28,12 @@ class Organizations::ProjectsController < Organizations::BaseController
 
     if @project.save
       respond_to do |format|
-        flash[:notice] = "Project was successfully created."
+        flash[:notice] = t(".success")
         format.html { redirect_to organization_project_url(@organization, @project) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_project_url(@organization, @project)) }
       end
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -41,12 +41,12 @@ class Organizations::ProjectsController < Organizations::BaseController
   def update
     if @project.update(project_params)
       respond_to do |format|
-        flash[:notice] = "Project was successfully updated."
+        flash[:notice] = t(".success")
         format.html { redirect_to organization_project_url(@organization, @project) }
         format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_project_url(@organization, @project)) }
       end
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -54,7 +54,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   def destroy
     @project.destroy!
 
-    redirect_to organization_projects_url(@organization), notice: "Project was successfully destroyed."
+    redirect_to organization_projects_url(@organization), notice: t(".success")
   end
 
   private
@@ -65,6 +65,6 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   def project_params
-    params.expect(project: [ :name ])
+    params.expect(project: [:name])
   end
 end
