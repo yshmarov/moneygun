@@ -23,7 +23,7 @@
 
 					<div class="">
 						<% if user_signed_in? && @organization.present? %>
-							<% if @organization.payment_processor.subscribed? %>
+							<% if @organization.has_access? %>
 								<% if plan_for(@organization.payment_processor.subscription)[:interval] == plan[:interval].to_s %>
 									<%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
 								<% else %>

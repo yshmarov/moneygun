@@ -23,7 +23,7 @@ class Organizations::BaseController < ApplicationController
   end
 
   def require_subscription
-    return if Current.organization.payment_processor.subscribed?
+    return if Current.organization.has_access?
 
     flash[:alert] = t("shared.errors.not_subscribed")
     redirect_to organization_subscriptions_url(Current.organization)
