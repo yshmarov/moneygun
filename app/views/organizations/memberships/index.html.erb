@@ -31,7 +31,9 @@
                 <%= membership.role %>
               </div>
             </td>
-            <td data-label="<%= Membership.human_attribute_name(:created_at) %>">
+            <td
+              data-label="<%= Membership.human_attribute_name(:created_at) %>"
+            >
               <%= l membership.created_at, format: :short %>
             </td>
             <td>
