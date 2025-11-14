@@ -9,7 +9,7 @@ class StripePriceService
   class << self
     def all
       Rails.cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) do
-        fetch_prices_from_stripe
+        fetch_cached_prices
       end
     end
 
@@ -22,17 +22,15 @@ class StripePriceService
 
       # If not found in cache, fetch directly from Stripe
       # This handles cases where a subscription exists but the plan was removed from settings.yml
-      fetch_price_directly(price_id)
+      fetch_price(price_id)
     end
 
     def one_time?(price_id)
-      price = find(price_id)
-      price && price[:interval] == "one_time"
+      find(price_id)&.dig(:interval) == "one_time"
     end
 
     def recurring?(price_id)
-      price = find(price_id)
-      price && price[:interval] != "one_time"
+      find(price_id)&.dig(:interval) != "one_time"
     end
 
     def clear_cache
@@ -41,31 +39,24 @@ class StripePriceService
 
     private
 
-    def fetch_prices_from_stripe
+    def fetch_cached_prices
       return [] unless stripe_configured?
 
-      price_ids = Rails.application.config_for(:settings)[:plan_price_ids] || []
+      price_ids = configured_price_ids
       return [] if price_ids.empty?
 
-      price_ids.map do |price_id|
-        price = Stripe::Price.retrieve(price_id)
-        format_price(price)
-      rescue Stripe::StripeError => e
-        Rails.logger.error("Failed to fetch Stripe price #{price_id}: #{e.message}")
-        nil
-      end.compact.sort_by { |p| [p[:interval] == "year" ? 0 : 1, p[:unit_amount]] }
+      prices = price_ids.filter_map { |price_id| fetch_price(price_id) }
+      sort_prices(prices)
     end
 
-    def fetch_price_directly(price_id)
+    def fetch_price(price_id)
       return nil unless stripe_configured?
 
-      begin
-        price = Stripe::Price.retrieve(price_id)
-        format_price(price)
-      rescue Stripe::StripeError => e
-        Rails.logger.error("Failed to fetch Stripe price #{price_id}: #{e.message}")
-        nil
-      end
+      stripe_price = Stripe::Price.retrieve(price_id)
+      format_price(stripe_price)
+    rescue Stripe::StripeError => e
+      Rails.logger.error("Failed to fetch Stripe price #{price_id}: #{e.message}")
+      nil
     end
 
     def format_price(stripe_price)
@@ -78,6 +69,14 @@ class StripePriceService
         active: stripe_price.active,
         nickname: stripe_price.nickname
       }
+    end
+
+    def sort_prices(prices)
+      prices.sort_by { |price| [price[:interval] == "year" ? 0 : 1, price[:unit_amount]] }
+    end
+
+    def configured_price_ids
+      Rails.application.config_for(:settings)[:plan_price_ids] || []
     end
 
     def stripe_configured?
