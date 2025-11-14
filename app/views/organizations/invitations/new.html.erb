@@ -5,7 +5,7 @@
     <%= form_with model: @membership_invitation, url: organization_invitations_path(@organization), class: "contents space-y-4" do |form| %>
       <%= render "shared/errors", object: form.object %>
 
-      <div class="">
+      <div>
         <%= form.label :email %>
         <%= form.email_field :email,
                              placeholder: "hello@superails.com",

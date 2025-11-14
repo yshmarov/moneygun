@@ -21,7 +21,9 @@
                 <%= membership_request.user.email %>
               </div>
             </td>
-            <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>">
+            <td
+              data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"
+            >
               <%= membership_request.created_at.strftime("%d/%m/%Y") %>
             </td>
             <td>

@@ -25,9 +25,7 @@
     <%= tag.span connected_account.email, class: "text-sm text-base-content/80" if connected_account.email.present? %>
   </td>
   <td data-label="Connected">
-    <span class="text-sm">
-      <%= time_ago_in_words(connected_account.created_at) %> ago
-    </span>
+    <span class="text-sm"><%= time_ago_in_words(connected_account.created_at) %> ago</span>
   </td>
   <td data-label="Actions">
     <%= button_to t(".disconnect_button"), user_connected_account_path(connected_account),

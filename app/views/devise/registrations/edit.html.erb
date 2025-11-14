@@ -1,5 +1,4 @@
 <%= render PageComponent.new(title: t("devise.views.registrations.edit.title", email: resource.email), full_width: false) do %>
-
   <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), method: :put, class: "space-y-4" do |f| %>
     <%= render "shared/errors", object: resource %>
 
@@ -11,17 +10,24 @@
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div class="alert alert-info text-sm">
         <div>
-          <strong><%= t("devise.views.registrations.edit.pending_confirmation", email: resource.unconfirmed_email) %></strong>
+          <strong>
+            <%= t("devise.views.registrations.edit.pending_confirmation", email: resource.unconfirmed_email) %>
+          </strong>
         </div>
       </div>
     <% end %>
 
     <div class="space-y-1">
       <%= f.label :password, t("devise.views.registrations.edit.password_label"), class: "block text-sm font-medium" %>
-      <p class="text-xs"><%= t("devise.views.registrations.edit.password_help") %></p>
+      <p class="text-xs">
+        <%= t("devise.views.registrations.edit.password_help") %>
+      </p>
+
       <%= f.password_field :password, autocomplete: "new-password", class: "input w-full", placeholder: t("devise.views.registrations.edit.password_placeholder") %>
       <% if @minimum_password_length %>
-        <p class="text-xs"><%= t("devise.views.registrations.edit.password_minimum", count: @minimum_password_length) %></p>
+        <p class="text-xs">
+          <%= t("devise.views.registrations.edit.password_minimum", count: @minimum_password_length) %>
+        </p>
       <% end %>
     </div>
 
@@ -32,7 +38,10 @@
 
     <div class="space-y-1">
       <%= f.label :current_password, t("devise.views.registrations.edit.current_password_label"), class: "block text-sm font-medium" %>
-      <p class="text-xs"><%= t("devise.views.registrations.edit.current_password_help") %></p>
+      <p class="text-xs">
+        <%= t("devise.views.registrations.edit.current_password_help") %>
+      </p>
+
       <%= f.password_field :current_password, autocomplete: "current-password", class: "input w-full", placeholder: t("devise.views.registrations.edit.current_password_placeholder") %>
     </div>
 
@@ -43,10 +52,14 @@
 
   <div class="pt-6 border-t border-base-content/20">
     <div class="space-y-3">
-      <h3 class="font-semibold text-error text-lg"><%= t("devise.views.registrations.edit.danger_zone.title") %></h3>
+      <h3 class="font-semibold text-error text-lg">
+        <%= t("devise.views.registrations.edit.danger_zone.title") %>
+      </h3>
+
       <p class="text-sm">
         <%= t("devise.views.registrations.edit.danger_zone.description") %>
       </p>
+
       <div>
         <%= button_to t("devise.views.registrations.edit.danger_zone.button"), registration_path(resource_name),
                       data: { confirm: t("devise.views.registrations.edit.danger_zone.confirm"), turbo_confirm: t("devise.views.registrations.edit.danger_zone.confirm") },

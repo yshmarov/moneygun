@@ -1,29 +1,27 @@
-<%
-  tabs = [
-    {
-      key: :my_organizations,
-      path: organizations_path,
-      label: t("organizations.index.title")
-    },
-    {
-      key: :browse_organizations,
-      path: public_organizations_path,
-      label: t("public.organizations.index.title")
-    },
-    {
-      key: :invitations,
-      path: user_invitations_path,
-      label: t("users.invitations.index.title"),
-      badge_count: current_user.organization_invitations.pending.count
-    },
-    {
-      key: :requests,
-      path: user_membership_requests_path,
-      label: t("users.membership_requests.index.title"),
-      badge_count: current_user.organization_requests.pending.count
-    }
-  ]
-%>
+<% tabs = [
+     {
+       key: :my_organizations,
+       path: organizations_path,
+       label: t("organizations.index.title")
+     },
+     {
+       key: :browse_organizations,
+       path: public_organizations_path,
+       label: t("public.organizations.index.title")
+     },
+     {
+       key: :invitations,
+       path: user_invitations_path,
+       label: t("users.invitations.index.title"),
+       badge_count: current_user.organization_invitations.pending.count
+     },
+     {
+       key: :requests,
+       path: user_membership_requests_path,
+       label: t("users.membership_requests.index.title"),
+       badge_count: current_user.organization_requests.pending.count
+     }
+   ] %>
 
 <%= render PageComponent.new(title: t("shared.navigation.organizations")) do |component| %>
   <% component.with_action_list do %>

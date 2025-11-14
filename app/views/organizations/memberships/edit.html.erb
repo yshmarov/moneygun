@@ -5,7 +5,7 @@
     <%= form_with(model: [@organization, @membership], class: "contents") do |form| %>
       <%= render "shared/errors", object: form.object %>
 
-      <div class="">
+      <div>
         <%= form.label :role %>
         <div>
           <% Membership.roles.each do |role, _value| %>

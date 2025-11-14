@@ -1,23 +1,30 @@
 <!DOCTYPE html>
+
 <html lang="en" class="h-full bg-base-100 text-base-content">
-  <head>
-    <%= render "layouts/head" %>
-  </head>
+  <head><%= render "layouts/head" %></head>
   <body class="h-dvh overflow-hidden">
     <div class="drawer lg:drawer-open">
-      <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+      <input id="main-drawer" type="checkbox" class="drawer-toggle">
+
       <div class="drawer-content flex flex-col min-w-0 h-dvh">
         <header class="sticky top-0 z-20">
           <%= render "shared/navbar" %>
-          <div id="flash" class="absolute left-1/2 -translate-x-1/2 z-40 flex flex-col items-center">
+          <div
+            id="flash"
+            class="
+              absolute left-1/2 -translate-x-1/2 z-40 flex flex-col
+              items-center
+            "
+          >
             <%= render "shared/flash" %>
           </div>
         </header>
-        <main class="flex-grow p-4 overflow-y-auto">
-          <%= yield %>
-        </main>
+
+        <main class="flex-grow p-4 overflow-y-auto"><%= yield %></main>
+
         <%= render "shared/footer_nav" %>
       </div>
+
       <%= render "shared/sidebar" %>
     </div>
     <%= turbo_frame_tag :modal %>

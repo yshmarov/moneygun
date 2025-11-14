@@ -199,7 +199,7 @@ before_action :require_subscription
 private
 
 def require_subscription
-  unless Current.organization.payment_processor.subscribed?
+  unless Current.organization.has_access?
     flash[:alert] = "You need to subscribe to access this page."
     redirect_to organization_subscriptions_url(Current.organization)
   end

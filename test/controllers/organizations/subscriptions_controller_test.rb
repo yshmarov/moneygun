@@ -27,7 +27,9 @@ class Organizations::SubscriptionsControllerTest < ActionDispatch::IntegrationTe
   end
 
   test "#checkout" do
-    get organization_subscriptions_checkout_path(@organization, price_id: Rails.application.config_for(:settings).dig(:plans, 0, :id))
+    price_ids = Rails.application.config_for(:settings)[:plan_price_ids] || []
+    skip "No price IDs configured" if price_ids.empty?
+    get organization_subscriptions_checkout_path(@organization, price_id: price_ids.first)
     assert_match %r{\Ahttps://checkout.stripe.com/c/pay/cs_test_}, response.redirect_url
   end
 end

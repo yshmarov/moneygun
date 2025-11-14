@@ -286,8 +286,9 @@ en:
       pricing:
         cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
         current_plan: Current plan
+        purchase: Buy
         save_yearly: Best value
-        subscribe: Get started
+        subscribe: Subscribe
         title: Pricing
     transfers:
       show:

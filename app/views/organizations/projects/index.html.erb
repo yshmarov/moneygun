@@ -31,10 +31,21 @@
       </thead>
       <tbody id="projects">
         <% @projects.each do |project| %>
-          <tr class="cursor-pointer" data-controller="visitable" data-action="click->visitable#visit" data-url="<%= organization_project_path(@organization, project) %>">
-            <td data-label="<%= Project.human_attribute_name(:name) %>"><%= project.name %></td>
-            <td data-label="<%= Project.human_attribute_name(:created_at) %>"><%= local_time(project.created_at, format: :short) %></td>
-            <td data-label="<%= Project.human_attribute_name(:updated_at) %>"><%= local_time(project.updated_at, format: :short) %></td>
+          <tr
+            class="cursor-pointer"
+            data-controller="visitable"
+            data-action="click->visitable#visit"
+            data-url="<%= organization_project_path(@organization, project) %>"
+          >
+            <td data-label="<%= Project.human_attribute_name(:name) %>">
+              <%= project.name %>
+            </td>
+            <td data-label="<%= Project.human_attribute_name(:created_at) %>">
+              <%= local_time(project.created_at, format: :short) %>
+            </td>
+            <td data-label="<%= Project.human_attribute_name(:updated_at) %>">
+              <%= local_time(project.updated_at, format: :short) %>
+            </td>
             <td>
               <%= link_to t("shared.actions.show"), [@organization, project], class: "btn btn-sm btn-secondary" %>
             </td>
