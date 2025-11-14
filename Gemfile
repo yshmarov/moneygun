@@ -110,6 +110,7 @@ group :avo, optional: true do
     gem "avo-pro"
   end
 end
+gem "active_analytics"
 # feature flags
 gem "flipper-active_record"
 gem "flipper-ui"
@@ -121,7 +122,6 @@ gem "profitable"
 
 # business logic
 gem "refer"
-gem "active_analytics"
-
-# notifications
 gem "noticed"
+
+gem "ruby_llm", github: "crmne/ruby_llm", branch: "main"
