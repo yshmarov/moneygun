@@ -68,3 +68,9 @@
     </div>
   </div>
 </nav>
+
+<% if Current.organization %>
+  <div class="menu menu-horizontal lg:hidden">
+    <%= render "shared/sidebar_links" %>
+  </div>
+<% end %>
