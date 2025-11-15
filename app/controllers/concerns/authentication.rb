@@ -9,7 +9,13 @@ module Authentication
   end
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || organizations_path
+    if session[:new_user]
+      session.delete(:new_user)
+      # You can send new users to onboarding, billing, or somewhere else
+      root_path
+    else
+      stored_location_for(resource) || root_path
+    end
   end
 
   # https://github.com/scambra/devise_invitable
