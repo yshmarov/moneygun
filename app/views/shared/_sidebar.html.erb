@@ -15,7 +15,8 @@
                 <%= Current.organization.name %>
               </summary>
               <ul>
-                <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
+                <% pending_requests_count = Current.organization.user_requests.pending.count %>
+                <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (pending_requests_count.positive? ? pending_requests_count : nil), active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
                 <% if Current.membership.admin? %>
                   <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
                   <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
