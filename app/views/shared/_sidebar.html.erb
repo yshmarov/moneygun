@@ -1,6 +1,11 @@
-<div class="drawer-side z-20">
+<div class="drawer-side z-20" data-expanded="true">
   <label for="main-drawer" aria-label="Close sidebar" class="drawer-overlay"></label>
-  <aside class="bg-base-300 h-dvh flex flex-col overflow-y-auto w-80">
+  <aside
+    class="
+      bg-base-300 h-dvh flex flex-col overflow-y-auto
+      [[data-expanded=true]_&]:w-80
+    "
+  >
     <ul class="menu menu-xl w-full flex-1">
       <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-medium", icon: "logo.png", active: :exact %>
       <li></li>
@@ -12,7 +17,7 @@
             <details>
               <summary>
                 <%= organization_avatar(Current.organization, classes: "size-6") %>
-                <%= Current.organization.name %>
+                <span class="[[data-expanded=false]_&]:hidden"><%= Current.organization.name %></span>
               </summary>
               <ul>
                 <% pending_requests_count = Current.organization.user_requests.pending.count %>
