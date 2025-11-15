@@ -10,11 +10,7 @@
           <%= render "organizations/table", organizations: @organizations %>
         <% end %>
       <% elsif params[:query].present? %>
-        <%= render EmptyStateComponent.new(title: "No results found", subtitle: "Try adjusting your search terms") do |c| %>
-          <% c.with_icon do %>
-            <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-12 mx-auto" %>
-          <% end %>
-        <% end %>
+        <%= render EmptyStateComponent.new(title: "No results found", subtitle: "Try adjusting your search terms", icon: "svg/magnifying-glass.svg") %>
       <% end %>
     <% end %>
   </div>
