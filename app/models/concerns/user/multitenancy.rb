@@ -17,7 +17,9 @@ module User::Multitenancy
   private
 
   def create_default_organization
-    organization = Organization.create!(name: email, owner: self)
+    return if invitation_created_at.present?
+
+    organization = Organization.create!(name: "Default", owner: self)
     organization.memberships.first.update(role: Membership.roles[:admin])
   end
 end

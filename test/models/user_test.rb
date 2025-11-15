@@ -82,6 +82,24 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "invited user does not receive a default organization" do
+    inviter = users(:one)
+    organization = organizations(:one)
+
+    assert_no_difference "Organization.count" do
+      assert_no_difference "Membership.count" do
+        assert_difference "User.count", 1 do
+          membership_invitation = MembershipInvitation.new(email: "invited-user@example.com", organization:, inviter:)
+          membership_invitation.save
+          user = User.find_by(email: "invited-user@example.com")
+          assert user.persisted?
+          assert user.invitation_created_at.present?
+          assert_empty user.owned_organizations
+        end
+      end
+    end
+  end
+
   private
 
   def mock_omniauth_payload(provider, uid, email)

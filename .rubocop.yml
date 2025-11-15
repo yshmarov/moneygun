@@ -58,6 +58,9 @@ Metrics/ParameterLists:
 Naming/PredicateMethod:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
 # important for erb lint not to remove opening <% tags in html.erb files
 
 Layout/LeadingEmptyLines:
