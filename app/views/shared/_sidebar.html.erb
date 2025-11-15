@@ -3,9 +3,6 @@
   <aside class="bg-base-300 h-dvh flex flex-col overflow-y-auto w-80">
     <ul class="menu menu-xl w-full flex-1">
       <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-medium", icon: "logo.png", active: :exact %>
-      <%# search %>
-      <%# = nav_link t("search.index.title"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } %>
-      <%= nav_link t("search.index.title"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal } %>
       <li></li>
 
       <%# desktop - sidebar for current organization actions %>
