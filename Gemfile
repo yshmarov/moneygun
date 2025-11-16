@@ -55,7 +55,6 @@ group :development, :test do
   gem "rubocop-rails", require: false
   gem "erb_lint", require: false
   gem "dotenv-rails"
-  gem "reactionview", "~> 0.1.6"
 end
 
 group :development do
@@ -101,6 +100,7 @@ gem "turbo_power", "~> 0.7.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
 gem "local_time"
+gem "reactionview", "~> 0.1.6"
 
 # admin
 gem "active_storage_dashboard"
