@@ -141,6 +141,8 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    allgood (0.3.0)
+      rails (>= 6.0.0)
     ast (2.4.3)
     avo (3.26.4)
       actionview (>= 6.1)
@@ -653,6 +655,7 @@ DEPENDENCIES
   active_link_to (~> 1.0)
   active_storage_dashboard
   active_storage_validations
+  allgood (~> 0.3.0)
   avo (>= 3.22.0)
   avo-pro!
   bootsnap

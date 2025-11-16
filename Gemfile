@@ -65,6 +65,7 @@ group :development do
   gem "lookbook", ">= 2.3.9"
   gem "letter_opener"
   gem "letter_opener_web"
+  gem "reactionview", "~> 0.1.6"
 end
 
 group :test do
@@ -100,9 +101,9 @@ gem "turbo_power", "~> 0.7.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
 gem "local_time"
-gem "reactionview", "~> 0.1.6"
 
 # admin
+gem "allgood", "~> 0.3.0"
 gem "active_storage_dashboard"
 gem "avo", ">= 3.22.0"
 group :avo, optional: true do
