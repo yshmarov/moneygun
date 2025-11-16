@@ -27,4 +27,6 @@
     <%= active_link_to t("static.privacy.title"), privacy_path, data: { turbo_frame: :modal }, class_active: "underline", class: "link link-hover" %>
     <%= active_link_to t("static.refunds.title"), refunds_path, data: { turbo_frame: :modal }, class_active: "underline", class: "link link-hover" %>
   </nav>
+
+  <nav><%= render "shared/language_picker" %></nav>
 </footer>
