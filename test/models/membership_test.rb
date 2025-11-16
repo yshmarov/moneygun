@@ -6,8 +6,8 @@ class MembershipTest < ActiveSupport::TestCase
   test "unique user-organization combination" do
     membership = Membership.new(organization: organizations(:one), user: users(:one))
     assert_not membership.valid?
-    assert_includes membership.errors.messages[:user_id], "has already been taken"
-    assert_includes membership.errors.messages[:organization_id], "has already been taken"
+    assert_includes membership.errors.messages[:user_id], I18n.t("errors.messages.taken")
+    assert_includes membership.errors.messages[:organization_id], I18n.t("errors.messages.taken")
   end
 
   test "try_destroy" do

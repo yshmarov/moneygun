@@ -6,7 +6,7 @@ class AccessRequestTest < ActiveSupport::TestCase
   test "should not be valid if user already has an access request for that organization" do
     access_request = AccessRequest.new(user: users(:one), organization: organizations(:two))
     assert_not access_request.valid?
-    assert_includes access_request.errors.messages[:user_id], "already has a pending request"
+    assert_includes access_request.errors.messages[:user_id], I18n.t("errors.messages.already_has_pending_request")
   end
 
   test "should return only pending access requests" do

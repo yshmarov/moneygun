@@ -72,7 +72,7 @@ class UserTest < ActiveSupport::TestCase
 
         organization = user.owned_organizations.first
         assert_not_nil organization
-        assert_equal "Default", organization.name
+        assert_equal organization.owner.email, organization.name
         assert_equal user, organization.owner
 
         membership = organization.memberships.first

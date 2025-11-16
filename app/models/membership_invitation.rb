@@ -26,17 +26,14 @@ class MembershipInvitation
     membership = user.memberships.find_by(organization: organization)
     if membership.present?
       errors.add(:base, "#{email} is already a member of this organization.")
-      false
     else
       invitation = organization.user_invitations.create(user:)
-      if invitation.persisted?
-        true
-      else
-        invitation.errors.full_messages.each do |error_message|
-          errors.add(:base, error_message)
-        end
-        false
+      return true if invitation.persisted?
+
+      invitation.errors.messages.each_value do |messages|
+        messages.each { |message| errors.add(:base, message) }
       end
     end
+    false
   end
 end

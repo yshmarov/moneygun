@@ -36,7 +36,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
       inviter: @first_admin_membership.user
     )
     assert_not invitation.valid?
-    assert_includes invitation.errors.messages[:email], "is invalid"
+    assert_includes invitation.errors.messages[:email], I18n.t("errors.messages.invalid")
   end
 
   test "fails when user is already a member" do
@@ -64,6 +64,6 @@ class MembershipInvitationTest < ActiveSupport::TestCase
       inviter: @first_admin_membership.user
     )
     assert_not invitation.save
-    assert_includes invitation.errors.messages[:base], "User already has a pending request"
+    assert_includes invitation.errors.messages[:base], I18n.t("errors.messages.already_has_pending_request")
   end
 end
