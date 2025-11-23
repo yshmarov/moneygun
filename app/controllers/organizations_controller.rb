@@ -52,10 +52,12 @@ class OrganizationsController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.find(params[:id])
-    Current.membership ||= current_user.memberships.find_by(organization: @organization)
+    @organization = current_user.organizations.find(params[:id])
+    Current.membership = current_user.memberships.find_by(organization: @organization)
     Current.organization = Current.membership&.organization
     authorize @organization
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: t("shared.errors.not_authorized")
   end
 
   def organization_params
