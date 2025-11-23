@@ -2,23 +2,17 @@
 
 <%= modal do %>
   <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles") do |component| %>
-    <%= form_with(model: [@organization, @membership], class: "contents") do |form| %>
+    <%= simple_form_for [@organization, @membership], html: { class: "contents" } do |form| %>
       <%= render "shared/errors", object: form.object %>
 
-      <div>
-        <%= form.label :role %>
-        <div>
-          <% Membership.roles.each do |role, _value| %>
-            <div class="flex items-center gap-2">
-              <%= form.radio_button :role, role %>
-              <%= form.label :role, role.humanize, value: role %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+      <%= form.input :role,
+                      as: :radio_buttons,
+                      collection: Membership.roles.map { |role, _value| [role.humanize, role] },
+                      label_method: :first,
+                      value_method: :last %>
 
       <div class="flex justify-end">
-        <%= form.submit class: "btn btn-primary" %>
+        <%= form.button :submit, class: "btn-primary" %>
       </div>
     <% end %>
   <% end %>

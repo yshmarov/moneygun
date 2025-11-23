@@ -101,6 +101,7 @@ gem "turbo_power", "~> 0.7.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
 gem "local_time"
+gem "simple_form", "~> 5.4"
 
 # admin
 gem "allgood", "~> 0.3.0"

@@ -1,10 +1,12 @@
-<%= form_with url: organization_transfer_path(Current.organization), method: :patch, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } do |form| %>
-  <div>
-    <%= form.label :user_id %>
-    <%= form.collection_select :user_id, Current.organization.users.where.not(users: { id: current_user.id }), :id, :email, { include_blank: true, required: true }, { class: "input w-full" } %>
-  </div>
+<%= simple_form_for :transfer, url: organization_transfer_path(Current.organization), method: :patch, html: { class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } } do |form| %>
+  <%= form.input :user_id,
+                  collection: Current.organization.users.where.not(users: { id: current_user.id }),
+                  label_method: :email,
+                  value_method: :id,
+                  include_blank: true,
+                  required: true %>
 
   <div class="flex justify-end">
-    <%= form.submit class: "btn btn-primary", data: { turbo_confirm: t("shared.actions.confirm") } %>
+    <%= form.button :submit, class: "btn-primary", data: { turbo_confirm: t("shared.actions.confirm") } %>
   </div>
 <% end %>

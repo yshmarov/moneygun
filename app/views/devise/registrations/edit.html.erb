@@ -1,11 +1,14 @@
 <%= render PageComponent.new(title: t("devise.views.registrations.edit.title", email: resource.email), full_width: false) do %>
-  <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), method: :put, class: "space-y-4" do |f| %>
+  <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), method: :put, html: { class: "space-y-4" } do |f| %>
     <%= render "shared/errors", object: resource %>
 
-    <div class="space-y-1">
-      <%= f.label :email, t("devise.views.registrations.edit.email_label"), class: "block text-sm font-medium" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full", placeholder: t("devise.views.registrations.edit.email_placeholder") %>
-    </div>
+    <%= f.input :email,
+                 label: t("devise.views.registrations.edit.email_label"),
+                 placeholder: t("devise.views.registrations.edit.email_placeholder"),
+                 input_html: {
+                   autofocus: true,
+                   autocomplete: "email"
+                 } %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div class="alert alert-info text-sm">
@@ -17,36 +20,31 @@
       </div>
     <% end %>
 
-    <div class="space-y-1">
-      <%= f.label :password, t("devise.views.registrations.edit.password_label"), class: "block text-sm font-medium" %>
-      <p class="text-xs">
-        <%= t("devise.views.registrations.edit.password_help") %>
-      </p>
+    <%= f.input :password,
+                 label: t("devise.views.registrations.edit.password_label"),
+                 placeholder: t("devise.views.registrations.edit.password_placeholder"),
+                 hint: [t("devise.views.registrations.edit.password_help"), (@minimum_password_length ? t("devise.views.registrations.edit.password_minimum", count: @minimum_password_length) : nil)].compact.join(" "),
+                 input_html: {
+                   autocomplete: "new-password"
+                 } %>
 
-      <%= f.password_field :password, autocomplete: "new-password", class: "input w-full", placeholder: t("devise.views.registrations.edit.password_placeholder") %>
-      <% if @minimum_password_length %>
-        <p class="text-xs">
-          <%= t("devise.views.registrations.edit.password_minimum", count: @minimum_password_length) %>
-        </p>
-      <% end %>
-    </div>
+    <%= f.input :password_confirmation,
+                 label: t("devise.views.registrations.edit.password_confirmation_label"),
+                 placeholder: t("devise.views.registrations.edit.password_confirmation_placeholder"),
+                 input_html: {
+                   autocomplete: "new-password"
+                 } %>
 
-    <div class="space-y-1">
-      <%= f.label :password_confirmation, t("devise.views.registrations.edit.password_confirmation_label"), class: "block text-sm font-medium" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input w-full", placeholder: t("devise.views.registrations.edit.password_confirmation_placeholder") %>
-    </div>
-
-    <div class="space-y-1">
-      <%= f.label :current_password, t("devise.views.registrations.edit.current_password_label"), class: "block text-sm font-medium" %>
-      <p class="text-xs">
-        <%= t("devise.views.registrations.edit.current_password_help") %>
-      </p>
-
-      <%= f.password_field :current_password, autocomplete: "current-password", class: "input w-full", placeholder: t("devise.views.registrations.edit.current_password_placeholder") %>
-    </div>
+    <%= f.input :current_password,
+                 label: t("devise.views.registrations.edit.current_password_label"),
+                 placeholder: t("devise.views.registrations.edit.current_password_placeholder"),
+                 hint: t("devise.views.registrations.edit.current_password_help"),
+                 input_html: {
+                   autocomplete: "current-password"
+                 } %>
 
     <div class="pt-2">
-      <%= f.submit t("devise.views.registrations.edit.submit"), class: "btn btn-primary btn-block" %>
+      <%= f.button :submit, t("devise.views.registrations.edit.submit"), class: "btn-primary btn-block" %>
     </div>
   <% end %>
 

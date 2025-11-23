@@ -19,9 +19,24 @@ en:
           restricted:
             description_text: People must submit an application to be approved to join
             display_text: "📩 Restricted"
+      project:
+        attachments: Attachments
+        budget: Budget
+        category: Category
+        description: Description
+        document: Document
+        due_date: Due date
+        is_active: Active
+        name: Name
+        priority: Priority
+        scheduled_at: Scheduled at
+        start_date: Start date
+        status: Status
+        tags: Tags
     models:
       membership: Member
       organization: Organization
+      project: Project
   devise:
     confirmations:
       confirmed: Your email address has been successfully confirmed.

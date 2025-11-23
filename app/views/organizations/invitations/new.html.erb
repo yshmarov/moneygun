@@ -2,24 +2,22 @@
 
 <%= modal do %>
   <%= render PageComponent.new(title: t("organizations.memberships.new.title")) do |component| %>
-    <%= form_with model: @membership_invitation, url: organization_invitations_path(@organization), class: "contents space-y-4" do |form| %>
+    <%= simple_form_for @membership_invitation, url: organization_invitations_path(@organization), html: { class: "contents space-y-4" } do |form| %>
       <%= render "shared/errors", object: form.object %>
 
-      <div>
-        <%= form.label :email %>
-        <%= form.email_field :email,
-                             placeholder: "hello@superails.com",
-                             class: "input w-full",
-                             autocomplete: "off",
-                             autocorrect: "off",
-                             autocapitalize: "off",
-                             spellcheck: "false",
-                             autofocus: !turbo_native_app?,
-                             required: true %>
-      </div>
+      <%= form.input :email,
+                      placeholder: "hello@superails.com",
+                      required: true,
+                      input_html: {
+                        autocomplete: "off",
+                        autocorrect: "off",
+                        autocapitalize: "off",
+                        spellcheck: "false",
+                        autofocus: !turbo_native_app?
+                      } %>
 
       <div class="flex justify-end">
-        <%= form.submit "Invite", class: "btn btn-primary" %>
+        <%= form.button :submit, "Invite", class: "btn-primary" %>
       </div>
     <% end %>
   <% end %>
