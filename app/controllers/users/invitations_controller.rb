@@ -5,7 +5,7 @@ class Users::InvitationsController < ApplicationController
   before_action :set_invitation, only: %i[approve reject]
 
   def index
-    organization_ids = current_user.organization_invitations.pending.pluck(:organization_id)
+    organization_ids = current_user.organization_invitations.pending.select(:organization_id)
     @pagy, @organizations = pagy(Organization.where(id: organization_ids))
   end
 
