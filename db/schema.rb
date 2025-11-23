@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_23_115348) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_23_124046) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -314,6 +314,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_23_115348) do
     t.boolean "is_active", default: true
     t.string "category"
     t.text "tags", default: [], array: true
+    t.datetime "scheduled_at"
     t.index ["name", "organization_id"], name: "index_projects_on_name_and_organization_id", unique: true
     t.index ["organization_id"], name: "index_projects_on_organization_id"
   end

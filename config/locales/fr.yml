@@ -19,9 +19,24 @@ fr:
           restricted:
             description_text: Les personnes doivent soumettre une demande pour être approuvées pour rejoindre
             display_text: Restreint
+      project:
+        attachments: Pièces jointes
+        budget: Budget
+        category: Catégorie
+        description: Description
+        document: Document
+        due_date: Date d'échéance
+        is_active: Actif
+        name: Nom
+        priority: Priorité
+        scheduled_at: Planifié le
+        start_date: Date de début
+        status: Statut
+        tags: Étiquettes
     models:
       membership: Membre
       organization: Organisation
+      project: Projet
   devise:
     confirmations:
       confirmed: Votre adresse e-mail a été confirmée avec succès.

@@ -43,6 +43,12 @@
                  label: "Start date",
                  hint: "HTML5 date picker" %>
 
+  <%= form.input :scheduled_at,
+                 as: :datetime,
+                 html5: true,
+                 label: "Scheduled at",
+                 hint: "HTML5 datetime-local picker" %>
+
   <%= form.input :budget,
                  as: :numeric,
                  label: "Budget",
