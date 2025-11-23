@@ -14,6 +14,7 @@
           <%= Current.organization.name %>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
         </div>
+
         <ul
           tabindex="-1"
           class="
@@ -22,6 +23,7 @@
           "
         >
           <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
+
           <% if Current.membership.admin? %>
             <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
             <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
@@ -58,6 +60,7 @@
         <%= render "users/notifications/notifications_count", unread: current_user.unseen_notifications_count %>
         <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6" %>
       </div>
+
       <div
         tabindex="-1"
         class="
@@ -68,6 +71,7 @@
         <div class="w-full flex justify-end">
           <%= link_to "View all", user_notifications_path, class: "link link-hover" %>
         </div>
+
         <%= turbo_frame_tag :notifications, src: user_notifications_path, loading: :lazy %>
       </div>
     </div>
@@ -77,6 +81,7 @@
         <%= user_avatar(current_user) %>
         <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
       </div>
+
       <ul
         tabindex="-1"
         class="
@@ -91,7 +96,12 @@
 </nav>
 
 <% if Current.organization %>
-  <div class="menu menu-horizontal lg:hidden !mt-0 !pt-0 border-b w-full">
+  <div
+    class="
+      menu menu-horizontal lg:hidden !mt-0 !pt-0 border-b
+      border-base-content/20 w-full
+    "
+  >
     <%= render "shared/sidebar_links" %>
   </div>
 <% end %>
