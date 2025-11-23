@@ -12,11 +12,13 @@ class Organization < ApplicationRecord
 
   MIN_NAME_LENGTH = 3
   MAX_NAME_LENGTH = 20
+  MAX_LOGO_SIZE = 1.megabyte
 
   validates :name, presence: true
   validates :name, length: { minimum: MIN_NAME_LENGTH, maximum: MAX_NAME_LENGTH }
 
   validates :logo, content_type: IMAGE_CONTENT_TYPES
+  validates :logo, size: { less_than: MAX_LOGO_SIZE, message: "must be less than #{MAX_LOGO_SIZE}MB" }
   has_one_attached :logo do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end

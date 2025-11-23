@@ -2,8 +2,14 @@
 
 class Public::OrganizationsController < ApplicationController
   def index
-    organizations_ids = Organization.discoverable.pluck(:id) - current_user.organizations.pluck(:id)
-    @pagy, @organizations = pagy(Organization.where(id: organizations_ids).includes(logo_attachment: :blob))
+    discoverable_ids = Organization.discoverable.select(:id)
+    user_org_ids = current_user.organizations.select(:id)
+
+    @pagy, @organizations = pagy(
+      Organization.where(id: discoverable_ids)
+                  .where.not(id: user_org_ids)
+                  .includes(logo_attachment: :blob)
+    )
   end
 
   def show

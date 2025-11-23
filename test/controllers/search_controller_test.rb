@@ -8,20 +8,20 @@ class SearchControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get search index" do
-    get search_path
-    assert_response :success
-  end
-
   test "should require authentication" do
     sign_out @user
     get search_path
     assert_redirected_to new_user_session_path
   end
 
-  test "should search organizations by name case insensitive" do
-    get search_path, params: { query: "penai" }
+  test "should search organizations correctly" do
+    get search_path
     assert_response :success
-    assert_match "OpenAI", response.body
+    assert_select "#organizations", count: 0
+
+    get search_path, params: { search: { query: "open" } }
+    assert_response :success
+    assert_select "#organizations tr", count: 1
+    assert_select "#organizations", text: /OpenAI/
   end
 end

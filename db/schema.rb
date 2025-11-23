@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_23_124046) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_23_171213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -126,6 +126,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_23_124046) do
     t.datetime "updated_at", null: false
     t.index ["organization_id", "user_id"], name: "index_memberships_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_memberships_on_organization_id"
+    t.index ["role"], name: "index_memberships_on_role"
     t.index ["user_id", "organization_id"], name: "index_memberships_on_user_id_and_organization_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
@@ -201,6 +202,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_23_124046) do
     t.datetime "updated_at", null: false
     t.bigint "owner_id", null: false
     t.string "privacy_setting", default: "private", null: false
+    t.index ["name"], name: "index_organizations_on_name"
     t.index ["owner_id"], name: "index_organizations_on_owner_id"
   end
 

@@ -6,10 +6,10 @@ class AccessRequest::UserRequestForOrganization < AccessRequest
   def approve!(completed_by:)
     transaction do
       update!(status: :approved, completed_by:)
-      organization.memberships.create(user:)
+      organization.memberships.find_or_create_by!(user: user)
       Membership::RequestAcceptedNotifier.with(organization: organization).deliver(user)
     end
-  rescue StandardError => e
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
     raise ActiveRecord::Rollback, e.message
   end
 

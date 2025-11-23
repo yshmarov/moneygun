@@ -38,8 +38,11 @@ class Organizations::BaseController < ApplicationController
   end
 
   def set_current_membership
-    Current.membership ||= current_user.memberships.find_by(organization: @organization)
+    Current.membership = current_user.memberships.find_by(organization: @organization)
     Current.organization = Current.membership&.organization
+    return if Current.membership
+
+    redirect_to root_path, alert: t("shared.errors.not_authorized")
   end
 
   def pundit_user

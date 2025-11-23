@@ -43,7 +43,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t("membership_requests.success.access_requested"), flash[:notice]
   end
 
-  test "should not create membership request if request params are not valid" do
+  test "should not create membership request if already a participant" do
     membership = memberships(:one)
     user = membership.user
     requested_organization = organizations(:one)
@@ -57,7 +57,25 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_equal I18n.t("membership_requests.errors.already_participant"), flash[:alert]
+    assert_equal I18n.t("organizations.errors.not_found"), flash[:alert]
+  end
+
+  test "should not create membership request if organization is private" do
+    membership = memberships(:one)
+    user = membership.user
+    organization = organizations(:two)
+    organization.privacy_setting_private!
+
+    sign_in user
+
+    assert_no_difference "AccessRequest::UserRequestForOrganization.count" do
+      assert_no_difference "Membership.count" do
+        post user_membership_requests_url(organization_id: organization.id)
+      end
+    end
+
+    assert_response :redirect
+    assert_equal I18n.t("organizations.errors.not_found"), flash[:alert]
   end
 
   test "should catch error if organization is not found" do

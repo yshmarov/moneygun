@@ -42,7 +42,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     # does not show organization if user is not a member
     organization = organizations(:two)
     get organization_url(organization)
-    assert_redirected_to root_url
+    assert_redirected_to root_path
   end
 
   test "should get edit" do
