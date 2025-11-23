@@ -28,8 +28,8 @@ SimpleForm.setup do |config|
       ba.use :input, class: "input input-md w-full"
       ba.use :label, wrap_with: { tag: :span }
     end
-    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
   config.wrappers :textarea, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
@@ -45,32 +45,31 @@ SimpleForm.setup do |config|
       ba.use :input, class: "textarea textarea-bordered w-full"
       ba.use :label, wrap_with: { tag: :span }
     end
-    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
-  config.boolean_style = :inline
   config.include_default_input_wrapper_class = false
   config.item_wrapper_tag = :div
   config.collection_wrapper_tag = :div
   config.collection_wrapper_class = "flex flex-col gap-2"
   config.item_wrapper_class = "flex items-center gap-2"
-  config.wrappers :vertical_radio, tag: "div", class: "form-control w-fit", error_class: "" do |b|
+  config.wrappers :vertical_radio, tag: "div", class: "form-control", error_class: "" do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: "label-text"
     b.use :input, class: "radio mr-2"
-    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
-  config.wrappers :vertical_checkboxes, tag: "div", class: "form-control w-fit", error_class: "" do |b|
+  config.wrappers :vertical_checkboxes, tag: "div", class: "form-control", error_class: "" do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: "label-text"
     b.use :input, class: "checkbox mr-2"
-    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
   config.wrappers :vertical_boolean, tag: "div", class: "form-control flex flex-col gap-1", error_class: "", valid_class: "" do |b|
@@ -80,8 +79,8 @@ SimpleForm.setup do |config|
       ba.use :input, class: "checkbox"
       ba.use :label_text, class: "label-text"
     end
-    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
   config.wrappers :file_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
@@ -91,8 +90,8 @@ SimpleForm.setup do |config|
     b.use :label, class: "label-text"
     b.use :input,
           class: "file-input file-input-bordered w-full"
-    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
   config.default_wrapper = :default
@@ -115,7 +114,7 @@ SimpleForm.setup do |config|
   # Default tag used for error notification helper.
   config.error_notification_tag = :div
   # CSS class to add for error notification helper.
-  config.error_notification_class = ""
+  config.error_notification_class = "alert alert-error"
   config.label_text = ->(label, required, explicit_label) { "#{label}" }
 
   config.default_form_class = nil
