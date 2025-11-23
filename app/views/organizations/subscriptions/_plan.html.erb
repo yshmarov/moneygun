@@ -18,6 +18,7 @@
           <th><%= access_ends_at_label %></th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
           <td data-label="<%= t(".status") %>">
@@ -26,9 +27,11 @@
               <%= subscription_status_label(Current.organization) %>
             </div>
           </td>
+
           <td data-label="<%= t(".price") %>">
             <div class="flex flex-1 @max-xl:justify-end">
               <% current_plan = plan_for(subscription) %>
+
               <% if current_plan %>
                 <%= number_to_currency current_plan[:unit_amount] / 100, unit: currency_symbol(current_plan[:currency]), strip_insignificant_zeros: true %>
                 /
@@ -38,6 +41,7 @@
               <% end %>
             </div>
           </td>
+
           <td data-label="<%= access_ends_at_label %>">
             <div class="flex flex-1 @max-xl:justify-end">
               <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>

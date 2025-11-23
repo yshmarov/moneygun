@@ -1,6 +1,10 @@
 <div class="flex items-center gap-2 justify-end">
   <% if organization.participant?(current_user) %>
-    <%= link_to t("public.organizations.show.actions.open"), organization_path(organization), class: "btn btn-sm btn-primary", data: { turbo_frame: "_top" } %>
+    <% if controller.controller_path == 'organizations' && action_name == 'show' %>
+      <%= link_to t("shared.actions.edit"), edit_organization_path(organization), class: "btn btn-sm btn-primary", data: { turbo_frame: "_top" } %>
+    <% else %>
+      <%= link_to t("public.organizations.show.actions.open"), organization_path(organization), class: "btn btn-sm btn-primary", data: { turbo_frame: "_top" } %>
+    <% end %>
   <% elsif organization.user_requests.pending.exists?(user: current_user) %>
     <%= button_to t("public.organizations.show.actions.cancel_request"), user_membership_request_path(organization.user_requests.pending.find_by(user: current_user)), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-sm btn-error" %>
   <% elsif organization.user_invitations.pending.exists?(user: current_user) %>

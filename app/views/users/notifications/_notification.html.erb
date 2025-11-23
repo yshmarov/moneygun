@@ -10,8 +10,10 @@
       <% else %>
         <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6 flex-shrink-0" %>
       <% end %>
+
       <span class="text-sm text-base-content"><%= notification.message %></span>
     </div>
   </td>
+
   <td><%= time_ago_in_words(notification.created_at) %> ago</td>
 </tr>

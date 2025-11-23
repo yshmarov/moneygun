@@ -12,6 +12,7 @@
           <th></th>
         </tr>
       </thead>
+
       <tbody id="invitations">
         <% @invitations.each do |invitation| %>
           <tr>
@@ -21,11 +22,13 @@
                 <%= invitation.user.email %>
               </div>
             </td>
+
             <td
               data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"
             >
               <%= invitation.created_at.strftime("%d/%m/%Y") %>
             </td>
+
             <td>
               <div class="flex items-center gap-2 justify-end">
                 <%= button_to t(".cancel_invitation"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "btn btn-sm btn-error" %>

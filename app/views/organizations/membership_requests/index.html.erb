@@ -12,6 +12,7 @@
           <th></th>
         </tr>
       </thead>
+
       <tbody id="membership_requests">
         <% @membership_requests.each do |membership_request| %>
           <tr>
@@ -21,11 +22,13 @@
                 <%= membership_request.user.email %>
               </div>
             </td>
+
             <td
               data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"
             >
               <%= membership_request.created_at.strftime("%d/%m/%Y") %>
             </td>
+
             <td>
               <div class="flex items-center justify-end gap-2">
                 <%= button_to t("membership_requests.buttons.reject"), reject_organization_membership_request_path(@organization, membership_request), method: :post, class: "btn btn-sm btn-error" %>

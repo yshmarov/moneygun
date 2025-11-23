@@ -5,6 +5,7 @@
     class="flex items-center gap-2"
   >
     <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, data: { clipboard_target: "source" }, class: "input w-full" %>
+
     <button
       type="button"
       data-action="clipboard#copy"
@@ -34,6 +35,7 @@
             <th><%= t(".table.completed_at") %></th>
           </tr>
         </thead>
+
         <tbody>
           <% @referrals.each do |referral| %>
             <tr>
@@ -43,16 +45,23 @@
                   <span class="font-medium"><%= referral.referee.email %></span>
                 </div>
               </td>
+
               <td data-label="<%= t(".table.referred_at") %>">
                 <%= local_time(referral.created_at, format: :long) %>
               </td>
+
               <td data-label="<%= t(".table.status") %>">
                 <% if referral.completed_at.present? %>
-                  <span class="badge badge-success"><%= t(".table.status_completed") %></span>
+                  <span class="badge badge-success">
+                    <%= t(".table.status_completed") %>
+                  </span>
                 <% else %>
-                  <span class="badge badge-warning"><%= t(".table.status_pending") %></span>
+                  <span class="badge badge-warning">
+                    <%= t(".table.status_pending") %>
+                  </span>
                 <% end %>
               </td>
+
               <td data-label="<%= t(".table.completed_at") %>">
                 <% if referral.completed_at %>
                   <%= local_time(referral.completed_at, format: :short) %>

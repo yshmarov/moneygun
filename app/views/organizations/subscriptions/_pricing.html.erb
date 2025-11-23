@@ -22,7 +22,9 @@
             </span>
 
             <% unless plan[:interval] == "one_time" %>
-              <span class="text-2xl whitespace-nowrap">/<%= plan[:interval] %></span>
+              <span class="text-2xl whitespace-nowrap">
+                /<%= plan[:interval] %>
+              </span>
             <% end %>
           </div>
 

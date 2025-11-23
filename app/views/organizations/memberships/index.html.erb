@@ -13,12 +13,14 @@
           <th></th>
         </tr>
       </thead>
+
       <tbody id="memberships">
         <% @memberships.each do |membership| %>
           <tr>
             <td data-label="<%= Membership.human_attribute_name(:user) %>">
               <div class="font-medium flex items-center gap-2">
                 <%= user_avatar(membership.user) %>
+
                 <% if Current.membership.admin? %>
                   <%= membership.user.email %>
                 <% else %>
@@ -26,16 +28,19 @@
                 <% end %>
               </div>
             </td>
+
             <td data-label="<%= Membership.human_attribute_name(:role) %>">
               <div class="badge badge-xs badge-soft capitalize">
                 <%= membership.role %>
               </div>
             </td>
+
             <td
               data-label="<%= Membership.human_attribute_name(:created_at) %>"
             >
               <%= l membership.created_at, format: :short %>
             </td>
+
             <td>
               <div class="flex items-center gap-2 justify-end">
                 <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), data: { turbo_frame: :modal }, class: "btn btn-sm btn-secondary" if policy(membership).edit? %>

@@ -1,5 +1,6 @@
 <div class="drawer-side z-20" data-expanded="true">
   <label for="main-drawer" aria-label="Close sidebar" class="drawer-overlay"></label>
+
   <aside
     class="
       bg-base-300 h-dvh flex flex-col overflow-y-auto
@@ -8,6 +9,7 @@
   >
     <ul class="menu menu-xl w-full flex-1">
       <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-medium", icon: "logo.png", active: :exact %>
+
       <li></li>
 
       <%# desktop - sidebar for current organization actions %>
@@ -17,11 +19,16 @@
             <details>
               <summary>
                 <%= organization_avatar(Current.organization, classes: "size-6") %>
-                <span class="[[data-expanded=false]_&]:hidden"><%= Current.organization.name %></span>
+
+                <span class="[[data-expanded=false]_&]:hidden">
+                  <%= Current.organization.name %>
+                </span>
               </summary>
+
               <ul>
                 <% pending_requests_count = Current.organization.user_requests.pending.count %>
                 <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (pending_requests_count.positive? ? pending_requests_count : nil), active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
+
                 <% if Current.membership.admin? %>
                   <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
                   <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
@@ -36,6 +43,7 @@
       <%# mobile - sidebar for switching between organizations %>
       <div class="<% if Current.organization %> lg:hidden <% end %>">
         <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/compass.svg", active: :exact %>
+
         <% Current.organizations&.each do |organization| %>
           <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
         <% end %>
@@ -50,6 +58,7 @@
               <summary>
                 <span class="font-medium font-mono">Admin</span>
               </summary>
+
               <ul>
                 <% admin_links.each do |link| %>
                   <%= nav_link link[:name], link[:path], icon: link[:icon] %>
@@ -62,6 +71,7 @@
           <li>
             <details>
               <summary><span class="font-medium font-mono">Dev</span></summary>
+
               <ul>
                 <% dev_links.each do |link| %>
                   <%= nav_link link[:name], link[:path], icon: link[:icon] %>
@@ -71,6 +81,7 @@
           </li>
         <% end %>
       <% end %>
+
       <li></li>
     </ul>
   </aside>

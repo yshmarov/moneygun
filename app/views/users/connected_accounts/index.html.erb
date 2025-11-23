@@ -2,6 +2,7 @@
 
 <div class="space-y-6">
   <% available_providers = Rails.application.config.omniauth_providers %>
+
   <% if available_providers.any? %>
     <%= render PageComponent.new(title: t(".available_connections")) do |component| %>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -18,10 +19,12 @@
                   <div class="text-2xl">
                     <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-8 h-8" %>
                   </div>
+
                   <div class="font-medium">
                     <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
                   </div>
                 </div>
+
                 <%= button_tag t(".connect_button"), class: "btn btn-sm btn-primary" %>
               </div>
             <% end %>
@@ -45,6 +48,7 @@
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             <% current_user.connected_accounts.each do |connected_account| %>
               <%= render "connected_account", connected_account: connected_account %>

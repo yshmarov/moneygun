@@ -2,6 +2,7 @@
 
 <html lang="en" class="h-full bg-base-100 text-base-content">
   <head><%= render "layouts/head" %></head>
+
   <body class="h-dvh overflow-hidden">
     <div class="drawer lg:drawer-open">
       <input id="main-drawer" type="checkbox" class="drawer-toggle">
@@ -9,6 +10,7 @@
       <div class="drawer-content flex flex-col min-w-0 h-dvh">
         <header class="sticky top-0 z-20">
           <%= render "shared/navbar" %>
+
           <div
             id="flash"
             class="
@@ -27,6 +29,7 @@
 
       <%= render "shared/sidebar" %>
     </div>
+
     <%= turbo_frame_tag :modal %>
     <%= turbo_stream_from "notifications_#{current_user.id}" %>
   </body>
