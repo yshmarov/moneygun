@@ -65,6 +65,6 @@ class Organizations::ProjectsController < Organizations::BaseController
   end
 
   def project_params
-    params.expect(project: [:name])
+    params.expect(project: [:name, :description, :status, :priority, :start_date, :due_date, :budget, :is_active, :category, :document, { tags: [], attachments: [] }])
   end
 end
