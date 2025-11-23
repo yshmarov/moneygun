@@ -94,6 +94,19 @@ SimpleForm.setup do |config|
     b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
+  config.wrappers :date_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :readonly
+
+    b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
+      ba.use :input, class: "input input-md w-full leading-[1.625] py-[0.625rem]"
+      ba.use :label, wrap_with: { tag: :span }
+    end
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+  end
+
   config.default_wrapper = :default
 
   # Define the way to render check boxes / radio buttons with labels.
@@ -130,7 +143,8 @@ SimpleForm.setup do |config|
     boolean: :vertical_boolean,
     check_boxes: :vertical_checkboxes,
     radio_buttons: :vertical_radio,
-    file: :file_input
+    file: :file_input,
+    date: :date_input
     # prepend_string: :prepend_string,
     # append_string: :append_string,
   }
