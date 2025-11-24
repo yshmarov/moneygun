@@ -7,7 +7,7 @@
 <% if turbo_frame_request? %>
   <%= turbo_frame_tag :modal do %>
     <dialog
-      class="modal <%= dialog_position %> backdrop-blur-lg transition-none"
+      class="modal <%= dialog_position %> backdrop-blur transition-none"
       data-controller="dialog"
       data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>"
     >
