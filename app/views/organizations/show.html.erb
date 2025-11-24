@@ -13,6 +13,9 @@
     class="btn btn-ghost btn-sm btn-circle"
     data-dropdown-popover-target="button"
     data-action="dropdown-popover#toggle"
+    aria-label="Open menu"
+    aria-haspopup="menu"
+    aria-expanded="false"
   >
     <%= inline_svg_tag "svg/ellipsis-vertical.svg", class: "size-4" %>
   </button>
@@ -24,11 +27,47 @@
     "
     data-dropdown-popover-target="menu"
     data-action="click@document->dropdown-popover#closeOnClickOutside"
-    open
   >
-    <ul class="menu rounded-lg border border-base-300 bg-base-100 shadow-md p-1">
-      <li>abc</li>
-      <li>abc</li>
+    <ul
+      class="menu rounded-lg border border-base-300 bg-base-100 shadow-md p-1"
+      role="menu"
+    >
+      <li role="menuitem">abc</li>
+      <li role="menuitem">abc</li>
+    </ul>
+  </dialog>
+</div>
+
+<div
+  class="relative w-fit"
+  data-controller="dropdown-popover"
+  data-dropdown-popover-placement-value="bottom-start top-start"
+>
+  <button
+    class="btn btn-ghost btn-sm btn-circle"
+    data-dropdown-popover-target="button"
+    data-action="dropdown-popover#toggle"
+    aria-label="Open menu"
+    aria-haspopup="menu"
+    aria-expanded="false"
+  >
+    <%= inline_svg_tag "svg/ellipsis-vertical.svg", class: "size-4" %>
+  </button>
+
+  <dialog
+    class="
+      absolute z-10 w-max opacity-0 transition-opacity duration-150 ease-out
+      outline-hidden [&amp;[open]]:opacity-100
+    "
+    data-dropdown-popover-target="menu"
+    data-action="click@document->dropdown-popover#closeOnClickOutside"
+  >
+    <ul
+      class="menu rounded-lg border border-base-300 bg-base-100 shadow-md p-1"
+      role="menu"
+    >
+      <li role="menuitem">abc</li>
+      <li role="menuitem">abc</li>
     </ul>
   </dialog>
 </div>

@@ -8,13 +8,31 @@ export default class extends Controller {
     placement: { type: String, default: 'bottom-start' } // Preferred placement(s)
   }
 
+  // Constants
+  static CLOSE_DELAY = 100
+  static HOVER_DELAY = 80
+  static OFFSET = 4
+  static SHIFT_PADDING = 8
+  static MUTATION_DELAY = 10
+
   connect() {
+    this.closeTimeout = null
     this.#registerHandlers()
     this.#setupObservers()
     this.#setupHoverBehaviour()
   }
 
   disconnect() {
+    // Clear any pending timeouts
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout)
+      this.closeTimeout = null
+    }
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout)
+      this.hoverTimeout = null
+    }
+
     this.#teardownHandlers()
     this.#teardownObservers()
   }
@@ -25,6 +43,11 @@ export default class extends Controller {
 
   async show() {
     if (this.isOpen) return
+
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout)
+      this.closeTimeout = null
+    }
 
     this.#closeOtherDropdowns()
 
@@ -50,13 +73,20 @@ export default class extends Controller {
           }
         }, 0)
       } else {
-        this.buttonTarget.focus()
+        const firstMenuItem = this.menuTarget.querySelector('[role="menuitem"]')
+        if (firstMenuItem) {
+          firstMenuItem.focus()
+        }
       }
     })
   }
 
   close() {
     if (!this.isOpen) return
+
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout)
+    }
 
     const menuController =
       this.application.getControllerForElementAndIdentifier(
@@ -65,10 +95,11 @@ export default class extends Controller {
       )
     if (menuController) menuController.reset()
 
-    setTimeout(() => {
+    this.closeTimeout = setTimeout(() => {
       this.menuTarget.close()
       this.#updateExpanded()
-    }, 100)
+      this.closeTimeout = null
+    }, this.constructor.CLOSE_DELAY)
   }
 
   toggle() {
@@ -91,9 +122,7 @@ export default class extends Controller {
         this.menuTarget,
         'menu'
       )
-    if (menuController && typeof menuController.reset === 'function') {
-      menuController.reset()
-    }
+    menuController?.reset()
 
     const resetEvent = new CustomEvent('dropdown-reset', {
       bubbles: true,
@@ -108,14 +137,14 @@ export default class extends Controller {
     const fallbackPlacements = placements.slice(1)
 
     const middleware = [
-      offset(4),
+      offset(this.constructor.OFFSET),
       flip({
         fallbackPlacements:
           fallbackPlacements.length > 0
             ? fallbackPlacements
             : ['top-start', 'bottom-start']
       }),
-      shift({ padding: 8 })
+      shift({ padding: this.constructor.SHIFT_PADDING })
     ]
 
     const { x, y } = await computePosition(this.buttonTarget, this.menuTarget, {
@@ -151,7 +180,6 @@ export default class extends Controller {
           this.menuTarget,
           'menu'
         )
-      if (!menuController) return
 
       if (event.key === 'ArrowDown') {
         event.preventDefault()
@@ -227,7 +255,12 @@ export default class extends Controller {
     this.resizeObserver.observe(this.menuTarget)
 
     this.mutationObserver = new MutationObserver(() => {
-      if (this.isOpen) setTimeout(() => this.#updatePosition(), 10)
+      if (this.isOpen) {
+        setTimeout(
+          () => this.#updatePosition(),
+          this.constructor.MUTATION_DELAY
+        )
+      }
     })
     this.mutationObserver.observe(this.menuTarget, {
       childList: true,
@@ -258,7 +291,10 @@ export default class extends Controller {
     )
 
     this.handleButtonMouseLeave = () => {
-      this.hoverTimeout = setTimeout(() => this.close(), 80)
+      this.hoverTimeout = setTimeout(
+        () => this.close(),
+        this.constructor.HOVER_DELAY
+      )
     }
     this.buttonTarget.addEventListener(
       'mouseleave',
@@ -271,7 +307,10 @@ export default class extends Controller {
     this.menuTarget.addEventListener('mouseenter', this.handleMenuMouseEnter)
 
     this.handleMenuMouseLeave = () => {
-      this.hoverTimeout = setTimeout(() => this.close(), 80)
+      this.hoverTimeout = setTimeout(
+        () => this.close(),
+        this.constructor.HOVER_DELAY
+      )
     }
     this.menuTarget.addEventListener('mouseleave', this.handleMenuMouseLeave)
   }
