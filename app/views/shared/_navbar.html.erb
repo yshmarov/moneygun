@@ -1,6 +1,6 @@
 <nav class="px-4 navbar flex justify-between">
   <%# left %>
-  <div class="flex items-center gap-1">
+  <div class="flex items-center gap-2">
     <%# mobile sidebar toggle %>
     <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden">
       <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
@@ -49,7 +49,7 @@
   </div>
 
   <%# right %>
-  <div class="flex items-center gap-1">
+  <div class="flex items-center gap-2">
     <% if user_masquerade? %>
       <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning btn-sm uppercase" %>
     <% end %>
@@ -77,20 +77,22 @@
     </div>
 
     <div class="dropdown dropdown-end group">
-      <div tabindex="0" role="button" class="btn btn-ghost">
+      <div tabindex="0" role="button" class="cursor-pointer">
         <%= user_avatar(current_user) %>
-        <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
       </div>
 
-      <ul
+      <div
         tabindex="-1"
         class="
-          menu menu-xl dropdown-content bg-base-100 rounded-box mt-3 shadow
+          dropdown-content bg-base-100 rounded-box mt-3 shadow
           border border-base-content/20
         "
       >
-        <%= render "shared/user_links" %>
-      </ul>
+        <%= render "shared/user_info" %>
+
+        <%# User links menu %>
+        <ul class="menu menu-xl p-2"><%= render "shared/user_links" %></ul>
+      </div>
     </div>
   </div>
 </nav>
