@@ -7,8 +7,7 @@
 <div
   class="relative w-fit"
   data-controller="dropdown-popover"
-  data-dropdown-popover-flip-class="translate-y-full"
-  data-dropdown-popover-placement-value="bottom top"
+  data-dropdown-popover-placement-value="bottom-start top-start"
 >
   <button
     class="btn btn-ghost btn-sm btn-circle"
@@ -20,9 +19,8 @@
 
   <dialog
     class="
-      absolute z-10 w-max opacity-0 transition-opacity duration-150
-      ease-out outline-hidden [&amp;[open]]:scale-100
-      [&amp;[open]]:opacity-100 scale-100 opacity-100
+      absolute z-10 w-max opacity-0 transition-opacity duration-150 ease-out
+      outline-hidden [&amp;[open]]:opacity-100
     "
     data-dropdown-popover-target="menu"
     data-action="click@document->dropdown-popover#closeOnClickOutside"
