@@ -11,12 +11,12 @@ class Users::InvitationsController < ApplicationController
 
   def approve
     @invitation.approve!
-    redirect_back(fallback_location: user_invitations_path, notice: t("invitations.approve.success"))
+    redirect_back_or_to(user_invitations_path, notice: t("invitations.approve.success"))
   end
 
   def reject
     @invitation.reject!
-    redirect_back(fallback_location: user_invitations_path, notice: t("invitations.reject.success"))
+    redirect_back_or_to(user_invitations_path, notice: t("invitations.reject.success"))
   end
 
   private

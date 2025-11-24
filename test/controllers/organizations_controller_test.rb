@@ -30,7 +30,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
       post organizations_url, params: { organization: { name: @organization.name } }
     end
 
-    assert_redirected_to organization_dashboard_path(Organization.last)
+    assert_redirected_to organization_path(Organization.last)
     assert_equal @user, Organization.last.users.first
     assert_equal "admin", @user.memberships.last.role
   end
