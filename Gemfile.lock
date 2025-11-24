@@ -419,9 +419,6 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
-    omniauth-rails_csrf_protection (2.0.0)
-      actionpack (>= 4.2)
-      omniauth (~> 2.0)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     pagy (9.4.0)
@@ -688,7 +685,6 @@ DEPENDENCIES
   noticed
   omniauth-github
   omniauth-google-oauth2
-  omniauth-rails_csrf_protection
   pagy (~> 9.3)
   pay (~> 8.0)
   pg (~> 1.1)

@@ -88,7 +88,6 @@ gem "devise_masquerade"
 # oauth
 gem "omniauth-google-oauth2"
 gem "omniauth-github"
-gem "omniauth-rails_csrf_protection" # for omniauth 2.0
 
 # authorization
 gem "pundit", "~> 2.3"
