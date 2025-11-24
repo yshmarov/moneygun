@@ -3,7 +3,6 @@ import { computePosition, flip, shift, offset } from '@floating-ui/dom'
 
 export default class extends Controller {
   static targets = ['button', 'menu']
-  static classes = ['flip']
   static values = {
     hover: { type: Boolean, default: false }, // Toggle menu on hover
     placement: { type: String, default: 'bottom-start' } // Preferred placement(s)
@@ -34,13 +33,6 @@ export default class extends Controller {
     await this.#updatePosition()
 
     requestAnimationFrame(() => {
-      this.menuTarget.classList.add(
-        '[&[open]]:scale-100',
-        '[&[open]]:opacity-100',
-        'scale-100',
-        'opacity-100'
-      )
-
       const autofocusElement = this.menuTarget.querySelector(
         '[autofocus="true"], [autofocus]'
       )
@@ -72,13 +64,6 @@ export default class extends Controller {
         'menu'
       )
     if (menuController) menuController.reset()
-
-    this.menuTarget.classList.remove(
-      'scale-100',
-      'opacity-100',
-      '[&[open]]:scale-100',
-      '[&[open]]:opacity-100'
-    )
 
     setTimeout(() => {
       this.menuTarget.close()
