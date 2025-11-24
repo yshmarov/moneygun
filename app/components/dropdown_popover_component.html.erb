@@ -1,0 +1,33 @@
+<div
+  class="relative w-fit"
+  data-controller="dropdown-popover"
+  data-dropdown-popover-placement-value="<%= placement %>"
+>
+  <button
+    class="<%= button_classes %>"
+    data-dropdown-popover-target="button"
+    data-action="dropdown-popover#toggle"
+    aria-label="<%= aria_label %>"
+    aria-haspopup="menu"
+    aria-expanded="<%= open %>"
+  >
+    <%= icon_content %>
+  </button>
+
+  <dialog
+    class="
+      absolute z-10 w-max opacity-0 transition-opacity duration-150 ease-out
+      outline-hidden [&amp;[open]]:opacity-100
+    "
+    data-dropdown-popover-target="menu"
+    data-action="click@document->dropdown-popover#closeOnClickOutside"
+    <%= "open" if open %>
+  >
+    <ul
+      class="menu rounded-lg border border-base-300 bg-base-100 shadow-md p-1"
+      role="menu"
+    >
+      <%= content %>
+    </ul>
+  </dialog>
+</div>
