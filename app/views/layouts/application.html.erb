@@ -7,8 +7,8 @@
     <div class="drawer lg:drawer-open">
       <input id="main-drawer" type="checkbox" class="drawer-toggle">
 
-      <div class="drawer-content flex flex-col min-w-0 h-dvh">
-        <header class="sticky top-0 z-20">
+      <div class="drawer-content flex flex-col min-w-0 h-dvh overflow-y-auto">
+        <header class="sticky top-0 z-20 backdrop-blur-3xl">
           <%= render "shared/navbar" %>
 
           <div
@@ -22,7 +22,7 @@
           </div>
         </header>
 
-        <main class="flex-grow p-4 overflow-y-auto"><%= yield %></main>
+        <main class="flex-grow p-4"><%= yield %></main>
 
         <%= render "shared/footer_nav" %>
       </div>
