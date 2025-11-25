@@ -55,6 +55,39 @@
                  hint: "Numeric input for decimal values.",
                  input_html: { step: 0.01, min: 0 } %>
 
+  <%= form.input :budget,
+                 as: :string,
+                 label: "Budget (with autonumeric)",
+                 hint: "Text input with autonumeric formatting (form.input example)",
+                 input_html: {
+                   class: "input w-full",
+                   data: {
+                     controller: "autonumeric",
+                     autonumeric_min_value_value: 0,
+                     autonumeric_max_value_value: 999999.99,
+                     autonumeric_currency_value: "€"
+                   }
+                 } %>
+
+  <div class="form-control">
+    <%= form.label :budget, "Budget", class: "label" %>
+
+    <%= form.text_field :budget,
+                        required: true,
+                        class: "input w-full",
+                        data: {
+                          controller: "autonumeric",
+                          autonumeric_min_value_value: 1,
+                          autonumeric_currency_value: "$"
+                        } %>
+
+    <div class="label">
+      <span class="label-text-alt">
+        Text field with autonumeric formatting (form.text_field example)
+      </span>
+    </div>
+  </div>
+
   <%= form.input :is_active,
                  as: :boolean,
                  label: "Active",
