@@ -65,9 +65,17 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-# Tailwind CSS v4 compilation happens automatically during assets:precompile
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile && \
-    rm -rf tmp/cache app/assets/builds/* node_modules/.cache
+# Install npm packages required by Tailwind CSS plugins
+# npm will create a minimal package.json temporarily, but we remove it after build
+RUN mkdir -p app/assets/builds && \
+    rm -f app/assets/builds/tailwind.css app/assets/builds/tailwind.css.map && \
+    npm install --no-package-lock @tailwindcss/typography@latest && \
+    rm -f package.json package-lock.json 2>/dev/null || true
+# Tailwind CSS v4 needs to be built explicitly before assets:precompile
+# Build Tailwind CSS first, then precompile all assets
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails tailwindcss:build && \
+    SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile && \
+    rm -rf tmp/cache node_modules/.cache
 
 
 
