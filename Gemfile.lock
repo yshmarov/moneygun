@@ -225,8 +225,6 @@ GEM
       globalid (>= 0.3.6)
       railties (>= 5.2.0)
     docile (1.4.1)
-    dockerfile-rails (1.7.10)
-      rails (>= 3.0.0)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -689,7 +687,6 @@ DEPENDENCIES
   devise!
   devise_invitable (~> 2.0)
   devise_masquerade
-  dockerfile-rails (>= 1.7)
   dotenv-rails
   erb_lint
   flipper-active_record
