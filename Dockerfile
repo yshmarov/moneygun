@@ -48,7 +48,8 @@ RUN gem install bundler --no-document && \
     which bundle
 
 # Install application gems
-COPY Gemfile Gemfile.lock ./
+# Copy Gemfile, Gemfile.lock, and .ruby-version (needed by Gemfile's "ruby file:" directive)
+COPY Gemfile Gemfile.lock .ruby-version ./
 RUN bundle install --verbose && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git 2>/dev/null || true && \
     bundle exec bootsnap precompile --gemfile
