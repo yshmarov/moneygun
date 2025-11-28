@@ -14,6 +14,8 @@ console_command = '/rails/bin/rails console'
 
 [env]
   PORT = '8080'
+  RAILS_ENV = 'production'
+  SOLID_QUEUE_IN_PUMA = 'true'
 
 [processes]
   app = './bin/rails server'
@@ -23,7 +25,7 @@ console_command = '/rails/bin/rails console'
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1
   processes = ['app']
 
   [[http_service.checks]]
