@@ -98,12 +98,7 @@
 </nav>
 
 <% if Current.organization %>
-  <div
-    class="
-      menu menu-horizontal lg:hidden !mt-0 !pt-0 border-b
-      border-base-content/20 w-full
-    "
-  >
-    <%= render "shared/sidebar_links" %>
+  <div class="menu menu-horizontal lg:hidden !my-0 !py-0 w-full">
+    <%= render TabsComponent.new(active_tab: organization_active_tab, tabs: organization_tabs) %>
   </div>
 <% end %>
