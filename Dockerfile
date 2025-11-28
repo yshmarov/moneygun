@@ -37,9 +37,13 @@ ENV PATH="/usr/local/bundle/bin:${PATH}"
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
-# Install packages needed to build gems
+# Install packages needed to build gems and compile assets (Node.js for Tailwind CSS v4)
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config curl ca-certificates gnupg && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get update -qq && \
+    apt-get install --no-install-recommends -y nodejs && \
+    node --version && npm --version && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install latest bundler (compatible with Gemfile.lock)
@@ -61,6 +65,7 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+# Tailwind CSS v4 compilation happens automatically during assets:precompile
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile && \
     rm -rf tmp/cache app/assets/builds/* node_modules/.cache
 
