@@ -16,7 +16,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client tzdata && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -26,6 +26,8 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development:test" \
     JEMALLOC_ENABLED="true" \
     MALLOC_ARENA_MAX="2" \
+    MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true" \
+    RUBY_YJIT_ENABLE="1" \
     SENSIBLE_DEFAULTS="enabled" \
     SOLID_QUEUE_IN_PUMA="true"
 
@@ -40,7 +42,7 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Install and update bundler
+# Install latest bundler (compatible with Gemfile.lock)
 RUN gem install bundler --no-document && \
     bundle --version && \
     which bundle
@@ -58,7 +60,8 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile && \
+    rm -rf tmp/cache app/assets/builds/* node_modules/.cache
 
 
 
@@ -73,12 +76,28 @@ COPY --from=build /rails /rails
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails db log storage tmp public
 USER 1000:1000
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
+# Expose common ports for different providers:
+# - Port 80: Fly.io, Kamal (Thruster default)
+# - Port 3000: Render, Heroku containers, Railway (Puma default)
+# Providers can map their ports to either of these
+EXPOSE 80 3000
+
+# Health check for container orchestration
+# Checks port 80 (Thruster) by default, but providers can override CMD if needed
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:80/up || curl -f http://localhost:3000/up || exit 1
+
+# Start server via Thruster by default (runs on port 80 and proxies to Puma on port 3000)
+# 
+# Provider-specific overrides:
+# - Fly.io/Kamal: Use default (Thruster on port 80) ✅
+# - Render/Heroku/Railway: Override CMD to use Puma directly with PORT env var:
+#   CMD ["./bin/rails", "server"]
+# - AWS ECS/Fargate: Use default or override CMD based on your ALB configuration
 CMD ["./bin/thrust", "./bin/rails", "server"]
