@@ -7,6 +7,7 @@ authenticate :user, ->(user) { user.admin? || Rails.env.development? } do
   mount ActiveAnalytics::Engine, at: "analytics"
   mount ActiveStorageDashboard::Engine, at: "/active_storage_dashboard"
   mount Flipper::UI.app(Flipper) => "/feature_flags"
+  mount Allgood::Engine => "/healthcheck"
 end
 
 if Rails.env.development?
