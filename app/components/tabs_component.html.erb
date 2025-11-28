@@ -1,4 +1,11 @@
-<div class="border-b border-base-content/20 w-full overflow-x-auto">
+<div
+  class="
+    max-lg:px-4
+    border-b border-base-content/20 w-full overflow-x-auto
+    [scrollbar-width:none] [-ms-overflow-style:none]
+    [&::-webkit-scrollbar]:hidden
+  "
+>
   <nav class="flex space-x-4">
     <% tabs.each do |tab| %>
       <% if tab[:condition].nil? || tab[:condition] %>

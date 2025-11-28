@@ -22,7 +22,7 @@
             shadow border border-base-content/20
           "
         >
-          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: Current.organization.user_requests.pending.count, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
+          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (count = Current.organization.user_requests.pending.count).positive? ? count : nil, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
 
           <% if Current.membership.admin? %>
             <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
@@ -86,6 +86,7 @@
         class="
           dropdown-content bg-base-100 rounded-box mt-3 shadow
           border border-base-content/20
+          max-h-[80dvh] overflow-y-auto
         "
       >
         <%= render "shared/user_info" %>
@@ -98,7 +99,7 @@
 </nav>
 
 <% if Current.organization %>
-  <div class="menu menu-horizontal lg:hidden !my-0 !py-0 w-full">
+  <div class="lg:hidden">
     <%= render TabsComponent.new(active_tab: organization_active_tab, tabs: organization_tabs) %>
   </div>
 <% end %>
