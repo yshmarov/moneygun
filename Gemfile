@@ -126,3 +126,7 @@ gem "refer"
 gem "noticed"
 
 gem "ruby_llm", github: "crmne/ruby_llm", branch: "main"
+
+gem "dockerfile-rails", ">= 1.7", group: :development
+
+gem "aws-sdk-s3", "~> 1.205", require: false

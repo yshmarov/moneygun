@@ -161,6 +161,25 @@ GEM
       zeitwerk (>= 2.6.12)
     avo-icons (0.1.1)
       inline_svg
+    aws-eventstream (1.4.0)
+    aws-partitions (1.1188.0)
+    aws-sdk-core (3.239.2)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.992.0)
+      aws-sigv4 (~> 1.9)
+      base64
+      bigdecimal
+      jmespath (~> 1, >= 1.6.1)
+      logger
+    aws-sdk-kms (1.118.0)
+      aws-sdk-core (~> 3, >= 3.239.1)
+      aws-sigv4 (~> 1.5)
+    aws-sdk-s3 (1.205.0)
+      aws-sdk-core (~> 3, >= 3.234.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.5)
+    aws-sigv4 (1.12.1)
+      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.3.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
@@ -206,6 +225,8 @@ GEM
       globalid (>= 0.3.6)
       railties (>= 5.2.0)
     docile (1.4.1)
+    dockerfile-rails (1.7.10)
+      rails (>= 3.0.0)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -296,6 +317,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
+    jmespath (1.6.2)
     json (2.16.0)
     jwt (3.1.2)
       base64
@@ -660,12 +682,14 @@ DEPENDENCIES
   allgood (~> 0.3.0)
   avo (>= 3.22.0)
   avo-pro!
+  aws-sdk-s3 (~> 1.205)
   bootsnap
   capybara
   debug
   devise!
   devise_invitable (~> 2.0)
   devise_masquerade
+  dockerfile-rails (>= 1.7)
   dotenv-rails
   erb_lint
   flipper-active_record
