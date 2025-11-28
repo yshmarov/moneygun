@@ -90,15 +90,11 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 80 3000
 
 # Health check for container orchestration
-# Checks port 80 (Thruster) by default, but providers can override CMD if needed
+# Checks port 3000 (Puma default)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:80/up || curl -f http://localhost:3000/up || exit 1
+  CMD curl -f http://localhost:3000/up || exit 1
 
-# Start server via Thruster by default (runs on port 80 and proxies to Puma on port 3000)
-# 
-# Provider-specific overrides:
-# - Fly.io/Kamal: Use default (Thruster on port 80) ✅
-# - Render/Heroku/Railway: Override CMD to use Puma directly with PORT env var:
-#   CMD ["./bin/rails", "server"]
-# - AWS ECS/Fargate: Use default or override CMD based on your ALB configuration
-CMD ["./bin/thrust", "./bin/rails", "server"]
+# Start server via Puma directly (runs on port 3000, configurable via PORT env var)
+# Fly.io will proxy to this port automatically
+# For other providers, PORT env var will be set automatically
+CMD ["./bin/rails", "server"]
