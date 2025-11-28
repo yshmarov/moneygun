@@ -19,7 +19,6 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
   primary: &primary_development
     <<: *default
@@ -86,6 +85,13 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    # DATABASE_URL will override these settings if set (which Fly.io does automatically)
     database: moneygun_production
     username: moneygun
     password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>
+    # Connection pool should match or exceed RAILS_MAX_THREADS (default 3)
+    # Add buffer for Solid Queue and other background jobs
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 2 %>
+    # Connection timeout settings for better reliability
+    checkout_timeout: 5
+    reaping_frequency: 10
