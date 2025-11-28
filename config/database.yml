@@ -90,4 +90,9 @@ production:
     password: <%= ENV["MONEYGUN_DATABASE_PASSWORD"] %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 2 %>
     checkout_timeout: 5
-    reaping_frequency: 10
+    # Reap stale connections more frequently (important for Fly.io autostop/autostart)
+    reaping_frequency: 5
+    # Connection timeout when database is starting
+    connect_timeout: 10
+    # Verify connections are alive before use
+    prepared_statements: false
