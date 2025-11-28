@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/crmne/ruby_llm.git
-  revision: 46bc87023270f2ee8ebe4c3511245205741b45f8
+  revision: 1e315ab4b3f3a150c443dc9a17f504756c2aad6f
   branch: main
   specs:
     ruby_llm (1.9.1)
@@ -161,6 +161,25 @@ GEM
       zeitwerk (>= 2.6.12)
     avo-icons (0.1.1)
       inline_svg
+    aws-eventstream (1.4.0)
+    aws-partitions (1.1188.0)
+    aws-sdk-core (3.239.2)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.992.0)
+      aws-sigv4 (~> 1.9)
+      base64
+      bigdecimal
+      jmespath (~> 1, >= 1.6.1)
+      logger
+    aws-sdk-kms (1.118.0)
+      aws-sdk-core (~> 3, >= 3.239.1)
+      aws-sigv4 (~> 1.5)
+    aws-sdk-s3 (1.205.0)
+      aws-sdk-core (~> 3, >= 3.234.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.5)
+    aws-sigv4 (1.12.1)
+      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.3.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
@@ -174,7 +193,7 @@ GEM
       smart_properties
     bigdecimal (3.3.1)
     bindex (0.8.1)
-    bootsnap (1.18.6)
+    bootsnap (1.19.0)
       msgpack (~> 1.2)
     browser (6.2.0)
     builder (3.3.0)
@@ -256,22 +275,24 @@ GEM
     globalid (1.3.0)
       activesupport (>= 6.1)
     hashie (5.0.0)
-    herb (0.8.0)
-    herb (0.8.0-aarch64-linux-gnu)
-    herb (0.8.0-arm-linux-gnu)
+    herb (0.8.2-aarch64-linux-gnu)
+    herb (0.8.2-arm-linux-gnu)
+    herb (0.8.2-arm64-darwin)
+    herb (0.8.2-x86_64-linux-gnu)
     highline (3.1.2)
       reline
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    i18n-tasks (1.0.15)
+    i18n-tasks (1.1.0)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       erubi
-      highline (>= 2.0.0)
+      highline (>= 3.0.0)
       i18n
       parser (>= 3.2.2.1)
+      prism
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.8, >= 1.8.1)
@@ -294,6 +315,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
+    jmespath (1.6.2)
     json (2.16.0)
     jwt (3.1.2)
       base64
@@ -351,7 +373,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (5.26.1)
+    minitest (5.26.2)
     mission_control-jobs (1.1.0)
       actioncable (>= 7.1)
       actionpack (>= 7.1)
@@ -416,9 +438,6 @@ GEM
       omniauth-oauth2 (~> 1.8)
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
-      omniauth (~> 2.0)
-    omniauth-rails_csrf_protection (1.0.2)
-      actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
@@ -539,7 +558,7 @@ GEM
     rubocop-ast (1.48.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
-    rubocop-rails (2.33.4)
+    rubocop-rails (2.34.0)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
@@ -561,6 +580,9 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    simple_form (5.4.0)
+      actionpack (>= 7.0)
+      activemodel (>= 7.0)
     smart_properties (1.17.0)
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
@@ -658,6 +680,7 @@ DEPENDENCIES
   allgood (~> 0.3.0)
   avo (>= 3.22.0)
   avo-pro!
+  aws-sdk-s3 (~> 1.205)
   bootsnap
   capybara
   debug
@@ -683,7 +706,6 @@ DEPENDENCIES
   noticed
   omniauth-github
   omniauth-google-oauth2
-  omniauth-rails_csrf_protection
   pagy (~> 9.3)
   pay (~> 8.0)
   pg (~> 1.1)
@@ -700,6 +722,7 @@ DEPENDENCIES
   rubocop-rails
   ruby_llm!
   selenium-webdriver
+  simple_form (~> 5.4)
   solid_cable
   solid_cache
   solid_queue

@@ -7,10 +7,9 @@ shared:
   pro_features:
     - ✅ Access the paywalled page
   plan_price_ids:
-    - price_1SSf8nPphrjnyYtLAWa6zXo0
-    - price_1SSe4DPphrjnyYtL9rLI9coN
-    - price_1SSe3jPphrjnyYtLc6cRtFY2
+    - price_1SYWIEGHcaLYld8I3aEP3Qpp
+    - price_1SYWIdGHcaLYld8IFWrZkAho
 production:
   plan_price_ids:
-    - price_1RDRzvLRcgxgTmfQZVdAF93B
-    - price_1RDRzwLRcgxgTmfQZigxB6ZM
+    - price_1SYWIEGHcaLYld8I3aEP3Qpp
+    - price_1SYWIdGHcaLYld8IFWrZkAho

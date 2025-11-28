@@ -1,3 +1,133 @@
-<div id="<%= dom_id project %>">
-  <p><strong class="block font-medium">Name:</strong><%= project.name %></p>
+<div id="<%= dom_id project %>" class="space-y-4">
+  <div>
+    <strong class="block font-medium mb-1">
+      <%= Project.human_attribute_name(:name) %>:
+    </strong>
+
+    <p><%= project.name %></p>
+  </div>
+
+  <% if project.description.present? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:description) %>:
+      </strong>
+
+      <p class="whitespace-pre-wrap"><%= project.description %></p>
+    </div>
+  <% end %>
+
+  <div>
+    <strong class="block font-medium mb-1">
+      <%= Project.human_attribute_name(:status) %>:
+    </strong>
+
+    <p><%= project.status&.humanize %></p>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">
+      <%= Project.human_attribute_name(:priority) %>:
+    </strong>
+
+    <p><%= project.priority&.humanize %></p>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">
+      <%= Project.human_attribute_name(:category) %>:
+    </strong>
+
+    <p><%= project.category %></p>
+  </div>
+
+  <% if project.start_date.present? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:start_date) %>:
+      </strong>
+
+      <p><%= local_time(project.start_date, format: :short) %></p>
+    </div>
+  <% end %>
+
+  <% if project.due_date.present? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:due_date) %>:
+      </strong>
+
+      <p><%= local_time(project.due_date, format: :short) %></p>
+    </div>
+  <% end %>
+
+  <% if project.scheduled_at.present? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:scheduled_at) %>:
+      </strong>
+
+      <p><%= local_time(project.scheduled_at, format: :short) %></p>
+    </div>
+  <% end %>
+
+  <% if project.budget.present? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:budget) %>:
+      </strong>
+
+      <p><%= number_to_currency(project.budget) %></p>
+    </div>
+  <% end %>
+
+  <div>
+    <strong class="block font-medium mb-1">
+      <%= Project.human_attribute_name(:is_active) %>:
+    </strong>
+
+    <p><%= project.is_active? ? "Yes" : "No" %></p>
+  </div>
+
+  <% if project.tags.present? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:tags) %>:
+      </strong>
+
+      <div class="flex flex-wrap gap-2">
+        <% project.tags.each do |tag| %>
+          <span class="badge badge-primary"><%= tag.humanize %></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if project.document.attached? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:document) %>:
+      </strong>
+
+      <p>
+        <%= link_to project.document.filename, rails_blob_path(project.document), class: "link" %>
+      </p>
+    </div>
+  <% end %>
+
+  <% if project.attachments.attached? %>
+    <div>
+      <strong class="block font-medium mb-1">
+        <%= Project.human_attribute_name(:attachments) %>:
+      </strong>
+
+      <ul class="list-disc list-inside space-y-1">
+        <% project.attachments.each do |attachment| %>
+          <li>
+            <%= link_to attachment.filename, rails_blob_path(attachment), class: "link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>

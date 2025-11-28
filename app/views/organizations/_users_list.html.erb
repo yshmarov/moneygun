@@ -1,5 +1,6 @@
 <div class="-space-x-2 flex items-center">
   <% max_count = 3 %>
+
   <% organization.users.limit(max_count).each do |user| %>
     <%= user_avatar(user) %>
   <% end %>
@@ -7,7 +8,9 @@
   <% if organization.users.count > max_count %>
     <div class="avatar rounded-full avatar-placeholder">
       <div class="bg-neutral rounded-full text-neutral-content w-8">
-        <span class="text-xs">+<%= organization.users.count - max_count %></span>
+        <span class="text-xs">
+          +<%= organization.users.count - max_count %>
+        </span>
       </div>
     </div>
   <% end %>

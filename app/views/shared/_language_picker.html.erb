@@ -1,5 +1,8 @@
 <% if I18n.available_locales.count > 1 %>
-  <select onchange="window.location.href=this.value">
+  <select
+    onchange="window.location.href=this.value"
+    class="select select-bordered w-full"
+  >
     <% I18n.available_locales.each do |locale| %>
       <option
         value="<%= url_for(locale: locale) %>"

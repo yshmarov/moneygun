@@ -1,26 +1,26 @@
 <%= render PageComponent.new(title: t("devise.views.passwords.edit.title"), full_width: false) do %>
-  <%= form_with model: resource, as: resource_name, url: password_path(resource_name), method: :put, class: "space-y-4" do |f| %>
+  <%= simple_form_for resource, as: resource_name, url: password_path(resource_name), method: :put, html: { class: "space-y-4" } do |f| %>
     <%= render "shared/errors", object: resource %>
     <%= f.hidden_field :reset_password_token %>
 
-    <div class="space-y-1">
-      <%= f.label :password, t("devise.views.passwords.edit.password_label"), class: "block text-sm font-medium" %>
-      <% if @minimum_password_length %>
-        <p class="text-xs">
-          <%= t("devise.views.passwords.edit.password_minimum", count: @minimum_password_length) %>
-        </p>
-      <% end %>
+    <%= f.input :password,
+                 label: t("devise.views.passwords.edit.password_label"),
+                 placeholder: t("devise.views.passwords.edit.password_placeholder"),
+                 hint: (@minimum_password_length ? t("devise.views.passwords.edit.password_minimum", count: @minimum_password_length) : nil),
+                 input_html: {
+                   autofocus: true,
+                   autocomplete: "new-password"
+                 } %>
 
-      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "input w-full", placeholder: t("devise.views.passwords.edit.password_placeholder") %>
-    </div>
-
-    <div class="space-y-1">
-      <%= f.label :password_confirmation, t("devise.views.passwords.edit.password_confirmation_label"), class: "block text-sm font-medium" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input w-full", placeholder: t("devise.views.passwords.edit.password_confirmation_placeholder") %>
-    </div>
+    <%= f.input :password_confirmation,
+                 label: t("devise.views.passwords.edit.password_confirmation_label"),
+                 placeholder: t("devise.views.passwords.edit.password_confirmation_placeholder"),
+                 input_html: {
+                   autocomplete: "new-password"
+                 } %>
 
     <div class="pt-2">
-      <%= f.submit t("devise.views.passwords.edit.submit"), class: "btn btn-primary btn-block" %>
+      <%= f.button :submit, t("devise.views.passwords.edit.submit"), class: "btn-primary btn-block" %>
     </div>
   <% end %>
 

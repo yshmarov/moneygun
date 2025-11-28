@@ -1,17 +1,20 @@
 <%= render PageComponent.new(title: t("devise.views.unlocks.new.title"), full_width: false) do %>
   <%= render "devise/shared/oauth_links" %>
 
-  <%= form_with model: resource, as: resource_name, url: unlock_path(resource_name), method: :post, class: "space-y-4" do |f| %>
+  <%= simple_form_for resource, as: resource_name, url: unlock_path(resource_name), method: :post, html: { class: "space-y-4" } do |f| %>
     <%= render "shared/errors", object: resource %>
 
-    <div class="space-y-1">
-      <%= f.label :email, t("devise.views.unlocks.new.email_label"), class: "block text-sm font-medium" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full", placeholder: t("devise.views.unlocks.new.email_placeholder") %>
-      <p class="text-xs"><%= t("devise.views.unlocks.new.email_help") %></p>
-    </div>
+    <%= f.input :email,
+                 label: t("devise.views.unlocks.new.email_label"),
+                 placeholder: t("devise.views.unlocks.new.email_placeholder"),
+                 hint: t("devise.views.unlocks.new.email_help"),
+                 input_html: {
+                   autofocus: true,
+                   autocomplete: "email"
+                 } %>
 
     <div class="pt-2">
-      <%= f.submit t("devise.views.unlocks.new.submit"), class: "btn btn-primary btn-block" %>
+      <%= f.button :submit, t("devise.views.unlocks.new.submit"), class: "btn-primary btn-block" %>
     </div>
   <% end %>
 

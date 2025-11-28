@@ -3,6 +3,7 @@
 # config/initializers/omniauth.rb
 require "omniauth"
 # require "omniauth-google-oauth2"
+OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection.new(key: :_csrf_token)
 
 # Determine which providers are available
 providers = []

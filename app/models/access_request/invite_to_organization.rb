@@ -8,9 +8,9 @@ class AccessRequest::InviteToOrganization < AccessRequest
   def approve!
     transaction do
       update!(status: :approved, completed_by: user)
-      user.memberships.create(organization: organization)
+      user.memberships.find_or_create_by!(organization: organization)
     end
-  rescue StandardError => e
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
     raise ActiveRecord::Rollback, e.message
   end
 

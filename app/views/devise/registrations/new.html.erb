@@ -3,28 +3,28 @@
     <%= render "devise/shared/oauth_links" %>
 
     <% if params[:via_email].present? || params.dig(:user, :via_email).present? %>
-      <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), data: { turbo_frame: "_top" }, class: "space-y-4" do |f| %>
+      <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo_frame: "_top" }, class: "space-y-4" } do |f| %>
         <%= f.hidden_field :via_email, value: params[:via_email] || params.dig(:user, :via_email) %>
         <%= render "shared/errors", object: resource %>
 
-        <div class="space-y-1">
-          <%= f.label :email, t("devise.views.registrations.new.email_label"), class: "block text-sm font-medium" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full", placeholder: t("devise.views.registrations.new.email_placeholder") %>
-        </div>
+        <%= f.input :email,
+                     label: t("devise.views.registrations.new.email_label"),
+                     placeholder: t("devise.views.registrations.new.email_placeholder"),
+                     input_html: {
+                       autofocus: true,
+                       autocomplete: "email"
+                     } %>
 
-        <div class="space-y-1">
-          <%= f.label :password, t("devise.views.registrations.new.password_label"), class: "block text-sm font-medium" %>
-          <% if @minimum_password_length %>
-            <p class="text-xs">
-              <%= t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) %>
-            </p>
-          <% end %>
-
-          <%= f.password_field :password, autocomplete: "new-password", class: "input w-full", placeholder: t("devise.views.registrations.new.password_placeholder") %>
-        </div>
+        <%= f.input :password,
+                     label: t("devise.views.registrations.new.password_label"),
+                     placeholder: t("devise.views.registrations.new.password_placeholder"),
+                     hint: (@minimum_password_length ? t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) : nil),
+                     input_html: {
+                       autocomplete: "new-password"
+                     } %>
 
         <div class="pt-2">
-          <%= f.submit t("devise.views.registrations.new.submit"), class: "btn btn-primary btn-block" %>
+          <%= f.button :submit, t("devise.views.registrations.new.submit"), class: "btn-primary btn-block" %>
         </div>
       <% end %>
       <%= render "devise/shared/links" %>

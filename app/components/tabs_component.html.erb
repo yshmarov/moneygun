@@ -1,4 +1,11 @@
-<div class="border-b border-base-300 mb-6 overflow-x-auto">
+<div
+  class="
+    max-lg:px-4
+    border-b border-base-content/20 w-full overflow-x-auto
+    [scrollbar-width:none] [-ms-overflow-style:none]
+    [&::-webkit-scrollbar]:hidden
+  "
+>
   <nav class="flex space-x-4">
     <% tabs.each do |tab| %>
       <% if tab[:condition].nil? || tab[:condition] %>
@@ -7,11 +14,19 @@
             <%= tab[:content] %>
           <% else %>
             <% if tab[:icon] %>
-              <%= tab[:icon] %>
+              <% if tab[:icon].match?(/svg/) %>
+                <%= helpers.inline_svg_tag tab[:icon], class: "size-6 w-6 h-6" %>
+              <% elsif tab[:icon].start_with?("http") || tab[:icon].match?(/\.(png|jpg|webp|avif|gif)$/) %>
+                <%= image_tag tab[:icon], class: "size-6 w-6 h-6 rounded" %>
+              <% else %>
+                <%= tag.span tab[:icon] %>
+              <% end %>
             <% end %>
             <%= tab[:label] %>
             <% if tab[:badge_count] && tab[:badge_count] > 0 %>
-              <span class="badge badge-sm badge-warning"><%= tab[:badge_count] %></span>
+              <span class="badge badge-sm badge-warning">
+                <%= tab[:badge_count] %>
+              </span>
             <% end %>
           <% end %>
         <% end %>

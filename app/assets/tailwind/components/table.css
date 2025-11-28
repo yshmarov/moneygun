@@ -88,3 +88,8 @@
 .table-responsive tr td:last-child {
   @apply @xl:text-right;
 }
+
+/* Align last header to the right */
+.table-responsive thead th:last-child {
+  @apply @xl:text-right;
+}

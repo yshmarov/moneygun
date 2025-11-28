@@ -26,6 +26,19 @@ A production-ready Ruby on Rails boilerplate for building multi-tenant SaaS appl
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/yshmarov/moneygun)
 
+##### Deploy to fly.io
+
+Useful commands:
+
+```shell
+fly deploy
+
+fly secrets set RAILS_MASTER_KEY=$(cat config/credentials/production.key) --app moneygun
+
+fly ssh console --app moneygun
+bin/rails console
+```
+
 ### Developer Experience
 
 - **Complete Test Coverage**
@@ -287,6 +300,15 @@ bundle exec rubocop -A
 ```bash
 # Alphabetically sort i18n keys
 i18n-tasks normalize
+```
+
+# oAuth
+
+Callback url examples:
+
+```sh
+https://moneygun.fly.dev/auth/google_oauth2/callback
+http://localhost:3000/auth/google_oauth2/callback
 ```
 
 # ✨ Contributors

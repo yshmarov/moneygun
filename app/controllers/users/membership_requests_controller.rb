@@ -5,7 +5,7 @@ class Users::MembershipRequestsController < ApplicationController
   before_action :set_organization, only: %i[create]
 
   def index
-    organization_ids = current_user.organization_requests.pending.pluck(:organization_id)
+    organization_ids = current_user.organization_requests.pending.select(:organization_id)
     @pagy, @organizations = pagy(Organization.where(id: organization_ids))
   end
 
@@ -36,8 +36,8 @@ class Users::MembershipRequestsController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = Organization.discoverable.find(params[:organization_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_back(fallback_location: public_organizations_path, alert: t("organizations.errors.not_found"))
+    redirect_back_or_to(public_organizations_path, alert: t("organizations.errors.not_found"))
   end
 end

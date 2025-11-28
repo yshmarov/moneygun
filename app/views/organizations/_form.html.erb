@@ -1,31 +1,33 @@
-<%= form_with(model: organization, class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }) do |form| %>
+<%= simple_form_for organization, html: { class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } } do |form| %>
   <%= render "shared/errors", object: form.object %>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name,
-                        class: "input w-full",
-                        autocomplete: "off",
-                        autocorrect: "off",
-                        autocapitalize: "off",
-                        spellcheck: "false",
-                        autofocus: !turbo_native_app?,
-                        required: true %>
-  </div>
+  <%= form.input :name,
+                  input_html: {
+                    autocomplete: "off",
+                    autocorrect: "off",
+                    autocapitalize: "off",
+                    spellcheck: "false",
+                    autofocus: !turbo_native_app?,
+                    required: true
+                  } %>
 
-  <div>
-    <%= form.label :logo %>
-    <%= form.file_field :logo, accept: "image/png, image/jpeg, image/gif", class: "input w-full" %>
-  </div>
+  <%= form.input :logo,
+                 as: :file,
+                 input_html: { accept: "image/png, image/jpeg, image/gif" } %>
 
-  <div>
-    <%= form.label :privacy_setting, class: "sr-only" %>
+  <div class="form-control">
+    <%= form.label :privacy_setting, class: "label-text sr-only" %>
+
     <div class="space-y-3">
       <% Organization.privacy_settings.each do |key, value| %>
         <div class="flex items-center gap-3">
-          <%= form.radio_button :privacy_setting, value, class: "mt-1" %>
-          <%= form.label :"privacy_setting_#{key}", class: "flex flex-col" do %>
-            <span class="font-medium"><%= privacy_setting_options(key)[:display_text] %></span>
+          <%= form.radio_button :privacy_setting, value, class: "radio mt-1" %>
+
+          <%= form.label :"privacy_setting_#{value}", class: "flex flex-col cursor-pointer" do %>
+            <span class="font-medium">
+              <%= privacy_setting_options(key)[:display_text] %>
+            </span>
+
             <span class="text-sm text-base-content opacity-70">
               <%= privacy_setting_options(key)[:description_text] %>
             </span>

@@ -19,7 +19,7 @@ class TabsComponent < ViewComponent::Base
   end
 
   def base_classes
-    "flex items-center gap-1 py-2 px-1 border-b-2 font-medium text-sm lg:text-base transition-colors duration-200"
+    "flex items-center gap-1 py-2 px-1 border-b-2 font-medium text-sm lg:text-base transition-colors duration-200 whitespace-nowrap"
   end
 
   def tab_classes(tab_key)
