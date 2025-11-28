@@ -23,7 +23,14 @@ RUN apt-get update -qq && \
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development:test" \
+    JEMALLOC_ENABLED="true" \
+    MALLOC_ARENA_MAX="2" \
+    SENSIBLE_DEFAULTS="enabled" \
+    SOLID_QUEUE_IN_PUMA="true"
+
+# Add bundle bin to PATH so bundler and gem executables are available
+ENV PATH="/usr/local/bundle/bin:${PATH}"
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
