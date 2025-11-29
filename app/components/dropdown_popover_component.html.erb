@@ -14,14 +14,17 @@
     <%= icon_content %>
   </button>
 
-  <dialog
+  <div
     class="
-      absolute z-10 w-max opacity-0 transition-opacity duration-150 ease-out
-      outline-hidden [&amp;[open]]:opacity-100
+      z-10 w-max opacity-0 transition-opacity duration-150 ease-out pointer-events-none
+      data-[open]:opacity-100 data-[open]:pointer-events-auto
     "
+    style="position: fixed; margin: 0;"
     data-dropdown-popover-target="menu"
     data-action="click@document->dropdown-popover#closeOnClickOutside"
-    <%= "open" if open %>
+    data-open="<%= open %>"
+    role="dialog"
+    aria-modal="false"
   >
     <ul
       class="menu rounded-lg border border-base-300 bg-base-100 shadow-md p-1"
@@ -29,5 +32,5 @@
     >
       <%= content %>
     </ul>
-  </dialog>
+  </div>
 </div>

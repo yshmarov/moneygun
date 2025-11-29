@@ -38,7 +38,10 @@ export default class extends Controller {
   }
 
   get isOpen() {
-    return this.menuTarget.open === true
+    return (
+      this.menuTarget.dataset.open === 'true' ||
+      this.menuTarget.hasAttribute('data-open')
+    )
   }
 
   async show() {
@@ -51,9 +54,23 @@ export default class extends Controller {
 
     this.#closeOtherDropdowns()
 
-    this.menuTarget.show()
+    this.menuTarget.setAttribute('data-open', 'true')
+    this.menuTarget.style.opacity = '1'
+    this.menuTarget.style.pointerEvents = 'auto'
     this.#updateExpanded()
-    await this.#updatePosition()
+
+    try {
+      await this.#updatePosition()
+    } catch (error) {
+      // Fallback: position relative to button if FloatingUI fails
+      const buttonRect = this.buttonTarget.getBoundingClientRect()
+      Object.assign(this.menuTarget.style, {
+        position: 'fixed',
+        left: `${buttonRect.left}px`,
+        top: `${buttonRect.bottom + this.constructor.OFFSET}px`,
+        margin: 0
+      })
+    }
 
     requestAnimationFrame(() => {
       const autofocusElement = this.menuTarget.querySelector(
@@ -96,7 +113,9 @@ export default class extends Controller {
     if (menuController) menuController.reset()
 
     this.closeTimeout = setTimeout(() => {
-      this.menuTarget.close()
+      this.menuTarget.removeAttribute('data-open')
+      this.menuTarget.style.opacity = '0'
+      this.menuTarget.style.pointerEvents = 'none'
       this.#updateExpanded()
       this.closeTimeout = null
     }, this.constructor.CLOSE_DELAY)
@@ -149,12 +168,15 @@ export default class extends Controller {
 
     const { x, y } = await computePosition(this.buttonTarget, this.menuTarget, {
       placement: primaryPlacement,
+      strategy: 'fixed', // Use fixed positioning for proper viewport-relative positioning
       middleware
     })
 
     Object.assign(this.menuTarget.style, {
+      position: 'fixed', // Ensure fixed positioning
       left: `${x}px`,
-      top: `${y}px`
+      top: `${y}px`,
+      margin: 0 // Remove any default margins
     })
   }
 
