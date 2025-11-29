@@ -174,10 +174,12 @@ Devise.setup do |config|
 
   # Options to be passed to the created cookie. For instance, you can set
   # secure: true in order to force SSL only cookies.
+  # Note: expires is set automatically based on remember_for, but we ensure it's explicit
   config.rememberable_options = {
     secure: Rails.env.production?,
     httponly: true,
-    same_site: :lax
+    same_site: :lax,
+    expires: 2.years.from_now
   }
 
   # ==> Configuration for :validatable
