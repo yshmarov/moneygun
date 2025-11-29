@@ -22,7 +22,7 @@
     style="position: fixed; margin: 0;"
     data-dropdown-popover-target="menu"
     data-action="click@document->dropdown-popover#closeOnClickOutside"
-    data-open="<%= open %>"
+    <%= "data-open=\"true\"" if open %>
     role="dialog"
     aria-modal="false"
   >

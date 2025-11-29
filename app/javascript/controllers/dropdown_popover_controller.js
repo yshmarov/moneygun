@@ -38,10 +38,7 @@ export default class extends Controller {
   }
 
   get isOpen() {
-    return (
-      this.menuTarget.dataset.open === 'true' ||
-      this.menuTarget.hasAttribute('data-open')
-    )
+    return this.menuTarget.hasAttribute('data-open')
   }
 
   async show() {
