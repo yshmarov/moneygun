@@ -323,7 +323,7 @@ en:
           join: Join
           open: Open
           reject_invitation: Reject invitation
-          request_to_join: Join waitlist
+          request_to_join: Request access
   routes:
     memberships: members
     organizations: organizations
