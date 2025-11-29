@@ -18,4 +18,8 @@ class User < ApplicationRecord
   def unseen_notifications_count
     notifications.unseen.count
   end
+
+  def name
+    connected_accounts.first&.name || email.split("@").first
+  end
 end

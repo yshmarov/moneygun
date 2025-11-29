@@ -89,7 +89,7 @@
           max-h-[80dvh] overflow-y-auto
         "
       >
-        <%= render "shared/user_info" %>
+        <%= render "shared/user_info", user: current_user %>
 
         <%# User links menu %>
         <ul class="menu menu-xl p-2"><%= render "shared/user_links" %></ul>

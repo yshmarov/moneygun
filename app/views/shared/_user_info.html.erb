@@ -1,16 +1,13 @@
-<% sign_in_account = current_user.connected_accounts.find { |ca| ConnectedAccount::PROVIDER_CONFIG[ca.provider.to_sym]&.dig(:sign_in) } %>
-<% user_name = sign_in_account&.name || current_user.email.split("@").first %>
+<% sign_in_account = user.connected_accounts.find { |ca| ConnectedAccount::PROVIDER_CONFIG[ca.provider.to_sym]&.dig(:sign_in) } %>
 
 <div class="p-4 border-b border-base-content/10">
   <div class="flex items-center gap-3">
-    <%= user_avatar(current_user, classes: "w-12 h-12") %>
+    <%= user_avatar(user, classes: "w-12 h-12") %>
 
     <div class="flex-1 min-w-0">
-      <div class="font-semibold text-base truncate"><%= user_name %></div>
+      <div class="font-semibold text-base truncate"><%= user.name %></div>
 
-      <div class="text-sm text-base-content/70 truncate">
-        <%= current_user.email %>
-      </div>
+      <div class="text-sm text-base-content/70 truncate"><%= user.email %></div>
 
       <% if sign_in_account %>
         <div class="flex items-center gap-1.5 mt-1">

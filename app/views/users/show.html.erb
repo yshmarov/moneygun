@@ -1,0 +1,5 @@
+<% content_for :title, @user.name %>
+
+<%= render PageComponent.new(full_width: false) do %>
+  <%= render "shared/user_info", user: @user %>
+<% end %>
