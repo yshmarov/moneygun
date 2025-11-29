@@ -138,4 +138,11 @@ module ApplicationHelper
     parts = [title, org_name, app_name].compact
     parts.join(" - ")
   end
+
+  # forbid zooming on mobile devices
+  def viewport_meta_tag
+    content = ["width=device-width,initial-scale=1"]
+    content << "maximum-scale=1, user-scalable=0" if hotwire_native_app? || browser.device.mobile?
+    tag.meta name: "viewport", content: content.join(",")
+  end
 end

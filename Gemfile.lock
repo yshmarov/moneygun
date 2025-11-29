@@ -682,6 +682,7 @@ DEPENDENCIES
   avo-pro!
   aws-sdk-s3 (~> 1.205)
   bootsnap
+  browser (~> 6.2)
   capybara
   debug
   devise!

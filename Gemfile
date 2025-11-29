@@ -130,3 +130,5 @@ gem "ruby_llm", github: "crmne/ruby_llm", branch: "main"
 group :production do
   gem "aws-sdk-s3", "~> 1.205", require: false
 end
+
+gem "browser", "~> 6.2"
