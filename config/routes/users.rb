@@ -3,7 +3,8 @@
 devise_for :users, controllers: {
   registrations: "users/registrations",
   sessions: "users/sessions",
-  masquerades: "users/masquerades"
+  masquerades: "users/masquerades",
+  confirmations: "users/confirmations"
 }
 
 devise_scope :user do

@@ -5,14 +5,15 @@ module User::Authentication
 
   included do
     # Include default devise modules. Others available are:
-    # :confirmable, :lockable, :timeoutable, :trackable
+    # :lockable, :timeoutable, :trackable
     devise :invitable,
            :database_authenticatable,
            :registerable,
            :recoverable,
            :rememberable,
            :validatable,
-           :masqueradable
+           :masqueradable,
+           :confirmable
 
     has_many :connected_accounts, as: :owner, dependent: :destroy
   end
@@ -42,6 +43,9 @@ module User::Authentication
         user.email = email
         user.password = Devise.friendly_token[0, 20] if user.password.blank?
       end
+
+      # Auto-confirm OAuth users since the provider has already verified their email
+      user.confirmed_at = Time.current if user.confirmed_at.blank?
 
       ConnectedAccount.create_or_update_from_omniauth(auth_payload, user) if user.save
 

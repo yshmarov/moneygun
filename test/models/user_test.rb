@@ -61,6 +61,33 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "from_omniauth auto-confirms new OAuth users" do
+    auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "newuser@example.com")
+
+    user = User.from_omniauth(auth_payload)
+    assert user.confirmed?
+    assert_not_nil user.confirmed_at
+  end
+
+  test "from_omniauth confirms existing unconfirmed users" do
+    # Create an unconfirmed user (skip organization creation by setting invitation_created_at)
+    user = User.create!(
+      email: "u@example.com",
+      password: "password123",
+      password_confirmation: "password123",
+      confirmed_at: nil
+    )
+    assert_not user.confirmed?
+
+    # Sign in via OAuth
+    auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "u@example.com")
+    result_user = User.from_omniauth(auth_payload)
+
+    assert_equal user, result_user
+    assert result_user.confirmed?
+    assert_not_nil result_user.confirmed_at
+  end
+
   test "after user creation, default organization is created" do
     assert_difference "Organization.count", 1 do
       assert_difference "Membership.count", 1 do

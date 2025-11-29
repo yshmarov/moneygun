@@ -17,6 +17,7 @@ class Avo::Resources::User < Avo::BaseResource
       field :id, as: :id
       field :email, as: :text, disabled: true, sortable: true
       field :admin, as: :boolean, sortable: true
+      field :confirmed_at, as: :date_time, disabled: true, format: "DDDD, T"
       field :login_as, as: :text, as_html: true do
         link_to "Login as", masquerade_path(record) unless record.id == current_user.id
       end

@@ -8,6 +8,8 @@ module Authentication
     before_action :masquerade_user!
   end
 
+  private
+
   def after_sign_in_path_for(resource)
     if session[:new_user]
       session.delete(:new_user)

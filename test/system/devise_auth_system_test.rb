@@ -15,7 +15,7 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
   test "create user and sign in" do
     email = "julia@superails.com"
     password = "password"
-    User.create(email:, password:)
+    User.create(email:, password:, confirmed_at: Time.current)
 
     visit organizations_path
     click_link "Sign in with Email and Password"
