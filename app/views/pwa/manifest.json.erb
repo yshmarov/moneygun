@@ -1,5 +1,5 @@
 {
-  "name": "Askvote",
+  "name": "<%= Rails.application.config_for(:settings).dig(:site, :name) %>",
   "icons": [
     {
       "src": "/icon.png",
@@ -16,7 +16,7 @@
   "start_url": "/",
   "display": "standalone",
   "scope": "/",
-  "description": "Askvote.",
+  "description": "<%= Rails.application.config_for(:settings).dig(:site, :name) %>",
   "theme_color": "red",
   "background_color": "red"
 }
