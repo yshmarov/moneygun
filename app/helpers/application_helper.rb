@@ -141,7 +141,7 @@ module ApplicationHelper
 
   # forbid zooming on mobile devices
   def viewport_meta_tag
-    content = ["width=device-width,initial-scale=1"]
+    content = ["width=device-width,initial-scale=1,viewport-fit=cover"]
     content << "maximum-scale=1, user-scalable=0" if hotwire_native_app? || browser.device.mobile?
     tag.meta name: "viewport", content: content.join(",")
   end
