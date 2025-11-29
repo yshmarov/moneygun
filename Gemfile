@@ -55,6 +55,7 @@ group :development, :test do
   gem "rubocop-rails", require: false
   gem "erb_lint", require: false
   gem "dotenv-rails"
+  gem "factory_bot_rails"
 end
 
 group :development do
