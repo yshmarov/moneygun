@@ -48,6 +48,11 @@
   @apply text-sm font-normal whitespace-nowrap px-4 py-3 text-left; /* Unified opacities */
 }
 
+/* Style sortable column headers */
+.table-responsive thead th a {
+  @apply text-base-content hover:text-primary underline transition-colors duration-150 cursor-pointer inline-flex items-center gap-1;
+}
+
 .table-responsive tbody {
   @apply block @xl:table-row-group;
 }
