@@ -4,7 +4,10 @@
     data-clipboard-success-content-value="<%= t("shared.actions.copied") %>"
     class="flex items-center gap-2"
   >
-    <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, data: { clipboard_target: "source" }, class: "input w-full" %>
+    <label class="floating-label w-full">
+      <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, data: { clipboard_target: "source" }, class: "input w-full", placeholder: " " %>
+      <span><%= t(".referral_link_label") %></span>
+    </label>
 
     <button
       type="button"

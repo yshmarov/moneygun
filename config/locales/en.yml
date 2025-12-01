@@ -400,6 +400,7 @@ en:
         completed_description: Referred users who have completed their first purchase and generated commission.
         referrals: Sign-ups
         referrals_description: Users who have successfully registered through your referral link.
+        referral_link_label: Referral Link
         subtitle: Generate revenue through our affiliate program by sharing your unique referral link. Earn commissions when referred users complete their first purchase.
         table:
           completed_at: Conversion Date

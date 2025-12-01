@@ -401,5 +401,6 @@ fr:
         completed_description: Amis qui se sont inscrits et ont effectué leur premier achat.
         referrals: Inscriptions réussies
         referrals_description: Amis qui ont rejoint en utilisant votre lien.
+        referral_link_label: Lien de parrainage
         subtitle: Partagez votre lien de parrainage unique et gagnez des récompenses lorsque vos amis s'inscrivent et effectuent leur premier achat.
         title: Programme D'affiliation
