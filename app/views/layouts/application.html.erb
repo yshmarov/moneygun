@@ -8,19 +8,22 @@
       <input id="main-drawer" type="checkbox" class="drawer-toggle">
 
       <div class="drawer-content flex flex-col min-w-0 h-dvh overflow-y-auto">
-        <header class="sticky top-0 z-20 backdrop-blur-3xl">
-          <%= render "shared/navbar" %>
+        <%= render "shared/navbar" %>
 
+        <div class="sticky top-0 z-20 pointer-events-none">
           <div
             id="flash"
+            role="alert"
+            aria-live="polite"
             class="
-              absolute left-1/2 -translate-x-1/2 z-40 flex flex-col
-              items-center
+              absolute max-lg:left-0 max-lg:right-0 max-lg:translate-x-0
+              lg:left-1/2 lg:-translate-x-1/2 z-40 flex flex-col
+              max-lg:items-stretch lg:items-center pointer-events-auto
             "
           >
             <%= render "shared/flash" %>
           </div>
-        </header>
+        </div>
 
         <main class="flex-grow p-4"><%= yield %></main>
 

@@ -5,14 +5,16 @@
 
   <body class="flex flex-col min-h-screen">
     <div class="flex-grow flex flex-col bg-base-300">
-      <header class="sticky z-30 top-0">
+      <header class="sticky z-20 top-0">
         <%= render "shared/unauthenticated_navbar" %>
 
         <div
           id="flash"
+          role="alert"
+          aria-live="polite"
           class="
             absolute left-1/2 -translate-x-1/2 z-40 flex flex-col
-            items-center
+            items-center pointer-events-auto
           "
         >
           <%= render "shared/flash" %>
