@@ -1,1 +1,15 @@
 /* Application styles */
+
+/* Hide chevron and nested menu styling when sidebar is collapsed */
+[data-expanded='false'] .menu li > details > summary::after {
+  display: none;
+}
+
+[data-expanded='false'] .menu li ul {
+  margin-inline-start: 0;
+  padding-inline-start: 0;
+}
+
+[data-expanded='false'] .menu li ul::before {
+  display: none;
+}
