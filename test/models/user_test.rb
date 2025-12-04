@@ -72,7 +72,7 @@ class UserTest < ActiveSupport::TestCase
   test "from_omniauth confirms existing unconfirmed users" do
     # Create an unconfirmed user (skip organization creation by setting invitation_created_at)
     user = User.create!(
-      email: "u@example.com",
+      email: "username@example.com",
       password: "password123",
       password_confirmation: "password123",
       confirmed_at: nil
@@ -80,7 +80,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.confirmed?
 
     # Sign in via OAuth
-    auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "u@example.com")
+    auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "username@example.com")
     result_user = User.from_omniauth(auth_payload)
 
     assert_equal user, result_user
@@ -99,7 +99,7 @@ class UserTest < ActiveSupport::TestCase
 
         organization = user.owned_organizations.first
         assert_not_nil organization
-        assert_equal organization.owner.email, organization.name
+        assert_equal organization.owner.email.split("@").first, organization.name
         assert_equal user, organization.owner
 
         membership = organization.memberships.first
