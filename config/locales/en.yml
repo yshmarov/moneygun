@@ -182,6 +182,12 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+    models:
+      membership:
+        attributes:
+          base:
+            cannot_change_role_if_only_admin: Role cannot be changed because this is the only admin.
+            cannot_demote_owner_from_admin: Organization owner cannot be demoted from admin role.
   invitations:
     approve:
       success: Invitation accepted
@@ -374,6 +380,8 @@ en:
         disconnect_button: Disconnect
       destroy:
         success: Account disconnected successfully.
+      errors:
+        failed_to_connect: 'Failed to connect %{provider} account: %{errors}'
       index:
         available_connections: Available connections
         connect_button: Connect
@@ -398,9 +406,9 @@ en:
         clicks_description: Total number of clicks generated through your unique referral link.
         completed: Converted Referrals
         completed_description: Referred users who have completed their first purchase and generated commission.
+        referral_link_label: Referral Link
         referrals: Sign-ups
         referrals_description: Users who have successfully registered through your referral link.
-        referral_link_label: Referral Link
         subtitle: Generate revenue through our affiliate program by sharing your unique referral link. Earn commissions when referred users complete their first purchase.
         table:
           completed_at: Conversion Date

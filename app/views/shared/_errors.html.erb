@@ -6,8 +6,7 @@
   >
     <div>
       <h2>
-        <%= pluralize(object.errors.count, "error") %> prohibited this object
-        from being saved:
+        <%= t("errors.messages.not_saved", count: object.errors.count, resource: object.class.model_name.human) %>
       </h2>
 
       <ul>

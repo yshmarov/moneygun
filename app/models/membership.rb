@@ -34,12 +34,12 @@ class Membership < ApplicationRecord
 
     return unless role_changed? && role_was == "admin"
 
-    errors.add(:base, "Role cannot be changed because this is the only admin.")
+    errors.add(:base, I18n.t("errors.models.membership.attributes.base.cannot_change_role_if_only_admin"))
   end
 
   def cannot_demote_owner_from_admin
     return unless role_changed? && role_was == "admin" && user_id == organization.owner_id
 
-    errors.add(:base, "Organization owner cannot be demoted from admin role.")
+    errors.add(:base, I18n.t("errors.models.membership.attributes.base.cannot_demote_owner_from_admin"))
   end
 end
