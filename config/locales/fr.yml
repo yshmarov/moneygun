@@ -296,8 +296,6 @@ fr:
         price: Tarif
         resume_subscription: Reprendre l'abonnement
         status: Statut de l'abonnement
-        subscription_active: Abonnement actif
-        subscription_cancelled: Abonnement annulé
         title: Gérer l'abonnement
         you_will_lose_access_in: Vous perdrez l'accès dans %{distance_of_time_in_words}
       pricing:
@@ -399,8 +397,8 @@ fr:
         clicks_description: Combien de fois votre lien unique a été cliqué.
         completed: Références complètes
         completed_description: Amis qui se sont inscrits et ont effectué leur premier achat.
+        referral_link_label: Lien de parrainage
         referrals: Inscriptions réussies
         referrals_description: Amis qui ont rejoint en utilisant votre lien.
-        referral_link_label: Lien de parrainage
         subtitle: Partagez votre lien de parrainage unique et gagnez des récompenses lorsque vos amis s'inscrivent et effectuent leur premier achat.
         title: Programme D'affiliation
