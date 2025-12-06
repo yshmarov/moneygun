@@ -45,10 +45,10 @@ fr:
     failure:
       already_authenticated: Vous êtes déjà connecté.
       inactive: Votre compte n'est pas encore activé.
-      invalid: '%{authentication_keys} ou mot de passe invalide.'
+      invalid: "%{authentication_keys} ou mot de passe invalide."
       last_attempt: Il vous reste une tentative avant que votre compte ne soit verrouillé.
       locked: Votre compte est verrouillé.
-      not_found_in_database: '%{authentication_keys} ou mot de passe invalide.'
+      not_found_in_database: "%{authentication_keys} ou mot de passe invalide."
       timeout: Votre session a expiré. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire avant de continuer.
       unconfirmed: Vous devez confirmer votre adresse e-mail avant de continuer.
@@ -104,7 +104,7 @@ fr:
           password_confirmation_label: Confirmez le nouveau mot de passe
           password_confirmation_placeholder: Confirmez le nouveau mot de passe
           password_label: Nouveau mot de passe
-          password_minimum: '(%{count} caractères minimum)'
+          password_minimum: "(%{count} caractères minimum)"
           password_placeholder: Entrez le nouveau mot de passe
           submit: Changer mon mot de passe
           title: Changer votre mot de passe
@@ -130,7 +130,7 @@ fr:
           password_confirmation_placeholder: Confirmez le nouveau mot de passe
           password_help: Laissez vide si vous ne souhaitez pas le changer
           password_label: Mot de passe
-          password_minimum: '%{count} caractères minimum'
+          password_minimum: "%{count} caractères minimum"
           password_placeholder: Nouveau mot de passe
           pending_confirmation: 'En attente de confirmation pour : %{email}'
           submit: Mettre à jour
@@ -141,7 +141,7 @@ fr:
           password_confirmation_label: Confirmation du mot de passe
           password_confirmation_placeholder: Confirmez votre mot de passe
           password_label: Mot de passe
-          password_minimum: '(%{count} caractères minimum)'
+          password_minimum: "(%{count} caractères minimum)"
           password_placeholder: Créer un mot de passe
           submit: S'inscrire
           title: S'inscrire
@@ -180,7 +180,7 @@ fr:
       not_found: non trouvé
       not_locked: n'était pas verrouillé
       not_saved:
-        one: "1 erreur a empêché ce %{resource} d'être enregistré :"
+        one: '1 erreur a empêché ce %{resource} d''être enregistré :'
         other: "%{count} erreurs ont empêché ce %{resource} d'être enregistré :"
   invitations:
     approve:
@@ -256,14 +256,14 @@ fr:
       title: Mes organisations
     invitations:
       create:
-        success: '%{email} invité'
+        success: "%{email} invité"
       destroy:
         success: Invitation annulée
       errors:
         not_found: Invitation non trouvée
       index:
         cancel_invitation: Annuler l'invitation
-        title: '⬆️ Invitations sortantes'
+        title: "⬆️ Invitations sortantes"
     memberships:
       actions:
         leave: Quitter
@@ -307,7 +307,7 @@ fr:
         title: Gérer l'abonnement
         you_will_lose_access_in: Vous perdrez l'accès dans %{distance_of_time_in_words}
       pricing:
-        cancel_security: '🛡️ Annulez à tout moment. Sécurisé par Stripe.'
+        cancel_security: "🛡️ Annulez à tout moment. Sécurisé par Stripe."
         current_plan: Plan actuel
         save_yearly: Meilleure valeur
         subscribe: Commencer
@@ -322,7 +322,7 @@ fr:
   public:
     organizations:
       index:
-        title: '🌎 Découvrir les organisations'
+        title: "🌎 Découvrir les organisations"
       show:
         actions:
           accept_invitation: Accepter l'invitation
@@ -341,8 +341,8 @@ fr:
   shared:
     actions:
       confirm: Êtes-vous sûr?
-      copied: '✅ Copié!'
-      copy: '📋 Copier'
+      copied: "✅ Copié!"
+      copy: "📋 Copier"
       create: Créer
       destroy: Détruire
       edit: Modifier
@@ -397,7 +397,7 @@ fr:
         title: Définir votre mot de passe
     invitations:
       index:
-        title: '⬇️ Invitations entrantes'
+        title: "⬇️ Invitations entrantes"
     membership_requests:
       destroy:
         success: Demande d'adhésion révoquée
