@@ -196,13 +196,9 @@ fr:
       body: |
         Vous avez été invité à rejoindre %{organization_name} !
 
-        Pour accepter cette invitation, veuillez vous connecter à votre compte. Un compte a été créé pour vous en utilisant cette adresse e-mail.
+        Pour commencer, cliquez sur le lien ci-dessous pour définir votre mot de passe et accepter l'invitation.
 
-        Si vous n'avez pas encore défini de mot de passe, vous pouvez utiliser le lien "Mot de passe oublié" sur la page de connexion pour en définir un.
-
-        Se connecter : %{url}
-
-        Après vous être connecté, vous serez redirigé vers votre page d'invitations où vous pourrez accepter ou refuser cette invitation.
+        Accepter l'invitation : %{url}
 
         Si vous avez des questions, veuillez contacter la personne qui vous a invité.
       subject: Rejoindre %{organization_name}
@@ -393,8 +389,15 @@ fr:
         title: Comptes connectés
         your_connected_accounts: Comptes connectés
     invitations:
+      accept:
+        success: Mot de passe défini avec succès ! Vous avez été connecté.
       index:
         title: "⬇️ Invitations entrantes"
+      show_accept:
+        invalid_token: Lien d'invitation invalide ou expiré.
+        submit: Définir le mot de passe et accepter l'invitation
+        title: Définir votre mot de passe
+        welcome_message: Bienvenue ! Veuillez définir un mot de passe pour votre compte (%{email}) pour accepter l'invitation.
     membership_requests:
       destroy:
         success: Demande d'adhésion révoquée

@@ -202,13 +202,9 @@ en:
       body: |
         You've been invited to join %{organization_name}!
 
-        To accept this invitation, please sign in to your account. An account has been created for you using this email address.
+        To get started, click the link below to set your password and accept the invitation.
 
-        If you haven't set a password yet, you can use the "Forgot password" link on the sign in page to set one.
-
-        Sign in: %{url}
-
-        After signing in, you'll be taken to your invitations page where you can accept or decline this invitation.
+        Accept invitation: %{url}
 
         If you have any questions, please contact the person who invited you.
       subject: Join %{organization_name}
@@ -402,8 +398,15 @@ en:
         title: Connected accounts
         your_connected_accounts: Connected accounts
     invitations:
+      accept:
+        success: Password set successfully! You've been signed in.
       index:
         title: "⬇️ Invitations"
+      show_accept:
+        invalid_token: Invalid or expired invitation link.
+        submit: Set password and accept invitation
+        title: Set your password
+        welcome_message: Welcome! Please set a password for your account (%{email}) to accept the invitation.
     membership_requests:
       destroy:
         success: Membership request revoked

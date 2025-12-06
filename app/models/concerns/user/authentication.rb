@@ -35,6 +35,8 @@ module User::Authentication
         user.invited_by_type = invited_by.class.name
         user.invited_by_id = invited_by.id
       end
+      # Skip confirmation email for invited users (they'll be confirmed when accepting invitation)
+      user.skip_confirmation_notification!
       user.save!
       user
     end
