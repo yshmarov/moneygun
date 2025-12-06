@@ -5,26 +5,14 @@ class Users::InvitationAcceptancesController < ApplicationController
   skip_before_action :authenticate_user!
 
   before_action :set_user_from_token, only: %i[show update]
+  before_action :ensure_valid_invitation, only: %i[show update]
 
   def show
-    if @user.nil? || invitation_already_accepted?
-      redirect_to new_user_session_path, alert: t(".invalid_token")
-      return
-    end
     @minimum_password_length = Devise.password_length.min
   end
 
   def update
-    if @user.nil? || invitation_already_accepted?
-      redirect_to new_user_session_path, alert: t("users.invitation_acceptances.show.invalid_token")
-      return
-    end
-
-    if @user.update(password_params.merge(
-                      invitation_accepted_at: Time.current,
-                      invitation_token: nil,
-                      confirmed_at: Time.current
-                    ))
+    if @user.update(invitation_acceptance_params)
       sign_in(@user)
       redirect_to user_invitations_path, notice: t(".success")
     else
@@ -43,8 +31,18 @@ class Users::InvitationAcceptancesController < ApplicationController
     @user = nil
   end
 
-  def invitation_already_accepted?
-    @user&.invitation_accepted_at.present?
+  def ensure_valid_invitation
+    return if @user.present? && @user.invitation_accepted_at.blank?
+
+    redirect_to new_user_session_path, alert: t("users.invitation_acceptances.show.invalid_token")
+  end
+
+  def invitation_acceptance_params
+    password_params.merge(
+      invitation_accepted_at: Time.current,
+      invitation_token: nil,
+      confirmed_at: Time.current
+    )
   end
 
   def password_params
