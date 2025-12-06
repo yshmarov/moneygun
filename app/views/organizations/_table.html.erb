@@ -19,7 +19,7 @@
             data-action="click->visitable#visit"
             data-url="<%= organization.participant?(current_user) ? organization_path(organization) : public_organization_path(organization) %>"
           >
-            <td data-label="<%= Organization.human_attribute_name(:name) %>">
+            <td>
               <div class="flex items-center gap-2">
                 <%= organization_avatar(organization) %>
 
@@ -29,17 +29,13 @@
               </div>
             </td>
 
-            <td
-              data-label="<%= Organization.human_attribute_name(:privacy_setting) %>"
-            >
-              <span class="font-medium text-sm">
+            <td>
+              <span class="badge badge-soft badge-xs">
                 <%= privacy_setting_options(organization.privacy_setting)[:display_text] %>
               </span>
             </td>
 
-            <td data-label="Members">
-              <%= render "organizations/users_list", organization: %>
-            </td>
+            <td><%= render "organizations/users_list", organization: %></td>
 
             <td
               data-label="<%= Organization.human_attribute_name(:created_at) %>"
