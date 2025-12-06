@@ -415,6 +415,10 @@ en:
     notifications:
       index:
         title: Notifications
+    organizations:
+      membership_requests:
+        destroy:
+          success: Membership request revoked
     referrals:
       index:
         clicks: Referral Link Performance
