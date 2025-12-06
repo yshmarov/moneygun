@@ -67,19 +67,6 @@
             </details>
           </li>
         <% end %>
-        <% unless dev_links.empty? %>
-          <li>
-            <details>
-              <summary><span class="font-medium font-mono">Dev</span></summary>
-
-              <ul>
-                <% dev_links.each do |link| %>
-                  <%= nav_link link[:name], link[:path], icon: link[:icon] %>
-                <% end %>
-              </ul>
-            </details>
-          </li>
-        <% end %>
       <% end %>
 
       <li></li>

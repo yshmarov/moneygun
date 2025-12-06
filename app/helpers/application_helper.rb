@@ -61,64 +61,62 @@ module ApplicationHelper
     end
   end
 
-  def admin_link_options
-    [{
-      name: "Admin",
-      path: "/admin/avo/resources/users",
-      icon: "👮"
-    },
-     {
-       name: "Profitable",
-       path: "/profitable",
-       icon: "🤑"
-     },
-     {
-       name: "Jobs",
-       path: "/jobs",
-       icon: "⚙️"
-     },
-     {
-       name: "Analytics",
-       path: "/analytics",
-       icon: "📊"
-     },
-     {
-       name: "Active Storage",
-       path: "/active_storage_dashboard",
-       icon: "💾"
-     },
-     {
-       name: "Feature Flags",
-       path: "/feature_flags",
-       icon: "🎛️"
-     },
-     {
-       name: "Lookbook",
-       path: "/lookbook",
-       icon: "👀"
-     },
-     {
-       name: "Healthcheck",
-       path: "/healthcheck",
-       icon: "🟢"
-     },
-     {
-       name: "Letter Opener",
-       path: "/letter_opener",
-       icon: "📨"
-     }]
-  end
-
-  def admin_link_names
-    ["Admin", "Profitable", "Analytics", "Feature Flags"]
-  end
-
   def admin_links
-    admin_link_options.select { |link| admin_link_names.include?(link[:name]) }
+    all_admin_links.select { |link| Rails.env.development? || !link[:dev_only] }
   end
 
-  def dev_links
-    admin_link_options.reject { |link| admin_link_names.include?(link[:name]) }
+  private
+
+  def all_admin_links
+    [
+      {
+        name: "Admin",
+        path: "/admin/avo/resources/users",
+        icon: "👮"
+      },
+      {
+        name: "Profitable",
+        path: "/profitable",
+        icon: "🤑"
+      },
+      {
+        name: "Analytics",
+        path: "/analytics",
+        icon: "📊"
+      },
+      {
+        name: "Feature Flags",
+        path: "/feature_flags",
+        icon: "🎛️"
+      },
+      {
+        name: "Jobs",
+        path: "/jobs",
+        icon: "⚙️"
+      },
+      {
+        name: "Active Storage",
+        path: "/active_storage_dashboard",
+        icon: "💾"
+      },
+      {
+        name: "Healthcheck",
+        path: "/healthcheck",
+        icon: "🟢"
+      },
+      {
+        name: "Lookbook",
+        path: "/lookbook",
+        icon: "👀",
+        dev_only: true
+      },
+      {
+        name: "Letter Opener",
+        path: "/letter_opener",
+        icon: "📨",
+        dev_only: true
+      }
+    ]
   end
 
   def boolean_to_icon(value)
