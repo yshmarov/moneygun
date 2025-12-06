@@ -193,6 +193,18 @@ fr:
       success: Invitation rejetée
   membership_mailer:
     invitation_email:
+      body: |
+        Vous avez été invité à rejoindre %{organization_name} !
+
+        Pour accepter cette invitation, veuillez vous connecter à votre compte. Un compte a été créé pour vous en utilisant cette adresse e-mail.
+
+        Si vous n'avez pas encore défini de mot de passe, vous pouvez utiliser le lien "Mot de passe oublié" sur la page de connexion pour en définir un.
+
+        Se connecter : %{url}
+
+        Après vous être connecté, vous serez redirigé vers votre page d'invitations où vous pourrez accepter ou refuser cette invitation.
+
+        Si vous avez des questions, veuillez contacter la personne qui vous a invité.
       subject: Rejoindre %{organization_name}
     request_accepted_email:
       subject: Bienvenue chez %{organization_name}

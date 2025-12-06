@@ -199,6 +199,18 @@ en:
       success: Invitation declined
   membership_mailer:
     invitation_email:
+      body: |
+        You've been invited to join %{organization_name}!
+
+        To accept this invitation, please sign in to your account. An account has been created for you using this email address.
+
+        If you haven't set a password yet, you can use the "Forgot password" link on the sign in page to set one.
+
+        Sign in: %{url}
+
+        After signing in, you'll be taken to your invitations page where you can accept or decline this invitation.
+
+        If you have any questions, please contact the person who invited you.
       subject: Join %{organization_name}
     request_accepted_email:
       subject: Welcome to %{organization_name}

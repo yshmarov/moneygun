@@ -217,9 +217,6 @@ GEM
     debug (1.11.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    devise_invitable (2.0.11)
-      actionmailer (>= 5.0)
-      devise (>= 4.6)
     devise_masquerade (2.1.4)
       devise (>= 4.7.0)
       globalid (>= 0.3.6)
@@ -691,7 +688,6 @@ DEPENDENCIES
   capybara
   debug
   devise!
-  devise_invitable (~> 2.0)
   devise_masquerade
   dotenv-rails
   erb_lint
