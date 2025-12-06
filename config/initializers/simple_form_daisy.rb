@@ -5,7 +5,7 @@
 # components.
 # See https://github.com/heartcombo/simple_form#custom-components to know
 # more about custom components.
-# Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join("lib/components/**/*.rb")].each { |f| require f }
 #
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
@@ -29,6 +29,7 @@ SimpleForm.setup do |config|
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.optional :character_counter
     b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
@@ -46,6 +47,7 @@ SimpleForm.setup do |config|
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.optional :character_counter
     b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
 
