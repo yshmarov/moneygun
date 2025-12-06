@@ -41,6 +41,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
+    b.optional :autogrow
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
       ba.use :input, class: "textarea textarea-bordered w-full"
