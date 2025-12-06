@@ -193,6 +193,14 @@ fr:
       success: Invitation rejetée
   membership_mailer:
     invitation_email:
+      body: |
+        Vous avez été invité à rejoindre %{organization_name} !
+
+        Pour commencer, cliquez sur le lien ci-dessous pour définir votre mot de passe et accepter l'invitation.
+
+        Accepter l'invitation : %{url}
+
+        Si vous avez des questions, veuillez contacter la personne qui vous a invité.
       subject: Rejoindre %{organization_name}
     request_accepted_email:
       subject: Bienvenue chez %{organization_name}
@@ -380,6 +388,13 @@ fr:
         no_accounts_connected: Vous n'avez pas encore connecté de comptes OAuth.
         title: Comptes connectés
         your_connected_accounts: Comptes connectés
+    invitation_acceptances:
+      create:
+        success: Mot de passe défini avec succès ! Vous avez été connecté.
+      new:
+        invalid_token: Lien d'invitation invalide ou expiré.
+        submit: Définir le mot de passe et accepter l'invitation
+        title: Définir votre mot de passe
     invitations:
       index:
         title: "⬇️ Invitations entrantes"

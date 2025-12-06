@@ -14,6 +14,9 @@ module Authentication
     stored_location = stored_location_for(resource)
     return stored_location if stored_location
 
+    # Redirect users with pending invitations to their invitations page
+    return user_invitations_path if resource.organization_invitations.pending.any?
+
     if resource.organizations.any?
       session.delete(:new_user) if session[:new_user]
       organization_path(resource.organizations.first)
@@ -25,9 +28,4 @@ module Authentication
       stored_location_for(resource) || root_path
     end
   end
-
-  # https://github.com/scambra/devise_invitable
-  # def after_invite_path_for(resource)
-  #   edit_user_invitation_path(resource)
-  # end
 end

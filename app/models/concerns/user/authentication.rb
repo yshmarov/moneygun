@@ -6,8 +6,7 @@ module User::Authentication
   included do
     # Include default devise modules. Others available are:
     # :lockable, :timeoutable, :trackable
-    devise :invitable,
-           :database_authenticatable,
+    devise :database_authenticatable,
            :registerable,
            :recoverable,
            :rememberable,
@@ -23,6 +22,25 @@ module User::Authentication
   end
 
   class_methods do
+    def invite!(attributes = {}, invited_by = nil)
+      # Create a user with invitation fields set
+      # This replaces devise_invitable's User.invite! method
+      user = new(attributes)
+      # Set a random password (user can reset it via "Forgot password")
+      user.password = Devise.friendly_token[0, 20] if user.password.blank?
+      user.invitation_created_at = Time.current
+      user.invitation_sent_at = Time.current
+      user.invitation_token = Devise.friendly_token
+      if invited_by
+        user.invited_by_type = invited_by.class.name
+        user.invited_by_id = invited_by.id
+      end
+      # Skip confirmation email for invited users (they'll be confirmed when accepting invitation)
+      user.skip_confirmation_notification!
+      user.save!
+      user
+    end
+
     def from_omniauth(auth_payload)
       # First, check if there's already a connected account with this provider and UID
       existing_connected_account = ConnectedAccount.find_by(

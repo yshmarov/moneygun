@@ -199,6 +199,14 @@ en:
       success: Invitation declined
   membership_mailer:
     invitation_email:
+      body: |
+        You've been invited to join %{organization_name}!
+
+        To get started, click the link below to set your password and accept the invitation.
+
+        Accept invitation: %{url}
+
+        If you have any questions, please contact the person who invited you.
       subject: Join %{organization_name}
     request_accepted_email:
       subject: Welcome to %{organization_name}
@@ -389,6 +397,13 @@ en:
         no_accounts_connected: You haven't connected any OAuth accounts yet.
         title: Connected accounts
         your_connected_accounts: Connected accounts
+    invitation_acceptances:
+      create:
+        success: Password set successfully! You've been signed in.
+      new:
+        invalid_token: Invalid or expired invitation link.
+        submit: Set password and accept invitation
+        title: Set your password
     invitations:
       index:
         title: "⬇️ Invitations"

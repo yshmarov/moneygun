@@ -83,7 +83,6 @@ gem "active_storage_validations"
 
 # authentication
 gem "devise", github: "heartcombo/devise", branch: "main"
-gem "devise_invitable", "~> 2.0"
 gem "devise_masquerade"
 
 # oauth

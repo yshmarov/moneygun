@@ -3,6 +3,8 @@
 class MembershipMailer < ApplicationMailer
   def invitation_email(notification)
     setup(notification)
+    # Use email_url for invitation acceptance, not the regular notification url
+    @action_url = notification.email_url if notification.respond_to?(:email_url)
     mail(to: @recipient.email, subject: t(".subject", organization_name: @organization.name))
   end
 
