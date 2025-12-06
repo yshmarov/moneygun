@@ -1,1 +1,4 @@
 <%= yield %>
+--<%= Rails.application.config_for(:settings).dig(:site, :name) %>
+<%= Rails.application.config_for(:settings).dig(:site, :email) %>
+<%= Rails.application.config_for(:settings).dig(:site, :address) %>
