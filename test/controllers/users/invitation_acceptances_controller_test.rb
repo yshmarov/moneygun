@@ -37,7 +37,7 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
          params: { user: { password: "newpassword123", password_confirmation: "newpassword123" } }
 
     invited_user.reload
-    assert_redirected_to user_invitations_url
+    assert_redirected_to user_organizations_invitations_url
     assert_equal I18n.t("users.invitation_acceptances.create.success"), flash[:notice]
     assert_not_nil invited_user.invitation_accepted_at
     assert_not_nil invited_user.confirmed_at

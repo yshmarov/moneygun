@@ -9,18 +9,18 @@
        path: public_organizations_path,
        label: t("public.organizations.index.title")
      },
-     {
-       key: :invitations,
-       path: user_invitations_path,
-       label: t("users.invitations.index.title"),
-       badge_count: current_user.organization_invitations.pending.count
-     },
-     {
-       key: :requests,
-       path: user_membership_requests_path,
-       label: t("users.membership_requests.index.title"),
-       badge_count: current_user.organization_requests.pending.count
-     }
+    {
+      key: :invitations,
+      path: user_organizations_invitations_path,
+      label: t("users.invitations.index.title"),
+      badge_count: current_user.organization_invitations.pending.count
+    },
+    {
+      key: :requests,
+      path: user_organizations_membership_requests_path,
+      label: t("users.membership_requests.index.title"),
+      badge_count: current_user.organization_requests.pending.count
+    }
    ] %>
 
 <%= render PageComponent.new(title: t("shared.navigation.organizations")) do |component| %>

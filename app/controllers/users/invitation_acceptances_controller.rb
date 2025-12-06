@@ -29,7 +29,7 @@ class Users::InvitationAcceptancesController < ApplicationController
       if @user.update(invitation_acceptance_params)
         session.delete(:invitation_token)
         sign_in(@user)
-        redirect_to user_invitations_path, notice: t(".success")
+        redirect_to user_organizations_invitations_path, notice: t(".success")
       else
         @minimum_password_length = Devise.password_length.min
         render :new, status: :unprocessable_content

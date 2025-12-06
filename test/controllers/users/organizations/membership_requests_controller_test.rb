@@ -2,12 +2,12 @@
 
 require "test_helper"
 
-class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
+class Users::Organizations::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     user = users(:one)
     sign_in user
 
-    get user_membership_requests_url
+    get user_organizations_membership_requests_url
     assert_response :success
   end
 
@@ -20,7 +20,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     sign_in user
 
     assert_difference "Membership.count", 1 do
-      post user_membership_requests_url(organization_id: requested_organization.id)
+      post user_organizations_membership_requests_url(organization_id: requested_organization.id)
     end
 
     assert_response :redirect
@@ -36,7 +36,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     sign_in user
 
     assert_difference "AccessRequest::UserRequestForOrganization.count", 1 do
-      post user_membership_requests_url(organization_id: requested_organization.id)
+      post user_organizations_membership_requests_url(organization_id: requested_organization.id)
     end
 
     assert_response :redirect
@@ -52,7 +52,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_difference "AccessRequest::UserRequestForOrganization.count" do
       assert_no_difference "Membership.count" do
-        post user_membership_requests_url(organization_id: requested_organization.id)
+        post user_organizations_membership_requests_url(organization_id: requested_organization.id)
       end
     end
 
@@ -70,7 +70,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_difference "AccessRequest::UserRequestForOrganization.count" do
       assert_no_difference "Membership.count" do
-        post user_membership_requests_url(organization_id: organization.id)
+        post user_organizations_membership_requests_url(organization_id: organization.id)
       end
     end
 
@@ -85,7 +85,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in user
 
-    post user_membership_requests_url(organization_id:)
+    post user_organizations_membership_requests_url(organization_id:)
 
     assert_redirected_to public_organizations_path
     assert_equal I18n.t("organizations.errors.not_found"), flash[:alert]
@@ -105,7 +105,7 @@ class Users::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, user.reload.organization_requests.pending.count
 
     assert_difference "AccessRequest::UserRequestForOrganization.count", -1 do
-      delete user_membership_request_path(user.reload.organization_requests.pending.first)
+      delete user_organizations_membership_request_path(user.reload.organization_requests.pending.first)
       assert_response :redirect
       assert_equal I18n.t("users.membership_requests.destroy.success"), flash[:notice]
     end
