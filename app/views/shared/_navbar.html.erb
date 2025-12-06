@@ -11,7 +11,7 @@
       <div class="lg:hidden dropdown dropdown-start group">
         <div tabindex="0" role="button" class="btn btn-ghost">
           <%= organization_avatar(Current.organization, classes: "size-6") %>
-          <%= Current.organization.name %>
+          <%= Current.organization.name.truncate(15) %>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
         </div>
 
