@@ -1,7 +1,6 @@
 <%= render PageComponent.new(title: t(".title"), full_width: false) do %>
   <%= simple_form_for @user, url: accept_user_invitation_path(invitation_token: params[:invitation_token]), method: :patch, html: { class: "space-y-4" } do |f| %>
     <%= render "shared/errors", object: @user %>
-    <%= f.hidden_field :invitation_token, value: params[:invitation_token] %>
 
     <%= f.input :email,
                  label: t("devise.views.registrations.new.email_label"),
