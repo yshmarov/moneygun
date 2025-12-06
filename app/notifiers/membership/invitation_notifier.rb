@@ -19,7 +19,7 @@ class Membership::InvitationNotifier < ApplicationNotifier
 
     def url
       # URL for internal notification system (when user clicks notification)
-      user_invitations_url
+      user_organizations_invitations_url
     end
 
     def email_url

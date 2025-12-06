@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # outgoing requests to join an organization
-class Users::MembershipRequestsController < ApplicationController
+class Users::Organizations::MembershipRequestsController < ApplicationController
   before_action :set_organization, only: %i[create]
 
   def index
@@ -30,7 +30,7 @@ class Users::MembershipRequestsController < ApplicationController
   def destroy
     @organization_request = current_user.organization_requests.pending.find(params[:id])
     @organization_request.destroy
-    redirect_to user_membership_requests_path, notice: t(".success")
+    redirect_to user_organizations_membership_requests_path, notice: t("users.membership_requests.destroy.success")
   end
 
   private

@@ -18,12 +18,14 @@ resource :user, only: %i[show], path: I18n.t("routes.user") do
     resources :notifications, only: %i[index]
     resources :connected_accounts
     resources :referrals, only: %i[index]
-    resources :invitations, only: %i[index] do
-      member do
-        post :approve
-        post :reject
+    namespace :organizations do
+      resources :invitations, only: %i[index] do
+        member do
+          patch :approve
+          patch :reject
+        end
       end
+      resources :membership_requests, only: %i[index create destroy]
     end
-    resources :membership_requests, only: %i[index create destroy]
   end
 end
