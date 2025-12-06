@@ -25,7 +25,9 @@
           </div>
         </div>
 
-        <main class="flex-grow p-4"><%= yield %></main>
+        <main class="flex-grow p-4 min-w-0 overflow-x-hidden">
+          <%= yield %>
+        </main>
 
         <%= render "shared/footer_nav" %>
       </div>
