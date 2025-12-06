@@ -18,9 +18,18 @@ export default class extends Controller {
     if (!input) return
 
     this.input = input
+    // Bind updateCount to preserve context for removeEventListener
+    this.boundUpdateCount = this.updateCount.bind(this)
     this.updateCount()
-    this.input.addEventListener('input', () => this.updateCount())
-    this.input.addEventListener('change', () => this.updateCount())
+    this.input.addEventListener('input', this.boundUpdateCount)
+    this.input.addEventListener('change', this.boundUpdateCount)
+  }
+
+  disconnect() {
+    if (this.input && this.boundUpdateCount) {
+      this.input.removeEventListener('input', this.boundUpdateCount)
+      this.input.removeEventListener('change', this.boundUpdateCount)
+    }
   }
 
   updateCount() {
