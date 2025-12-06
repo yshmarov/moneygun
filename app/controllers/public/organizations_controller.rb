@@ -8,7 +8,7 @@ class Public::OrganizationsController < ApplicationController
     @pagy, @organizations = pagy(
       Organization.where(id: discoverable_ids)
                   .where.not(id: user_org_ids)
-                  .includes(logo_attachment: :blob)
+                  .with_logo
     )
   end
 

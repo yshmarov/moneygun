@@ -19,7 +19,7 @@ module User::Multitenancy
   def create_default_organization
     return if invitation_created_at.present?
 
-    organization_name = email.split("@").first.truncate(Organization::MAX_NAME_LENGTH)
+    organization_name = email.split("@").first
     organization = Organization.create!(name: organization_name, owner: self)
     organization.memberships.first.update(role: Membership.roles[:admin])
   end

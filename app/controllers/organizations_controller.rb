@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show edit update destroy]
 
   def index
-    @pagy, @organizations = pagy(current_user.organizations.includes(:users))
+    @pagy, @organizations = pagy(current_user.organizations.with_logo.includes(:users))
   end
 
   def show; end

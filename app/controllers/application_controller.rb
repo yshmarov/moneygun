@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_organizations
-    Current.organizations = current_user.organizations.includes(logo_attachment: :blob)
+    Current.organizations = current_user.organizations.with_logo
   end
 end
