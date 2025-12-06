@@ -397,16 +397,17 @@ en:
         no_accounts_connected: You haven't connected any OAuth accounts yet.
         title: Connected accounts
         your_connected_accounts: Connected accounts
-    invitations:
-      accept:
-        success: Password set successfully! You've been signed in.
-      index:
-        title: "⬇️ Invitations"
-      show_accept:
+    invitation_acceptances:
+      show:
         invalid_token: Invalid or expired invitation link.
         submit: Set password and accept invitation
         title: Set your password
         welcome_message: Welcome! Please set a password for your account (%{email}) to accept the invitation.
+      update:
+        success: Password set successfully! You've been signed in.
+    invitations:
+      index:
+        title: "⬇️ Invitations"
     membership_requests:
       destroy:
         success: Membership request revoked

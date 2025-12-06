@@ -388,16 +388,17 @@ fr:
         no_accounts_connected: Vous n'avez pas encore connecté de comptes OAuth.
         title: Comptes connectés
         your_connected_accounts: Comptes connectés
-    invitations:
-      accept:
-        success: Mot de passe défini avec succès ! Vous avez été connecté.
-      index:
-        title: "⬇️ Invitations entrantes"
-      show_accept:
+    invitation_acceptances:
+      show:
         invalid_token: Lien d'invitation invalide ou expiré.
         submit: Définir le mot de passe et accepter l'invitation
         title: Définir votre mot de passe
         welcome_message: Bienvenue ! Veuillez définir un mot de passe pour votre compte (%{email}) pour accepter l'invitation.
+      update:
+        success: Mot de passe défini avec succès ! Vous avez été connecté.
+    invitations:
+      index:
+        title: "⬇️ Invitations entrantes"
     membership_requests:
       destroy:
         success: Demande d'adhésion révoquée
