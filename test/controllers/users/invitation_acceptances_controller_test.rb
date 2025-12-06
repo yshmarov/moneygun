@@ -124,4 +124,22 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
     assert_redirected_to new_user_session_url
     assert_equal I18n.t("users.invitation_acceptances.show.invalid_token"), flash[:alert]
   end
+
+  test "should prevent race condition with database lock" do
+    inviter = users(:one)
+    organization = organizations(:one)
+    invited_user = User.invite!({ email: "invited@example.com" }, inviter)
+    organization.user_invitations.create!(user: invited_user)
+    invitation_token = invited_user.invitation_token
+
+    # Simulate concurrent requests by accepting invitation first
+    invited_user.update!(invitation_accepted_at: Time.current, invitation_token: nil)
+
+    # Second request should be rejected even if it passes initial validation
+    patch accept_user_invitation_url(invitation_token:),
+          params: { user: { password: "newpassword123", password_confirmation: "newpassword123" } }
+
+    assert_redirected_to new_user_session_url
+    assert_equal I18n.t("users.invitation_acceptances.show.invalid_token"), flash[:alert]
+  end
 end
