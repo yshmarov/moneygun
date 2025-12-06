@@ -9,11 +9,14 @@
                  required: true,
                  label: "Project name",
                  placeholder: "If there is a placeholder, the label is hidden by default",
+                 character_counter: true,
                  hint: "Text input" %>
 
   <%= form.input :description,
                  as: :text,
                  label: "Description",
+                 character_counter: true,
+                 character_counter_limit: 100,
                  hint: "Textarea for multi-line text input.",
                  input_html: { rows: 4 } %>
 
