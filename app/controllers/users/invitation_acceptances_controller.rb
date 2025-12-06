@@ -5,24 +5,24 @@ class Users::InvitationAcceptancesController < ApplicationController
   skip_before_action :authenticate_user!
 
   # Rate limit to prevent brute force token guessing
-  rate_limit to: 20, within: 3.minutes, only: %i[show update], with: -> { redirect_to new_user_session_url, alert: t("shared.errors.rate_limit") }
+  rate_limit to: 20, within: 3.minutes, only: %i[new create], with: -> { redirect_to new_user_session_url, alert: t("shared.errors.rate_limit") }
 
-  before_action :set_user_from_token, only: %i[show update]
-  before_action :ensure_valid_invitation, only: %i[show update]
+  before_action :set_user_from_token, only: %i[new create]
+  before_action :ensure_valid_invitation, only: %i[new create]
 
-  def show
+  def new
     # Store token in session to avoid exposing it in POST URLs
     session[:invitation_token] = params[:invitation_token] if params[:invitation_token].present?
     @minimum_password_length = Devise.password_length.min
   end
 
-  def update
+  def create
     # Use database lock to prevent race conditions
     @user.with_lock do
       # Double-check invitation hasn't been accepted (race condition protection)
       if @user.invitation_accepted_at.present?
         session.delete(:invitation_token)
-        redirect_to new_user_session_path, alert: t("users.invitation_acceptances.show.invalid_token")
+        redirect_to new_user_session_path, alert: t("users.invitation_acceptances.new.invalid_token")
         return
       end
 
@@ -32,7 +32,7 @@ class Users::InvitationAcceptancesController < ApplicationController
         redirect_to user_invitations_path, notice: t(".success")
       else
         @minimum_password_length = Devise.password_length.min
-        render :show, status: :unprocessable_content
+        render :new, status: :unprocessable_content
       end
     end
   end
@@ -54,7 +54,7 @@ class Users::InvitationAcceptancesController < ApplicationController
   def ensure_valid_invitation
     return if @user.present? && @user.invitation_accepted_at.blank?
 
-    redirect_to new_user_session_path, alert: t("users.invitation_acceptances.show.invalid_token")
+    redirect_to new_user_session_path, alert: t("users.invitation_acceptances.new.invalid_token")
   end
 
   def invitation_acceptance_params
