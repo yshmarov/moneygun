@@ -22,10 +22,10 @@ module ApplicationHelper
     badge_span = content_tag(:span, badge, class: "badge badge-xs badge-warning") if badge.present?
     todo_dot_span = content_tag(:span, "", class: "bg-warning rounded-full w-2 h-2 ml-auto") if todo_dot
 
-    link_content = active_link_to(path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start", title: label, **) do
+    link_content = active_link_to(path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: label, **) do
       safe_join([
         resolved_icon,
-        content_tag(:span, label, class: "[[data-expanded=false]_&]:hidden"),
+        content_tag(:span, label, class: "[[data-expanded=false]_&]:hidden truncate min-w-0"),
         badge_span,
         todo_dot_span
       ].compact)

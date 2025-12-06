@@ -3,7 +3,7 @@
 
   <aside
     class="
-      bg-base-300 h-dvh flex flex-col overflow-y-auto
+      bg-base-300 h-dvh flex flex-col overflow-hidden
       [[data-expanded=true]_&]:w-80
     "
   >
@@ -20,7 +20,7 @@
               <summary>
                 <%= organization_avatar(Current.organization, classes: "size-6") %>
 
-                <span class="[[data-expanded=false]_&]:hidden">
+                <span class="[[data-expanded=false]_&]:hidden truncate">
                   <%= Current.organization.name %>
                 </span>
               </summary>
