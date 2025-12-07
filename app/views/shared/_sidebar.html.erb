@@ -50,13 +50,17 @@
       </div>
     </ul>
 
-    <ul class="menu menu-xl w-full">
+    <ul class="menu [[data-expanded=true]_&]:menu-xl w-full">
       <% if current_user.admin? %>
         <% unless admin_links.empty? %>
           <li>
             <details>
               <summary>
-                <span class="font-medium font-mono">Admin</span>
+                <%= inline_svg_tag "svg/cog-6-tooth.svg", class: "size-6 w-6 h-6" %>
+
+                <span class="[[data-expanded=false]_&]:hidden truncate">
+                  Admin
+                </span>
               </summary>
 
               <ul>

@@ -70,9 +70,9 @@ module ApplicationHelper
   def all_admin_links
     [
       {
-        name: "Admin",
+        name: "Avo admin",
         path: "/admin/avo/resources/users",
-        icon: "👮"
+        icon: "🥑"
       },
       {
         name: "Profitable",
