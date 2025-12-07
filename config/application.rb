@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 module Moneygun
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults 8.1
     config.generators.template_engine = :erb
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
