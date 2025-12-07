@@ -8,7 +8,7 @@ module Noticed::NotificationExtensions
       "notifications_#{recipient.id}",
       target: "notification_count",
       partial: "users/notifications/notifications_count",
-      locals: { user: recipient }
+      locals: { unread: recipient.unseen_notifications_count }
     )
   end
 
