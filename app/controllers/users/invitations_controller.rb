@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::InvitationAcceptancesController < ApplicationController
+class Users::InvitationsController < ApplicationController
   layout "devise"
   skip_before_action :authenticate_user!
 
@@ -22,7 +22,7 @@ class Users::InvitationAcceptancesController < ApplicationController
       # Double-check invitation hasn't been accepted (race condition protection)
       if @user.invitation_accepted_at.present?
         session.delete(:invitation_token)
-        redirect_to new_user_session_path, alert: t("users.invitation_acceptances.new.invalid_token")
+        redirect_to new_user_session_path, alert: t("users.invitations.new.invalid_token")
         return
       end
 
@@ -54,7 +54,7 @@ class Users::InvitationAcceptancesController < ApplicationController
   def ensure_valid_invitation
     return if @user.present? && @user.invitation_accepted_at.blank?
 
-    redirect_to new_user_session_path, alert: t("users.invitation_acceptances.new.invalid_token")
+    redirect_to new_user_session_path, alert: t("users.invitations.new.invalid_token")
   end
 
   def invitation_acceptance_params

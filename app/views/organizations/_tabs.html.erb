@@ -12,13 +12,13 @@
     {
       key: :invitations,
       path: user_organizations_invitations_path,
-      label: t("users.invitations.index.title"),
+      label: t("users.organizations.invitations.index.title"),
       badge_count: current_user.organization_invitations.pending.count
     },
     {
       key: :requests,
       path: user_organizations_membership_requests_path,
-      label: t("users.membership_requests.index.title"),
+      label: t("users.organizations.membership_requests.index.title"),
       badge_count: current_user.organization_requests.pending.count
     }
    ] %>

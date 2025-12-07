@@ -107,7 +107,7 @@ class Users::Organizations::MembershipRequestsControllerTest < ActionDispatch::I
     assert_difference "AccessRequest::UserRequestForOrganization.count", -1 do
       delete user_organizations_membership_request_path(user.reload.organization_requests.pending.first)
       assert_response :redirect
-      assert_equal I18n.t("users.membership_requests.destroy.success"), flash[:notice]
+      assert_equal I18n.t("users.organizations.membership_requests.destroy.success"), flash[:notice]
     end
   end
 end

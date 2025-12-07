@@ -9,8 +9,8 @@ devise_for :users, controllers: {
 
 devise_scope :user do
   get "/auth/:provider/callback", to: "users/omniauth_callbacks#callback", as: :omniauth_callback
-  get "/users/invitation/accept", to: "users/invitation_acceptances#new", as: :accept_user_invitation
-  post "/users/invitation/accept", to: "users/invitation_acceptances#create", as: :accept_user_invitation_create
+  get "/users/invitation/accept", to: "users/invitations#new", as: :accept_user_invitation
+  post "/users/invitation/accept", to: "users/invitations#create", as: :accept_user_invitation_create
 end
 
 resource :user, only: %i[show], path: I18n.t("routes.user") do

@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTest
+class Users::InvitationsControllerTest < ActionDispatch::IntegrationTest
   test "should show accept form with valid invitation token" do
     inviter = users(:one)
     organization = organizations(:one)
@@ -17,7 +17,7 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
   test "should redirect to sign in with invalid invitation token" do
     get accept_user_invitation_url(invitation_token: "invalid_token")
     assert_redirected_to new_user_session_url
-    assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
+    assert_equal I18n.t("users.invitations.new.invalid_token"), flash[:alert]
   end
 
   test "should accept invitation and set password" do
@@ -38,7 +38,7 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
 
     invited_user.reload
     assert_redirected_to user_organizations_invitations_url
-    assert_equal I18n.t("users.invitation_acceptances.create.success"), flash[:notice]
+    assert_equal I18n.t("users.invitations.create.success"), flash[:notice]
     assert_not_nil invited_user.invitation_accepted_at
     assert_not_nil invited_user.confirmed_at
     assert_nil invited_user.invitation_token
@@ -89,7 +89,7 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
          params: { user: { password: "password123", password_confirmation: "password123" } }
 
     assert_redirected_to new_user_session_url
-    assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
+    assert_equal I18n.t("users.invitations.new.invalid_token"), flash[:alert]
   end
 
   test "should redirect if invitation already accepted" do
@@ -101,7 +101,7 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
 
     get accept_user_invitation_url(invitation_token: invited_user.invitation_token)
     assert_redirected_to new_user_session_url
-    assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
+    assert_equal I18n.t("users.invitations.new.invalid_token"), flash[:alert]
   end
 
   test "should redirect if token expired" do
@@ -113,7 +113,7 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
 
     get accept_user_invitation_url(invitation_token: invited_user.invitation_token)
     assert_redirected_to new_user_session_url
-    assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
+    assert_equal I18n.t("users.invitations.new.invalid_token"), flash[:alert]
   end
 
   test "should not accept already accepted invitation" do
@@ -126,7 +126,7 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
     # GET request should redirect since invitation already accepted
     get accept_user_invitation_url(invitation_token: invited_user.invitation_token)
     assert_redirected_to new_user_session_url
-    assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
+    assert_equal I18n.t("users.invitations.new.invalid_token"), flash[:alert]
   end
 
   test "should prevent race condition with database lock" do
@@ -146,6 +146,6 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
          params: { user: { password: "newpassword123", password_confirmation: "newpassword123" } }
 
     assert_redirected_to new_user_session_url
-    assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
+    assert_equal I18n.t("users.invitations.new.invalid_token"), flash[:alert]
   end
 end

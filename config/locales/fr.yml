@@ -388,16 +388,13 @@ fr:
         no_accounts_connected: Vous n'avez pas encore connecté de comptes OAuth.
         title: Comptes connectés
         your_connected_accounts: Comptes connectés
-    invitation_acceptances:
+    invitations:
       create:
         success: Mot de passe défini avec succès ! Vous avez été connecté.
       new:
         invalid_token: Lien d'invitation invalide ou expiré.
         submit: Définir le mot de passe et accepter l'invitation
         title: Définir votre mot de passe
-    invitations:
-      index:
-        title: "⬇️ Invitations entrantes"
     membership_requests:
       destroy:
         success: Demande d'adhésion révoquée
@@ -406,6 +403,13 @@ fr:
     notifications:
       index:
         title: Notifications
+    organizations:
+      invitations:
+        index:
+          title: "⬇️ Invitations entrantes"
+      membership_requests:
+        destroy:
+          success: Demande d'adhésion révoquée
     referrals:
       index:
         clicks: Clics sur les liens

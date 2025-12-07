@@ -1,5 +1,5 @@
 <%= render PageComponent.new(title: t(".title"), full_width: false) do %>
-  <%= simple_form_for @user, url: accept_user_invitation_create_path, html: { class: "space-y-4" } do |f| %>
+  <%= simple_form_for @user, url: accept_user_invitation_create_path, method: :post, html: { class: "space-y-4" } do |f| %>
     <%= render "shared/errors", object: @user %>
 
     <%= f.input :email,
