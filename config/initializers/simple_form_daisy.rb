@@ -79,7 +79,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
     b.wrapper :boolean_wrapper, tag: :label, class: "label cursor-pointer gap-2 w-fit" do |ba|
-      ba.use :input, class: "checkbox"
+      ba.use :input, class: "toggle"
       ba.use :label_text, class: "label-text"
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
