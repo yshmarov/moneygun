@@ -23,8 +23,11 @@ class Membership::InvitationNotifier < ApplicationNotifier
     end
 
     def email_url
-      # URL for email (invitation acceptance page)
-      accept_user_invitation_url(invitation_token: recipient.invitation_token) if recipient.invitation_token.present?
+      if recipient.confirmed?
+        user_organizations_invitations_url
+      elsif recipient.invitation_token.present?
+        accept_user_invitation_url(invitation_token: recipient.invitation_token)
+      end
     end
 
     def icon
