@@ -10,7 +10,7 @@ console_command = '/rails/bin/rails console'
 [build]
 
 [deploy]
-  release_command = './bin/rails db:prepare'
+  release_command = './bin/rails db:migrate'
 
 [env]
   PORT = '8080'
