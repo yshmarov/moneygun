@@ -194,14 +194,15 @@ fr:
   membership_mailer:
     invitation_email:
       body: |
-        Vous avez été invité à rejoindre %{organization_name} !
+        %{invitor_email} vous a invité à rejoindre %{organization_name} !
 
         Pour commencer, cliquez sur le lien ci-dessous pour définir votre mot de passe et accepter l'invitation.
 
         Accepter l'invitation : %{url}
 
         Si vous avez des questions, veuillez contacter la personne qui vous a invité.
-      subject: Rejoindre %{organization_name}
+      someone: Quelqu'un
+      subject: "%{invitor_email} vous a invité à rejoindre %{organization_name}"
     request_accepted_email:
       subject: Bienvenue chez %{organization_name}
     request_rejected_email:

@@ -1,1 +1,1 @@
-<%= t("membership_mailer.invitation_email.body", organization_name: @organization.name, url: @action_url) %>
+<%= t("membership_mailer.invitation_email.body", invitor_email: @recipient.invited_by&.email || t("membership_mailer.invitation_email.someone"), organization_name: @organization.name, url: @action_url) %>

@@ -15,6 +15,7 @@ module User::Authentication
            :confirmable
 
     has_many :connected_accounts, as: :owner, dependent: :destroy
+    belongs_to :invited_by, polymorphic: true, optional: true
   end
 
   def remember_me

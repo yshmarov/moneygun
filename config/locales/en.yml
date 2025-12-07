@@ -200,14 +200,15 @@ en:
   membership_mailer:
     invitation_email:
       body: |
-        You've been invited to join %{organization_name}!
+        %{invitor_email} invited you to join %{organization_name}!
 
         To get started, click the link below to set your password and accept the invitation.
 
         Accept invitation: %{url}
 
         If you have any questions, please contact the person who invited you.
-      subject: Join %{organization_name}
+      someone: Someone
+      subject: "%{invitor_email} invited you to join %{organization_name}"
     request_accepted_email:
       subject: Welcome to %{organization_name}
     request_rejected_email:
