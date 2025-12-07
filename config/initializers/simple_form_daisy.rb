@@ -25,7 +25,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-md w-full"
+      ba.use :input, class: "input input-xl w-full"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
@@ -44,7 +44,7 @@ SimpleForm.setup do |config|
     b.optional :autogrow
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "textarea textarea-bordered w-full"
+      ba.use :input, class: "textarea textarea-xl textarea-bordered w-full"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
@@ -92,7 +92,7 @@ SimpleForm.setup do |config|
 
     b.use :label, class: "label-text"
     b.use :input,
-          class: "file-input file-input-bordered w-full"
+          class: "file-input file-input-xl file-input-bordered w-full"
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
     b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
   end
@@ -103,7 +103,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-md w-full leading-[1.625] py-[0.625rem]"
+      ba.use :input, class: "input input-xl w-full leading-[1.625] py-[0.625rem]"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
@@ -116,7 +116,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-md w-full leading-[1.625] py-[0.625rem]"
+      ba.use :input, class: "input input-xl w-full leading-[1.625] py-[0.625rem]"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
