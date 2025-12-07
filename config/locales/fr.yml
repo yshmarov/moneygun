@@ -407,6 +407,9 @@ fr:
       invitations:
         index:
           title: "⬇️ Invitations entrantes"
+      membership_requests:
+        destroy:
+          success: Demande d'adhésion révoquée
     referrals:
       index:
         clicks: Clics sur les liens

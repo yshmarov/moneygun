@@ -417,6 +417,8 @@ en:
         index:
           title: "⬇️ Invitations"
       membership_requests:
+        destroy:
+          success: Membership request revoked
         index:
           title: "⬆️ Waitlisted"
     referrals:
