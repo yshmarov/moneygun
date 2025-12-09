@@ -25,12 +25,12 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-xl w-full"
+      ba.use :input, class: "input input-lg lg:input-xl w-full"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
     b.optional :character_counter
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.wrappers :textarea, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
@@ -44,12 +44,12 @@ SimpleForm.setup do |config|
     b.optional :autogrow
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "textarea textarea-xl textarea-bordered w-full"
+      ba.use :input, class: "textarea textarea-lg lg:textarea-xl textarea-bordered w-full"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
     b.optional :character_counter
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.include_default_input_wrapper_class = false
@@ -63,7 +63,7 @@ SimpleForm.setup do |config|
     b.use :label, class: "label-text"
     b.use :input, class: "radio mr-2"
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.wrappers :vertical_checkboxes, tag: "div", class: "form-control", error_class: "" do |b|
@@ -72,7 +72,7 @@ SimpleForm.setup do |config|
     b.use :label, class: "label-text"
     b.use :input, class: "checkbox mr-2"
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.wrappers :vertical_boolean, tag: "div", class: "form-control flex flex-col gap-1", error_class: "", valid_class: "" do |b|
@@ -83,7 +83,7 @@ SimpleForm.setup do |config|
       ba.use :label_text, class: "label-text"
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.wrappers :file_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
@@ -92,9 +92,9 @@ SimpleForm.setup do |config|
 
     b.use :label, class: "label-text"
     b.use :input,
-          class: "file-input file-input-xl file-input-bordered w-full"
+          class: "file-input file-input-lg lg:file-input-xl file-input-bordered w-full"
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.wrappers :date_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
@@ -103,11 +103,11 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-xl w-full leading-[1.625] py-[0.625rem]"
+      ba.use :input, class: "input input-lg lg:input-xl w-full leading-[1.625] py-[0.625rem]"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.wrappers :datetime_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
@@ -116,11 +116,11 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-xl w-full leading-[1.625] py-[0.625rem]"
+      ba.use :input, class: "input input-lg lg:input-xl w-full leading-[1.625] py-[0.625rem]"
       ba.use :label, wrap_with: { tag: :span }
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
-    b.use :hint, wrap_with: { tag: "span", class: "label label-text-alt" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.default_wrapper = :default
