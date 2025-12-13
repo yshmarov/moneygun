@@ -2,24 +2,28 @@
      {
        key: :my_organizations,
        path: organizations_path,
-       label: t("organizations.index.title")
+       label: t("organizations.index.title"),
+       data: { turbo_action: replace_if_native }
      },
      {
        key: :browse_organizations,
        path: public_organizations_path,
-       label: t("public.organizations.index.title")
+       label: t("public.organizations.index.title"),
+       data: { turbo_action: replace_if_native }
      },
     {
       key: :invitations,
       path: user_organizations_invitations_path,
       label: t("users.organizations.invitations.index.title"),
-      badge_count: current_user.organization_invitations.pending.count
+      badge_count: current_user.organization_invitations.pending.count,
+      data: { turbo_action: replace_if_native }
     },
     {
       key: :requests,
       path: user_organizations_membership_requests_path,
       label: t("users.organizations.membership_requests.index.title"),
-      badge_count: current_user.organization_requests.pending.count
+      badge_count: current_user.organization_requests.pending.count,
+      data: { turbo_action: replace_if_native }
     }
    ] %>
 

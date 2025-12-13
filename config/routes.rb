@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  draw :hotwire_native
   draw :users
   draw :organizations
   draw :admin
