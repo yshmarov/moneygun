@@ -2,7 +2,8 @@
   <%# left %>
   <div class="flex items-center gap-2">
     <%# mobile sidebar toggle %>
-    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden">
+
+    <label for="main-drawer" data-controller="toggle-nav" class="btn btn-ghost btn-square lg:hidden">
       <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
     </label>
 
@@ -68,18 +69,14 @@
           border border-base-content/20
         "
       >
-        <div class="w-full flex justify-end">
-          <%= link_to "View all", user_notifications_path, class: "link link-hover" %>
-        </div>
+        <div class="w-full flex justify-end"><%= link_to "View all", user_notifications_path, class: "link link-hover" %></div>
 
         <%= turbo_frame_tag :notifications, src: user_notifications_path, loading: :lazy %>
       </div>
     </div>
 
     <div class="dropdown dropdown-end group">
-      <div tabindex="0" role="button" class="cursor-pointer">
-        <%= user_avatar(current_user) %>
-      </div>
+      <div tabindex="0" role="button" class="cursor-pointer"><%= user_avatar(current_user) %></div>
 
       <div
         tabindex="-1"
@@ -99,7 +96,5 @@
 </nav>
 
 <% if Current.organization %>
-  <div class="lg:hidden">
-    <%= render TabsComponent.new(active_tab: organization_active_tab, tabs: organization_tabs) %>
-  </div>
+  <div class="lg:hidden"><%= render TabsComponent.new(active_tab: organization_active_tab, tabs: organization_tabs) %></div>
 <% end %>
