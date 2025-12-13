@@ -11,6 +11,8 @@ module Authentication
   private
 
   def after_sign_in_path_for(resource)
+    return "/reset_app" if hotwire_native_app?
+
     stored_location = stored_location_for(resource)
     return stored_location if stored_location
 

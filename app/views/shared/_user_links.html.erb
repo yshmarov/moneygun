@@ -12,4 +12,8 @@
 
 <%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
 
-<%= nav_link t("shared.navigation.logout"), destroy_user_session_path, icon: "👋", data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") } %>
+<% if hotwire_native_app? %>
+  <%= button_to t("shared.navigation.logout"), destroy_user_session_path, method: :delete, form: { data: { controller: 'bridge--sign-out', bridge__sign_out_path_value: hotwire_native_v1_auth_path, action: 'bridge--sign-out#signOut', turbo_confirm: t("shared.actions.confirm") }}, class: "btn btn-primary" %>
+<% else %>
+  <%= nav_link t("shared.navigation.logout"), destroy_user_session_path, icon: "👋", data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") } %>
+<% end %>

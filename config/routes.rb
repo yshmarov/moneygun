@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "terms", to: "static#terms"
   get "privacy", to: "static#privacy"
   get "refunds", to: "static#refunds"
+  get "reset_app", to: "static#reset_app"
 
   get "search", to: "search#index"
 end
