@@ -40,10 +40,10 @@ module OrganizationsHelper
 
   def organization_tabs
     [
-      { key: :organization, label: t("organizations.show.title"), path: organization_path(Current.organization), icon: "svg/home.svg" },
-      { key: :dashboard, label: t("organizations.dashboard.index.title"), path: organization_dashboard_path(Current.organization), icon: "svg/chart-bar.svg" },
-      { key: :paywalled_page, label: t("organizations.dashboard.paywalled_page.title"), path: organization_paywalled_page_path(Current.organization), icon: "🔐" },
-      { key: :projects, label: "Projects", path: organization_projects_path(Current.organization), icon: "svg/question-mark-circle.svg" }
+      { key: :organization, label: t("organizations.show.title"), path: organization_path(Current.organization), icon: "svg/home.svg", data: { turbo_action: replace_if_native } },
+      { key: :dashboard, label: t("organizations.dashboard.index.title"), path: organization_dashboard_path(Current.organization), icon: "svg/chart-bar.svg", data: { turbo_action: replace_if_native } },
+      { key: :paywalled_page, label: t("organizations.dashboard.paywalled_page.title"), path: organization_paywalled_page_path(Current.organization), icon: "🔐", data: { turbo_action: replace_if_native } },
+      { key: :projects, label: "Projects", path: organization_projects_path(Current.organization), icon: "svg/question-mark-circle.svg", data: { turbo_action: replace_if_native } }
     ]
   end
 
