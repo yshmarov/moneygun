@@ -95,6 +95,6 @@
   </div>
 </nav>
 
-<% if Current.organization %>
+<% if Current.organization && !action_name.in?(%w[new edit]) %>
   <div class="lg:hidden"><%= render TabsComponent.new(active_tab: organization_active_tab, tabs: organization_tabs) %></div>
 <% end %>

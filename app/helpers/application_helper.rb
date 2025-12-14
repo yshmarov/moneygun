@@ -128,6 +128,8 @@ module ApplicationHelper
   end
 
   def formatted_title
+    return hotwire_native_title if turbo_native_app?
+
     app_name = Rails.application.config_for(:settings).dig(:site, :name)
     org_name = defined?(Current.organization) && Current.organization&.name.present? ? Current.organization.name : nil
 
@@ -135,6 +137,10 @@ module ApplicationHelper
 
     parts = [title, org_name, app_name].compact
     parts.join(" - ")
+  end
+
+  def hotwire_native_title
+    content_for(:hotwire_native_title).presence || content_for(:title).presence || Current.organization&.name.presence || Rails.application.config_for(:settings).dig(:site, :name) || Rails.application.class.module_parent.name
   end
 
   # forbid zooming on mobile devices

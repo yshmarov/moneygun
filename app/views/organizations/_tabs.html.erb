@@ -27,9 +27,9 @@
     }
    ] %>
 
-<%= render PageComponent.new(title: t("shared.navigation.organizations")) do |component| %>
+<%= render PageComponent.new(title: t("shared.navigation.organizations"), hide_title_on_native: true) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal, controller: 'bridge--button', bridge_title: t("shared.actions.create"), bridge_ios_image: 'plus.circle' }, class: "btn btn-primary" %>
+    <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal, controller: 'bridge--button', bridge_title: t("shared.actions.create"), bridge_ios_image: 'plus.circle' }, class: "btn btn-primary hotwire-native:hidden" %>
   <% end %>
 
   <%= render TabsComponent.new(active_tab: active_tab, tabs:) %>

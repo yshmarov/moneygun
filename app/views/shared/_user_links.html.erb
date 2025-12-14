@@ -2,7 +2,6 @@
 
 <% if hotwire_native_app? && !new_or_edit %>
   <%= tag.div data: { controller: 'bridge--nav', bridge_side: 'right', bridge_image: 'person.circle' } do %>
-    <%= link_to t("shared.navigation.organizations"), organizations_path, data: { bridge__nav_target: 'item', bridge_image: 'folder' } %>
     <%= link_to t("users.referrals.index.title"), user_referrals_path, data: { bridge__nav_target: 'item', bridge_image: 'gift.circle' } %>
     <%= link_to t("users.connected_accounts.index.title"), user_connected_accounts_path, data: { bridge__nav_target: 'item', bridge_image: 'link.circle' } if Rails.application.config.omniauth_providers.any? %>
     <%= link_to t("shared.navigation.edit_profile"), edit_user_registration_path, data: { bridge__nav_target: 'item', bridge_image: 'pencil.circle' } %>
