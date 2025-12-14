@@ -25,13 +25,7 @@
           </div>
         </div>
 
-        <main class="flex-grow p-4 min-w-0 overflow-x-hidden">
-          <div class="hotwire-native:bg-rose-400 bg-green-400">
-            hello
-          </div>
-
-          <%= yield %>
-        </main>
+        <main class="flex-grow p-4 min-w-0 overflow-x-hidden"><%= yield %></main>
 
         <%= render "shared/footer_nav" unless hotwire_native_app? %>
       </div>
