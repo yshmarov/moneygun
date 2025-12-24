@@ -370,6 +370,8 @@ en:
       organizations: Organizations
       register: Sign up
       select_organization: Organizations
+    sidebar:
+      search: Search... ⌘K
   static:
     index:
       title: Home
