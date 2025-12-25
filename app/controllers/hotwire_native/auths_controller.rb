@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HotwireNative::V1::AuthsController < ApplicationController
+class HotwireNative::AuthsController < ApplicationController
   skip_before_action :verify_authenticity_token
   skip_before_action :authenticate_user!, only: [:destroy]
 
