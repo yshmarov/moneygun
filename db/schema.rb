@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_29_110443) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_14_175444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -194,6 +194,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_29_110443) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
     t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
+  end
+
+  create_table "notification_tokens", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "platform"
+    t.string "token"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_notification_tokens_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -553,6 +562,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_29_110443) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "models"
   add_foreign_key "messages", "tool_calls"
+  add_foreign_key "notification_tokens", "users"
   add_foreign_key "organizations", "users", column: "owner_id"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"

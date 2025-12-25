@@ -25,4 +25,15 @@ class TabsComponent < ViewComponent::Base
   def tab_classes(tab_key)
     "#{base_classes} #{active_tab == tab_key ? active_classes : inactive_classes}"
   end
+
+  def tab_html_options(tab)
+    options = {}
+    options[:data] = tab[:data] if tab[:data]
+
+    # Pass through any other HTML attributes (id, aria-*, etc.)
+    html_attributes = tab.except(:key, :path, :label, :icon, :badge_count, :condition, :content, :data)
+    options.merge!(html_attributes) if html_attributes.any?
+
+    options
+  end
 end

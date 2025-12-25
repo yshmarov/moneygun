@@ -1,8 +1,10 @@
-<nav class="px-4 navbar flex justify-between">
+<nav class="px-4 navbar flex justify-between hotwire-native:hidden">
   <%# left %>
   <div class="flex items-center gap-2">
     <%# mobile sidebar toggle %>
-    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden"><%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %></label>
+    <label for="main-drawer" data-controller="toggle-nav" class="btn btn-ghost btn-square lg:hidden">
+      <%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %>
+    </label>
 
     <%# select org dropdown %>
     <% if Current.organization %>
@@ -77,6 +79,6 @@
   </div>
 </nav>
 
-<% if Current.organization %>
+<% if Current.organization && !action_name.in?(%w[new edit]) %>
   <div class="lg:hidden"><%= render TabsComponent.new(active_tab: organization_active_tab, tabs: organization_tabs) %></div>
 <% end %>

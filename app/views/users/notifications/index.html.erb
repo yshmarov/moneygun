@@ -1,5 +1,7 @@
 <% content_for :title, t(".title") %>
 
+<div class="hotwire-native:hidden" data-controller="bridge--notification-token"></div>
+
 <% content_for :head do %>
   <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
 <% end %>
