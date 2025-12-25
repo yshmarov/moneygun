@@ -1,15 +1,4 @@
 <% if I18n.available_locales.count > 1 %>
-  <select
-    onchange="window.location.href=this.value"
-    class="select select-bordered w-full"
-  >
-    <% I18n.available_locales.each do |locale| %>
-      <option
-        value="<%= url_for(locale: locale) %>"
-        <%= "selected" if locale == I18n.locale %>
-      >
-        <%= locale_to_flag(locale) %>
-      </option>
-    <% end %>
-  </select>
+  <% options = I18n.available_locales.map { |locale| [locale_to_flag(locale), url_for(locale: locale)] } %>
+  <%= select_tag :locale, options_for_select(options, url_for(locale: I18n.locale)), onchange: "window.location.href=this.value", class: "select select-bordered w-full" %>
 <% end %>

@@ -2,6 +2,8 @@
   <%= render PageComponent.new(title: t("devise.views.registrations.new.title"), full_width: false) do %>
     <%= render "devise/shared/oauth_links" %>
 
+    <div class="divider"><%= t("devise.views.shared.links.oauth_separator") %></div>
+
     <% if params[:via_email].present? || params.dig(:user, :via_email).present? %>
       <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo_frame: "_top" }, class: "space-y-4" } do |f| %>
         <%= f.hidden_field :via_email, value: params[:via_email] || params.dig(:user, :via_email) %>
@@ -23,9 +25,7 @@
                        autocomplete: "new-password"
                      } %>
 
-        <div class="pt-2">
-          <%= f.button :submit, t("devise.views.registrations.new.submit"), class: "btn-primary btn-block" %>
-        </div>
+        <div class="pt-2"><%= f.button :submit, t("devise.views.registrations.new.submit"), class: "btn-primary btn-block" %></div>
       <% end %>
       <%= render "devise/shared/links" %>
     <% else %>

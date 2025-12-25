@@ -18,7 +18,7 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
     User.create(email:, password:, confirmed_at: Time.current)
 
     visit organizations_path
-    click_link "Sign in with Email and Password"
+    click_link "Continue with Email and Password"
     # visit new_user_session_path
 
     fill_in "Email", with: email

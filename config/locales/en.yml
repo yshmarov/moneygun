@@ -152,7 +152,7 @@ en:
           password_label: Password
           password_placeholder: Enter your password
           remember_me: Remember me
-          sign_in_with_email: Sign in with Email and Password
+          sign_in_with_email: Continue with Email and Password
           submit: Sign in
           title: Sign in
       shared:
@@ -161,7 +161,7 @@ en:
           forgot_password: Forgot your password?
           oauth_separator: OR
           sign_in: Sign in
-          sign_in_with: Sign in with %{provider}
+          sign_in_with: Continue with %{provider}
           sign_up: Sign up
           unlock_instructions: Didn't receive unlock instructions?
       unlocks:
@@ -370,6 +370,8 @@ en:
       organizations: Organizations
       register: Sign up
       select_organization: Organizations
+    sidebar:
+      search: Search... ⌘K
   static:
     index:
       title: Home

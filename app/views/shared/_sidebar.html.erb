@@ -1,14 +1,10 @@
 <div class="drawer-side z-30" data-expanded="true">
   <label for="main-drawer" aria-label="Close sidebar" class="drawer-overlay"></label>
 
-  <aside
-    class="
-      bg-base-300 h-dvh flex flex-col overflow-hidden
-      [[data-expanded=true]_&]:w-80
-    "
-  >
+  <aside class="bg-base-300 h-dvh flex flex-col overflow-hidden [[data-expanded=true]_&]:w-80">
     <ul class="menu [[data-expanded=true]_&]:menu-xl w-full flex-1">
       <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-medium", icon: "logo.png", active: :exact %>
+      <%= nav_link t("shared.sidebar.search"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "max-lg:hidden" %>
 
       <li></li>
 
@@ -20,9 +16,7 @@
               <summary>
                 <%= organization_avatar(Current.organization, classes: "size-6") %>
 
-                <span class="[[data-expanded=false]_&]:hidden truncate">
-                  <%= Current.organization.name %>
-                </span>
+                <span class="[[data-expanded=false]_&]:hidden truncate"><%= Current.organization.name %></span>
               </summary>
 
               <ul>
@@ -42,11 +36,18 @@
 
       <%# mobile - sidebar for switching between organizations %>
       <div class="<% if Current.organization %> lg:hidden <% end %>">
-        <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/compass.svg", active: :exact %>
+        <li>
+          <%= active_link_to organizations_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("shared.navigation.organizations"), active: :exact do %>
+            <%= inline_svg_tag "svg/compass.svg", class: "size-6 w-6 h-6" %>
+            <span class="[[data-expanded=false]_&]:hidden truncate min-w-0"><%= t("shared.navigation.organizations") %></span>
+          <% end %>
 
-        <% Current.organizations&.each do |organization| %>
-          <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
-        <% end %>
+          <ul>
+            <% Current.organizations&.each do |organization| %>
+              <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
+            <% end %>
+          </ul>
+        </li>
       </div>
     </ul>
 
@@ -58,9 +59,7 @@
               <summary>
                 <%= inline_svg_tag "svg/cog-6-tooth.svg", class: "size-6 w-6 h-6" %>
 
-                <span class="[[data-expanded=false]_&]:hidden truncate">
-                  Admin
-                </span>
+                <span class="[[data-expanded=false]_&]:hidden truncate"> Admin </span>
               </summary>
 
               <ul>
