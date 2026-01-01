@@ -9,8 +9,8 @@ devise_for :users, controllers: {
 
 devise_scope :user do
   get "/auth/:provider/callback", to: "users/omniauth_callbacks#callback", as: :omniauth_callback
-  get "/users/invitation/accept", to: "users/invitations#new", as: :accept_user_invitation
-  post "/users/invitation/accept", to: "users/invitations#create", as: :accept_user_invitation_create
+  get "/users/invitation/accept", to: "users/invitation_acceptances#new", as: :accept_user_invitation
+  post "/users/invitation/accept", to: "users/invitation_acceptances#create", as: :accept_user_invitation_create
 end
 
 resource :user, only: %i[show], path: I18n.t("routes.user") do
@@ -18,14 +18,18 @@ resource :user, only: %i[show], path: I18n.t("routes.user") do
     resources :notifications, only: %i[index]
     resources :connected_accounts
     resources :referrals, only: %i[index]
+
     namespace :organizations do
-      resources :invitations, only: %i[index] do
+      # Invitations received BY user FROM organizations
+      resources :received_invitations, only: %i[index], path: "invitations" do
         member do
-          patch :approve
-          patch :reject
+          patch :accept
+          patch :decline
         end
       end
-      resources :membership_requests, only: %i[index create destroy]
+
+      # Join requests sent BY user TO organizations
+      resources :sent_join_requests, only: %i[index create destroy], path: "join-requests"
     end
   end
 end

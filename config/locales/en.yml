@@ -12,13 +12,13 @@ en:
         privacy_settings:
           private:
             description_text: Only invited users can join
-            display_text: "🔒 Private"
+            display_text: '🔒 Private'
           public:
             description_text: Anyone can join
-            display_text: "🌍 Public"
+            display_text: '🌍 Public'
           restricted:
             description_text: People must submit an application to be approved to join
-            display_text: "📩 Restricted"
+            display_text: '📩 Restricted'
       project:
         attachments: Attachments
         budget: Budget
@@ -64,7 +64,7 @@ en:
       unlock_instructions:
         subject: Unlock instructions
     masquerade:
-      back: "⚠ Stop impersonating"
+      back: '⚠ Stop impersonating'
     omniauth_callbacks:
       failure: Something went wrong. Please try again
       success: Successfully authenticated from %{kind} account.
@@ -104,7 +104,7 @@ en:
           password_confirmation_label: Confirm new password
           password_confirmation_placeholder: Confirm new password
           password_label: New password
-          password_minimum: "(%{count} characters minimum)"
+          password_minimum: '(%{count} characters minimum)'
           password_placeholder: Enter new password
           submit: Change my password
           title: Change your password
@@ -130,7 +130,7 @@ en:
           password_confirmation_placeholder: Confirm new password
           password_help: Leave blank if you don't want to change it
           password_label: Password
-          password_minimum: "%{count} characters minimum"
+          password_minimum: '%{count} characters minimum'
           password_placeholder: New password
           pending_confirmation: 'Currently waiting confirmation for: %{email}'
           submit: Update
@@ -141,7 +141,7 @@ en:
           password_confirmation_label: Password confirmation
           password_confirmation_placeholder: Confirm your password
           password_label: Password
-          password_minimum: "(%{count} characters minimum)"
+          password_minimum: '(%{count} characters minimum)'
           password_placeholder: Create a password
           submit: Sign up
           title: Sign up
@@ -181,7 +181,7 @@ en:
       not_locked: was not locked
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        other: '%{count} errors prohibited this %{resource} from being saved:'
     models:
       membership:
         attributes:
@@ -189,14 +189,29 @@ en:
             cannot_change_role_if_only_admin: Role cannot be changed because this is the only admin.
             cannot_demote_owner_from_admin: Organization owner cannot be demoted from admin role.
   invitations:
-    approve:
+    accept:
       success: Invitation accepted
+    decline:
+      success: Invitation declined
     errors:
       not_found: Invitation not found
+  join_requests:
+    approve:
+      success: Join request approved
+    buttons:
+      approve: Approve
+      reject: Reject
+    errors:
+      already_participant: You're already a member of this organization
+      already_requested: You have already requested access to this organization
+      not_found: Join request not found
     index:
-      title: "⬇️ Invitations"
+      title: '⬇️ Waitlist'
     reject:
-      success: Invitation declined
+      success: Join request rejected
+    success:
+      access_granted: Access granted
+      access_requested: Access requested
   membership_mailer:
     invitation_email:
       body: |
@@ -208,28 +223,11 @@ en:
 
         If you have any questions, please contact the person who invited you.
       someone: Someone
-      subject: "%{invitor_email} invited you to join %{organization_name}"
+      subject: '%{invitor_email} invited you to join %{organization_name}'
     request_accepted_email:
       subject: Welcome to %{organization_name}
     request_rejected_email:
       subject: Membership request update for %{organization_name}
-  membership_requests:
-    approve:
-      success: Membership request approved
-    buttons:
-      approve: Approve
-      reject: Reject
-    errors:
-      already_participant: You're already a member of this organization
-      already_requested: You have already requested access to this organization
-      not_found: Membership request not found
-    index:
-      title: "⬇️ Waitlist"
-    reject:
-      success: Membership request rejected
-    success:
-      access_granted: Access granted
-      access_requested: Access requested
   notifiers:
     membership:
       invitation_notifier:
@@ -261,16 +259,6 @@ en:
       not_found: Organization not found
     index:
       title: My organizations
-    invitations:
-      create:
-        success: "%{email} invited"
-      destroy:
-        success: Invitation cancelled
-      errors:
-        not_found: Invitation not found
-      index:
-        cancel_invitation: Cancel invitation
-        title: "⬆️ Invites"
     memberships:
       actions:
         leave: Leave
@@ -296,6 +284,16 @@ en:
         title: Projects
       update:
         success: Project updated
+    sent_invitations:
+      create:
+        success: '%{email} invited'
+      destroy:
+        success: Invitation cancelled
+      errors:
+        not_found: Invitation not found
+      index:
+        cancel_invitation: Cancel invitation
+        title: '⬆️ Invites'
     show:
       title: Home
     subscriptions:
@@ -314,7 +312,7 @@ en:
         title: Manage subscription
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
       pricing:
-        cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
+        cancel_security: '🛡️ Cancel anytime. Secured by Stripe.'
         current_plan: Current plan
         purchase: Buy
         save_yearly: Best value
@@ -330,7 +328,7 @@ en:
   public:
     organizations:
       index:
-        title: "🌎 Discover"
+        title: '🌎 Discover'
       show:
         actions:
           accept_invitation: Accept invitation
@@ -349,8 +347,8 @@ en:
   shared:
     actions:
       confirm: Are you sure?
-      copied: "✅ Copied!"
-      copy: "📋 Copy"
+      copied: '✅ Copied!'
+      copy: '📋 Copy'
       create: Create
       destroy: Destroy
       edit: Edit
@@ -400,30 +398,25 @@ en:
         no_accounts_connected: You haven't connected any OAuth accounts yet.
         title: Connected accounts
         your_connected_accounts: Connected accounts
-    invitations:
+    invitation_acceptances:
       create:
         success: Password set successfully! You've been signed in.
       new:
         invalid_token: Invalid or expired invitation link.
         submit: Set password and accept invitation
         title: Set your password
-    membership_requests:
-      destroy:
-        success: Membership request revoked
-      index:
-        title: "⬆️ Waitlisted"
     notifications:
       index:
         title: Notifications
     organizations:
-      invitations:
+      received_invitations:
         index:
-          title: "⬇️ Invitations"
-      membership_requests:
+          title: '⬇️ Invitations'
+      sent_join_requests:
         destroy:
-          success: Membership request revoked
+          success: Join request revoked
         index:
-          title: "⬆️ Waitlisted"
+          title: '⬆️ Waitlisted'
     referrals:
       index:
         clicks: Referral Link Performance

@@ -11,15 +11,15 @@
      },
     {
       key: :invitations,
-      path: user_organizations_invitations_path,
-      label: t("users.organizations.invitations.index.title"),
-      badge_count: current_user.organization_invitations.pending.count
+      path: user_organizations_received_invitations_path,
+      label: t("users.organizations.received_invitations.index.title"),
+      badge_count: current_user.received_invitations.pending.count
     },
     {
       key: :requests,
-      path: user_organizations_membership_requests_path,
-      label: t("users.organizations.membership_requests.index.title"),
-      badge_count: current_user.organization_requests.pending.count
+      path: user_organizations_sent_join_requests_path,
+      label: t("users.organizations.sent_join_requests.index.title"),
+      badge_count: current_user.sent_join_requests.pending.count
     }
    ] %>
 
