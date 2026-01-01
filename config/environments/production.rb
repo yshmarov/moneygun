@@ -105,4 +105,6 @@ Rails.application.configure do
   config.active_storage.service = :tigris
   config.assume_ssl = true
   config.force_ssl = true
+  # CUSTOM
+  config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 end
