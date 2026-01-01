@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_referrals
   has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
-  has_many :notification_tokens, dependent: :destroy
+  has_many :push_devices, as: :owner, dependent: :destroy, class_name: "ApplicationPushDevice"
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[id email]

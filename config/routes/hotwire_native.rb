@@ -11,6 +11,6 @@ namespace :hotwire_native do
   # Mobile sign out endpoint
   resource :auth, only: [:destroy], defaults: { format: :json }
 
-  # Notification token management for push notifications
-  resources :notification_tokens, param: :token, only: %i[create destroy], defaults: { format: :json }
+  # Push device management for push notifications
+  resources :push_devices, param: :token, only: %i[create destroy], defaults: { format: :json }
 end

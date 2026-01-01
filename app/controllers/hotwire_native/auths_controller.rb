@@ -8,8 +8,8 @@ class HotwireNative::AuthsController < ApplicationController
   def destroy
     return head :unauthorized unless user_signed_in?
 
-    # Delete notification token if provided (for push notifications)
-    current_user.notification_tokens.find_by(token: params[:notification_token])&.destroy if params[:notification_token].present? && current_user.respond_to?(:notification_tokens)
+    # Delete push device if provided (for push notifications)
+    current_user.push_devices.find_by(token: params[:notification_token])&.destroy if params[:notification_token].present?
 
     sign_out(current_user)
     render json: {}

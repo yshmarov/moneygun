@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   get "reset_app", to: "static#reset_app"
 
   get "search", to: "search#index"
+
+  # Test push notification endpoint (for development/testing)
+  post "push_notifications/test", to: "push_notifications#test", as: :test_push_notification
 end

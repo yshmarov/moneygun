@@ -196,15 +196,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_14_175444) do
     t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
-  create_table "notification_tokens", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "platform"
-    t.string "token"
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_notification_tokens_on_user_id"
-  end
-
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -562,7 +553,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_14_175444) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "models"
   add_foreign_key "messages", "tool_calls"
-  add_foreign_key "notification_tokens", "users"
   add_foreign_key "organizations", "users", column: "owner_id"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
