@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_14_175444) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_15_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,6 +25,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_14_175444) do
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
     t.index ["user_id", "organization_id"], name: "index_access_requests_on_user_id_and_organization_id", unique: true
     t.index ["user_id"], name: "index_access_requests_on_user_id"
+  end
+
+  create_table "action_push_native_devices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.bigint "owner_id"
+    t.string "owner_type"
+    t.string "platform", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_action_push_native_devices_on_owner"
   end
 
   create_table "active_analytics_browsers_per_days", force: :cascade do |t|
