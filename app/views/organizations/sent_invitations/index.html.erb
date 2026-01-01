@@ -1,4 +1,4 @@
-<% content_for :title, t("organizations.invitations.index.title") %>
+<% content_for :title, t(".title") %>
 
 <%= render "organizations/memberships/tabs", active_tab: :invitations %>
 
@@ -17,21 +17,14 @@
         <% @invitations.each do |invitation| %>
           <tr>
             <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
-              <div class="font-medium flex items-center gap-2">
-                <%= user_avatar(invitation.user) %>
-                <%= invitation.user.email %>
-              </div>
+              <div class="font-medium flex items-center gap-2"><%= user_avatar(invitation.user) %><%= invitation.user.email %></div>
             </td>
 
-            <td
-              data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"
-            >
-              <%= invitation.created_at.strftime("%d/%m/%Y") %>
-            </td>
+            <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"><%= l(invitation.created_at, format: :short) %></td>
 
             <td>
               <div class="flex items-center gap-2 justify-end">
-                <%= button_to t(".cancel_invitation"), organization_invitation_path(invitation.organization, invitation), method: :delete, class: "btn btn-sm btn-error" %>
+                <%= button_to t(".cancel_invitation"), organization_sent_invitation_path(@organization, invitation), method: :delete, class: "btn btn-sm btn-error" %>
               </div>
             </td>
           </tr>

@@ -22,7 +22,7 @@
             shadow border border-base-content/20
           "
         >
-          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (count = Current.organization.user_requests.pending.count).positive? ? count : nil, active: [["organizations/memberships", "organizations/invitations", "organizations/membership_requests"], []] %>
+          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (count = Current.organization.received_join_requests.pending.count).positive? ? count : nil, active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
 
           <% if Current.membership.admin? %>
             <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>

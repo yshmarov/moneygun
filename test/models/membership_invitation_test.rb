@@ -26,7 +26,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
 
     user = User.find_by(email: "newuser@example.com")
     assert user.present?
-    assert_equal "newuser@example.com", @organization.user_invitations.last.user.email
+    assert_equal "newuser@example.com", @organization.sent_invitations.last.user.email
   end
 
   test "invalid with incorrect email format" do
@@ -56,7 +56,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     existing_user = users(:two)
 
     # Create a pending invitation first
-    @organization.user_invitations.create!(user: existing_user)
+    @organization.sent_invitations.create!(user: existing_user)
 
     invitation = MembershipInvitation.new(
       email: existing_user.email,

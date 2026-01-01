@@ -5,17 +5,17 @@ class AccessRequest::InviteToOrganization < AccessRequest
 
   after_create :send_invitation_notification
 
-  def approve!
+  def approve!(completed_by: user)
     transaction do
-      update!(status: :approved, completed_by: user)
+      update!(status: :approved, completed_by: completed_by)
       user.memberships.find_or_create_by!(organization: organization)
     end
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
     raise ActiveRecord::Rollback, e.message
   end
 
-  def reject!
-    update!(status: :rejected, completed_by: user)
+  def reject!(completed_by: user)
+    update!(status: :rejected, completed_by: completed_by)
   end
 
   private

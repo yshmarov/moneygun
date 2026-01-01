@@ -2,7 +2,7 @@
 
 <%= modal do %>
   <%= render PageComponent.new(title: t("organizations.memberships.new.title")) do |component| %>
-    <%= simple_form_for @membership_invitation, url: organization_invitations_path(@organization), html: { class: "contents space-y-4" } do |form| %>
+    <%= simple_form_for @membership_invitation, url: organization_sent_invitations_path(@organization), html: { class: "contents space-y-4" } do |form| %>
       <%= render "shared/errors", object: form.object %>
 
       <%= form.input :email,
@@ -16,9 +16,7 @@
                         autofocus: !turbo_native_app?
                       } %>
 
-      <div class="flex justify-end">
-        <%= form.button :submit, "Invite", class: "btn-primary" %>
-      </div>
+      <div class="flex justify-end"><%= form.button :submit, "Invite", class: "btn-primary" %></div>
     <% end %>
   <% end %>
 <% end %>

@@ -17,7 +17,7 @@ module Authentication
     return stored_location if stored_location
 
     # Redirect users with pending invitations to their invitations page
-    return user_organizations_invitations_path if resource.organization_invitations.pending.any?
+    return user_organizations_received_invitations_path if resource.received_invitations.pending.any?
 
     if resource.organizations.any?
       session.delete(:new_user) if session[:new_user]

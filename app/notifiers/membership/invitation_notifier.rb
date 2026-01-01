@@ -19,12 +19,12 @@ class Membership::InvitationNotifier < ApplicationNotifier
 
     def url
       # URL for internal notification system (when user clicks notification)
-      user_organizations_invitations_url
+      user_organizations_received_invitations_url
     end
 
     def email_url
       if recipient.confirmed?
-        user_organizations_invitations_url
+        user_organizations_received_invitations_url
       elsif recipient.invitation_token.present?
         accept_user_invitation_url(invitation_token: recipient.invitation_token)
       end
