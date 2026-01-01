@@ -8,7 +8,7 @@ class AccessRequest::InviteToOrganizationTest < ActiveSupport::TestCase
     user = users(:three)
 
     assert_difference "Noticed::Notification.count", 1 do
-      organization.user_invitations.create!(user: user)
+      organization.sent_invitations.create!(user: user)
     end
 
     # Check that notification was sent to the correct user

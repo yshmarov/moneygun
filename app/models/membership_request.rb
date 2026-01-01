@@ -31,12 +31,12 @@ class MembershipRequest
     if organization.privacy_setting_public?
       user.memberships.create(organization:)
     elsif organization.privacy_setting_restricted?
-      if user.organization_requests.find_by(organization:).present?
+      if user.sent_join_requests.find_by(organization:).present?
         errors.add(:base, I18n.t("membership_requests.errors.already_requested"))
         return false
       end
 
-      user.organization_requests.create(organization:)
+      user.sent_join_requests.create(organization:)
     end
 
     true

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class Organizations::InvitationsController < Organizations::BaseController
+class Organizations::SentInvitationsController < Organizations::BaseController
   before_action :set_invitation, only: %i[destroy]
 
   def index
     authorize Membership, :create?
-    @pagy, @invitations = pagy(@organization.user_invitations.pending)
+    @pagy, @invitations = pagy(@organization.sent_invitations.pending)
   end
 
   def new
@@ -14,8 +14,12 @@ class Organizations::InvitationsController < Organizations::BaseController
   end
 
   def create
-    authorize Membership, :new?
-    @membership_invitation = MembershipInvitation.new(email: params.dig(:membership_invitation, :email), organization: @organization, inviter: current_user)
+    authorize Membership, :create?
+    @membership_invitation = MembershipInvitation.new(
+      email: params.dig(:membership_invitation, :email),
+      organization: @organization,
+      inviter: current_user
+    )
 
     if @membership_invitation.save
       respond_to do |format|
@@ -31,14 +35,12 @@ class Organizations::InvitationsController < Organizations::BaseController
   def destroy
     authorize Membership, :destroy?
     @invitation.destroy
-    redirect_to organization_invitations_path(@organization), notice: t(".success")
+    redirect_to organization_sent_invitations_path(@organization), notice: t(".success")
   end
 
   private
 
   def set_invitation
-    @invitation = @organization.user_invitations.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to organization_invitations_path(@organization), alert: t("organizations.invitations.errors.not_found")
+    @invitation = @organization.sent_invitations.find(params[:id])
   end
 end
