@@ -22,7 +22,11 @@ class Organizations::SentInvitationsController < Organizations::BaseController
     )
 
     if @membership_invitation.save
-      redirect_to organization_memberships_path(@organization), notice: t(".success", email: @membership_invitation.email)
+      respond_to do |format|
+        flash[:notice] = t(".success", email: @membership_invitation.email)
+        format.html { redirect_to organization_memberships_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_memberships_path(@organization)) }
+      end
     else
       render :new, status: :unprocessable_content
     end
