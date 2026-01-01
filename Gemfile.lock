@@ -378,8 +378,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (6.0.1)
-      prism (~> 1.5)
+    minitest (5.27.0)
     mission_control-jobs (1.1.0)
       actioncable (>= 7.1)
       actionpack (>= 7.1)
@@ -708,6 +707,7 @@ DEPENDENCIES
   letter_opener_web
   local_time
   lookbook (>= 2.3.9)
+  minitest (~> 5.21)
   mission_control-jobs
   nested_scaffold!
   noticed

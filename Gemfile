@@ -130,3 +130,4 @@ group :production do
 end
 
 gem "browser", "~> 6.2"
+gem "minitest", "~> 5.21"
