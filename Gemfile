@@ -65,6 +65,7 @@ group :development do
   gem "letter_opener"
   gem "letter_opener_web"
   gem "reactionview", "~> 0.1.6"
+  gem "herb", require: false
 end
 
 group :test do

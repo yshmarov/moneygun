@@ -4,18 +4,33 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "[ruby]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    }
+  },
   "[erb]": {
     "editor.defaultFormatter": "marcoroth.herb-lsp",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    }
   },
   "prettier.semi": false,
   "prettier.trailingComma": "none",
   "prettier.singleQuote": true,
+  "prettier.printWidth": 150,
   "files.associations": {
     "*.html.erb": "erb"
   },
   "erb-formatter.lineLength": 150,
   "languageServerHerb.formatter.enabled": true,
+  "languageServerHerb.linter.enabled": true,
   "languageServerHerb.formatter.indentWidth": 2,
-  "languageServerHerb.formatter.maxLineLength": 150
+  "languageServerHerb.formatter.maxLineLength": 150,
+  "rubyLsp.enabledFeatures": {
+    "formatting": false
+  }
 }

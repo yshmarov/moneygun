@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+app/assets/builds/
+tmp/
+log/
+
+# Generated files
+db/schema.rb
+db/migrate/*.rb
+
+# Lock files
+Gemfile.lock
+package-lock.json
+yarn.lock
+
