@@ -9,19 +9,19 @@
         <%= f.hidden_field :via_email, value: params[:via_email] || params.dig(:user, :via_email) %>
 
         <%= f.input :email,
-                     label: t("devise.views.sessions.new.email_label"),
-                     placeholder: t("devise.views.sessions.new.email_placeholder"),
-                     input_html: {
-                       autofocus: true,
-                       autocomplete: "email"
-                     } %>
+                    label: t("devise.views.sessions.new.email_label"),
+                    placeholder: t("devise.views.sessions.new.email_placeholder"),
+                    input_html: {
+                      autofocus: true,
+                      autocomplete: "email"
+                    } %>
 
         <%= f.input :password,
-                     label: t("devise.views.sessions.new.password_label"),
-                     placeholder: t("devise.views.sessions.new.password_placeholder"),
-                     input_html: {
-                       autocomplete: "current-password"
-                     } %>
+                    label: t("devise.views.sessions.new.password_label"),
+                    placeholder: t("devise.views.sessions.new.password_placeholder"),
+                    input_html: {
+                      autocomplete: "current-password"
+                    } %>
 
         <div class="pt-2"><%= f.button :submit, t("devise.views.sessions.new.submit"), class: "btn-primary btn-block" %></div>
       <% end %>

@@ -2,18 +2,18 @@
   <%= render "shared/errors", object: f.object %>
 
   <%= f.input :name,
-                  input_html: {
-                    autocomplete: "off",
-                    autocorrect: "off",
-                    autocapitalize: "off",
-                    spellcheck: "false",
-                    autofocus: !turbo_native_app?,
-                    required: true
-                  } %>
+              input_html: {
+                autocomplete: "off",
+                autocorrect: "off",
+                autocapitalize: "off",
+                spellcheck: "false",
+                autofocus: !turbo_native_app?,
+                required: true
+              } %>
 
   <%= f.input :logo,
-                 as: :file,
-                 input_html: { accept: "image/png, image/jpeg, image/gif" } %>
+              as: :file,
+              input_html: { accept: "image/png, image/jpeg, image/gif" } %>
 
   <div class="form-control">
     <%= f.label :privacy_setting, class: "label-text sr-only" %>
