@@ -697,6 +697,7 @@ DEPENDENCIES
   factory_bot_rails
   flipper-active_record
   flipper-ui
+  herb
   i18n-tasks
   image_processing (~> 1.2)
   importmap-rails

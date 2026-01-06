@@ -10,20 +10,20 @@
         <%= render "shared/errors", object: resource %>
 
         <%= f.input :email,
-                     label: t("devise.views.registrations.new.email_label"),
-                     placeholder: t("devise.views.registrations.new.email_placeholder"),
-                     input_html: {
-                       autofocus: true,
-                       autocomplete: "email"
-                     } %>
+                    label: t("devise.views.registrations.new.email_label"),
+                    placeholder: t("devise.views.registrations.new.email_placeholder"),
+                    input_html: {
+                      autofocus: true,
+                      autocomplete: "email"
+                    } %>
 
         <%= f.input :password,
-                     label: t("devise.views.registrations.new.password_label"),
-                     placeholder: t("devise.views.registrations.new.password_placeholder"),
-                     hint: (@minimum_password_length ? t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) : nil),
-                     input_html: {
-                       autocomplete: "new-password"
-                     } %>
+                    label: t("devise.views.registrations.new.password_label"),
+                    placeholder: t("devise.views.registrations.new.password_placeholder"),
+                    hint: (@minimum_password_length ? t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) : nil),
+                    input_html: {
+                      autocomplete: "new-password"
+                    } %>
 
         <div class="pt-2"><%= f.button :submit, t("devise.views.registrations.new.submit"), class: "btn-primary btn-block" %></div>
       <% end %>

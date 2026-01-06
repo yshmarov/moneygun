@@ -6,15 +6,15 @@
       <%= render "shared/errors", object: f.object %>
 
       <%= f.input :email,
-                      placeholder: "hello@superails.com",
-                      required: true,
-                      input_html: {
-                        autocomplete: "off",
-                        autocorrect: "off",
-                        autocapitalize: "off",
-                        spellcheck: "false",
-                        autofocus: !turbo_native_app?
-                      } %>
+                  placeholder: "hello@superails.com",
+                  required: true,
+                  input_html: {
+                    autocomplete: "off",
+                    autocorrect: "off",
+                    autocapitalize: "off",
+                    spellcheck: "false",
+                    autofocus: !turbo_native_app?
+                  } %>
 
       <div class="flex justify-end"><%= f.button :submit, "Invite", class: "btn-primary" %></div>
     <% end %>

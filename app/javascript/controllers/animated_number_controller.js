@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static values = {
@@ -6,7 +6,7 @@ export default class extends Controller {
     end: Number,
     duration: { type: Number, default: 300 },
     type: String,
-    currency: { type: String, default: "USD" }
+    currency: { type: String, default: 'USD' }
   }
 
   connect() {
@@ -31,7 +31,7 @@ export default class extends Controller {
   }
 
   updateDisplay(value) {
-    if (this.typeValue === "money") {
+    if (this.typeValue === 'money') {
       this.element.textContent = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: this.currencyValue
@@ -40,4 +40,4 @@ export default class extends Controller {
       this.element.textContent = new Intl.NumberFormat('en-US').format(Math.round(value))
     }
   }
-} 
+}

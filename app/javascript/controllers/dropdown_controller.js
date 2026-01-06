@@ -1,11 +1,11 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static values = { closeOnClickOutside: { type: Boolean, default: true } }
 
   connect() {
     this.handleClickOutside = this.handleClickOutside.bind(this)
-    
+
     document.addEventListener('click', this.handleClickOutside)
   }
 
@@ -25,4 +25,4 @@ export default class extends Controller {
   close() {
     this.element.removeAttribute('open')
   }
-} 
+}

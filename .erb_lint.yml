@@ -4,12 +4,12 @@ linters:
   Rubocop:
     enabled: true
     exclude:
-      - "**/vendor/**/*"
-      - "**/vendor/**/.*"
-      - "bin/**"
-      - "db/**/*"
-      - "config/**/*"
-      - "node_modules/**/*"
+      - '**/vendor/**/*'
+      - '**/vendor/**/.*'
+      - 'bin/**'
+      - 'db/**/*'
+      - 'config/**/*'
+      - 'node_modules/**/*'
     rubocop_config:
       inherit_from:
         - .rubocop.yml

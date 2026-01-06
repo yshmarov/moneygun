@@ -7,14 +7,14 @@
     <%= render "shared/errors", object: resource %>
 
     <%= f.input :email,
-                 label: t("devise.views.confirmations.new.email_label"),
-                 placeholder: t("devise.views.confirmations.new.email_placeholder"),
-                 hint: t("devise.views.confirmations.new.email_help"),
-                 input_html: {
-                   autofocus: true,
-                   autocomplete: "email",
-                   value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
-                 } %>
+                label: t("devise.views.confirmations.new.email_label"),
+                placeholder: t("devise.views.confirmations.new.email_placeholder"),
+                hint: t("devise.views.confirmations.new.email_help"),
+                input_html: {
+                  autofocus: true,
+                  autocomplete: "email",
+                  value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+                } %>
 
     <div class="pt-2"><%= f.button :submit, t("devise.views.confirmations.new.submit"), class: "btn-primary btn-block" %></div>
   <% end %>

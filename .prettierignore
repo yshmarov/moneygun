@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+app/assets/builds/
+tmp/
+log/
+
+# Generated files
+db/schema.rb
+db/migrate/*.rb
+
+# Lock files
+Gemfile.lock
+package-lock.json
+yarn.lock
+
+# Test fixtures (may contain ERB)
+test/fixtures/**/*
+
+# Public assets
+public/
+
+# DaisyUI files
+app/assets/tailwind/daisyui*
+# Test fixtures (may contain ERB)

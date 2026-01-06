@@ -6,10 +6,10 @@
       <%= render "shared/errors", object: f.object %>
 
       <%= f.input :role,
-                      as: :radio_buttons,
-                      collection: Membership.roles.map { |role, _value| [role.humanize, role] },
-                      label_method: :first,
-                      value_method: :last %>
+                  as: :radio_buttons,
+                  collection: Membership.roles.map { |role, _value| [role.humanize, role] },
+                  label_method: :first,
+                  value_method: :last %>
 
       <div class="flex justify-end"><%= f.button :submit, class: "btn-primary" %></div>
     <% end %>
