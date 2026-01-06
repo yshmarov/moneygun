@@ -1,7 +1,7 @@
 <%= modal close_on_submit: false, dialog_position: "modal-middle", title: t("search.index.title") do %>
   <div class="flex flex-col gap-4">
-    <%= simple_form_for :search, url: search_path, method: :get, html: { data: { turbo_frame: :global_search_results, controller: "debounce" } } do |form| %>
-      <%= form.input :query,
+    <%= simple_form_for :search, url: search_path, method: :get, html: { data: { turbo_frame: :global_search_results, controller: "debounce" } } do |f| %>
+      <%= f.input :query,
                       placeholder: t("search.index.title"),
                       label: false,
                       required: false,

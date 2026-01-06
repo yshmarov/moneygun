@@ -5,7 +5,7 @@
     <div class="divider"><%= t("devise.views.shared.links.oauth_separator") %></div>
 
     <% if params[:via_email].present? || params.dig(:user, :via_email).present? %>
-      <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo_frame: "_top" }, class: "space-y-4" } do |f| %>
+      <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo_frame: "_top" }, class: "flex flex-col gap-y-4" } do |f| %>
         <%= f.hidden_field :via_email, value: params[:via_email] || params.dig(:user, :via_email) %>
         <%= render "shared/errors", object: resource %>
 

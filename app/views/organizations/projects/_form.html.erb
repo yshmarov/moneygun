@@ -2,17 +2,17 @@
       [@organization, project],
       html: { class: "contents space-y-6" },
       data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }
-    ) do |form| %>
-  <%= render "shared/errors", object: form.object %>
+    ) do |f| %>
+  <%= render "shared/errors", object: f.object %>
 
-  <%= form.input :name,
+  <%= f.input :name,
                  required: true,
                  label: "Project name",
                  placeholder: "If there is a placeholder, the label is hidden by default",
                  character_counter: true,
                  hint: "Text input" %>
 
-  <%= form.input :description,
+  <%= f.input :description,
                  as: :text,
                  label: "Description",
                  character_counter: true,
@@ -22,20 +22,20 @@
                  hint: "Textarea for multi-line text input.",
                  input_html: { rows: 4 } %>
 
-  <%= form.input :status,
+  <%= f.input :status,
                  collection: [["Planning", "planning"], ["In Progress", "in_progress"], ["On Hold", "on_hold"], ["Completed", "completed"]],
                  label_method: :first,
                  value_method: :last,
                  label: "Status",
                  hint: "Select dropdown with collection pairs" %>
 
-  <%= form.input :category,
+  <%= f.input :category,
                  collection: ["Web Development", "Mobile App", "Marketing", "Research", "Design", "Other"],
                  include_blank: "Select a category",
                  label: "Category",
                  hint: "Select dropdown with simple array collection" %>
 
-  <%= form.input :priority,
+  <%= f.input :priority,
                  as: :radio_buttons,
                  collection: [["Low", "low"], ["Medium", "medium"], ["High", "high"], ["Urgent", "urgent"]],
                  label_method: :first,
@@ -43,25 +43,25 @@
                  label: "Priority",
                  hint: "Radio buttons for single choice" %>
 
-  <%= form.input :start_date,
+  <%= f.input :start_date,
                  as: :date,
                  html5: true,
                  label: "Start date",
                  hint: "HTML5 date picker" %>
 
-  <%= form.input :scheduled_at,
+  <%= f.input :scheduled_at,
                  as: :datetime,
                  html5: true,
                  label: "Scheduled at",
                  hint: "HTML5 datetime-local picker" %>
 
-  <%= form.input :budget,
+  <%= f.input :budget,
                  as: :numeric,
                  label: "Budget",
                  hint: "Numeric input for decimal values.",
                  input_html: { step: 0.01, min: 0 } %>
 
-  <%= form.input :budget,
+  <%= f.input :budget,
                  as: :string,
                  label: "Budget (with autonumeric)",
                  hint: "Text input with autonumeric formatting (form.input example)",
@@ -76,9 +76,9 @@
                  } %>
 
   <div class="form-control">
-    <%= form.label :budget, "Budget", class: "label" %>
+    <%= f.label :budget, "Budget", class: "label" %>
 
-    <%= form.text_field :budget,
+    <%= f.text_field :budget,
                         required: true,
                         class: "input w-full",
                         data: {
@@ -92,12 +92,12 @@
     </div>
   </div>
 
-  <%= form.input :is_active,
+  <%= f.input :is_active,
                  as: :boolean,
                  label: "Active",
                  hint: "Checkbox for boolean values" %>
 
-  <%= form.input :tags,
+  <%= f.input :tags,
                  as: :check_boxes,
                  collection: [["Frontend", "frontend"], ["Backend", "backend"], ["Mobile", "mobile"], ["DevOps", "devops"], ["Design", "design"]],
                  label_method: :first,
@@ -105,16 +105,16 @@
                  label: "Tags",
                  hint: "Collection checkboxes for multiple selection" %>
 
-  <%= form.input :document,
+  <%= f.input :document,
                  as: :file,
                  label: "Document",
                  hint: "File input with has_one_attached (single file)" %>
 
-  <%= form.input :attachments,
+  <%= f.input :attachments,
                  as: :file,
                  input_html: { multiple: true },
                  label: "Attachments",
                  hint: "File input with has_many_attached (multiple files)" %>
 
-  <div class="flex justify-end"><%= form.button :submit %></div>
+  <div class="flex justify-end"><%= f.button :submit %></div>
 <% end %>
