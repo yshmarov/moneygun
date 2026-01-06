@@ -10,7 +10,9 @@
 @plugin "@tailwindcss/typography";
 
 @plugin "./daisyui.js" {
-  themes: corporate --default, business --prefersdark;
+  themes:
+    corporate --default,
+    business --prefersdark;
 }
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */

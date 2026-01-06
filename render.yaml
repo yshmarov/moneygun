@@ -18,7 +18,7 @@ services:
     # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     #  startCommand: bundle exec rails server
     startCommand: ./bin/rails server
-    healthCheckPath: "/up"
+    healthCheckPath: '/up'
     envVars:
       - fromGroup: moneygun-rails-shared-env
       - key: RAILS_MASTER_KEY
@@ -30,7 +30,7 @@ services:
           name: moneygun-db
           property: connectionString
       - key: SOLID_QUEUE_IN_PUMA
-        value: "true"
+        value: 'true'
 
 envVarGroups:
   - name: moneygun-rails-shared-env
@@ -40,10 +40,10 @@ envVarGroups:
       - key: RAILS_ENV
         value: production
       - key: JEMALLOC_ENABLED
-        value: "true"
+        value: 'true'
       - key: MALLOC_ARENA_MAX
         value: 2
       - key: BUNDLE_WITHOUT
-        value: "development:test"
+        value: 'development:test'
       - key: NODE_MODULES_CACHE
-        value: "true"
+        value: 'true'

@@ -28,10 +28,7 @@
   },
   "image": "heroku/ruby",
   "addons": ["heroku-postgresql:essential-0"],
-  "buildpacks": [
-    { "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git" },
-    { "url": "heroku/ruby" }
-  ],
+  "buildpacks": [{ "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git" }, { "url": "heroku/ruby" }],
   "environments": {
     "test": {
       "env": {

@@ -34,8 +34,6 @@ bin/erb_lint --lint-all -a
 npx prettier --check .
 # Format files
 npx prettier --write .
-# Format specific file
-npx prettier --write app/models/user.rb
 ```
 
 ## Configuration Files

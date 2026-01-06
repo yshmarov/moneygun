@@ -16,3 +16,12 @@ Gemfile.lock
 package-lock.json
 yarn.lock
 
+# Test fixtures (may contain ERB)
+test/fixtures/**/*
+
+# Public assets
+public/
+
+# DaisyUI files
+app/assets/tailwind/daisyui*
+# Test fixtures (may contain ERB)
