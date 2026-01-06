@@ -28,6 +28,14 @@ bin/rubocop -a
 bin/erb_lint --lint-all
 # Auto-fix
 bin/erb_lint --lint-all -a
+
+# Prettier (all file types)
+# Check formatting
+npx prettier --check .
+# Format files
+npx prettier --write .
+# Format specific file
+npx prettier --write app/models/user.rb
 ```
 
 ## Configuration Files
