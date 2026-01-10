@@ -6,7 +6,7 @@ if Rails.env.development?
     config.intercept_erb = true
 
     # Enable debug mode in development (adds debug attributes to HTML)
-    config.debug_mode = true
+    config.debug_mode = false
 
     # Add custom transform visitors to process templates before compilation
     # config.transform_visitors = [
