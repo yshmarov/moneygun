@@ -1,17 +1,17 @@
-<%%= simple_form_for(<%= model_resource_name %>, html: { class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } }) do |form| %>
+<%%= simple_form_for(<%= model_resource_name %>, html: { class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } }) do |f| %>
   <%%= render "shared/errors", object: form.object %>
 
 <% attributes.each do |attribute| -%>
 <% if attribute.password_digest? -%>
-  <%%= form.input :password %>
-  <%%= form.input :password_confirmation %>
+  <%%= f.input :password %>
+  <%%= f.input :password_confirmation %>
 <% elsif attribute.attachments? -%>
-  <%%= form.input :<%= attribute.column_name %>, as: :file, input_html: { multiple: true } %>
+  <%%= f.input :<%= attribute.column_name %>, as: :file, input_html: { multiple: true } %>
 <% else -%>
-  <%%= form.input :<%= attribute.column_name %> %>
+  <%%= f.input :<%= attribute.column_name %> %>
 <% end -%>
 <% end -%>
   <div class="flex justify-end">
-    <%%= form.button :submit, class: "btn-primary" %>
+    <%%= f.button :submit, class: "btn-primary" %>
   </div>
 <%% end %>

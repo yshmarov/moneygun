@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require "rubygems"
+require "bundler/setup"
+
+# Explicit erb_lint config increases performance
+ARGV.unshift("--config", File.expand_path("../.erb_lint.yml", __dir__))
+
+load Gem.bin_path("erb_lint", "erblint")
+

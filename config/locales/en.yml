@@ -254,7 +254,7 @@ en:
       error: Organization could not be destroyed
       success: Organization destroyed
     edit:
-      title: Settings
+      title: Organization settings
     errors:
       not_found: Organization not found
     index:

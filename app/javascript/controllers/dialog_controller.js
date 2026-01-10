@@ -1,14 +1,14 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   connect() {
     this.open()
     // needed because ESC key does not trigger close event
-    this.element.addEventListener("close", this.enableBodyScroll.bind(this))
+    this.element.addEventListener('close', this.enableBodyScroll.bind(this))
   }
 
   disconnect() {
-    this.element.removeEventListener("close", this.enableBodyScroll.bind(this))
+    this.element.removeEventListener('close', this.enableBodyScroll.bind(this))
   }
 
   // hide modal on successful form submission
@@ -22,7 +22,7 @@ export default class extends Controller {
   open() {
     this.element.showModal()
     document.body.classList.add('overflow-hidden')
-    
+
     // Remove focus from auto-focused element (usually close button)
     document.activeElement.blur()
   }
@@ -30,8 +30,8 @@ export default class extends Controller {
   close() {
     this.element.close()
     const frame = document.getElementById('modal')
-    frame.removeAttribute("src")
-    frame.innerHTML = ""
+    frame.removeAttribute('src')
+    frame.innerHTML = ''
   }
 
   enableBodyScroll() {

@@ -2,18 +2,16 @@
 
 <%= modal do %>
   <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles") do |component| %>
-    <%= simple_form_for [@organization, @membership], html: { class: "contents" } do |form| %>
-      <%= render "shared/errors", object: form.object %>
+    <%= simple_form_for [@organization, @membership], html: { class: "contents" } do |f| %>
+      <%= render "shared/errors", object: f.object %>
 
-      <%= form.input :role,
-                      as: :radio_buttons,
-                      collection: Membership.roles.map { |role, _value| [role.humanize, role] },
-                      label_method: :first,
-                      value_method: :last %>
+      <%= f.input :role,
+                  as: :radio_buttons,
+                  collection: Membership.roles.map { |role, _value| [role.humanize, role] },
+                  label_method: :first,
+                  value_method: :last %>
 
-      <div class="flex justify-end">
-        <%= form.button :submit, class: "btn-primary" %>
-      </div>
+      <div class="flex justify-end"><%= f.button :submit, class: "btn-primary" %></div>
     <% end %>
   <% end %>
 <% end %>

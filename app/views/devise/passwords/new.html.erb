@@ -3,13 +3,13 @@
     <%= render "shared/errors", object: resource %>
 
     <%= f.input :email,
-                 label: t("devise.views.passwords.new.email_label"),
-                 placeholder: t("devise.views.passwords.new.email_placeholder"),
-                 hint: t("devise.views.passwords.new.email_help"),
-                 input_html: {
-                   autofocus: true,
-                   autocomplete: "email"
-                 } %>
+                label: t("devise.views.passwords.new.email_label"),
+                placeholder: t("devise.views.passwords.new.email_placeholder"),
+                hint: t("devise.views.passwords.new.email_help"),
+                input_html: {
+                  autofocus: true,
+                  autocomplete: "email"
+                } %>
 
     <div class="pt-2">
       <%= f.button :submit, t("devise.views.passwords.new.submit"), class: "btn-primary btn-block" %>

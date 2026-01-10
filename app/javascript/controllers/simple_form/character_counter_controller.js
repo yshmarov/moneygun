@@ -12,9 +12,7 @@ export default class extends Controller {
     const formControl = this.element.closest('.form-control')
     if (!formControl) return
 
-    const input = formControl.querySelector(
-      this.inputSelectorValue || 'input, textarea'
-    )
+    const input = formControl.querySelector(this.inputSelectorValue || 'input, textarea')
     if (!input) return
 
     this.input = input

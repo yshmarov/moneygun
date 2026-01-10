@@ -1,43 +1,37 @@
-<%= simple_form_for organization, html: { class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } } do |form| %>
-  <%= render "shared/errors", object: form.object %>
+<%= simple_form_for organization, html: { class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } } do |f| %>
+  <%= render "shared/errors", object: f.object %>
 
-  <%= form.input :name,
-                  input_html: {
-                    autocomplete: "off",
-                    autocorrect: "off",
-                    autocapitalize: "off",
-                    spellcheck: "false",
-                    autofocus: !turbo_native_app?,
-                    required: true
-                  } %>
+  <%= f.input :name,
+              input_html: {
+                autocomplete: "off",
+                autocorrect: "off",
+                autocapitalize: "off",
+                spellcheck: "false",
+                autofocus: !turbo_native_app?,
+                required: true
+              } %>
 
-  <%= form.input :logo,
-                 as: :file,
-                 input_html: { accept: "image/png, image/jpeg, image/gif" } %>
+  <%= f.input :logo,
+              as: :file,
+              input_html: { accept: "image/png, image/jpeg, image/gif" } %>
 
   <div class="form-control">
-    <%= form.label :privacy_setting, class: "label-text sr-only" %>
+    <%= f.label :privacy_setting, class: "label-text sr-only" %>
 
     <div class="space-y-3">
       <% Organization.privacy_settings.each do |key, value| %>
         <div class="flex items-center gap-3">
-          <%= form.radio_button :privacy_setting, value, class: "radio mt-1" %>
+          <%= f.radio_button :privacy_setting, value, class: "radio mt-1" %>
 
-          <%= form.label :"privacy_setting_#{value}", class: "flex flex-col cursor-pointer" do %>
-            <span class="font-medium">
-              <%= privacy_setting_options(key)[:display_text] %>
-            </span>
+          <%= f.label :"privacy_setting_#{value}", class: "flex flex-col cursor-pointer" do %>
+            <span class="font-medium"><%= privacy_setting_options(key)[:display_text] %></span>
 
-            <span class="text-sm text-base-content opacity-70">
-              <%= privacy_setting_options(key)[:description_text] %>
-            </span>
+            <span class="text-sm text-base-content opacity-70"><%= privacy_setting_options(key)[:description_text] %></span>
           <% end %>
         </div>
       <% end %>
     </div>
   </div>
 
-  <div class="flex justify-end">
-    <%= form.submit class: "btn btn-primary" %>
-  </div>
+  <div class="flex justify-end"><%= f.submit class: "btn btn-primary" %></div>
 <% end %>

@@ -3,7 +3,7 @@
 
   <aside class="bg-base-300 h-dvh flex flex-col overflow-hidden [[data-expanded=true]_&]:w-80">
     <ul class="menu [[data-expanded=true]_&]:menu-xl w-full flex-1">
-      <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-medium", icon: "logo.png", active: :exact %>
+      <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-semibold", icon: "logo.png", active: :exact %>
       <%= nav_link t("shared.sidebar.search"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "max-lg:hidden" %>
 
       <li></li>

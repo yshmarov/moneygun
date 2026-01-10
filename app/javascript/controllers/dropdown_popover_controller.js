@@ -70,18 +70,13 @@ export default class extends Controller {
     }
 
     requestAnimationFrame(() => {
-      const autofocusElement = this.menuTarget.querySelector(
-        '[autofocus="true"], [autofocus]'
-      )
+      const autofocusElement = this.menuTarget.querySelector('[autofocus="true"], [autofocus]')
 
       if (autofocusElement) {
         setTimeout(() => {
           autofocusElement.focus()
 
-          if (
-            autofocusElement.tagName === 'INPUT' ||
-            autofocusElement.tagName === 'TEXTAREA'
-          ) {
+          if (autofocusElement.tagName === 'INPUT' || autofocusElement.tagName === 'TEXTAREA') {
             const length = autofocusElement.value.length
             autofocusElement.setSelectionRange(length, length)
           }
@@ -102,11 +97,7 @@ export default class extends Controller {
       clearTimeout(this.closeTimeout)
     }
 
-    const menuController =
-      this.application.getControllerForElementAndIdentifier(
-        this.menuTarget,
-        'menu'
-      )
+    const menuController = this.application.getControllerForElementAndIdentifier(this.menuTarget, 'menu')
     if (menuController) menuController.reset()
 
     this.closeTimeout = setTimeout(() => {
@@ -133,11 +124,7 @@ export default class extends Controller {
   }
 
   reset() {
-    const menuController =
-      this.application.getControllerForElementAndIdentifier(
-        this.menuTarget,
-        'menu'
-      )
+    const menuController = this.application.getControllerForElementAndIdentifier(this.menuTarget, 'menu')
     menuController?.reset()
 
     const resetEvent = new CustomEvent('dropdown-reset', {
@@ -155,10 +142,7 @@ export default class extends Controller {
     const middleware = [
       offset(this.constructor.OFFSET),
       flip({
-        fallbackPlacements:
-          fallbackPlacements.length > 0
-            ? fallbackPlacements
-            : ['top-start', 'bottom-start']
+        fallbackPlacements: fallbackPlacements.length > 0 ? fallbackPlacements : ['top-start', 'bottom-start']
       }),
       shift({ padding: this.constructor.SHIFT_PADDING })
     ]
@@ -181,24 +165,17 @@ export default class extends Controller {
     this.handleMenuItemClick = () => {
       this.close()
     }
-    this.menuTarget.addEventListener(
-      'menu-item-clicked',
-      this.handleMenuItemClick
-    )
+    this.menuTarget.addEventListener('menu-item-clicked', this.handleMenuItemClick)
 
-    this.handleDocumentKeydown = (event) => {
+    this.handleDocumentKeydown = event => {
       if (event.key === 'Escape' && this.isOpen) this.close()
     }
     document.addEventListener('keydown', this.handleDocumentKeydown)
 
-    this.handleButtonKeydown = (event) => {
+    this.handleButtonKeydown = event => {
       if (!this.isOpen) return
 
-      const menuController =
-        this.application.getControllerForElementAndIdentifier(
-          this.menuTarget,
-          'menu'
-        )
+      const menuController = this.application.getControllerForElementAndIdentifier(this.menuTarget, 'menu')
 
       if (event.key === 'ArrowDown') {
         event.preventDefault()
@@ -214,50 +191,25 @@ export default class extends Controller {
       if (this.hoverValue) return
 
       const openHoverDropdowns = this.application.controllers.filter(
-        (controller) =>
-          controller.identifier === 'dropdown-popover' &&
-          controller !== this &&
-          controller.isOpen &&
-          controller.hoverValue
+        controller => controller.identifier === 'dropdown-popover' && controller !== this && controller.isOpen && controller.hoverValue
       )
 
-      openHoverDropdowns.forEach((controller) => controller.close())
+      openHoverDropdowns.forEach(controller => controller.close())
     }
-    this.buttonTarget.addEventListener(
-      'mouseenter',
-      this.handleCloseHoverDropdowns
-    )
+    this.buttonTarget.addEventListener('mouseenter', this.handleCloseHoverDropdowns)
   }
 
   #teardownHandlers() {
-    this.menuTarget.removeEventListener(
-      'menu-item-clicked',
-      this.handleMenuItemClick
-    )
+    this.menuTarget.removeEventListener('menu-item-clicked', this.handleMenuItemClick)
     document.removeEventListener('keydown', this.handleDocumentKeydown)
     this.buttonTarget.removeEventListener('keydown', this.handleButtonKeydown)
-    this.buttonTarget.removeEventListener(
-      'mouseenter',
-      this.handleCloseHoverDropdowns
-    )
+    this.buttonTarget.removeEventListener('mouseenter', this.handleCloseHoverDropdowns)
 
     if (this.hoverValue) {
-      this.buttonTarget.removeEventListener(
-        'mouseenter',
-        this.handleButtonMouseEnter
-      )
-      this.buttonTarget.removeEventListener(
-        'mouseleave',
-        this.handleButtonMouseLeave
-      )
-      this.menuTarget.removeEventListener(
-        'mouseenter',
-        this.handleMenuMouseEnter
-      )
-      this.menuTarget.removeEventListener(
-        'mouseleave',
-        this.handleMenuMouseLeave
-      )
+      this.buttonTarget.removeEventListener('mouseenter', this.handleButtonMouseEnter)
+      this.buttonTarget.removeEventListener('mouseleave', this.handleButtonMouseLeave)
+      this.menuTarget.removeEventListener('mouseenter', this.handleMenuMouseEnter)
+      this.menuTarget.removeEventListener('mouseleave', this.handleMenuMouseLeave)
     }
   }
 
@@ -275,10 +227,7 @@ export default class extends Controller {
 
     this.mutationObserver = new MutationObserver(() => {
       if (this.isOpen) {
-        setTimeout(
-          () => this.#updatePosition(),
-          this.constructor.MUTATION_DELAY
-        )
+        setTimeout(() => this.#updatePosition(), this.constructor.MUTATION_DELAY)
       }
     })
     this.mutationObserver.observe(this.menuTarget, {
@@ -304,21 +253,12 @@ export default class extends Controller {
       clearTimeout(this.hoverTimeout)
       this.show()
     }
-    this.buttonTarget.addEventListener(
-      'mouseenter',
-      this.handleButtonMouseEnter
-    )
+    this.buttonTarget.addEventListener('mouseenter', this.handleButtonMouseEnter)
 
     this.handleButtonMouseLeave = () => {
-      this.hoverTimeout = setTimeout(
-        () => this.close(),
-        this.constructor.HOVER_DELAY
-      )
+      this.hoverTimeout = setTimeout(() => this.close(), this.constructor.HOVER_DELAY)
     }
-    this.buttonTarget.addEventListener(
-      'mouseleave',
-      this.handleButtonMouseLeave
-    )
+    this.buttonTarget.addEventListener('mouseleave', this.handleButtonMouseLeave)
 
     this.handleMenuMouseEnter = () => {
       clearTimeout(this.hoverTimeout)
@@ -326,27 +266,18 @@ export default class extends Controller {
     this.menuTarget.addEventListener('mouseenter', this.handleMenuMouseEnter)
 
     this.handleMenuMouseLeave = () => {
-      this.hoverTimeout = setTimeout(
-        () => this.close(),
-        this.constructor.HOVER_DELAY
-      )
+      this.hoverTimeout = setTimeout(() => this.close(), this.constructor.HOVER_DELAY)
     }
     this.menuTarget.addEventListener('mouseleave', this.handleMenuMouseLeave)
   }
 
   #closeOtherDropdowns() {
     const openDropdowns = this.application.controllers.filter(
-      (controller) =>
-        controller.identifier === 'dropdown-popover' &&
-        controller !== this &&
-        controller.isOpen
+      controller => controller.identifier === 'dropdown-popover' && controller !== this && controller.isOpen
     )
 
-    openDropdowns.forEach((controller) => {
-      if (
-        !this.element.contains(controller.element) &&
-        !controller.element.contains(this.element)
-      ) {
+    openDropdowns.forEach(controller => {
+      if (!this.element.contains(controller.element) && !controller.element.contains(this.element)) {
         controller.close()
       }
     })

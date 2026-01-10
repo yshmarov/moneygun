@@ -3,12 +3,12 @@
     <%= render "shared/errors", object: resource %>
 
     <%= f.input :email,
-                 label: t("devise.views.registrations.edit.email_label"),
-                 placeholder: t("devise.views.registrations.edit.email_placeholder"),
-                 input_html: {
-                   autofocus: true,
-                   autocomplete: "email"
-                 } %>
+                label: t("devise.views.registrations.edit.email_label"),
+                placeholder: t("devise.views.registrations.edit.email_placeholder"),
+                input_html: {
+                  autofocus: true,
+                  autocomplete: "email"
+                } %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div class="alert alert-info text-sm">
@@ -21,27 +21,27 @@
     <% end %>
 
     <%= f.input :password,
-                 label: t("devise.views.registrations.edit.password_label"),
-                 placeholder: t("devise.views.registrations.edit.password_placeholder"),
-                 hint: [t("devise.views.registrations.edit.password_help"), (@minimum_password_length ? t("devise.views.registrations.edit.password_minimum", count: @minimum_password_length) : nil)].compact.join(" "),
-                 input_html: {
-                   autocomplete: "new-password"
-                 } %>
+                label: t("devise.views.registrations.edit.password_label"),
+                placeholder: t("devise.views.registrations.edit.password_placeholder"),
+                hint: [t("devise.views.registrations.edit.password_help"), (@minimum_password_length ? t("devise.views.registrations.edit.password_minimum", count: @minimum_password_length) : nil)].compact.join(" "),
+                input_html: {
+                  autocomplete: "new-password"
+                } %>
 
     <%= f.input :password_confirmation,
-                 label: t("devise.views.registrations.edit.password_confirmation_label"),
-                 placeholder: t("devise.views.registrations.edit.password_confirmation_placeholder"),
-                 input_html: {
-                   autocomplete: "new-password"
-                 } %>
+                label: t("devise.views.registrations.edit.password_confirmation_label"),
+                placeholder: t("devise.views.registrations.edit.password_confirmation_placeholder"),
+                input_html: {
+                  autocomplete: "new-password"
+                } %>
 
     <%= f.input :current_password,
-                 label: t("devise.views.registrations.edit.current_password_label"),
-                 placeholder: t("devise.views.registrations.edit.current_password_placeholder"),
-                 hint: t("devise.views.registrations.edit.current_password_help"),
-                 input_html: {
-                   autocomplete: "current-password"
-                 } %>
+                label: t("devise.views.registrations.edit.current_password_label"),
+                placeholder: t("devise.views.registrations.edit.current_password_placeholder"),
+                hint: t("devise.views.registrations.edit.current_password_help"),
+                input_html: {
+                  autocomplete: "current-password"
+                } %>
 
     <div class="pt-2">
       <%= f.button :submit, t("devise.views.registrations.edit.submit"), class: "btn-primary btn-block" %>

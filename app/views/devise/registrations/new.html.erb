@@ -5,25 +5,25 @@
     <div class="divider"><%= t("devise.views.shared.links.oauth_separator") %></div>
 
     <% if params[:via_email].present? || params.dig(:user, :via_email).present? %>
-      <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo_frame: "_top" }, class: "space-y-4" } do |f| %>
+      <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo_frame: "_top" }, class: "flex flex-col gap-y-4" } do |f| %>
         <%= f.hidden_field :via_email, value: params[:via_email] || params.dig(:user, :via_email) %>
         <%= render "shared/errors", object: resource %>
 
         <%= f.input :email,
-                     label: t("devise.views.registrations.new.email_label"),
-                     placeholder: t("devise.views.registrations.new.email_placeholder"),
-                     input_html: {
-                       autofocus: true,
-                       autocomplete: "email"
-                     } %>
+                    label: t("devise.views.registrations.new.email_label"),
+                    placeholder: t("devise.views.registrations.new.email_placeholder"),
+                    input_html: {
+                      autofocus: true,
+                      autocomplete: "email"
+                    } %>
 
         <%= f.input :password,
-                     label: t("devise.views.registrations.new.password_label"),
-                     placeholder: t("devise.views.registrations.new.password_placeholder"),
-                     hint: (@minimum_password_length ? t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) : nil),
-                     input_html: {
-                       autocomplete: "new-password"
-                     } %>
+                    label: t("devise.views.registrations.new.password_label"),
+                    placeholder: t("devise.views.registrations.new.password_placeholder"),
+                    hint: (@minimum_password_length ? t("devise.views.registrations.new.password_minimum", count: @minimum_password_length) : nil),
+                    input_html: {
+                      autocomplete: "new-password"
+                    } %>
 
         <div class="pt-2"><%= f.button :submit, t("devise.views.registrations.new.submit"), class: "btn-primary btn-block" %></div>
       <% end %>
