@@ -419,6 +419,7 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.8.0)
+    multi_json (1.19.1)
     multi_xml (0.8.1)
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
@@ -615,6 +616,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    signet (0.21.0)
+      addressable (~> 2.8)
+      faraday (>= 0.17.5, < 3.a)
+      jwt (>= 1.5, < 4.0)
+      multi_json (~> 1.10)
     simple_form (5.4.1)
       actionpack (>= 7.0)
       activemodel (>= 7.0)
@@ -703,7 +709,6 @@ GEM
 PLATFORMS
   aarch64-linux
   arm-linux
-  arm64-darwin
   arm64-darwin-24
   x86_64-linux
 
@@ -728,8 +733,8 @@ DEPENDENCIES
   factory_bot_rails
   flipper-active_record
   flipper-ui
-  hotwire_native_rails!
   herb
+  hotwire_native_rails!
   i18n-tasks
   image_processing (~> 1.2)
   importmap-rails
