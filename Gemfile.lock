@@ -27,13 +27,6 @@ GIT
       warden (~> 1.2.3)
 
 GIT
-  remote: https://github.com/yshmarov/hotwire_native_rails.git
-  revision: 192b76143f83acc97219c841d56d302fa616afd8
-  branch: main
-  specs:
-    hotwire_native_rails (0.4.3)
-
-GIT
   remote: https://github.com/yshmarov/nested_scaffold.git
   revision: 2f5099ead127558c2358f2eaa76accdd0cc52b47
   branch: master
@@ -734,7 +727,6 @@ DEPENDENCIES
   flipper-active_record
   flipper-ui
   herb
-  hotwire_native_rails!
   i18n-tasks
   image_processing (~> 1.2)
   importmap-rails

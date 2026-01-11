@@ -133,5 +133,4 @@ end
 gem "browser", "~> 6.2"
 gem "minitest", "~> 5.21"
 
-gem "hotwire_native_rails", github: "yshmarov/hotwire_native_rails", branch: "main"
 gem "action_push_native", "~> 0.2.1"
