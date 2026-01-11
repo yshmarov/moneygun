@@ -327,3 +327,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Design inspiration from Basecamp, Linear, Trello, Discord, and Slack
 - [Bullet Train](https://bullettrain.co/) for SaaS patterns and inspiration (obfuscates_id, super scaffolding, teams architecture)
 - [Jumpstart Pro](https://jumpstartrails.com/) & co for maintaining the magnificent gems [pay](http://github.com/pay-rails/pay), [acts_as_tenant](https://github.com/ErwinM/acts_as_tenant)
+
+- Add /profile /me to mobile nav
+- update controller based on cf2
+- send push notifications for all existing notifications
+- tabs overflow-X sucks on mobile
+  https://masilotti.com/bridge-components/
+- rename NavComponent to MenuComponent
+- rename MenuComponent to RootButtonComponent?
+-
