@@ -95,6 +95,11 @@ class HotwireNative::Ios::PathConfigurationsController < ApplicationController
         path: user_notifications_path,
         ios_system_image_name: "bell",
         show_notification_badge: true
+      },
+      {
+        title: "User",
+        path: user_path,
+        ios_system_image_name: "person"
       }
     ]
   end

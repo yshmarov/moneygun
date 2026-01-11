@@ -95,6 +95,11 @@ class HotwireNative::Android::PathConfigurationsController < ApplicationControll
         path: user_notifications_path,
         android_system_image_name: "notifications",
         show_notification_badge: true
+      },
+      {
+        title: "User",
+        path: user_path,
+        android_system_image_name: "person"
       }
     ]
   end
