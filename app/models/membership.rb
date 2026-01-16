@@ -26,7 +26,10 @@ class Membership < ApplicationRecord
   private
 
   def notify_user_removed
-    Membership::RemovalNotifier.with(organization: organization).deliver(user)
+    Membership::RemovalNotifier.with(
+      organization: organization,
+      organization_name: organization.name
+    ).deliver(user)
   end
 
   def cannot_change_role_if_only_admin

@@ -15,7 +15,8 @@ class Membership::RemovalNotifier < ApplicationNotifier
 
   notification_methods do
     def message
-      t("notifiers.membership.removal_notifier.notification.message", organization_name: params[:organization].name)
+      organization_name = extract_organization_name
+      t("notifiers.membership.removal_notifier.notification.message", organization_name: organization_name)
     end
 
     def url
@@ -24,6 +25,16 @@ class Membership::RemovalNotifier < ApplicationNotifier
 
     def icon
       "🚪"
+    end
+
+    private
+
+    def extract_organization_name
+      params.dig(:original_params, "organization_name") ||
+        params.dig(:original_params, :organization_name) ||
+        params[:organization_name] ||
+        params[:organization]&.name ||
+        "an organization"
     end
   end
 end
