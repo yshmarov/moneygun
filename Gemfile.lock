@@ -26,13 +26,6 @@ GIT
       responders
       warden (~> 1.2.3)
 
-GIT
-  remote: https://github.com/yshmarov/nested_scaffold.git
-  revision: 2f5099ead127558c2358f2eaa76accdd0cc52b47
-  branch: master
-  specs:
-    nested_scaffold (1.1.0)
-
 GEM
   remote: https://packager.dev/avo-hq/
   specs:
@@ -710,7 +703,6 @@ DEPENDENCIES
   lookbook (>= 2.3.9)
   minitest (~> 5.21)
   mission_control-jobs
-  nested_scaffold!
   noticed
   omniauth-github
   omniauth-google-oauth2

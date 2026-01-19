@@ -124,13 +124,7 @@ rails db:seed          # Seed database (creates Stripe products)
 
 ### Adding a New Organization-Scoped Resource
 
-1. Generate nested scaffold:
-
-   ```bash
-   rails generate nested_scaffold organization/resource name:string
-   ```
-
-2. Add Pundit policy:
+1. Add Pundit policy:
 
    ```bash
    rails g pundit:policy resource

@@ -59,7 +59,6 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem "nested_scaffold", github: "yshmarov/nested_scaffold", branch: "master"
   gem "i18n-tasks"
   gem "lookbook", ">= 2.3.9"
   gem "letter_opener"

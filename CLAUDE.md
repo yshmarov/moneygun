@@ -95,8 +95,3 @@ Avo admin panel at `/avo`. Resources defined in `app/avo/resources/`.
 - Hotwire (Turbo + Stimulus)
 - ViewComponent for reusable UI components
 
-### Generating Nested Resources
-
-```bash
-rails generate nested_scaffold organization/resource_name field:type
-```

@@ -233,14 +233,6 @@ subscription_status_label(organization)
 
 ## 👷‍♂️ Development Guide
 
-### Resource Generation
-
-Generate nested resources quickly using the nested_scaffold gem:
-
-```bash
-rails generate nested_scaffold organization/project name
-```
-
 ### Authorization
 
 Generate Pundit policies for your resources:
