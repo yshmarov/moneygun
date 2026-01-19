@@ -1,97 +1,102 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Instructions for AI coding assistants (Claude Code, Cursor, Copilot, etc.)
 
 ## Project Overview
 
-Moneygun is a multi-tenant SaaS boilerplate built with Ruby on Rails 8. It uses route-based multitenancy where resources are scoped under `/organizations/:id/...` rather than subdomains or `user.organization_id`.
+Moneygun is a Rails 8 multi-tenant SaaS boilerplate. Uses route-based multitenancy where resources are scoped under `/organizations/:id/...`.
 
-## Common Commands
+## Commands
 
 ```bash
-# Setup
-bin/setup
+bin/setup                         # Initial setup
+bin/dev                           # Development server
 
-# Development server (runs web, css, stripe webhooks, background jobs)
-bin/dev
+rails test:all                    # All tests
+rails test test/models/user_test.rb:42  # Specific test
 
-# Run all tests
-rails test:all
-
-# Run a single test file
-rails test test/models/user_test.rb
-
-# Run a specific test by line number
-rails test test/models/user_test.rb:42
-
-# Linting
-bundle exec rubocop -A          # Ruby
-bundle exec erb_lint --lint-all -a  # ERB
-
-# Sort i18n keys
-i18n-tasks normalize
+bundle exec rubocop -A            # Ruby linting
+bundle exec erb_lint --lint-all -a  # ERB linting
+i18n-tasks normalize              # Sort i18n keys
 ```
 
 ## Architecture
 
-### Multi-tenancy Pattern
+### Multi-tenancy
 
-Resources are nested under organizations using route-based multitenancy:
-- Routes: `/organizations/:organization_id/projects/:id`
-- `Current.organization` and `Current.membership` are set via `Organizations::BaseController`
-- Pundit policies receive `Current.membership` as the user context (see `pundit_user` method)
+- Routes: `/organizations/:organization_id/resource/:id`
+- `Current.organization` and `Current.membership` set via `Organizations::BaseController`
+- Always scope queries: `Current.organization.projects` not `Project.all`
+
+### Current Context
+
+```ruby
+Current.organization   # Current tenant
+Current.membership     # User's membership in current org
+Current.user           # Authenticated user
+```
 
 ### Key Models
 
-- **User**: Devise authentication, can belong to multiple organizations
-- **Organization**: The tenant; includes concerns for Billing, Multitenancy, Transfer, Logo, Community
-- **Membership**: Join table between User and Organization with roles (`member`, `admin`)
-- **Project**: Example organization-scoped resource
+- **User**: Devise auth, can belong to multiple organizations
+- **Organization**: The tenant, has subscriptions via Pay gem
+- **Membership**: User-Organization join table with roles (`member`, `admin`)
+- **Project**: Example org-scoped resource with obfuscated IDs (Sqids)
 
-### Resource Association Pattern
+### Controller Pattern
 
-Always associate organization-scoped resources with `membership` instead of `user`:
+Org-scoped controllers inherit from `Organizations::BaseController`:
 
 ```ruby
-# Correct
-class Project < ApplicationRecord
+class Organizations::TasksController < Organizations::BaseController
+  def index
+    authorize Task
+    @tasks = @organization.tasks
+  end
+end
+```
+
+### Authorization
+
+Pundit with membership-based policies. `pundit_user` returns `Current.membership`:
+
+```ruby
+rails g pundit:policy resource_name
+```
+
+### Resource Association
+
+Associate org-scoped resources with `membership`, not `user`:
+
+```ruby
+class Task < ApplicationRecord
   belongs_to :organization
   belongs_to :membership
 end
 ```
 
-### Controller Inheritance
+### Routes
 
-Organization-scoped controllers inherit from `Organizations::BaseController`, which:
-- Sets `@organization` from `current_user.organizations`
-- Sets `Current.membership` and `Current.organization`
-- Provides `require_subscription` for paywalled features
-
-### Routes Structure
-
-Routes are split into separate files in `config/routes/`:
+Split into `config/routes/`:
 - `users.rb` - User account routes
-- `organizations.rb` - Organization-scoped resources
-- `admin.rb` - Admin panel routes
-
-### Authorization
-
-Uses Pundit with membership-based policies. Generate policies with:
-```bash
-rails g pundit:policy resource_name
-```
+- `organizations.rb` - Org-scoped resources
+- `admin.rb` - Avo admin panel routes
 
 ### Payments
 
-Stripe subscriptions via Pay gem. Plans configured in `config/settings.yml`. Webhook endpoint: `/pay/webhooks/stripe`
+Stripe via Pay gem. Plans in `config/settings.yml`. Webhook: `/pay/webhooks/stripe`
 
-### Admin Panel
-
-Avo admin panel at `/avo`. Resources defined in `app/avo/resources/`.
+Use `before_action :require_subscription` for paywalled features.
 
 ### Frontend
 
-- Tailwind CSS 4 with daisyUI 5 components
+- Tailwind CSS 4 + daisyUI 5
 - Hotwire (Turbo + Stimulus)
-- ViewComponent for reusable UI components
+- ViewComponent
 
+## Conventions
+
+- Thin controllers, rich models
+- Always use `Current` context
+- Never query without organization scope
+- Use `ObfuscatesId` concern for public-facing IDs
