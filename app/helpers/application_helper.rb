@@ -75,11 +75,6 @@ module ApplicationHelper
         icon: "🥑"
       },
       {
-        name: "Profitable",
-        path: "/profitable",
-        icon: "🤑"
-      },
-      {
         name: "Analytics",
         path: "/analytics",
         icon: "📊"

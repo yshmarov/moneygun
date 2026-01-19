@@ -8,8 +8,8 @@ OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection
 # Determine which providers are available
 providers = []
 
-# Developer provider (only in non-production)
-providers << :developer unless Rails.env.production?
+# Developer provider (only in development)
+providers << :developer if Rails.env.development?
 
 # Google OAuth2
 if Rails.application.credentials.dig(:google_oauth2, :client_id).present? &&

@@ -32,8 +32,11 @@ module StaticHelper
     }
 
     markdown = Redcarpet::Markdown.new(renderer, extensions)
+    safe_tags = %w[p h1 h2 h3 h4 h5 h6 ul ol li a code pre blockquote strong em img iframe div span br hr table thead tbody tr th td]
+    safe_attributes = %w[href src alt title class id width height frameborder allowfullscreen]
+
     tag.article(class: "prose dark:prose-invert") do
-      markdown.render(markdown_text).html_safe
+      sanitize(markdown.render(markdown_text), tags: safe_tags, attributes: safe_attributes).html_safe
     end
   end
 end

@@ -100,3 +100,29 @@ Use `before_action :require_subscription` for paywalled features.
 - Always use `Current` context
 - Never query without organization scope
 - Use `ObfuscatesId` concern for public-facing IDs
+
+## AI Learnings
+
+### Pundit Authorization
+
+- To enforce authorization on all actions: `after_action :verify_authorized` in base controller
+- To skip verification for specific controllers: `skip_after_action :verify_authorized`
+- Do NOT use `skip_verify_authorized` or `skip_authorization` at the class level - these don't exist
+- The `authorize` method must be called inside each action, or via a `before_action` callback
+
+### ConnectedAccount Model
+
+- The `name` attribute is computed from `payload` JSON (`payload&.dig("info", "name")`), not a database column
+- Cannot use `pick(:name)` or similar SQL queries for this field
+- When eager loading with `includes(:connected_accounts)`, use `connected_accounts.first&.name`
+
+### Organization Membership Checks
+
+- Use `memberships.exists?(user: user)` instead of `users.include?(user)` for efficiency
+- The latter loads all users into memory; the former uses SQL EXISTS
+
+### Markdown Sanitization
+
+- When using Redcarpet with `filter_html: false`, always wrap output with Rails `sanitize`
+- Safe tags for content with embeds: `%w[p h1 h2 h3 h4 h5 h6 ul ol li a code pre blockquote strong em img iframe div span br hr table thead tbody tr th td]`
+- Safe attributes: `%w[href src alt title class id width height frameborder allowfullscreen]`

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Organizations::TransfersController < Organizations::BaseController
+  skip_after_action :verify_authorized
   before_action :authorize_organization_owner!
 
   def show; end

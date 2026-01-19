@@ -2,7 +2,7 @@
 
 class MembershipPolicy < ApplicationPolicy
   def index?
-    true
+    membership.present?
   end
 
   def new?
