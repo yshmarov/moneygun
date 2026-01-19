@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html lang="en" class="h-full bg-base-100 text-base-content">
+<html lang="en" class="h-full bg-base-100 text-base-content" <%= platform_identifier %>>
   <head><%= render "layouts/head" %></head>
 
-  <body class="h-dvh overflow-hidden">
+  <body class="h-dvh overflow-hidden" data-controller="bridge--menu-button">
     <div class="drawer lg:drawer-open">
       <input id="main-drawer" type="checkbox" class="drawer-toggle">
 
@@ -25,11 +25,9 @@
           </div>
         </div>
 
-        <main class="flex-grow p-4 min-w-0 overflow-x-hidden">
-          <%= yield %>
-        </main>
+        <main class="flex-grow p-4 min-w-0 overflow-x-hidden"><%= yield %></main>
 
-        <%= render "shared/footer_nav" %>
+        <%= render "shared/footer_nav" unless hotwire_native_app? %>
       </div>
 
       <%= render "shared/sidebar" %>

@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   set_referral_cookie
 
+  include DeviceFormat
   include Pagy::Backend
   include Authentication
   include Authorization

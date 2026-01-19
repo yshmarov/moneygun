@@ -132,3 +132,5 @@ end
 
 gem "browser", "~> 6.2"
 gem "minitest", "~> 5.21"
+
+gem "action_push_native", "~> 0.2.1"

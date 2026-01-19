@@ -11,6 +11,19 @@ class Membership::RemovalNotifier < ApplicationNotifier
     config.message = -> { message }
   end
 
+  deliver_by :action_push_native do |config|
+    config.devices = -> { recipient.push_devices }
+    config.if = -> { recipient.push_devices.any? }
+    config.format = lambda {
+      {
+        title: "Moneygun",
+        body: message,
+        badge: recipient.unseen_notifications_count
+      }
+    }
+    config.with_data = -> { { path: url } }
+  end
+
   required_params :organization
 
   notification_methods do

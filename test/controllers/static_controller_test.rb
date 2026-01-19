@@ -31,4 +31,9 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
     get refunds_url
     assert_response :success
   end
+
+  test "should get reset_app" do
+    get reset_app_url
+    assert_response :success
+  end
 end

@@ -1,11 +1,11 @@
 <section class="space-y-4 mx-auto <%= width_class %> @container">
   <% if title.present? || title_content.present? || action_list.present? %>
     <div class="flex justify-between gap-4 flex-wrap">
-      <% if title_content.present? %>
+      <% if title_content.present? && !hide_title_on_native_class %>
         <div class="flex-1 min-w-0">
           <%= title_content %>
         </div>
-      <% elsif title.present? %>
+      <% elsif title.present? && !hide_title_on_native_class %>
         <h1 class="font-semibold text-2xl @3xl:text-3xl min-w-0">
           <%= title %>
         </h1>

@@ -1,0 +1,39 @@
+shared:
+  # Use bin/rails credentials:edit to set the APNS secrets:
+  #
+  #   action_push_native:
+  #     apns:
+  #       key_id: YOUR_KEY_ID
+  #       encryption_key: |
+  #         -----BEGIN PRIVATE KEY-----
+  #         YOUR_PRIVATE_KEY_CONTENT
+  #         -----END PRIVATE KEY-----
+  #       team_id: YOUR_TEAM_ID
+  #
+  # See: https://developer.apple.com/documentation/usernotifications/establishing-a-token-based-connection-to-apns
+  apple:
+    key_id: <%= Rails.application.credentials.dig(:action_push_native, :apns, :key_id) %>
+    encryption_key: <%= Rails.application.credentials.dig(:action_push_native, :apns, :encryption_key)&.dump %>
+
+    # Your Apple Team ID from https://developer.apple.com/account
+    team_id: <%= Rails.application.credentials.dig(:action_push_native, :apns, :team_id) %>
+
+    # Your app bundle identifier from https://developer.apple.com/account/resources/identifiers/list
+    topic: your.bundle.identifier
+
+    # Connect to APNs development server when building from Xcode.
+    # TestFlight and App Store builds require production APNs server.
+    connect_to_development_server: <%= Rails.env.development? %>
+
+  # Use bin/rails credentials:edit to set the FCM secrets:
+  #
+  #   action_push_native:
+  #     fcm:
+  #       encryption_key: |
+  #         { "type": "service_account", ... }
+  #
+  # See: https://firebase.google.com/docs/cloud-messaging/auth-server
+  google:
+    encryption_key: <%= Rails.application.credentials.dig(:action_push_native, :fcm, :encryption_key)&.dump %>
+    project_id: <%= Rails.application.credentials.dig(:action_push_native, :fcm, :project_id) %>
+

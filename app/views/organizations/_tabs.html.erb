@@ -2,30 +2,34 @@
      {
        key: :my_organizations,
        path: organizations_path,
-       label: t("organizations.index.title")
+       label: t("organizations.index.title"),
+       data: { turbo_action: replace_if_native }
      },
      {
        key: :browse_organizations,
        path: public_organizations_path,
-       label: t("public.organizations.index.title")
+       label: t("public.organizations.index.title"),
+       data: { turbo_action: replace_if_native }
      },
-     {
-       key: :invitations,
-       path: user_organizations_received_invitations_path,
-       label: t("users.organizations.received_invitations.index.title"),
-       badge_count: current_user.received_invitations.pending.count
-     },
-     {
-       key: :requests,
-       path: user_organizations_sent_join_requests_path,
-       label: t("users.organizations.sent_join_requests.index.title"),
-       badge_count: current_user.sent_join_requests.pending.count
-     }
+    {
+      key: :invitations,
+      path: user_organizations_received_invitations_path,
+      label: t("users.organizations.received_invitations.index.title"),
+      badge_count: current_user.received_invitations.pending.count,
+      data: { turbo_action: replace_if_native }
+    },
+    {
+      key: :requests,
+      path: user_organizations_sent_join_requests_path,
+      label: t("users.organizations.sent_join_requests.index.title"),
+      badge_count: current_user.sent_join_requests.pending.count,
+      data: { turbo_action: replace_if_native }
+    }
    ] %>
 
-<%= render PageComponent.new(title: t("shared.navigation.organizations")) do |component| %>
+<%= render PageComponent.new(title: t("shared.navigation.organizations"), hide_title_on_native: true) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal }, class: "btn btn-primary" %>
+    <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal, controller: 'bridge--button', bridge_title: t("shared.actions.create"), bridge_ios_image: 'plus.circle' }, class: "btn btn-primary hotwire-native:hidden" %>
   <% end %>
 
   <%= render TabsComponent.new(active_tab: active_tab, tabs:) %>
