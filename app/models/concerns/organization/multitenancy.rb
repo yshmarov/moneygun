@@ -13,7 +13,7 @@ module Organization::Multitenancy
   end
 
   def participant?(user)
-    users.include?(user)
+    memberships.exists?(user: user)
   end
 
   def pending_invitation_for(user)
