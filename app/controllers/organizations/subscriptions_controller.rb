@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Organizations::SubscriptionsController < Organizations::BaseController
+  skip_after_action :verify_authorized
   before_action :require_billing_enabled
   before_action :require_current_organization_admin
   before_action :sync_subscriptions, only: %i[checkout success]
