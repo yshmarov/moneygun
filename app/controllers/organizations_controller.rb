@@ -65,8 +65,6 @@ class OrganizationsController < ApplicationController
   end
 
   def pundit_user
-    return super if Current.membership.nil?
-
-    Current.membership
+    Current.membership || super
   end
 end
