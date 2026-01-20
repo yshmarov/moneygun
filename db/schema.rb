@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_20_150013) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_20_180729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -114,12 +114,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_150013) do
     t.datetime "created_at", null: false
     t.bigint "organization_id", null: false
     t.string "role", default: "member", null: false
+    t.datetime "suspended_at"
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["organization_id", "user_id"], name: "index_memberships_on_organization_id_and_user_id", unique: true
+    t.bigint "user_id"
+    t.index ["organization_id", "user_id"], name: "index_memberships_on_org_and_user_unique", unique: true, where: "(user_id IS NOT NULL)"
     t.index ["organization_id"], name: "index_memberships_on_organization_id"
     t.index ["role"], name: "index_memberships_on_role"
-    t.index ["user_id", "organization_id"], name: "index_memberships_on_user_id_and_organization_id", unique: true
+    t.index ["user_id", "organization_id"], name: "index_memberships_on_user_and_org_unique", unique: true, where: "(user_id IS NOT NULL)"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 

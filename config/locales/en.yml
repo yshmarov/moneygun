@@ -5,6 +5,7 @@ en:
       membership:
         email: Email
         role: Role
+        suspended_at: Suspended at
       organization:
         logo: Logo
         name: Name
@@ -75,6 +76,9 @@ en:
       updated: Your password has been changed successfully. You are now signed in.
       updated_not_active: Your password has been changed successfully.
     registrations:
+      destroy:
+        cannot_delete_active_subscription: Cannot delete account while you have organizations with active subscriptions. Cancel subscriptions first.
+        cannot_delete_owns_org: Cannot delete account while owning organizations with other members. Transfer ownership first.
       destroyed: Bye! Your account has been successfully cancelled. We hope to see you again soon.
       signed_up: Welcome! You have signed up successfully.
       signed_up_but_inactive: You have signed up successfully. However, we could not sign you in because your account is not yet activated.
@@ -188,6 +192,11 @@ en:
           base:
             cannot_change_role_if_only_admin: Role cannot be changed because this is the only admin.
             cannot_demote_owner_from_admin: Organization owner cannot be demoted from admin role.
+            cannot_suspend_only_admin: Cannot suspend the only admin of the organization.
+            cannot_suspend_owner: Organization owner cannot be suspended.
+      user:
+        cannot_delete_active_subscription: Cannot delete account while '%{org_name}' has an active subscription. Cancel the subscription first.
+        cannot_delete_owns_org_with_members: Cannot delete account while owning '%{org_name}' with other members. Transfer ownership first.
   invitations:
     accept:
       success: Invitation accepted
@@ -251,16 +260,27 @@ en:
       title: My organizations
     memberships:
       actions:
+        activate: Activate
         leave: Leave
         remove_member: Remove member
+        suspend: Suspend
+      activate:
+        success: Member activated
       destroy:
         failed_to_remove_user_from_organization: Failed to remove user from organization
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       index:
+        archived_member: Archived member
+        status: Status
         title: Members
+      status:
+        active: Active
+        suspended: Suspended
       new:
         title: Invite teammate
+      suspend:
+        success: Member suspended
       update:
         success: User updated
     new:

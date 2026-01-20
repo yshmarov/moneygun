@@ -28,6 +28,17 @@ class MembershipPolicy < ApplicationPolicy
     false
   end
 
+  def suspend?
+    return false unless membership&.admin?
+    return false if record.user_id == record.organization.owner_id # Cannot suspend owner
+
+    true
+  end
+
+  def activate?
+    membership&.admin?
+  end
+
   private
 
   def membership

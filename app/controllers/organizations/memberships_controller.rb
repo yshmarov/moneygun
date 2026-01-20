@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Organizations::MembershipsController < Organizations::BaseController
-  before_action :set_membership, only: %i[edit update destroy]
+  before_action :set_membership, only: %i[edit update destroy suspend activate]
 
   def index
     authorize Membership
@@ -32,6 +32,26 @@ class Organizations::MembershipsController < Organizations::BaseController
     else
       redirect_to organization_memberships_path(@organization), alert: t(".failed_to_remove_user_from_organization")
     end
+  end
+
+  def suspend
+    if @membership.suspend!
+      redirect_to organization_memberships_path(@organization), notice: t(".success")
+    else
+      redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
+    end
+  rescue ActiveRecord::RecordInvalid
+    redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
+  end
+
+  def activate
+    if @membership.activate!
+      redirect_to organization_memberships_path(@organization), notice: t(".success")
+    else
+      redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
+    end
+  rescue ActiveRecord::RecordInvalid
+    redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
   end
 
   private

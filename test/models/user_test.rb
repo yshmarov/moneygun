@@ -3,33 +3,58 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  # TODO: memberships with associated downstream records should not be deletable
-  test "destroying organization owner destroys organization" do
+  test "destroying organization owner with no other members destroys organization" do
+    users(:unassociated)
+    # Create a fresh user with a solo organization
+    new_user = User.create!(
+      email: "solo-owner@example.com",
+      password: "password123",
+      password_confirmation: "password123"
+    )
+    organization = new_user.owned_organizations.first
+    assert organization.present?
+    assert_equal 1, organization.memberships.count
+
+    assert_difference "Organization.count", -1 do
+      new_user.destroy
+    end
+  end
+
+  test "destroying organization owner with other members fails" do
     organization = organizations(:one)
     user = users(:one)
 
-    assert_difference "Organization.count", -1 do
-      assert_difference "Membership.count", -1 do
-        user.destroy
-      end
-    end
-
-    # TODO: this should not be a valid state!
-    assert organization.memberships.none?
-  end
-
-  test "destroying organization member (non-owner) does not destroy organization" do
-    organization = organizations(:one)
-    user = users(:unassociated)
-    organization.memberships.create!(user:, role: Membership.roles[:admin])
+    # Add another member
+    organization.memberships.create!(user: users(:two), role: Membership.roles[:member])
 
     assert_no_difference "Organization.count" do
-      assert_difference "Membership.count", -1 do
+      assert_no_difference "Membership.count" do
+        assert_not user.destroy
+      end
+    end
+
+    assert_includes user.errors[:base], I18n.t("errors.models.user.cannot_delete_owns_org_with_members", org_name: organization.name)
+  end
+
+  test "destroying organization member (non-owner) archives their membership" do
+    organization = organizations(:one)
+    user = users(:unassociated)
+    membership = organization.memberships.create!(user:, role: Membership.roles[:member])
+
+    # User also has their own default organization from creation
+    # We need to destroy that first or archive those memberships
+    user.owned_organizations.each(&:destroy!)
+
+    assert_no_difference "Organization.count" do
+      # Membership count stays the same because membership is archived (nullified), not destroyed
+      assert_no_difference "Membership.count" do
         user.destroy
       end
     end
 
-    assert organization.memberships.any?
+    membership.reload
+    assert_nil membership.user_id
+    assert membership.suspended?
   end
 
   test "from_omniauth returns existing user when connected account exists" do

@@ -7,7 +7,12 @@ end
 resources :organizations, path: I18n.t("routes.organizations") do
   scope module: :organizations do
     resource :transfer, only: %i[show update]
-    resources :memberships, except: %i[new create], path: I18n.t("routes.memberships")
+    resources :memberships, except: %i[new create], path: I18n.t("routes.memberships") do
+      member do
+        patch :suspend
+        patch :activate
+      end
+    end
     resources :sent_invitations, except: %i[edit update], path: "invitations"
     resources :received_join_requests, only: %i[index], path: "join-requests" do
       member do
