@@ -101,6 +101,12 @@ Use `before_action :require_subscription` for paywalled features.
 - Never query without organization scope
 - Use `ObfuscatesId` concern for public-facing IDs
 
+## Git Workflow
+
+- **Never commit directly to main/master** - always create a feature branch
+- **Always create a PR** for changes
+- **Do not merge PRs yourself** - wait for the user to review and merge
+
 ## AI Learnings
 
 ### Pundit Authorization
