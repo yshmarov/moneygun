@@ -13,4 +13,3 @@ pin "autonumeric", to: "https://ga.jspm.io/npm:autonumeric@4.6.0/dist/autoNumeri
 pin "@stimulus-components/animated-number", to: "@stimulus-components--animated-number.js", preload: false # @5.0.0
 pin "@stimulus-components/auto-submit", to: "@stimulus-components--auto-submit.js" # @6.0.0
 pin "local-time" # @3.0.3
-pin "@floating-ui/dom", to: "https://esm.sh/@floating-ui/dom@1.7.3", preload: false

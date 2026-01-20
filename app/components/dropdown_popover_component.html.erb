@@ -1,36 +1,18 @@
-<div
-  class="relative w-fit"
-  data-controller="dropdown-popover"
-  data-dropdown-popover-placement-value="<%= placement %>"
->
-  <button
+<div class="dropdown <%= position %>">
+  <div
+    tabindex="0"
+    role="button"
     class="<%= button_classes %>"
-    data-dropdown-popover-target="button"
-    data-action="dropdown-popover#toggle"
     aria-label="<%= aria_label %>"
     aria-haspopup="menu"
-    aria-expanded="<%= open %>"
   >
     <%= icon_content %>
-  </button>
-
-  <div
-    class="
-      z-10 w-max opacity-0 transition-opacity duration-150 ease-out pointer-events-none
-      data-[open]:opacity-100 data-[open]:pointer-events-auto
-    "
-    style="position: fixed; margin: 0;"
-    data-dropdown-popover-target="menu"
-    data-action="click@document->dropdown-popover#closeOnClickOutside"
-    <%= "data-open=\"true\"" if open %>
-    role="dialog"
-    aria-modal="false"
-  >
-    <ul
-      class="menu rounded-lg border border-base-300 bg-base-100 shadow-md p-1"
-      role="menu"
-    >
-      <%= content %>
-    </ul>
   </div>
+  <ul
+    tabindex="-1"
+    class="dropdown-content menu rounded-lg border border-base-300 bg-base-100 shadow-md z-10 w-max p-1"
+    role="menu"
+  >
+    <%= content %>
+  </ul>
 </div>

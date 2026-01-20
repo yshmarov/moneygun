@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
+# CSS-only dropdown using daisyUI classes
+# No JavaScript required - uses CSS :focus for open/close
 class DropdownPopoverComponent < ViewComponent::Base
-  def initialize(placement: "bottom-start top-start", button_class: nil, icon: nil, aria_label: "Open menu", open: false)
-    @placement = placement
+  def initialize(button_class: nil, icon: nil, aria_label: "Open menu", position: "dropdown-end")
     @button_class = button_class
     @icon = icon
     @aria_label = aria_label
-    @open = open
+    @position = position
   end
 
   private
 
-  attr_reader :placement, :button_class, :icon, :aria_label, :open
+  attr_reader :button_class, :icon, :aria_label, :position
 
   def default_button_class
     "btn btn-ghost btn-sm btn-circle"
