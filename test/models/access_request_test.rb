@@ -18,5 +18,4 @@ class AccessRequestTest < ActiveSupport::TestCase
     assert_includes pending_access_requests, access_requests(:invite_to_organization_two)
     assert_not_includes pending_access_requests, rejected_access_request
   end
-
 end
