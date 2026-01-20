@@ -19,17 +19,4 @@ class AccessRequestTest < ActiveSupport::TestCase
     assert_not_includes pending_access_requests, rejected_access_request
   end
 
-  test "approve" do
-    access_request = AccessRequest.new
-    assert_raises NotImplementedError do
-      access_request.approve!
-    end
-  end
-
-  test "reject" do
-    access_request = AccessRequest.new
-    assert_raises NotImplementedError do
-      access_request.reject!
-    end
-  end
 end

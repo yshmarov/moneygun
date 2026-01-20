@@ -12,11 +12,23 @@ class AccessRequest < ApplicationRecord
   validates :status, presence: true
   validates :user_id, uniqueness: { scope: :organization_id, message: :already_has_pending_request }
 
-  def approve!
-    raise NotImplementedError, "Subclasses must implement this method"
+  def approve!(completed_by: nil)
+    transaction do
+      update!(status: :approved, completed_by:)
+      organization.memberships.find_or_create_by!(user:)
+      after_approve
+    end
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
+    raise ActiveRecord::Rollback, e.message
   end
 
-  def reject!
-    raise NotImplementedError, "Subclasses must implement this method"
+  def reject!(completed_by: nil)
+    after_reject
+    destroy!
   end
+
+  private
+
+  def after_approve = nil
+  def after_reject = nil
 end
