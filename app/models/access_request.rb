@@ -22,7 +22,7 @@ class AccessRequest < ApplicationRecord
     raise ActiveRecord::Rollback, e.message
   end
 
-  def reject!(completed_by: nil)
+  def reject!(**)
     after_reject
     destroy!
   end
