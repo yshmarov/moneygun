@@ -19,10 +19,10 @@ module SubscriptionHelper
   end
 
   def plan_for(subscription)
-    StripePriceService.find(subscription.processor_plan)
+    StripePrice.find(subscription.processor_plan)
   end
 
   def plans
-    StripePriceService.all
+    StripePrice.all
   end
 end

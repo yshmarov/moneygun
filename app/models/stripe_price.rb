@@ -1,35 +1,44 @@
 # frozen_string_literal: true
 
-# Fetch and cache Stripe prices
-class StripePriceService
+# Plain Ruby object representing a Stripe price.
+# Not backed by a database - fetches from Stripe API with caching.
+class StripePrice
   CACHE_KEY = "stripe_prices"
   CACHE_EXPIRY = 10.minutes
 
+  attr_reader :id, :unit_amount, :currency, :interval, :product_id, :active, :nickname
+
+  def initialize(id:, unit_amount:, currency:, interval:, product_id:, active:, nickname:)
+    @id = id
+    @unit_amount = unit_amount
+    @currency = currency
+    @interval = interval
+    @product_id = product_id
+    @active = active
+    @nickname = nickname
+  end
+
+  def one_time?
+    interval == "one_time"
+  end
+
+  def recurring?
+    !one_time?
+  end
+
+  def [](key)
+    public_send(key)
+  end
+
   class << self
     def all
-      Rails.cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) do
-        fetch_cached_prices
-      end
+      Rails.cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) { fetch_all }
     end
 
     def find(price_id)
       return nil if price_id.blank?
 
-      # First check cached prices (from settings.yml)
-      cached_price = all.find { |price| price[:id] == price_id }
-      return cached_price if cached_price
-
-      # If not found in cache, fetch directly from Stripe
-      # This handles cases where a subscription exists but the plan was removed from settings.yml
-      fetch_price(price_id)
-    end
-
-    def one_time?(price_id)
-      find(price_id)&.dig(:interval) == "one_time"
-    end
-
-    def recurring?(price_id)
-      find(price_id)&.dig(:interval) != "one_time"
+      all.find { |price| price.id == price_id } || fetch_one(price_id)
     end
 
     def clear_cache
@@ -38,28 +47,28 @@ class StripePriceService
 
     private
 
-    def fetch_cached_prices
+    def fetch_all
       return [] unless stripe_configured?
 
       price_ids = configured_price_ids
       return [] if price_ids.empty?
 
-      prices = price_ids.filter_map { |price_id| fetch_price(price_id) }
-      sort_prices(prices)
+      prices = price_ids.filter_map { |id| fetch_one(id) }
+      prices.sort_by { |p| [p.interval == "year" ? 0 : 1, p.unit_amount] }
     end
 
-    def fetch_price(price_id)
+    def fetch_one(price_id)
       return nil unless stripe_configured?
 
       stripe_price = Stripe::Price.retrieve(price_id)
-      format_price(stripe_price)
+      from_stripe(stripe_price)
     rescue Stripe::StripeError => e
       Rails.logger.error("Failed to fetch Stripe price #{price_id}: #{e.message}")
       nil
     end
 
-    def format_price(stripe_price)
-      {
+    def from_stripe(stripe_price)
+      new(
         id: stripe_price.id,
         unit_amount: stripe_price.unit_amount,
         currency: stripe_price.currency.upcase,
@@ -67,11 +76,7 @@ class StripePriceService
         product_id: stripe_price.product,
         active: stripe_price.active,
         nickname: stripe_price.nickname
-      }
-    end
-
-    def sort_prices(prices)
-      prices.sort_by { |price| [price[:interval] == "year" ? 0 : 1, price[:unit_amount]] }
+      )
     end
 
     def configured_price_ids
