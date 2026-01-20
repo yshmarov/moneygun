@@ -9,7 +9,7 @@ shared:
   plan_price_ids:
     - price_1SYWIEGHcaLYld8I3aEP3Qpp
     - price_1SYWIdGHcaLYld8IFWrZkAho
-production:
-  plan_price_ids:
-    - price_1SYWIEGHcaLYld8I3aEP3Qpp
-    - price_1SYWIdGHcaLYld8IFWrZkAho
+# production:
+#   plan_price_ids:
+#     - price_1SYWIEGHcaLYld8I3aEP3Qpp
+#     - price_1SYWIdGHcaLYld8IFWrZkAho

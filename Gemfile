@@ -122,11 +122,8 @@ gem "stripe", "~> 13.0"
 gem "refer"
 gem "noticed"
 
-gem "ruby_llm", github: "crmne/ruby_llm", branch: "main"
-
 group :production do
   gem "aws-sdk-s3", "~> 1.205", require: false
 end
 
 gem "browser", "~> 6.2"
-gem "minitest", "~> 5.21"

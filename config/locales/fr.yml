@@ -45,10 +45,10 @@ fr:
     failure:
       already_authenticated: Vous êtes déjà connecté.
       inactive: Votre compte n'est pas encore activé.
-      invalid: '%{authentication_keys} ou mot de passe invalide.'
+      invalid: "%{authentication_keys} ou mot de passe invalide."
       last_attempt: Il vous reste une tentative avant que votre compte ne soit verrouillé.
       locked: Votre compte est verrouillé.
-      not_found_in_database: '%{authentication_keys} ou mot de passe invalide.'
+      not_found_in_database: "%{authentication_keys} ou mot de passe invalide."
       timeout: Votre session a expiré. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire avant de continuer.
       unconfirmed: Vous devez confirmer votre adresse e-mail avant de continuer.
@@ -104,7 +104,7 @@ fr:
           password_confirmation_label: Confirmez le nouveau mot de passe
           password_confirmation_placeholder: Confirmez le nouveau mot de passe
           password_label: Nouveau mot de passe
-          password_minimum: '(%{count} caractères minimum)'
+          password_minimum: "(%{count} caractères minimum)"
           password_placeholder: Entrez le nouveau mot de passe
           submit: Changer mon mot de passe
           title: Changer votre mot de passe
@@ -130,7 +130,7 @@ fr:
           password_confirmation_placeholder: Confirmez le nouveau mot de passe
           password_help: Laissez vide si vous ne souhaitez pas le changer
           password_label: Mot de passe
-          password_minimum: '%{count} caractères minimum'
+          password_minimum: "%{count} caractères minimum"
           password_placeholder: Nouveau mot de passe
           pending_confirmation: 'En attente de confirmation pour : %{email}'
           submit: Mettre à jour
@@ -141,7 +141,7 @@ fr:
           password_confirmation_label: Confirmation du mot de passe
           password_confirmation_placeholder: Confirmez votre mot de passe
           password_label: Mot de passe
-          password_minimum: '(%{count} caractères minimum)'
+          password_minimum: "(%{count} caractères minimum)"
           password_placeholder: Créer un mot de passe
           submit: S'inscrire
           title: S'inscrire
@@ -180,17 +180,8 @@ fr:
       not_found: non trouvé
       not_locked: n'était pas verrouillé
       not_saved:
-        one: "1 erreur a empêché ce %{resource} d'être enregistré :"
+        one: '1 erreur a empêché ce %{resource} d''être enregistré :'
         other: "%{count} erreurs ont empêché ce %{resource} d'être enregistré :"
-  invitations:
-    approve:
-      success: Invitation approuvée
-    errors:
-      not_found: Invitation non trouvée
-    index:
-      title: Invitations entrantes
-    reject:
-      success: Invitation rejetée
   membership_mailer:
     invitation_email:
       body: |
@@ -202,28 +193,15 @@ fr:
 
         Si vous avez des questions, veuillez contacter la personne qui vous a invité.
       someone: Quelqu'un
-      subject: '%{invitor_email} vous a invité à rejoindre %{organization_name}'
+      subject: "%{invitor_email} vous a invité à rejoindre %{organization_name}"
     request_accepted_email:
       subject: Bienvenue chez %{organization_name}
     request_rejected_email:
       subject: Mise à jour de la demande d'adhésion pour %{organization_name}
   membership_requests:
-    approve:
-      success: Demande d'adhésion approuvée
-    buttons:
-      approve: Approuver
-      reject: Rejeter
     errors:
       already_participant: Vous êtes déjà membre de cette organisation
       already_requested: Vous avez déjà demandé l'accès à cette organisation
-      not_found: Demande d'adhésion non trouvée
-    index:
-      title: "⬇️ Demandes d'adhésion entrantes"
-    reject:
-      success: Demande d'adhésion rejetée
-    success:
-      access_granted: Accès accordé
-      access_requested: Accès demandé
   notifiers:
     membership:
       invitation_notifier:
@@ -239,8 +217,6 @@ fr:
         notification:
           message: Votre demande d'adhésion a été refusée pour %{organization_name}
   organizations:
-    create:
-      success: Organisation créée
     dashboard:
       index:
         title: Tableau de bord
@@ -251,20 +227,8 @@ fr:
       success: Organisation détruite
     edit:
       title: Modifier l'organisation
-    errors:
-      not_found: Organisation non trouvée
     index:
       title: Mes organisations
-    invitations:
-      create:
-        success: '%{email} invité'
-      destroy:
-        success: Invitation annulée
-      errors:
-        not_found: Invitation non trouvée
-      index:
-        cancel_invitation: Annuler l'invitation
-        title: '⬆️ Invitations sortantes'
     memberships:
       actions:
         leave: Quitter
@@ -286,8 +250,6 @@ fr:
         success: Projet créé
       destroy:
         success: Projet détruit
-      index:
-        title: Projets
       update:
         success: Projet mis à jour
     show:
@@ -308,7 +270,7 @@ fr:
         title: Gérer l'abonnement
         you_will_lose_access_in: Vous perdrez l'accès dans %{distance_of_time_in_words}
       pricing:
-        cancel_security: '🛡️ Annulez à tout moment. Sécurisé par Stripe.'
+        cancel_security: "🛡️ Annulez à tout moment. Sécurisé par Stripe."
         current_plan: Plan actuel
         save_yearly: Meilleure valeur
         subscribe: Commencer
@@ -318,12 +280,10 @@ fr:
         title: Transférer la propriété
       update:
         success: Propriété transférée
-    update:
-      success: Organisation mise à jour
   public:
     organizations:
       index:
-        title: '🌎 Découvrir les organisations'
+        title: "🌎 Découvrir les organisations"
       show:
         actions:
           accept_invitation: Accepter l'invitation
@@ -342,8 +302,8 @@ fr:
   shared:
     actions:
       confirm: Êtes-vous sûr?
-      copied: '✅ Copié!'
-      copy: '📋 Copier'
+      copied: "✅ Copié!"
+      copy: "📋 Copier"
       create: Créer
       destroy: Détruire
       edit: Modifier
@@ -362,7 +322,6 @@ fr:
       logout: Se déconnecter
       organizations: Organisations
       register: Commencer
-      select_organization: Sélectionner l'organisation
   static:
     index:
       title: Bienvenue dans l'application !
@@ -378,7 +337,6 @@ fr:
     connected_accounts:
       connected_account:
         confirm_disconnect_message: Êtes-vous sûr de vouloir déconnecter ce compte ?
-        connected_time_ago: Connecté il y a %{time}
         disconnect_button: Déconnexion
       destroy:
         success: Compte déconnecté avec succès.
@@ -389,28 +347,9 @@ fr:
         no_accounts_connected: Vous n'avez pas encore connecté de comptes OAuth.
         title: Comptes connectés
         your_connected_accounts: Comptes connectés
-    invitations:
-      create:
-        success: Mot de passe défini avec succès ! Vous avez été connecté.
-      new:
-        invalid_token: Lien d'invitation invalide ou expiré.
-        submit: Définir le mot de passe et accepter l'invitation
-        title: Définir votre mot de passe
-    membership_requests:
-      destroy:
-        success: Demande d'adhésion révoquée
-      index:
-        title: "⬆️ Demandes d'adhésion sortantes"
     notifications:
       index:
         title: Notifications
-    organizations:
-      invitations:
-        index:
-          title: '⬇️ Invitations entrantes'
-      membership_requests:
-        destroy:
-          success: Demande d'adhésion révoquée
     referrals:
       index:
         clicks: Clics sur les liens
