@@ -21,20 +21,25 @@ class AccessRequest::UserRequestForOrganizationTest < ActiveSupport::TestCase
     assert_equal access_request.organization, notification.params[:organization]
   end
 
-  test "when rejected, updates the access request status and sends notification" do
+  test "when rejected, destroys the access request and sends notification" do
     access_request = access_requests(:membership_request_one)
+    access_request_id = access_request.id
+    user = access_request.user
+    organization = access_request.organization
 
-    assert_difference "Membership.count", 0 do
-      assert_difference "Noticed::Notification.count", 1 do
-        access_request.reject!(completed_by: users(:one))
+    assert_no_difference "Membership.count" do
+      assert_difference "AccessRequest.count", -1 do
+        assert_difference "Noticed::Notification.count", 1 do
+          access_request.reject!(completed_by: users(:one))
+        end
       end
     end
 
-    assert_equal "rejected", access_request.reload.status
+    assert_not AccessRequest.exists?(access_request_id)
 
     # Check that notification was sent to the correct user
-    notification = access_request.user.notifications.last
+    notification = user.notifications.last
     assert_equal "Membership::RequestRejectedNotifier::Notification", notification.type
-    assert_equal access_request.organization, notification.params[:organization]
+    assert_equal organization, notification.params[:organization]
   end
 end

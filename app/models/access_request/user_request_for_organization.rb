@@ -13,8 +13,8 @@ class AccessRequest::UserRequestForOrganization < AccessRequest
     raise ActiveRecord::Rollback, e.message
   end
 
-  def reject!(completed_by:)
-    update!(status: :rejected, completed_by:)
+  def reject!(completed_by:) # rubocop:disable Lint/UnusedMethodArgument
     Membership::RequestRejectedNotifier.with(organization: organization).deliver(user)
+    destroy!
   end
 end
