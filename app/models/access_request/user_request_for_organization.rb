@@ -1,20 +1,13 @@
 # frozen_string_literal: true
 
 class AccessRequest::UserRequestForOrganization < AccessRequest
-  validates :type, presence: true
+  private
 
-  def approve!(completed_by:)
-    transaction do
-      update!(status: :approved, completed_by:)
-      organization.memberships.find_or_create_by!(user: user)
-      Membership::RequestAcceptedNotifier.with(organization: organization).deliver(user)
-    end
-  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
-    raise ActiveRecord::Rollback, e.message
+  def after_approve
+    Membership::RequestAcceptedNotifier.with(organization:).deliver(user)
   end
 
-  def reject!(completed_by:) # rubocop:disable Lint/UnusedMethodArgument
-    Membership::RequestRejectedNotifier.with(organization: organization).deliver(user)
-    destroy!
+  def after_reject
+    Membership::RequestRejectedNotifier.with(organization:).deliver(user)
   end
 end
