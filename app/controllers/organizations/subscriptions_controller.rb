@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class Organizations::SubscriptionsController < Organizations::BaseController
-  skip_after_action :verify_authorized
   before_action :require_billing_enabled
-  before_action :require_current_organization_admin
   before_action :sync_subscriptions, only: %i[checkout success]
 
-  def index; end
+  def index
+    authorize :subscription
+  end
 
   def checkout
+    authorize :subscription
     price = Stripe::Price.retrieve(params[:price_id])
     return redirect_to organization_subscriptions_url(@organization) if price.nil?
 
@@ -36,10 +37,12 @@ class Organizations::SubscriptionsController < Organizations::BaseController
   end
 
   def success
+    authorize :subscription
     redirect_to organization_subscriptions_url(@organization)
   end
 
   def billing_portal
+    authorize :subscription
     @portal_session = @organization.payment_processor.billing_portal(
       return_url: organization_subscriptions_url(@organization)
     )
@@ -55,9 +58,5 @@ class Organizations::SubscriptionsController < Organizations::BaseController
 
   def require_billing_enabled
     redirect_to organization_url(@organization) if Rails.application.credentials.dig(:stripe, :private_key).blank?
-  end
-
-  def require_current_organization_admin
-    redirect_to organization_url(@organization) unless Current.membership.admin?
   end
 end
