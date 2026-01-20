@@ -27,12 +27,14 @@ class AccessRequest::InviteToOrganizationTest < ActiveSupport::TestCase
     assert_equal "approved", access_request.reload.status
   end
 
-  test "when rejected, updates the access request status" do
+  test "when rejected, destroys the access request" do
     access_request = access_requests(:invite_to_organization_one)
-    assert_difference "Membership.count", 0 do
-      access_request.reject!
+    assert_no_difference "Membership.count" do
+      assert_difference "AccessRequest.count", -1 do
+        access_request.reject!
+      end
     end
 
-    assert_equal "rejected", access_request.reload.status
+    assert_not AccessRequest.exists?(access_request.id)
   end
 end

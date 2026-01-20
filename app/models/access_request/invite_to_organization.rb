@@ -14,8 +14,8 @@ class AccessRequest::InviteToOrganization < AccessRequest
     raise ActiveRecord::Rollback, e.message
   end
 
-  def reject!(completed_by: user)
-    update!(status: :rejected, completed_by: completed_by)
+  def reject!(completed_by: user) # rubocop:disable Lint/UnusedMethodArgument
+    destroy!
   end
 
   private

@@ -29,13 +29,17 @@ class Users::Organizations::ReceivedInvitationsControllerTest < ActionDispatch::
   end
 
   test "should decline invitation" do
-    assert_difference "@unassociated_user.memberships.count", 0 do
-      patch decline_user_organizations_received_invitation_url(@invitation)
+    invitation_id = @invitation.id
+
+    assert_no_difference "@unassociated_user.memberships.count" do
+      assert_difference "AccessRequest.count", -1 do
+        patch decline_user_organizations_received_invitation_url(@invitation)
+      end
     end
 
     assert_redirected_to user_organizations_received_invitations_url
     assert_equal I18n.t("invitations.decline.success"), flash[:notice]
-    assert_equal "rejected", @invitation.reload.status
+    assert_not AccessRequest.exists?(invitation_id)
   end
 
   test "should not accept invitation if not signed in" do
