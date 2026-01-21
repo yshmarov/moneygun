@@ -23,7 +23,7 @@ class Users::Organizations::ReceivedInvitationsControllerTest < ActionDispatch::
       patch accept_user_organizations_received_invitation_url(@invitation)
     end
 
-    assert_redirected_to user_organizations_received_invitations_url
+    assert_redirected_to organization_dashboard_url(@invitation.organization)
     assert_equal I18n.t("invitations.accept.success"), flash[:notice]
     assert_equal "approved", @invitation.reload.status
   end

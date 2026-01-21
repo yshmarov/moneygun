@@ -9,7 +9,7 @@ class Users::Organizations::ReceivedInvitationsController < ApplicationControlle
 
   def accept
     @invitation.approve!
-    redirect_back_or_to(user_organizations_received_invitations_path, notice: t("invitations.accept.success"))
+    redirect_to organization_dashboard_path(@invitation.organization), notice: t("invitations.accept.success")
   end
 
   def decline
