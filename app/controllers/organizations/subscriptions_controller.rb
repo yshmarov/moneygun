@@ -23,9 +23,9 @@ class Organizations::SubscriptionsController < Organizations::BaseController
         price:,
         quantity: 1
       }],
-      allow_promotion_codes: true,
-      automatic_tax: { enabled: true },
-      tax_id_collection: { enabled: true },
+      # allow_promotion_codes: true,
+      # automatic_tax: { enabled: true },
+      # tax_id_collection: { enabled: true },
       # consent_collection: { terms_of_service: :required },
       customer_update: { address: :auto, name: :auto },
       success_url: organization_subscriptions_success_url(@organization),
