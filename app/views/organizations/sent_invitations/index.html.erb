@@ -3,33 +3,37 @@
 <%= render "organizations/memberships/tabs", active_tab: :invitations %>
 
 <%= render PageComponent.new do %>
-  <div class="table-responsive">
-    <table>
-      <thead>
-        <tr>
-          <th><%= AccessRequest.human_attribute_name(:user) %></th>
-          <th><%= AccessRequest.human_attribute_name(:created_at) %></th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody id="invitations">
-        <% @invitations.each do |invitation| %>
+  <% if @invitations.any? %>
+    <div class="table-responsive">
+      <table>
+        <thead>
           <tr>
-            <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
-              <div class="font-medium flex items-center gap-2"><%= user_avatar(invitation.user) %><%= invitation.user.email %></div>
-            </td>
-
-            <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"><%= l(invitation.created_at, format: :short) %></td>
-
-            <td>
-              <div class="flex items-center gap-2 justify-end">
-                <%= button_to t(".cancel_invitation"), organization_sent_invitation_path(@organization, invitation), method: :delete, class: "btn btn-sm btn-error" %>
-              </div>
-            </td>
+            <th><%= AccessRequest.human_attribute_name(:user) %></th>
+            <th><%= AccessRequest.human_attribute_name(:created_at) %></th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+
+        <tbody id="invitations">
+          <% @invitations.each do |invitation| %>
+            <tr>
+              <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
+                <div class="font-medium flex items-center gap-2"><%= user_avatar(invitation.user) %><%= invitation.user.email %></div>
+              </td>
+
+              <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"><%= l(invitation.created_at, format: :short) %></td>
+
+              <td>
+                <div class="flex items-center gap-2 justify-end">
+                  <%= button_to t(".cancel_invitation"), organization_sent_invitation_path(@organization, invitation), method: :delete, class: "btn btn-sm btn-error" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <%= render EmptyStateComponent.new %>
+  <% end %>
 <% end %>

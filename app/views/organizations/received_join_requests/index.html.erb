@@ -3,34 +3,38 @@
 <%= render "organizations/memberships/tabs", active_tab: :requests %>
 
 <%= render PageComponent.new do %>
-  <div class="table-responsive">
-    <table>
-      <thead>
-        <tr>
-          <th><%= AccessRequest.human_attribute_name(:user) %></th>
-          <th><%= AccessRequest.human_attribute_name(:created_at) %></th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody id="join_requests">
-        <% @join_requests.each do |join_request| %>
+  <% if @join_requests.any? %>
+    <div class="table-responsive">
+      <table>
+        <thead>
           <tr>
-            <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
-              <div class="font-medium flex items-center gap-2"><%= user_avatar(join_request.user) %><%= join_request.user.email %></div>
-            </td>
-
-            <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"><%= l(join_request.created_at, format: :short) %></td>
-
-            <td>
-              <div class="flex items-center justify-end gap-2">
-                <%= button_to t("join_requests.buttons.reject"), reject_organization_received_join_request_path(@organization, join_request), method: :post, class: "btn btn-sm btn-error" %>
-                <%= button_to t("join_requests.buttons.approve"), approve_organization_received_join_request_path(@organization, join_request), method: :post, class: "btn btn-sm btn-primary" %>
-              </div>
-            </td>
+            <th><%= AccessRequest.human_attribute_name(:user) %></th>
+            <th><%= AccessRequest.human_attribute_name(:created_at) %></th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+
+        <tbody id="join_requests">
+          <% @join_requests.each do |join_request| %>
+            <tr>
+              <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
+                <div class="font-medium flex items-center gap-2"><%= user_avatar(join_request.user) %><%= join_request.user.email %></div>
+              </td>
+
+              <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"><%= l(join_request.created_at, format: :short) %></td>
+
+              <td>
+                <div class="flex items-center justify-end gap-2">
+                  <%= button_to t("join_requests.buttons.reject"), reject_organization_received_join_request_path(@organization, join_request), method: :post, class: "btn btn-sm btn-error" %>
+                  <%= button_to t("join_requests.buttons.approve"), approve_organization_received_join_request_path(@organization, join_request), method: :post, class: "btn btn-sm btn-primary" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <%= render EmptyStateComponent.new %>
+  <% end %>
 <% end %>

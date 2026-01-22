@@ -19,68 +19,72 @@
     <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <% end %>
 
-  <div class="table-responsive">
-    <table>
-      <thead>
-        <tr>
-          <th><%= Project.human_attribute_name(:name) %></th>
-          <th><%= Project.human_attribute_name(:status) %></th>
-          <th><%= Project.human_attribute_name(:priority) %></th>
-          <th><%= Project.human_attribute_name(:category) %></th>
-          <th><%= Project.human_attribute_name(:start_date) %></th>
-          <th><%= Project.human_attribute_name(:scheduled_at) %></th>
-          <th><%= Project.human_attribute_name(:budget) %></th>
-          <th><%= Project.human_attribute_name(:is_active) %></th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody id="projects">
-        <% @projects.each do |project| %>
-          <tr
-            class="cursor-pointer"
-            data-controller="visitable"
-            data-action="click->visitable#visit"
-            data-url="<%= organization_project_path(@organization, project) %>"
-          >
-            <td data-label="<%= Project.human_attribute_name(:name) %>">
-              <%= project.name %>
-            </td>
-
-            <td data-label="<%= Project.human_attribute_name(:status) %>">
-              <%= project.status&.humanize %>
-            </td>
-
-            <td data-label="<%= Project.human_attribute_name(:priority) %>">
-              <%= project.priority&.humanize %>
-            </td>
-
-            <td data-label="<%= Project.human_attribute_name(:category) %>">
-              <%= project.category %>
-            </td>
-
-            <td data-label="<%= Project.human_attribute_name(:start_date) %>">
-              <%= project.start_date ? local_time(project.start_date, format: :short) : "-" %>
-            </td>
-
-            <td data-label="<%= Project.human_attribute_name(:scheduled_at) %>">
-              <%= project.scheduled_at ? local_time(project.scheduled_at, format: :short) : "-" %>
-            </td>
-
-            <td data-label="<%= Project.human_attribute_name(:budget) %>">
-              <%= project.budget ? number_to_currency(project.budget) : "-" %>
-            </td>
-
-            <td data-label="<%= Project.human_attribute_name(:is_active) %>">
-              <%= project.is_active? ? "Yes" : "No" %>
-            </td>
-
-            <td>
-              <%= link_to t("shared.actions.show"), [@organization, project], class: "btn btn-sm btn-secondary" %>
-            </td>
+  <% if @projects.any? %>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th><%= Project.human_attribute_name(:name) %></th>
+            <th><%= Project.human_attribute_name(:status) %></th>
+            <th><%= Project.human_attribute_name(:priority) %></th>
+            <th><%= Project.human_attribute_name(:category) %></th>
+            <th><%= Project.human_attribute_name(:start_date) %></th>
+            <th><%= Project.human_attribute_name(:scheduled_at) %></th>
+            <th><%= Project.human_attribute_name(:budget) %></th>
+            <th><%= Project.human_attribute_name(:is_active) %></th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+
+        <tbody id="projects">
+          <% @projects.each do |project| %>
+            <tr
+              class="cursor-pointer"
+              data-controller="visitable"
+              data-action="click->visitable#visit"
+              data-url="<%= organization_project_path(@organization, project) %>"
+            >
+              <td data-label="<%= Project.human_attribute_name(:name) %>">
+                <%= project.name %>
+              </td>
+
+              <td data-label="<%= Project.human_attribute_name(:status) %>">
+                <%= project.status&.humanize %>
+              </td>
+
+              <td data-label="<%= Project.human_attribute_name(:priority) %>">
+                <%= project.priority&.humanize %>
+              </td>
+
+              <td data-label="<%= Project.human_attribute_name(:category) %>">
+                <%= project.category %>
+              </td>
+
+              <td data-label="<%= Project.human_attribute_name(:start_date) %>">
+                <%= project.start_date ? local_time(project.start_date, format: :short) : "-" %>
+              </td>
+
+              <td data-label="<%= Project.human_attribute_name(:scheduled_at) %>">
+                <%= project.scheduled_at ? local_time(project.scheduled_at, format: :short) : "-" %>
+              </td>
+
+              <td data-label="<%= Project.human_attribute_name(:budget) %>">
+                <%= project.budget ? number_to_currency(project.budget) : "-" %>
+              </td>
+
+              <td data-label="<%= Project.human_attribute_name(:is_active) %>">
+                <%= project.is_active? ? "Yes" : "No" %>
+              </td>
+
+              <td>
+                <%= link_to t("shared.actions.show"), [@organization, project], class: "btn btn-sm btn-secondary" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <%= render EmptyStateComponent.new %>
+  <% end %>
 <% end %>

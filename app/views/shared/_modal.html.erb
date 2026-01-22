@@ -10,13 +10,14 @@
       class="modal <%= dialog_position %> backdrop-blur transition-none"
       data-controller="dialog"
       data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>"
+      aria-labelledby="modal-title"
     >
       <div class="modal-box gap-y-2 transition-none">
         <div class="flex items-center justify-between mb-4">
-          <div class="font-semibold text-2xl @3xl:text-3xl"><%= title %></div>
+          <div id="modal-title" class="font-semibold text-2xl @3xl:text-3xl"><%= title %></div>
 
           <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost">
+            <button class="btn btn-sm btn-circle btn-ghost" aria-label="Close dialog">
               <%= inline_svg_tag "svg/x-mark.svg", class: "size-4" %>
             </button>
           </form>

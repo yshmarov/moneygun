@@ -37,8 +37,8 @@
       <%# mobile - sidebar for switching between organizations %>
       <div class="<% if Current.organization %> lg:hidden <% end %>">
         <li>
-          <%= active_link_to organizations_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("shared.navigation.organizations"), active: :exact do %>
-            <%= inline_svg_tag "svg/compass.svg", class: "size-6 w-6 h-6" %>
+          <%= active_link_to organizations_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("shared.navigation.organizations"), active: :exact, "aria-label": t("shared.navigation.organizations") do %>
+            <%= inline_svg_tag "svg/compass.svg", class: "size-6 w-6 h-6", "aria-hidden": "true" %>
             <span class="[[data-expanded=false]_&]:hidden truncate min-w-0"><%= t("shared.navigation.organizations") %></span>
           <% end %>
 

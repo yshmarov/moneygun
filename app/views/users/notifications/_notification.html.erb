@@ -8,7 +8,7 @@
       <% if notification.respond_to?(:icon) && notification.icon.present? %>
         <%= notification.icon %>
       <% else %>
-        <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6 flex-shrink-0" %>
+        <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6 flex-shrink-0", "aria-hidden": "true" %>
       <% end %>
 
       <span class="text-sm text-base-content"><%= notification.message %></span>

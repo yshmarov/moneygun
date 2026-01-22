@@ -2,12 +2,12 @@
   <%# left %>
   <div class="flex items-center gap-2">
     <%# mobile sidebar toggle %>
-    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden"><%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %></label>
+    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden" aria-label="Toggle menu"><%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %></label>
 
     <%# select org dropdown %>
     <% if Current.organization %>
       <div class="lg:hidden dropdown dropdown-start group">
-        <div tabindex="0" role="button" class="btn btn-ghost">
+        <div tabindex="0" role="button" class="btn btn-ghost" aria-label="Select organization">
           <%= organization_avatar(Current.organization, classes: "size-6") %>
           <%= Current.organization.name.truncate(15) %>
           <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
@@ -39,7 +39,7 @@
 
     <%# notifications dropdown %>
     <div class="dropdown dropdown-end max-lg:hidden">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-label="Notifications">
         <%= render "users/notifications/notifications_count", unread: current_user.unseen_notifications_count %>
         <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6" %>
       </div>
