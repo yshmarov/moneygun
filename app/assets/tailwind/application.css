@@ -11,13 +11,108 @@
 
 @plugin "./daisyui.js" {
   themes:
-    corporate --default,
-    business --prefersdark;
+    linear-light --default,
+    linear-dark --prefersdark;
 }
 
-/* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
+/* Linear Light Theme - Clean, professional aesthetic inspired by Linear */
 @plugin "./daisyui-theme.js" {
-  /* custom theme here */
+  name: 'linear-light';
+  default: true;
+  color-scheme: light;
+
+  /* Base colors - clean white with cool gray tones */
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(96.5% 0.005 264);
+  --color-base-300: oklch(93% 0.008 264);
+  --color-base-content: oklch(22% 0.01 264);
+
+  /* Primary - Linear's signature indigo/purple */
+  --color-primary: oklch(55% 0.18 277);
+  --color-primary-content: oklch(100% 0 0);
+
+  /* Secondary - Neutral blue-gray */
+  --color-secondary: oklch(55% 0.03 264);
+  --color-secondary-content: oklch(100% 0 0);
+
+  /* Accent - Teal for highlights */
+  --color-accent: oklch(65% 0.15 180);
+  --color-accent-content: oklch(100% 0 0);
+
+  /* Neutral - Dark charcoal for contrast elements */
+  --color-neutral: oklch(25% 0.01 264);
+  --color-neutral-content: oklch(95% 0 0);
+
+  /* Functional colors */
+  --color-info: oklch(62% 0.15 245);
+  --color-info-content: oklch(100% 0 0);
+
+  --color-success: oklch(65% 0.2 145);
+  --color-success-content: oklch(100% 0 0);
+
+  --color-warning: oklch(75% 0.15 75);
+  --color-warning-content: oklch(25% 0.05 75);
+
+  --color-error: oklch(60% 0.2 25);
+  --color-error-content: oklch(100% 0 0);
+
+  /* Design tokens - polished, flat aesthetic */
+  --radius-selector: 0.375rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Linear Dark Theme - High contrast dark mode */
+@plugin "./daisyui-theme.js" {
+  name: 'linear-dark';
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Base colors - dark charcoal with better layer separation */
+  --color-base-100: oklch(21% 0.006 264);
+  --color-base-200: oklch(18% 0.005 264);
+  --color-base-300: oklch(15% 0.004 264);
+  --color-base-content: oklch(88% 0.008 264);
+
+  /* Primary - Brighter purple for dark mode visibility */
+  --color-primary: oklch(62% 0.18 277);
+  --color-primary-content: oklch(100% 0 0);
+
+  /* Secondary - Lighter blue-gray for dark mode */
+  --color-secondary: oklch(60% 0.03 264);
+  --color-secondary-content: oklch(100% 0 0);
+
+  /* Accent - Teal for highlights */
+  --color-accent: oklch(70% 0.15 180);
+  --color-accent-content: oklch(15% 0.05 180);
+
+  /* Neutral - Mid-gray for subtle contrast */
+  --color-neutral: oklch(35% 0.01 264);
+  --color-neutral-content: oklch(92% 0 0);
+
+  /* Functional colors - slightly brighter for dark mode */
+  --color-info: oklch(65% 0.15 245);
+  --color-info-content: oklch(100% 0 0);
+
+  --color-success: oklch(68% 0.2 145);
+  --color-success-content: oklch(100% 0 0);
+
+  --color-warning: oklch(78% 0.15 75);
+  --color-warning-content: oklch(20% 0.05 75);
+
+  --color-error: oklch(65% 0.2 25);
+  --color-error-content: oklch(100% 0 0);
+
+  /* Design tokens - polished, flat aesthetic */
+  --radius-selector: 0.375rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
 }
 
 /*
@@ -45,6 +140,47 @@
   button:not(:disabled),
   input[type='submit']:not(:disabled) {
     cursor: pointer;
+  }
+
+  /* Smooth transitions for interactive elements */
+  input,
+  textarea,
+  select,
+  button,
+  .btn,
+  .file-input {
+    transition: all 0.15s ease;
+  }
+
+  /* Enhanced focus states with primary color glow */
+  input:focus,
+  textarea:focus,
+  select:focus,
+  .file-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15);
+  }
+
+  /* Better input borders in dark mode */
+  [data-theme='linear-dark'] input,
+  [data-theme='linear-dark'] textarea,
+  [data-theme='linear-dark'] select,
+  [data-theme='linear-dark'] .file-input {
+    border-color: oklch(35% 0.01 264);
+  }
+
+  [data-theme='linear-dark'] input:hover,
+  [data-theme='linear-dark'] textarea:hover,
+  [data-theme='linear-dark'] select:hover,
+  [data-theme='linear-dark'] .file-input:hover {
+    border-color: oklch(42% 0.015 264);
+  }
+
+  /* Sidebar distinction */
+  .sidebar,
+  [data-sidebar] {
+    border-right: 1px solid oklch(from var(--color-base-content) l c h / 0.1);
   }
 }
 
