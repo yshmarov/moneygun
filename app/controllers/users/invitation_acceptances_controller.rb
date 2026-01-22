@@ -44,11 +44,6 @@ class Users::InvitationAcceptancesController < ApplicationController
     token = params[:invitation_token].to_s.presence || session[:invitation_token].to_s
     # Normalize token to prevent timing attacks
     @user = User.find_by(invitation_token: token) if token.present?
-    # Always check expiration to normalize timing
-    return unless @user&.invitation_created_at && @user.invitation_created_at < 7.days.ago
-
-    @user = nil
-    session.delete(:invitation_token) if @user.nil?
   end
 
   def ensure_valid_invitation
