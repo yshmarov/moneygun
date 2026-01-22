@@ -35,23 +35,11 @@ class Organizations::MembershipsController < Organizations::BaseController
   end
 
   def suspend
-    if @membership.suspend!
-      redirect_to organization_memberships_path(@organization), notice: t(".success")
-    else
-      redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
-    end
-  rescue ActiveRecord::RecordInvalid
-    redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
+    toggle_membership_status(:suspend!)
   end
 
   def activate
-    if @membership.activate!
-      redirect_to organization_memberships_path(@organization), notice: t(".success")
-    else
-      redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
-    end
-  rescue ActiveRecord::RecordInvalid
-    redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
+    toggle_membership_status(:activate!)
   end
 
   private
@@ -63,5 +51,12 @@ class Organizations::MembershipsController < Organizations::BaseController
 
   def membership_params
     params.expect(membership: [:role])
+  end
+
+  def toggle_membership_status(method)
+    @membership.public_send(method)
+    redirect_to organization_memberships_path(@organization), notice: t(".success")
+  rescue ActiveRecord::RecordInvalid
+    redirect_to organization_memberships_path(@organization), alert: @membership.errors.full_messages.join(", ")
   end
 end

@@ -32,10 +32,14 @@ class Membership < ApplicationRecord
   end
 
   def suspend!
+    return true if suspended?
+
     update!(suspended_at: Time.current)
   end
 
   def activate!
+    return true if active?
+
     update!(suspended_at: nil)
   end
 

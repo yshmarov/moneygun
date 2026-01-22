@@ -33,19 +33,17 @@ class Organizations::BaseController < ApplicationController
 
   def set_organization
     org_id = Organization.decode_id(params[:organization_id])
-    @organization = current_user.memberships.accessible
-                                .find_by!(organization_id: org_id)
-                                .organization
+    @current_membership = current_user.memberships.accessible
+                                      .includes(:organization)
+                                      .find_by!(organization_id: org_id)
+    @organization = @current_membership.organization
   rescue ActiveRecord::RecordNotFound
     redirect_to organizations_path, alert: t("shared.errors.not_authorized")
   end
 
   def set_current_membership
-    Current.membership = current_user.memberships.accessible.find_by(organization: @organization)
-    Current.organization = Current.membership&.organization
-    return if Current.membership&.accessible?
-
-    redirect_to organizations_path, alert: t("shared.errors.not_authorized")
+    Current.membership = @current_membership
+    Current.organization = @organization
   end
 
   def pundit_user

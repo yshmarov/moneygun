@@ -36,7 +36,10 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def activate?
-    membership&.admin?
+    return false unless membership&.admin?
+    return false if record.user_id == record.organization.owner_id # Cannot activate owner (already active by design)
+
+    true
   end
 
   private
