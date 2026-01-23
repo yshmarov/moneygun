@@ -8,8 +8,8 @@ module User::Multitenancy
     has_many :organizations, through: :memberships
     has_many :owned_organizations, class_name: "Organization", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
 
-    has_many :received_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
-    has_many :sent_join_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
+    has_many :received_invitations, class_name: "OrganizationInvitation", dependent: :destroy
+    has_many :sent_join_requests, class_name: "JoinRequest", dependent: :destroy
 
     after_create_commit :create_default_organization
   end

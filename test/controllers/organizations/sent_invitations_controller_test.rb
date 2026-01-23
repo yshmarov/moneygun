@@ -6,7 +6,7 @@ class Organizations::SentInvitationsControllerTest < ActionDispatch::Integration
   setup do
     @organization = organizations(:one)
     @user = users(:one)
-    @invitation = access_requests(:invite_to_organization_one)
+    @invitation = organization_invitations(:one)
     sign_in @user
   end
 
@@ -93,7 +93,7 @@ class Organizations::SentInvitationsControllerTest < ActionDispatch::Integration
 
     # success
     assert_difference("User.count") do
-      assert_difference("AccessRequest::InviteToOrganization.count") do
+      assert_difference("OrganizationInvitation.count") do
         post organization_sent_invitations_url(@organization), params: { membership_invitation: { email: } }
       end
     end
@@ -111,7 +111,7 @@ class Organizations::SentInvitationsControllerTest < ActionDispatch::Integration
   end
 
   test "#destroy removes invitation" do
-    assert_difference("AccessRequest.count", -1) do
+    assert_difference("OrganizationInvitation.count", -1) do
       delete organization_sent_invitation_url(@organization, @invitation)
     end
     assert_redirected_to organization_sent_invitations_path(@organization)

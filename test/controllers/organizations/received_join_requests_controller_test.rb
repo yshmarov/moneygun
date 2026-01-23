@@ -34,11 +34,11 @@ class Organizations::ReceivedJoinRequestsControllerTest < ActionDispatch::Integr
   end
 
   test "should approve join request for public organization" do
-    join_request = access_requests(:membership_request_one)
+    join_request = join_requests(:one)
     join_request.organization.update!(privacy_setting: :public)
 
     assert_difference "Membership.count", 1 do
-      assert_no_difference "AccessRequest.count" do
+      assert_no_difference "JoinRequest.count" do
         post approve_organization_received_join_request_url(@organization, join_request)
       end
     end
@@ -49,7 +49,7 @@ class Organizations::ReceivedJoinRequestsControllerTest < ActionDispatch::Integr
   end
 
   test "should approve join request for restricted organization" do
-    join_request = access_requests(:membership_request_one)
+    join_request = join_requests(:one)
     join_request.organization.update!(privacy_setting: :restricted)
 
     assert_difference "Membership.count", 1 do
@@ -62,16 +62,16 @@ class Organizations::ReceivedJoinRequestsControllerTest < ActionDispatch::Integr
   end
 
   test "should reject join request" do
-    join_request = access_requests(:membership_request_one)
+    join_request = join_requests(:one)
     join_request_id = join_request.id
 
     assert_no_difference "Membership.count" do
-      assert_difference "AccessRequest.count", -1 do
+      assert_difference "JoinRequest.count", -1 do
         post reject_organization_received_join_request_url(@organization, join_request)
       end
     end
 
-    assert_not AccessRequest.exists?(join_request_id)
+    assert_not JoinRequest.exists?(join_request_id)
     assert_redirected_to organization_received_join_requests_url(@organization)
     assert_equal I18n.t("join_requests.reject.success"), flash[:notice]
   end

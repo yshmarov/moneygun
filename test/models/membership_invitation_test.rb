@@ -19,7 +19,7 @@ class MembershipInvitationTest < ActiveSupport::TestCase
     )
     assert invitation.valid?
     assert_difference -> { User.count }, 1 do
-      assert_difference -> { AccessRequest::InviteToOrganization.count }, 1 do
+      assert_difference -> { OrganizationInvitation.count }, 1 do
         assert invitation.save
       end
     end

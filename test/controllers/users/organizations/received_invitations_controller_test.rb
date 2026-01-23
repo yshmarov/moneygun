@@ -4,7 +4,7 @@ require "test_helper"
 
 class Users::Organizations::ReceivedInvitationsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @invitation = access_requests(:invite_to_organization_one)
+    @invitation = organization_invitations(:one)
     @unassociated_user = users(:unassociated)
     sign_in @unassociated_user
   end
@@ -32,14 +32,14 @@ class Users::Organizations::ReceivedInvitationsControllerTest < ActionDispatch::
     invitation_id = @invitation.id
 
     assert_no_difference "@unassociated_user.memberships.count" do
-      assert_difference "AccessRequest.count", -1 do
+      assert_difference "OrganizationInvitation.count", -1 do
         patch decline_user_organizations_received_invitation_url(@invitation)
       end
     end
 
     assert_redirected_to user_organizations_received_invitations_url
     assert_equal I18n.t("invitations.decline.success"), flash[:notice]
-    assert_not AccessRequest.exists?(invitation_id)
+    assert_not OrganizationInvitation.exists?(invitation_id)
   end
 
   test "should not accept invitation if not signed in" do
@@ -55,7 +55,7 @@ class Users::Organizations::ReceivedInvitationsControllerTest < ActionDispatch::
   end
 
   test "should return 404 when accepting another user's invitation" do
-    other_user_invitation = access_requests(:invite_to_organization_two)
+    other_user_invitation = organization_invitations(:two)
 
     patch accept_user_organizations_received_invitation_url(other_user_invitation)
 
@@ -63,7 +63,7 @@ class Users::Organizations::ReceivedInvitationsControllerTest < ActionDispatch::
   end
 
   test "should return 404 when declining another user's invitation" do
-    other_user_invitation = access_requests(:invite_to_organization_two)
+    other_user_invitation = organization_invitations(:two)
 
     patch decline_user_organizations_received_invitation_url(other_user_invitation)
 

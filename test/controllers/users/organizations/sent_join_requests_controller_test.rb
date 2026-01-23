@@ -35,7 +35,7 @@ class Users::Organizations::SentJoinRequestsControllerTest < ActionDispatch::Int
 
     sign_in user
 
-    assert_difference "AccessRequest::UserRequestForOrganization.count", 1 do
+    assert_difference "JoinRequest.count", 1 do
       post user_organizations_sent_join_requests_url(organization_id: requested_organization.id)
     end
 
@@ -93,7 +93,7 @@ class Users::Organizations::SentJoinRequestsControllerTest < ActionDispatch::Int
 
     assert_equal 1, user.reload.sent_join_requests.pending.count
 
-    assert_difference "AccessRequest::UserRequestForOrganization.count", -1 do
+    assert_difference "JoinRequest.count", -1 do
       delete user_organizations_sent_join_request_path(user.reload.sent_join_requests.pending.first)
       assert_response :redirect
       assert_equal I18n.t("users.organizations.sent_join_requests.destroy.success"), flash[:notice]

@@ -10,46 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_20_150013) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_23_000004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
-  create_table "access_requests", force: :cascade do |t|
-    t.bigint "completed_by"
-    t.datetime "created_at", null: false
-    t.bigint "organization_id", null: false
-    t.string "status", default: "pending", null: false
-    t.string "type"
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["organization_id"], name: "index_access_requests_on_organization_id"
-    t.index ["user_id", "organization_id"], name: "index_access_requests_on_user_id_and_organization_id", unique: true
-    t.index ["user_id"], name: "index_access_requests_on_user_id"
-  end
-
-  create_table "active_analytics_browsers_per_days", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.date "date", null: false
-    t.string "name", null: false
-    t.string "site", null: false
-    t.bigint "total", default: 1, null: false
-    t.datetime "updated_at", null: false
-    t.string "version", null: false
-    t.index ["date", "site", "name", "version"], name: "idx_on_date_site_name_version_eeccd0371c"
-  end
-
-  create_table "active_analytics_views_per_days", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
-    t.date "date", null: false
-    t.string "page", null: false
-    t.string "referrer_host"
-    t.string "referrer_path"
-    t.string "site", null: false
-    t.bigint "total", default: 1, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["date", "site", "page"], name: "index_active_analytics_views_per_days_on_date_and_site_and_page"
-    t.index ["date", "site", "referrer_host", "referrer_path"], name: "index_views_per_days_on_date_site_referrer_host_referrer_path"
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -145,6 +108,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_150013) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
     t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
+  end
+
+  create_table "join_requests", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "completed_by_id"
+    t.string "status", null: false, default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_join_requests_on_organization_id"
+    t.index ["user_id"], name: "index_join_requests_on_user_id"
+    t.index ["user_id", "organization_id"], name: "index_join_requests_on_user_id_and_organization_id", unique: true
+    t.index ["completed_by_id"], name: "index_join_requests_on_completed_by_id"
+  end
+
+  create_table "organization_invitations", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.string "status", null: false, default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_organization_invitations_on_organization_id"
+    t.index ["user_id"], name: "index_organization_invitations_on_user_id"
+    t.index ["user_id", "organization_id"], name: "index_organization_invitations_on_user_id_and_organization_id", unique: true
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -481,13 +468,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_150013) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "access_requests", "organizations"
-  add_foreign_key "access_requests", "users"
-  add_foreign_key "access_requests", "users", column: "completed_by"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "join_requests", "organizations"
+  add_foreign_key "join_requests", "users"
+  add_foreign_key "join_requests", "users", column: "completed_by_id"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "organization_invitations", "organizations"
+  add_foreign_key "organization_invitations", "users"
   add_foreign_key "organizations", "users", column: "owner_id"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"

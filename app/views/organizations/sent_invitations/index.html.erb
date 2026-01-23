@@ -8,8 +8,8 @@
       <table>
         <thead>
           <tr>
-            <th><%= AccessRequest.human_attribute_name(:user) %></th>
-            <th><%= AccessRequest.human_attribute_name(:created_at) %></th>
+            <th><%= OrganizationInvitation.human_attribute_name(:user) %></th>
+            <th><%= OrganizationInvitation.human_attribute_name(:created_at) %></th>
             <th></th>
           </tr>
         </thead>
@@ -17,11 +17,11 @@
         <tbody id="invitations">
           <% @invitations.each do |invitation| %>
             <tr>
-              <td data-label="<%= AccessRequest.human_attribute_name(:user) %>">
+              <td data-label="<%= OrganizationInvitation.human_attribute_name(:user) %>">
                 <div class="font-medium flex items-center gap-2"><%= user_avatar(invitation.user) %><%= invitation.user.email %></div>
               </td>
 
-              <td data-label="<%= AccessRequest.human_attribute_name(:created_at) %>"><%= l(invitation.created_at, format: :short) %></td>
+              <td data-label="<%= OrganizationInvitation.human_attribute_name(:created_at) %>"><%= l(invitation.created_at, format: :short) %></td>
 
               <td>
                 <div class="flex items-center gap-2 justify-end">

@@ -6,8 +6,8 @@ module Organization::Multitenancy
   included do
     has_many :memberships, dependent: :destroy
     has_many :users, through: :memberships
-    has_many :sent_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
-    has_many :received_join_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
+    has_many :sent_invitations, class_name: "OrganizationInvitation", dependent: :destroy
+    has_many :received_join_requests, class_name: "JoinRequest", dependent: :destroy
 
     after_create :create_owner_membership
   end
