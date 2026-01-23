@@ -3,7 +3,6 @@
 authenticate :user, ->(user) { user.admin? } do
   mount_avo
   mount MissionControl::Jobs::Engine, at: "/jobs"
-  mount ActiveAnalytics::Engine, at: "analytics"
   mount ActiveStorageDashboard::Engine, at: "/active_storage_dashboard"
   mount Flipper::UI.app(Flipper) => "/feature_flags"
   mount Allgood::Engine => "/healthcheck"

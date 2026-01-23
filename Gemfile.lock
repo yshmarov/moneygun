@@ -77,9 +77,6 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    active_analytics (0.4.1)
-      browser (>= 1.0.0)
-      rails (>= 5.2.0)
     active_link_to (1.0.5)
       actionpack
       addressable
@@ -646,7 +643,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  active_analytics
   active_link_to (~> 1.0)
   active_storage_dashboard
   active_storage_validations

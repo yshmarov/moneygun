@@ -109,7 +109,6 @@ group :avo, optional: true do
     gem "avo-pro"
   end
 end
-gem "active_analytics"
 # feature flags
 gem "flipper-active_record"
 gem "flipper-ui"
