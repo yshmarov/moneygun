@@ -2,4 +2,6 @@
 
 <%= render PageComponent.new(full_width: false) do %>
   <%= render "shared/user_info", user: @user %>
+
+  <div class="menu menu-xl w-full"><%= render "shared/user_links", user: @user %></div>
 <% end %>

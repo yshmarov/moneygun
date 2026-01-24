@@ -1,5 +1,7 @@
 <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/globe-europe-africa.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
 
+<%= nav_link t("users.notifications.index.title"), user_notifications_path, icon: "svg/bell.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]] %>
+
 <%= nav_link t("users.referrals.index.title"), user_referrals_path, icon: "🎁", badge: "New" %>
 
 <%= nav_link t("users.connected_accounts.index.title"), user_connected_accounts_path, icon: "🔗" if Rails.application.config.omniauth_providers.any? %>

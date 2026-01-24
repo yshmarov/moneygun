@@ -350,6 +350,7 @@ en:
       login: Existing members
       logout: Sign out
       organizations: Organizations
+      profile: Profile
       register: Sign up
     sidebar:
       search: Search... ⌘K

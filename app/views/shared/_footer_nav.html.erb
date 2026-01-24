@@ -20,4 +20,9 @@
     <%= inline_svg_tag "svg/bell.svg", class: "size-[1.2em]", "aria-hidden": "true" %>
     <span class="dock-label"><%= t("users.notifications.index.title") %></span>
   <% end %>
+
+  <%= active_link_to user_path, class_active: "dock-active", "aria-label": t("shared.navigation.profile") do %>
+    <%= user_avatar(current_user, classes: "size-[1.2em]") %>
+    <span class="dock-label"><%= t("shared.navigation.profile") %></span>
+  <% end %>
 </nav>
