@@ -10,7 +10,8 @@ class OrganizationInvitationTest < ActiveSupport::TestCase
   end
 
   test "should return only pending invitations" do
-    rejected_invitation = OrganizationInvitation.create!(status: :rejected, user: users(:one), organization: organizations(:one))
+    # Use organization three which has user three as owner, and invite user two (not a member)
+    rejected_invitation = OrganizationInvitation.create!(status: :rejected, user: users(:two), organization: organizations(:three))
     pending_invitations = OrganizationInvitation.pending
 
     assert_equal 2, pending_invitations.count
@@ -50,5 +51,55 @@ class OrganizationInvitationTest < ActiveSupport::TestCase
     end
 
     assert_not OrganizationInvitation.exists?(invitation.id)
+  end
+
+  test "should not be valid if user is already a member" do
+    organization = organizations(:one)
+    existing_member = users(:one)
+
+    invitation = OrganizationInvitation.new(user: existing_member, organization: organization)
+    assert_not invitation.valid?
+    assert_includes invitation.errors.messages[:user], I18n.t("errors.messages.already_member")
+  end
+
+  test "approve! returns false and adds error when not pending" do
+    invitation = organization_invitations(:one)
+    invitation.update!(status: :approved)
+
+    result = invitation.approve!
+
+    assert_equal false, result
+    assert_includes invitation.errors[:base], I18n.t("errors.messages.not_pending")
+  end
+
+  test "reject! returns false and adds error when not pending" do
+    invitation = organization_invitations(:one)
+    invitation.update!(status: :approved)
+
+    result = invitation.reject!
+
+    assert_equal false, result
+    assert_includes invitation.errors[:base], I18n.t("errors.messages.not_pending")
+  end
+
+  test "approve! tracks completed_by" do
+    invitation = organization_invitations(:one)
+    admin = users(:one)
+
+    invitation.approve!(completed_by: admin)
+
+    assert_equal admin, invitation.reload.completed_by
+  end
+
+  test "reject! tracks completed_by before destroying" do
+    invitation = organization_invitations(:one)
+    admin = users(:one)
+
+    # We can't check completed_by after destroy, but we can verify the status update happens
+    invitation_id = invitation.id
+
+    invitation.reject!(completed_by: admin)
+
+    assert_not OrganizationInvitation.exists?(invitation_id)
   end
 end

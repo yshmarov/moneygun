@@ -8,13 +8,19 @@ class Users::Organizations::ReceivedInvitationsController < ApplicationControlle
   end
 
   def accept
-    @invitation.approve!
-    redirect_to organization_dashboard_path(@invitation.organization), notice: t("invitations.accept.success")
+    if @invitation.approve!(completed_by: current_user)
+      redirect_to organization_dashboard_path(@invitation.organization), notice: t("invitations.accept.success")
+    else
+      redirect_to user_organizations_received_invitations_path, alert: @invitation.errors.full_messages.to_sentence
+    end
   end
 
   def decline
-    @invitation.reject!
-    redirect_back_or_to(user_organizations_received_invitations_path, notice: t("invitations.decline.success"))
+    if @invitation.reject!(completed_by: current_user)
+      redirect_back_or_to(user_organizations_received_invitations_path, notice: t("invitations.decline.success"))
+    else
+      redirect_to user_organizations_received_invitations_path, alert: @invitation.errors.full_messages.to_sentence
+    end
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_23_000004) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_23_131327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -73,6 +73,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_23_000004) do
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
+  create_table "join_requests", force: :cascade do |t|
+    t.bigint "completed_by_id"
+    t.datetime "created_at", null: false
+    t.bigint "organization_id", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["completed_by_id"], name: "index_join_requests_on_completed_by_id"
+    t.index ["organization_id"], name: "index_join_requests_on_organization_id"
+    t.index ["user_id", "organization_id"], name: "index_join_requests_on_user_id_and_organization_id", unique: true
+    t.index ["user_id"], name: "index_join_requests_on_user_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "organization_id", null: false
@@ -110,28 +123,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_23_000004) do
     t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
-  create_table "join_requests", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "completed_by_id"
-    t.string "status", null: false, default: "pending"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_join_requests_on_organization_id"
-    t.index ["user_id"], name: "index_join_requests_on_user_id"
-    t.index ["user_id", "organization_id"], name: "index_join_requests_on_user_id_and_organization_id", unique: true
-    t.index ["completed_by_id"], name: "index_join_requests_on_completed_by_id"
-  end
-
   create_table "organization_invitations", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.bigint "user_id", null: false
-    t.string "status", null: false, default: "pending"
+    t.bigint "completed_by_id"
     t.datetime "created_at", null: false
+    t.bigint "organization_id", null: false
+    t.string "status", default: "pending", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["completed_by_id"], name: "index_organization_invitations_on_completed_by_id"
     t.index ["organization_id"], name: "index_organization_invitations_on_organization_id"
-    t.index ["user_id"], name: "index_organization_invitations_on_user_id"
     t.index ["user_id", "organization_id"], name: "index_organization_invitations_on_user_id_and_organization_id", unique: true
+    t.index ["user_id"], name: "index_organization_invitations_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -477,6 +479,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_23_000004) do
   add_foreign_key "memberships", "users"
   add_foreign_key "organization_invitations", "organizations"
   add_foreign_key "organization_invitations", "users"
+  add_foreign_key "organization_invitations", "users", column: "completed_by_id"
   add_foreign_key "organizations", "users", column: "owner_id"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"

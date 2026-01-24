@@ -175,10 +175,12 @@ fr:
     messages:
       already_confirmed: a déjà été confirmé, veuillez essayer de vous connecter
       already_has_pending_request: a déjà une demande en attente
+      already_member: est déjà membre de cette organisation
       confirmation_period_expired: doit être confirmé dans %{period}, veuillez en demander un nouveau
       expired: a expiré, veuillez en demander un nouveau
       not_found: non trouvé
       not_locked: n'était pas verrouillé
+      not_pending: ne peut être traité que lorsqu'il est en attente
       not_saved:
         one: '1 erreur a empêché ce %{resource} d''être enregistré :'
         other: "%{count} erreurs ont empêché ce %{resource} d'être enregistré :"
@@ -207,6 +209,9 @@ fr:
       invitation_notifier:
         notification:
           message: Vous avez été invité à rejoindre %{organization_name}
+      join_request_notifier:
+        notification:
+          message: "%{user_email} a demandé à rejoindre %{organization_name}"
       removal_notifier:
         notification:
           message: Vous avez été retiré de %{organization_name}

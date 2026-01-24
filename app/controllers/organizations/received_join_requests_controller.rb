@@ -10,14 +10,20 @@ class Organizations::ReceivedJoinRequestsController < Organizations::BaseControl
 
   def approve
     authorize Membership, :create?
-    @join_request.approve!(completed_by: current_user)
-    redirect_to organization_received_join_requests_path(@organization), notice: t("join_requests.approve.success")
+    if @join_request.approve!(completed_by: current_user)
+      redirect_to organization_received_join_requests_path(@organization), notice: t("join_requests.approve.success")
+    else
+      redirect_to organization_received_join_requests_path(@organization), alert: @join_request.errors.full_messages.to_sentence
+    end
   end
 
   def reject
     authorize Membership, :create?
-    @join_request.reject!(completed_by: current_user)
-    redirect_to organization_received_join_requests_path(@organization), notice: t("join_requests.reject.success")
+    if @join_request.reject!(completed_by: current_user)
+      redirect_to organization_received_join_requests_path(@organization), notice: t("join_requests.reject.success")
+    else
+      redirect_to organization_received_join_requests_path(@organization), alert: @join_request.errors.full_messages.to_sentence
+    end
   end
 
   private

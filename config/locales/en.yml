@@ -175,10 +175,12 @@ en:
     messages:
       already_confirmed: was already confirmed, please try signing in
       already_has_pending_request: already has a pending request
+      already_member: is already a member of this organization
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       expired: has expired, please request a new one
       not_found: not found
       not_locked: was not locked
+      not_pending: can only be processed when pending
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
@@ -227,6 +229,9 @@ en:
       invitation_notifier:
         notification:
           message: You've been invited to join %{organization_name}
+      join_request_notifier:
+        notification:
+          message: "%{user_email} requested to join %{organization_name}"
       removal_notifier:
         notification:
           message: You have been removed from %{organization_name}

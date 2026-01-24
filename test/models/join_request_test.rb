@@ -10,7 +10,8 @@ class JoinRequestTest < ActiveSupport::TestCase
   end
 
   test "should return only pending join requests" do
-    rejected_request = JoinRequest.create!(status: :rejected, user: users(:one), organization: organizations(:one))
+    # Use organization three which has user three as owner, and create request from user two (not a member)
+    rejected_request = JoinRequest.create!(status: :rejected, user: users(:two), organization: organizations(:three))
     pending_requests = JoinRequest.pending
 
     assert_equal 1, pending_requests.count
@@ -54,5 +55,59 @@ class JoinRequestTest < ActiveSupport::TestCase
     notification = user.notifications.last
     assert_equal "Membership::RequestRejectedNotifier::Notification", notification.type
     assert_equal organization, notification.params[:organization]
+  end
+
+  test "should not be valid if user is already a member" do
+    organization = organizations(:one)
+    existing_member = users(:one)
+
+    join_request = JoinRequest.new(user: existing_member, organization: organization)
+    assert_not join_request.valid?
+    assert_includes join_request.errors.messages[:user], I18n.t("errors.messages.already_member")
+  end
+
+  test "approve! returns false and adds error when not pending" do
+    join_request = join_requests(:one)
+    join_request.update!(status: :approved)
+
+    result = join_request.approve!
+
+    assert_equal false, result
+    assert_includes join_request.errors[:base], I18n.t("errors.messages.not_pending")
+  end
+
+  test "reject! returns false and adds error when not pending" do
+    join_request = join_requests(:one)
+    join_request.update!(status: :approved)
+
+    result = join_request.reject!
+
+    assert_equal false, result
+    assert_includes join_request.errors[:base], I18n.t("errors.messages.not_pending")
+  end
+
+  test "approve! tracks completed_by" do
+    join_request = join_requests(:one)
+    admin = users(:one)
+
+    join_request.approve!(completed_by: admin)
+
+    assert_equal admin, join_request.reload.completed_by
+  end
+
+  test "when created, notifies organization admins" do
+    organization = organizations(:one)
+    user = users(:unassociated)
+    admin = users(:one)
+
+    # Organization one has users(:one) as admin
+    assert_difference "Noticed::Notification.count", 1 do
+      JoinRequest.create!(user: user, organization: organization)
+    end
+
+    notification = admin.notifications.last
+    assert_equal "Membership::JoinRequestNotifier::Notification", notification.type
+    assert_equal organization, notification.params[:organization]
+    assert_equal user, notification.params[:user]
   end
 end
