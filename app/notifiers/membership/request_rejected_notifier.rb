@@ -18,7 +18,7 @@ class Membership::RequestRejectedNotifier < Noticed::Event
     end
 
     def url
-      public_organizations_url
+      organizations_url
     end
 
     def icon

@@ -12,9 +12,9 @@ class Users::Organizations::SentJoinRequestsController < ApplicationController
 
     if join_request.save
       notice = @organization.privacy_setting_public? ? t("join_requests.success.access_granted") : t("join_requests.success.access_requested")
-      redirect_to public_organization_path(@organization), notice: notice
+      redirect_to organization_path(@organization), notice: notice
     else
-      redirect_to public_organization_path(@organization), alert: join_request.errors.full_messages.join(", ")
+      redirect_to organization_path(@organization), alert: join_request.errors.full_messages.join(", ")
     end
   end
 

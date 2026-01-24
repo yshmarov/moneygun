@@ -9,7 +9,7 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
 
     sign_in users(:one)
     get root_url
-    assert_redirected_to organizations_path
+    assert_redirected_to user_organizations_path
   end
 
   test "should get pricing" do

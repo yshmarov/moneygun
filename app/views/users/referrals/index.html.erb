@@ -2,8 +2,7 @@
   <div
     data-controller="clipboard"
     data-clipboard-success-content-value="<%= t("shared.actions.copied") %>"
-    class="flex items-center gap-2"
-  >
+    class="flex items-center gap-2">
     <label class="floating-label w-full">
       <%= text_field_tag nil, root_url(Refer.param_name => @referral_code.code), readonly: true, data: { clipboard_target: "source" }, class: "input w-full", placeholder: " " %>
       <span><%= t(".referral_link_label") %></span>
@@ -13,8 +12,7 @@
       type="button"
       data-action="clipboard#copy"
       data-clipboard-target="button"
-      class="btn btn-neutral"
-    >
+      class="btn btn-neutral">
       <%= t("shared.actions.copy") %>
     </button>
   </div>
@@ -82,8 +80,7 @@
       class="
         text-center py-16 text-base-content/50 bg-base-200 rounded-2xl
         border border-base-content/2
-      "
-    >
+      ">
       <%= t(".table.no_referrals") %>
     </div>
   <% end %>

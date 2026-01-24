@@ -21,11 +21,11 @@
 
               <ul>
                 <% pending_requests_count = Current.organization.received_join_requests.pending.count %>
-                <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (pending_requests_count.positive? ? pending_requests_count : nil), active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
+                <%= nav_link t("user.organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (pending_requests_count.positive? ? pending_requests_count : nil), active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
 
                 <% if Current.membership.admin? %>
-                  <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
-                  <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+                  <%= nav_link t("user.organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
+                  <%= nav_link t("user.organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
                 <% end %>
               </ul>
             </details>
@@ -37,14 +37,14 @@
       <%# mobile - sidebar for switching between organizations %>
       <div class="<% if Current.organization %> lg:hidden <% end %>">
         <li>
-          <%= active_link_to organizations_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("shared.navigation.organizations"), active: :exact, "aria-label": t("shared.navigation.organizations") do %>
+          <%= active_link_to user_organizations_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("shared.navigation.organizations"), active: :exact, "aria-label": t("shared.navigation.organizations") do %>
             <%= inline_svg_tag "svg/compass.svg", class: "size-6 w-6 h-6", "aria-hidden": "true" %>
             <span class="[[data-expanded=false]_&]:hidden truncate min-w-0"><%= t("shared.navigation.organizations") %></span>
           <% end %>
 
           <ul>
             <% Current.organizations&.each do |organization| %>
-              <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
+              <%= nav_link organization.name, organization_dashboard_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
             <% end %>
           </ul>
         </li>

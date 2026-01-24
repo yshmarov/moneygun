@@ -17,8 +17,7 @@
             class="cursor-pointer"
             data-controller="visitable"
             data-action="click->visitable#visit"
-            data-url="<%= organization.participant?(current_user) ? organization_path(organization) : public_organization_path(organization) %>"
-          >
+            data-url="<%= organization.participant?(current_user) ? organization_dashboard_path(organization) : organization_path(organization) %>">
             <td>
               <div class="flex items-center gap-2">
                 <%= organization_avatar(organization) %>
@@ -35,16 +34,15 @@
               </span>
             </td>
 
-            <td><%= render "organizations/users_list", organization: %></td>
+            <td><%= render "user/organizations/users_list", organization: %></td>
 
             <td
-              data-label="<%= Organization.human_attribute_name(:created_at) %>"
-            >
+              data-label="<%= Organization.human_attribute_name(:created_at) %>">
               <%= organization.created_at.strftime("%B %d, %Y") %>
             </td>
 
             <td>
-              <%= render "organizations/membership_actions", organization: organization %>
+              <%= render "user/organizations/membership_actions", organization: organization %>
             </td>
           </tr>
         <% end %>

@@ -1,13 +1,13 @@
 <% tabs = [
      {
        key: :my_organizations,
-       path: organizations_path,
-       label: t("organizations.index.title")
+       path: user_organizations_path,
+       label: t("user.organizations.index.title")
      },
      {
        key: :browse_organizations,
-       path: public_organizations_path,
-       label: t("public.organizations.index.title")
+       path: organizations_path,
+       label: t("organizations.index.title")
      },
      {
        key: :invitations,
@@ -25,7 +25,7 @@
 
 <%= render PageComponent.new(title: t("shared.navigation.organizations")) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal }, class: "btn btn-primary" %>
+    <%= link_to t("shared.actions.create"), new_user_organization_path, data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <% end %>
 
   <%= render TabsComponent.new(active_tab: active_tab, tabs:) %>

@@ -242,29 +242,15 @@ en:
         title: Dashboard
       paywalled_page:
         title: Paywalled page
-    destroy:
-      error: Organization could not be destroyed
-      success: Organization destroyed
-    edit:
-      title: Organization settings
     index:
-      title: My organizations
+      title: "🌎 Discover"
     memberships:
-      actions:
-        leave: Leave
-        remove_member: Remove member
       destroy:
         failed_to_remove_user_from_organization: Failed to remove user from organization
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
-      index:
-        title: Members
-      new:
-        title: Invite teammate
       update:
         success: User updated
-    new:
-      title: New organization
     projects:
       create:
         success: Project created
@@ -277,50 +263,91 @@ en:
         success: "%{email} invited"
       destroy:
         success: Invitation cancelled
-      index:
-        cancel_invitation: Cancel invitation
-        title: "⬆️ Invites"
     show:
-      title: Home
-    subscriptions:
-      features:
-        title: Features
-      index:
-        title: Billing
-      plan:
-        active: Active
-        cancelled: Cancelled
-        manage_billing: Manage billing
-        next_billing_date: Next billing date
-        price: Price
-        resume_subscription: Resume subscription
-        status: Subscription status
-        title: Manage subscription
-        you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
-      pricing:
-        cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
-        current_plan: Current plan
-        purchase: Buy
-        save_yearly: Best value
-        subscribe: Subscribe
-        title: Pricing
+      actions:
+        accept_invitation: Accept invitation
+        cancel_request: Cancel request
+        join: Join
+        open: Open
+        reject_invitation: Reject invitation
+        request_to_join: Request access
     transfers:
-      show:
-        title: Transfer ownership
       update:
-        success: Ownership transferred
-  public:
+        success: Organization transferred
+  user:
     organizations:
+      dashboard:
+        index:
+          title: Dashboard
+        paywalled_page:
+          title: Paywalled page
+      destroy:
+        error: Organization could not be destroyed
+        success: Organization destroyed
+      edit:
+        title: Organization settings
       index:
-        title: "🌎 Discover"
-      show:
+        title: My organizations
+      memberships:
         actions:
-          accept_invitation: Accept invitation
-          cancel_request: Cancel request
-          join: Join
-          open: Open
-          reject_invitation: Reject invitation
-          request_to_join: Request access
+          leave: Leave
+          remove_member: Remove member
+        destroy:
+          failed_to_remove_user_from_organization: Failed to remove user from organization
+          user_removed_from_organization: User removed from organization
+          you_have_left_the_organization: You have left the organization
+        index:
+          title: Members
+        new:
+          title: Invite teammate
+        update:
+          success: User updated
+      new:
+        title: New organization
+      projects:
+        create:
+          success: Project created
+        destroy:
+          success: Project destroyed
+        update:
+          success: Project updated
+      sent_invitations:
+        create:
+          success: "%{email} invited"
+        destroy:
+          success: Invitation cancelled
+        index:
+          cancel_invitation: Cancel invitation
+          title: "⬆️ Invites"
+      show:
+        title: Home
+      subscriptions:
+        features:
+          title: Features
+        index:
+          title: Billing
+        plan:
+          active: Active
+          cancelled: Cancelled
+          manage_billing: Manage billing
+          next_billing_date: Next billing date
+          price: Price
+          resume_subscription: Resume subscription
+          status: Subscription status
+          title: Manage subscription
+          you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
+        pricing:
+          cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
+          current_plan: Current plan
+          purchase: Buy
+          save_yearly: Best value
+          subscribe: Subscribe
+          title: Pricing
+      transfers:
+        show:
+          title: Transfer ownership
+        update:
+          success: Ownership transferred
   routes:
     memberships: members
     organizations: organizations

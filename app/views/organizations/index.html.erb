@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
-<%= render "organizations/tabs", active_tab: :my_organizations %>
+<%= render "user/organizations/tabs", active_tab: :browse_organizations %>
 
-<%= render PageComponent.new do |component| %>
-  <%= render "organizations/table", organizations: @organizations %>
+<%= render PageComponent.new do %>
+  <%= render "user/organizations/table", organizations: @organizations %>
 <% end %>

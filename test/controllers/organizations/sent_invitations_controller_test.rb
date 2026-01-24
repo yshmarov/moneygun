@@ -48,7 +48,7 @@ class Organizations::SentInvitationsControllerTest < ActionDispatch::Integration
     # user is not membership
     sign_in @user2
     get new_organization_sent_invitation_path(@organization)
-    assert_redirected_to organizations_url
+    assert_redirected_to user_organizations_url
     assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
 
     # user is organization member

@@ -19,7 +19,7 @@ module Authentication
 
     if resource.organizations.any?
       session.delete(:new_user) if session[:new_user]
-      organization_path(resource.organizations.first)
+      organization_dashboard_path(resource.organizations.first)
     elsif session[:new_user]
       session.delete(:new_user)
       # You can send new users to onboarding, billing, or somewhere else

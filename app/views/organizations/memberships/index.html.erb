@@ -37,15 +37,14 @@
               </td>
 
               <td
-                data-label="<%= Membership.human_attribute_name(:created_at) %>"
-              >
+                data-label="<%= Membership.human_attribute_name(:created_at) %>">
                 <%= l membership.created_at, format: :short %>
               </td>
 
               <td>
                 <div class="flex items-center gap-2 justify-end">
                   <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), data: { turbo_frame: :modal }, class: "btn btn-sm btn-secondary" if policy(membership).edit? %>
-                  <%= button_to Current.membership == membership ? t("organizations.memberships.actions.leave") : t("organizations.memberships.actions.remove_member"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-sm btn-error" if policy(membership).destroy? %>
+                  <%= button_to Current.membership == membership ? t("user.organizations.memberships.actions.leave") : t("user.organizations.memberships.actions.remove_member"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-sm btn-error" if policy(membership).destroy? %>
                 </div>
               </td>
             </tr>

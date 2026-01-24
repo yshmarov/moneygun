@@ -19,7 +19,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
     # user is not a member of the organization
     get organization_memberships_url(organizations(:two))
-    assert_redirected_to organizations_url
+    assert_redirected_to user_organizations_url
     assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
   end
 

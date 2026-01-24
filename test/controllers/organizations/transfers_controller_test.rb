@@ -23,7 +23,7 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
-    assert_redirected_to organization_path(@organization)
+    assert_redirected_to organization_dashboard_path(@organization)
     assert_equal @user2, @organization.reload.owner
   end
 
@@ -32,7 +32,7 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
     sign_in @user2
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
-    assert_redirected_to organization_path(@organization)
+    assert_redirected_to organization_dashboard_path(@organization)
     assert_equal @user, @organization.reload.owner
   end
 
@@ -48,7 +48,7 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
     sign_in @user2
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
-    assert_redirected_to organizations_url
+    assert_redirected_to user_organizations_url
     assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
     assert_equal @user, @organization.reload.owner
   end

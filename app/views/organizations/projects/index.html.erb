@@ -42,8 +42,7 @@
               class="cursor-pointer"
               data-controller="visitable"
               data-action="click->visitable#visit"
-              data-url="<%= organization_project_path(@organization, project) %>"
-            >
+              data-url="<%= organization_project_path(@organization, project) %>">
               <td data-label="<%= Project.human_attribute_name(:name) %>">
                 <%= project.name %>
               </td>

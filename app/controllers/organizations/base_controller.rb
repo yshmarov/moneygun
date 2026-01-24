@@ -19,7 +19,7 @@ class Organizations::BaseController < ApplicationController
   # end
 
   def authorize_organization_owner!
-    redirect_to organization_path(@organization), alert: I18n.t("shared.errors.not_authorized") unless @organization.owner?(current_user)
+    redirect_to organization_dashboard_path(@organization), alert: I18n.t("shared.errors.not_authorized") unless @organization.owner?(current_user)
   end
 
   def require_subscription
@@ -34,7 +34,7 @@ class Organizations::BaseController < ApplicationController
   def set_organization
     @organization = current_user.organizations.find(params[:organization_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to organizations_path, alert: t("shared.errors.not_authorized")
+    redirect_to user_organizations_path, alert: t("shared.errors.not_authorized")
   end
 
   def set_current_membership

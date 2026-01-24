@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
-namespace :public do
-  resources :organizations, only: %i[index show]
+# Browse discoverable organizations
+resources :organizations, only: %i[index show]
+
+# User's member organizations list (at /me/organizations)
+resource :user, only: [], path: I18n.t("routes.user") do
+  resources :organizations, only: %i[index new create], path: I18n.t("routes.organizations"), controller: "user/organizations"
 end
 
-resources :organizations, path: I18n.t("routes.organizations") do
+# Organization-scoped resources (for members, at /organizations/:id/...)
+resources :organizations, only: %i[edit update destroy], path: I18n.t("routes.organizations"), controller: "user/organizations" do
   scope module: :organizations do
     resource :transfer, only: %i[show update]
     resources :memberships, except: %i[new create], path: I18n.t("routes.memberships")

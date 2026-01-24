@@ -18,13 +18,12 @@
           class="
             menu menu-xl dropdown-content bg-base-100 rounded-box mt-3
             shadow border border-base-content/20
-          "
-        >
-          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (count = Current.organization.received_join_requests.pending.count).positive? ? count : nil, active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
+          ">
+          <%= nav_link t("user.organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (count = Current.organization.received_join_requests.pending.count).positive? ? count : nil, active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
 
           <% if Current.membership.admin? %>
-            <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
-            <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+            <%= nav_link t("user.organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
+            <%= nav_link t("user.organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
           <% end %>
         </ul>
       </div>
@@ -49,8 +48,7 @@
         class="
           w-96 p-2 dropdown-content bg-base-100 rounded-box mt-3 shadow
           border border-base-content/20
-        "
-      >
+        ">
         <div class="w-full flex justify-end"><%= link_to "View all", user_notifications_path, class: "link link-hover" %></div>
 
         <%= turbo_frame_tag :notifications, src: user_notifications_path, loading: :lazy %>
@@ -66,8 +64,7 @@
           dropdown-content bg-base-100 rounded-box mt-3 shadow
           border border-base-content/20
           max-h-[80dvh] overflow-y-auto
-        "
-      >
+        ">
         <%= render "shared/user_info", user: current_user %>
 
         <%# User links menu %>

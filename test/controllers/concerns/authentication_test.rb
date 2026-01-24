@@ -17,7 +17,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
 
     post user_session_path, params: { user: { email: user.email, password: user.password } }
     organization = user.organizations.first
-    assert_redirected_to organization_path(organization)
+    assert_redirected_to organization_dashboard_path(organization)
 
     organization.destroy
     sign_out user

@@ -11,8 +11,7 @@
             class="
               border border-base-content/20 p-4 rounded-lg hover:bg-base-200
               transition-colors
-            "
-          >
+            ">
             <%= form_tag "/auth/#{provider}", method: :post, data: { turbo: false }, class: "w-full" do %>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -61,8 +60,7 @@
         class="
           border border-base-content/20 p-6 rounded-lg text-center flex
           flex-col items-center gap-3
-        "
-      >
+        ">
         <div class="text-4xl">🔗</div>
 
         <p class="text-base-content"><%= t(".no_accounts_connected") %></p>

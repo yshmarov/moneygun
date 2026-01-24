@@ -1,0 +1,18 @@
+<div class="flex items-center gap-2 justify-end">
+  <% case organization.membership_status_for(current_user) %>
+  <% when :member %>
+    <% if controller.controller_path == "organizations" && action_name == "show" %>
+      <%= link_to t("shared.actions.edit"), edit_organization_path(organization), class: "btn btn-sm btn-primary", data: { turbo_frame: "_top" } %>
+    <% else %>
+      <%= link_to t("organizations.show.actions.open"), organization_dashboard_path(organization), class: "btn btn-sm btn-primary", data: { turbo_frame: "_top" } %>
+    <% end %>
+  <% when :pending_join_request %>
+    <%= button_to t("organizations.show.actions.cancel_request"), user_organizations_sent_join_request_path(organization.pending_join_request_for(current_user)), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-sm btn-error" %>
+  <% when :invited %>
+    <% invitation = organization.pending_invitation_for(current_user) %>
+    <%= button_to t("organizations.show.actions.accept_invitation"), accept_user_organizations_received_invitation_path(invitation), method: :patch, class: "btn btn-sm btn-primary" %>
+    <%= button_to t("organizations.show.actions.reject_invitation"), decline_user_organizations_received_invitation_path(invitation), method: :patch, class: "btn btn-sm btn-error" %>
+  <% else %>
+    <%= button_to t("organizations.show.actions.#{organization.privacy_setting_public? ? 'join' : 'request_to_join'}"), user_organizations_sent_join_requests_path(organization_id: organization.id), method: :post, class: "btn btn-sm btn-primary" %>
+  <% end %>
+</div>

@@ -1,70 +1,18 @@
 # frozen_string_literal: true
 
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: %i[show edit update destroy]
-
   def index
-    @pagy, @organizations = pagy(current_user.organizations.with_logo.includes(:users))
+    discoverable_ids = Organization.discoverable.select(:id)
+    user_org_ids = current_user.organizations.select(:id)
+
+    @pagy, @organizations = pagy(
+      Organization.where(id: discoverable_ids)
+                  .where.not(id: user_org_ids)
+                  .with_logo
+    )
   end
 
-  def show; end
-
-  def new
-    @organization = Organization.new
-  end
-
-  def edit; end
-
-  def create
-    @organization = Organization.new(organization_params)
-    @organization.owner = current_user
-
-    if @organization.save
-      respond_to do |format|
-        format.html { redirect_to organization_path(@organization) }
-        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
-      end
-    else
-      render :new, status: :unprocessable_content
-    end
-  end
-
-  def update
-    if @organization.update(organization_params)
-      respond_to do |format|
-        format.html { redirect_to edit_organization_path(@organization) }
-      end
-    else
-      render :edit, status: :unprocessable_content
-    end
-  end
-
-  def destroy
-    if @organization.destroy
-      flash[:notice] = t(".success")
-      redirect_to organizations_path
-    else
-      flash[:alert] = t(".error")
-      redirect_to organization_path(@organization)
-    end
-  end
-
-  private
-
-  def set_organization
-    @organization = current_user.organizations.find(params[:id])
-    Current.membership = current_user.memberships.find_by(organization: @organization)
-    Current.organization = Current.membership&.organization
-    authorize @organization
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: t("shared.errors.not_authorized")
-  end
-
-  def organization_params
-    params.expect(organization: %i[name logo privacy_setting])
-  end
-
-  def pundit_user
-    Current.membership || super
+  def show
+    @organization = Organization.discoverable.find(params[:id])
   end
 end

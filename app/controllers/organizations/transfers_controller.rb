@@ -11,8 +11,8 @@ class Organizations::TransfersController < Organizations::BaseController
       flash[:notice] = t(".success")
 
       respond_to do |format|
-        format.html { redirect_to organization_path(@organization) }
-        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_path(@organization)) }
+        format.html { redirect_to organization_dashboard_path(@organization) }
+        format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(organization_dashboard_path(@organization)) }
       end
     else
       render :show, status: :unprocessable_content

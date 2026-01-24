@@ -17,6 +17,6 @@ class StaticController < ApplicationController
   private
 
   def redirect_if_authenticated
-    redirect_to organizations_path if current_user
+    redirect_to user_organizations_path if current_user
   end
 end

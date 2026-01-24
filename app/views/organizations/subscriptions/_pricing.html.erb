@@ -8,8 +8,7 @@
               class="
                 inline-block bg-green-100 text-green-700 text-xs font-medium
                 px-2.5 py-0.5 rounded-full mt-2
-              "
-            >
+              ">
               <%= t(".save_yearly") %>
             </span>
           <% end %>
@@ -40,7 +39,7 @@
                   <% if current_plan && current_plan[:interval] == plan[:interval].to_s %>
                     <%= button_tag t(".current_plan"), class: "btn btn-secondary", disabled: true %>
                   <% else %>
-                    <%= button_to t("organizations.subscriptions.plan.manage_billing"), organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "btn btn-secondary" %>
+                    <%= button_to t("user.organizations.subscriptions.plan.manage_billing"), organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "btn btn-secondary" %>
                   <% end %>
                 <% end %>
               <% else %>

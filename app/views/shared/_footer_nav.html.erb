@@ -5,7 +5,7 @@
       <span class="dock-label"><%= t("shared.navigation.home") %></span>
     <% end %>
   <% else %>
-    <%= active_link_to organizations_path, active: :exclusive, class_active: "dock-active", class: "", "aria-label": t("shared.navigation.home") do %>
+    <%= active_link_to user_organizations_path, active: :exclusive, class_active: "dock-active", class: "", "aria-label": t("shared.navigation.home") do %>
       <%= inline_svg_tag "svg/home.svg", class: "size-[1.2em]", "aria-hidden": "true" %>
       <span class="dock-label"><%= t("shared.navigation.home") %></span>
     <% end %>

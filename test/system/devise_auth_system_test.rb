@@ -7,8 +7,8 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
     user = users(:one)
     sign_in user
 
-    visit organizations_path
-    assert_current_path organizations_path
+    visit user_organizations_path
+    assert_current_path user_organizations_path
     assert_text "Create"
   end
 
@@ -17,7 +17,7 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
     password = "password"
     User.create(email:, password:, confirmed_at: Time.current)
 
-    visit organizations_path
+    visit user_organizations_path
     click_link "Continue with Email and Password"
     # visit new_user_session_path
 
@@ -25,7 +25,7 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
     fill_in "Password", with: password
     click_button "Sign in"
 
-    assert_current_path organizations_path
+    assert_current_path user_organizations_path
     assert_text "Signed in successfully."
   end
 end

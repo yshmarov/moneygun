@@ -14,7 +14,7 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
       login_with_google_oauth2_oauth
     end
 
-    assert_redirected_to organizations_path
+    assert_redirected_to user_organizations_path
     assert_response :found
 
     sign_out controller.current_user
