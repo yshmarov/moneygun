@@ -104,16 +104,16 @@ class Users::InvitationAcceptancesControllerTest < ActionDispatch::IntegrationTe
     assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
   end
 
-  test "should redirect if token expired" do
+  test "should accept old invitations (invitations never expire)" do
     inviter = users(:one)
     organization = organizations(:one)
     invited_user = User.invite!({ email: "invited@example.com" }, inviter)
     organization.sent_invitations.create!(user: invited_user)
-    invited_user.update!(invitation_created_at: 8.days.ago)
+    invited_user.update!(invitation_created_at: 30.days.ago)
 
     get accept_user_invitation_url(invitation_token: invited_user.invitation_token)
-    assert_redirected_to new_user_session_url
-    assert_equal I18n.t("users.invitation_acceptances.new.invalid_token"), flash[:alert]
+    assert_response :success
+    assert_match invited_user.email, response.body
   end
 
   test "should not accept already accepted invitation" do
