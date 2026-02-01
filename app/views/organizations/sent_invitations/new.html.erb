@@ -1,7 +1,7 @@
 <% content_for :title, t("organizations.memberships.new.title") %>
 
 <%= modal do %>
-  <%= render PageComponent.new(title: t("organizations.memberships.new.title")) do |component| %>
+  <%= render SectionComponent.new(title: t("organizations.memberships.new.title")) do |component| %>
     <%= simple_form_for @membership_invitation, url: organization_sent_invitations_path(@organization), html: { class: "contents space-y-4" } do |f| %>
       <%= render "shared/errors", object: f.object %>
 

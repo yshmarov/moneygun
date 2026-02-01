@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: t("devise.views.registrations.edit.title", email: resource.email), full_width: false) do %>
+<%= render SectionComponent.new(title: t("devise.views.registrations.edit.title", email: resource.email), full_width: false) do %>
   <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), method: :put, html: { class: "space-y-4" } do |f| %>
     <%= render "shared/errors", object: resource %>
 

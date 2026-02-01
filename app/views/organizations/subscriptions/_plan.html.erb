@@ -4,7 +4,7 @@
 
 <% button_label = subscription.on_grace_period? ? t(".resume_subscription") : t(".manage_billing") %>
 
-<%= render PageComponent.new(title: t(".title"), full_width: false) do |component| %>
+<%= render SectionComponent.new(title: t(".title"), full_width: false) do |component| %>
   <% component.with_action_list do %>
     <%= button_to button_label, organization_subscriptions_billing_portal_path(Current.organization), data: { turbo: false }, class: "btn btn-secondary" %>
   <% end %>

@@ -1,7 +1,7 @@
 <% content_for :title, "Edit #{@membership.user.email} roles" %>
 
 <%= modal do %>
-  <%= render PageComponent.new(title: "Edit #{@membership.user.email} roles") do |component| %>
+  <%= render SectionComponent.new(title: "Edit #{@membership.user.email} roles") do |component| %>
     <%= simple_form_for [@organization, @membership], html: { class: "contents" } do |f| %>
       <%= render "shared/errors", object: f.object %>
 

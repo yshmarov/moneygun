@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: t("organizations.subscriptions.features.title"), full_width: false) do %>
+<%= render SectionComponent.new(title: t("organizations.subscriptions.features.title"), full_width: false) do %>
   <dl class="space-y-2">
     <% Rails.application.config_for(:settings)[:pro_features].map do |feature| %>
       <div><%= feature %></div>

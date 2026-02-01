@@ -20,7 +20,7 @@
   </nav>
 <% end %>
 
-<%= render PageComponent.new(title: breadcrumbs) do |component| %>
+<%= render SectionComponent.new(title: breadcrumbs) do |component| %>
   <% component.with_action_list do %>
     <%= link_to "Edit", [:edit, @organization, @project], data: { turbo_frame: :modal }, class: "btn btn-primary btn-sm" %>
     <%= button_to "Destroy", [@organization, @project], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-error btn-sm" %>

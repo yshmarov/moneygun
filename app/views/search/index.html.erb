@@ -14,7 +14,7 @@
 
     <%= turbo_frame_tag :global_search_results do %>
       <% if @organizations.present? %>
-        <%= render PageComponent.new(title: "Organizations") do %>
+        <%= render SectionComponent.new(title: "Organizations") do %>
           <%= render "organizations/table", organizations: @organizations %>
         <% end %>
       <% elsif params[:query].present? %>

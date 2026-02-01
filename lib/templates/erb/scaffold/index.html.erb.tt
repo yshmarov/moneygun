@@ -1,6 +1,6 @@
 <%% content_for :title, "<%= human_name.pluralize %>" %>
 
-<%%= render PageComponent.new(title: "<%= human_name.pluralize %>") do |component| %>
+<%%= render SectionComponent.new(title: "<%= human_name.pluralize %>") do |component| %>
   <%% component.with_action_list do %>
     <%%= link_to t("shared.actions.new"), new_<%= singular_route_name %>_path, data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <%% end %>

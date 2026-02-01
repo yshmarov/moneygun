@@ -1,4 +1,4 @@
-<%= render PageComponent.new(title: t(".title"), subtitle: t(".subtitle")) do |component| %>
+<%= render SectionComponent.new(title: t(".title"), subtitle: t(".subtitle")) do |component| %>
   <div
     data-controller="clipboard"
     data-clipboard-success-content-value="<%= t("shared.actions.copied") %>"
@@ -26,7 +26,7 @@
 
 <br>
 
-<%= render PageComponent.new(title: t(".table.referrals_list")) do %>
+<%= render SectionComponent.new(title: t(".table.referrals_list")) do %>
   <% if @referrals.any? %>
     <div class="table-responsive">
       <table>

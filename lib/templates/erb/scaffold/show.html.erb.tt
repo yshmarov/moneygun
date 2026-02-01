@@ -1,4 +1,4 @@
-<%%= render PageComponent.new(title: "<%= human_name %>") do |component| %>
+<%%= render SectionComponent.new(title: "<%= human_name %>") do |component| %>
   <%% component.with_action_list do %>
     <%%= link_to "Edit", edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: "btn btn-secondary" if policy(@<%= singular_table_name %>).edit? %>
     <div class="inline-block">

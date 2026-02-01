@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class PageComponentPreview < ViewComponent::Preview
+class SectionComponentPreview < ViewComponent::Preview
   def default
-    component = PageComponent.new(
+    component = SectionComponent.new(
       title: "Title",
       subtitle: "Subtitle",
       full_width: true

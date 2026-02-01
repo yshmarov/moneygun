@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
 <%= modal do %>
-  <%= render PageComponent.new(full_width: false) do |component| %>
+  <%= render SectionComponent.new(full_width: false) do |component| %>
     <%= markdown_to_html(Rails.root.join("app/views/static/terms.md").read) %>
   <% end %>
 <% end %>

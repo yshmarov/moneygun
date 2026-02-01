@@ -2,6 +2,6 @@
 
 <%= render "organizations/tabs", active_tab: :browse_organizations %>
 
-<%= render PageComponent.new do %>
+<%= render SectionComponent.new do %>
   <%= render "organizations/table", organizations: @organizations %>
 <% end %>

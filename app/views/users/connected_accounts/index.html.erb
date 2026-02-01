@@ -4,7 +4,7 @@
   <% available_providers = Rails.application.config.omniauth_providers %>
 
   <% if available_providers.any? %>
-    <%= render PageComponent.new(title: t(".available_connections")) do |component| %>
+    <%= render SectionComponent.new(title: t(".available_connections")) do |component| %>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <% available_providers.each do |provider| %>
           <div
@@ -34,7 +34,7 @@
     <% end %>
   <% end %>
 
-  <%= render PageComponent.new(title: t(".your_connected_accounts")) do |component| %>
+  <%= render SectionComponent.new(title: t(".your_connected_accounts")) do |component| %>
     <% if @connected_accounts.any? %>
       <div class="table-responsive">
         <table>

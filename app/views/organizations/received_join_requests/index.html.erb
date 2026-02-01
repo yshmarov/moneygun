@@ -2,7 +2,7 @@
 
 <%= render "organizations/memberships/tabs", active_tab: :requests %>
 
-<%= render PageComponent.new do %>
+<%= render SectionComponent.new do %>
   <% if @join_requests.any? %>
     <div class="table-responsive">
       <table>

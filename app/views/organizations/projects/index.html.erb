@@ -14,7 +14,7 @@
   </nav>
 <% end %>
 
-<%= render PageComponent.new(title: breadcrumbs) do |component| %>
+<%= render SectionComponent.new(title: breadcrumbs) do |component| %>
   <% component.with_action_list do %>
     <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <% end %>

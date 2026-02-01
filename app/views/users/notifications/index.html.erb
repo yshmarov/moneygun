@@ -6,7 +6,7 @@
 
 <%= turbo_stream_from "notifications_index_list_#{current_user.id}" %>
 
-<%= render PageComponent.new(title: t(".title")) do |component| %>
+<%= render SectionComponent.new(title: t(".title")) do |component| %>
   <%= turbo_frame_tag :notifications, target: "_top" do %>
     <% if @notifications.any? %>
       <div class="table-responsive">
