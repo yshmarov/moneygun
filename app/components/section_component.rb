@@ -16,7 +16,7 @@ class SectionComponent < ViewComponent::Base
     if @full_width == true
       "max-w-7xl w-full"
     else
-      "lg:max-w-lg w-full"
+      "lg:max-w-2xl w-full"
     end
   end
 end
