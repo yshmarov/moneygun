@@ -59,10 +59,10 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: ENV.fetch("HOST", "example.com") }
 
-  # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
+  # Specify outgoing SMTP server. Set via credentials or ENV (SMTP__USER_NAME, SMTP__PASSWORD).
   # config.action_mailer.smtp_settings = {
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
+  #   user_name: Rails.app.creds.option(:smtp, :user_name),
+  #   password: Rails.app.creds.option(:smtp, :password),
   #   address: "smtp.example.com",
   #   port: 587,
   #   authentication: :plain
@@ -95,8 +95,8 @@ Rails.application.configure do
   # config.action_mailer.smtp_settings = {
   #   port: 587,
   #   address: "email-smtp.eu-central-1.amazonaws.com",
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
+  #   user_name: Rails.app.creds.option(:smtp, :user_name),
+  #   password: Rails.app.creds.option(:smtp, :password),
   #   authentication: :plain,
   #   enable_starttls_auto: true
   # }

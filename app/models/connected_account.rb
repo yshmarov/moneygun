@@ -6,7 +6,7 @@ class ConnectedAccount < ApplicationRecord
   validates :provider, presence: true
   validates :uid, presence: true, uniqueness: { scope: :provider }
 
-  encrypts :access_token, :refresh_token if Rails.application.credentials.active_record_encryption.present?
+  encrypts :access_token, :refresh_token if Rails.app.creds.option(:active_record_encryption, :primary_key).present?
 
   PROVIDER_CONFIG = {
     google_oauth2: {

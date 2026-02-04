@@ -84,7 +84,7 @@ class StripePrice
     end
 
     def stripe_configured?
-      Rails.application.credentials.dig(:stripe, :private_key).present?
+      Rails.app.creds.option(:stripe, :private_key).present?
     end
   end
 end

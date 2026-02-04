@@ -4,7 +4,7 @@ require "test_helper"
 
 class Organizations::SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    skip "Stripe credentials not configured" if Rails.application.credentials.dig(:stripe, :private_key).blank?
+    skip "Stripe credentials not configured" if Rails.app.creds.option(:stripe, :private_key).blank?
     @organization = organizations(:one)
     @user = users(:one)
     sign_in @user

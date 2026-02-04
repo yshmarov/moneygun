@@ -28,7 +28,7 @@ organization.update!(privacy_setting: :restricted)
 organization = Organization.create!(name: 'Buzzsprout', owner: user, privacy_setting: :private)
 organization.logo.attach(io: Rails.root.join('test/fixtures/files/buzzsprout-logo.png').open, filename: 'buzzsprout.png')
 
-# if Rails.application.credentials.dig(:stripe, :private_key).present?
+# if Rails.app.creds.option(:stripe, :private_key).present?
 #   product = Stripe::Product.create(name: "Pro plan")
 #   Stripe::Price.create(
 #     product: product.id,

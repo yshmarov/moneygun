@@ -12,14 +12,14 @@ providers = []
 providers << :developer if Rails.env.development?
 
 # Google OAuth2
-if Rails.application.credentials.dig(:google_oauth2, :client_id).present? &&
-   Rails.application.credentials.dig(:google_oauth2, :client_secret).present?
+if Rails.app.creds.option(:google_oauth2, :client_id).present? &&
+   Rails.app.creds.option(:google_oauth2, :client_secret).present?
   providers << :google_oauth2
 end
 
 # GitHub
-if Rails.application.credentials.dig(:github, :key).present? &&
-   Rails.application.credentials.dig(:github, :secret).present?
+if Rails.app.creds.option(:github, :key).present? &&
+   Rails.app.creds.option(:github, :secret).present?
   providers << :github
 end
 
@@ -34,13 +34,13 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       provider :developer
     when :google_oauth2
       provider :google_oauth2,
-               Rails.application.credentials.dig(:google_oauth2, :client_id),
-               Rails.application.credentials.dig(:google_oauth2, :client_secret),
+               Rails.app.creds.option(:google_oauth2, :client_id),
+               Rails.app.creds.option(:google_oauth2, :client_secret),
                scope: "email,profile"
     when :github
       provider :github,
-               Rails.application.credentials.dig(:github, :key),
-               Rails.application.credentials.dig(:github, :secret),
+               Rails.app.creds.option(:github, :key),
+               Rails.app.creds.option(:github, :secret),
                scope: "user:email"
     end
   end
