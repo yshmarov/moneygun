@@ -12,11 +12,11 @@ module ApplicationHelper
 
   def nav_link(label, path, icon: nil, badge: nil, todo_dot: false, wrapper: :li, **)
     resolved_icon = if icon&.match?(/svg/)
-                      inline_svg_tag icon, class: "size-6 w-6 h-6"
+                      inline_svg_tag icon, class: "size-6 w-6 h-6", "aria-hidden": "true"
                     elsif icon&.start_with?("http") || icon&.match?(/\.(png|jpg|webp|avif|gif)$/)
-                      image_tag icon, class: "size-6 w-6 h-6 rounded"
+                      image_tag icon, class: "size-6 w-6 h-6 rounded", alt: "", "aria-hidden": "true"
                     else
-                      icon
+                      icon.is_a?(String) && !icon.html_safe? ? content_tag(:span, icon, "aria-hidden": "true") : icon
                     end
 
     badge_span = content_tag(:span, badge, class: "badge badge-xs badge-warning") if badge.present?
@@ -132,10 +132,11 @@ module ApplicationHelper
     parts.join(" - ")
   end
 
-  # forbid zooming on mobile devices
+  # Only restrict zoom in native app containers where pinch-to-zoom is handled natively.
+  # Regular mobile browsers must allow zoom per WCAG 1.4.4 (Resize Text).
   def viewport_meta_tag
     content = ["width=device-width,initial-scale=1,viewport-fit=cover"]
-    content << "maximum-scale=1, user-scalable=0" if hotwire_native_app? || browser.device.mobile?
+    content << "maximum-scale=1, user-scalable=0" if hotwire_native_app?
     tag.meta name: "viewport", content: content.join(",")
   end
 end

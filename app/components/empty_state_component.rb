@@ -13,11 +13,11 @@ class EmptyStateComponent < ViewComponent::Base
     return if icon.blank?
 
     if icon.match?(/svg/)
-      helpers.inline_svg_tag icon, class: "w-10 h-10 size-10 text-base-content/50"
+      helpers.inline_svg_tag icon, class: "w-10 h-10 size-10 text-base-content/50", "aria-hidden": "true"
     elsif icon&.start_with?("http") || icon&.match?(/\.(png|jpg|webp|avif|gif)$/)
-      image_tag icon, class: "w-10 h-10 rounded object-cover"
+      image_tag icon, class: "w-10 h-10 rounded object-cover", alt: "", "aria-hidden": "true"
     else
-      tag.span icon, class: "text-4xl"
+      tag.span icon, class: "text-4xl", "aria-hidden": "true"
     end
   end
 end

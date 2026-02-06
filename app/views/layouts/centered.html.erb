@@ -4,11 +4,15 @@
   <head><%= render "layouts/head" %></head>
 
   <body class="flex flex-col min-h-screen">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-primary focus:text-primary-content focus:top-0 focus:left-0">
+      Skip to main content
+    </a>
+
     <div class="flex-grow flex flex-col bg-base-300">
       <header class="sticky z-20 top-0">
         <nav class="flex justify-center px-6 py-4 bg-base-100">
           <%= link_to root_path, class: "no-underline" do %>
-            <%= image_tag "logo-long.png", class: "w-auto h-8 dark:invert" %>
+            <%= image_tag "logo-long.png", alt: Rails.application.config_for(:settings).dig(:site, :name), class: "w-auto h-8 dark:invert" %>
           <% end %>
         </nav>
 
@@ -25,7 +29,7 @@
         </div>
       </header>
 
-      <main class="flex-grow flex flex-col items-center pt-12 lg:pt-20 px-4 lg:px-10 bg-base-100">
+      <main id="main-content" class="flex-grow flex flex-col items-center pt-12 lg:pt-20 px-4 lg:px-10 bg-base-100">
         <div class="w-full max-w-lg"><%= yield %></div>
       </main>
     </div>

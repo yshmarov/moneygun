@@ -4,6 +4,10 @@
   <head><%= render "layouts/head" %></head>
 
   <body class="h-dvh overflow-hidden">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-primary focus:text-primary-content focus:top-0 focus:left-0">
+      Skip to main content
+    </a>
+
     <div class="drawer lg:drawer-open">
       <input id="main-drawer" type="checkbox" class="drawer-toggle">
 
@@ -25,7 +29,7 @@
           </div>
         </div>
 
-        <main class="flex-grow p-4 min-w-0 overflow-x-hidden">
+        <main id="main-content" class="flex-grow p-4 min-w-0 overflow-x-hidden">
           <%= yield %>
         </main>
 

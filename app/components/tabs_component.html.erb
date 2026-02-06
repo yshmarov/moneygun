@@ -15,11 +15,11 @@
           <% else %>
             <% if tab[:icon] %>
               <% if tab[:icon].match?(/svg/) %>
-                <%= helpers.inline_svg_tag tab[:icon], class: "size-6 w-6 h-6" %>
+                <%= helpers.inline_svg_tag tab[:icon], class: "size-6 w-6 h-6", "aria-hidden": "true" %>
               <% elsif tab[:icon].start_with?("http") || tab[:icon].match?(/\.(png|jpg|webp|avif|gif)$/) %>
-                <%= image_tag tab[:icon], class: "size-6 w-6 h-6 rounded" %>
+                <%= image_tag tab[:icon], class: "size-6 w-6 h-6 rounded", alt: "", "aria-hidden": "true" %>
               <% else %>
-                <%= tag.span tab[:icon] %>
+                <%= tag.span tab[:icon], "aria-hidden": "true" %>
               <% end %>
             <% end %>
             <%= tab[:label] %>

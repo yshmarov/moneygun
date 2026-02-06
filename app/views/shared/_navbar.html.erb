@@ -2,7 +2,7 @@
   <%# left %>
   <div class="flex items-center gap-2">
     <%# mobile sidebar toggle %>
-    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden" aria-label="Toggle menu"><%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %></label>
+    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden" aria-label="Toggle menu"><%= inline_svg_tag "svg/bars-3.svg", class: "size-6", "aria-hidden": "true" %></label>
 
     <%# select org dropdown %>
     <% if Current.organization %>
@@ -10,7 +10,7 @@
         <div tabindex="0" role="button" class="btn btn-ghost" aria-label="Select organization">
           <%= organization_avatar(Current.organization, classes: "size-6") %>
           <%= Current.organization.name.truncate(15) %>
-          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
+          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180", "aria-hidden": "true" %>
         </div>
 
         <ul
@@ -41,7 +41,7 @@
     <div class="dropdown dropdown-end max-lg:hidden">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-label="Notifications">
         <%= render "users/notifications/notifications_count", unread: current_user.unseen_notifications_count %>
-        <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6" %>
+        <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6", "aria-hidden": "true" %>
       </div>
 
       <div
@@ -58,7 +58,7 @@
     </div>
 
     <div class="dropdown dropdown-end group">
-      <div tabindex="0" role="button" class="cursor-pointer"><%= user_avatar(current_user) %></div>
+      <div tabindex="0" role="button" class="cursor-pointer" aria-label="User menu"><%= user_avatar(current_user) %></div>
 
       <div
         tabindex="-1"

@@ -2,13 +2,19 @@ import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   connect() {
+    // Store the element that had focus before opening the modal
+    this.previouslyFocusedElement = document.activeElement
     this.open()
     // needed because ESC key does not trigger close event
-    this.element.addEventListener('close', this.enableBodyScroll.bind(this))
+    this.boundEnableBodyScroll = this.enableBodyScroll.bind(this)
+    this.boundRestoreFocus = this.restoreFocus.bind(this)
+    this.element.addEventListener('close', this.boundEnableBodyScroll)
+    this.element.addEventListener('close', this.boundRestoreFocus)
   }
 
   disconnect() {
-    this.element.removeEventListener('close', this.enableBodyScroll.bind(this))
+    this.element.removeEventListener('close', this.boundEnableBodyScroll)
+    this.element.removeEventListener('close', this.boundRestoreFocus)
   }
 
   // hide modal on successful form submission
@@ -22,9 +28,6 @@ export default class extends Controller {
   open() {
     this.element.showModal()
     document.body.classList.add('overflow-hidden')
-
-    // Remove focus from auto-focused element (usually close button)
-    document.activeElement.blur()
   }
 
   close() {
@@ -32,6 +35,13 @@ export default class extends Controller {
     const frame = document.getElementById('modal')
     frame.removeAttribute('src')
     frame.innerHTML = ''
+  }
+
+  restoreFocus() {
+    if (this.previouslyFocusedElement && this.previouslyFocusedElement.focus) {
+      this.previouslyFocusedElement.focus()
+      this.previouslyFocusedElement = null
+    }
   }
 
   enableBodyScroll() {

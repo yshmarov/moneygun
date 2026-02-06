@@ -35,7 +35,7 @@ module OrganizationsHelper
   end
 
   def privacy_setting_icon(key)
-    tag.span privacy_setting_options(key)[:icon], class: "text-lg", alt: key, title: privacy_setting_options(key)[:display_text]
+    tag.span privacy_setting_options(key)[:icon], class: "text-lg", role: "img", "aria-label": privacy_setting_options(key)[:display_text], title: privacy_setting_options(key)[:display_text]
   end
 
   def organization_tabs

@@ -101,6 +101,53 @@ Use `before_action :require_subscription` for paywalled features.
 - Never query without organization scope
 - Use `ObfuscatesId` concern for public-facing IDs
 
+## Accessibility
+
+Based on [Accessibility essentials every front-end developer should know](https://martijnhols.nl/blog/accessibility-essentials-every-front-end-developer-should-know).
+
+### Semantic HTML
+
+- Never use `<div>` or `<tr>` with `onclick` for interactive elements. Use `<a>` for navigation and `<button>` for actions.
+- Use proper list elements (`<ul>/<ol>` with `<li>`). Don't misuse `<dl>` without `<dt>/<dd>` pairs.
+- Use semantic landmarks: `<main>`, `<nav>`, `<header>`, `<footer>`, `<aside>`, `<section>`.
+
+### Images & Icons
+
+- All `<img>` tags must have an `alt` attribute. Use `alt=""` only for purely decorative images.
+- Decorative SVGs and icons must have `aria-hidden="true"` (the `nav_link` helper and `TabsComponent` handle this automatically).
+- Emoji icons used as meaningful indicators need `role="img"` and `aria-label` (see `privacy_setting_icon`).
+- Don't use `alt` on `<span>` elements — it's not a valid attribute. Use `aria-label` instead.
+
+### Focus & Keyboard Navigation
+
+- Never remove focus indicators entirely. The app uses `:focus` with a primary-color glow effect.
+- All interactive elements must be keyboard-accessible (focusable, activatable with Enter/Space).
+- Skip navigation links are present in all layouts — maintain these when adding new layouts.
+- Modals must restore focus to the trigger element on close (handled by `dialog_controller.js`).
+
+### ARIA
+
+- Use `aria-label` on buttons/controls that have no visible text (e.g., icon-only buttons).
+- Use `role="alert"` on error messages and flash notifications so screen readers announce them.
+- Use `aria-labelledby` to associate modal titles with `<dialog>` elements.
+- Use `aria-hidden="true"` on decorative elements that duplicate adjacent text labels.
+
+### Forms
+
+- All form inputs must have associated labels. Use SimpleForm which generates labels automatically.
+- The language picker uses a `<label class="sr-only">` for its `<select>`.
+- Use `autocomplete` attributes on login/registration fields.
+
+### Motion & Zoom
+
+- `prefers-reduced-motion: reduce` is respected globally — all animations and transitions are disabled.
+- Never restrict zoom (`user-scalable=0`, `maximum-scale=1`) in regular mobile browsers (WCAG 1.4.4). Only restrict in native app shells (`hotwire_native_app?`).
+
+### JavaScript
+
+- Use Stimulus controllers instead of inline event handlers (`onclick`, `onchange`).
+- The `locale_picker_controller.js` handles language switching; `dialog_controller.js` handles modal focus management.
+
 ## Git Workflow
 
 - **Never commit directly to main/master** - always create a feature branch

@@ -3,8 +3,8 @@
   <div class="flex items-center gap-2">
     <div>
       <%= link_to root_path, class: "no-underline" do %>
-        <%= image_tag "logo.png", class: "size-8 lg:hidden dark:invert" %>
-        <%= image_tag "logo-long.png", class: "w-auto h-8 hidden lg:block dark:invert" %>
+        <%= image_tag "logo.png", alt: Rails.application.config_for(:settings).dig(:site, :name), class: "size-8 lg:hidden dark:invert" %>
+        <%= image_tag "logo-long.png", alt: Rails.application.config_for(:settings).dig(:site, :name), class: "w-auto h-8 hidden lg:block dark:invert" %>
       <% end %>
     </div>
 

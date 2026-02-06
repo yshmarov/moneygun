@@ -1,10 +1,9 @@
 <tr
   id="notification_<%= notification.id %>"
-  class="<%= notification.seen? ? "bg-base-100" : "bg-primary/10" %> hover:bg-base-200 transition-colors duration-200 cursor-pointer"
-  onclick="window.location='<%= notification.url %>'"
+  class="<%= notification.seen? ? "bg-base-100" : "bg-primary/10" %> hover:bg-base-200 transition-colors duration-200"
 >
   <td>
-    <div class="flex items-center gap-3">
+    <%= link_to notification.url, class: "flex items-center gap-3 no-underline text-inherit" do %>
       <% if notification.respond_to?(:icon) && notification.icon.present? %>
         <%= notification.icon %>
       <% else %>
@@ -12,7 +11,7 @@
       <% end %>
 
       <span class="text-sm text-base-content"><%= notification.message %></span>
-    </div>
+    <% end %>
   </td>
 
   <td><%= time_ago_in_words(notification.created_at) %> ago</td>

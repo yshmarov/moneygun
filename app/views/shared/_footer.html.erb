@@ -7,7 +7,7 @@
   <aside>
     <div>
       <%= link_to root_path, class: "no-underline" do %>
-        <%= image_tag "logo-long.png", class: "w-auto h-8 dark:invert" %>
+        <%= image_tag "logo-long.png", alt: Rails.application.config_for(:settings).dig(:site, :name), class: "w-auto h-8 dark:invert" %>
       <% end %>
     </div>
     &copy;

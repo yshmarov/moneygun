@@ -11,7 +11,7 @@
 
       <% if sign_in_account %>
         <div class="flex items-center gap-1.5 mt-1">
-          <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[sign_in_account.provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
+          <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[sign_in_account.provider.to_sym][:icon]}.svg", class: "w-4 h-4", "aria-hidden": "true" %>
 
           <span class="text-xs text-base-content/60">
             <%= ConnectedAccount::PROVIDER_CONFIG[sign_in_account.provider.to_sym][:name] %>

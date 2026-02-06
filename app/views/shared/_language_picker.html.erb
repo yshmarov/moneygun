@@ -1,4 +1,7 @@
 <% if I18n.available_locales.count > 1 %>
   <% options = I18n.available_locales.map { |locale| [locale_to_flag(locale), url_for(locale: locale)] } %>
-  <%= select_tag :locale, options_for_select(options, url_for(locale: I18n.locale)), onchange: "window.location.href=this.value", class: "select select-bordered w-full" %>
+  <div data-controller="locale-picker">
+    <label for="locale" class="sr-only"><%= t("shared.language_picker.label", default: "Language") %></label>
+    <%= select_tag :locale, options_for_select(options, url_for(locale: I18n.locale)), data: { action: "change->locale-picker#navigate" }, class: "select select-bordered w-full" %>
+  </div>
 <% end %>
