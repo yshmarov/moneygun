@@ -1,0 +1,25 @@
+<% content_for :title, t(".title") %>
+
+<%= render SectionComponent.new(title: t(".title"), full_width: false) do %>
+  <div class="flex flex-col items-center gap-4 py-4">
+    <%= organization_avatar(@organization, classes: "size-16 text-2xl") %>
+
+    <h2 class="text-xl font-semibold"><%= @organization.name %></h2>
+
+    <div class="flex gap-2">
+      <%= button_to t("public.organizations.show.actions.accept_invitation"),
+                    accept_user_organizations_received_invitation_path(@invitation),
+                    method: :patch,
+                    class: "btn btn-primary" %>
+
+      <%= button_to t("public.organizations.show.actions.reject_invitation"),
+                    decline_user_organizations_received_invitation_path(@invitation),
+                    method: :patch,
+                    class: "btn btn-error" %>
+    </div>
+
+    <%= link_to t("users.organizations.received_invitations.index.title"),
+                user_organizations_received_invitations_path,
+                class: "link link-hover text-sm" %>
+  </div>
+<% end %>
