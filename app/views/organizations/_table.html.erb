@@ -6,7 +6,6 @@
           <th><%= Organization.human_attribute_name(:name) %></th>
           <th><%= Organization.human_attribute_name(:privacy_setting) %></th>
           <th>Members</th>
-          <th><%= Organization.human_attribute_name(:created_at) %></th>
           <th></th>
         </tr>
       </thead>
@@ -23,29 +22,15 @@
               <div class="flex items-center gap-2">
                 <%= organization_avatar(organization) %>
 
-                <span class="font-medium">
-                  <%= highlight(organization.name, params[:query]) %>
-                </span>
+                <span class="font-medium"><%= highlight(organization.name, params[:query]) %></span>
               </div>
             </td>
 
-            <td>
-              <span class="badge badge-xs badge-soft">
-                <%= privacy_setting_options(organization.privacy_setting)[:display_text] %>
-              </span>
-            </td>
+            <td><span class="badge badge-xs badge-soft"><%= privacy_setting_options(organization.privacy_setting)[:display_text] %></span></td>
 
             <td><%= render "organizations/users_list", organization: %></td>
 
-            <td
-              data-label="<%= Organization.human_attribute_name(:created_at) %>"
-            >
-              <%= organization.created_at.strftime("%B %d, %Y") %>
-            </td>
-
-            <td>
-              <%= render "organizations/membership_actions", organization: organization %>
-            </td>
+            <td><%= render "organizations/membership_actions", organization: organization %></td>
           </tr>
         <% end %>
       </tbody>
