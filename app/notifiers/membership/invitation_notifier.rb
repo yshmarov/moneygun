@@ -18,13 +18,20 @@ class Membership::InvitationNotifier < ApplicationNotifier
     end
 
     def url
-      # URL for internal notification system (when user clicks notification)
-      user_organizations_received_invitations_url
+      if params[:invitation]
+        user_organizations_received_invitation_url(params[:invitation])
+      else
+        user_organizations_received_invitations_url
+      end
     end
 
     def email_url
       if recipient.confirmed?
-        user_organizations_received_invitations_url
+        if params[:invitation]
+          user_organizations_received_invitation_url(params[:invitation])
+        else
+          user_organizations_received_invitations_url
+        end
       elsif recipient.invitation_token.present?
         accept_user_invitation_url(invitation_token: recipient.invitation_token)
       end

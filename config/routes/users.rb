@@ -21,7 +21,7 @@ resource :user, only: %i[show], path: I18n.t("routes.user") do
 
     namespace :organizations do
       # Invitations received BY user FROM organizations
-      resources :received_invitations, only: %i[index], path: "invitations" do
+      resources :received_invitations, only: %i[index show], path: "invitations" do
         member do
           patch :accept
           patch :decline

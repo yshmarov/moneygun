@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class Users::Organizations::ReceivedInvitationsController < ApplicationController
-  before_action :set_invitation, only: %i[accept decline]
+  before_action :set_invitation, only: %i[show accept decline]
 
   def index
     @pagy, @organizations = pagy(current_user.organizations_with_pending_invitations)
+  end
+
+  def show
+    @organization = @invitation.organization
   end
 
   def accept

@@ -395,6 +395,8 @@ en:
       received_invitations:
         index:
           title: "⬇️ Invitations"
+        show:
+          title: Invitation
       sent_join_requests:
         destroy:
           success: Join request revoked

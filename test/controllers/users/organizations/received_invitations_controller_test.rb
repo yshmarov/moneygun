@@ -18,6 +18,24 @@ class Users::Organizations::ReceivedInvitationsControllerTest < ActionDispatch::
     assert_no_match organization2.name, response.body
   end
 
+  test "should get show for own pending invitation" do
+    get user_organizations_received_invitation_url(@invitation)
+    assert_response :success
+    assert_match @invitation.organization.name, response.body
+  end
+
+  test "should return 404 for another user's invitation on show" do
+    other_user_invitation = access_requests(:invite_to_organization_two)
+    get user_organizations_received_invitation_url(other_user_invitation)
+    assert_response :not_found
+  end
+
+  test "should redirect to login when not signed in for show" do
+    sign_out @unassociated_user
+    get user_organizations_received_invitation_url(@invitation)
+    assert_redirected_to new_user_session_url
+  end
+
   test "should accept invitation" do
     assert_difference "@unassociated_user.memberships.count", 1 do
       patch accept_user_organizations_received_invitation_url(@invitation)
