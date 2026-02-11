@@ -26,6 +26,6 @@ class DeviseAuthSystemTest < ApplicationSystemTestCase
     click_button "Sign in"
 
     assert_current_path organizations_path
-    assert_text "Signed in successfully."
+    assert_text "Create"
   end
 end
