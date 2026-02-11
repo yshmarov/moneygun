@@ -18,9 +18,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user_signed_in?
       # User is already logged in, add OAuth account to current user
       connected_account = ConnectedAccount.create_or_update_from_omniauth(auth_payload, current_user)
-      unless connected_account.persisted?
-        flash[:alert] = I18n.t("users.connected_accounts.errors.failed_to_connect", provider: ConnectedAccount::PROVIDER_CONFIG[kind][:name], errors: connected_account.errors.full_messages.join(", "))
-      end
+      flash[:alert] = I18n.t("users.connected_accounts.errors.failed_to_connect", provider: ConnectedAccount::PROVIDER_CONFIG[kind][:name], errors: connected_account.errors.full_messages.join(", ")) unless connected_account.persisted?
       redirect_to user_connected_accounts_path
     else
       user = User.from_omniauth(auth_payload)
