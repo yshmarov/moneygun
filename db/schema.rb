@@ -91,6 +91,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_000002) do
     t.string "uid"
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner"
+    t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner_type_and_owner_id"
     t.index ["uid", "provider"], name: "index_connected_accounts_on_uid_and_provider", unique: true
   end
 
