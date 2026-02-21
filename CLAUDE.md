@@ -116,11 +116,12 @@ Use `before_action :require_subscription` for paywalled features.
 - Do NOT use `skip_verify_authorized` or `skip_authorization` at the class level - these don't exist
 - The `authorize` method must be called inside each action, or via a `before_action` callback
 
-### ConnectedAccount Model
+### Identity Model
 
 - The `name` attribute is computed from `payload` JSON (`payload&.dig("info", "name")`), not a database column
 - Cannot use `pick(:name)` or similar SQL queries for this field
-- When eager loading with `includes(:connected_accounts)`, use `connected_accounts.first&.name`
+- When eager loading with `includes(:identities)`, use `identities.first&.name`
+- `Identity` is for auth-only providers (Google, Developer). Social platform connections should use a separate model.
 
 ### Organization Membership Checks
 

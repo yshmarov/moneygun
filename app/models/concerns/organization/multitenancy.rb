@@ -13,7 +13,11 @@ module Organization::Multitenancy
   end
 
   def participant?(user)
-    memberships.exists?(user: user)
+    if memberships.loaded?
+      memberships.any? { |m| m.user_id == user.id }
+    else
+      memberships.exists?(user: user)
+    end
   end
 
   def pending_invitation_for(user)
@@ -24,10 +28,25 @@ module Organization::Multitenancy
     received_join_requests.pending.find_by(user: user)
   end
 
+  def admin_users
+    User.where(id: memberships.where(role: :admin).select(:user_id))
+  end
+
   def membership_status_for(user)
     return :member if participant?(user)
-    return :pending_join_request if received_join_requests.pending.exists?(user: user)
-    return :invited if sent_invitations.pending.exists?(user: user)
+
+    # In-Ruby filters below must mirror the .pending scope
+    if received_join_requests.loaded?
+      return :pending_join_request if received_join_requests.select(&:pending?).any? { |r| r.user_id == user.id }
+    elsif received_join_requests.pending.exists?(user: user)
+      return :pending_join_request
+    end
+
+    if sent_invitations.loaded?
+      return :invited if sent_invitations.select(&:pending?).any? { |r| r.user_id == user.id }
+    elsif sent_invitations.pending.exists?(user: user)
+      return :invited
+    end
 
     :none
   end

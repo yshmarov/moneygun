@@ -71,6 +71,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "mocha"
+  gem "webmock"
 end
 
 # active record
@@ -129,3 +130,7 @@ end
 gem "browser", "~> 6.2"
 
 gem "honeybadger", "~> 6.3"
+
+gem "brakeman", "~> 8.0", group: :development
+gem "strong_migrations", "~> 2.5" # Catch unsafe migrations before they hit production
+gem "lograge", "~> 0.14.0" # Single-line structured logs for production

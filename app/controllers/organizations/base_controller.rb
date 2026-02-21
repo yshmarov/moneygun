@@ -42,7 +42,7 @@ class Organizations::BaseController < ApplicationController
     Current.organization = Current.membership&.organization
     return if Current.membership
 
-    redirect_to root_path, alert: t("shared.errors.not_authorized")
+    redirect_to default_authenticated_path, alert: t("shared.errors.not_authorized")
   end
 
   def pundit_user

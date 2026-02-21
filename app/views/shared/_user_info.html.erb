@@ -1,4 +1,4 @@
-<% sign_in_account = user.connected_accounts.find { |ca| ConnectedAccount::PROVIDER_CONFIG[ca.provider.to_sym]&.dig(:sign_in) } %>
+<% sign_in_identity = user.identities.find { |i| Identity.auth_provider?(i.provider) } %>
 
 <div class="p-4 border-b border-base-content/10">
   <div class="flex items-center gap-3">
@@ -9,12 +9,12 @@
 
       <div class="text-sm text-base-content/70 truncate"><%= user.email %></div>
 
-      <% if sign_in_account %>
+      <% if sign_in_identity %>
         <div class="flex items-center gap-1.5 mt-1">
-          <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[sign_in_account.provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
+          <%= inline_svg_tag "svg/#{Identity::AUTH_PROVIDERS[sign_in_identity.provider.to_sym][:icon]}.svg", class: "w-4 h-4" %>
 
           <span class="text-xs text-base-content/60">
-            <%= ConnectedAccount::PROVIDER_CONFIG[sign_in_account.provider.to_sym][:name] %>
+            <%= Identity::AUTH_PROVIDERS[sign_in_identity.provider.to_sym][:name] %>
           </span>
         </div>
       <% end %>

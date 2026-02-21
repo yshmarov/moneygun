@@ -4,7 +4,7 @@
     <ul class="menu [[data-expanded=true]_&]:menu-xl w-full">
       <li>
         <div class="flex items-center justify-between gap-2">
-          <%= active_link_to root_path, class: "flex-1 flex items-center gap-3 min-w-0", class_active: "menu-active", active: :exact do %>
+          <%= active_link_to default_authenticated_path, class: "flex-1 flex items-center gap-3 min-w-0", class_active: "menu-active", active: :exact do %>
             <%= image_tag "logo.png", class: "size-8 shrink-0 -ml-1 -mr-2" %>
 
             <span class="[[data-expanded=false]_&]:hidden truncate min-w-0">
@@ -12,14 +12,16 @@
             </span>
           <% end %>
 
-          <%= link_to search_path, class: "btn btn-ghost btn-xs btn-square max-lg:hidden", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } do %>
-            <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4", aria: { hidden: true } %>
+          <% if Flipper.enabled?(:search) %>
+            <%= link_to search_path, class: "btn btn-ghost btn-xs btn-square max-lg:hidden", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } do %>
+              <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4", aria: { hidden: true } %>
+            <% end %>
           <% end %>
         </div>
       </li>
 
       <%# Desktop: user links (mobile has these via profile page) %>
-      <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/compass.svg", active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]], wrapper_class: "max-lg:hidden" %>
+      <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: Organization::ICON, active: [["organizations", "public/organizations", "users/invitations", "users/membership_requests"], ["index"]], wrapper_class: "max-lg:hidden" %>
 
       <li class="max-lg:hidden">
         <%= active_link_to user_notifications_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("users.notifications.index.title"), data: { turbo_prefetch: false } do %>
@@ -38,7 +40,7 @@
         <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6"), wrapper_class: "lg:hidden" %>
       <% end %>
 
-      <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: "svg/compass.svg", wrapper_class: "lg:hidden" %>
+      <%= nav_link t("shared.navigation.organizations"), organizations_path, icon: Organization::ICON, wrapper_class: "lg:hidden" %>
     </ul>
   </nav>
 

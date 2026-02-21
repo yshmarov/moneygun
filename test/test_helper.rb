@@ -6,6 +6,9 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "factory_bot_rails"
 require "mocha/minitest"
+require "webmock/minitest"
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 module ActiveSupport
   class TestCase
@@ -32,6 +35,6 @@ module GoogleOauth2Helper
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:google_oauth2] = parsed_file
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
-    post user_google_oauth2_omniauth_callback_path
+    post omniauth_callback_path(provider: "google_oauth2")
   end
 end

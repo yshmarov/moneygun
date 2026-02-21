@@ -34,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def name
-    self[:name].presence || connected_accounts.first&.name || email.split("@").first
+    self[:name].presence || identities.first&.name || email.split("@").first
   end
 
   def avatar_thumbnail

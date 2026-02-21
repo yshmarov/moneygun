@@ -334,19 +334,19 @@ fr:
     terms:
       title: Conditions
   users:
-    connected_accounts:
-      connected_account:
-        confirm_disconnect_message: Êtes-vous sûr de vouloir déconnecter ce compte ?
-        disconnect_button: Déconnexion
+    identities:
       destroy:
         success: Compte déconnecté avec succès.
+      identity:
+        confirm_disconnect_message: Êtes-vous sûr de vouloir déconnecter ce compte ?
+        disconnect_button: Déconnexion
       index:
         available_connections: Connexions disponibles
         connect_button: Se connecter
         connect_to_enable_auth: Connectez vos comptes pour activer une authentification sans faille.
         no_accounts_connected: Vous n'avez pas encore connecté de comptes OAuth.
         title: Comptes connectés
-        your_connected_accounts: Comptes connectés
+        your_identities: Comptes connectés
     notifications:
       index:
         title: Notifications

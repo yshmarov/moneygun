@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Organization < ApplicationRecord
+  ICON = "svg/briefcase.svg"
+
   include Organization::Multitenancy
   include Organization::Transfer
   include Organization::Billing
