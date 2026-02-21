@@ -1,7 +1,7 @@
 <%# This navbar is mobile-only (hidden on desktop via layout) %>
 <nav class="px-4 navbar justify-between" aria-label="<%= t("shared.sidebar.main_navigation") %>">
   <%# Left: hamburger + org home link %>
-  <div class="flex items-center gap-2">
+  <div class="flex items-center gap-2 shrink min-w-0 grow-0">
     <label for="main-drawer" class="btn btn-ghost btn-square" aria-label="<%= t("shared.sidebar.navigation") %>">
       <%= inline_svg_tag "svg/bars-3.svg", class: "size-6", aria: { hidden: true } %>
     </label>
