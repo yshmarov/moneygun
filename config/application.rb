@@ -17,7 +17,7 @@ module Moneygun
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w[assets tasks generators])
+    config.autoload_lib(ignore: %w[assets tasks generators rails_ext])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -27,7 +27,7 @@ module Moneygun
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :en
-    config.i18n.available_locales = %i[en fr]
+    config.i18n.available_locales = %i[en fr uk pl]
     config.i18n.fallbacks = true
     config.active_record.encryption.support_unencrypted_data = true
     config.active_record.encryption.extend_queries = true

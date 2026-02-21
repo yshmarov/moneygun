@@ -77,9 +77,6 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    active_analytics (0.4.1)
-      browser (>= 1.0.0)
-      rails (>= 5.2.0)
     active_link_to (1.0.5)
       actionpack
       addressable
@@ -250,6 +247,13 @@ GEM
       raabro (~> 1.4)
     globalid (1.3.0)
       activesupport (>= 6.1)
+    good_job (4.13.3)
+      activejob (>= 6.1.0)
+      activerecord (>= 6.1.0)
+      concurrent-ruby (>= 1.3.1)
+      fugit (>= 1.11.0)
+      railties (>= 6.1.0)
+      thor (>= 1.0.0)
     hashie (5.1.0)
       logger
     herb (0.8.10-aarch64-linux-gnu)
@@ -258,6 +262,9 @@ GEM
     herb (0.8.10-x86_64-linux-gnu)
     highline (3.1.2)
       reline
+    honeybadger (6.4.0)
+      logger
+      ostruct
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
     i18n (1.14.8)
@@ -320,8 +327,9 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
+    lexxy (0.1.26.beta)
+      rails (>= 8.0.2)
     lint_roller (1.1.0)
-    local_time (3.0.3)
     logger (1.7.0)
     loofah (2.25.0)
       crass (~> 1.0.2)
@@ -353,16 +361,8 @@ GEM
     mini_mime (1.1.5)
     minitest (6.0.1)
       prism (~> 1.5)
-    mission_control-jobs (1.1.0)
-      actioncable (>= 7.1)
-      actionpack (>= 7.1)
-      activejob (>= 7.1)
-      activerecord (>= 7.1)
-      importmap-rails (>= 1.2.1)
-      irb (~> 1.13)
-      railties (>= 7.1)
-      stimulus-rails
-      turbo-rails
+    mocha (3.0.2)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.8.0)
     multi_xml (0.8.1)
       bigdecimal (>= 3.1, < 5)
@@ -391,6 +391,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.0-x86_64-linux-gnu)
       racc (~> 1.4)
+    nondisposable (0.2.1)
+      rails (>= 7.0.0)
     noticed (3.0.0)
       rails (>= 6.1.0)
     oauth2 (2.0.18)
@@ -543,6 +545,7 @@ GEM
     ruby-vips (2.3.0)
       ffi (~> 1.12)
       logger
+    ruby2_keywords (0.0.5)
     rubyzip (3.2.2)
     sanitize (7.0.0)
       crass (~> 1.0.2)
@@ -570,13 +573,6 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_queue (1.3.1)
-      activejob (>= 7.1)
-      activerecord (>= 7.1)
-      concurrent-ruby (>= 1.3.1)
-      fugit (~> 1.11)
-      railties (>= 7.1)
-      thor (>= 1.3.1)
     sqids (0.2.2)
     sshkit (1.25.0)
       base64
@@ -647,7 +643,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  active_analytics
   active_link_to (~> 1.0)
   active_storage_dashboard
   active_storage_validations
@@ -666,7 +661,9 @@ DEPENDENCIES
   factory_bot_rails
   flipper-active_record
   flipper-ui
+  good_job
   herb
+  honeybadger (~> 6.3)
   i18n-tasks
   image_processing (~> 1.2)
   importmap-rails
@@ -675,9 +672,10 @@ DEPENDENCIES
   kamal
   letter_opener
   letter_opener_web
-  local_time
+  lexxy (~> 0.1.26.beta)
   lookbook (>= 2.3.9)
-  mission_control-jobs
+  mocha
+  nondisposable
   noticed
   omniauth-github
   omniauth-google-oauth2
@@ -698,7 +696,6 @@ DEPENDENCIES
   simple_form (~> 5.4)
   solid_cable
   solid_cache
-  solid_queue
   sqids
   stimulus-rails
   stripe (~> 13.0)

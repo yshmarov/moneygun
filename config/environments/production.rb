@@ -101,7 +101,7 @@ Rails.application.configure do
   #   enable_starttls_auto: true
   # }
   config.cache_store = :solid_cache_store
-  config.active_job.queue_adapter = :solid_queue
+  config.active_job.queue_adapter = :good_job
   config.active_storage.service = :tigris
   config.assume_ssl = true
   config.force_ssl = true

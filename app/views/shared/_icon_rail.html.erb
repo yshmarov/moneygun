@@ -1,0 +1,46 @@
+<%# Desktop icon rail — persistent global navigation (hidden on mobile) %>
+<nav
+  class="max-lg:hidden w-[60px] shrink-0 bg-base-200 flex flex-col items-center py-3 gap-1 h-dvh overflow-y-auto"
+  aria-label="<%= t("shared.sidebar.global_navigation") %>"
+>
+  <%# App logo — branding %>
+  <%= link_to root_path, class: "btn btn-ghost btn-square", title: t("shared.navigation.home") do %>
+    <%= image_tag "logo.png", class: "size-8", aria: { hidden: true } %>
+  <% end %>
+
+  <%# Search %>
+  <%= link_to search_path, class: "btn btn-ghost btn-square", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } do %>
+    <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-5", aria: { hidden: true } %>
+  <% end %>
+
+  <%# Organizations %>
+  <%= link_to organizations_path, class: "btn btn-ghost btn-square", title: t("shared.navigation.organizations") do %>
+    <%= inline_svg_tag "svg/compass.svg", class: "size-5", aria: { hidden: true } %>
+  <% end %>
+
+  <%# Notifications %>
+  <%= link_to user_notifications_path, class: "btn btn-ghost btn-square relative", title: t("users.notifications.index.title"), data: { turbo_prefetch: false } do %>
+    <%= inline_svg_tag "svg/bell.svg", class: "size-5", aria: { hidden: true } %>
+
+    <span class="notification-badge absolute top-0 right-0">
+      <%= render "shared/notification_badge", count: current_user.unseen_notifications_count %>
+    </span>
+  <% end %>
+
+  <%# User avatar — escape to user context %>
+  <%= link_to user_path, class: "btn btn-ghost btn-square", title: current_user.name do %>
+    <%= user_avatar(current_user, classes: "size-8") %>
+  <% end %>
+
+  <%# Spacer %>
+  <div class="flex-1"></div>
+
+  <%# Organization avatars %>
+  <% Current.organizations&.each do |org| %>
+    <% is_active = Current.organization&.id == org.id %>
+
+    <%= link_to organization_path(org), class: class_names("rounded p-0.5", "ring-2 ring-primary": is_active), title: org.name do %>
+      <%= organization_avatar(org, classes: "size-8") %>
+    <% end %>
+  <% end %>
+</nav>

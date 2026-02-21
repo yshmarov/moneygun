@@ -67,7 +67,7 @@ en:
       back: "⚠ Stop impersonating"
     omniauth_callbacks:
       failure: Something went wrong. Please try again
-      success: ""
+      success: ''
     passwords:
       no_token: You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided.
       send_instructions: You will receive an email with instructions on how to reset your password in a few minutes.
@@ -85,7 +85,7 @@ en:
       updated_but_not_signed_in: Your account has been updated successfully, but since your password was changed, you need to sign in again.
     sessions:
       already_signed_out: Signed out successfully.
-      signed_in: ""
+      signed_in: ''
       signed_out: Signed out successfully.
     unlocks:
       send_instructions: You will receive an email with instructions for how to unlock your account in a few minutes.
@@ -236,6 +236,9 @@ en:
       request_rejected_notifier:
         notification:
           message: Your request to join %{organization_name} has been declined.
+      role_changed_notifier:
+        notification:
+          message: Your role in %{organization_name} has been changed to %{role}
   organizations:
     dashboard:
       index:
@@ -330,7 +333,9 @@ en:
       title: Search
   shared:
     actions:
+      cancel: Cancel
       confirm: Are you sure?
+      confirm_action: Confirm
       copied: "✅ Copied!"
       copy: "📋 Copy"
       create: Create
@@ -344,6 +349,8 @@ en:
       rate_limit: Try again later.
     footer:
       all_rights_reserved: All rights reserved.
+    modal:
+      close: Close
     navigation:
       edit_profile: Edit profile
       home: Home
@@ -352,8 +359,15 @@ en:
       organizations: Organizations
       profile: Profile
       register: Sign up
+    pagination:
+      info: Showing %{from} to %{to} of %{count}
     sidebar:
+      global_navigation: Global navigation
+      main_navigation: Main navigation
+      navigation: Navigation
+      org_navigation: Organization navigation
       search: Search... ⌘K
+    skip_to_content: Skip to main content
   static:
     index:
       title: Home

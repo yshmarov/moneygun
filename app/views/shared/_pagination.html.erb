@@ -1,3 +1,8 @@
 <% if pagy.pages > 1 %>
-  <div class="flex justify-center mt-4"><%== pagy_nav(pagy) %></div>
+  <div class="flex flex-col items-center gap-2 mt-4">
+    <p class="text-sm text-base-content/60">
+      <%= t("shared.pagination.info", from: pagy.from, to: pagy.to, count: number_with_delimiter(pagy.count)) %>
+    </p>
+    <%== pagy_nav(pagy) %>
+  </div>
 <% end %>

@@ -2,8 +2,10 @@
 shared:
   site:
     name: Moneygun
+    description: Multi-tenant SaaS boilerplate for Rails
     email: hello@superails.com
     address: Warsaw, Poland, 02-691
+    og_image: logo.png
   pro_features:
     - ✅ Access the paywalled page
   plan_price_ids:

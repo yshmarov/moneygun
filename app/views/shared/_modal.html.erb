@@ -1,23 +1,33 @@
 <% close_on_submit = true if close_on_submit.nil? %>
 
 <% dialog_position ||= "modal-middle" %>
+<% size ||= :wide %>
 
 <% title ||= nil %>
+<% subtitle ||= nil %>
 
 <% if turbo_frame_request? %>
   <%= turbo_frame_tag :modal do %>
     <dialog
       class="modal <%= dialog_position %> backdrop-blur transition-none"
       data-controller="dialog"
-      data-action="click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>"
+      data-action="mousedown->dialog#trackMousedown click->dialog#clickOutside <%= close_on_submit ? "turbo:submit-end->dialog#hideOnSubmit" : "" %>"
       aria-labelledby="modal-title"
     >
-      <div class="modal-box gap-y-2 transition-none">
-        <div class="flex items-center justify-between mb-4">
-          <div id="modal-title" class="font-semibold text-2xl @3xl:text-3xl"><%= title %></div>
+      <div class="modal-box transition-none w-full <%= size == :narrow ? "max-w-lg" : "max-w-4xl" %>">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <% if title.present? %>
+              <div id="modal-title" class="font-semibold text-lg"><%= title %></div>
+            <% end %>
+
+            <% if subtitle.present? %>
+              <p class="text-sm text-base-content/60 mt-1"><%= subtitle %></p>
+            <% end %>
+          </div>
 
           <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost" aria-label="Close dialog">
+            <button class="btn btn-sm btn-circle btn-ghost" aria-label="<%= t("shared.modal.close") %>">
               <%= inline_svg_tag "svg/x-mark.svg", class: "size-4" %>
             </button>
           </form>
