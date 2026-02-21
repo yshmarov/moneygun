@@ -5,11 +5,7 @@
 >
   <%# App logo — branding %>
   <%= link_to root_path, class: "btn btn-ghost btn-square", title: t("shared.navigation.home") do %>
-    <%= begin
-          inline_svg_tag "logo.png", class: "size-8", aria: { hidden: true }
-        rescue StandardError
-          image_tag("logo.png", class: "size-8", aria: { hidden: true })
-        end %>
+    <%= image_tag "logo.png", class: "size-8", aria: { hidden: true } %>
   <% end %>
 
   <%# Search %>
