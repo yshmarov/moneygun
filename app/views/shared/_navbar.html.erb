@@ -7,7 +7,7 @@
     </label>
 
     <% if Current.organization && !current_page?(organization_path(Current.organization)) %>
-      <%= link_to organization_path(Current.organization), class: "btn btn-ghost gap-1 min-w-0" do %>
+      <%= link_to organization_path(Current.organization), class: "btn btn-ghost gap-1 min-w-0 max-w-fit" do %>
         <%= inline_svg_tag "svg/chevron-left.svg", class: "size-4 shrink-0", aria: { hidden: true } %>
         <%= organization_avatar(Current.organization, classes: "size-6") %>
 
