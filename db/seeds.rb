@@ -17,16 +17,23 @@ user.skip_confirmation_notification!
 user.confirmed_at = Time.current
 user.save!
 
-organization = Organization.create!(name: 'SupeRails', owner: user)
-organization.logo.attach(io: Rails.root.join('test/fixtures/files/superails-logo.png').open, filename: 'superails.png')
+organization = Organization.find_or_create_by!(name: 'SupeRails') do |org|
+  org.owner = user
+end
+organization.logo.attach(io: Rails.root.join('test/fixtures/files/superails-logo.png').open, filename: 'superails.png') unless organization.logo.attached?
 organization.update!(privacy_setting: :public)
 
-organization = Organization.create!(name: 'Avo', owner: user)
-organization.logo.attach(io: Rails.root.join('test/fixtures/files/avo-logo.png').open, filename: 'avo.png')
+organization = Organization.find_or_create_by!(name: 'Avo') do |org|
+  org.owner = user
+end
+organization.logo.attach(io: Rails.root.join('test/fixtures/files/avo-logo.png').open, filename: 'avo.png') unless organization.logo.attached?
 organization.update!(privacy_setting: :restricted)
 
-organization = Organization.create!(name: 'Buzzsprout', owner: user, privacy_setting: :private)
-organization.logo.attach(io: Rails.root.join('test/fixtures/files/buzzsprout-logo.png').open, filename: 'buzzsprout.png')
+organization = Organization.find_or_create_by!(name: 'Buzzsprout') do |org|
+  org.owner = user
+  org.privacy_setting = :private
+end
+organization.logo.attach(io: Rails.root.join('test/fixtures/files/buzzsprout-logo.png').open, filename: 'buzzsprout.png') unless organization.logo.attached?
 
 # if Rails.application.credentials.dig(:stripe, :private_key).present?
 #   product = Stripe::Product.create(name: "Pro plan")

@@ -1,0 +1,31 @@
+<%# Org name banner %>
+<div class="px-3 pt-3 pb-1">
+  <div class="bg-base-200 rounded-xl p-3 flex items-center gap-3 [[data-expanded=false]_&]:p-2 [[data-expanded=false]_&]:justify-center">
+    <%= organization_avatar(Current.organization, classes: "size-8 [[data-expanded=false]_&]:size-6") %>
+    <span class="[[data-expanded=false]_&]:hidden truncate text-lg font-bold"><%= Current.organization.name %></span>
+  </div>
+</div>
+
+<%# Org navigation %>
+<nav class="flex-1 overflow-y-auto" aria-label="<%= t("shared.sidebar.org_navigation") %>">
+  <ul class="menu [[data-expanded=true]_&]:menu-xl w-full">
+    <%= nav_link t("organizations.show.title"), organization_path(Current.organization), icon: "svg/home.svg", active: [["organizations"], ["show"]] %>
+
+    <%= nav_link t("organizations.dashboard.index.title"), organization_dashboard_path(Current.organization), icon: "svg/chart-bar.svg" %>
+
+    <%= nav_link t("organizations.dashboard.paywalled_page.title"), organization_paywalled_page_path(Current.organization), icon: "🔐" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+
+    <%= nav_link "Projects", organization_projects_path(Current.organization), icon: "svg/question-mark-circle.svg" if policy(Project).index? %>
+
+    <%# Org management section %>
+    <li class="my-2 border-t border-base-content/10"></li>
+
+    <% pending_requests_count = Current.organization.received_join_requests.pending.count %>
+    <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (pending_requests_count.positive? ? pending_requests_count : nil), active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
+
+    <% if Current.membership.admin? %>
+      <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
+      <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
+    <% end %>
+  </ul>
+</nav>

@@ -1,78 +1,20 @@
 <div class="drawer-side z-30" data-expanded="true">
-  <label for="main-drawer" aria-label="Close sidebar" class="drawer-overlay"></label>
+  <label for="main-drawer" aria-label="<%= t("shared.modal.close") %>" class="drawer-overlay"></label>
 
-  <aside class="bg-base-300 h-dvh flex flex-col overflow-hidden [[data-expanded=true]_&]:w-80">
-    <ul class="menu [[data-expanded=true]_&]:menu-xl w-full flex-1">
-      <%= nav_link Rails.application.config_for(:settings).dig(:site, :name), root_path, class: "text-2xl font-semibold", icon: "logo.png", active: :exact %>
-      <%= nav_link t("shared.sidebar.search"), search_path, icon: "svg/magnifying-glass.svg", data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" }, class: "max-lg:hidden" %>
+  <div class="flex h-dvh <%= "lg:bg-base-200" if Current.organization %>">
+    <% if Current.organization %>
+      <%= render "shared/icon_rail" %>
+    <% end %>
 
-      <li></li>
-
-      <%# desktop - sidebar for current organization actions %>
-      <div class="max-lg:hidden">
-        <% if Current.organization %>
-          <li>
-            <details>
-              <summary>
-                <%= organization_avatar(Current.organization, classes: "size-6") %>
-
-                <span class="[[data-expanded=false]_&]:hidden truncate"><%= Current.organization.name %></span>
-              </summary>
-
-              <ul>
-                <% pending_requests_count = Current.organization.received_join_requests.pending.count %>
-                <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (pending_requests_count.positive? ? pending_requests_count : nil), active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
-
-                <% if Current.membership.admin? %>
-                  <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
-                  <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-                <% end %>
-              </ul>
-            </details>
-          </li>
-          <%= render "shared/sidebar_links" %>
-        <% end %>
-      </div>
-
-      <%# mobile - sidebar for switching between organizations %>
-      <div class="<% if Current.organization %> lg:hidden <% end %>">
-        <li>
-          <%= active_link_to organizations_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("shared.navigation.organizations"), active: :exact, "aria-label": t("shared.navigation.organizations") do %>
-            <%= inline_svg_tag "svg/compass.svg", class: "size-6 w-6 h-6", "aria-hidden": "true" %>
-            <span class="[[data-expanded=false]_&]:hidden truncate min-w-0"><%= t("shared.navigation.organizations") %></span>
-          <% end %>
-
-          <ul>
-            <% Current.organizations&.each do |organization| %>
-              <%= nav_link organization.name, organization_path(organization), icon: organization_avatar(organization, classes: "size-6") %>
-            <% end %>
-          </ul>
-        </li>
-      </div>
-    </ul>
-
-    <ul class="menu [[data-expanded=true]_&]:menu-xl w-full">
-      <% if current_user.admin? %>
-        <% unless admin_links.empty? %>
-          <li>
-            <details>
-              <summary>
-                <%= inline_svg_tag "svg/cog-6-tooth.svg", class: "size-6 w-6 h-6" %>
-
-                <span class="[[data-expanded=false]_&]:hidden truncate"> Admin </span>
-              </summary>
-
-              <ul>
-                <% admin_links.each do |link| %>
-                  <%= nav_link link[:name], link[:path], icon: link[:icon] %>
-                <% end %>
-              </ul>
-            </details>
-          </li>
-        <% end %>
+    <aside
+      class="bg-base-200 flex flex-col overflow-hidden [[data-expanded=true]_&]:w-72 <% if Current.organization %> h-dvh lg:h-[calc(100dvh-1rem)] lg:my-2 lg:rounded-l-2xl lg:border-y lg:border-x lg:border-base-content/10 lg:bg-base-100 <% else %> h-dvh <% end %>"
+      aria-label="<%= t("shared.sidebar.navigation") %>"
+    >
+      <% if Current.organization %>
+        <%= render "shared/sidebar_organization" %>
+      <% else %>
+        <%= render "shared/sidebar_user" %>
       <% end %>
-
-      <li></li>
-    </ul>
-  </aside>
+    </aside>
+  </div>
 </div>

@@ -1,82 +1,29 @@
-<nav class="px-4 navbar flex justify-between">
-  <%# left %>
+<%# This navbar is mobile-only (hidden on desktop via layout) %>
+<nav class="px-4 navbar justify-between" aria-label="<%= t("shared.sidebar.main_navigation") %>">
+  <%# Left: hamburger + org home link %>
   <div class="flex items-center gap-2">
-    <%# mobile sidebar toggle %>
-    <label for="main-drawer" class="btn btn-ghost btn-square lg:hidden" aria-label="Toggle menu"><%= inline_svg_tag "svg/bars-3.svg", class: "size-6" %></label>
+    <label for="main-drawer" class="btn btn-ghost btn-square" aria-label="<%= t("shared.sidebar.navigation") %>">
+      <%= inline_svg_tag "svg/bars-3.svg", class: "size-6", aria: { hidden: true } %>
+    </label>
 
-    <%# select org dropdown %>
-    <% if Current.organization %>
-      <div class="lg:hidden dropdown dropdown-start group">
-        <div tabindex="0" role="button" class="btn btn-ghost" aria-label="Select organization">
-          <%= organization_avatar(Current.organization, classes: "size-6") %>
-          <%= Current.organization.name.truncate(15) %>
-          <%= inline_svg_tag "svg/chevron-down.svg", class: "w-4 h-4 stroke-2 transition-transform duration-200 group-focus-within:rotate-180" %>
-        </div>
+    <% if Current.organization && !current_page?(organization_path(Current.organization)) %>
+      <%= link_to organization_path(Current.organization), class: "btn btn-ghost gap-1 min-w-0" do %>
+        <%= inline_svg_tag "svg/chevron-left.svg", class: "size-4 shrink-0", aria: { hidden: true } %>
+        <%= organization_avatar(Current.organization, classes: "size-6") %>
 
-        <ul
-          tabindex="-1"
-          class="
-            menu menu-xl dropdown-content bg-base-100 rounded-box mt-3
-            shadow border border-base-content/20
-          "
-        >
-          <%= nav_link t("organizations.memberships.index.title"), organization_memberships_path(Current.organization), icon: "svg/user-group.svg", badge: (count = Current.organization.received_join_requests.pending.count).positive? ? count : nil, active: [["organizations/memberships", "organizations/sent_invitations", "organizations/received_join_requests"], []] %>
-
-          <% if Current.membership.admin? %>
-            <%= nav_link t("organizations.edit.title"), edit_organization_path(Current.organization), icon: "svg/cog-6-tooth.svg", active: [["organizations"], ["edit"]] %>
-            <%= nav_link t("organizations.subscriptions.index.title"), organization_subscriptions_path(Current.organization), icon: subscription_status_label(Current.organization) if Rails.application.credentials.dig(:stripe, :private_key).present? %>
-          <% end %>
-        </ul>
-      </div>
+        <span class="font-medium truncate"><%= Current.organization.name %></span>
+      <% end %>
     <% end %>
   </div>
 
-  <%# right %>
-  <div class="flex items-center gap-2">
-    <% if user_masquerade? %>
-      <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning btn-sm uppercase" %>
+  <%# Right: search + masquerade warning %>
+  <div class="flex items-center gap-1">
+    <%= link_to search_path, class: "btn btn-ghost btn-square", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal } do %>
+      <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-5", aria: { hidden: true } %>
     <% end %>
 
-    <%# notifications dropdown %>
-    <div class="dropdown dropdown-end max-lg:hidden">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-label="Notifications">
-        <%= render "users/notifications/notifications_count", unread: current_user.unseen_notifications_count %>
-        <%= inline_svg_tag "svg/bell.svg", class: "w-6 h-6" %>
-      </div>
-
-      <div
-        tabindex="-1"
-        class="
-          w-96 p-2 dropdown-content bg-base-100 rounded-box mt-3 shadow
-          border border-base-content/20
-        "
-      >
-        <div class="w-full flex justify-end"><%= link_to "View all", user_notifications_path, class: "link link-hover" %></div>
-
-        <%= turbo_frame_tag :notifications, src: user_notifications_path, loading: :lazy %>
-      </div>
-    </div>
-
-    <div class="dropdown dropdown-end group">
-      <div tabindex="0" role="button" class="cursor-pointer"><%= user_avatar(current_user) %></div>
-
-      <div
-        tabindex="-1"
-        class="
-          dropdown-content bg-base-100 rounded-box mt-3 shadow
-          border border-base-content/20
-          max-h-[80dvh] overflow-y-auto
-        "
-      >
-        <%= render "shared/user_info", user: current_user %>
-
-        <%# User links menu %>
-        <ul class="menu menu-xl p-2"><%= render "shared/user_links" %></ul>
-      </div>
-    </div>
+    <% if user_masquerade? %>
+      <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning uppercase" %>
+    <% end %>
   </div>
 </nav>
-
-<% if Current.organization %>
-  <div class="lg:hidden"><%= render TabsComponent.new(active_tab: organization_active_tab, tabs: organization_tabs) %></div>
-<% end %>

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class TabsComponent < ViewComponent::Base
-  def initialize(active_tab:, tabs: [])
+  def initialize(active_tab:, tabs: [], border: true)
     @active_tab = active_tab
     @tabs = tabs
+    @border = border
   end
 
   private
@@ -19,7 +20,7 @@ class TabsComponent < ViewComponent::Base
   end
 
   def base_classes
-    "flex items-center gap-1 py-2 px-1 border-b-2 font-medium text-sm lg:text-base transition-colors duration-200 whitespace-nowrap"
+    "flex items-center gap-1.5 py-3 px-2 border-b-2 font-medium text-sm lg:text-base transition-colors duration-200 whitespace-nowrap"
   end
 
   def tab_classes(tab_key)

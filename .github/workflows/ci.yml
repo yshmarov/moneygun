@@ -2,11 +2,17 @@ name: CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   scan_ruby:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +26,7 @@ jobs:
           bundler-cache: true
 
   scan_js:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
     steps:
@@ -36,6 +43,7 @@ jobs:
         run: bin/importmap audit
 
   lint:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -54,11 +62,12 @@ jobs:
         run: bin/erb_lint --lint-all
 
   test:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
     services:
       postgres:
-        image: postgres
+        image: postgres:18
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres

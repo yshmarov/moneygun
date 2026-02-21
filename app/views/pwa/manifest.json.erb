@@ -16,7 +16,31 @@
   "start_url": "/",
   "display": "standalone",
   "scope": "/",
-  "description": "<%= Rails.application.config_for(:settings).dig(:site, :name) %>",
-  "theme_color": "red",
-  "background_color": "red"
+  "description": "<%= Rails.application.config_for(:settings).dig(:site, :description) %>",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "categories": ["business", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/",
+      "icons": [{ "src": "/icon.png", "sizes": "512x512" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "<%= Rails.application.config_for(:settings).dig(:site, :name) %> dashboard"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "<%= Rails.application.config_for(:settings).dig(:site, :name) %> mobile"
+    }
+  ]
 }

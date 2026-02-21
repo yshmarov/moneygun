@@ -1,8 +1,12 @@
-<title><%= formatted_title %></title>
+<%= meta_tags %>
 
 <%= viewport_meta_tag %>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13161d" media="(prefers-color-scheme: dark)">
 
 <meta
   name="application-name"
@@ -14,6 +18,8 @@
 <%= csrf_meta_tags %>
 
 <%= csp_meta_tag %>
+
+<meta name="view-transition" content="same-origin">
 
 <%= yield :head %>
 
@@ -29,5 +35,6 @@
 <%# Includes all stylesheet files in app/assets/stylesheets %>
 
 <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "lexxy-variables", "lexxy-editor", "lexxy-content" %>
 
 <%= javascript_importmap_tags %>

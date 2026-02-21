@@ -10,14 +10,6 @@ class EmptyStateComponent < ViewComponent::Base
   attr_reader :title, :subtitle, :icon
 
   def icon_content
-    return if icon.blank?
-
-    if icon.match?(/svg/)
-      helpers.inline_svg_tag icon, class: "w-10 h-10 size-10 text-base-content/50"
-    elsif icon&.start_with?("http") || icon&.match?(/\.(png|jpg|webp|avif|gif)$/)
-      image_tag icon, class: "w-10 h-10 rounded object-cover"
-    else
-      tag.span icon, class: "text-4xl"
-    end
+    helpers.resolve_icon(icon, classes: "w-10 h-10 size-10 text-base-content/50")
   end
 end

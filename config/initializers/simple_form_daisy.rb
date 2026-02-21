@@ -78,9 +78,11 @@ SimpleForm.setup do |config|
   config.wrappers :vertical_boolean, tag: "div", class: "form-control flex flex-col gap-1", error_class: "", valid_class: "" do |b|
     b.use :html5
     b.optional :readonly
-    b.wrapper :boolean_wrapper, tag: :label, class: "label cursor-pointer gap-2 w-fit" do |ba|
-      ba.use :input, class: "toggle"
-      ba.use :label_text, class: "label-text"
+    b.wrapper :boolean_wrapper, tag: :label, class: "flex items-center cursor-pointer gap-2 py-2" do |ba|
+      ba.use :input, class: "toggle shrink-0"
+      ba.wrapper :label_text_wrapper, tag: :span, class: "label-text" do |bt|
+        bt.use :label_text
+      end
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
     b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
@@ -99,26 +101,49 @@ SimpleForm.setup do |config|
 
   config.wrappers :date_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
     b.use :html5
-    b.use :placeholder
     b.optional :readonly
 
-    b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-md w-full"
-      ba.use :label, wrap_with: { tag: :span }
-    end
+    b.use :label, class: "label-text"
+    b.use :input, class: "input input-md w-full"
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
     b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
 
   config.wrappers :datetime_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
     b.use :html5
-    b.use :placeholder
     b.optional :readonly
 
-    b.wrapper :floating_label_wrapper, tag: :label, class: "floating-label" do |ba|
-      ba.use :input, class: "input input-md w-full"
-      ba.use :label, wrap_with: { tag: :span }
-    end
+    b.use :label, class: "label-text"
+    b.use :input, class: "input input-md w-full"
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
+  end
+
+  config.wrappers :range_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
+    b.use :html5
+    b.optional :readonly
+    b.optional :min_max
+
+    b.use :label, class: "label-text"
+    b.use :input, class: "range w-full"
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
+  end
+
+  config.wrappers :color_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
+    b.use :html5
+    b.optional :readonly
+
+    b.use :label, class: "label-text"
+    b.use :input, class: "w-full h-10 rounded-lg cursor-pointer border-0 p-0"
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
+    b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
+  end
+
+  config.wrappers :dropzone_input, tag: "div", class: "form-control", error_class: "", valid_class: "" do |b|
+    b.use :html5
+    b.use :label, class: "label-text"
+    b.use :input
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-error", role: "alert" }
     b.use :hint, wrap_with: { tag: "div", class: "text-base-content/70 text-xs mt-1 whitespace-normal break-words w-full" }
   end
@@ -161,7 +186,11 @@ SimpleForm.setup do |config|
     radio_buttons: :vertical_radio,
     file: :file_input,
     date: :date_input,
-    datetime: :datetime_input
+    datetime: :datetime_input,
+    time: :date_input,
+    range: :range_input,
+    color: :color_input,
+    dropzone: :dropzone_input
     # prepend_string: :prepend_string,
     # append_string: :append_string,
   }

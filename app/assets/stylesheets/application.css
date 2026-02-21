@@ -1,5 +1,68 @@
 /* Application styles */
 
+/* Safe area: push content below notch/status bar for standalone PWA and edge-to-edge WKWebView */
+body {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Disable overscroll only in Hotwire Native WKWebView to prevent rubber-band getting stuck.
+   Regular mobile browsers need overscroll for pull-to-refresh. */
+body[data-native] {
+  overscroll-behavior-y: none;
+}
+
+/* PWA display-mode utilities */
+.hide-in-pwa {
+  @media (display-mode: standalone) {
+    display: none;
+  }
+}
+
+.hide-in-browser {
+  @media (display-mode: browser) {
+    display: none;
+  }
+}
+
+.hide-in-ios-pwa {
+  @media (display-mode: standalone) {
+    @supports (-webkit-touch-callout: none) {
+      display: none;
+    }
+  }
+}
+
+/* View transitions */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: fade-out 0.15s ease-in;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.2s ease-out;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Hide chevron and nested menu styling when sidebar is collapsed */
 [data-expanded='false'] .menu li > details > summary::after {
   display: none;
@@ -12,4 +75,67 @@
 
 [data-expanded='false'] .menu li ul::before {
   display: none;
+}
+
+/* CTA button animations */
+@keyframes cta-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes cta-glow {
+  0%,
+  100% {
+    box-shadow: 0 4px 20px color-mix(in oklch, var(--color-primary) 30%, transparent);
+  }
+  50% {
+    box-shadow: 0 4px 30px color-mix(in oklch, var(--color-primary) 50%, transparent);
+  }
+}
+
+@keyframes cta-glow-hover {
+  0%,
+  100% {
+    box-shadow: 0 4px 25px color-mix(in oklch, var(--color-primary) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 6px 40px color-mix(in oklch, var(--color-primary) 65%, transparent);
+  }
+}
+
+/* iOS-style bottom sheet modals on mobile */
+@media (max-width: 639px) {
+  dialog.modal {
+    align-items: flex-end;
+  }
+
+  dialog.modal > .modal-box {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    border-radius: 1rem 1rem 0 0;
+    height: 92vh;
+    overflow-y: auto;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Floating UI tooltip styles */
+.floating-tooltip {
+  position: absolute;
+  z-index: 9999;
+  max-width: min(250px, 80vw);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background-color: var(--color-neutral);
+  color: var(--color-neutral-content);
+  border-radius: 0.375rem;
+  white-space: normal;
+  text-align: left;
+  pointer-events: none;
 }

@@ -1,0 +1,24 @@
+<dialog id="turbo-confirm-dialog"
+        class="modal backdrop-blur transition-none"
+        aria-labelledby="turbo-confirm-title"
+>
+  <div class="modal-box transition-none max-w-sm">
+    <h3 id="turbo-confirm-title" class="text-lg font-bold"></h3>
+    <p id="turbo-confirm-description" class="text-sm text-base-content/70 mt-2 hidden"></p>
+    <input id="turbo-confirm-text-input" type="text" class="input input-bordered w-full mt-2 hidden"
+           autocomplete="off" />
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button type="submit" value="cancel" id="turbo-confirm-reject" class="btn btn-ghost">
+          <%= t("shared.actions.cancel") %>
+        </button>
+      </form>
+      <form method="dialog">
+        <button type="submit" value="confirm" id="turbo-confirm-accept" class="btn btn-error">
+          <%= t("shared.actions.confirm_action") %>
+        </button>
+      </form>
+    </div>
+  </div>
+</dialog>

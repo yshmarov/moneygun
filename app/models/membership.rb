@@ -14,6 +14,7 @@ class Membership < ApplicationRecord
   validate :cannot_demote_owner_from_admin, on: :update
 
   after_destroy :notify_user_removed
+  after_update_commit :notify_role_changed, if: :saved_change_to_role?
 
   def try_destroy
     return false if organization.memberships.one?
@@ -24,6 +25,13 @@ class Membership < ApplicationRecord
   end
 
   private
+
+  def notify_role_changed
+    Membership::RoleChangedNotifier.with(
+      organization: organization,
+      role: role
+    ).deliver(user)
+  end
 
   def notify_user_removed
     Membership::RemovalNotifier.with(

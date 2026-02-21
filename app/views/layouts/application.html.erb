@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 
-<html lang="en" class="h-full bg-base-100 text-base-content">
+<html lang="<%= I18n.locale %>" class="h-full bg-base-100 text-base-content">
   <head><%= render "layouts/head" %></head>
 
-  <body class="h-dvh overflow-hidden">
+  <body class="min-h-dvh lg:h-dvh lg:overflow-hidden" <%= "data-native" if hotwire_native_app? %>>
+    <%= render "shared/skip_link" %>
+
     <div class="drawer lg:drawer-open">
       <input id="main-drawer" type="checkbox" class="drawer-toggle">
 
-      <div class="drawer-content flex flex-col min-w-0 h-dvh overflow-y-auto">
-        <%= render "shared/navbar" %>
+      <div class="drawer-content flex flex-col min-w-0 min-h-dvh lg:h-dvh lg:overflow-y-auto bg-base-100 lg:bg-base-200">
+        <%# Navbar only on mobile - desktop uses sidebar for navigation %>
+        <div class="lg:hidden"><%= render "shared/navbar" unless hotwire_native_app? %></div>
 
-        <div class="sticky top-0 z-20 pointer-events-none">
-          <div
-            id="flash"
-            role="alert"
-            aria-live="polite"
-            class="
-              absolute max-lg:left-0 max-lg:right-0 max-lg:translate-x-0
-              lg:left-1/2 lg:-translate-x-1/2 z-40 flex flex-col
-              max-lg:items-stretch lg:items-center pointer-events-auto
-            "
-          >
-            <%= render "shared/flash" %>
-          </div>
+        <div class="<%= content_card_classes %>">
+          <main id="main-content" class="flex-grow p-4 lg:px-6 min-w-0 overflow-x-hidden"><%= yield %></main>
         </div>
 
-        <main class="flex-grow p-4 min-w-0 overflow-x-hidden">
-          <%= yield %>
-        </main>
+        <div
+          id="flash"
+          role="log"
+          aria-live="polite"
+          class="toast toast-end z-40"
+        >
+          <%= render "shared/flash" %>
+        </div>
 
-        <%= render "shared/footer_nav" %>
+        <div data-controller="badge" data-badge-count-value="<%= current_user&.unseen_notifications_count.to_i %>" hidden></div>
+
+        <%= render "shared/footer_nav" unless hotwire_native_app? %>
       </div>
 
       <%= render "shared/sidebar" %>
     </div>
 
     <%= turbo_frame_tag :modal %>
+    <%= render "shared/turbo_confirm_dialog" %>
     <%= turbo_stream_from "notifications_#{current_user.id}" %>
   </body>
 </html>

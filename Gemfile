@@ -31,9 +31,8 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
-gem "solid_queue"
 gem "solid_cable"
-gem "mission_control-jobs"
+gem "good_job"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -71,6 +70,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "mocha"
 end
 
 # active record
@@ -82,6 +82,7 @@ gem "active_storage_validations"
 # authentication
 gem "devise", github: "heartcombo/devise", branch: "main"
 gem "devise_masquerade"
+gem "nondisposable"
 
 # oauth
 gem "omniauth-google-oauth2"
@@ -97,7 +98,7 @@ gem "active_link_to", "~> 1.0"
 gem "turbo_power", "~> 0.7.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
-gem "local_time"
+gem "lexxy", "~> 0.1.26.beta"
 gem "simple_form", "~> 5.4"
 
 # admin
@@ -109,7 +110,6 @@ group :avo, optional: true do
     gem "avo-pro"
   end
 end
-gem "active_analytics"
 # feature flags
 gem "flipper-active_record"
 gem "flipper-ui"
@@ -127,3 +127,5 @@ group :production do
 end
 
 gem "browser", "~> 6.2"
+
+gem "honeybadger", "~> 6.3"
