@@ -1,29 +1,33 @@
 <%# This navbar is mobile-only (hidden on desktop via layout) %>
-<nav class="px-4 navbar justify-between" aria-label="<%= t("shared.sidebar.main_navigation") %>">
-  <%# Left: hamburger + org home link %>
-  <div class="flex items-center gap-2 shrink min-w-0 grow-0">
-    <label for="main-drawer" class="btn btn-ghost btn-square" aria-label="<%= t("shared.sidebar.navigation") %>">
-      <%= inline_svg_tag "svg/bars-3.svg", class: "size-6", aria: { hidden: true } %>
-    </label>
+<% if Flipper.enabled?(:mobile_navbar) %>
+  <nav class="px-4 navbar justify-between" aria-label="<%= t("shared.sidebar.main_navigation") %>">
+    <%# Left: hamburger + org home link %>
+    <div class="flex items-center gap-2">
+      <label for="main-drawer" class="btn btn-ghost btn-square" aria-label="<%= t("shared.sidebar.navigation") %>">
+        <%= inline_svg_tag "svg/bars-3.svg", class: "size-6", aria: { hidden: true } %>
+      </label>
 
-    <% if Current.organization && !current_page?(organization_path(Current.organization)) %>
-      <%= link_to organization_path(Current.organization), class: "btn btn-ghost gap-1 min-w-0 max-w-fit" do %>
-        <%= inline_svg_tag "svg/chevron-left.svg", class: "size-4 shrink-0", aria: { hidden: true } %>
-        <%= organization_avatar(Current.organization, classes: "size-6") %>
+      <% if Current.organization && !current_page?(organization_path(Current.organization)) %>
+        <%= link_to organization_path(Current.organization), class: "btn btn-ghost gap-1 min-w-0" do %>
+          <%= inline_svg_tag "svg/chevron-left.svg", class: "size-4 shrink-0", aria: { hidden: true } %>
+          <%= organization_avatar(Current.organization, classes: "size-6") %>
 
-        <span class="font-medium truncate"><%= Current.organization.name %></span>
+          <span class="font-medium truncate"><%= Current.organization.name %></span>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
 
-  <%# Right: search + masquerade warning %>
-  <div class="flex items-center gap-1">
-    <%= link_to search_path, class: "btn btn-ghost btn-square", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal } do %>
-      <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-5", aria: { hidden: true } %>
-    <% end %>
+    <%# Right: search + masquerade warning %>
+    <div class="flex items-center gap-1">
+      <% if Flipper.enabled?(:search) %>
+        <%= link_to search_path, class: "btn btn-ghost btn-square", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal } do %>
+          <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-5", aria: { hidden: true } %>
+        <% end %>
+      <% end %>
 
-    <% if user_masquerade? %>
-      <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning uppercase" %>
-    <% end %>
-  </div>
-</nav>
+      <% if user_masquerade? %>
+        <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning uppercase" %>
+      <% end %>
+    </div>
+  </nav>
+<% end %>

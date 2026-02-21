@@ -3,6 +3,8 @@
 module User::Authentication
   extend ActiveSupport::Concern
 
+  BLOCKED_EMAIL_TLDS = %w[.ru .su].freeze
+
   included do
     # Include default devise modules. Others available are:
     # :lockable, :timeoutable, :trackable
@@ -14,12 +16,26 @@ module User::Authentication
            :masqueradable,
            :confirmable
 
-    has_many :connected_accounts, as: :owner, dependent: :destroy
+    has_many :identities, dependent: :destroy
     belongs_to :invited_by, polymorphic: true, optional: true
+
+    validates :email, nondisposable: true
+    validate :reject_blocked_email_tlds
   end
 
   def remember_me
     true
+  end
+
+  private
+
+  def reject_blocked_email_tlds
+    return if email.blank?
+
+    domain = email.split("@", 2).last
+    return if domain.blank?
+
+    errors.add(:email, :blocked_email) if BLOCKED_EMAIL_TLDS.any? { |tld| domain.downcase.end_with?(tld) }
   end
 
   class_methods do
@@ -43,18 +59,21 @@ module User::Authentication
     end
 
     def from_omniauth(auth_payload)
-      # First, check if there's already a connected account with this provider and UID
-      existing_connected_account = ConnectedAccount.find_by(
+      # Only handle auth providers (Google, Developer)
+      # Social providers are handled separately if needed
+
+      # First, check if there's already an identity with this provider and UID
+      existing_identity = Identity.find_by(
         provider: auth_payload.provider,
         uid: auth_payload.uid
       )
 
-      if existing_connected_account
-        # Return the owner associated with this connected account
-        return existing_connected_account.owner
+      if existing_identity
+        # Return the user associated with this identity
+        return existing_identity.user
       end
 
-      # If no existing connected account, proceed with email-based lookup
+      # If no existing identity, proceed with email-based lookup
       email = auth_payload.info&.email
       email ||= auth_payload.uid if auth_payload.provider == "saml"
 
@@ -66,7 +85,7 @@ module User::Authentication
       # Auto-confirm OAuth users since the provider has already verified their email
       user.confirmed_at = Time.current if user.confirmed_at.blank?
 
-      ConnectedAccount.create_or_update_from_omniauth(auth_payload, user) if user.save
+      Identity.create_or_update_from_omniauth(auth_payload, user) if user.save
 
       user
     end

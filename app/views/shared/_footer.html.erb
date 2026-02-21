@@ -4,18 +4,19 @@
     border-base-content/20 bg-base-100 gap-y-4
   "
 >
-  <aside>
+  <div>
     <div>
       <%= link_to root_path, class: "no-underline" do %>
         <%= image_tag "logo-long.png", class: "w-auto h-8 dark:invert" %>
       <% end %>
     </div>
-    &copy;
-    <%= Time.zone.now.year %>
-    <%= Rails.application.config_for(:settings).dig(:site, :name) %>
-    .
-    <%= t(".all_rights_reserved") %>
-  </aside>
+    <p>
+      &copy;
+      <%= Time.zone.now.year %>
+      <%= Rails.application.config_for(:settings).dig(:site, :name) %>.
+      <%= t(".all_rights_reserved") %>
+    </p>
+  </div>
 
   <nav>
     <%= active_link_to t("static.index.title"), root_path, active: :exclusive, class_active: "underline", class: "link link-hover" %>

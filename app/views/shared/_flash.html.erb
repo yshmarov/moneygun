@@ -1,20 +1,17 @@
 <% flash.each do |type, message| %>
-  <% if message.is_a?(String) %>
-    <%= tag.div message,
-                class: [
-                  "alert",
-                  "mx-4",
-                  "mt-2 rounded-xl p-2 shadow",
-                  "cursor-pointer break-normal font-medium",
-                  flash_style(type)
-                ],
-                role: "alert",
-                aria: { live: "polite" },
-                data: {
-                  controller: "auto-remove element-remove",
-                  auto_remove_delay_value: 5000,
-                  action: "click->element-remove#click",
-                  turbo_temporary: true
-                } %>
+  <% if message.is_a?(String) && message.present? %>
+    <div class="alert rounded-xl p-2 shadow-lg cursor-pointer break-normal font-medium <%= flash_style(type) %>"
+         role="<%= flash_role(type) %>"
+         data-controller="element-remove"
+         data-action="click->element-remove#click"
+         data-turbo-temporary="true">
+      <span><%= message %></span>
+      <button type="button"
+              class="btn btn-ghost btn-xs btn-square"
+              data-action="element-remove#click"
+              aria-label="<%= t("shared.flash.dismiss") %>">
+        <%= inline_svg_tag "svg/x-mark.svg", class: "size-4", "aria-hidden": "true" %>
+      </button>
+    </div>
   <% end %>
 <% end %>

@@ -4,7 +4,7 @@
 
 <%= nav_link t("users.referrals.index.title"), user_referrals_path, icon: "🎁", badge: "New" %>
 
-<%= nav_link t("users.connected_accounts.index.title"), user_connected_accounts_path, icon: "🔗" if Rails.application.config.omniauth_providers.any? %>
+<%= nav_link t("users.identities.index.title"), user_identities_path, icon: "🔗" if Rails.application.config.omniauth_providers.any? %>
 
 <li></li>
 

@@ -1,0 +1,40 @@
+<tr>
+  <td data-label="Platform">
+    <div class="flex items-center gap-2">
+      <%= inline_svg_tag "svg/#{Identity::AUTH_PROVIDERS[identity.provider.to_sym][:icon]}.svg", class: "w-6 h-6" %>
+
+      <span class="font-medium">
+        <%= Identity::AUTH_PROVIDERS[identity.provider.to_sym][:name] %>
+      </span>
+    </div>
+  </td>
+
+  <td data-label="Name">
+    <div class="flex items-center gap-2">
+      <% if identity.image_url.present? %>
+        <%= image_tag identity.image_url, alt: identity.name || Identity::AUTH_PROVIDERS[identity.provider.to_sym][:name], class: "w-6 h-6 rounded-full" %>
+      <% end %>
+
+      <div class="flex items-center gap-1">
+        <%= tag.span identity.name, class: "font-medium" %>
+      </div>
+    </div>
+  </td>
+
+  <td data-label="Email">
+    <%= tag.span identity.email, class: "text-sm text-base-content/80" if identity.email.present? %>
+  </td>
+
+  <td data-label="Connected">
+    <span class="text-sm">
+      <%= time_ago_in_words(identity.created_at) %> ago
+    </span>
+  </td>
+
+  <td data-label="Actions">
+    <%= button_to t(".disconnect_button"), user_identity_path(identity),
+                  method: :delete,
+                  data: { turbo_confirm: t(".confirm_disconnect_message") },
+                  class: "btn btn-sm btn-error btn-outline" %>
+  </td>
+</tr>

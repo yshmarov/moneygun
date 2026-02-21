@@ -1,10 +1,5 @@
 #!/usr/bin/env sh
 
-if ! gem list foreman -i --silent; then
-  echo "Installing foreman..."
-  gem install foreman
-fi
-
 # Default to port 3000 if not specified
 export PORT="${PORT:-3000}"
 
@@ -13,4 +8,14 @@ export PORT="${PORT:-3000}"
 export RUBY_DEBUG_OPEN="true"
 export RUBY_DEBUG_LAZY="true"
 
-exec foreman start -f Procfile.dev "$@" 
+# Use overmind if available, otherwise fall back to foreman
+if command -v overmind > /dev/null; then
+  exec overmind start -f Procfile.dev --port "$PORT" "$@"
+else
+  if ! gem list foreman -i --silent; then
+    echo "Installing foreman..."
+    gem install foreman
+  fi
+
+  exec foreman start -f Procfile.dev "$@"
+fi

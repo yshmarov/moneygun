@@ -32,9 +32,9 @@ class UserTest < ActiveSupport::TestCase
     assert organization.memberships.any?
   end
 
-  test "from_omniauth returns existing user when connected account exists" do
+  test "from_omniauth returns existing user when identity exists" do
     user = users(:one)
-    user.connected_accounts.create!(
+    user.identities.create!(
       provider: "google_oauth2",
       uid: "123456789",
       payload: { "info" => { "email" => "test@example.com" } }
@@ -48,15 +48,15 @@ class UserTest < ActiveSupport::TestCase
     assert result_user.persisted?
   end
 
-  test "from_omniauth creates new user when no connected account exists" do
+  test "from_omniauth creates new user when no identity exists" do
     auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "newuser@example.com")
 
     assert_difference "User.count", 1 do
-      assert_difference "ConnectedAccount.count", 1 do
+      assert_difference "Identity.count", 1 do
         user = User.from_omniauth(auth_payload)
         assert user.persisted?
         assert_equal "newuser@example.com", user.email
-        assert user.connected_accounts.any?
+        assert user.identities.any?
       end
     end
   end

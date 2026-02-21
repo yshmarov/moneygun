@@ -24,16 +24,16 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "oauth with existing connected account returns correct user" do
-    # First, create a user and connected account
+  test "oauth with existing identity returns correct user" do
+    # First, create a user and identity
     user = users(:one)
-    user.connected_accounts.create!(
+    user.identities.create!(
       provider: "google_oauth2",
       uid: "test_uid_123",
       payload: { "info" => { "email" => "test@example.com" } }
     )
 
-    # Mock the OAuth response to match the existing connected account
+    # Mock the OAuth response to match the existing identity
     mock_auth = OmniAuth::AuthHash.new(
       provider: "google_oauth2",
       uid: "test_uid_123",
@@ -50,8 +50,8 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
 
     # Attempt to sign in with the same OAuth credentials
     assert_no_difference "User.count" do
-      assert_no_difference "ConnectedAccount.count" do
-        post user_google_oauth2_omniauth_callback_path
+      assert_no_difference "Identity.count" do
+        post omniauth_callback_path(provider: "google_oauth2")
       end
     end
 
@@ -59,6 +59,5 @@ class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     # Check that the user is signed in by verifying the session
     assert_equal user.id, session["warden.user.user.key"].first.first
-    # NOTE: The redirect path may vary depending on app logic (e.g., /campaigns or /me/onboarding)
   end
 end

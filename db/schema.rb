@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_21_000002) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_21_135317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,22 +77,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_000002) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "connected_accounts", force: :cascade do |t|
-    t.string "access_token"
-    t.datetime "created_at", null: false
-    t.datetime "expires_at"
-    t.bigint "owner_id", null: false
-    t.string "owner_type", null: false
-    t.jsonb "payload"
-    t.string "provider"
-    t.string "refresh_token"
-    t.string "uid"
-    t.datetime "updated_at", null: false
-    t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner"
-    t.index ["owner_type", "owner_id"], name: "index_connected_accounts_on_owner_type_and_owner_id"
-    t.index ["uid", "provider"], name: "index_connected_accounts_on_uid_and_provider", unique: true
   end
 
   create_table "flipper_features", force: :cascade do |t|
@@ -202,6 +186,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_000002) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "identities", force: :cascade do |t|
+    t.string "access_token"
+    t.datetime "created_at", null: false
+    t.datetime "expires_at"
+    t.jsonb "payload"
+    t.string "provider"
+    t.string "refresh_token"
+    t.datetime "refresh_token_invalidated_at"
+    t.string "uid"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["refresh_token_invalidated_at"], name: "index_identities_on_refresh_token_invalidated_at"
+    t.index ["uid", "provider"], name: "index_identities_on_uid_and_provider", unique: true
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "organization_id", null: false
@@ -213,6 +213,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_000002) do
     t.index ["role"], name: "index_memberships_on_role"
     t.index ["user_id", "organization_id"], name: "index_memberships_on_user_id_and_organization_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "nondisposable_disposable_domains", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_nondisposable_disposable_domains_on_name", unique: true
   end
 
   create_table "noticed_events", force: :cascade do |t|

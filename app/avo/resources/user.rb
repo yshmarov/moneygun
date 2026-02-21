@@ -40,7 +40,7 @@ class Avo::Resources::User < Avo::BaseResource
       field :owned_organizations, as: :has_many
     end
 
-    field :connected_accounts, as: :has_many
+    field :identities, as: :has_many
     field :referrals, as: :has_many
   end
 end

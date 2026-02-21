@@ -16,7 +16,7 @@ end
 resource :user, only: %i[show], path: I18n.t("routes.user") do
   scope module: :users do
     resources :notifications, only: %i[index]
-    resources :connected_accounts
+    resources :identities
     resources :referrals, only: %i[index]
 
     namespace :organizations do

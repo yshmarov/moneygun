@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
 <div class="space-y-6">
-  <% available_providers = Rails.application.config.omniauth_providers %>
+  <% available_providers = Rails.application.config.omniauth_providers.select { |p| Identity.auth_provider?(p) } %>
 
   <% if available_providers.any? %>
     <%= render SectionComponent.new(title: t(".available_connections")) do |component| %>
@@ -17,11 +17,11 @@
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   <div class="text-2xl">
-                    <%= inline_svg_tag "svg/#{ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:icon]}.svg", class: "w-8 h-8", "aria-label": ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
+                    <%= inline_svg_tag "svg/#{Identity::AUTH_PROVIDERS[provider.to_sym][:icon]}.svg", class: "w-8 h-8", "aria-label": Identity::AUTH_PROVIDERS[provider.to_sym][:name] %>
                   </div>
 
                   <div class="font-medium">
-                    <%= ConnectedAccount::PROVIDER_CONFIG[provider.to_sym][:name] %>
+                    <%= Identity::AUTH_PROVIDERS[provider.to_sym][:name] %>
                   </div>
                 </div>
 
@@ -34,15 +34,14 @@
     <% end %>
   <% end %>
 
-  <%= render SectionComponent.new(title: t(".your_connected_accounts")) do |component| %>
-    <% if @connected_accounts.any? %>
+  <%= render SectionComponent.new(title: t(".your_identities")) do |component| %>
+    <% if @identities.any? %>
       <div class="table-responsive">
         <table>
           <thead>
             <tr>
               <th>Platform</th>
               <th>Name</th>
-              <th>Handle</th>
               <th>Email</th>
               <th>Connected</th>
               <th>Actions</th>
@@ -50,8 +49,8 @@
           </thead>
 
           <tbody>
-            <% current_user.connected_accounts.each do |connected_account| %>
-              <%= render "connected_account", connected_account: connected_account %>
+            <% @identities.each do |identity| %>
+              <%= render "identity", identity: identity %>
             <% end %>
           </tbody>
         </table>

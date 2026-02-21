@@ -227,6 +227,9 @@ en:
       invitation_notifier:
         notification:
           message: You've been invited to join %{organization_name}
+      join_request_received_notifier:
+        notification:
+          message: "%{user_name} has requested to join %{organization_name}"
       removal_notifier:
         notification:
           message: You have been removed from %{organization_name}
@@ -347,6 +350,8 @@ en:
       not_authorized: You are not authorized to perform this action.
       not_subscribed: You need to subscribe to access this page.
       rate_limit: Try again later.
+    flash:
+      dismiss: Dismiss
     footer:
       all_rights_reserved: All rights reserved.
     modal:
@@ -380,21 +385,21 @@ en:
     terms:
       title: Terms
   users:
-    connected_accounts:
-      connected_account:
-        confirm_disconnect_message: Are you sure you want to disconnect this account?
-        disconnect_button: Disconnect
+    identities:
       destroy:
         success: Account disconnected successfully.
       errors:
         failed_to_connect: 'Failed to connect %{provider} account: %{errors}'
+      identity:
+        confirm_disconnect_message: Are you sure you want to disconnect this account?
+        disconnect_button: Disconnect
       index:
         available_connections: Available connections
         connect_button: Connect
         connect_to_enable_auth: Connect your accounts to enable seamless authentication.
         no_accounts_connected: You haven't connected any OAuth accounts yet.
         title: Connected accounts
-        your_connected_accounts: Connected accounts
+        your_identities: Connected accounts
     invitation_acceptances:
       create:
         success: Password set successfully! You've been signed in.
