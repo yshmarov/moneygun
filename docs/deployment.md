@@ -1,96 +1,125 @@
 # Deployment
 
-## Render
+Moneygun deploys with [Kamal](https://kamal-deploy.org/) — zero-downtime Docker deployments to any server.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/yshmarov/moneygun)
+## Prerequisites
 
-Click the button above for one-click deployment to Render.
+- A server (VPS) with SSH access (e.g. Hetzner, DigitalOcean, AWS EC2)
+- A Docker Hub account (or other container registry)
+- A domain name pointing to your server
 
-## Heroku
+## 1. Configure Kamal
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/yshmarov/moneygun)
+Edit `config/deploy.yml`:
 
-Click the button above for one-click deployment to Heroku.
+```yaml
+service: moneygun
+image: your-dockerhub-user/moneygun
 
-## Fly.io
+servers:
+  web:
+    - YOUR_SERVER_IP
+  job:
+    hosts:
+      - YOUR_SERVER_IP
+    cmd: bundle exec good_job start
 
-### 1. Create App
+proxy:
+  ssl: true
+  host: yourdomain.com
+  forward_headers: true
 
-```bash
-fly launch
+registry:
+  username: your-dockerhub-user
+  password:
+    - KAMAL_REGISTRY_PASSWORD
 ```
 
-Or manually:
+## 2. Configure Secrets
+
+Edit `.kamal/secrets` to reference your credentials:
 
 ```bash
-fly apps create your-app-name
+KAMAL_REGISTRY_PASSWORD=$KAMAL_REGISTRY_PASSWORD
+RAILS_MASTER_KEY=$(cat config/master.key)
+POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+DATABASE_URL="postgres://moneygun:${POSTGRES_PASSWORD}@moneygun-db:5432/moneygun_production"
 ```
 
-### 2. Create Database
+Set the environment variables on your local machine:
 
 ```bash
-fly postgres create --name your-app-db
-fly postgres attach --app your-app-name your-app-db
+export KAMAL_REGISTRY_PASSWORD=your-docker-hub-token
+export POSTGRES_PASSWORD=your-secure-password
 ```
 
-### 3. Set Credentials
+## 3. Set Up the Server
 
 ```bash
-fly secrets set RAILS_MASTER_KEY=$(cat config/credentials/production.key) --app your-app-name
+bin/kamal setup
 ```
 
-### 4. Create Storage (Tigris)
+This provisions the server with Docker, starts the PostgreSQL accessory, builds and pushes the image, and deploys the app.
+
+## 4. Deploy
 
 ```bash
-fly storage create --app your-app-name
+bin/kamal deploy
 ```
 
-### 5. Deploy
+## Common Commands
 
 ```bash
-fly deploy --app your-app-name
-```
-
-Migrations run automatically via `release_command` in `fly.toml`.
-
-### Console Access
-
-```bash
-# SSH into app
-fly ssh console --app your-app-name
-
 # Rails console
-bin/rails console
+bin/kamal console
 
-# Run rake task remotely
-fly ssh console --app your-app-name -C "/rails/bin/rails users:confirm_all"
+# Shell access
+bin/kamal shell
+
+# Tail logs
+bin/kamal logs
+
+# Database console
+bin/kamal dbc
+
+# Run a one-off command
+bin/kamal app exec "bin/rails db:migrate"
+
+# Restart the app
+bin/kamal app boot
+
+# Check deployment details
+bin/kamal details
 ```
 
-### Monitoring
+## Database
+
+PostgreSQL runs as a Kamal accessory on the same server (configured in `config/deploy.yml` under `accessories.db`). The `DATABASE_URL` is constructed in `.kamal/secrets` and injected into the app container.
+
+To run migrations after deploy:
 
 ```bash
-fly status --app your-app-name    # App status
-fly logs --app your-app-name      # View logs
-curl https://your-app.fly.dev/up  # Health check
+bin/kamal app exec "bin/rails db:migrate"
 ```
 
-### Troubleshooting
+## SSL
 
-```bash
-fly secrets list --app your-app-name   # List secrets
-fly apps restart your-app-name         # Restart app
-```
+Kamal's built-in proxy (kamal-proxy) handles SSL via Let's Encrypt automatically when `proxy.ssl: true` is set in `config/deploy.yml`.
+
+If using Cloudflare, set the SSL/TLS encryption mode to **Full** to enable Cloudflare-to-app encryption.
 
 ## Production Checklist
 
 Before deploying to production:
 
-1. **Credentials**: Set `RAILS_MASTER_KEY` and ensure `config/credentials/production.yml.enc` exists
-2. **Database**: PostgreSQL configured and accessible
-3. **Stripe**: Production API keys and webhook endpoint configured
-4. **OAuth**: Production callback URLs registered with Google/GitHub
-5. **Storage**: Object storage configured for Active Storage (S3, Tigris, etc.)
-6. **Email**: SMTP configured for transactional emails
+1. **Credentials**: Ensure `config/master.key` exists locally (never commit it)
+2. **Database**: `POSTGRES_PASSWORD` env var set
+3. **Registry**: `KAMAL_REGISTRY_PASSWORD` env var set
+4. **Domain**: DNS A record pointing to your server IP
+5. **Stripe**: Production API keys in `config/credentials/production.yml.enc`
+6. **OAuth**: Production callback URLs registered with Google/GitHub
+7. **Storage**: Object storage configured for Active Storage (S3, etc.) or use the local volume
+8. **Email**: SMTP configured for transactional emails
 
 ## Stripe Webhook URL
 
