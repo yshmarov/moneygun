@@ -88,6 +88,7 @@ gem "nondisposable"
 # oauth
 gem "omniauth-google-oauth2"
 gem "omniauth-github"
+gem "jwt"
 
 # authorization
 gem "pundit", "~> 2.3"

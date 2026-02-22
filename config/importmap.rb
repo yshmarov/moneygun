@@ -22,5 +22,3 @@ pin "turbo_confirm"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@rails/activestorage", to: "activestorage.esm.js"
 pin "dropzone", to: "https://esm.sh/dropzone@6.0.0-beta.2?bundle", preload: false
-pin "trix"
-pin "@rails/actiontext", to: "actiontext.esm.js"

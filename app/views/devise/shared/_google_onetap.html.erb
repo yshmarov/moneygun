@@ -1,0 +1,12 @@
+<% if Rails.application.credentials.dig(:google_oauth2, :client_id).present? && !user_signed_in? %>
+  <div data-controller="google-onetap"
+       data-google-onetap-client-id-value="<%= Rails.application.credentials.dig(:google_oauth2, :client_id) %>"
+       data-google-onetap-login-uri-value="<%= google_onetap_callback_url %>">
+    <div id="g_id_onload"
+         data-client_id="<%= Rails.application.credentials.dig(:google_oauth2, :client_id) %>"
+         data-login_uri="<%= google_onetap_callback_url %>"
+         data-itp_support="true"
+         data-context="signin">
+    </div>
+  </div>
+<% end %>

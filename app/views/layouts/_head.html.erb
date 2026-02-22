@@ -20,6 +20,11 @@
 
 <%= yield :head %>
 
+<%# Dock badge count for Tauri desktop app %>
+<% if user_signed_in? %>
+  <meta name="badge-count" content="<%= current_user.unseen_notifications_count %>">
+<% end %>
+
 <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
 <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 

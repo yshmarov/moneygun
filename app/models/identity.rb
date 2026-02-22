@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Identity < ApplicationRecord
+  include OauthTokenRefreshable
+
   belongs_to :user
 
   validates :provider, presence: true
@@ -61,5 +63,15 @@ class Identity < ApplicationRecord
 
   def self.auth_provider?(provider)
     AUTH_PROVIDERS.key?(provider.to_sym)
+  end
+
+  # Required by OauthTokenRefreshable
+  def oauth_provider_identifier
+    provider
+  end
+
+  # Required by OauthTokenRefreshable
+  def oauth_token_owner
+    user
   end
 end

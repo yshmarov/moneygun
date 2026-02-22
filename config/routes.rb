@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     root "home#index", as: :authenticated_root
   end
   root "static#index"
+  get "sitemap.xml", to: "static#sitemap", defaults: { format: :xml }
   get "pricing", to: "static#pricing"
   get "terms", to: "static#terms"
   get "privacy", to: "static#privacy"

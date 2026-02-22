@@ -16,6 +16,7 @@ module OrganizationPrefill
       name = metadata["site_name"] || metadata["title"]
       organization.name = name if name.present?
       attach_og_logo(organization, metadata["favicon_url"]) if metadata["favicon_url"].present?
+      attach_og_logo(organization, metadata["image_url"]) if !organization.logo.attached? && metadata["image_url"].present?
     end
   rescue Timeout::Error
     # Prefill timed out — user can still fill in details manually

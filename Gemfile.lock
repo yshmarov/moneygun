@@ -689,6 +689,7 @@ DEPENDENCIES
   importmap-rails
   inline_svg (~> 1.9)
   jbuilder
+  jwt
   kamal
   letter_opener
   letter_opener_web

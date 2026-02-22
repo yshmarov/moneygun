@@ -1,5 +1,5 @@
 <% if count.positive? %>
-  <span class="bg-red-500 text-white text-[11px] font-bold rounded-full min-w-[18px] h-[18px] inline-flex items-center justify-center px-1" aria-label="<%= count %> <%= t("users.notifications.index.title").downcase %>">
+  <span class="badge badge-error badge-xs font-bold leading-none" aria-label="<%= count %> <%= t("users.notifications.index.title").downcase %>">
     <%= count > 99 ? "99+" : count %>
   </span>
 <% end %>
