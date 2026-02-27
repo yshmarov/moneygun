@@ -34,6 +34,7 @@
 <%# Includes all stylesheet files in app/assets/stylesheets %>
 
 <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+<%= javascript_include_tag "turbo", type: "module" %>
 <%= stylesheet_link_tag "lexxy-variables", "lexxy-editor", "lexxy-content" %>
 
 <%= javascript_importmap_tags %>
