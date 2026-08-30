@@ -1,0 +1,117 @@
+@layer components {
+  .icon {
+    background-color: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
+    mask-image: var(--svg);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+  }
+
+  .icon--arrow-down-tray {
+    --svg: url('svg/arrow-down-tray.svg');
+  }
+  .icon--arrow-top-right-on-square {
+    --svg: url('svg/arrow-top-right-on-square.svg');
+  }
+  .icon--bars-3 {
+    --svg: url('svg/bars-3.svg');
+  }
+  .icon--bell {
+    --svg: url('svg/bell.svg');
+  }
+  .icon--briefcase {
+    --svg: url('svg/briefcase.svg');
+  }
+  .icon--chart-bar {
+    --svg: url('svg/chart-bar.svg');
+  }
+  .icon--check-circle {
+    --svg: url('svg/check-circle.svg');
+  }
+  .icon--chevron-down {
+    --svg: url('svg/chevron-down.svg');
+  }
+  .icon--chevron-left {
+    --svg: url('svg/chevron-left.svg');
+  }
+  .icon--chevron-right {
+    --svg: url('svg/chevron-right.svg');
+  }
+  .icon--chevron-up-down {
+    --svg: url('svg/chevron-up-down.svg');
+  }
+  .icon--cog-6-tooth {
+    --svg: url('svg/cog-6-tooth.svg');
+  }
+  .icon--compass {
+    --svg: url('svg/compass.svg');
+  }
+  .icon--credit-card {
+    --svg: url('svg/credit-card.svg');
+  }
+  .icon--document-duplicate {
+    --svg: url('svg/document-duplicate.svg');
+  }
+  .icon--ellipsis-vertical {
+    --svg: url('svg/ellipsis-vertical.svg');
+  }
+  .icon--exclamation-circle {
+    --svg: url('svg/exclamation-circle.svg');
+  }
+  .icon--globe-europe-africa {
+    --svg: url('svg/globe-europe-africa.svg');
+  }
+  .icon--grip-vertical {
+    --svg: url('svg/grip-vertical.svg');
+  }
+  .icon--home {
+    --svg: url('svg/home.svg');
+  }
+  .icon--information-circle {
+    --svg: url('svg/information-circle.svg');
+  }
+  .icon--link {
+    --svg: url('svg/link.svg');
+  }
+  .icon--list-bullet {
+    --svg: url('svg/list-bullet.svg');
+  }
+  .icon--lock-closed {
+    --svg: url('svg/lock-closed.svg');
+  }
+  .icon--magnifying-glass {
+    --svg: url('svg/magnifying-glass.svg');
+  }
+  .icon--pencil-square {
+    --svg: url('svg/pencil-square.svg');
+  }
+  .icon--question-mark-circle {
+    --svg: url('svg/question-mark-circle.svg');
+  }
+  .icon--rocket-launch {
+    --svg: url('svg/rocket-launch.svg');
+  }
+  .icon--share {
+    --svg: url('svg/share.svg');
+  }
+  .icon--sidebar-open {
+    --svg: url('svg/sidebar-open.svg');
+  }
+  .icon--trash {
+    --svg: url('svg/trash.svg');
+  }
+  .icon--user {
+    --svg: url('svg/user.svg');
+  }
+  .icon--user-group {
+    --svg: url('svg/user-group.svg');
+  }
+  .icon--x-circle {
+    --svg: url('svg/x-circle.svg');
+  }
+  .icon--x-mark {
+    --svg: url('svg/x-mark.svg');
+  }
+}

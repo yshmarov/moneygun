@@ -6,9 +6,13 @@ en:
         membership_invitation:
           attributes:
             base:
-              already_member: '%{email} is already a member of this organization.'
+              already_member: "%{email} is already a member of this organization."
   activerecord:
     attributes:
+      invitation:
+        email: Email
+        expires_at: Expires
+        role: Role
       membership:
         email: Email
         role: Role
@@ -19,13 +23,13 @@ en:
         privacy_settings:
           private:
             description_text: Only invited users can join
-            display_text: '🔒 Private'
+            display_text: "🔒 Private"
           public:
             description_text: Anyone can join
-            display_text: '🌍 Public'
+            display_text: "🌍 Public"
           restricted:
             description_text: People must submit an application to be approved to join
-            display_text: '📩 Restricted'
+            display_text: "📩 Restricted"
         website: Website
       project:
         attachments: Attachments
@@ -58,163 +62,31 @@ en:
       models:
         organization:
           attributes:
+            base:
+              has_active_subscription: has an active subscription
             privacy_setting:
               requires_logo: requires logo to be discoverable for restricted and public organizations
     models:
       membership: Member
       organization: Organization
       project: Project
-  devise:
-    confirmations:
-      confirmed: Your email address has been successfully confirmed.
-      send_instructions: You will receive an email with instructions for how to confirm your email address in a few minutes.
-      send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.
-    failure:
-      already_authenticated: You are already signed in.
-      inactive: Your account is not activated yet.
-      invalid: Invalid %{authentication_keys} or password.
-      last_attempt: You have one more attempt before your account is locked.
-      locked: Your account is locked.
-      not_found_in_database: Invalid %{authentication_keys} or password.
-      timeout: Your session expired. Please sign in again to continue.
-      unauthenticated: You need to sign in or sign up before continuing.
-      unconfirmed: You have to confirm your email address before continuing.
-    mailer:
-      confirmation_instructions:
-        action: Confirm my account
-        greeting: Welcome %{email}!
-        instruction: 'You can confirm your account email through the link below:'
-        subject: Confirmation instructions
-      email_changed:
-        email_being_changed: We're contacting you to notify you that your email is being changed to %{email}.
-        email_changed: We're contacting you to notify you that your email has been changed to %{email}.
-        greeting: Hello %{email}!
-        subject: Email changed
-      password_change:
-        greeting: Hello %{email}!
-        message: We're contacting you to notify you that your password has been changed.
-        subject: Password changed
-      reset_password_instructions:
-        action: Change my password
-        greeting: Hello %{email}!
-        ignore: If you didn't request this, please ignore this email.
-        instruction: Someone has requested a link to change your password. You can do this through the link below.
-        no_change: Your password won't change until you access the link above and create a new one.
-        subject: Reset password instructions
-      unlock_instructions:
-        action: Unlock my account
-        greeting: Hello %{email}!
-        instruction: 'Click the link below to unlock your account:'
-        message: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
-        subject: Unlock instructions
-    masquerade:
-      back: '⚠ Stop impersonating'
-    omniauth_callbacks:
-      failure: Something went wrong. Please try again
-      success: ''
-    passwords:
-      no_token: You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided.
-      send_instructions: You will receive an email with instructions on how to reset your password in a few minutes.
-      send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
-      updated: Your password has been changed successfully. You are now signed in.
-      updated_not_active: Your password has been changed successfully.
-    registrations:
-      destroyed: Bye! Your account has been successfully cancelled. We hope to see you again soon.
-      signed_up: Welcome! You have signed up successfully.
-      signed_up_but_inactive: You have signed up successfully. However, we could not sign you in because your account is not yet activated.
-      signed_up_but_locked: You have signed up successfully. However, we could not sign you in because your account is locked.
-      signed_up_but_unconfirmed: A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.
-      update_needs_confirmation: You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirmation link to confirm your new email address.
-      updated: Your account has been updated successfully.
-      updated_but_not_signed_in: Your account has been updated successfully, but since your password was changed, you need to sign in again.
-    sessions:
-      already_signed_out: Signed out successfully.
-      signed_in: ''
-      signed_out: Signed out successfully.
-    unlocks:
-      send_instructions: You will receive an email with instructions for how to unlock your account in a few minutes.
-      send_paranoid_instructions: If your account exists, you will receive an email with instructions for how to unlock it in a few minutes.
-      unlocked: Your account has been unlocked successfully. Please sign in to continue.
-    views:
-      confirmations:
-        new:
-          email_help: We'll send you a new confirmation email
-          email_label: Email
-          email_placeholder: Enter your email
-          submit: Resend confirmation instructions
-          title: Resend confirmation instructions
-      passwords:
-        edit:
-          password_confirmation_label: Confirm new password
-          password_confirmation_placeholder: Confirm new password
-          password_label: New password
-          password_minimum: '(%{count} characters minimum)'
-          password_placeholder: Enter new password
-          submit: Change my password
-          title: Change your password
-        new:
-          email_help: We'll send you a link to reset your password
-          email_label: Email
-          email_placeholder: Enter your email
-          submit: Send me reset password instructions
-          title: Forgot your password?
-      registrations:
-        edit:
-          current_password_help: We need your current password to confirm your changes
-          current_password_label: Current password
-          current_password_placeholder: Current password
-          danger_zone:
-            button: Delete my account
-            confirm: Are you sure? This action cannot be undone.
-            description: Once you delete your account, there is no going back. Please be certain.
-            title: Danger Zone
-          email_label: Email
-          email_placeholder: Enter your email
-          password_confirmation_label: Password confirmation
-          password_confirmation_placeholder: Confirm new password
-          password_help: Leave blank if you don't want to change it
-          password_label: Password
-          password_minimum: '%{count} characters minimum'
-          password_placeholder: New password
-          pending_confirmation: 'Currently waiting confirmation for: %{email}'
-          submit: Update
-          title: Edit %{email}
-        new:
-          email_label: Email
-          email_placeholder: Enter your email
-          password_confirmation_label: Password confirmation
-          password_confirmation_placeholder: Confirm your password
-          password_label: Password
-          password_minimum: '(%{count} characters minimum)'
-          password_placeholder: Create a password
-          submit: Sign up
-          title: Sign up
-      sessions:
-        new:
-          email_label: Email
-          email_placeholder: Enter your email
-          password_label: Password
-          password_placeholder: Enter your password
-          remember_me: Remember me
-          sign_in_with_email: Continue with Email and Password
-          submit: Sign in
-          title: Sign in
-      shared:
-        links:
-          confirmation_instructions: Didn't receive confirmation instructions?
-          forgot_password: Forgot your password?
-          oauth_separator: OR
-          sign_in: Sign in
-          sign_in_with: Continue with %{provider}
-          sign_up: Sign up
-          unlock_instructions: Didn't receive unlock instructions?
-      unlocks:
-        new:
-          email_help: We'll send you instructions to unlock your account
-          email_label: Email
-          email_placeholder: Enter your email
-          submit: Resend unlock instructions
-          title: Resend unlock instructions
+  agreements:
+    acceptances:
+      accept_and_continue: Accept and continue
+      must_accept: You must confirm the agreement to continue.
+      organization_dpa:
+        owner_required: Only %{owner}, the organization owner, can accept this agreement.
+        statement_html: I accept the Moneygun %{data_processing_agreement_link} on behalf of this organization.
+        title: Accept the data processing agreement for %{organization}
+      user_terms:
+        statement_html: I accept the Moneygun %{terms_of_service_link} and acknowledge the %{privacy_notice_link}.
+        subtitle: Review the agreements governing your use of Moneygun.
+        title: Accept terms
+      version_changed: The agreement changed. Review the current version and confirm again.
+    documents:
+      data_processing_agreement: Data Processing Agreement
+      privacy_notice: Privacy Notice
+      terms_of_service: Terms of Service
   errors:
     messages:
       already_confirmed: was already confirmed, please try signing in
@@ -225,13 +97,17 @@ en:
       not_locked: was not locked
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
-        other: '%{count} errors prohibited this %{resource} from being saved:'
+        other: "%{count} errors prohibited this %{resource} from being saved:"
     models:
       membership:
         attributes:
           base:
             cannot_change_role_if_only_admin: Role cannot be changed because this is the only admin.
+            cannot_deactivate_only_active_admin: Promote another administrator before deactivating the only administrator.
+            cannot_deactivate_owner: Transfer ownership before deactivating the owner.
             cannot_demote_owner_from_admin: Organization owner cannot be demoted from admin role.
+            cannot_reactivate_redacted_user: A closed account cannot be reactivated.
+            cannot_remove_owner: Transfer ownership before removing the owner.
   home:
     index:
       subtitle: Dashboard, highlights, and actions coming soon
@@ -248,13 +124,36 @@ en:
       approve: Approve
       reject: Reject
     index:
-      title: '⬇️ Waitlist'
+      title: "⬇️ Waitlist"
     reject:
       success: Join request rejected
     success:
       access_granted: Access granted
       access_requested: Access requested
+  magic_link_mailer:
+    email_change_verification:
+      expires_in: This code will work for %{time}.
+      greeting: Hello!
+      instruction: 'Enter this verification code to confirm your new email address:'
+      subject: Your code is %{code}
+    sign_in_instructions:
+      expires_in: This code will work for %{time}.
+      greeting: Hello!
+      host_notice: Only enter this code on %{host}.
+      instruction: 'Your Moneygun verification code is:'
+      subject: "%{code} is your Moneygun verification code"
+    sudo_code:
+      expires_in: This code will work for %{time}.
+      greeting: Hello!
+      instruction: 'To confirm a sensitive account change, enter this code:'
+      subject: "%{code} is your Moneygun confirmation code"
   membership_mailer:
+    invitation:
+      action: Review invitation
+      body: You have been invited to join %{organization_name}.
+      expires_in: This invitation expires in %{time}.
+      greeting: Hello!
+      subject: Invitation to join %{organization_name}
     invitation_email:
       body: |
         %{invitor_email} invited you to join %{organization_name}!
@@ -265,19 +164,38 @@ en:
 
         If you have any questions, please contact the person who invited you.
       someone: Someone
-      subject: '%{invitor_email} invited you to join %{organization_name}'
+      subject: "%{invitor_email} invited you to join %{organization_name}"
+    organization_deleted:
+      body: "%{organization_name} has been deleted. Your access to it has ended."
+      subject: "%{organization_name} has been deleted"
     request_accepted_email:
       subject: Welcome to %{organization_name}
     request_rejected_email:
       subject: Membership request update for %{organization_name}
+  membership_requests:
+    errors:
+      already_participant: You are already a member of this organization
+      already_requested: You have already requested access to this organization
   notifiers:
     membership:
+      invitation_accepted_notifier:
+        notification:
+          message: "%{email} accepted the invitation to join %{organization_name}"
+      invitation_declined_notifier:
+        notification:
+          message: "%{email} declined the invitation to join %{organization_name}"
       invitation_notifier:
         notification:
           message: You've been invited to join %{organization_name}
       join_request_received_notifier:
         notification:
-          message: '%{user_name} has requested to join %{organization_name}'
+          message: "%{user_name} has requested to join %{organization_name}"
+      organization_deleted_notifier:
+        notification:
+          message: "%{organization_name} has been deleted"
+      reactivation_notifier:
+        notification:
+          message: Your access to %{organization_name} has been restored
       removal_notifier:
         notification:
           message: You have been removed from %{organization_name}
@@ -294,40 +212,140 @@ en:
       ownership_transferred_notifier:
         notification:
           message: You are now the owner of %{organization_name}
+    organization_fallback: an organization
+  onboarding:
+    profile:
+      continue: Continue
+      subtitle: Add your name and photo so teammates recognize you.
+      title: Set up your profile
+    terms:
+      checkbox_label: I have read and agree to the Terms of Service.
+      continue: Continue
+      hint_html: By continuing, you agree to the %{terms_link} and acknowledge the %{privacy_link}.
+      marketing_hint: Occasional emails about product updates. Unsubscribe at any time.
+      marketing_label: Send me product updates
+      must_accept: You must accept the Terms of Service to continue.
+      privacy_link: Privacy policy
+      subtitle: Review the agreements that govern your use of Moneygun.
+      terms_link: Terms of Service
+      title: Accept terms
   organization_mailer:
     ownership_transferred:
+      greeting: Hello,
+      message: You are now the owner of %{organization_name}.
       subject: You are now the owner of %{organization_name}
   organizations:
+    audit_logs:
+      fields:
+        admin_granted_access: Complimentary access
+        name: Name
+        privacy_setting: Privacy setting
+        website: Website
+      index:
+        actor: Actor
+        details: Details
+        empty: No audit events yet
+        event: Event
+        field_change: "%{field}: %{previous} → %{current}"
+        time: Time
+        title: Audit log
+    connections:
+      status:
+        disabled: Disabled
+        enabled: Enabled
     dashboard:
       index:
         title: Dashboard
       paywalled_page:
         title: Paywalled page
+    data_exports:
+      index:
+        description: Generate a ZIP containing this organization's data. Exports expire after %{days} days.
+        download: Download
+        empty: No data export has been requested
+        request: Request export
+        statuses:
+          completed: Completed
+          expired: Expired
+          failed: Failed
+          pending: Pending
+        title: Data export
+      show:
+        unavailable: This export is not available.
     destroy:
       error: Organization could not be destroyed
+      has_active_subscription: Cancel the active subscription before deleting this organization.
       success: Organization destroyed
     edit:
+      delete_organization: Delete this organization
+      destroy_disabled:
+        has_active_subscription: Cancel the active subscription before deleting this organization
       title: Organization settings
     index:
       title: My organizations
+    invitations:
+      create:
+        rate_limited: You can send up to %{limit} invitations per hour.
+      destroy:
+        unavailable: This invitation is no longer available.
+      enforce_rate_limit:
+        rate_limited: You can send up to %{limit} invitations per hour.
+      index:
+        empty: No pending invitations
+        resend: Resend
+        revoke: Revoke
+        title: Invitations
+      new:
+        submit: Send invitation
+        title: Invite teammate
+      pending: Pending
+      resend:
+        cooldown: Wait a moment before sending this invitation again.
+        success: Invitation sent again.
     memberships:
       actions:
+        change_role: Change role
         leave: Leave
+        reactivate: Reactivate
+        remove_access: Remove access
         remove_member: Remove member
+      deactivated_badge: Deactivated
       destroy:
+        access_removed: Access removed
+        failed: Access could not be removed
         failed_to_remove_user_from_organization: Failed to remove user from organization
         user_removed_from_organization: User removed from organization
         you_have_left_the_organization: You have left the organization
       edit:
         title: Edit %{email} roles
       index:
+        filters:
+          all: All roles
+          apply: Apply
+          role: Filter by role
+        joined_html: Joined %{date}
+        tabs:
+          deactivated: Deactivated
+          members: Members
+          pending: Invitees
         title: Members
       new:
         title: Invite teammate
+      owner_badge: Owner
+      reactivate:
+        success: Access restored
+      roles:
+        admin:
+          label: Admin
+        member:
+          label: Member
+        viewer:
+          label: Viewer
       update:
         success: User updated
     new:
       title: New organization
+      website_label: Website URL
     projects:
       create:
         success: Project created
@@ -343,16 +361,53 @@ en:
         title: Project
       update:
         success: Project updated
+    scim_connections:
+      show:
+        base_url: Base URL
+        description: Provision and deactivate organization members from an identity provider using SCIM 2.0.
+        documentation: Configuration guide
+        documentation_body: Configure your identity provider with the base URL and bearer token shown above. The token identifies this organization and should be treated as a secret.
+        generate: Generate SCIM token
+        last_request: Last request
+        never_used: Not used yet
+        not_configured: SCIM is not configured
+        remove: Remove SCIM connection
+        rotate: Rotate token
+        title: SCIM provisioning
+        token_ending: The current token ends in %{last_four}.
+        token_once: Copy this token now. It will not be shown again.
     sent_invitations:
       create:
-        success: '%{email} invited'
+        success: "%{email} invited"
       destroy:
         success: Invitation cancelled
       index:
         cancel_invitation: Cancel invitation
-        title: '⬆️ Invites'
+        title: "⬆️ Invites"
     show:
       title: Home
+    sso_connections:
+      show:
+        acs: Assertion consumer service URL
+        cert_expired: The signing certificate expired on %{date}.
+        cert_valid_until: The signing certificate is valid until %{date}.
+        description: Configure SAML 2.0 single sign-on for verified organization email domains.
+        documentation: Configuration guide
+        documentation_body: Register the service-provider URLs with your identity provider, paste its SAML metadata, verify at least one email domain, and then enable the connection.
+        domains: Verified email domains
+        domains_hint: Only domains proven through DNS can participate in discovery or enforcement.
+        entity_id: Service provider entity ID
+        last_login: Last login
+        never_used: Not used yet
+        pending: Pending verification
+        remove: Remove SSO connection
+        service_provider_details: Service provider details
+        title: Single sign-on
+        verified: Verified
+        verify: Verify DNS
+    sso_domains:
+      verify:
+        not_found: The verification TXT record was not found yet.
     subscriptions:
       features:
         title: Features
@@ -361,6 +416,9 @@ en:
       plan:
         active: Active
         cancelled: Cancelled
+        granted_access: Complimentary access
+        granted_access_after_cancellation: Your paid subscription is cancelled, but %{site_name} has granted this organization continued access.
+        granted_access_detail: "%{site_name} has granted this organization access without a paid subscription."
         manage_billing: Manage billing
         next_billing_date: Next billing date
         price: Price
@@ -369,7 +427,7 @@ en:
         title: Manage subscription
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
       pricing:
-        cancel_security: '🛡️ Cancel anytime. Secured by Stripe.'
+        cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
         current_plan: Current plan
         purchase: Buy
         save_yearly: Best value
@@ -389,7 +447,7 @@ en:
   public:
     organizations:
       index:
-        title: '🌎 Discover'
+        title: "🌎 Discover"
       show:
         actions:
           accept_invitation: Accept invitation
@@ -427,6 +485,47 @@ en:
   search:
     index:
       title: Search
+  sessions:
+    magic_links:
+      enter_email_first: Enter your email address to sign in.
+      invalid_code: That code did not match. Copy the latest 6-digit code from the email.
+      rate_limited: Too many attempts. Try again in 15 minutes.
+      show:
+        code_label: Verification code
+        expires_in: will work for %{time}.
+        instructions: Enter the verification code included in the email.
+        sent_to_html: The code sent to %{email}
+        submit: Verify
+        title: Check your email
+        try_again: Start over
+    new:
+      email_placeholder: name@company.com
+      magic_link_explanation: Enter your email to continue. No password required.
+      submit: Continue
+      title: Sign in to Moneygun
+    sso:
+      denied: Your identity is not provisioned for that organization.
+      failed: Single sign-on could not be completed.
+      new:
+        explanation: Enter your work email address to find your organization's identity provider.
+        submit: Continue with SSO
+        title: Enterprise single sign-on
+        use_magic_link: Use an email code instead
+      not_available: Single sign-on is not configured for that email domain.
+      show:
+        continue: Continue to identity provider
+        explanation: Continue to %{organization} to authenticate.
+        title: Continue with single sign-on
+    two_factor:
+      invalid_code: That code did not match. Copy the latest code from your authenticator.
+      new:
+        backup_hint: You can also use a backup code.
+        code_label: Verification code
+        instructions: Enter the code from your authenticator app.
+        submit: Verify
+        title: Two-factor authentication
+        try_again: Start over
+      rate_limited: Too many attempts. Try again later.
   shared:
     actions:
       back: Back
@@ -434,18 +533,24 @@ en:
       confirm: Are you sure?
       confirm_action: Confirm
       continue: Continue
-      copied: '✅ Copied!'
-      copy: '📋 Copy'
+      copied: "✅ Copied!"
+      copy: "📋 Copy"
+      copy_link: Copy value
       create: Create
       destroy: Destroy
       edit: Edit
+      more: More actions
       new: New
       save_changes: Save changes
       show: Show
       skip: Skip
+    aria:
+      breadcrumb: Breadcrumb
     boolean:
       'no': 'No'
       'yes': 'Yes'
+    danger_zone:
+      label: Danger zone
     empty_state:
       subtitle: Come back soon
       title: Nothing here yet
@@ -453,6 +558,7 @@ en:
       not_authorized: You are not authorized to perform this action.
       not_subscribed: You need to subscribe to access this page.
       rate_limit: Try again later.
+      session_expired: Your session expired. Please try again.
     flash:
       dismiss: Dismiss
     footer:
@@ -463,6 +569,7 @@ en:
     modal:
       close: Close dialog
     navigation:
+      back: Back
       edit_profile: Edit profile
       home: Home
       login: Existing members
@@ -480,7 +587,7 @@ en:
       search: Search... ⌘K
     skip_to_content: Skip to main content
     time:
-      ago: '%{time_ago} ago'
+      ago: "%{time_ago} ago"
   simple_form:
     dropzone:
       hint: or click to browse
@@ -493,17 +600,37 @@ en:
       description: View %{site_name} pricing plans and features
       title: Pricing
     privacy:
-      description: '%{site_name} privacy policy'
+      description: "%{site_name} privacy policy"
       title: Privacy
     refunds:
-      description: '%{site_name} refund policy'
+      description: "%{site_name} refund policy"
       title: Refunds
     terms:
-      description: '%{site_name} terms of service'
+      description: "%{site_name} terms of service"
       title: Terms
   users:
+    closed_account_name: Closed account
     edit:
       title: Edit profile
+    email_changes:
+      email_taken: That email is already taken.
+      invalid_code: That code did not match. Copy the latest 6-digit code from the email.
+      new:
+        email_label: New email address
+        placeholder: Enter your new email address
+        submit: Send verification code
+        title: Change email address
+      rate_limited: Too many attempts. Try again later.
+      same_email: That is already your current email address.
+      show:
+        code_label: Verification code
+        expires_in: will work for %{time}.
+        instructions: Enter the verification code included in the email.
+        sent_to_html: The code sent to %{email}
+        submit: Verify
+        title: Check your email
+        try_again: Cancel
+      success: Email address updated.
     identities:
       destroy:
         success: Account disconnected successfully.
@@ -526,20 +653,32 @@ en:
         invalid_token: Invalid or expired invitation link.
         submit: Set password and accept invitation
         title: Set your password
+    invitations:
+      accept:
+        unavailable: This invitation is no longer available.
+      decline:
+        unavailable: This invitation is no longer available.
+      index:
+        title: Invitations
+      show:
+        accept: Accept invitation
+        decline: Decline invitation
+        subtitle: You have been invited to join
+        title: Invitation
     notifications:
       index:
         title: Notifications
     organizations:
       received_invitations:
         index:
-          title: '⬇️ Invitations'
+          title: "⬇️ Invitations"
         show:
           title: Invitation
       sent_join_requests:
         destroy:
           success: Join request revoked
         index:
-          title: '⬆️ Waitlisted'
+          title: "⬆️ Waitlisted"
     referrals:
       index:
         clicks: Referral Link Performance
@@ -560,3 +699,43 @@ en:
           status_completed: Converted
           status_pending: Registered
         title: Affiliate Program
+    security:
+      delete_account: Delete my account
+      delete_account_blocked: Delete or transfer organizations and assign another administrator before deleting this account.
+      delete_account_confirm: This permanently closes your account and cannot be undone.
+    sessions:
+      index:
+        current: Current session
+        sign_out: Sign out
+        sign_out_others: Sign out other sessions
+        title: Active sessions
+        unknown: Unknown browser
+    sudo:
+      invalid_code: That code did not match.
+      new:
+        email_instructions: Enter the code sent to your email address.
+        resend: Send a new code
+        submit: Confirm
+        title: Confirm it is you
+        two_factor_instructions: Enter the code from your authenticator app.
+      rate_limited: Too many attempts. Try again later.
+      reasons:
+        delete_account: You are about to delete your account.
+        export_data: You are about to export organization data.
+      resent: A new code has been sent.
+    two_factor:
+      code_label: Verification or backup code
+      edit:
+        instructions: Enter a current authenticator or backup code to disable two-factor authentication.
+        submit: Disable two-factor authentication
+        title: Two-factor authentication
+      invalid_code: That code did not match.
+      new:
+        instructions: Scan the QR code with your authenticator app, then enter the generated code.
+        submit: Enable two-factor authentication
+        title: Set up two-factor authentication
+      rate_limited: Too many attempts. Try again later.
+      show:
+        done: I saved these codes
+        title: Save your backup codes
+        warning: Store these one-time backup codes somewhere safe. They will not be shown again.

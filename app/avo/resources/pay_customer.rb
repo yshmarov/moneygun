@@ -15,7 +15,7 @@ class Avo::Resources::PayCustomer < Avo::BaseResource
   }
 
   def fields
-    main_panel do
+    panel do
       field :id, as: :id
       field :processor_id, as: :text, disabled: true
       field :owner, as: :belongs_to, polymorphic_as: :owner, types: [::User], disabled: true

@@ -1,0 +1,5 @@
+baseline:
+  organization: one
+  mini_app: organization
+  action: organization.seeded
+  actor_kind: system

@@ -1,3 +1,5 @@
+load Rails.root.join("db/seeds/agreements.rb")
+
 return if Rails.env.production?
 
 # This file should ensure the existence of records required to run the application in every environment (production,
@@ -10,30 +12,26 @@ return if Rails.env.production?
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.find_or_initialize_by(email: 'hello@superails.com')
-user.password = 'hello@superails.com'
-user.admin = true
-user.skip_confirmation_notification!
-user.confirmed_at = Time.current
-user.save!
+user = User.find_or_create_by!(email: "hello@superails.com")
+user.update!(admin: true)
 
-organization = Organization.find_or_create_by!(name: 'SupeRails') do |org|
+organization = Organization.find_or_create_by!(name: "SupeRails") do |org|
   org.owner = user
 end
-organization.logo.attach(io: Rails.root.join('test/fixtures/files/superails-logo.png').open, filename: 'superails.png') unless organization.logo.attached?
+organization.logo.attach(io: Rails.root.join("test/fixtures/files/superails-logo.png").open, filename: "superails.png") unless organization.logo.attached?
 organization.update!(privacy_setting: :public)
 
-organization = Organization.find_or_create_by!(name: 'Avo') do |org|
+organization = Organization.find_or_create_by!(name: "Avo") do |org|
   org.owner = user
 end
-organization.logo.attach(io: Rails.root.join('test/fixtures/files/avo-logo.png').open, filename: 'avo.png') unless organization.logo.attached?
+organization.logo.attach(io: Rails.root.join("test/fixtures/files/avo-logo.png").open, filename: "avo.png") unless organization.logo.attached?
 organization.update!(privacy_setting: :restricted)
 
-organization = Organization.find_or_create_by!(name: 'Buzzsprout') do |org|
+organization = Organization.find_or_create_by!(name: "Buzzsprout") do |org|
   org.owner = user
   org.privacy_setting = :private
 end
-organization.logo.attach(io: Rails.root.join('test/fixtures/files/buzzsprout-logo.png').open, filename: 'buzzsprout.png') unless organization.logo.attached?
+organization.logo.attach(io: Rails.root.join("test/fixtures/files/buzzsprout-logo.png").open, filename: "buzzsprout.png") unless organization.logo.attached?
 
 # if Rails.application.credentials.dig(:stripe, :private_key).present?
 #   product = Stripe::Product.create(name: "Pro plan")

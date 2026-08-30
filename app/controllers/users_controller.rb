@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action -> { require_sudo(:delete_account) }, only: :destroy
 
   def show; end
 
@@ -18,6 +19,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    if @user.undeletable_reasons.any?
+      redirect_to user_path, alert: t("users.security.delete_account_blocked")
+      return
+    end
+
+    terminate_session
+    @user.erase!
+    redirect_to new_session_path
+  end
+
   private
 
   def set_user
@@ -25,6 +37,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.expect(user: %i[name avatar])
+    params.expect(user: %i[name avatar marketing_consent])
   end
 end

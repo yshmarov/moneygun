@@ -2,29 +2,58 @@
 service: moneygun
 
 # Name of the container image.
-image: your-user/moneygun
+image: <%= ENV.fetch("KAMAL_IMAGE", "your-user/moneygun") %>
+
+minimum_version: 2.11.0
+deploy_timeout: 90
+drain_timeout: 30
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    hosts:
+      - <%= ENV.fetch("KAMAL_HOST", "192.168.0.1") %>
+    env:
+      clear:
+        WEB_CONCURRENCY: 2
+        RAILS_MAX_THREADS: 3
+        GOOD_JOB_EXECUTION_MODE: external
+        GOOD_JOB_ENABLE_CRON: false
   job:
     hosts:
-      - 192.168.0.1
+      - <%= ENV.fetch("KAMAL_HOST", "192.168.0.1") %>
     cmd: bundle exec good_job start
+    options:
+      health-cmd: 'curl -fsS http://localhost:7001/status/connected || exit 1'
+      health-interval: 10s
+      health-timeout: 5s
+      health-retries: 3
+      health-start-period: 10s
+    env:
+      clear:
+        RAILS_MAX_THREADS: 5
+        GOOD_JOB_EXECUTION_MODE: external
+        GOOD_JOB_ENABLE_CRON: true
+        GOOD_JOB_MAX_THREADS: 5
+        GOOD_JOB_POLL_INTERVAL: 10
+        GOOD_JOB_PROBE_PORT: 7001
+        GOOD_JOB_QUEUES: '*'
+        GOOD_JOB_SHUTDOWN_TIMEOUT: 25
+        GOOD_JOB_CRON_GRACEFUL_RESTART_PERIOD: 60
 
 # Enable SSL auto certification via Let's Encrypt.
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: app.example.com
-  forward_headers: true
+  host: <%= ENV.fetch("APP_HOST", "app.example.com") %>
+  # The default origin is directly exposed. Only trust forwarded headers when a
+  # configured proxy such as Cloudflare replaces client-supplied values.
+  forward_headers: <%= ENV.fetch("KAMAL_PROXY_FORWARD_HEADERS", "false") == "true" %>
 
 # Credentials for your image host.
 registry:
-  # Specify the registry server, if you're not using Docker Hub
-  # server: registry.digitalocean.com / ghcr.io / ...
-  username: your-user
+  server: <%= ENV.fetch("KAMAL_REGISTRY_SERVER", "ghcr.io") %>
+  username: <%= ENV.fetch("KAMAL_REGISTRY_USERNAME", "your-user") %>
 
   # Always use an access token rather than real password when possible.
   password:
@@ -35,10 +64,16 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - DATABASE_URL
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
   clear:
-    HOST: app.example.com
-    # Set number of cores available to the application on each server (default: 1).
-    WEB_CONCURRENCY: 2
+    HOST: <%= ENV.fetch("APP_HOST", "app.example.com") %>
+    ACTIVE_STORAGE_SERVICE: s3
+    AWS_REGION: <%= ENV.fetch("AWS_REGION", "auto") %>
+    BUCKET_NAME: <%= ENV.fetch("BUCKET_NAME", "moneygun-production") %>
+<% if ENV["AWS_ENDPOINT_URL_S3"].to_s != "" %>
+    AWS_ENDPOINT_URL_S3: <%= ENV["AWS_ENDPOINT_URL_S3"] %>
+<% end %>
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
 
@@ -50,9 +85,13 @@ aliases:
   logs: app logs -f
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
 
-# Use a persistent storage volume for local Active Storage files.
-volumes:
-  - 'moneygun_storage:/rails/storage'
+# Keep enough logs for debugging without allowing Docker's json-file logs to
+# consume the host disk indefinitely.
+logging:
+  driver: json-file
+  options:
+    max-size: 50m
+    max-file: '5'
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
@@ -60,17 +99,24 @@ volumes:
 asset_path: /rails/public/assets
 
 # Configure the image builder.
-# Build on the remote server (native x86_64, no QEMU emulation needed).
 builder:
   arch: amd64
-  # remote: ssh://root@192.168.0.1
+  cache:
+    type: registry
+    options: mode=max
 
 # Use accessory services (secrets come from .kamal/secrets).
 accessories:
   db:
     image: postgres:18
-    host: 192.168.0.1
+    host: <%= ENV.fetch("KAMAL_HOST", "192.168.0.1") %>
     port: '127.0.0.1:5432:5432'
+    options:
+      health-cmd: 'pg_isready -U moneygun -d moneygun_production'
+      health-interval: 10s
+      health-timeout: 5s
+      health-retries: 5
+      health-start-period: 10s
     env:
       clear:
         POSTGRES_USER: moneygun
@@ -79,3 +125,23 @@ accessories:
         - POSTGRES_PASSWORD
     directories:
       - moneygun_postgres_data:/var/lib/postgresql
+
+  db_backup:
+    image: <%= ENV.fetch("BACKUP_IMAGE", "yshmarov/postgres-backup-s3:18") %>
+    host: <%= ENV.fetch("KAMAL_HOST", "192.168.0.1") %>
+    env:
+      clear:
+        SCHEDULE: <%= ENV.fetch("BACKUP_SCHEDULE", "0 3 * * *") %>
+        BACKUP_KEEP_DAYS: <%= ENV.fetch("BACKUP_KEEP_DAYS", "21") %>
+        S3_BUCKET: <%= ENV.fetch("BACKUP_BUCKET_NAME", ENV.fetch("BUCKET_NAME", "moneygun-production")) %>
+        S3_PREFIX: <%= ENV.fetch("BACKUP_S3_PREFIX", "backups/postgres") %>
+        S3_REGION: <%= ENV.fetch("AWS_REGION", "auto") %>
+        S3_ENDPOINT: <%= ENV.fetch("BACKUP_S3_ENDPOINT", ENV.fetch("AWS_ENDPOINT_URL_S3", "https://s3.amazonaws.com")) %>
+        S3_S3V4: 'yes'
+        POSTGRES_HOST: moneygun-db
+        POSTGRES_DATABASE: moneygun_production
+        POSTGRES_USER: moneygun
+      secret:
+        - POSTGRES_PASSWORD
+        - S3_ACCESS_KEY_ID
+        - S3_SECRET_ACCESS_KEY

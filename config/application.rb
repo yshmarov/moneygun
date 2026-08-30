@@ -31,6 +31,7 @@ module Moneygun
     config.i18n.fallbacks = true
     config.active_record.encryption.support_unencrypted_data = true
     config.active_record.encryption.extend_queries = true
+    config.middleware.delete Rack::Runtime
 
     config.to_prepare do
       Noticed::Notification.include Noticed::NotificationExtensions

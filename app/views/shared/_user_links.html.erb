@@ -4,14 +4,20 @@
 
 <%= nav_link t("users.referrals.index.title"), user_referrals_path, icon: "🎁", badge: "New" %>
 
-<%= nav_link t("users.identities.index.title"), user_identities_path, icon: "🔗" if Rails.application.config.omniauth_providers.any? %>
-
 <li></li>
 
 <%= render "shared/language_picker" %>
 
 <li></li>
 
-<%= nav_link t("shared.navigation.edit_profile"), edit_user_registration_path, icon: "🔐" %>
+<%= nav_link t("shared.navigation.edit_profile"), edit_user_path, icon: "svg/user.svg" %>
 
-<%= nav_link t("shared.navigation.logout"), destroy_user_session_path, icon: "👋", data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") } %>
+<%= nav_link t("users.sessions.index.title"), user_sessions_path, icon: "svg/lock-closed.svg", chevron: true %>
+
+<% if current_user.two_factor_enabled? %>
+  <%= nav_link t("users.two_factor.edit.title"), edit_user_two_factor_path, icon: "svg/check-circle.svg", chevron: true %>
+<% else %>
+  <%= nav_link t("users.two_factor.new.title"), new_user_two_factor_path, icon: "svg/lock-closed.svg", chevron: true %>
+<% end %>
+
+<%= nav_link t("shared.navigation.logout"), session_path, icon: "👋", data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") } %>

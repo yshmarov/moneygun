@@ -3,7 +3,9 @@
 one:
   name: MyString
   organization: one
+  membership: one
 
 two:
   name: MyString
   organization: two
+  membership: two

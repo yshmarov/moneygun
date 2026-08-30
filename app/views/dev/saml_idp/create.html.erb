@@ -1,0 +1,15 @@
+<%# Development-only tooling: plain English, no locale keys.
+    A real IdP auto-submits this with JavaScript; the button keeps the handoff
+    visible, which is the point of having it in front of you. %>
+<% content_for :title, "Posting assertion" %>
+<% content_for :robots, "noindex" %>
+
+<div class="w-full max-w-md mx-auto space-y-6 text-center">
+  <h1 class="text-xl font-semibold">Assertion signed</h1>
+  <p class="text-sm text-base-content/70">Post it back to <span class="font-mono break-all"><%= @acs_url %></span>.</p>
+
+  <%= form_with url: @acs_url, method: :post, data: { turbo: false }, class: "space-y-3" do |f| %>
+    <%= f.hidden_field :SAMLResponse, value: @saml_response %>
+    <%= f.submit "Continue", class: "btn btn-primary btn-block" %>
+  <% end %>
+</div>

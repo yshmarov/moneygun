@@ -1,0 +1,17 @@
+<li class="list-row items-center">
+  <div class="list-col-grow min-w-0">
+    <div class="font-semibold truncate"><%= invitation.email %></div>
+    <div class="flex flex-wrap items-center mt-1 gap-2">
+      <span class="badge badge-xs badge-warning"><%= t("organizations.invitations.pending") %></span>
+      <span class="badge badge-xs"><%= t("organizations.memberships.roles.#{invitation.role}.label") %></span>
+      <span class="text-xs text-base-content/70"><%= local_time_tag invitation.expires_at, format: :short_time %></span>
+    </div>
+  </div>
+
+  <% if policy(invitation).destroy? %>
+    <%= render "shared/action_menu" do %>
+      <li><%= link_to t("organizations.invitations.index.resend"), resend_organization_invitation_path(@organization, invitation), data: { turbo_method: :post }, role: "menuitem" %></li>
+      <li><%= link_to t("organizations.invitations.index.revoke"), organization_invitation_path(@organization, invitation), data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") }, class: "text-error", role: "menuitem" %></li>
+    <% end %>
+  <% end %>
+</li>

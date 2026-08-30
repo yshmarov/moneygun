@@ -12,16 +12,20 @@ class Avo::Resources::User < Avo::BaseResource
     }
   }
 
+  def actions
+    action Avo::Actions::CompleteUserOnboarding
+    action Avo::Actions::BanUser
+    action Avo::Actions::UnbanUser
+  end
+
   def fields
-    main_panel do
+    panel do
       field :id, as: :id
       field :email, as: :text, disabled: true, sortable: true
       field :admin, as: :boolean, sortable: true
-      field :confirmed_at, as: :date_time, disabled: true, format: "DDDD, T"
-      field :login_as, as: :text, as_html: true do
-        link_to "Login as", masquerade_path(record) unless record.id == current_user.id
-      end
-
+      field :email_verified_at, as: :date_time, disabled: true, format: "DDDD, T"
+      field :onboarding_completed_at, as: :date_time, disabled: true, format: "DDDD, T"
+      field :banned_at, as: :date_time, disabled: true, sortable: true, format: "DDDD, T"
       sidebar do
         field :created_at, as: :date_time, disabled: true, format: "DDDD, T"
         field :updated_at, as: :date_time, disabled: true, format: "DDDD, T"
@@ -40,7 +44,6 @@ class Avo::Resources::User < Avo::BaseResource
       field :owned_organizations, as: :has_many
     end
 
-    field :identities, as: :has_many
     field :referrals, as: :has_many
   end
 end

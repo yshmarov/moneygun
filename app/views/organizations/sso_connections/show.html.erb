@@ -1,0 +1,91 @@
+<% content_for :title, t("organizations.sso_connections.show.title") %>
+
+<%= render SectionComponent.new do |component| %>
+  <% component.with_page_title t("organizations.sso_connections.show.title"), back_to: organization_path(@organization) %>
+
+  <div class="max-w-2xl space-y-6">
+    <p class="text-sm text-base-content/70"><%= t("organizations.sso_connections.show.description") %></p>
+
+    <% if @connection.persisted? %>
+      <div class="flex items-center gap-2">
+        <%= connection_status_badge(@connection) %>
+        <span class="text-sm text-base-content/60">
+          <% if @connection.last_login_at %>
+            <%= t("organizations.sso_connections.show.last_login") %> <%= local_time_tag @connection.last_login_at, format: :short %>
+          <% else %>
+            <%= t("organizations.sso_connections.show.never_used") %>
+          <% end %>
+        </span>
+      </div>
+
+      <% if @connection.idp_cert_expires_at %>
+        <p class="text-sm <%= @connection.idp_cert_expired? ? "text-error" : "text-base-content/60" %>">
+          <%= t(@connection.idp_cert_expired? ? "organizations.sso_connections.show.cert_expired" : "organizations.sso_connections.show.cert_valid_until", date: l(@connection.idp_cert_expires_at.to_date, format: :long)) %>
+        </p>
+      <% end %>
+    <% end %>
+
+    <div class="space-y-3">
+      <h2 class="font-semibold"><%= t("organizations.sso_connections.show.service_provider_details") %></h2>
+      <div>
+        <p class="mb-1 text-xs font-medium text-base-content/70"><%= t("organizations.sso_connections.show.acs") %></p>
+        <%= render "shared/copy_field", value: sso_acs_url %>
+      </div>
+      <div>
+        <p class="mb-1 text-xs font-medium text-base-content/70"><%= t("organizations.sso_connections.show.entity_id") %></p>
+        <%= render "shared/copy_field", value: sso_sp_entity_id %>
+      </div>
+    </div>
+
+    <%= simple_form_for @connection, url: organization_sso_connection_path(@organization), html: { class: "space-y-4" } do |form| %>
+      <%= render "shared/errors", object: @connection %>
+      <%= form.input :idp_entity_id, input_html: { autocomplete: "off" } %>
+      <%= form.input :idp_sso_url, as: :url, input_html: { autocomplete: "off" } %>
+      <%= form.input :idp_cert, as: :text, input_html: { rows: 8, class: "font-mono text-xs", autocomplete: "off" } %>
+      <%= form.input :default_membership_role, collection: Membership.roles.keys.map { |role| [t("organizations.memberships.roles.#{role}.label"), role] }, include_blank: false %>
+      <%= form.input :jit_provisioning, as: :boolean %>
+      <%= form.input :enforced, as: :boolean %>
+      <%= form.input :enabled, as: :boolean %>
+      <%= form.button :submit, t("shared.actions.save_changes"), class: "btn btn-primary" %>
+    <% end %>
+
+    <% if @connection.persisted? %>
+      <div class="divider"></div>
+      <div class="space-y-3">
+        <div>
+          <h2 class="font-semibold"><%= t("organizations.sso_connections.show.domains") %></h2>
+          <p class="text-sm text-base-content/60"><%= t("organizations.sso_connections.show.domains_hint") %></p>
+        </div>
+
+        <ul class="space-y-3">
+          <% @connection.sso_domains.ordered.each do |domain| %>
+            <li class="rounded-box border border-base-300 p-4 space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <strong><%= domain.domain %></strong>
+                <span class="badge <%= domain.verified? ? "badge-success" : "badge-warning" %>"><%= domain.verified? ? t("organizations.sso_connections.show.verified") : t("organizations.sso_connections.show.pending") %></span>
+              </div>
+              <% unless domain.verified? %>
+                <%= render "shared/copy_field", value: domain.txt_record %>
+                <%= button_to t("organizations.sso_connections.show.verify"), verify_organization_sso_connection_sso_domain_path(@organization, domain), class: "btn btn-sm" %>
+              <% end %>
+              <%= button_to t("shared.actions.destroy"), organization_sso_connection_sso_domain_path(@organization, domain), method: :delete, class: "btn btn-sm btn-error btn-soft", data: { turbo_confirm: t("shared.actions.confirm") } %>
+            </li>
+          <% end %>
+        </ul>
+
+        <%= simple_form_for SsoDomain.new, url: organization_sso_connection_sso_domains_path(@organization), html: { class: "flex items-end gap-2" } do |form| %>
+          <div class="grow"><%= form.input :domain, placeholder: "example.com", input_html: { autocomplete: "off" } %></div>
+          <%= form.button :submit, t("shared.actions.create"), class: "btn btn-soft" %>
+        <% end %>
+      </div>
+
+      <div class="divider"></div>
+      <%= button_to t("organizations.sso_connections.show.remove"), organization_sso_connection_path(@organization), method: :delete, class: "btn btn-error btn-soft", data: { turbo_confirm: t("shared.actions.confirm") } %>
+    <% end %>
+
+    <details class="border-t border-base-300 pt-4">
+      <summary class="cursor-pointer font-medium"><%= t("organizations.sso_connections.show.documentation") %></summary>
+      <p class="mt-3 text-sm text-base-content/70"><%= t("organizations.sso_connections.show.documentation_body") %></p>
+    </details>
+  </div>
+<% end %>

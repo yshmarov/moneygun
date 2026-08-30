@@ -12,11 +12,13 @@ Moneygun is a Rails 8 multi-tenant SaaS boilerplate. Uses route-based multitenan
 bin/setup                         # Initial setup
 bin/dev                           # Development server
 
-rails test:all                    # All tests
+bin/rails test:all                # All tests
 rails test test/models/user_test.rb:42  # Specific test
+bin/ci                            # Complete local verification gate
 
 bundle exec rubocop -A            # Ruby linting
-bundle exec erb_lint --lint-all -a  # ERB linting
+bundle exec herb analyze app/views  # ERB linting
+bin/lint                          # Full local quality/security gate
 i18n-tasks normalize              # Sort i18n keys
 ```
 
@@ -38,7 +40,7 @@ Current.user           # Authenticated user
 
 ### Key Models
 
-- **User**: Devise auth, can belong to multiple organizations
+- **User**: Passwordless auth with optional TOTP and SAML SSO; can belong to multiple organizations
 - **Organization**: The tenant, has subscriptions via Pay gem
 - **Membership**: User-Organization join table with roles (`member`, `admin`)
 - **Project**: Example org-scoped resource with obfuscated IDs (Sqids)
@@ -82,6 +84,8 @@ Split into `config/routes/`:
 - `users.rb` - User account routes
 - `organizations.rb` - Org-scoped resources
 - `admin.rb` - Avo admin panel routes
+- `sso.rb` - SAML routes
+- `scim.rb` - SCIM API routes
 
 ### Payments
 
@@ -117,12 +121,12 @@ Use `before_action :require_subscription` for paywalled features.
 - Do NOT use `skip_verify_authorized` or `skip_authorization` at the class level - these don't exist
 - The `authorize` method must be called inside each action, or via a `before_action` callback
 
-### Identity Model
+### Authentication and identity
 
-- The `name` attribute is computed from `payload` JSON (`payload&.dig("info", "name")`), not a database column
-- Cannot use `pick(:name)` or similar SQL queries for this field
-- When eager loading with `includes(:identities)`, use `identities.first&.name`
-- `Identity` is for auth-only providers (Google, Developer). Social platform connections should use a separate model.
+- Authentication is passwordless; do not add Devise password or consumer OAuth code.
+- Apply `require_sudo` to sensitive account, ownership, and identity-provider changes.
+- A tenant IdP must never silently adopt a pre-existing global User; use invitations for consent.
+- Signed Active Storage URLs still require record-level authorization.
 
 ### Organization Membership Checks
 

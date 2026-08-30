@@ -1,0 +1,19 @@
+#modal[busy]:not(:has(dialog)) {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+#modal[busy]:not(:has(dialog))::after {
+  content: '';
+  @apply loading loading-spinner loading-lg text-primary;
+  animation: modal-loading-in 150ms ease-out 200ms both;
+}
+
+@keyframes modal-loading-in {
+  from {
+    opacity: 0;
+  }
+}

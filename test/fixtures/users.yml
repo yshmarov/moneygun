@@ -7,17 +7,24 @@
 one:
   email: yaro@superails.com
   admin: true
-  confirmed_at: <%= Time.current %>
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  email_verified_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  onboarding_completed_at: <%= Time.current %>
 
 two:
   email: hello@superails.com
-  confirmed_at: <%= Time.current %>
+  email_verified_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  onboarding_completed_at: <%= Time.current %>
 
 three:
   email: natan@superails.com
-  confirmed_at: <%= Time.current %>
+  email_verified_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  onboarding_completed_at: <%= Time.current %>
 
 unassociated:
   email: unassociated@superails.com
-  confirmed_at: <%= Time.current %>
+  email_verified_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  onboarding_completed_at: <%= Time.current %>

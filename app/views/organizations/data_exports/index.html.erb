@@ -1,0 +1,11 @@
+<% content_for :title, t(".title") %>
+
+<%= render SectionComponent.new do |component| %>
+  <% component.with_page_title t(".title"), back_to: organization_path(@organization) %>
+  <% component.with_action_list do %>
+    <%= button_to t(".request"), organization_data_exports_path(@organization), class: "btn btn-primary" %>
+  <% end %>
+
+  <p class="text-sm text-base-content/70"><%= t(".description", days: DataExport::EXPIRY.in_days.to_i) %></p>
+  <%= render "data_export", data_export: @data_export %>
+<% end %>

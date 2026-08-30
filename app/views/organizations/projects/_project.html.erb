@@ -47,7 +47,7 @@
         <%= Project.human_attribute_name(:start_date) %>:
       </strong>
 
-      <p><%= local_time(project.start_date, format: :short) %></p>
+      <p><%= local_time_tag(project.start_date, format: :short) %></p>
     </div>
   <% end %>
 
@@ -57,7 +57,7 @@
         <%= Project.human_attribute_name(:due_date) %>:
       </strong>
 
-      <p><%= local_time(project.due_date, format: :short) %></p>
+      <p><%= local_time_tag(project.due_date, format: :short) %></p>
     </div>
   <% end %>
 
@@ -67,7 +67,7 @@
         <%= Project.human_attribute_name(:scheduled_at) %>:
       </strong>
 
-      <p><%= local_time(project.scheduled_at, format: :short) %></p>
+      <p><%= local_time_tag(project.scheduled_at, format: :short) %></p>
     </div>
   <% end %>
 

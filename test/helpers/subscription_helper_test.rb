@@ -13,5 +13,8 @@ class SubscriptionHelperTest < ActionView::TestCase
 
     organization.payment_processor.subscribe(plan: "fake", ends_at: 1.week.from_now)
     assert_equal "🟠", subscription_status_label(organization)
+
+    organization.update!(admin_granted_access: true)
+    assert_equal "🟢", subscription_status_label(organization)
   end
 end

@@ -9,7 +9,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect to sign in when not authenticated" do
     get user_url
-    assert_redirected_to new_user_session_url
+    assert_redirected_to new_session_url
   end
 
   test "should get show when authenticated" do

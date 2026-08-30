@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v gitleaks > /dev/null 2>&1; then
+  echo "gitleaks is not installed. Install it from https://github.com/gitleaks/gitleaks" >&2
+  exit 1
+fi
+
+mkdir -p tmp
+report_path="tmp/gitleaks-report.json"
+rm -f "$report_path"
+
+scan_dir=$(mktemp -d "${TMPDIR:-/tmp}/moneygun-gitleaks.XXXXXX")
+file_list=$(mktemp "${TMPDIR:-/tmp}/moneygun-gitleaks-files.XXXXXX")
+trap 'rm -rf "$scan_dir"; rm -f "$file_list"' EXIT
+
+while IFS= read -r -d '' file; do
+  [ -e "$file" ] && printf '%s\0' "$file" >> "$file_list"
+done < <(git ls-files -z --cached --others --exclude-standard)
+
+rsync -a --files-from="$file_list" --from0 --relative ./ "$scan_dir"/
+
+if ! gitleaks dir "$scan_dir" --config .gitleaks.toml --redact=50 --report-format json --report-path "$report_path"; then
+  echo "gitleaks found potential secrets in the working tree. See $report_path" >&2
+  exit 1
+fi
+
+base_ref="origin/main"
+if ! git rev-parse --verify --quiet "$base_ref" > /dev/null; then
+  echo "$base_ref is missing. Fetch it before running the history scan." >&2
+  exit 1
+fi
+
+if ! gitleaks git --log-opts="$base_ref..HEAD" --config .gitleaks.toml --redact=50 \
+  --report-format json --report-path "$report_path" --no-banner; then
+  echo "gitleaks found potential secrets in commits not yet on $base_ref. See $report_path" >&2
+  exit 1
+fi
+
+rm -f "$report_path"

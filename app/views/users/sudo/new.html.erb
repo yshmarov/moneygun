@@ -1,0 +1,16 @@
+<% content_for :title, t("users.sudo.new.title") %>
+
+<div class="mx-auto w-full max-w-md text-center space-y-6">
+  <h1 class="text-2xl font-bold"><%= t("users.sudo.new.title") %></h1>
+  <p class="text-base-content/60"><%= t(@two_factor ? "users.sudo.new.two_factor_instructions" : "users.sudo.new.email_instructions") %></p>
+
+  <%= form_with url: sudo_path, class: "space-y-4" do |form| %>
+    <%= form.text_field :code, required: true, autofocus: true, inputmode: "numeric", autocomplete: "one-time-code", class: "input input-bordered w-full text-center" %>
+    <%= form.submit t("users.sudo.new.submit"), class: "btn btn-primary w-full" %>
+  <% end %>
+
+  <% unless @two_factor %>
+    <%= button_to t("users.sudo.new.resend"), resend_sudo_path, class: "btn btn-ghost btn-sm" %>
+  <% end %>
+  <%= link_to t("shared.actions.cancel"), @cancel_path, class: "link link-hover text-sm" %>
+</div>

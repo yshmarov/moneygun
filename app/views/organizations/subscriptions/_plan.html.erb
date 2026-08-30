@@ -1,3 +1,14 @@
+<% if Current.organization.complimentary_access? %>
+  <%= render SectionComponent.new(title: t(".title"), full_width: false) do %>
+    <div class="rounded-box bg-base-200 p-6 space-y-4">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold"><%= t(".granted_access") %></span>
+        <%= subscription_status_label(Current.organization) %>
+      </div>
+      <p class="text-base-content/70 text-sm"><%= t(subscription ? ".granted_access_after_cancellation" : ".granted_access_detail", site_name: Rails.application.config_for(:settings).dig(:site, :name)) %></p>
+    </div>
+  <% end %>
+<% elsif subscription %>
 <% status_label = subscription.on_grace_period? ? t(".cancelled") : t(".active") %>
 
 <% access_ends_at_label = subscription.on_grace_period? ? t(".you_will_lose_access_in", distance_of_time_in_words: distance_of_time_in_words(subscription.current_period_end, Time.current)) : t(".next_billing_date") %>
@@ -44,11 +55,12 @@
 
           <td data-label="<%= access_ends_at_label %>">
             <div class="flex flex-1 @max-xl:justify-end">
-              <%= subscription.current_period_end.to_datetime.strftime("%d %b %Y") %>
+              <%= local_time_tag(subscription.current_period_end, format: :short) %>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+<% end %>
 <% end %>

@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+if [ -f .env ]; then
+  set -a
+  # shellcheck disable=SC1091
+  . ./.env
+  set +a
+fi
+
+host="${BACKUP_LIFECYCLE_HOST:-${KAMAL_HOST:?Set KAMAL_HOST or BACKUP_LIFECYCLE_HOST}}"
+service="${KAMAL_SERVICE:-moneygun}"
+container="${BACKUP_CONTAINER:-${service}-db_backup}"
+configuration="${BACKUP_LIFECYCLE_CONFIG:-config/backup_lifecycle.json}"
+command="${1:-check}"
+
+case "$command" in
+  check | apply) ;;
+  *)
+    echo "Usage: bin/backup-lifecycle [check|apply]" >&2
+    exit 64
+    ;;
+esac
+
+temporary_directory=$(mktemp -d "${TMPDIR:-/tmp}/moneygun-backup-lifecycle.XXXXXX")
+cleanup() {
+  rm -rf "$temporary_directory"
+}
+trap cleanup EXIT
+
+normalize() {
+  # shellcheck disable=SC2016
+  ruby -rjson -e '
+    def deep_sort(value)
+      case value
+      when Hash
+        value.keys.sort.to_h { |key| [key, deep_sort(value.fetch(key))] }
+      when Array
+        value.map { |item| deep_sort(item) }
+      else
+        value
+      end
+    end
+
+    document = JSON.parse($stdin.read)
+    rules = Array(document["Rules"]).map { |rule| deep_sort(rule) }.sort_by { |rule| rule.fetch("ID", "") }
+    puts JSON.pretty_generate("Rules" => rules)
+  '
+}
+
+fetch_current() {
+  local destination="$1"
+  local errors="$temporary_directory/aws-errors"
+
+  # The S3 variables intentionally expand inside the remote container.
+  # shellcheck disable=SC2029
+  if ssh root@"$host" "docker exec $container sh -c 'AWS_ACCESS_KEY_ID=\"\$S3_ACCESS_KEY_ID\" AWS_SECRET_ACCESS_KEY=\"\$S3_SECRET_ACCESS_KEY\" AWS_EC2_METADATA_DISABLED=true aws s3api get-bucket-lifecycle-configuration --bucket \"\$S3_BUCKET\" --endpoint-url \"\$S3_ENDPOINT\" --region \"\$S3_REGION\"'" > "$destination" 2> "$errors"; then
+    return
+  fi
+
+  if grep -q "NoSuchLifecycleConfiguration" "$errors"; then
+    printf '{"Rules":[]}\n' > "$destination"
+    return
+  fi
+
+  cat "$errors" >&2
+  return 1
+}
+
+current="$temporary_directory/current.json"
+normalized_desired="$temporary_directory/desired.normalized.json"
+normalized_current="$temporary_directory/current.normalized.json"
+
+normalize < "$configuration" > "$normalized_desired"
+fetch_current "$current"
+normalize < "$current" > "$normalized_current"
+
+if [ "$command" = "check" ]; then
+  if cmp -s "$normalized_desired" "$normalized_current"; then
+    echo "Production backup lifecycle matches $configuration."
+    exit 0
+  fi
+
+  echo "Production backup lifecycle differs from $configuration." >&2
+  diff -u "$normalized_desired" "$normalized_current" || true
+  exit 1
+fi
+
+unknown_rule_ids=$(ruby -rjson -e '
+  desired_ids = JSON.parse(File.read(ARGV.fetch(0))).fetch("Rules", []).filter_map { |rule| rule["ID"] }
+  current = JSON.parse(File.read(ARGV.fetch(1))).fetch("Rules", [])
+  puts current.filter_map { |rule| rule["ID"] unless desired_ids.include?(rule["ID"]) }
+' "$normalized_desired" "$normalized_current")
+
+if [ -n "$unknown_rule_ids" ]; then
+  echo "Refusing to replace production lifecycle rules that are absent from $configuration:" >&2
+  printf '%s\n' "$unknown_rule_ids" >&2
+  exit 1
+fi
+
+if cmp -s "$normalized_desired" "$normalized_current"; then
+  echo "Production backup lifecycle already matches $configuration."
+  exit 0
+fi
+
+remote_file="/tmp/${service}-backup-lifecycle-$$.json"
+scp -q "$configuration" root@"$host":"$remote_file"
+# The resolved container name is intentionally passed to the remote script.
+# shellcheck disable=SC2029
+ssh root@"$host" "bash -s" "$remote_file" "$container" <<'REMOTE'
+set -euo pipefail
+host_file="$1"
+container="$2"
+container_file="/tmp/backup-lifecycle.json"
+
+cleanup() {
+  rm -f "$host_file"
+  docker exec "$container" rm -f "$container_file" >/dev/null 2>&1 || true
+}
+trap cleanup EXIT
+
+docker cp "$host_file" "$container:$container_file" >/dev/null
+docker exec "$container" sh -c 'AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY" AWS_EC2_METADATA_DISABLED=true aws s3api put-bucket-lifecycle-configuration --bucket "$S3_BUCKET" --endpoint-url "$S3_ENDPOINT" --region "$S3_REGION" --lifecycle-configuration file:///tmp/backup-lifecycle.json'
+REMOTE
+
+fetch_current "$current"
+normalize < "$current" > "$normalized_current"
+
+if ! cmp -s "$normalized_desired" "$normalized_current"; then
+  echo "Object storage accepted the request but read-back differs." >&2
+  diff -u "$normalized_desired" "$normalized_current" || true
+  exit 1
+fi
+
+echo "Applied and verified $configuration."

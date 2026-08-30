@@ -15,13 +15,14 @@ class Avo::Resources::Organization < Avo::BaseResource
   }
 
   def fields
-    main_panel do
+    panel do
       field :id, as: :id
       field :subscription_status, as: :text do
         helpers.subscription_status_label(record)
       end
       field :logo, as: :file, is_image: true
       field :name, as: :text, sortable: true
+      field :admin_granted_access, as: :boolean
       field :owner, as: :belongs_to
 
       sidebar do
@@ -48,7 +49,7 @@ class Avo::Resources::Organization < Avo::BaseResource
     end
   end
 
-  self.profile_photo = {
+  self.avatar = {
     source: lambda {
       if view.index?
         ActionController::Base.helpers.asset_path("logo.png")

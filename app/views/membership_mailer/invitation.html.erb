@@ -1,0 +1,4 @@
+<p><%= t(".greeting") %></p>
+<p><%= t(".body", organization_name: @organization.name) %></p>
+<p><%= link_to t(".action"), @action_url %></p>
+<p><%= t(".expires_in", time: distance_of_time_in_words(Invitation::EXPIRATION)) %></p>

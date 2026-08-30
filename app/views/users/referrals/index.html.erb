@@ -21,7 +21,25 @@
 
   <br>
 
-  <%= render MetricsGridComponent.new(metrics: @metrics) %>
+  <div class="stats stats-vertical md:stats-horizontal bg-base-200 w-full">
+    <div class="stat">
+      <div class="stat-title"><%= t(".clicks") %></div>
+      <div class="stat-value"><%= number_with_delimiter(@referral_code.visits_count) %></div>
+      <div class="stat-desc"><%= t(".clicks_description") %></div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-title"><%= t(".referrals") %></div>
+      <div class="stat-value"><%= number_with_delimiter(@referral_code.referrals.count) %></div>
+      <div class="stat-desc"><%= t(".referrals_description") %></div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-title"><%= t(".completed") %></div>
+      <div class="stat-value"><%= number_with_delimiter(@referral_code.referrals.completed.count) %></div>
+      <div class="stat-desc"><%= t(".completed_description") %></div>
+    </div>
+  </div>
 <% end %>
 
 <br>
@@ -50,7 +68,7 @@
               </td>
 
               <td data-label="<%= t(".table.referred_at") %>">
-                <%= local_time(referral.created_at, format: :long) %>
+                <%= local_time_tag(referral.created_at, format: :long) %>
               </td>
 
               <td data-label="<%= t(".table.status") %>">
@@ -67,7 +85,7 @@
 
               <td data-label="<%= t(".table.completed_at") %>">
                 <% if referral.completed_at %>
-                  <%= local_time(referral.completed_at, format: :short) %>
+                  <%= local_time_tag(referral.completed_at, format: :short) %>
                 <% else %>
                   <span class="text-gray-400">-</span>
                 <% end %>

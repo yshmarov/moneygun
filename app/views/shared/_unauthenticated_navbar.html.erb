@@ -3,15 +3,14 @@
   <div class="flex items-center gap-2">
     <div>
       <%= link_to root_path, class: "no-underline" do %>
-        <%= inline_svg_tag "svg/logo.svg", class: "size-8 lg:hidden", aria: { label: Rails.application.config_for(:settings).dig(:site, :name) } %>
-        <%= inline_svg_tag "svg/logo-wordmark.svg", class: "w-auto h-8 hidden lg:block", aria: { label: Rails.application.config_for(:settings).dig(:site, :name) } %>
+        <%= image_tag "svg/logo.svg", alt: Rails.application.config_for(:settings).dig(:site, :name), class: "size-8 lg:hidden" %>
+        <%= image_tag "svg/logo-wordmark.svg", alt: Rails.application.config_for(:settings).dig(:site, :name), class: "w-auto h-8 hidden lg:block" %>
       <% end %>
     </div>
   </div>
 
   <%# right %>
   <div class="menu menu-horizontal gap-2">
-    <%= nav_link t("shared.navigation.login"), new_user_session_path, class_inactive: "bg-base-200" %>
-    <%= nav_link t("shared.navigation.register"), new_user_registration_path, class_inactive: "bg-base-200" %>
+    <%= nav_link t("shared.navigation.login"), new_session_path, class_inactive: "bg-base-200" %>
   </div>
 </nav>

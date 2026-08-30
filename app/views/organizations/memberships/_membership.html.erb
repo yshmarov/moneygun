@@ -1,0 +1,34 @@
+<% email = membership.user.display_email %>
+<% visible_email = Current.membership.admin? ? email : email&.split("@")&.first %>
+
+<li class="list-row items-center <%= 'opacity-60' if membership.deactivated? %>">
+  <div class="list-col-grow flex items-center min-w-0 gap-3">
+    <%= user_avatar(membership.user, classes: "size-10 shrink-0") %>
+    <div class="min-w-0">
+      <div class="font-semibold truncate"><%= membership.display_name.presence || visible_email %></div>
+      <% if membership.display_name.present? && visible_email.present? %>
+        <div class="text-sm truncate text-base-content/70"><%= visible_email %></div>
+      <% end %>
+      <div class="flex flex-wrap items-center mt-1 gap-2">
+        <% if membership.owner? %><span class="badge badge-xs badge-primary"><%= t("organizations.memberships.owner_badge") %></span><% end %>
+        <span class="badge badge-xs"><%= t("organizations.memberships.roles.#{membership.role}.label") %></span>
+        <% if membership.deactivated? %><span class="badge badge-xs badge-ghost"><%= t("organizations.memberships.deactivated_badge") %></span><% end %>
+        <span class="text-xs text-base-content/70"><%= t("organizations.memberships.index.joined_html", date: l(membership.created_at, format: :short)) %></span>
+      </div>
+    </div>
+  </div>
+
+  <% if policy(membership).edit? || policy(membership).destroy? || policy(membership).reactivate? %>
+    <%= render "shared/action_menu" do %>
+      <% if policy(membership).edit? %>
+        <li><%= link_to t("organizations.memberships.actions.change_role"), edit_organization_membership_path(@organization, membership), data: { turbo_frame: :modal }, role: "menuitem" %></li>
+      <% end %>
+      <% if policy(membership).reactivate? %>
+        <li><%= link_to t("organizations.memberships.actions.reactivate"), reactivate_organization_membership_path(@organization, membership), data: { turbo_method: :patch }, role: "menuitem" %></li>
+      <% end %>
+      <% if policy(membership).destroy? %>
+        <li><%= link_to membership.user_id == Current.membership.user_id ? t("organizations.memberships.actions.leave") : t("organizations.memberships.actions.remove_access"), organization_membership_path(@organization, membership), data: { turbo_method: :delete, turbo_confirm: t("shared.actions.confirm") }, class: "text-error", role: "menuitem" %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+</li>

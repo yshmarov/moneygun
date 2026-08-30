@@ -3,7 +3,7 @@
 <html lang="<%= I18n.locale %>" class="h-full bg-base-100 text-base-content">
   <head><%= render "layouts/head" %></head>
 
-  <body class="min-h-dvh lg:h-dvh lg:overflow-hidden" <%= "data-native" if hotwire_native_app? %>>
+  <body class="min-h-dvh lg:h-dvh lg:overflow-hidden <%= "native-app" if hotwire_native_app? %>">
     <%= render "shared/skip_link" %>
 
     <div class="drawer lg:drawer-open">

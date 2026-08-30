@@ -1,0 +1,81 @@
+name: Prune registry
+
+on:
+  schedule:
+    - cron: '43 4 * * 0'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: List versions without deleting them
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  prune:
+    if: vars.GHCR_PRUNE_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      KEEP_APP_RELEASES: 20
+      KEEP_CACHE_RELEASES: 0
+    steps:
+      - name: Prune complete OCI releases
+        env:
+          GH_TOKEN: ${{ secrets.GHCR_PRUNE_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          APP_PACKAGE: ${{ vars.GHCR_PACKAGE_NAME || github.event.repository.name }}
+          CACHE_PACKAGE: ${{ vars.GHCR_CACHE_PACKAGE_NAME || format('{0}-build-cache', github.event.repository.name) }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: |
+          set -euo pipefail
+          test -n "$GH_TOKEN"
+
+          accept='application/vnd.oci.image.index.v1+json,application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.oci.image.manifest.v1+json,application/vnd.docker.distribution.manifest.v2+json'
+
+          prune() {
+            pkg="$1"
+            keep="$2"
+            registry_token=$(curl -fsS -u "$OWNER:$GH_TOKEN" "https://ghcr.io/token?service=ghcr.io&scope=repository:$OWNER/$pkg:pull" | jq -r '.token')
+            gh api --paginate --slurp "/user/packages/container/$pkg/versions?per_page=100" | jq '[.[][]]' > versions.json
+
+            jq -r --argjson keep "$keep" '
+              map(select(((.metadata.container.tags // []) | length) > 0))
+              | sort_by(.created_at) | reverse
+              | (map(select((.metadata.container.tags | index("latest")) != null)) + .[:$keep])
+              | unique_by(.id) | .[].name
+            ' versions.json > keep.txt
+
+            : > protected.txt
+            while read -r digest; do
+              [ -n "$digest" ] || continue
+              echo "$digest" >> protected.txt
+              curl -fsS -H "Authorization: Bearer $registry_token" -H "Accept: $accept" \
+                "https://ghcr.io/v2/$OWNER/$pkg/manifests/$digest" > manifest.json
+              jq -r '(.manifests // [])[].digest' manifest.json >> protected.txt
+            done < keep.txt
+            sort -u -o protected.txt protected.txt
+
+            jq -r --rawfile protected protected.txt '
+              ($protected | split("\n") | map(select(length > 0)) | INDEX(.)) as $keep
+              | map(select($keep[.name] == null)) | sort_by(.created_at)
+              | .[] | [.id, ((.metadata.container.tags // []) | join(","))] | @tsv
+            ' versions.json > stale.tsv
+
+            while IFS=$'\t' read -r id tags; do
+              [ -n "$id" ] || continue
+              if [ "$DRY_RUN" = "true" ]; then
+                echo "Would delete $pkg version $id (${tags:-untagged})"
+              else
+                gh api --silent -X DELETE "/user/packages/container/$pkg/versions/$id"
+              fi
+            done < stale.tsv
+          }
+
+          prune "$APP_PACKAGE" "$KEEP_APP_RELEASES"
+          prune "$CACHE_PACKAGE" "$KEEP_CACHE_RELEASES"

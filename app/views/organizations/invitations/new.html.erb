@@ -1,0 +1,10 @@
+<% content_for :title, t("organizations.invitations.new.title") %>
+
+<%= modal title: t("organizations.invitations.new.title"), size: :narrow, close_on_submit: false do %>
+  <%= simple_form_for @invitation, url: organization_invitations_path(@organization), html: { class: "space-y-4" } do |f| %>
+    <%= render "shared/errors", object: f.object %>
+    <%= f.input :email, placeholder: "hello@example.com", required: true, input_html: { autocomplete: "off", autocorrect: "off", autocapitalize: "off", spellcheck: "false", autofocus: !turbo_native_app? } %>
+    <%= f.input :role, collection: Membership.roles.keys.map { |role| [role.humanize, role] }, include_blank: false %>
+    <div class="flex justify-end"><%= f.button :submit, t("organizations.invitations.new.submit"), class: "btn btn-primary" %></div>
+  <% end %>
+<% end %>

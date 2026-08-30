@@ -42,4 +42,11 @@ class ProjectPolicyTest < ActiveSupport::TestCase
     assert ProjectPolicy.new(@membership, @project1).destroy?
     # assert_not ProjectPolicy.new(@membership, @project2).destroy?
   end
+
+  def test_scope_is_limited_to_the_membership_organization
+    scope = ProjectPolicy::Scope.new(@membership, Project.all).resolve
+
+    assert_includes scope, @project1
+    assert_not_includes scope, @project2
+  end
 end

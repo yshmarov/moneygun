@@ -5,13 +5,14 @@ require "test_helper"
 class MembershipRemovalNotificationTest < ActiveSupport::TestCase
   def setup
     @organization = organizations(:three)
+    @organization.memberships.find_or_create_by!(user: @organization.owner) { |membership| membership.role = "admin" }
     @user = users(:unassociated)
     @membership = @organization.memberships.create!(user: @user, role: "member")
   end
 
-  test "sends notification when membership is destroyed" do
+  test "sends notification when membership is deactivated" do
     assert_difference -> { @user.notifications.count }, 1 do
-      @membership.destroy
+      @membership.try_destroy
     end
 
     notification = @user.notifications.last
@@ -19,15 +20,11 @@ class MembershipRemovalNotificationTest < ActiveSupport::TestCase
     assert_equal @organization, notification.params[:organization]
   end
 
-  test "does not send notification when membership is not destroyed" do
-    # Create a membership that cannot be destroyed (only admin)
-    admin_membership = @organization.memberships.create!(user: users(:one), role: "admin")
-
-    # Make it the only admin
-    @organization.memberships.where(role: "admin").where.not(id: admin_membership.id).destroy_all
+  test "does not send notification when membership cannot be deactivated" do
+    admin_membership = @organization.memberships.find_by!(user: @organization.owner)
 
     assert_no_difference -> { admin_membership.user.notifications.count } do
-      admin_membership.try_destroy
+      assert_not admin_membership.try_destroy
     end
   end
 end

@@ -1,0 +1,23 @@
+<% content_for :title, t("users.sessions.index.title") %>
+
+<%= render SectionComponent.new(full_width: false) do |component| %>
+  <% component.with_page_title t("users.sessions.index.title"), back_to: user_path %>
+  <% component.with_action_list do %>
+    <%= button_to t("users.sessions.index.sign_out_others"), destroy_all_user_sessions_path, method: :delete, class: "btn btn-soft btn-sm" if @sessions.many? %>
+  <% end %>
+
+  <ul class="list bg-base-100 rounded-box border border-base-content/10">
+    <% @sessions.each do |session_record| %>
+      <li class="list-row items-center">
+        <%= icon_tag session_record.mobile? ? "user" : "home", class: "size-6 text-base-content/60" %>
+        <div>
+          <div class="font-medium"><%= [session_record.browser_name, session_record.platform_name].compact.join(" on ").presence || t("users.sessions.index.unknown") %></div>
+          <div class="text-sm text-base-content/60">
+            <%= session_record.id == Current.session&.id ? t("users.sessions.index.current") : local_time_tag(session_record.last_seen_at || session_record.created_at, format: :short_time) %>
+          </div>
+        </div>
+        <%= button_to t("users.sessions.index.sign_out"), user_session_path(session_record), method: :delete, class: "btn btn-ghost btn-sm" %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

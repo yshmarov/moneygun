@@ -1,9 +1,15 @@
 plugins:
   - rubocop-rails
+  - rubocop-performance
+  - rubocop-minitest
+
+inherit_mode:
+  merge:
+    - Exclude
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.4
+  TargetRubyVersion: 4.0
   Exclude:
     - '**/db/schema.rb'
     - '**/db/**/*'
@@ -11,6 +17,7 @@ AllCops:
     - 'bin/*'
     - 'vendor/bundle/**/*'
     - 'node_modules/**/*'
+    - 'tmp/**/*'
     - app/models/concerns/obfuscates_id.rb
 
 Style/StringLiterals:
@@ -53,6 +60,15 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Metrics/ParameterLists:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Enabled: false
+
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
+
+Minitest/AssertPredicate:
   Enabled: false
 
 Naming/PredicateMethod:

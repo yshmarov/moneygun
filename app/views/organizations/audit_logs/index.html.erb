@@ -1,0 +1,34 @@
+<% content_for :title, t("organizations.audit_logs.index.title") %>
+
+<%= render SectionComponent.new(full_width: true) do |component| %>
+  <% component.with_page_title t("organizations.audit_logs.index.title"), back_to: organization_path(@organization) %>
+
+  <% if @audit_logs.any? %>
+    <div class="overflow-x-auto">
+      <table class="table">
+        <caption class="sr-only"><%= t("organizations.audit_logs.index.title") %></caption>
+        <thead>
+          <tr>
+            <th scope="col"><%= t("organizations.audit_logs.index.time") %></th>
+            <th scope="col"><%= t("organizations.audit_logs.index.event") %></th>
+            <th scope="col"><%= t("organizations.audit_logs.index.actor") %></th>
+            <th scope="col"><%= t("organizations.audit_logs.index.details") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @audit_logs.each do |audit_log| %>
+            <tr>
+              <td><%= local_time_tag audit_log.created_at, format: :short %></td>
+              <td class="font-mono text-sm"><%= audit_log.action %></td>
+              <td><%= audit_log_actor(audit_log) %></td>
+              <td class="text-base-content/70"><%= audit_log_details(audit_log) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= render "shared/pagination", pagy: @pagy %>
+  <% else %>
+    <%= render EmptyStateComponent.new(icon: "svg/document-duplicate.svg", title: t("organizations.audit_logs.index.empty")) %>
+  <% end %>
+<% end %>

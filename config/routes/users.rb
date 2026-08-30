@@ -1,35 +1,44 @@
 # frozen_string_literal: true
 
-devise_for :users, controllers: {
-  registrations: "users/registrations",
-  sessions: "users/sessions",
-  masquerades: "users/masquerades",
-  confirmations: "users/confirmations"
-}
-
-devise_scope :user do
-  get "/auth/:provider/callback", to: "users/omniauth_callbacks#callback", as: :omniauth_callback
-  post "/google_onetap_callback", to: "users/omniauth_callbacks#google_onetap", as: :google_onetap_callback
-  get "/users/invitation/accept", to: "users/invitation_acceptances#new", as: :accept_user_invitation
-  post "/users/invitation/accept", to: "users/invitation_acceptances#create", as: :accept_user_invitation_create
+resource :session, only: %i[new create destroy] do
+  resource :magic_link, only: %i[show create], module: :sessions
+  resource :two_factor, only: %i[new create], module: :sessions, controller: "two_factor"
 end
 
-resource :user, only: %i[show edit update], path: I18n.t("routes.user") do
+# Keep the former sign-in URLs working while applications migrate bookmarks.
+get "/users/sign_in", to: "sessions#new", as: :new_user_session
+delete "/users/sign_out", to: "sessions#destroy", as: :destroy_user_session
+
+resource :sudo, only: %i[new create], module: :users, controller: "sudo" do
+  post :resend
+end
+
+resource :onboarding, controller: "onboarding", only: [] do
+  get :terms
+  patch :accept_terms
+  get :profile
+  patch :update_profile
+end
+
+resource :user, only: %i[show edit update destroy], path: I18n.t("routes.user") do
   scope module: :users do
+    resource :email_change, only: %i[new create show update]
+    resource :two_factor, only: %i[show new create edit destroy], controller: "two_factor"
     resources :notifications, only: %i[index]
-    resources :identities
+    resources :sessions, only: %i[index destroy] do
+      collection do
+        delete :all, action: :destroy_all, as: :destroy_all
+      end
+    end
+    resources :invitations, only: %i[index show] do
+      member do
+        patch :accept
+        patch :decline
+      end
+    end
     resources :referrals, only: %i[index]
 
     namespace :organizations do
-      # Invitations received BY user FROM organizations
-      resources :received_invitations, only: %i[index show], path: "invitations" do
-        member do
-          patch :accept
-          patch :decline
-        end
-      end
-
-      # Join requests sent BY user TO organizations
       resources :sent_join_requests, only: %i[index create destroy], path: "join-requests"
     end
   end

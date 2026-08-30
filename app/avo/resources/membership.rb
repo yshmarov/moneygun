@@ -8,7 +8,7 @@ class Avo::Resources::Membership < Avo::BaseResource
   self.visible_on_sidebar = false
 
   def fields
-    main_panel do
+    panel do
       field :id, as: :id
       field :role, as: :select, enum: ::Membership.roles, sortable: true
       field :organization, as: :belongs_to, disabled: true

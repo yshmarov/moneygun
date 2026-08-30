@@ -1,0 +1,15 @@
+<% content_for :title, t("users.invitations.index.title") %>
+
+<%= render "organizations/tabs", active_tab: :invitations %>
+<%= render SectionComponent.new do %>
+  <ul class="list bg-base-100 rounded-box">
+    <% @invitations.each do |invitation| %>
+      <li class="list-row items-center">
+        <%= organization_avatar invitation.organization %>
+        <div class="list-col-grow"><div class="font-medium"><%= invitation.organization.name %></div><div class="text-sm text-base-content/60"><%= invitation.role.humanize %></div></div>
+        <%= link_to t("shared.actions.show"), user_invitation_path(invitation), class: "btn btn-primary btn-sm" %>
+      </li>
+    <% end %>
+  </ul>
+  <div data-blank-slate><%= render EmptyStateComponent.new %></div>
+<% end %>

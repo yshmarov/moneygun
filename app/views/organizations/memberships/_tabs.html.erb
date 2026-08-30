@@ -7,9 +7,9 @@
      },
      {
        key: :invitations,
-       path: organization_sent_invitations_path(@organization),
-       label: t("organizations.sent_invitations.index.title"),
-       badge_count: @organization.sent_invitations.pending.count,
+       path: organization_invitations_path(@organization),
+       label: t("organizations.invitations.index.title"),
+       badge_count: @organization.invitations.pending.count,
        condition: policy(Membership).create?
      },
      {
@@ -23,9 +23,19 @@
 
 <%= render SectionComponent.new(title: t("organizations.memberships.index.title")) do |component| %>
   <% component.with_action_list do %>
-    <%= link_to t("organizations.memberships.new.title"), new_organization_sent_invitation_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" if policy(@organization.memberships.new).new? %>
+    <%= link_to t("organizations.invitations.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" if policy(Invitation).create? %>
   <% end %>
 
-  <%= render TabsComponent.new(active_tab: active_tab, tabs:) %>
+  <nav class="tabs tabs-border w-full overflow-x-auto" aria-label="<%= t("organizations.memberships.index.title") %>">
+    <% tabs.each do |tab| %>
+      <% next if tab[:condition] == false %>
+      <%= link_to tab[:path], class: "tab #{'tab-active' if active_tab == tab[:key]}", aria: { current: ("page" if active_tab == tab[:key]) } do %>
+        <%= tab[:label] %>
+        <% if tab[:badge_count].to_i.positive? %>
+          <span class="badge badge-sm badge-warning ml-1"><%= tab[:badge_count] %></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </nav>
   <br>
 <% end %>

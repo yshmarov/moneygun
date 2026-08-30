@@ -4,4 +4,12 @@
   <%= render "shared/user_info", user: @user %>
 
   <div class="menu menu-xl w-full"><%= render "shared/user_links", user: @user %></div>
+
+  <%= render "shared/danger_zone" do %>
+    <% if @user.undeletable_reasons.any? %>
+      <li><span class="text-base-content/60 cursor-not-allowed justify-center" title="<%= t('users.security.delete_account_blocked') %>"><%= t("users.security.delete_account") %></span></li>
+    <% else %>
+      <li><%= link_to t("users.security.delete_account"), user_path, data: { turbo_method: :delete, turbo_confirm: t("users.security.delete_account_confirm") }, class: "text-error justify-center" %></li>
+    <% end %>
+  <% end %>
 <% end %>

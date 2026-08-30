@@ -1,20 +1,19 @@
-<div class="drawer-side z-30" data-expanded="true">
-  <label for="main-drawer" aria-label="<%= t("shared.modal.close") %>" class="drawer-overlay"></label>
+<aside class="drawer-side z-30" data-expanded="true" aria-label="<%= t("shared.sidebar.navigation") %>">
+  <label for="main-drawer" class="drawer-overlay"><span class="sr-only"><%= t("shared.modal.close") %></span></label>
 
   <div class="flex h-dvh <%= "lg:bg-base-200" if Current.organization %>">
     <% if Current.organization %>
       <%= render "shared/icon_rail" %>
     <% end %>
 
-    <aside
+    <div
       class="bg-base-200 flex flex-col overflow-hidden [[data-expanded=true]_&]:w-72 <% if Current.organization %> h-dvh lg:h-[calc(100dvh-1rem)] lg:my-2 lg:rounded-l-2xl lg:border-y lg:border-x lg:border-base-content/10 lg:bg-base-100 <% else %> h-dvh <% end %>"
-      aria-label="<%= t("shared.sidebar.navigation") %>"
     >
       <% if Current.organization %>
         <%= render "shared/sidebar_organization" %>
       <% else %>
         <%= render "shared/sidebar_user" %>
       <% end %>
-    </aside>
+    </div>
   </div>
-</div>
+</aside>

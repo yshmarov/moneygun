@@ -1,0 +1,35 @@
+name: Dependabot auto-merge
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Merge the verified Dependabot pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          pr=$(gh pr list --repo "$REPO" --head "$HEAD_BRANCH" --state open --json number,headRefOid,author --jq '.[0] // empty')
+          [ -n "$pr" ] || exit 0
+          number=$(jq -r '.number' <<<"$pr")
+          author=$(jq -r '.author.login' <<<"$pr")
+          head=$(jq -r '.headRefOid' <<<"$pr")
+          [ "$author" = "app/dependabot" ] || [ "$author" = "dependabot" ] || exit 0
+          [ "$head" = "$HEAD_SHA" ] || exit 0
+          gh pr merge "$number" --repo "$REPO" --squash --delete-branch

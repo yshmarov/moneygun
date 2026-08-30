@@ -12,7 +12,7 @@ class Public::OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get index if not signed in" do
     get public_organizations_path
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_session_path
   end
 
   test "should see only public and restricted organizations" do

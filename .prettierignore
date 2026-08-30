@@ -11,6 +11,13 @@ log/
 db/schema.rb
 db/migrate/*.rb
 
+# ERB-rendered YAML
+config/deploy.yml
+config/storage.yml
+
+# i18n-tasks owns locale normalization
+config/locales/
+
 # Lock files
 Gemfile.lock
 package-lock.json
@@ -24,4 +31,3 @@ public/
 
 # DaisyUI files
 app/assets/tailwind/daisyui*
-# Test fixtures (may contain ERB)

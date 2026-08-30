@@ -2,6 +2,9 @@
 
 class Project < ApplicationRecord
   belongs_to :organization
+  belongs_to :membership
+
+  validates :membership, same_organization: true
   validates :name, presence: true, uniqueness: { scope: :organization_id }
 
   def self.ransackable_attributes(_auth_object = nil)
@@ -23,4 +26,8 @@ class Project < ApplicationRecord
   validates :gallery, content_type: IMAGE_CONTENT_TYPES, size: { less_than: 5.megabytes }
   validates :document, size: { less_than: 10.megabytes }
   validates :attachments, size: { less_than: 10.megabytes }
+
+  def active_storage_accessible_to?(user)
+    organization.memberships.active.exists?(user: user)
+  end
 end

@@ -1,0 +1,7 @@
+<%= t(".greeting") %>
+
+<%= t(".instruction") %>
+
+<%= @magic_link.code %>
+
+<%= t(".expires_in", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %>

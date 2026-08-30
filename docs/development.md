@@ -14,6 +14,7 @@ bin/dev    # Start all services (web, css, stripe, jobs)
 rails test           # Run unit/integration tests
 rails test:system    # Run system tests
 rails test:all       # Run all tests
+bin/lint             # Run all code, security, i18n, and dependency checks
 ```
 
 Run specific tests:
@@ -42,8 +43,7 @@ bundle exec rubocop        # Check
 bundle exec rubocop -A     # Auto-fix
 
 # ERB templates
-bundle exec erb_lint --lint-all      # Check
-bundle exec erb_lint --lint-all -a   # Auto-fix
+bundle exec herb analyze app/views
 
 # i18n keys
 i18n-tasks normalize       # Sort alphabetically
@@ -94,7 +94,9 @@ npx prettier --write .     # Auto-format
    rails g pundit:policy task
    ```
 
-5. **Write tests**
+5. **Define file access and audit events** where the module owns attachments or consequential actions.
+
+6. **Write tenant-boundary and behavior tests**
 
 ### Subscription-Protected Feature
 
@@ -113,13 +115,17 @@ end
 - **Scope to organization** - Never query resources without organization scope
 - **Pundit uses membership** - `pundit_user` returns `Current.membership`
 - **Obfuscated IDs** - Use `ObfuscatesId` concern for public-facing resources
+- **Membership ownership** - Validate `membership` with `same_organization`
+- **File access is explicit** - Implement `active_storage_accessible_to?`
+- **Audit actions are namespaced** - For example, `invoice.sent`
 
 ## CI/CD
 
 GitHub Actions runs on every push and pull request:
 
 - RuboCop (Ruby linting)
-- erb_lint (ERB linting)
+- Herb (ERB linting)
+- Brakeman and dependency audits
 - Test suite
 
 All checks must pass before merging.

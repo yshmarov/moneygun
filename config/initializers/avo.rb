@@ -17,7 +17,7 @@ Avo.configure do |config|
 
   ## == Authentication ==
   config.current_user_method = :current_user
-  config.sign_out_path_name = :destroy_user_session_path
+  config.sign_out_path_name = :session_path
   # config.authenticate_with do
   # end
 
@@ -91,20 +91,13 @@ Avo.configure do |config|
   # }
   config.click_row_to_view_record = true
 
-  config.branding = {
-    logo: ActionController::Base.helpers.asset_path("logo-long.png"),
-    logomark: ActionController::Base.helpers.asset_path("logo.png")
+  config.appearance = {
+    logo: "logo-long.png",
+    logomark: "logo.png"
   }
 end
 
-if defined?(Avo::MediaLibrary)
-  Avo::MediaLibrary.configure do |config|
-    config.enabled = true
-    config.visible = true
-  end
-end
-
-unless defined?(Avo::Pro)
+unless defined?(Avo::Dashboards)
   Rails.autoloaders.main.ignore(Rails.root.join("app/avo/cards"))
   Rails.autoloaders.main.ignore(Rails.root.join("app/avo/dashboards"))
 end

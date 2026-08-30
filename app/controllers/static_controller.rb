@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class StaticController < ApplicationController
-  skip_before_action :authenticate_user!
+  allow_unauthenticated_access
+  before_action :redirect_authenticated_user, only: :index
 
   def index; end
 

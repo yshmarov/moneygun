@@ -30,7 +30,7 @@ class SectionComponentTest < ViewComponent::TestCase
     render_inline(component)
 
     assert_text "Action Button"
-    assert_selector ".whitespace-nowrap"
+    assert_selector ".flex.flex-wrap.items-center.gap-2"
   end
 
   def test_component_renders_without_title

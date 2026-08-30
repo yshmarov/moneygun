@@ -7,7 +7,7 @@ body {
 
 /* Disable overscroll only in Hotwire Native WKWebView to prevent rubber-band getting stuck.
    Regular mobile browsers need overscroll for pull-to-refresh. */
-body[data-native] {
+body.native-app {
   overscroll-behavior-y: none;
 }
 

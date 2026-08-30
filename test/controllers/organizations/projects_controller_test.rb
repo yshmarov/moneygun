@@ -43,7 +43,9 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       post organization_projects_url(@organization), params: { project: { organization_id: @organization.id, name: "New name" } }
     end
 
-    assert_redirected_to organization_project_url(@organization, Project.last)
+    project = Project.last
+    assert_equal @organization.memberships.find_by!(user: @user), project.membership
+    assert_redirected_to organization_project_url(@organization, project)
   end
 
   test "should show project" do

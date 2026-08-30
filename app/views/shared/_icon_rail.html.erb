@@ -5,24 +5,24 @@
 >
   <%# App logo — branding %>
   <%= link_to default_authenticated_path, class: "btn btn-ghost btn-square", title: t("shared.navigation.home") do %>
-    <%= inline_svg_tag "svg/logo.svg", class: "size-8", aria: { hidden: true } %>
+    <%= image_tag "svg/logo.svg", alt: "", class: "size-8" %>
   <% end %>
 
   <%# Search %>
   <% if Flipper.enabled?(:search) %>
     <%= link_to search_path, class: "btn btn-ghost btn-square", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } do %>
-      <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-5", aria: { hidden: true } %>
+      <%= icon_tag "magnifying-glass", class: "size-5" %>
     <% end %>
   <% end %>
 
   <%# Organizations %>
   <%= link_to organizations_path, class: "btn btn-ghost btn-square", title: t("shared.navigation.organizations") do %>
-    <%= inline_svg_tag Organization::ICON, class: "size-5", aria: { hidden: true } %>
+    <%= icon_tag Organization::ICON, class: "size-5" %>
   <% end %>
 
   <%# Notifications %>
   <%= link_to user_notifications_path, class: "btn btn-ghost btn-square relative", title: t("users.notifications.index.title"), data: { turbo_prefetch: false } do %>
-    <%= inline_svg_tag "svg/bell.svg", class: "size-5", aria: { hidden: true } %>
+    <%= icon_tag "bell", class: "size-5" %>
 
     <span class="notification-badge absolute top-0 right-0">
       <%= render "shared/notification_badge", count: current_user.unseen_notifications_count %>

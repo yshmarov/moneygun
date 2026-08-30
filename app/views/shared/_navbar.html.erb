@@ -4,12 +4,12 @@
     <%# Left: hamburger + org home link %>
     <div class="flex items-center gap-2">
       <label for="main-drawer" class="btn btn-ghost btn-square" aria-label="<%= t("shared.sidebar.navigation") %>">
-        <%= inline_svg_tag "svg/bars-3.svg", class: "size-6", aria: { hidden: true } %>
+        <%= icon_tag "bars-3", class: "size-6" %>
       </label>
 
       <% if Current.organization && !current_page?(organization_path(Current.organization)) %>
         <%= link_to organization_path(Current.organization), class: "btn btn-ghost gap-1 min-w-0" do %>
-          <%= inline_svg_tag "svg/chevron-left.svg", class: "size-4 shrink-0", aria: { hidden: true } %>
+          <%= icon_tag "chevron-left", class: "size-4" %>
           <%= organization_avatar(Current.organization, classes: "size-6") %>
 
           <span class="font-medium truncate"><%= Current.organization.name %></span>
@@ -17,16 +17,12 @@
       <% end %>
     </div>
 
-    <%# Right: search + masquerade warning %>
+    <%# Right: search %>
     <div class="flex items-center gap-1">
       <% if Flipper.enabled?(:search) %>
         <%= link_to search_path, class: "btn btn-ghost btn-square", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal } do %>
-          <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-5", aria: { hidden: true } %>
+          <%= icon_tag "magnifying-glass", class: "size-5" %>
         <% end %>
-      <% end %>
-
-      <% if user_masquerade? %>
-        <%= link_to t("devise.masquerade.back"), back_masquerade_path(current_user), class: "btn btn-warning uppercase" %>
       <% end %>
     </div>
   </nav>

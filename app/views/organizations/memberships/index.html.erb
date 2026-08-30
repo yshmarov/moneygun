@@ -1,59 +1,56 @@
 <% content_for :title, t(".title") %>
 
-<%= render "organizations/memberships/tabs", active_tab: :memberships %>
+<%= render SectionComponent.new do |component| %>
+  <% component.with_page_title t(".title"), back_to: organization_path(@organization) %>
 
-<%= render SectionComponent.new do %>
-  <% if @memberships.any? %>
-    <div class="table-responsive">
-      <table>
-        <thead>
-          <tr>
-            <th><%= Membership.human_attribute_name(:user) %></th>
-            <th><%= Membership.human_attribute_name(:role) %></th>
-            <th><%= Membership.human_attribute_name(:created_at) %></th>
-            <th></th>
-          </tr>
-        </thead>
+  <% if policy(Invitation).create? %>
+    <% component.with_action_list do %>
+      <%= link_to t("organizations.invitations.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
 
-        <tbody id="memberships">
-          <% @memberships.each do |membership| %>
-            <tr>
-              <td data-label="<%= Membership.human_attribute_name(:user) %>">
-                <div class="font-medium flex items-center gap-2">
-                  <%= user_avatar(membership.user) %>
+  <div class="flex flex-wrap items-center gap-4 mb-4">
+    <nav class="tabs tabs-border w-fit" aria-label="<%= t('.title') %>">
+      <%= link_to organization_memberships_path(@organization, role: @role_filter.presence), class: "tab #{'tab-active' if @current_tab == 'members'}", aria: { current: ("page" if @current_tab == "members") } do %>
+        <%= t(".tabs.members") %>
+        <span class="badge badge-sm badge-ghost ml-1"><%= @members_count %></span>
+      <% end %>
 
-                  <% if Current.membership.admin? %>
-                    <%= membership.user.email %>
-                  <% else %>
-                    <%= membership.user.email.split("@").first %>
-                  <% end %>
-                </div>
-              </td>
+      <% if @pending_count.positive? %>
+        <%= link_to organization_memberships_path(@organization, tab: "pending", role: @role_filter.presence), class: "tab #{'tab-active' if @current_tab == 'pending'}", aria: { current: ("page" if @current_tab == "pending") } do %>
+          <%= t(".tabs.pending") %>
+          <span class="badge badge-sm badge-warning ml-1"><%= @pending_count %></span>
+        <% end %>
+      <% end %>
 
-              <td data-label="<%= Membership.human_attribute_name(:role) %>">
-                <div class="badge badge-xs badge-soft capitalize">
-                  <%= membership.role %>
-                </div>
-              </td>
+      <% if @deactivated_count.positive? %>
+        <%= link_to organization_memberships_path(@organization, tab: "deactivated", role: @role_filter.presence), class: "tab #{'tab-active' if @current_tab == 'deactivated'}", aria: { current: ("page" if @current_tab == "deactivated") } do %>
+          <%= t(".tabs.deactivated") %>
+          <span class="badge badge-sm badge-ghost ml-1"><%= @deactivated_count %></span>
+        <% end %>
+      <% end %>
+    </nav>
 
-              <td
-                data-label="<%= Membership.human_attribute_name(:created_at) %>"
-              >
-                <%= l membership.created_at, format: :short %>
-              </td>
+    <%= form_with url: organization_memberships_path(@organization), method: :get, class: "flex items-center gap-2 ml-auto" do %>
+      <%= hidden_field_tag :tab, @current_tab unless @current_tab == "members" %>
+      <%= select_tag :role,
+                     options_for_select(Membership.roles.keys.map { |role| [t("organizations.memberships.roles.#{role}.label"), role] }, @role_filter.first),
+                     include_blank: t(".filters.all"),
+                     aria: { label: t(".filters.role") },
+                     class: "select select-sm" %>
+      <%= submit_tag t(".filters.apply"), class: "btn btn-sm btn-soft" %>
+    <% end %>
+  </div>
 
-              <td>
-                <div class="flex items-center gap-2 justify-end">
-                  <%= link_to t("shared.actions.edit"), edit_organization_membership_path(membership.organization, membership), data: { turbo_frame: :modal }, class: "btn btn-sm btn-secondary" if policy(membership).edit? %>
-                  <%= button_to Current.membership == membership ? t("organizations.memberships.actions.leave") : t("organizations.memberships.actions.remove_member"), organization_membership_path(membership.organization, membership), method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-sm btn-error" if policy(membership).destroy? %>
-                </div>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+  <% if @current_tab == "pending" %>
+    <ul id="invitations" class="list bg-base-200 rounded-box">
+      <%= render partial: "organizations/invitations/invitation", collection: @invitations %>
+    </ul>
+    <%= render EmptyStateComponent.new(title: t("organizations.invitations.index.empty"), icon: "📩") %>
   <% else %>
+    <ul id="memberships" class="list bg-base-200 rounded-box">
+      <%= render partial: "membership", collection: @memberships %>
+    </ul>
     <%= render EmptyStateComponent.new %>
   <% end %>
 <% end %>

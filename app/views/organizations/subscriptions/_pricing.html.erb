@@ -49,7 +49,7 @@
               <% end %>
             <% else %>
               <% button_text = plan[:interval] == "one_time" ? t(".purchase") : t(".subscribe") %>
-              <%= link_to button_text, new_user_registration_path, class: "btn btn-primary" %>
+              <%= link_to button_text, new_session_path, class: "btn btn-primary" %>
             <% end %>
           </div>
         </div>

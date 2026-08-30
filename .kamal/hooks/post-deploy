@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -u
+
+push_api_key="${APPSIGNAL_PUSH_API_KEY:-$(bin/rails runner 'print Rails.application.credentials.appsignal' 2>/dev/null)}"
+app_name="${APPSIGNAL_APP_NAME:-Moneygun}"
+
+if [ -n "$push_api_key" ]; then
+  status=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+    -H "Content-Type: application/json" \
+    -d "{\"revision\":\"${KAMAL_VERSION:-unknown}\",\"user\":\"${KAMAL_PERFORMER:-unknown}\"}" \
+    "https://push.appsignal.com/1/markers?api_key=${push_api_key}&name=${app_name}&environment=production")
+
+  case "$status" in
+    2*) echo "AppSignal deploy marker recorded." ;;
+    *) echo "Warning: AppSignal deploy marker returned HTTP $status." ;;
+  esac
+else
+  echo "AppSignal Push API key not configured; skipping deploy marker."
+fi
+
+echo "${KAMAL_PERFORMER:-unknown} deployed ${KAMAL_VERSION:-unknown} to ${KAMAL_DESTINATION:-production} in ${KAMAL_RUNTIME:-?} seconds"

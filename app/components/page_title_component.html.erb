@@ -1,0 +1,21 @@
+<div class="flex items-center gap-2">
+  <% if back_to %>
+    <%= link_to back_to, class: "btn btn-circle btn-soft hotwire-native:hidden", aria: { label: t("shared.navigation.back") } do %>
+      <%= helpers.icon_tag "chevron-left", class: "size-5" %>
+    <% end %>
+  <% end %>
+
+  <% if trail.any? %>
+    <nav aria-label="<%= t("shared.aria.breadcrumb") %>">
+      <div class="breadcrumbs text-base font-normal">
+        <ul>
+          <% trail.each_with_index do |item, index| %>
+            <%= trail_item(item, last: index == trail.size - 1) %>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+  <% end %>
+
+  <%= content %>
+</div>

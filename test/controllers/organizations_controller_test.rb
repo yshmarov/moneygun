@@ -30,7 +30,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
       post organizations_url, params: { organization: { name: @organization.name } }
     end
 
-    assert_redirected_to organization_path(Organization.last)
+    assert_redirected_to organization_dpa_agreement_path(Organization.last)
     assert_equal @user, Organization.last.users.first
     assert_equal "admin", @user.memberships.last.role
   end
@@ -65,7 +65,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t("shared.errors.not_authorized"), flash[:alert]
   end
 
-  test "only admin can destroy organization" do
+  test "only the owner can destroy organization" do
     user = users(:two)
     membership = @organization.memberships.create!(user:, role: Membership.roles[:member])
     sign_in(user)
@@ -75,10 +75,33 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     membership.update!(role: Membership.roles[:admin])
-    assert_difference("Organization.count", -1) do
+    authenticate_sudo(user)
+    assert_no_difference("Organization.count") do
       delete organization_url(@organization)
     end
 
+    sign_in(@user)
+    authenticate_sudo(@user)
+    assert_difference("Organization.count", -1) { delete organization_url(@organization) }
+
     assert_redirected_to organizations_url
+  end
+
+  test "active subscriptions block destruction" do
+    authenticate_sudo(@user)
+    Organization.any_instance.stubs(:active_subscription?).returns(true)
+
+    assert_no_difference("Organization.count") { delete organization_url(@organization) }
+
+    assert_redirected_to edit_organization_url(@organization)
+    assert_equal I18n.t("organizations.destroy.has_active_subscription"), flash[:alert]
+  end
+
+  test "destroy requires recent authentication" do
+    assert_no_difference("Organization.count") do
+      delete organization_url(@organization)
+    end
+
+    assert_redirected_to new_sudo_path
   end
 end

@@ -1,0 +1,20 @@
+title = "Moneygun Gitleaks configuration"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Ignore local runtime, generated, and dependency artifacts"
+paths = [
+  '''^\.env(\.development|\.local|\.production|\.test)?$''',
+  '''^\.git/''',
+  '''^log/''',
+  '''^tmp/''',
+  '''^storage/''',
+  '''^node_modules/''',
+  '''^vendor/bundle/'''
+]
+
+[[allowlists]]
+description = "Rails encrypted credentials ciphertext"
+paths = ['''^config/credentials(/[^/]+)?\.yml\.enc$''']

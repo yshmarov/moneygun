@@ -1,0 +1,117 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (vars.KAMAL_DEPLOY_ENABLED == 'true' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: production
+    concurrency:
+      group: production-deploy
+      cancel-in-progress: false
+
+    env:
+      KAMAL_HOST: ${{ secrets.KAMAL_HOST }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+      KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      APP_HOST: ${{ vars.APP_HOST }}
+      KAMAL_IMAGE: ${{ vars.KAMAL_IMAGE }}
+      KAMAL_REGISTRY_SERVER: ${{ vars.KAMAL_REGISTRY_SERVER || 'ghcr.io' }}
+      KAMAL_REGISTRY_USERNAME: ${{ vars.KAMAL_REGISTRY_USERNAME }}
+      AWS_REGION: ${{ vars.AWS_REGION || 'auto' }}
+      AWS_ENDPOINT_URL_S3: ${{ vars.AWS_ENDPOINT_URL_S3 }}
+      BUCKET_NAME: ${{ vars.BUCKET_NAME }}
+      APPSIGNAL_PUSH_API_KEY: ${{ secrets.APPSIGNAL_PUSH_API_KEY }}
+      APPSIGNAL_APP_NAME: ${{ vars.APPSIGNAL_APP_NAME || 'Moneygun' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Confirm latest main revision
+        id: latest
+        run: |
+          git fetch --depth=1 origin main
+          if [ "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping deploy because a newer main commit exists."
+          fi
+
+      - name: Set up Ruby
+        if: steps.latest.outputs.deploy == 'true'
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Validate deploy environment
+        if: steps.latest.outputs.deploy == 'true'
+        run: |
+          test -n "$KAMAL_HOST"
+          test -n "$SSH_PRIVATE_KEY"
+          test -n "$SSH_KNOWN_HOSTS"
+          test -n "$KAMAL_REGISTRY_PASSWORD"
+          test -n "$RAILS_MASTER_KEY"
+          test -n "$POSTGRES_PASSWORD"
+          test -n "$AWS_ACCESS_KEY_ID"
+          test -n "$AWS_SECRET_ACCESS_KEY"
+          test -n "$APP_HOST"
+          test -n "$KAMAL_IMAGE"
+          test -n "$KAMAL_REGISTRY_USERNAME"
+          test -n "$AWS_REGION"
+          test -n "$BUCKET_NAME"
+
+      - name: Set up SSH
+        if: steps.latest.outputs.deploy == 'true'
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Deploy with Kamal
+        if: steps.latest.outputs.deploy == 'true'
+        run: bundle exec kamal deploy
+
+  notify-failure:
+    needs: deploy
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Notify deployment webhook
+        env:
+          DEPLOY_FAILURE_WEBHOOK_URL: ${{ secrets.DEPLOY_FAILURE_WEBHOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_FAILURE_WEBHOOK_URL" ]; then
+            echo "DEPLOY_FAILURE_WEBHOOK_URL is not configured; GitHub remains the failure notification channel."
+            exit 0
+          fi
+          curl --fail --silent --show-error -X POST \
+            -H 'Content-Type: application/json' \
+            -d '{"text":"Moneygun production deployment failed","repository":"${{ github.repository }}","run_url":"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+            "$DEPLOY_FAILURE_WEBHOOK_URL"

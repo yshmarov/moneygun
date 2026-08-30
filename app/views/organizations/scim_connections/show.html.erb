@@ -1,0 +1,58 @@
+<% content_for :title, t("organizations.scim_connections.show.title") %>
+
+<%= render SectionComponent.new do |component| %>
+  <% component.with_page_title t("organizations.scim_connections.show.title"), back_to: organization_path(@organization) %>
+
+  <div class="max-w-2xl space-y-6">
+    <p class="text-sm text-base-content/70"><%= t("organizations.scim_connections.show.description") %></p>
+
+    <% if @generated_token.present? %>
+      <div class="alert alert-success block space-y-2" role="alert">
+        <strong><%= t("organizations.scim_connections.show.token_once") %></strong>
+        <%= render "shared/copy_field", value: @generated_token %>
+      </div>
+    <% end %>
+
+    <% if @connection&.persisted? %>
+      <div class="flex items-center gap-2">
+        <%= connection_status_badge(@connection) %>
+        <span class="text-sm text-base-content/60">
+          <% if @connection.last_request_at %>
+            <%= t("organizations.scim_connections.show.last_request") %> <%= local_time_tag @connection.last_request_at, format: :short %>
+          <% else %>
+            <%= t("organizations.scim_connections.show.never_used") %>
+          <% end %>
+        </span>
+      </div>
+
+      <% if @generated_token.blank? && @connection.token_last_four.present? %>
+        <code class="font-mono text-sm"><%= ScimConnection::TOKEN_PREFIX %>••••••••<%= @connection.token_last_four %></code>
+      <% end %>
+
+      <div>
+        <p class="mb-1 text-xs font-medium text-base-content/70"><%= t("organizations.scim_connections.show.base_url") %></p>
+        <%= render "shared/copy_field", value: scim_base_url %>
+      </div>
+
+      <%= simple_form_for @connection, url: organization_scim_connection_path(@organization), method: :patch, html: { class: "space-y-4" } do |form| %>
+        <%= form.input :default_membership_role, collection: Membership.roles.keys.map { |role| [t("organizations.memberships.roles.#{role}.label"), role] }, include_blank: false %>
+        <%= form.input :enabled, as: :boolean %>
+        <%= form.button :submit, t("shared.actions.save_changes"), class: "btn btn-primary" %>
+      <% end %>
+
+      <div class="flex flex-wrap gap-2">
+        <%= button_to t("organizations.scim_connections.show.rotate"), organization_scim_connection_path(@organization), method: :patch, params: { regenerate: true }, class: "btn btn-soft", data: { turbo_confirm: t("shared.actions.confirm") } %>
+        <%= button_to t("organizations.scim_connections.show.remove"), organization_scim_connection_path(@organization), method: :delete, class: "btn btn-error btn-soft", data: { turbo_confirm: t("shared.actions.confirm") } %>
+      </div>
+    <% else %>
+      <%= render EmptyStateComponent.new(icon: "svg/link.svg", title: t("organizations.scim_connections.show.not_configured")) do %>
+        <%= button_to t("organizations.scim_connections.show.generate"), organization_scim_connection_path(@organization), class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+
+    <details class="border-t border-base-300 pt-4">
+      <summary class="cursor-pointer font-medium"><%= t("organizations.scim_connections.show.documentation") %></summary>
+      <p class="mt-3 text-sm text-base-content/70"><%= t("organizations.scim_connections.show.documentation_body") %></p>
+    </details>
+  </div>
+<% end %>

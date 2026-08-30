@@ -1,53 +1,36 @@
-# Linting
+# Linting and audits
 
-## Tools Overview
-
-- **RuboCop**: Lints Ruby (`.rb`) files
-- **erb_lint**: Lints ERB (`.html.erb`) templates, uses RuboCop for Ruby code within templates
-- **Herb LSP**: Provides real-time ERB diagnostics and formatting in VS Code
-- **Prettier**: Formats all file types (Ruby, JavaScript, JSON, etc.) with consistent style
-
-### Required Extensions
-
-Install these VS Code extensions (recommended in `.vscode/extensions.json`):
-
-- `esbenp.prettier-vscode` - Prettier formatter
-- `marcoroth.herb-lsp` - Herb Language Server for ERB
-
-## Commands
+`bin/lint` is the single source of truth for checks that do not need a database:
 
 ```bash
-# Ruby files
-# Lint
-bin/rubocop
-# Auto-fix
-bin/rubocop -a
-
-# ERB templates
-# Lint
-bin/erb_lint --lint-all
-# Auto-fix
-bin/erb_lint --lint-all -a
-
-# Prettier (all file types)
-# Check formatting
-npx prettier --check .
-# Format files
-npx prettier --write .
+bin/lint
+bin/lint --fix
 ```
 
-## Configuration Files
+It runs:
 
-- `.rubocop.yml` - RuboCop rules for Ruby files
-- `.erb_lint.yml` - erb_lint rules (inherits from `.rubocop.yml`)
-- `.prettierrc` - Prettier formatting rules
-- `.prettierignore` - Files to exclude from Prettier
+- RuboCop for Ruby style and correctness
+- Prettier 3.9.6 for formatting
+- Brakeman for Rails security analysis
+- Herb for ERB analysis
+- i18n-tasks for missing, invalid, and unnormalized translations
+- bundler-audit for vulnerable Ruby dependencies
+- importmap audit for vulnerable JavaScript dependencies
 
-## CI Integration
+`--fix` applies RuboCop autocorrections, Prettier formatting, and i18n normalization. Security and dependency checks remain read-only.
 
-Linting runs automatically in CI on every pull request and push to main:
+Configuration lives in `.rubocop.yml`, `.prettierrc`, `.prettierignore`, and `config/i18n-tasks.yml`. Prettier is pinned in `bin/lint`; an unpinned `npx prettier` may produce different output as new releases appear.
 
-- RuboCop checks all Ruby files
-- erb_lint checks all ERB templates
+## Full verification
 
-Both must pass for CI to succeed.
+Run the same application gate used by maintainers before proposing a change:
+
+```bash
+bin/ci
+```
+
+This prepares the app, runs `bin/lint`, checks eager loading and the database schema, then runs unit, system, and seed tests. Hosted CI keeps lint and test jobs separate so they can run in parallel. It additionally scans the pushed commit range for leaked secrets.
+
+The local gate also runs `bin/gitleaks-audit`. Install Gitleaks before the first full run (`brew install gitleaks` on macOS, or use the installation method documented by Gitleaks for your platform). The script scans tracked and nonignored untracked files plus `origin/main..HEAD`, so a secret cannot hide in an uncommitted file that ordinary history-only scanning would miss.
+
+The daily dependency-audit workflow reruns advisory scans even when the repository has had no new commits. Dependabot proposes weekly Bundler and GitHub Actions updates.

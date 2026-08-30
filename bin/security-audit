@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+# Read-only production compromise hunt. Every unavailable check is UNVERIFIED
+# and makes the command fail; collection failures never look clean.
+
+set -uo pipefail
+
+if [ "${1:-}" = "--help" ]; then
+  echo "Usage: bin/security-audit [host]"
+  echo "Environment: KAMAL_HOST, KAMAL_SERVICE, POSTGRES_USER, POSTGRES_DB, SSH_USER, KNOWN_SSH_KEYS"
+  exit 0
+fi
+
+if [ -f .env ]; then
+  set -a
+  # shellcheck disable=SC1091
+  . ./.env
+  set +a
+fi
+
+HOST="${1:-${KAMAL_HOST:-}}"
+SERVICE="${KAMAL_SERVICE:-moneygun}"
+DB_USER="${POSTGRES_USER:-moneygun}"
+DB_NAME="${POSTGRES_DB:-moneygun_production}"
+SSH_USER="${SSH_USER:-root}"
+KNOWN_SSH_KEYS="${KNOWN_SSH_KEYS:-}"
+findings=0
+unverified=0
+CAPTURED=""
+
+if [ -z "$HOST" ]; then
+  echo "Set KAMAL_HOST or pass a host." >&2
+  exit 64
+fi
+
+case "$SERVICE" in *[!a-zA-Z0-9_-]*) echo "Invalid KAMAL_SERVICE" >&2; exit 64;; esac
+
+section() { printf '\n== %s ==\n' "$*"; }
+ok() { printf '  OK %s\n' "$*"; }
+warn() { printf '  FINDING %s\n' "$*"; findings=$((findings + 1)); }
+unver() { printf '  UNVERIFIED %s\n' "$*"; unverified=$((unverified + 1)); }
+
+remote() {
+  local out
+  out="$(ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$HOST" "$1"'; printf "\n__AUDIT_OK__\n"' 2>/dev/null)" || true
+  case "$out" in
+    *__AUDIT_OK__*) CAPTURED="${out%__AUDIT_OK__*}"; return 0;;
+    *) CAPTURED=""; return 1;;
+  esac
+}
+
+db_query() {
+  local out
+  out="$(bin/kamal accessory exec db --reuse "psql -U $DB_USER -d $DB_NAME -tAc \"$1\" -tAc \"SELECT '__AUDIT_OK__'\"" 2>/dev/null)" || true
+  case "$out" in
+    *__AUDIT_OK__*) CAPTURED="$out"; return 0;;
+    *) CAPTURED=""; return 1;;
+  esac
+}
+
+echo "Security audit of $HOST at $(date -u '+%Y-%m-%d %H:%M UTC')"
+
+if ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$HOST" true 2>/dev/null; then SSH_OK=1; else SSH_OK=0; fi
+
+section "SSH access"
+if [ "$SSH_OK" = 1 ] && remote 'grep -Eh "Accepted" /var/log/auth.log* 2>/dev/null'; then
+  if printf '%s' "$CAPTURED" | grep -q "Accepted password"; then warn "a password login succeeded"; else ok "no successful password logins found"; fi
+  for key in $(printf '%s' "$CAPTURED" | grep -oE "SHA256:[A-Za-z0-9+/]+" | sort -u); do
+    if [ -n "$KNOWN_SSH_KEYS" ] && ! printf '%s' "$KNOWN_SSH_KEYS" | grep -qF "$key"; then warn "unrecognized SSH key $key"; else ok "key seen: $key"; fi
+  done
+else
+  unver "SSH login history not collected"
+fi
+
+section "Host controls"
+if [ "$SSH_OK" = 1 ] && remote 'fail2ban-client status sshd 2>/dev/null'; then ok "fail2ban sshd jail responded"; else unver "fail2ban status not collected"; fi
+if [ "$SSH_OK" = 1 ] && remote 'ss -tlnH'; then
+  unexpected=$(printf '%s' "$CAPTURED" | awk '{print $4}' | grep -vE '(:22|:80|:443|127\.0\.0\.1:5432|127\.0\.0\.5[34]:53|\[::1\]:53|127\.0\.0\.53%lo:53)$' || true)
+  if [ -n "$unexpected" ]; then warn "unexpected listeners: $unexpected"; else ok "only expected listeners found"; fi
+  if printf '%s' "$CAPTURED" | awk '{print $4}' | grep -qE '0\.0\.0\.0:5432$|:::5432$'; then warn "Postgres is exposed beyond loopback"; else ok "Postgres is not publicly listening"; fi
+else
+  unver "listening ports not collected"
+fi
+
+section "Containers"
+if [ "$SSH_OK" = 1 ] && remote 'docker ps --format "{{.Names}}"'; then
+  rogue=$(printf '%s' "$CAPTURED" | grep -vE "^(${SERVICE}-|kamal-proxy)" | grep -v '^$' || true)
+  if [ -n "$rogue" ]; then warn "containers outside $SERVICE deploy: $rogue"; else ok "only deploy containers found"; fi
+else
+  unver "container list not collected"
+fi
+
+section "PostgreSQL"
+if db_query "SELECT rolname FROM pg_roles WHERE rolcanlogin"; then
+  roles=$(printf '%s' "$CAPTURED" | grep -vE '^(App Host|Launching| *INFO|__AUDIT_OK__| *$)')
+  for role in $roles; do case "$role" in "$DB_USER"|postgres|pg_*) ok "role: $role";; *) warn "unexpected login role: $role";; esac; done
+else
+  unver "database roles not collected"
+fi
+if db_query "SELECT count(*) FROM pg_stat_activity WHERE client_addr IS NOT NULL AND client_addr <> '127.0.0.1'::inet AND NOT (client_addr << '172.16.0.0/12'::inet)"; then
+  external=$(printf '%s' "$CAPTURED" | grep -oE '^[0-9]+' | head -1)
+  if [ "${external:-0}" -gt 0 ]; then warn "$external database connections originate outside the Docker network"; else ok "no external database connections"; fi
+else
+  unver "database connections not collected"
+fi
+
+section "Application data"
+app=$(bin/kamal app exec --reuse "bin/rails runner 'puts %(__APP__ rogue_audit=#{AuditLog.where.not(actor_kind: AuditLog::ACTOR_KINDS).count} odd_users=#{User.where(%q{email NOT LIKE ?}, %q{%@%}).count})'" 2>/dev/null | grep -oE '__APP__ rogue_audit=[0-9]+ odd_users=[0-9]+' | head -1)
+if [ "$app" = "__APP__ rogue_audit=0 odd_users=0" ]; then ok "no undefined audit actors or malformed accounts"; elif [ -z "$app" ]; then unver "application data not collected"; else warn "application anomalies: ${app#__APP__ }"; fi
+
+section "Result"
+if [ "$unverified" -gt 0 ]; then warn "$unverified checks were unverified"; fi
+if [ "$findings" -eq 0 ] && [ "$unverified" -eq 0 ]; then ok "all checks ran without anomalies"; exit 0; fi
+printf '  %d finding(s), %d unverified check(s)\n' "$findings" "$unverified"
+exit 1

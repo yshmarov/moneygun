@@ -1,0 +1,5 @@
+<p><%= t(".greeting") %></p>
+<p><%= t(".instruction") %></p>
+<p style="font-size: 24px; font-weight: bold; letter-spacing: 0.2em; text-align: center; padding: 16px; background: #f5f5f5; border-radius: 8px;"><%= @magic_link.code %></p>
+<p><%= t(".host_notice", host: Rails.application.config_for(:settings).dig(:site, :domain) || "Moneygun") %></p>
+<p><%= t(".expires_in", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %></p>

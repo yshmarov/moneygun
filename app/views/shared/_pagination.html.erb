@@ -3,6 +3,6 @@
     <p class="text-sm text-base-content/60">
       <%= t("shared.pagination.info", from: pagy.from, to: pagy.to, count: number_with_delimiter(pagy.count)) %>
     </p>
-    <%== pagy_nav(pagy) %>
+    <%== pagy.series_nav %>
   </div>
 <% end %>

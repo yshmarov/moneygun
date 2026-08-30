@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+set -eu
+
+key="$1"
+fallback_file="${2:-}"
+
+case "$key" in
+  *[!A-Z0-9_]*)
+    printf 'Invalid environment key: %s\n' "$key" >&2
+    exit 64
+    ;;
+esac
+
+if [ -f .env ]; then
+  value=$(sed -n "s/^$key=//p" .env | head -1 | sed -e "s/^['\"]//" -e "s/['\"]$//")
+  [ -n "$value" ] && { printf '%s\n' "$value"; exit 0; }
+fi
+
+value=$(eval "printf '%s' \"\${$key-}\"")
+[ -n "$value" ] && { printf '%s\n' "$value"; exit 0; }
+
+[ -n "$fallback_file" ] && [ -f "$fallback_file" ] && cat "$fallback_file"

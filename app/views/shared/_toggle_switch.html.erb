@@ -1,0 +1,14 @@
+<%# locals: (checked:, label:) %>
+<%= tag.input(
+      type: "checkbox",
+      checked: checked,
+      class: "toggle pointer-events-none",
+      tabindex: "-1",
+      aria: { hidden: true }
+    ) %>
+<%= tag.button(
+      type: "submit",
+      class: "absolute inset-0 cursor-pointer rounded-full",
+      role: "switch",
+      aria: { checked: checked, label: label }
+    ) %>

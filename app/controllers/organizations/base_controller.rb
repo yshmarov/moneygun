@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 class Organizations::BaseController < ApplicationController
+  include OrganizationAgreements
+
   # the order of the before_actions is important
   before_action :set_organization
   # before_action :authorize_membership!
   before_action :set_current_membership
+  before_action :require_organization_agreement
   # ensure Pundit "authorize" is called for every controller action
   after_action :verify_authorized
 
@@ -32,13 +35,13 @@ class Organizations::BaseController < ApplicationController
   private
 
   def set_organization
-    @organization = current_user.organizations.find(params[:organization_id])
+    @organization = current_user.organizations.where(memberships: { deactivated_at: nil }).find(params[:organization_id])
   rescue ActiveRecord::RecordNotFound
     redirect_to organizations_path, alert: t("shared.errors.not_authorized")
   end
 
   def set_current_membership
-    Current.membership = current_user.memberships.find_by(organization: @organization)
+    Current.membership = current_user.memberships.active.find_by(organization: @organization)
     Current.organization = Current.membership&.organization
     return if Current.membership
 

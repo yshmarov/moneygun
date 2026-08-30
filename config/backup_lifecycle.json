@@ -1,0 +1,34 @@
+{
+  "Rules": [
+    {
+      "ID": "expire-noncurrent-30d",
+      "Status": "Enabled",
+      "Prefix": "",
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 30
+      },
+      "AbortIncompleteMultipartUpload": {
+        "DaysAfterInitiation": 7
+      }
+    },
+    {
+      "ID": "expire-postgres-backups",
+      "Status": "Enabled",
+      "Prefix": "backups/postgres/",
+      "Expiration": {
+        "Days": 21
+      },
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 7
+      }
+    },
+    {
+      "ID": "remove-postgres-backup-delete-markers",
+      "Status": "Enabled",
+      "Prefix": "backups/postgres/",
+      "Expiration": {
+        "ExpiredObjectDeleteMarker": true
+      }
+    }
+  ]
+}

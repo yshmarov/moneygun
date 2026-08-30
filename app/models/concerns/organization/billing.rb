@@ -5,6 +5,14 @@ module Organization::Billing
 
   included do
     pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
+
+    scope :subscribed, lambda {
+      where(id: Pay::Subscription.active.for_name(Pay.default_product_name)
+                .joins(:customer)
+                .where(pay_customers: { owner_type: "Organization", deleted_at: nil })
+                .select("pay_customers.owner_id"))
+    }
+    scope :with_access, -> { subscribed.or(where(admin_granted_access: true)) }
   end
 
   def stripe_attributes(pay_customer)
@@ -22,11 +30,23 @@ module Organization::Billing
 
   # rubocop:disable Naming/PredicatePrefix
   def has_access?
+    return true if admin_granted_access?
     return false unless payment_processor
 
     payment_processor.subscribed?
   end
   # rubocop:enable Naming/PredicatePrefix
+
+  def active_subscription?
+    return false unless payment_processor
+
+    subscription = payment_processor.subscription
+    subscription.present? && subscription.ends_at.nil?
+  end
+
+  def complimentary_access?
+    admin_granted_access? && !active_subscription?
+  end
 
   delegate :email, to: :owner
 end
