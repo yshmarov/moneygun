@@ -1,5 +1,5 @@
 web: bin/rails server -p ${PORT:-3000}
-website: cd website && hugo server --config hugo.yaml,hugo.dev.yaml --port ${WEBSITE_PORT:-4000}
+website: cd website && hugo server --config hugo.yaml,hugo.dev.yaml --port 4000
 css: bin/rails tailwindcss:watch
 stripe: stripe listen --forward-to http://localhost:${PORT:-3000}/pay/webhooks/stripe
 worker: bundle exec good_job start

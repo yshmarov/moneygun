@@ -1,5 +1,4 @@
 baseURL: 'http://localhost:4000/'
 
 params:
-  app:
-    url: 'http://localhost:3000'
+  app_url: 'http://localhost:3000'

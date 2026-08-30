@@ -21,9 +21,7 @@ jobs:
     timeout-minutes: 15
     environment: production
     env:
-      APP_HOST: ${{ vars.APP_HOST }}
       HUGO_BASEURL: ${{ vars.WEBSITE_URL }}
-      HUGO_PARAMS_APP_URL: https://${{ vars.APP_HOST }}
 
     steps:
       - name: Checkout code
@@ -36,8 +34,6 @@ jobs:
           CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
         run: |
           test -n "$HUGO_BASEURL"
-          test -n "$APP_HOST"
-          test -n "$HUGO_PARAMS_APP_URL"
           test -n "$CLOUDFLARE_API_TOKEN"
           test -n "$CLOUDFLARE_ACCOUNT_ID"
           test -n "$CLOUDFLARE_PAGES_PROJECT"

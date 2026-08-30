@@ -6,7 +6,7 @@
 >
   <div>
     <div>
-      <%= link_to marketing_website_url, class: "no-underline" do %>
+      <%= link_to Rails.application.config_for(:settings).dig(:site, :website_url), class: "no-underline" do %>
         <%= image_tag "svg/logo-wordmark.svg", alt: Rails.application.config_for(:settings).dig(:site, :name), class: "w-auto h-8" %>
       <% end %>
     </div>
@@ -19,7 +19,7 @@
   </div>
 
   <nav>
-    <%= link_to t("static.index.title"), marketing_website_url, class: "link link-hover" %>
+    <%= link_to t("static.index.title"), Rails.application.config_for(:settings).dig(:site, :website_url), class: "link link-hover" %>
     <%= active_link_to t("static.pricing.title"), pricing_path, active: :exclusive, class_active: "underline", class: "link link-hover" %>
   </nav>
 

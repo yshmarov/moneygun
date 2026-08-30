@@ -68,7 +68,7 @@ This starts:
 
 Visit the website at http://localhost:4000 and the Rails application at http://localhost:3000.
 
-Moneygun reserves the apex domain for the website and deploys Rails to an application subdomain. In production, set `WEBSITE_URL=https://example.com` and `APP_HOST=app.example.com`; customize the matching defaults in `website/hugo.yaml` before deployment.
+Moneygun reserves the apex domain for the website and deploys Rails to an application subdomain. In production, set `APP_HOST=app.example.com`; customize the matching `baseURL` and `params.app_url` defaults in `website/hugo.yaml` before deployment.
 
 Authentication requires working email delivery in production. Development shows generated codes in the response UI. Active Record encryption derives its keys from `SECRET_KEY_BASE`, so that secret must be stable across deployments.
 

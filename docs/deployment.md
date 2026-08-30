@@ -26,7 +26,6 @@ The checked-in values are examples. Configure them before the first deploy.
 | ------------------------- | ----------------------------------------------------- | -------------------------------- |
 | `KAMAL_HOST`              | Server address                                        | `203.0.113.10`                   |
 | `APP_HOST`                | Public application host                               | `app.example.com`                |
-| `WEBSITE_URL`             | Apex website origin, including scheme                 | `https://example.com`            |
 | `KAMAL_IMAGE`             | Registry namespace and image                          | `acme/moneygun`                  |
 | `KAMAL_REGISTRY_SERVER`   | Registry host                                         | `ghcr.io`                        |
 | `KAMAL_REGISTRY_USERNAME` | Registry username                                     | `acme`                           |
@@ -54,7 +53,7 @@ When `RAILS_MASTER_KEY` is not exported, local deploys fall back to `config/mast
 
 AppSignal reads `appsignal` from Rails credentials. `APPSIGNAL_PUSH_API_KEY` can override it in environments where credentials are not used, and `APPSIGNAL_ACTIVE=false` disables reporting for production-mode diagnostics.
 
-Production boot validates `HOST`, `WEBSITE_URL`, and `DATABASE_URL`, plus the S3 credentials and bucket when `ACTIVE_STORAGE_SERVICE=s3`. It also requires `HOST` to be a subdomain of the apex host in `WEBSITE_URL`. A missing or inconsistent value stops the process immediately instead of surfacing as a delayed runtime error.
+Production boot validates `HOST` and `DATABASE_URL`, plus the S3 credentials and bucket when `ACTIVE_STORAGE_SERVICE=s3`. A missing value stops the process immediately instead of surfacing as a delayed runtime error.
 
 ## First deploy
 
@@ -97,7 +96,6 @@ Repository or environment secrets:
 Repository or environment variables:
 
 - `APP_HOST`
-- `WEBSITE_URL`
 - `KAMAL_IMAGE`
 - `KAMAL_REGISTRY_USERNAME`
 - `KAMAL_REGISTRY_SERVER` (defaults to `ghcr.io`)
@@ -117,7 +115,7 @@ Store the exact host key in `SSH_KNOWN_HOSTS`; do not replace host verification 
 
 ### Website deployment
 
-Customize `website/hugo.yaml` first. The production values must describe the same split as Rails: the Hugo `baseURL` is the apex website and `params.app.url` points to the Rails subdomain.
+Customize `website/hugo.yaml` first. The production values must describe the same split as Rails: the Hugo `baseURL` is the apex website and `params.app_url` points to the Rails subdomain.
 
 `.github/workflows/deploy-website.yml` publishes `website/public` to Cloudflare Pages when files under `website/` reach `main`. It is opt-in; configure the following before setting `WEBSITE_DEPLOY_ENABLED=true`:
 
@@ -129,10 +127,9 @@ Secrets:
 Variables:
 
 - `WEBSITE_URL`, for example `https://example.com`
-- `APP_HOST`, for example `app.example.com`
 - `CLOUDFLARE_PAGES_PROJECT`
 
-Attach the apex domain to that Pages project and configure DNS in Cloudflare. The workflow builds with those origins, deploys, then checks `/`, `/robots.txt`, and `/sitemap.xml`. Website-only commits do not start a Kamal deployment.
+Attach the apex domain to that Pages project and configure DNS in Cloudflare. The workflow injects `WEBSITE_URL` as Hugo's `baseURL`; the application origin remains the checked-in `params.app_url`. It then deploys and checks `/`, `/robots.txt`, and `/sitemap.xml`. Website-only commits do not start a Kamal deployment.
 
 ## Operations
 
@@ -189,11 +186,11 @@ These workflows are operational controls, not substitutes for watching AppSignal
 ## Production checklist
 
 1. `bin/ci` passes on the exact revision being deployed.
-2. Apex DNS, `WEBSITE_URL`, application-subdomain DNS, and `APP_HOST` agree.
+2. Apex DNS and the website deployment's `WEBSITE_URL` agree; application-subdomain DNS and `APP_HOST` agree.
 3. Registry, SSH, Rails, PostgreSQL, and object-storage secrets are present.
 4. Production email delivery is working; passwordless authentication depends on it.
 5. Stripe live keys and the `https://APP_HOST/pay/webhooks/stripe` endpoint are configured if billing is enabled.
 6. Object storage permits the application credentials to read, write, and delete only the intended bucket.
 7. Database and object-storage restore drills have succeeded, and `bin/backup-lifecycle check` reports no drift.
-8. `website/bin/smoke https://WEBSITE_URL`, `bin/smoke https://APP_HOST`, the web role, the job role, ClamAV freshness, and a real email sign-in are healthy after deployment.
+8. `website/bin/smoke https://example.com`, `bin/smoke https://app.example.com`, the web role, the job role, ClamAV freshness, and a real email sign-in are healthy after deployment.
 9. AppSignal has received a deploy and a test error from the production environment.

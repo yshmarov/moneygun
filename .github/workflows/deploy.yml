@@ -35,7 +35,6 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       APP_HOST: ${{ vars.APP_HOST }}
-      WEBSITE_URL: ${{ vars.WEBSITE_URL }}
       KAMAL_IMAGE: ${{ vars.KAMAL_IMAGE }}
       KAMAL_REGISTRY_SERVER: ${{ vars.KAMAL_REGISTRY_SERVER || 'ghcr.io' }}
       KAMAL_REGISTRY_USERNAME: ${{ vars.KAMAL_REGISTRY_USERNAME }}
@@ -85,7 +84,6 @@ jobs:
           test -n "$AWS_ACCESS_KEY_ID"
           test -n "$AWS_SECRET_ACCESS_KEY"
           test -n "$APP_HOST"
-          test -n "$WEBSITE_URL"
           test -n "$KAMAL_IMAGE"
           test -n "$KAMAL_REGISTRY_USERNAME"
           test -n "$AWS_REGION"

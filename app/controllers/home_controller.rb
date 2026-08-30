@@ -4,10 +4,10 @@ class HomeController < ApplicationController
   allow_unauthenticated_access
 
   def index
-    if user_signed_in?
+    if authenticated?
       redirect_to default_authenticated_path, allow_other_host: false
     else
-      redirect_to helpers.marketing_website_url, allow_other_host: true
+      redirect_to new_session_path
     end
   end
 end

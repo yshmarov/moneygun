@@ -3,10 +3,10 @@
 require "test_helper"
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
-  test "redirects a visitor to the main-domain website" do
+  test "redirects a visitor to sign in" do
     get root_url
 
-    assert_redirected_to "https://example.com"
+    assert_redirected_to new_session_path
   end
 
   test "redirects an authenticated user into the application" do

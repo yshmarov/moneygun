@@ -10,8 +10,6 @@ CI.run do
 
   step "Security: Secret scan", "bin/gitleaks-audit"
 
-  step "Website: Hugo build", "website/bin/check"
-
   step "Boot: Zeitwerk eager-load check", "env RAILS_ENV=test bin/rails zeitwerk:check"
   step "Database: Active Record Doctor", "env RAILS_ENV=test bin/rails db:test:prepare active_record_doctor"
 

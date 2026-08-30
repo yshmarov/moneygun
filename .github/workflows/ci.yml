@@ -13,6 +13,7 @@ concurrency:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   changes:
@@ -25,25 +26,32 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Detect changed areas
+      - name: Detect website changes
         uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
         id: areas
         with:
           filters: |
             website:
               - 'website/**'
+
+      - name: Detect Rails changes
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
+        id: rails
+        with:
+          # A file counts as Rails only when it satisfies every exclusion.
+          predicate-quantifier: every
+          filters: |
             rails:
-              - '**'
               - '!website/**'
               - '!docs/**'
               - '!README.md'
     outputs:
       website: ${{ steps.areas.outputs.website }}
-      rails: ${{ steps.areas.outputs.rails }}
+      rails: ${{ steps.rails.outputs.rails }}
 
   lint:
     needs: changes
-    if: github.event_name != 'pull_request' || needs.changes.outputs.rails == 'true'
+    if: needs.changes.outputs.rails == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -69,7 +77,7 @@ jobs:
 
   test:
     needs: changes
-    if: github.event_name != 'pull_request' || needs.changes.outputs.rails == 'true'
+    if: needs.changes.outputs.rails == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 25
 

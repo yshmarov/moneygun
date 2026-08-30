@@ -8,8 +8,7 @@ disableKinds:
 
 params:
   description: 'A production-minded Rails foundation for multi-tenant SaaS applications.'
-  app:
-    url: 'https://app.example.com'
+  app_url: 'https://app.example.com'
   repository_url: 'https://github.com/yshmarov/moneygun'
 
 markup:
