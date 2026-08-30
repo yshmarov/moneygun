@@ -1,0 +1,17 @@
+user_terms:
+  agreement_key: user_terms
+  version: 2026-08-30
+  acceptance_statement: I accept the Moneygun Terms of Service and acknowledge the Privacy Notice.
+  documents:
+    - title: Terms of Service
+      url: https://example.com/terms
+    - title: Privacy Notice
+      url: https://example.com/privacy
+
+organization_dpa:
+  agreement_key: organization_dpa
+  version: 2026-08-30
+  acceptance_statement: I accept the Moneygun Data Processing Agreement on behalf of this organization.
+  documents:
+    - title: Data Processing Agreement
+      url: https://example.com/dpa

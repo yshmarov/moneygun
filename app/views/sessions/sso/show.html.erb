@@ -1,0 +1,10 @@
+<% content_for :title, t("sessions.sso.show.title") %>
+<% content_for :robots, "noindex" %>
+<% content_for :head do %><meta name="turbo-visit-control" content="reload"><% end %>
+
+<div class="w-full max-w-md mx-auto space-y-6 text-center">
+  <h1 class="text-xl font-semibold"><%= t("sessions.sso.show.title") %></h1>
+  <p class="text-base-content/70"><%= t("sessions.sso.show.explanation", organization: @connection.organization.name) %></p>
+  <%= button_to t("sessions.sso.show.continue"), "/auth/saml", method: :post,
+                class: "btn btn-primary btn-block", data: { turbo: false } %>
+</div>

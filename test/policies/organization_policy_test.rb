@@ -11,7 +11,7 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
 
   def test_show
     assert OrganizationPolicy.new(@membership, @organization).show?
-    @organization.users.delete(@user)
+    @membership.update_column(:deactivated_at, Time.current) # rubocop:disable Rails/SkipsModelValidations
     assert_not OrganizationPolicy.new(@membership, @organization).show?
   end
 

@@ -23,10 +23,11 @@ class Organizations::ProjectsController < Organizations::BaseController
 
   # POST /organizations/1/projects
   def create
-    @project = @organization.projects.new(project_params)
+    @project = @organization.projects.new(project_params.merge(membership: Current.membership))
     authorize @project
 
     if @project.save
+      log_project_event("project.created", subject: @project)
       respond_to do |format|
         flash[:notice] = t(".success")
         format.html { redirect_to organization_project_url(@organization, @project) }
@@ -40,6 +41,7 @@ class Organizations::ProjectsController < Organizations::BaseController
   # PATCH/PUT /organizations/1/projects/1
   def update
     if @project.update(project_params)
+      log_project_event("project.updated", subject: @project, changes: @project.previous_changes.except("updated_at"))
       respond_to do |format|
         flash[:notice] = t(".success")
         format.html { redirect_to organization_project_url(@organization, @project) }
@@ -52,7 +54,9 @@ class Organizations::ProjectsController < Organizations::BaseController
 
   # DELETE /organizations/1/projects/1
   def destroy
+    metadata = { project_id: @project.id, project_name: @project.name }
     @project.destroy!
+    log_project_event("project.deleted", **metadata)
 
     redirect_to organization_projects_url(@organization), notice: t(".success")
   end
@@ -71,5 +75,10 @@ class Organizations::ProjectsController < Organizations::BaseController
                             :completion_percentage, :color, :search_keywords, :secret_token,
                             :price, :cost, :cover_image,
                             { tags: [], attachments: [], gallery: [] }])
+  end
+
+  def log_project_event(action, subject: nil, **metadata)
+    AuditLog.log!(organization: @organization, actor: Current.membership, subject: subject,
+                  action: action, actor_kind: Current.audit_actor_kind, mini_app: "projects", metadata: metadata)
   end
 end

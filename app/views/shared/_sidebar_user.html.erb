@@ -5,7 +5,7 @@
       <li>
         <div class="flex items-center justify-between gap-2">
           <%= active_link_to default_authenticated_path, class: "flex-1 flex items-center gap-3 min-w-0", class_active: "menu-active", active: :exact do %>
-            <%= inline_svg_tag "svg/logo.svg", class: "size-8 shrink-0 -ml-1 -mr-2" %>
+            <%= image_tag "svg/logo.svg", alt: "", class: "size-8 shrink-0 -ml-1 -mr-2" %>
 
             <span class="[[data-expanded=false]_&]:hidden truncate min-w-0">
               <%= Rails.application.config_for(:settings).dig(:site, :name) %>
@@ -14,7 +14,7 @@
 
           <% if Flipper.enabled?(:search) %>
             <%= link_to search_path, class: "btn btn-ghost btn-xs btn-square max-lg:hidden", title: t("shared.sidebar.search"), aria: { label: t("search.index.title") }, data: { turbo_frame: :modal, controller: "click", action: "keydown.meta+k@window->click#click keydown.ctrl+k@window->click#click" } do %>
-              <%= inline_svg_tag "svg/magnifying-glass.svg", class: "size-4", aria: { hidden: true } %>
+              <%= icon_tag "magnifying-glass", class: "size-4" %>
             <% end %>
           <% end %>
         </div>
@@ -25,7 +25,7 @@
 
       <li class="max-lg:hidden">
         <%= active_link_to user_notifications_path, class_active: "menu-active", class: "flex justify-between items-center whitespace-nowrap justify-start min-w-0", title: t("users.notifications.index.title"), data: { turbo_prefetch: false } do %>
-          <%= inline_svg_tag "svg/bell.svg", class: "size-5 shrink-0", aria: { hidden: true } %>
+          <%= icon_tag "bell", class: "size-5" %>
           <span class="[[data-expanded=false]_&]:hidden truncate min-w-0"><%= t("users.notifications.index.title") %></span>
           <span class="notification-badge">
             <%= render "shared/notification_badge", count: current_user.unseen_notifications_count %>
@@ -51,7 +51,7 @@
           <li>
             <details>
               <summary>
-                <%= inline_svg_tag "svg/cog-6-tooth.svg", class: "size-6 w-6 h-6" %>
+                <%= icon_tag "cog-6-tooth", class: "size-6" %>
                 <span class="[[data-expanded=false]_&]:hidden truncate"> Admin </span>
               </summary>
 

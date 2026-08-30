@@ -1,0 +1,63 @@
+<% global_id_app = Rails.application.config.global_id.app %>
+user_one_terms:
+  agreement_version: user_terms
+  subject_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:one) %>
+  actor_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:one) %>
+  authority: self
+  acceptance_statement: I accept the Moneygun Terms of Service and acknowledge the Privacy Notice.
+  locale: en
+  accepted_at: <%= Time.current %>
+
+user_two_terms:
+  agreement_version: user_terms
+  subject_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:two) %>
+  actor_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:two) %>
+  authority: self
+  acceptance_statement: I accept the Moneygun Terms of Service and acknowledge the Privacy Notice.
+  locale: en
+  accepted_at: <%= Time.current %>
+
+user_three_terms:
+  agreement_version: user_terms
+  subject_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:three) %>
+  actor_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:three) %>
+  authority: self
+  acceptance_statement: I accept the Moneygun Terms of Service and acknowledge the Privacy Notice.
+  locale: en
+  accepted_at: <%= Time.current %>
+
+unassociated_user_terms:
+  agreement_version: user_terms
+  subject_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:unassociated) %>
+  actor_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:unassociated) %>
+  authority: self
+  acceptance_statement: I accept the Moneygun Terms of Service and acknowledge the Privacy Notice.
+  locale: en
+  accepted_at: <%= Time.current %>
+
+organization_one_dpa:
+  agreement_version: organization_dpa
+  subject_key: gid://<%= global_id_app %>/Organization/<%= ActiveRecord::FixtureSet.identify(:one) %>
+  actor_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:one) %>
+  authority: organization_owner
+  acceptance_statement: I accept the Moneygun Data Processing Agreement on behalf of this organization.
+  locale: en
+  accepted_at: <%= Time.current %>
+
+organization_two_dpa:
+  agreement_version: organization_dpa
+  subject_key: gid://<%= global_id_app %>/Organization/<%= ActiveRecord::FixtureSet.identify(:two) %>
+  actor_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:two) %>
+  authority: organization_owner
+  acceptance_statement: I accept the Moneygun Data Processing Agreement on behalf of this organization.
+  locale: en
+  accepted_at: <%= Time.current %>
+
+organization_three_dpa:
+  agreement_version: organization_dpa
+  subject_key: gid://<%= global_id_app %>/Organization/<%= ActiveRecord::FixtureSet.identify(:three) %>
+  actor_key: gid://<%= global_id_app %>/User/<%= ActiveRecord::FixtureSet.identify(:three) %>
+  authority: organization_owner
+  acceptance_statement: I accept the Moneygun Data Processing Agreement on behalf of this organization.
+  locale: en
+  accepted_at: <%= Time.current %>

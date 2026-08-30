@@ -10,9 +10,8 @@ module Organization::Logo
       attachable.variant :thumb, resize_to_fit: [256, 256], saver: { strip: true, quality: 80 }, format: :webp
     end
 
-    after_save_commit if: -> { logo.attached? && attachment_changes["logo"] } do
-      ActiveStorage::PreprocessVariantsJob.perform_later(self, "logo")
-    end
+    after_save { @preprocess_logo = attachment_changes["logo"].present? }
+    after_commit :preprocess_logo, on: %i[create update]
 
     validates :logo, content_type: ApplicationRecord::IMAGE_CONTENT_TYPES
     validates :logo, size: { less_than: MAX_LOGO_SIZE, message: "must be less than #{MAX_LOGO_SIZE / 1.megabyte}MB" }
@@ -23,5 +22,13 @@ module Organization::Logo
 
   def logo_thumbnail
     logo.variable? ? logo.variant(:thumb) : logo
+  end
+
+  private
+
+  def preprocess_logo
+    ActiveStorage::PreprocessVariantsJob.perform_later(self, "logo") if @preprocess_logo && logo.attached?
+  ensure
+    @preprocess_logo = false
   end
 end

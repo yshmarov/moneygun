@@ -6,28 +6,52 @@ module User::Authentication
   BLOCKED_EMAIL_TLDS = %w[.ru .su].freeze
 
   included do
-    # Include default devise modules. Others available are:
-    # :lockable, :timeoutable, :trackable
-    devise :database_authenticatable,
-           :registerable,
-           :recoverable,
-           :rememberable,
-           :validatable,
-           :masqueradable,
-           :confirmable
-
-    has_many :identities, dependent: :destroy
-    belongs_to :invited_by, polymorphic: true, optional: true
-
+    has_many :sessions, dependent: :delete_all
+    has_many :magic_links, dependent: :delete_all
+    validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :email, nondisposable: true
     validate :reject_blocked_email_tlds
+
+    normalizes :email, with: ->(value) { value.strip.downcase.presence }
   end
 
-  def remember_me
-    true
+  def send_magic_link(**attributes)
+    attributes[:purpose] = attributes.delete(:for) if attributes.key?(:for)
+
+    magic_link = with_lock do
+      magic_links.where(purpose: MagicLink.purposes_sharing_slot_with(attributes[:purpose])).delete_all
+      magic_links.create!(attributes)
+    end
+
+    deliver_magic_link(magic_link)
+    magic_link
+  end
+
+  def can_authenticate?
+    !banned? && !redacted?
+  end
+
+  def can_authenticate_with_magic_link?
+    can_authenticate? && SsoConnection.enforced_for_email(email).nil?
+  end
+
+  def email_verified?
+    email_verified_at.present?
+  end
+
+  def verify_email!
+    with_lock { update!(email_verified_at: Time.current) unless email_verified? }
   end
 
   private
+
+  def deliver_magic_link(magic_link)
+    case magic_link.purpose
+    when "email_change" then MagicLinkMailer.email_change_verification(magic_link).deliver_later
+    when "sudo" then MagicLinkMailer.sudo_code(magic_link).deliver_later
+    else MagicLinkMailer.sign_in_instructions(magic_link).deliver_later
+    end
+  end
 
   def reject_blocked_email_tlds
     return if email.blank?
@@ -36,58 +60,5 @@ module User::Authentication
     return if domain.blank?
 
     errors.add(:email, :blocked_email) if BLOCKED_EMAIL_TLDS.any? { |tld| domain.downcase.end_with?(tld) }
-  end
-
-  class_methods do
-    def invite!(attributes = {}, invited_by = nil)
-      # Create a user with invitation fields set
-      # This replaces devise_invitable's User.invite! method
-      user = new(attributes)
-      # Set a random password (user can reset it via "Forgot password")
-      user.password = Devise.friendly_token[0, 20] if user.password.blank?
-      user.invitation_created_at = Time.current
-      user.invitation_sent_at = Time.current
-      user.invitation_token = Devise.friendly_token
-      if invited_by
-        user.invited_by_type = invited_by.class.name
-        user.invited_by_id = invited_by.id
-      end
-      # Skip confirmation email for invited users (they'll be confirmed when accepting invitation)
-      user.skip_confirmation_notification!
-      user.save!
-      user
-    end
-
-    def from_omniauth(auth_payload)
-      # Only handle auth providers (Google, Developer)
-      # Social providers are handled separately if needed
-
-      # First, check if there's already an identity with this provider and UID
-      existing_identity = Identity.find_by(
-        provider: auth_payload.provider,
-        uid: auth_payload.uid
-      )
-
-      if existing_identity
-        # Return the user associated with this identity
-        return existing_identity.user
-      end
-
-      # If no existing identity, proceed with email-based lookup
-      email = auth_payload.info&.email
-      email ||= auth_payload.uid if auth_payload.provider == "saml"
-
-      user = User.where(email: email).first_or_initialize do |user|
-        user.email = email
-        user.password = Devise.friendly_token[0, 20] if user.password.blank?
-      end
-
-      # Auto-confirm OAuth users since the provider has already verified their email
-      user.confirmed_at = Time.current if user.confirmed_at.blank?
-
-      Identity.create_or_update_from_omniauth(auth_payload, user) if user.save
-
-      user
-    end
   end
 end

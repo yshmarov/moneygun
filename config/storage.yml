@@ -26,9 +26,12 @@ local:
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
 
-tigris:
+s3:
   service: S3
   access_key_id: <%= ENV["AWS_ACCESS_KEY_ID"] %>
   secret_access_key: <%= ENV["AWS_SECRET_ACCESS_KEY"] %>
+  region: <%= ENV.fetch("AWS_REGION", "auto") %>
+<% if ENV["AWS_ENDPOINT_URL_S3"].present? %>
   endpoint: <%= ENV["AWS_ENDPOINT_URL_S3"] %>
+<% end %>
   bucket: <%= ENV["BUCKET_NAME"] %>

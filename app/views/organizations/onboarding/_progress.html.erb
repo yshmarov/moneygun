@@ -1,0 +1,5 @@
+<%# locals: (current:) %>
+<div class="space-y-3">
+  <p class="text-sm text-base-content/60"><%= t("organizations.onboarding.step_counter", current: current, total: 3) %></p>
+  <progress class="progress progress-primary w-full" value="<%= current %>" max="3"></progress>
+</div>

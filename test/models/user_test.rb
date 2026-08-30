@@ -3,152 +3,82 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  # TODO: memberships with associated downstream records should not be deletable
-  test "destroying organization owner destroys organization" do
-    organization = organizations(:one)
+  test "issuing a sign-in code retires the previous sign-in or sign-up code" do
     user = users(:one)
+    superseded = user.send_magic_link(for: :sign_up)
 
-    assert_difference "Organization.count", -1 do
-      assert_difference "Membership.count", -1 do
-        user.destroy
-      end
-    end
+    replacement = user.send_magic_link(for: :sign_in)
 
-    # TODO: this should not be a valid state!
-    assert organization.memberships.none?
+    assert_not MagicLink.exists?(superseded.id)
+    assert MagicLink.exists?(replacement.id)
+    assert_equal 1, user.magic_links.where(purpose: %w[sign_in sign_up]).count
   end
 
-  test "destroying organization member (non-owner) does not destroy organization" do
+  test "issuing a sign-in code preserves codes for other purposes" do
+    user = users(:one)
+    sudo = user.send_magic_link(for: :sudo)
+    email_change = user.send_magic_link(for: :email_change, new_email: "changed@example.com")
+
+    user.send_magic_link(for: :sign_in)
+
+    assert MagicLink.exists?(sudo.id)
+    assert MagicLink.exists?(email_change.id)
+  end
+
+  test "magic-link replacement happens inside a row lock" do
+    user = users(:one)
+    locked = false
+    user.define_singleton_method(:with_lock) do |*, &block|
+      locked = true
+      block.call
+    end
+
+    user.send_magic_link
+
+    assert locked
+  end
+
+  test "organization owners must transfer or delete their organizations before closing their account" do
+    user = users(:one)
+
+    assert_not user.destroy
+    assert_predicate user, :persisted?
+    assert_includes user.undeletable_reasons, :owns_organizations
+  end
+
+  test "destroying a non-owner member preserves organization" do
     organization = organizations(:one)
     user = users(:unassociated)
-    organization.memberships.create!(user:, role: Membership.roles[:admin])
+    organization.memberships.create!(user: user)
 
     assert_no_difference "Organization.count" do
       assert_difference "Membership.count", -1 do
         user.destroy
       end
     end
-
-    assert organization.memberships.any?
   end
 
-  test "from_omniauth returns existing user when identity exists" do
-    user = users(:one)
-    user.identities.create!(
-      provider: "google_oauth2",
-      uid: "123456789",
-      payload: { "info" => { "email" => "test@example.com" } }
-    )
+  test "new standalone user receives a default organization" do
+    assert_difference -> { Organization.count } => 1, -> { Membership.count } => 1 do
+      user = User.create!(email: "standalone@example.com")
 
-    auth_payload = mock_omniauth_payload("google_oauth2", "123456789", "test@example.com")
-
-    result_user = User.from_omniauth(auth_payload)
-
-    assert_equal user, result_user
-    assert result_user.persisted?
-  end
-
-  test "from_omniauth creates new user when no identity exists" do
-    auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "newuser@example.com")
-
-    assert_difference "User.count", 1 do
-      assert_difference "Identity.count", 1 do
-        user = User.from_omniauth(auth_payload)
-        assert user.persisted?
-        assert_equal "newuser@example.com", user.email
-        assert user.identities.any?
-      end
+      assert_equal user, user.owned_organizations.first.owner
+      assert_predicate user.memberships.first, :admin?
     end
   end
 
-  test "from_omniauth auto-confirms new OAuth users" do
-    auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "newuser@example.com")
+  test "pending invitee does not receive a throwaway default organization" do
+    organizations(:one).invitations.create!(email: "invited-user@example.com", invited_by: users(:one))
 
-    user = User.from_omniauth(auth_payload)
-    assert user.confirmed?
-    assert_not_nil user.confirmed_at
-  end
-
-  test "from_omniauth confirms existing unconfirmed users" do
-    # Create an unconfirmed user (skip organization creation by setting invitation_created_at)
-    user = User.create!(
-      email: "username@example.com",
-      password: "password123",
-      password_confirmation: "password123",
-      confirmed_at: nil
-    )
-    assert_not user.confirmed?
-
-    # Sign in via OAuth
-    auth_payload = mock_omniauth_payload("google_oauth2", "987654321", "username@example.com")
-    result_user = User.from_omniauth(auth_payload)
-
-    assert_equal user, result_user
-    assert result_user.confirmed?
-    assert_not_nil result_user.confirmed_at
-  end
-
-  test "after user creation, default organization is created" do
-    assert_difference "Organization.count", 1 do
-      assert_difference "Membership.count", 1 do
-        user = User.create!(
-          email: "test@example.com",
-          password: "password123",
-          password_confirmation: "password123"
-        )
-
-        organization = user.owned_organizations.first
-        assert_not_nil organization
-        assert_equal organization.owner.email.split("@").first, organization.name
-        assert_equal user, organization.owner
-
-        membership = organization.memberships.first
-        assert_equal user, membership.user
-        assert_equal "admin", membership.role
-      end
+    assert_no_difference ["Organization.count", "Membership.count"] do
+      User.create!(email: "invited-user@example.com")
     end
   end
 
-  test "invited user does not receive a default organization" do
-    inviter = users(:one)
-    organization = organizations(:one)
+  test "email is normalized and unique without case sensitivity" do
+    user = User.create!(email: " Mixed@Example.COM ")
 
-    assert_no_difference "Organization.count" do
-      assert_no_difference "Membership.count" do
-        assert_difference "User.count", 1 do
-          membership_invitation = MembershipInvitation.new(email: "invited-user@example.com", organization:, inviter:)
-          membership_invitation.save
-          user = User.find_by(email: "invited-user@example.com")
-          assert user.persisted?
-          assert user.invitation_created_at.present?
-          assert_empty user.owned_organizations
-        end
-      end
-    end
-  end
-
-  private
-
-  def mock_omniauth_payload(provider, uid, email)
-    OpenStruct.new(
-      provider: provider,
-      uid: uid,
-      info: OpenStruct.new(email: email),
-      credentials: OpenStruct.new(
-        token: "mock_token",
-        refresh_token: "mock_refresh_token",
-        expires_at: Time.current.to_i
-      ),
-      to_h: {
-        "provider" => provider,
-        "uid" => uid,
-        "info" => { "email" => email },
-        "credentials" => {
-          "token" => "mock_token",
-          "refresh_token" => "mock_refresh_token",
-          "expires_at" => Time.current.to_i
-        }
-      }
-    )
+    assert_equal "mixed@example.com", user.email
+    assert_not User.new(email: "MIXED@example.com").valid?
   end
 end

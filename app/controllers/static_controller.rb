@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
 class StaticController < ApplicationController
-  skip_before_action :authenticate_user!
-
-  def index; end
-
-  def sitemap
-    expires_in 12.hours, public: true
-  end
+  allow_unauthenticated_access
 
   def pricing; end
 

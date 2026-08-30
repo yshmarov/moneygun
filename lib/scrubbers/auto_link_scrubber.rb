@@ -4,7 +4,7 @@
 #
 # This scrubber does not perform HTML sanitization; it's assumed that the input is already sanitized
 # (for example, ActionText rich text).
-class AutoLinkScrubber < Loofah::Scrubber
+class Scrubbers::AutoLinkScrubber < Loofah::Scrubber
   EXCLUDED_ELEMENTS = %w[a figcaption pre code].freeze
 
   # This regexp is similar to URI::MailTo::EMAIL_REGEXP but uses \b word boundaries instead of \A/\z

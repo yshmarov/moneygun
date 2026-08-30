@@ -1,0 +1,34 @@
+<% content_for :title, t("agreements.acceptances.#{@agreement_key}.title", organization: @organization&.name) %>
+<% content_for :robots, "noindex" %>
+
+<div class="text-center mb-8">
+  <h1 class="text-2xl font-bold"><%= t("agreements.acceptances.#{@agreement_key}.title", organization: @organization&.name) %></h1>
+  <% if user_terms? %>
+    <p class="text-base-content/70 mt-2"><%= t("agreements.acceptances.user_terms.subtitle") %></p>
+  <% end %>
+</div>
+
+<% if acceptance_allowed? %>
+  <%= form_with scope: :acceptance, url: (user_terms? ? accept_user_terms_agreement_path : accept_organization_dpa_agreement_path(@organization)), class: "space-y-6" do |form| %>
+    <%= form.hidden_field :agreement_version_id, value: @version.id %>
+    <label class="flex items-start gap-3">
+      <%= form.check_box :confirmed, class: "checkbox mt-1 shrink-0", required: true, aria: { labelledby: "acceptance-statement" } %>
+      <span id="acceptance-statement" class="min-w-0 flex-1 text-left leading-relaxed"><%= linked_agreement_statement(@version) %></span>
+    </label>
+
+    <% if user_terms? %>
+      <label class="flex items-start gap-3">
+        <%= form.check_box :marketing_consent, class: "checkbox mt-1 shrink-0" %>
+        <span><%= t("onboarding.terms.marketing_label") %><span class="block text-sm text-base-content/70"><%= t("onboarding.terms.marketing_hint") %></span></span>
+      </label>
+    <% end %>
+
+    <%= form.submit t("agreements.acceptances.accept_and_continue"), class: "btn btn-primary btn-block" %>
+  <% end %>
+<% else %>
+  <div class="alert"><p><%= t("agreements.acceptances.organization_dpa.owner_required", owner: @organization.owner.name) %></p></div>
+<% end %>
+
+<% if organization_dpa? %>
+  <div class="mt-4 text-center"><%= link_to t("shared.actions.back"), organizations_path, class: "link link-hover text-sm" %></div>
+<% end %>

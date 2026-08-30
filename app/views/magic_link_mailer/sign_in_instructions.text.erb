@@ -1,0 +1,9 @@
+<%= t(".greeting") %>
+
+<%= t(".instruction") %>
+
+<%= @magic_link.code %>
+
+<%= t(".host_notice", host: Rails.application.config_for(:settings).dig(:site, :domain) || "Moneygun") %>
+
+<%= t(".expires_in", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %>

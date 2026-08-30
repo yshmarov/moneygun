@@ -1,0 +1,49 @@
+<%# Development-only tooling: plain English, no locale keys. %>
+<% content_for :title, "Mock identity provider" %>
+<% content_for :robots, "noindex" %>
+
+<div class="w-full max-w-md mx-auto space-y-6">
+  <div class="space-y-1 text-center">
+    <h1 class="text-xl font-semibold">Mock identity provider</h1>
+    <p class="text-sm text-base-content/70">Choose the identity to assert back to Moneygun.</p>
+  </div>
+
+  <% if @authn_request[:id].blank? %>
+    <div role="alert" class="alert alert-warning">
+      <span>No AuthnRequest to answer. Start at <%= link_to "/sso", new_sso_path, class: "link" %>.</span>
+    </div>
+  <% else %>
+    <%= form_with url: dev_saml_sign_in_path, method: :post, class: "space-y-3" do |f| %>
+      <%= f.hidden_field :in_response_to, value: @authn_request[:id] %>
+      <%= f.hidden_field :acs_url, value: @authn_request[:acs_url] %>
+      <%= f.hidden_field :sp_entity_id, value: @authn_request[:issuer] %>
+
+      <label class="form-control w-full">
+        <span class="label-text">Email</span>
+        <%= f.email_field :email, list: "mock-idp-emails", required: true, autofocus: true,
+                          class: "input input-bordered w-full", autocomplete: "off" %>
+      </label>
+      <datalist id="mock-idp-emails">
+        <% @emails.each do |email| %>
+          <option value="<%= email %>"></option>
+        <% end %>
+      </datalist>
+
+      <label class="form-control w-full">
+        <span class="label-text">Name</span>
+        <%= f.text_field :name, class: "input input-bordered w-full", autocomplete: "off" %>
+      </label>
+
+      <%= f.submit "Sign in", class: "btn btn-primary btn-block" %>
+    <% end %>
+
+    <details class="border-t border-base-300 pt-4 text-xs">
+      <summary class="cursor-pointer font-medium">AuthnRequest</summary>
+      <dl class="mt-2 space-y-1 font-mono break-all text-base-content/70">
+        <div>ID: <%= @authn_request[:id] %></div>
+        <div>ACS: <%= @authn_request[:acs_url] %></div>
+        <div>Issuer: <%= @authn_request[:issuer] %></div>
+      </dl>
+    </details>
+  <% end %>
+</div>

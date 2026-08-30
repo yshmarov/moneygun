@@ -1,0 +1,16 @@
+<% content_for :title, t("users.two_factor.new.title") %>
+
+<%= render SectionComponent.new(full_width: false) do |component| %>
+  <% component.with_page_title t("users.two_factor.new.title"), back_to: user_path %>
+
+  <div class="space-y-6 text-center">
+    <p class="text-base-content/70"><%= t("users.two_factor.new.instructions") %></p>
+    <div class="mx-auto w-fit bg-white p-4 rounded"><%= @qr_code.as_svg(module_size: 4).html_safe %></div>
+    <code class="block break-all"><%= @otp_secret %></code>
+
+    <%= simple_form_for :two_factor, url: user_two_factor_path, html: { class: "space-y-4" } do |f| %>
+      <%= f.input :code, required: true, autofocus: true, label: t("users.two_factor.code_label"), input_html: { inputmode: "numeric", autocomplete: "one-time-code", class: "text-center" } %>
+      <%= f.submit t("users.two_factor.new.submit"), class: "btn btn-primary w-full" %>
+    <% end %>
+  </div>
+<% end %>

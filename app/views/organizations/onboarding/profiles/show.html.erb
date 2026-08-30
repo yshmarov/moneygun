@@ -1,0 +1,19 @@
+<% content_for :title, t("organizations.onboarding.profile.title") %>
+
+<div class="space-y-8">
+  <%= render "organizations/onboarding/progress", current: 1 %>
+  <div class="space-y-2">
+    <h1 class="text-2xl font-bold"><%= t("organizations.onboarding.profile.title") %></h1>
+    <p class="text-base-content/70"><%= t("organizations.onboarding.profile.subtitle") %></p>
+  </div>
+  <%= simple_form_for @organization, url: organization_onboarding_profile_path(@organization), method: :patch, html: { class: "space-y-4" } do |f| %>
+    <%= render "shared/errors", object: @organization %>
+    <%= render "organizations/organization_fields", f: f %>
+    <%= f.input :website, input_html: { autocomplete: "url", inputmode: "url" } %>
+    <%= f.input :privacy_setting,
+                collection: Organization.privacy_settings.keys.map { |key| [privacy_setting_options(key)[:display_text], key] },
+                include_blank: false %>
+    <%= f.submit t("organizations.onboarding.save_and_continue"), class: "btn btn-primary btn-block" %>
+  <% end %>
+  <div class="flex justify-end"><%= link_to t("organizations.onboarding.skip"), organization_onboarding_team_path(@organization), class: "link link-hover text-sm text-base-content/60" %></div>
+</div>

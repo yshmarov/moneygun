@@ -1,0 +1,18 @@
+<% content_for :title, t("onboarding.terms.title") %>
+<% content_for :robots, "noindex" %>
+
+<div class="text-center mb-8">
+  <h1 class="text-2xl font-bold"><%= t("onboarding.terms.title") %></h1>
+  <p class="text-base-content/70 mt-2"><%= t("onboarding.terms.subtitle") %></p>
+</div>
+
+<%= simple_form_for current_user, url: accept_terms_onboarding_path, method: :patch, html: { class: "space-y-6" } do |f| %>
+  <%= f.input :accept_terms,
+              as: :boolean,
+              label: t("onboarding.terms.checkbox_label"),
+              hint: t("onboarding.terms.hint_html", terms_link: link_to(t("onboarding.terms.terms_link"), terms_path, target: "_blank", rel: "noopener", class: "link"), privacy_link: link_to(t("onboarding.terms.privacy_link"), privacy_path, target: "_blank", rel: "noopener", class: "link")),
+              required: true %>
+
+  <%= f.input :marketing_consent, as: :boolean, label: t("onboarding.terms.marketing_label"), hint: t("onboarding.terms.marketing_hint"), required: false %>
+  <%= f.button :submit, t("onboarding.terms.continue"), class: "btn btn-primary btn-block" %>
+<% end %>

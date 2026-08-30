@@ -1,16 +1,16 @@
 <% flash.each do |type, message| %>
   <% if message.is_a?(String) && message.present? %>
-    <div class="alert rounded-xl p-2 shadow-lg cursor-pointer break-normal font-medium <%= flash_style(type) %>"
+    <div class="alert rounded-xl p-2 shadow-lg break-normal font-medium <%= flash_style(type) %>"
          role="<%= flash_role(type) %>"
-         data-controller="element-remove"
-         data-action="click->element-remove#click"
+         data-controller="flash"
+         data-flash-auto-dismiss-value="<%= type.to_s.in?(%w[alert error]) ? 0 : 4000 %>"
          data-turbo-temporary="true">
       <span><%= message %></span>
       <button type="button"
               class="btn btn-ghost btn-xs btn-square"
-              data-action="element-remove#click"
+              data-action="flash#dismiss"
               aria-label="<%= t("shared.flash.dismiss") %>">
-        <%= inline_svg_tag "svg/x-mark.svg", class: "size-4", "aria-hidden": "true" %>
+        <%= icon_tag "x-mark", class: "size-4" %>
       </button>
     </div>
   <% end %>

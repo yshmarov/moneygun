@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-authenticate :user, ->(user) { user.admin? } do
+constraints AdminConstraint.new do
   mount_avo
   mount GoodJob::Engine, at: "/jobs"
-  mount ActiveStorageDashboard::Engine, at: "/active_storage_dashboard"
+  mount PgHero::Engine, at: "/pghero"
   mount Flipper::UI.app(Flipper) => "/feature_flags"
   mount Allgood::Engine => "/healthcheck"
 end
 
-if Rails.env.development?
-  mount Lookbook::Engine, at: "/lookbook"
-  mount LetterOpenerWeb::Engine, at: "/letter_opener"
-end
+mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?

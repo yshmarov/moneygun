@@ -11,7 +11,6 @@ pin_all_from "app/javascript/helpers", under: "helpers"
 pin "turbo_power" # @0.7.1
 pin "@stimulus-components/clipboard", to: "@stimulus-components--clipboard.js" # @5.0.0
 pin "autonumeric", to: "https://ga.jspm.io/npm:autonumeric@4.6.0/dist/autoNumeric.min.js", preload: false
-pin "@stimulus-components/animated-number", to: "@stimulus-components--animated-number.js", preload: false # @5.0.0
 pin "@stimulus-components/auto-submit", to: "@stimulus-components--auto-submit.js" # @6.0.0
 pin "@floating-ui/utils", to: "https://ga.jspm.io/npm:@floating-ui/utils@0.2.8/dist/floating-ui.utils.mjs"
 pin "@floating-ui/core", to: "https://ga.jspm.io/npm:@floating-ui/core@1.6.8/dist/floating-ui.core.mjs"

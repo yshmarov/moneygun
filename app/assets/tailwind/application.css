@@ -6,6 +6,10 @@
 
 @import './components/table.css';
 @import './components/pagy.css';
+@import './components/icons.css';
+@import './components/blank-slate.css';
+@import './components/modal.css';
+@import './components/tabs.css';
 
 @plugin "@tailwindcss/typography";
 

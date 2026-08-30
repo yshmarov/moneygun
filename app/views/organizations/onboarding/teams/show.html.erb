@@ -1,0 +1,17 @@
+<% content_for :title, t("organizations.onboarding.team.title") %>
+
+<div class="space-y-8">
+  <%= render "organizations/onboarding/progress", current: 2 %>
+  <div class="space-y-2">
+    <h1 class="text-2xl font-bold"><%= t("organizations.onboarding.team.title") %></h1>
+    <p class="text-base-content/70"><%= t("organizations.onboarding.team.subtitle") %></p>
+  </div>
+  <ul class="list bg-base-200 rounded-box"><%= render partial: "organizations/memberships/membership", collection: @memberships %></ul>
+  <ul class="list bg-base-200 rounded-box"><%= render partial: "organizations/invitations/invitation", collection: @invitations %></ul>
+  <%= link_to t("organizations.invitations.new.title"), new_organization_invitation_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-outline btn-block" %>
+  <%= link_to t("organizations.onboarding.continue"), organization_onboarding_subscription_path(@organization), class: "btn btn-primary btn-block" %>
+  <div class="flex justify-between">
+    <%= link_to t("shared.navigation.back"), organization_onboarding_profile_path(@organization), class: "link link-hover text-sm text-base-content/60" %>
+    <%= link_to t("organizations.onboarding.skip"), organization_onboarding_subscription_path(@organization), class: "link link-hover text-sm text-base-content/60" %>
+  </div>
+</div>

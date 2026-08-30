@@ -1,0 +1,14 @@
+<% content_for :title, t("sessions.two_factor.new.title") %>
+
+<div class="mx-auto w-full max-w-md text-center space-y-6">
+  <h1 class="text-2xl font-bold"><%= t("sessions.two_factor.new.title") %></h1>
+  <p class="text-base-content/60"><%= t("sessions.two_factor.new.instructions") %></p>
+
+  <%= simple_form_for :two_factor, url: session_two_factor_path, html: { class: "space-y-4" } do |f| %>
+    <%= f.input :code, required: true, autofocus: true, label: t("sessions.two_factor.new.code_label"), input_html: { inputmode: "numeric", autocomplete: "one-time-code", class: "text-center" } %>
+    <%= f.submit t("sessions.two_factor.new.submit"), class: "btn btn-primary w-full" %>
+  <% end %>
+
+  <p class="text-sm text-base-content/60"><%= t("sessions.two_factor.new.backup_hint") %></p>
+  <%= link_to t("sessions.two_factor.new.try_again"), new_session_path, class: "link link-hover text-sm" %>
+</div>

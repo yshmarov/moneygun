@@ -1,7 +1,0 @@
-<p><%= t(".greeting", email: @email) %></p>
-
-<% if @resource.try(:unconfirmed_email?) %>
-  <p><%= t(".email_being_changed", email: @resource.unconfirmed_email) %></p>
-<% else %>
-  <p><%= t(".email_changed", email: @resource.email) %></p>
-<% end %>

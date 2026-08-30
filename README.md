@@ -1,28 +1,37 @@
 # Moneygun
 
-**The Rails 8 SaaS boilerplate for multi-tenant applications.**
+**A production-minded Rails 8 foundation for multi-tenant SaaS applications.**
 
 [![Ruby on Rails](https://img.shields.io/badge/Rails-8-red.svg)](https://rubyonrails.org/)
 [![CI](https://github.com/yshmarov/moneygun/actions/workflows/ci.yml/badge.svg)](https://github.com/yshmarov/moneygun/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENCE.md)
-[![GitHub Stars](https://img.shields.io/github/stars/yshmarov/moneygun?style=social)](https://github.com/yshmarov/moneygun)
 
-![Moneygun features](https://i.imgur.com/QUmTexS.png)
+Moneygun is deliberately plain Rails: route-based organizations, membership-scoped authorization, and reusable infrastructure without a framework layered over the application.
 
-## Why Moneygun?
+## Included
 
-Skip weeks of boilerplate. Ship your B2B SaaS faster with production-ready:
+- Route-based multi-tenancy with active/deactivated memberships, viewer access, and owner/admin invariants
+- Passwordless email-code authentication, database-backed sessions, TOTP, backup codes, and step-up authentication
+- Terms/profile onboarding, consent timestamps, banning, safe account closure/redaction, and expiring organization data exports
+- Email-first organization invitations with expiry, resend throttling, acceptance, decline, revoke, and former-member reactivation
+- Stripe subscriptions through Pay
+- Pundit authorization with tenant-safe scopes
+- Append-only, tenant-scoped audit logs with actor and request snapshots
+- Authenticated Active Storage delivery, server-upload metadata stripping, decompression-bomb checks, and ClamAV scanning
+- Background image-variant preprocessing, cacheable external SVG icons, and enforced browser security policies
+- Per-organization SAML 2.0 SSO with verified domains, enforcement, JIT, signed assertions, and replay protection
+- SCIM 2.0 provisioning with one-time bearer tokens and safe member lifecycle rules
+- Tailwind CSS 4, daisyUI 5, Hotwire, ViewComponent, shared page/shell components, and dark mode
+- Avo, GoodJob, PgHero, Flipper, Noticed, AppSignal, accessibility checks, and production-oriented lint/security checks
+- Kamal deployment, database backups with restore drills, image/configuration scanning, and conservative registry pruning
+- A standalone Hugo one-page website for the main domain, with the Rails application conventionally hosted at `app.<domain>`
+- `Project`, an example mini-app demonstrating tenant ownership, rich forms, files, policies, and audit events
 
-- **Multi-tenant architecture** - Route-based organization management
-- **Team management** - Invitations, roles, member administration
-- **Stripe subscriptions** - Payments via Pay gem, ready to monetize
-- **Authentication** - Devise + OAuth (Google, GitHub)
-- **Authorization** - Pundit policies per organization
-- **Modern UI** - Tailwind CSS, daisyUI, dark mode
+Moneygun contains no product-specific business domain. The example module is intended to be replaced.
 
-> Teams should be an MVP feature. [Learn why](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/)
+## Quick start
 
-## Quick Start
+Prerequisites are Ruby 4.0, PostgreSQL, Node.js, Hugo, and the Stripe CLI when developing billing.
 
 ```bash
 git clone git@github.com:yshmarov/moneygun.git my-saas
@@ -31,82 +40,45 @@ bin/setup
 bin/dev
 ```
 
-## Deploy
+Open the website at [http://localhost:4000](http://localhost:4000) and the Rails application at [http://localhost:3000](http://localhost:3000). In development, email verification codes are shown in the UI as well as delivered through the configured mailer.
 
-Deploy to production with [Kamal](https://kamal-deploy.org/). See the [Deployment Guide](docs/deployment.md) for details.
+## Verify a change
+
+```bash
+bin/ci
+```
+
+`bin/ci` prepares the app, runs formatting, lint, security and dependency audits, checks eager loading and database health, then runs unit, system, and seed tests. Use `bin/lint --fix` for safe formatting and lint autocorrections.
 
 ## Documentation
 
-| Guide                                            | Description                     |
-| ------------------------------------------------ | ------------------------------- |
-| [Getting Started](docs/getting-started.md)       | Installation and setup          |
-| [Architecture](docs/architecture.md)             | Multi-tenancy, models, patterns |
-| [Stripe Integration](docs/stripe-integration.md) | Payments and subscriptions      |
-| [Development](docs/development.md)               | Testing, linting, conventions   |
-| [Deployment](docs/deployment.md)                 | Production deployment guides    |
-| [Linting](docs/linting.md)                       | Code quality tools              |
+| Guide                                              | Purpose                                             |
+| -------------------------------------------------- | --------------------------------------------------- |
+| [Getting started](docs/getting-started.md)         | Local installation and application configuration    |
+| [Architecture](docs/architecture.md)               | Tenancy, current context, models, and authorization |
+| [Authentication](docs/authentication.md)           | Passwordless sessions, MFA, sudo, and email changes |
+| [Security](docs/security.md)                       | Tenant isolation, audit logs, and file delivery     |
+| [Enterprise identity](docs/enterprise-identity.md) | SAML and SCIM configuration and guarantees          |
+| [Mini-app pattern](docs/mini-app-pattern.md)       | Building or replacing an organization module        |
+| [Stripe integration](docs/stripe-integration.md)   | Plans, webhooks, and paywalls                       |
+| [Development](docs/development.md)                 | Tests, linting, and conventions                     |
+| [Linting and audits](docs/linting.md)              | Local quality gate and automated dependency checks  |
+| [Deployment](docs/deployment.md)                   | Production deployment with Kamal                    |
+| [Website](website/README.md)                       | Main-domain Hugo site and app-subdomain convention  |
 
-## Video Tutorials
+## Design choices
 
-<table>
-  <tr>
-    <td width="50%">
-      <a href="https://superails.com/posts/rails-7-115-multitenancy-teams-and-roles-without-a-gem">
-        <img src="https://i3.ytimg.com/vi/KMonLTvWR5g/maxresdefault.jpg" alt="Route-based multitenancy" />
-      </a>
-      <br><strong>Route-based Multitenancy</strong>
-    </td>
-    <td width="50%">
-      <a href="https://superails.com/posts/233-build-your-next-b2b-saas-with-moneygun-saas-multitenancy-boilerplate">
-        <img src="https://i.ytimg.com/vi/KjlEm1kRYFY/hqdefault.jpg" alt="Build your B2B SaaS" />
-      </a>
-      <br><strong>Build Your B2B SaaS</strong>
-    </td>
-  </tr>
-</table>
+- A user may belong to several organizations; tenant state lives in `Membership`, not `User`.
+- Organization resources carry both `organization` and `membership`, with a same-organization invariant.
+- Signed file URLs do not bypass authorization.
+- SSO/SCIM identity providers cannot silently adopt an existing global account into a new tenant.
+- Audit events are append-only, but disappear with their organization to preserve tenant deletion semantics.
+- Sensitive changes require recent proof of control, independent of the long-lived session.
 
-## How Does Moneygun Compare?
+## Deployment
 
-Moneygun is a lightweight starting point. [Bullet Train](https://bullettrain.co/) and [Jumpstart Pro](https://jumpstartrails.com/) are more full-featured frameworks with ongoing support.
-
-| Feature                       | Moneygun           | Bullet Train               | Jumpstart Pro                                      |
-| ----------------------------- | ------------------ | -------------------------- | -------------------------------------------------- |
-| **Price**                     | Free               | Free                       | $249-749/yr                                        |
-| **License**                   | MIT                | MIT                        | Commercial                                         |
-| **Multi-tenancy**             | Route-based        | Team-based                 | Multiple strategies                                |
-| **Authentication**            | Devise + OAuth     | Devise + OAuth             | Devise + OAuth                                     |
-| **Two-factor auth**           | -                  | Yes                        | Yes                                                |
-| **Authorization**             | Pundit             | CanCanCan                  | Pundit                                             |
-| **Payments**                  | Stripe (Pay gem)   | Stripe (Pay gem)           | Stripe, Paddle, Lemon Squeezy, Braintree (Pay gem) |
-| **Teams & Invitations**       | Yes                | Yes                        | Yes                                                |
-| **Admin panel**               | Avo                | Avo                        | Madmin                                             |
-| **REST API**                  | -                  | Yes (OpenAPI 3.1)          | Yes                                                |
-| **Outgoing webhooks**         | -                  | Yes                        | -                                                  |
-| **Code generation**           | Custom scaffold    | Super Scaffolding          | Rails scaffold                                     |
-| **Mobile apps (iOS/Android)** | Coming soon        | -                          | Hotwire Native ($199-599/yr)                       |
-| **Notifications**             | Noticed            | ActionMailer + ActionCable | Noticed                                            |
-| **Audit logs**                | -                  | Yes                        | -                                                  |
-| **User impersonation**        | Yes (Masquerade)   | -                          | Yes (Pretender)                                    |
-| **Feature flags**             | Flipper            | -                          | -                                                  |
-| **I18n**                      | Partial (EN, FR)   | Yes                        | Yes                                                |
-| **UI framework**              | Tailwind + daisyUI | Tailwind (custom theme)    | Tailwind + daisyUI                                 |
-| **Background jobs**           | GoodJob            | Sidekiq                    | SolidQueue / Sidekiq                               |
-| **Official support**          | Community          | Yes                        | Yes                                                |
-
-**Choose Moneygun** if you want a free, simple foundation you fully own and understand — no framework abstractions, no subscription, just plain Rails you can read top to bottom.
-
-**Choose [Bullet Train](https://bullettrain.co/)** if you need a production-grade framework with advanced features, code generation, official support, and a team behind it.
-
-## Contributors
-
-<a href="https://github.com/yshmarov/moneygun">
-  <img src="https://contrib.rocks/image?repo=yshmarov/moneygun" />
-</a>
+Moneygun includes Kamal configuration. See the [deployment guide](docs/deployment.md). Configure production mail delivery, Stripe credentials, storage, and a stable `SECRET_KEY_BASE` before enabling authentication or encrypted MFA data.
 
 ## License
 
-MIT License - see [LICENCE](LICENCE.md)
-
-## Acknowledgments
-
-Inspired by [Bullet Train](https://bullettrain.co/) and [Jumpstart Pro](https://jumpstartrails.com/).
+MIT License. See [LICENCE.md](LICENCE.md).

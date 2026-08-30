@@ -1,0 +1,15 @@
+<% if data_export %>
+  <div class="list bg-base-200 rounded-box">
+    <div class="list-row items-center">
+      <div class="list-col-grow">
+        <div class="font-semibold"><%= l(data_export.created_at, format: :short) %></div>
+        <span class="badge badge-sm <%= data_export.completed? ? 'badge-success' : data_export.failed? ? 'badge-error' : 'badge-ghost' %>"><%= t("organizations.data_exports.index.statuses.#{data_export.expired? ? 'expired' : data_export.status}") %></span>
+      </div>
+      <% if data_export.downloadable? %>
+        <%= link_to t("organizations.data_exports.index.download"), organization_data_export_path(@organization, data_export), class: "btn btn-outline btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <%= render EmptyStateComponent.new(title: t("organizations.data_exports.index.empty")) %>
+<% end %>

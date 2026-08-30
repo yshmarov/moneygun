@@ -10,7 +10,7 @@ You may use our services only as permitted by these Terms of Service and any app
 
 ## Your Account
 
-You are responsible for maintaining the confidentiality of your account and password and for all activities that occur under your account.
+You are responsible for maintaining the security of your email account and authentication credentials, and for all activities that occur under your account.
 
 ## User Content
 

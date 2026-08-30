@@ -1,0 +1,22 @@
+<% content_for :title, t("users.email_changes.show.title") %>
+<% content_for :robots, "noindex" %>
+
+<div class="mx-auto w-full max-w-md min-w-0 text-center space-y-6">
+  <div class="space-y-2 min-w-0">
+    <h1 class="text-2xl sm:text-3xl leading-tight font-black break-words"><%= t("users.email_changes.show.title") %></h1>
+    <p class="text-base-content/60 break-words"><%= t("users.email_changes.show.instructions") %></p>
+  </div>
+
+  <%= simple_form_for :email_change, url: user_email_change_path, method: :patch, html: { class: "space-y-4 min-w-0" } do |f| %>
+    <%= f.input :code, as: :verification_code, format: :numeric, required: true, autofocus: true,
+        label: t("users.email_changes.show.code_label"), input_html: { name: "code" } %>
+    <%= f.submit t("users.email_changes.show.submit"), class: "btn btn-primary w-full" %>
+  <% end %>
+
+  <p class="text-sm text-base-content/70 break-words">
+    <%= t("users.email_changes.show.sent_to_html", email: tag.strong(pending_email_change, class: "break-all")) %>
+    <%= t("users.email_changes.show.expires_in", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %>
+  </p>
+
+  <%= link_to t("users.email_changes.show.try_again"), user_path, class: "link link-hover text-sm" %>
+</div>

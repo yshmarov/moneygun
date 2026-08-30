@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class SectionComponent < ViewComponent::Base
+class SectionComponent < ApplicationComponent
   renders_one :action_list
-  renders_one :title_content
+  renders_one :page_title, PageTitleComponent
 
   def initialize(title: nil, subtitle: nil, full_width: true)
     @title = title
@@ -13,10 +13,6 @@ class SectionComponent < ViewComponent::Base
   attr_reader :title, :subtitle
 
   def width_class
-    if @full_width == true
-      "max-w-7xl w-full"
-    else
-      "lg:max-w-2xl w-full"
-    end
+    @full_width ? "max-w-7xl w-full" : "lg:max-w-2xl w-full"
   end
 end

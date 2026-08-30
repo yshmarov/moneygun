@@ -7,10 +7,9 @@ class MembershipTest < ActiveSupport::TestCase
     membership = Membership.new(organization: organizations(:one), user: users(:one))
     assert_not membership.valid?
     assert_includes membership.errors.messages[:user_id], I18n.t("errors.messages.taken")
-    assert_includes membership.errors.messages[:organization_id], I18n.t("errors.messages.taken")
   end
 
-  test "try_destroy" do
+  test "try_destroy deactivates removable memberships" do
     # does not destroy only admin
     organization = organizations(:one)
     membership = organization.memberships.first
@@ -21,19 +20,22 @@ class MembershipTest < ActiveSupport::TestCase
     new_membership = organization.memberships.create(user: users(:two), role: "member")
     assert_not membership.try_destroy
     assert new_membership.try_destroy
+    assert new_membership.reload.deactivated?
 
-    # does not destroy owner even if there is another admin
-    new_membership = organization.memberships.create(user: users(:two), role: "admin")
+    # does not deactivate owner even if there is another admin
+    new_membership.update!(deactivated_at: nil, role: "admin")
     assert_not membership.try_destroy
 
     # destroy previous owner
     membership.organization.transfer_ownership(users(:two))
     assert membership.try_destroy
+    assert membership.reload.deactivated?
     assert_not new_membership.try_destroy
 
-    # destroys non-owner admin if there is another admin
-    membership = organization.memberships.create(user: users(:one), role: "admin")
+    # deactivates non-owner admin if there is another admin
+    membership.update!(deactivated_at: nil, role: "admin")
     assert membership.try_destroy
+    assert membership.reload.deactivated?
     assert_not new_membership.try_destroy
   end
 

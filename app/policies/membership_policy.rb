@@ -18,14 +18,19 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def update?
-    membership&.admin?
+    membership&.admin? && !record.owner?
+  end
+
+  def reactivate?
+    membership&.admin? && record.deactivated? && !record.user.redacted?
   end
 
   def destroy?
-    return true if membership&.admin? # Admins can remove anyone
-    return true if membership&.member? && record.user_id == membership.user_id # Members can remove themselves
+    return false unless membership
+    return false if record.owner?
+    return true if record.user_id == membership.user_id
 
-    false
+    membership.admin? && record.active?
   end
 
   private

@@ -1,0 +1,34 @@
+<% content_for :title, t("sessions.magic_links.show.title") %>
+<% content_for :robots, "noindex" %>
+
+<div class="mx-auto w-full max-w-md text-center space-y-6">
+  <div class="space-y-2">
+    <h1 class="text-2xl font-bold"><%= t("sessions.magic_links.show.title") %></h1>
+    <p class="text-base-content/60"><%= t("sessions.magic_links.show.instructions") %></p>
+  </div>
+
+  <%= simple_form_for :magic_link, url: session_magic_link_path, method: :post, html: { class: "space-y-4" } do |f| %>
+    <%= f.input :code,
+                required: true,
+                autofocus: true,
+                label: t("sessions.magic_links.show.code_label"),
+                input_html: { name: "code", inputmode: "numeric", autocomplete: "one-time-code", maxlength: 6, pattern: "[0-9]*", class: "text-center tracking-[0.4em] text-xl" } %>
+
+    <%= f.submit t("sessions.magic_links.show.submit"), class: "btn btn-primary w-full" %>
+  <% end %>
+
+  <p class="text-sm text-base-content/70">
+    <%= t("sessions.magic_links.show.sent_to_html", email: tag.strong(email_address_pending_authentication, class: "break-all")) %>
+    <%= t("sessions.magic_links.show.expires_in", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %>
+  </p>
+
+  <%= link_to t("sessions.magic_links.show.try_again"), new_session_path, class: "link link-hover text-sm" %>
+
+  <% if Rails.env.development? && flash[:magic_link_code].present? %>
+    <div class="alert alert-info mt-4" data-controller="clipboard">
+      <input type="hidden" value="<%= flash[:magic_link_code] %>" data-clipboard-target="source">
+      <code class="text-lg font-bold"><%= flash[:magic_link_code] %></code>
+      <button type="button" data-action="clipboard#copy" class="btn btn-soft btn-xs"><%= t("shared.actions.copy") %></button>
+    </div>
+  <% end %>
+</div>

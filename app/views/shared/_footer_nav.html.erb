@@ -1,14 +1,14 @@
 <nav class="dock dock-lg sticky bottom-0 lg:hidden border-t border-base-content/20" aria-label="Mobile navigation">
   <%# Organizations %>
   <%= active_link_to organizations_path, active: :inclusive, class_active: "dock-active", aria: { label: t("shared.navigation.organizations") } do %>
-    <%= inline_svg_tag Organization::ICON, class: "size-[1.2em]", aria: { hidden: true } %>
+    <%= icon_tag Organization::ICON, class: "size-[1.2em]" %>
     <span class="dock-label"><%= t("shared.navigation.organizations") %></span>
   <% end %>
 
   <%# Notifications %>
   <%= active_link_to user_notifications_path, class_active: "dock-active", aria: { label: t("users.notifications.index.title") }, data: { turbo_prefetch: false } do %>
     <span class="relative">
-      <%= inline_svg_tag "svg/bell.svg", class: "size-[1.2em]", aria: { hidden: true } %>
+      <%= icon_tag "bell", class: "size-[1.2em]" %>
 
       <span class="notification-badge absolute -top-1 -right-1.5">
         <%= render "shared/notification_badge", count: current_user.unseen_notifications_count %>

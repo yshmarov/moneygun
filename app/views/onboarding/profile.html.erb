@@ -1,0 +1,14 @@
+<% content_for :title, t("onboarding.profile.title") %>
+<% content_for :robots, "noindex" %>
+
+<div class="text-center mb-8">
+  <h1 class="text-2xl font-bold"><%= t("onboarding.profile.title") %></h1>
+  <p class="text-base-content/70 mt-2"><%= t("onboarding.profile.subtitle") %></p>
+</div>
+
+<%= simple_form_for current_user, url: update_profile_onboarding_path, method: :patch, html: { class: "space-y-4" } do |f| %>
+  <%= render "shared/errors", object: current_user %>
+  <%= f.input :avatar, as: :dropzone, input_html: { accept: "image/png, image/jpeg, image/gif" } %>
+  <%= f.input :name, input_html: { autofocus: true, autocomplete: "name" } %>
+  <%= f.button :submit, t("onboarding.profile.continue"), class: "btn btn-primary btn-block" %>
+<% end %>

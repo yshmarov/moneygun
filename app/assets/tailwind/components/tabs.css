@@ -1,0 +1,4 @@
+/* daisyUI's 50% inactive tab color falls below WCAG AA on the light theme. */
+.tabs .tab:not(.tab-disabled, [disabled]) {
+  color: var(--color-base-content) !important;
+}

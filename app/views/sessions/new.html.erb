@@ -1,0 +1,31 @@
+<% content_for :title, t("sessions.new.title") %>
+<% content_for :robots, "noindex" %>
+
+<div class="w-full max-w-md mx-auto space-y-6 text-center">
+  <h1 class="text-2xl font-bold"><%= t("sessions.new.title") %></h1>
+  <p class="text-base-content/70"><%= t("sessions.new.magic_link_explanation") %></p>
+
+  <%= simple_form_for :session, url: session_path, html: { class: "space-y-3", data: { turbo_frame: "_top" } } do |f| %>
+    <%= invisible_captcha %>
+    <%= f.input :email_address,
+                as: :email,
+                required: true,
+                autofocus: true,
+                label: User.human_attribute_name(:email),
+                input_html: {
+                  name: "email_address",
+                  value: @prefill_email_address,
+                  autocomplete: "username",
+                  autocorrect: "off",
+                  autocapitalize: "none",
+                  spellcheck: "false",
+                  inputmode: "email",
+                  placeholder: t("sessions.new.email_placeholder"),
+                  class: "text-center"
+                } %>
+
+    <%= f.submit t("sessions.new.submit"), class: "btn btn-primary btn-block" %>
+  <% end %>
+</div>
+
+<p class="text-center text-sm mt-4"><%= link_to t("sessions.sso.new.title"), new_sso_path, class: "link link-hover" %></p>

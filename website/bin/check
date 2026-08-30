@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+WEBSITE_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$WEBSITE_ROOT"
+
+hugo --gc --minify --panicOnWarning
+
+for output in public/index.html public/robots.txt public/sitemap.xml; do
+  test -s "$output" || { echo "Missing generated file: $output" >&2; exit 1; }
+done
+
+grep -Eq '<main id=main>' public/index.html
+grep -Eq 'href=https?://[^ >]+/session/new' public/index.html
+grep -Fq 'https://github.com/yshmarov/moneygun' public/index.html
+
+echo "Website build checks passed"

@@ -1,6 +1,7 @@
 <% content_for :title, t("organizations.projects.show.title") %>
 
-<%= render SectionComponent.new(title: breadcrumbs([t("organizations.projects.index.title"), organization_projects_path(@organization)], [@project.name])) do |component| %>
+<%= render SectionComponent.new do |component| %>
+  <% component.with_page_title [t("organizations.projects.index.title"), organization_projects_path(@organization)], @project.name, back_to: organization_projects_path(@organization) %>
   <% component.with_action_list do %>
     <%= link_to t("shared.actions.edit"), [:edit, @organization, @project], data: { turbo_frame: :modal }, class: "btn btn-primary btn-sm" %>
     <%= button_to t("shared.actions.destroy"), [@organization, @project], method: :delete, data: { turbo_confirm: t("shared.actions.confirm") }, class: "btn btn-error btn-sm" %>

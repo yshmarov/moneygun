@@ -2,13 +2,17 @@
 
 class OrganizationsController < ApplicationController
   include OrganizationPrefill
+  include OrganizationAgreements
 
   layout "centered", only: %i[new create]
 
   before_action :set_organization, only: %i[show edit update destroy]
+  before_action :require_organization_agreement, only: %i[show edit update destroy]
+  before_action -> { require_sudo(:destroy_organization) }, only: :destroy
 
   def index
-    @pagy, @organizations = pagy(current_user.organizations.with_logo.includes(:users, :memberships, :sent_invitations, :received_join_requests))
+    organizations = current_user.organizations.where(memberships: { deactivated_at: nil })
+    @pagy, @organizations = pagy(organizations.with_logo.includes(:users, :memberships, :invitations, :received_join_requests))
   end
 
   def show; end
@@ -31,7 +35,8 @@ class OrganizationsController < ApplicationController
     @organization.owner = current_user
 
     if @organization.save
-      redirect_to organization_path(@organization)
+      session[:organization_onboarding_id] = @organization.id
+      redirect_to organization_dpa_agreement_path(@organization)
     else
       @show_form = true
       render :new, status: :unprocessable_content
@@ -49,20 +54,20 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    if @organization.destroy
-      flash[:notice] = t(".success")
+    if @organization.undeletable_reasons.any?
+      redirect_to edit_organization_path(@organization), alert: t(".has_active_subscription")
+    elsif @organization.erase!
       redirect_to organizations_path
     else
-      flash[:alert] = t(".error")
-      redirect_to organization_path(@organization)
+      redirect_to edit_organization_path(@organization), alert: t(".error")
     end
   end
 
   private
 
   def set_organization
-    @organization = current_user.organizations.find(params[:id])
-    Current.membership = current_user.memberships.find_by(organization: @organization)
+    @organization = current_user.organizations.where(memberships: { deactivated_at: nil }).find(params[:id])
+    Current.membership = current_user.memberships.active.find_by(organization: @organization)
     Current.organization = Current.membership&.organization
     authorize @organization
   rescue ActiveRecord::RecordNotFound

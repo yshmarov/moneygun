@@ -1,7 +1,11 @@
 <%= simple_form_for(
       [@organization, project],
       html: { class: "contents space-y-6" },
-      data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" }
+      data: {
+        controller: "auto-submit unsaved-changes",
+        action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit input->unsaved-changes#markDirty change->unsaved-changes#markDirty beforeunload@window->unsaved-changes#beforeUnload turbo:before-visit@document->unsaved-changes#beforeVisit turbo:submit-start->unsaved-changes#submitStart turbo:submit-end->unsaved-changes#submitEnd",
+        unsaved_changes_message_value: t("shared.forms.unsaved_changes")
+      }
     ) do |f| %>
   <%= render "shared/errors", object: f.object %>
 

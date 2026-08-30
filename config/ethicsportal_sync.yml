@@ -1,0 +1,37 @@
+source_repository: https://github.com/yshmarov/ethicsportal.eu.git
+last_reviewed_revision: 96d4e16f6a63eeb2176681fa6196933af9abafc3
+
+compare:
+  - Gemfile
+  - Dockerfile
+  - config/deploy.yml
+  - config/initializers/active_storage.rb
+  - config/initializers/good_job.rb
+  - config/allgood.rb
+  - .github/workflows/ci.yml
+  - app/controllers/concerns/authentication.rb
+  - app/models/concerns/organization/billing.rb
+  - app/models/membership.rb
+  - app/models/user.rb
+
+adapt:
+  - app/analyzers/active_storage/analyzer/safe_image_analyzer.rb
+  - app/controllers/concerns/active_storage/virus_scan_guard.rb
+  - app/jobs/virus_scan_job.rb
+  - app/models/concerns/scans_for_viruses.rb
+  - app/models/concerns/strips_file_metadata.rb
+  - app/services/antivirus_scanner.rb
+  - app/services/file_metadata_stripper.rb
+  - app/controllers/organizations/onboarding
+  - app/jobs/pg_hero
+  - app/javascript/controllers
+  - .github/workflows/deploy-website.yml
+
+exclude:
+  - app/models/whistleblower
+  - app/controllers/portal
+  - app/controllers/organizations/whistleblower
+  - app/views/portal
+  - app/views/organizations/whistleblower
+  - website
+  - whistleblower-directory

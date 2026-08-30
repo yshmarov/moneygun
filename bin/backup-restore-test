@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+host="${BACKUP_RESTORE_HOST:-${KAMAL_HOST:?Set KAMAL_HOST or BACKUP_RESTORE_HOST}}"
+service="${KAMAL_SERVICE:-moneygun}"
+database_container="${DATABASE_CONTAINER:-${service}-db}"
+backup_container="${BACKUP_CONTAINER:-${service}-db_backup}"
+database_user="${POSTGRES_USER:-moneygun}"
+database_name="${POSTGRES_DB:-moneygun_production}"
+bucket="${BACKUP_BUCKET_NAME:-${BUCKET_NAME:?Set BUCKET_NAME or BACKUP_BUCKET_NAME}}"
+prefix="${BACKUP_S3_PREFIX:-backups/postgres}"
+scratch_name="${service}-restore-scratch"
+scratch_volume="${scratch_name}-data"
+requested_dump="${1:-}"
+
+ssh root@"$host" "bash -s" -- \
+  "$database_container" "$backup_container" "$database_user" "$database_name" \
+  "$bucket" "$prefix" "$scratch_name" "$scratch_volume" "$requested_dump" <<'REMOTE'
+set -euo pipefail
+
+database_container="$1"
+backup_container="$2"
+database_user="$3"
+database_name="$4"
+bucket="$5"
+prefix="$6"
+scratch_name="$7"
+scratch_volume="$8"
+requested_dump="$9"
+scratch_dir="/tmp/${scratch_name}"
+
+cleanup() {
+  docker rm -f "$scratch_name" >/dev/null 2>&1 || true
+  docker volume rm "$scratch_volume" >/dev/null 2>&1 || true
+  rm -rf "$scratch_dir"
+}
+trap cleanup EXIT
+
+if [ -n "$requested_dump" ]; then
+  dump="$requested_dump"
+else
+  dump=$(docker exec "$backup_container" sh -c \
+    'AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY" AWS_EC2_METADATA_DISABLED=true aws s3 ls "s3://'$bucket'/'$prefix'/" --endpoint-url "$S3_ENDPOINT" --region "$S3_REGION"' \
+    | awk '{print $4}' | grep -E '\.dump$' | sort | tail -1)
+fi
+
+[ -n "$dump" ] || { echo "No Postgres backup found" >&2; exit 1; }
+mkdir -p "$scratch_dir"
+
+docker exec "$backup_container" sh -c \
+  'AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY" AWS_EC2_METADATA_DISABLED=true aws s3 cp "s3://'$bucket'/'$prefix'/'$dump'" "/tmp/'$dump'" --endpoint-url "$S3_ENDPOINT" --region "$S3_REGION" --quiet'
+docker cp "$backup_container:/tmp/$dump" "$scratch_dir/$dump"
+docker exec "$backup_container" rm "/tmp/$dump"
+
+docker rm -f "$scratch_name" >/dev/null 2>&1 || true
+docker volume rm "$scratch_volume" >/dev/null 2>&1 || true
+docker run -d --name "$scratch_name" \
+  -e POSTGRES_PASSWORD=scratchpass \
+  -e POSTGRES_USER="$database_user" \
+  -e POSTGRES_DB="$database_name" \
+  -v "$scratch_volume:/var/lib/postgresql" postgres:18 >/dev/null
+
+for _ in $(seq 1 30); do
+  docker exec "$scratch_name" pg_isready -U "$database_user" -d "$database_name" >/dev/null 2>&1 && break
+  sleep 1
+done
+docker exec "$scratch_name" pg_isready -U "$database_user" -d "$database_name" >/dev/null
+
+docker cp "$scratch_dir/$dump" "$scratch_name:/tmp/backup.dump"
+docker exec "$scratch_name" pg_restore -U "$database_user" -d "$database_name" --no-owner --no-privileges /tmp/backup.dump
+
+query="SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE' ORDER BY table_name"
+live_tables=$(docker exec "$database_container" psql -U "$database_user" -d "$database_name" -At -c "$query")
+restored_tables=$(docker exec "$scratch_name" psql -U "$database_user" -d "$database_name" -At -c "$query")
+[ "$live_tables" = "$restored_tables" ] || { echo "Restored table set differs from production" >&2; exit 1; }
+
+while IFS= read -r table; do
+  [ -n "$table" ] || continue
+  live=$(docker exec "$database_container" psql -U "$database_user" -d "$database_name" -At -c "SELECT count(*) FROM \"$table\"")
+  restored=$(docker exec "$scratch_name" psql -U "$database_user" -d "$database_name" -At -c "SELECT count(*) FROM \"$table\"")
+  [ "$restored" -le "$live" ] || { echo "$table has more restored rows than production" >&2; exit 1; }
+done <<< "$restored_tables"
+
+echo "Backup $dump restored successfully and passed schema/row-count checks."
+REMOTE

@@ -3,7 +3,7 @@
 module SubscriptionHelper
   def subscription_status_label(organization)
     return "🔴" unless organization.has_access?
-    return "🟠" if organization.payment_processor.subscription.cancelled?
+    return "🟠" if organization.payment_processor&.subscription&.cancelled? && !organization.complimentary_access?
 
     "🟢"
   end

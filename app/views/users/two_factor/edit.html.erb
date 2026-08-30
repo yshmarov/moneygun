@@ -1,0 +1,10 @@
+<% content_for :title, t("users.two_factor.edit.title") %>
+
+<%= render SectionComponent.new(full_width: false) do |component| %>
+  <% component.with_page_title t("users.two_factor.edit.title"), back_to: user_path %>
+  <p><%= t("users.two_factor.edit.instructions") %></p>
+  <%= simple_form_for :two_factor, url: user_two_factor_path, method: :delete, html: { class: "space-y-4" } do |f| %>
+    <%= f.input :code, required: true, label: t("users.two_factor.code_label"), input_html: { autocomplete: "one-time-code" } %>
+    <%= f.submit t("users.two_factor.edit.submit"), class: "btn btn-error" %>
+  <% end %>
+<% end %>

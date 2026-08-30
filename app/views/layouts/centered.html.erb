@@ -8,7 +8,7 @@
     <div class="flex-grow flex flex-col bg-base-300">
       <header class="sticky z-20 top-0">
         <nav class="relative flex justify-center px-6 py-4 bg-base-100" aria-label="<%= t("shared.navigation.home") %>">
-          <%= link_to root_path, class: "no-underline" do %>
+          <%= link_to (user_signed_in? ? root_path : Rails.application.config_for(:settings).dig(:site, :website_url)), class: "no-underline" do %>
             <span class="text-2xl font-bold"><%= Rails.application.config_for(:settings).dig(:site, :name_html)&.html_safe %></span>
           <% end %>
         </nav>

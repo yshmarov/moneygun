@@ -1,0 +1,10 @@
+<% content_for :title, t("users.two_factor.show.title") %>
+
+<%= render SectionComponent.new(full_width: false) do |component| %>
+  <% component.with_page_title t("users.two_factor.show.title") %>
+  <p class="alert alert-warning"><%= t("users.two_factor.show.warning") %></p>
+  <div class="grid grid-cols-2 gap-2 font-mono">
+    <% @backup_codes.each do |code| %><code class="p-2 bg-base-200 rounded text-center"><%= code %></code><% end %>
+  </div>
+  <%= link_to t("users.two_factor.show.done"), user_path, class: "btn btn-primary w-full" %>
+<% end %>

@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_30_130200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "access_requests", force: :cascade do |t|
     t.bigint "completed_by"
@@ -22,6 +23,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.string "type"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index ["completed_by"], name: "index_access_requests_on_completed_by"
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
     t.index ["user_id", "organization_id"], name: "index_access_requests_on_user_id_and_organization_id", unique: true
     t.index ["user_id"], name: "index_access_requests_on_user_id"
@@ -87,6 +89,58 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "agreements_acceptances", force: :cascade do |t|
+    t.text "acceptance_statement", null: false
+    t.datetime "accepted_at", null: false
+    t.string "actor_key", null: false
+    t.bigint "agreement_version_id", null: false
+    t.string "authority", null: false
+    t.datetime "created_at", null: false
+    t.string "locale", null: false
+    t.string "subject_key", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agreement_version_id", "subject_key"], name: "index_agreement_acceptances_on_version_and_subject", unique: true
+    t.index ["subject_key"], name: "index_agreements_acceptances_on_subject_key"
+  end
+
+  create_table "agreements_versions", force: :cascade do |t|
+    t.text "acceptance_statement", null: false
+    t.string "agreement_key", null: false
+    t.datetime "created_at", null: false
+    t.json "documents", default: [], null: false
+    t.datetime "updated_at", null: false
+    t.string "version", null: false
+    t.index ["agreement_key", "version"], name: "index_agreements_versions_on_agreement_key_and_version", unique: true
+  end
+
+  create_table "audit_logs", force: :cascade do |t|
+    t.string "action", null: false
+    t.bigint "actor_id"
+    t.string "actor_kind", null: false
+    t.string "actor_type"
+    t.datetime "created_at", null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.string "mini_app", default: "organization", null: false
+    t.bigint "organization_id"
+    t.bigint "subject_id"
+    t.string "subject_type"
+    t.datetime "updated_at", null: false
+    t.index ["actor_type", "actor_id"], name: "index_audit_logs_on_actor"
+    t.index ["mini_app"], name: "index_audit_logs_on_mini_app"
+    t.index ["organization_id", "created_at"], name: "index_audit_logs_on_organization_id_and_created_at"
+    t.index ["subject_type", "subject_id"], name: "index_audit_logs_on_subject_type_and_subject_id"
+  end
+
+  create_table "data_exports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "membership_id", null: false
+    t.bigint "organization_id", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.index ["membership_id"], name: "index_data_exports_on_membership_id"
+    t.index ["organization_id"], name: "index_data_exports_on_organization_id"
   end
 
   create_table "flipper_features", force: :cascade do |t|
@@ -196,28 +250,49 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
-  create_table "identities", force: :cascade do |t|
-    t.string "access_token"
+  create_table "invitations", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.datetime "expires_at"
-    t.jsonb "payload"
-    t.string "provider"
-    t.string "refresh_token"
-    t.datetime "refresh_token_invalidated_at"
-    t.string "uid"
+    t.string "email", null: false
+    t.datetime "expires_at", null: false
+    t.bigint "invited_by_id"
+    t.datetime "last_sent_at"
+    t.bigint "organization_id", null: false
+    t.string "role", default: "member", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((email)::text)", name: "index_invitations_on_lower_email"
+    t.index ["expires_at"], name: "index_invitations_on_expires_at"
+    t.index ["invited_by_id"], name: "index_invitations_on_invited_by_id"
+    t.index ["organization_id", "email"], name: "index_invitations_on_organization_id_and_email", unique: true
+    t.index ["organization_id"], name: "index_invitations_on_organization_id"
+    t.index ["token"], name: "index_invitations_on_token", unique: true
+  end
+
+  create_table "magic_links", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.string "new_email"
+    t.string "purpose", default: "sign_in", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["refresh_token_invalidated_at"], name: "index_identities_on_refresh_token_invalidated_at"
-    t.index ["uid", "provider"], name: "index_identities_on_uid_and_provider", unique: true
-    t.index ["user_id"], name: "index_identities_on_user_id"
+    t.index ["code"], name: "index_magic_links_on_code", unique: true
+    t.index ["expires_at"], name: "index_magic_links_on_expires_at"
+    t.index ["user_id"], name: "index_magic_links_on_user_id"
   end
 
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.datetime "deactivated_at"
+    t.string "display_name"
     t.bigint "organization_id", null: false
+    t.string "provisioned_via", default: "invitation", null: false
     t.string "role", default: "member", null: false
+    t.string "scim_external_id"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index ["organization_id", "deactivated_at"], name: "index_memberships_on_organization_id_and_deactivated_at"
+    t.index ["organization_id", "scim_external_id"], name: "index_memberships_on_organization_id_and_scim_external_id", unique: true, where: "(scim_external_id IS NOT NULL)"
     t.index ["organization_id", "user_id"], name: "index_memberships_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_memberships_on_organization_id"
     t.index ["role"], name: "index_memberships_on_role"
@@ -257,14 +332,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
   end
 
   create_table "organizations", force: :cascade do |t|
+    t.boolean "admin_granted_access", default: false, null: false
     t.datetime "created_at", null: false
-    t.string "name"
+    t.datetime "deleted_at"
+    t.jsonb "metadata", default: {}, null: false
+    t.string "name", null: false
     t.bigint "owner_id", null: false
     t.string "privacy_setting", default: "private", null: false
     t.datetime "updated_at", null: false
     t.string "website"
-    t.index ["name"], name: "index_organizations_on_name"
-    t.index ["owner_id"], name: "index_organizations_on_owner_id"
+    t.index ["deleted_at"], name: "index_organizations_on_deleted_at", where: "(deleted_at IS NOT NULL)"
+    t.index ["name"], name: "index_organizations_on_name", where: "(deleted_at IS NULL)"
+    t.index ["owner_id"], name: "index_organizations_on_owner_id", where: "(deleted_at IS NULL)"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -363,6 +442,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.bigint "calls"
+    t.datetime "captured_at", precision: nil
+    t.text "database"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.text "user"
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
+  end
+
+  create_table "pghero_space_stats", force: :cascade do |t|
+    t.datetime "captured_at", precision: nil
+    t.text "database"
+    t.text "relation"
+    t.text "schema"
+    t.bigint "size"
+    t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.decimal "budget", precision: 10, scale: 2
     t.string "category"
@@ -374,6 +473,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.text "description"
     t.date "due_date"
     t.boolean "is_active", default: true
+    t.bigint "membership_id", null: false
     t.string "name", null: false
     t.bigint "organization_id", null: false
     t.string "phone_number"
@@ -388,6 +488,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.text "tags", default: [], array: true
     t.datetime "updated_at", null: false
     t.string "website_url"
+    t.index ["membership_id"], name: "index_projects_on_membership_id"
     t.index ["name", "organization_id"], name: "index_projects_on_name_and_organization_id", unique: true
     t.index ["organization_id"], name: "index_projects_on_organization_id"
   end
@@ -427,6 +528,41 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.datetime "updated_at", null: false
     t.text "user_agent"
     t.index ["referral_code_id"], name: "index_refer_visits_on_referral_code_id"
+  end
+
+  create_table "saml_auth_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.string "request_id", null: false
+    t.bigint "sso_connection_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_saml_auth_requests_on_expires_at"
+    t.index ["request_id"], name: "index_saml_auth_requests_on_request_id", unique: true
+    t.index ["sso_connection_id"], name: "index_saml_auth_requests_on_sso_connection_id"
+  end
+
+  create_table "scim_connections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "default_membership_role", default: "member", null: false
+    t.boolean "enabled", default: true, null: false
+    t.datetime "last_request_at"
+    t.bigint "organization_id", null: false
+    t.string "token_digest", null: false
+    t.string "token_last_four"
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_scim_connections_on_organization_id", unique: true
+    t.index ["token_digest"], name: "index_scim_connections_on_token_digest", unique: true
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.jsonb "authentication", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "last_seen_at"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "solid_cable_messages", force: :cascade do |t|
@@ -571,35 +707,52 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "sso_connections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "default_membership_role", default: "member", null: false
+    t.boolean "enabled", default: false, null: false
+    t.boolean "enforced", default: false, null: false
+    t.text "idp_cert"
+    t.string "idp_entity_id"
+    t.string "idp_sso_url"
+    t.boolean "jit_provisioning", default: false, null: false
+    t.datetime "last_login_at"
+    t.bigint "organization_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_sso_connections_on_organization_id", unique: true
+  end
+
+  create_table "sso_domains", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "domain", null: false
+    t.bigint "sso_connection_id", null: false
+    t.datetime "updated_at", null: false
+    t.string "verification_token", null: false
+    t.datetime "verified_at"
+    t.index ["domain"], name: "index_sso_domains_on_verified_domain", unique: true, where: "(verified_at IS NOT NULL)"
+    t.index ["sso_connection_id", "domain"], name: "index_sso_domains_on_sso_connection_id_and_domain", unique: true
+    t.index ["sso_connection_id"], name: "index_sso_domains_on_sso_connection_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false, null: false
-    t.datetime "confirmation_sent_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
+    t.datetime "banned_at"
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.datetime "invitation_accepted_at"
-    t.datetime "invitation_created_at"
-    t.integer "invitation_limit"
-    t.datetime "invitation_sent_at"
-    t.string "invitation_token"
-    t.integer "invitations_count", default: 0
-    t.bigint "invited_by_id"
-    t.string "invited_by_type"
+    t.datetime "email_verified_at"
     t.string "locale"
+    t.datetime "marketing_consent_at"
+    t.jsonb "metadata", default: {}, null: false
     t.string "name"
-    t.datetime "remember_created_at"
-    t.datetime "reset_password_sent_at"
-    t.string "reset_password_token"
-    t.string "unconfirmed_email"
+    t.datetime "onboarding_completed_at"
+    t.text "otp_backup_codes"
+    t.datetime "otp_enabled_at"
+    t.text "otp_secret"
+    t.datetime "redacted_at"
     t.datetime "updated_at", null: false
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index "lower((email)::text)", name: "index_users_on_lower_email", unique: true
+    t.index ["banned_at"], name: "index_users_on_banned_at", where: "(banned_at IS NOT NULL)"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
-    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "access_requests", "organizations"
@@ -607,6 +760,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
   add_foreign_key "access_requests", "users", column: "completed_by"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "agreements_acceptances", "agreements_versions", column: "agreement_version_id"
+  add_foreign_key "audit_logs", "organizations", on_delete: :cascade
+  add_foreign_key "data_exports", "memberships"
+  add_foreign_key "data_exports", "organizations"
+  add_foreign_key "invitations", "organizations"
+  add_foreign_key "invitations", "users", column: "invited_by_id", on_delete: :nullify
+  add_foreign_key "magic_links", "users"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
   add_foreign_key "organizations", "users", column: "owner_id"
@@ -614,12 +774,64 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_145914) do
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
+  add_foreign_key "projects", "memberships"
   add_foreign_key "projects", "organizations"
   add_foreign_key "refer_visits", "refer_referral_codes", column: "referral_code_id"
+  add_foreign_key "saml_auth_requests", "sso_connections", on_delete: :cascade
+  add_foreign_key "scim_connections", "organizations", on_delete: :cascade
+  add_foreign_key "sessions", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "sso_connections", "organizations", on_delete: :cascade
+  add_foreign_key "sso_domains", "sso_connections", on_delete: :cascade
+
+  create_function :audit_logs_block_update, sql_definition: <<-'SQL'
+      CREATE OR REPLACE FUNCTION public.audit_logs_block_update()
+       RETURNS trigger
+       LANGUAGE plpgsql
+      AS $function$
+      BEGIN
+        IF NEW.id              IS DISTINCT FROM OLD.id
+        OR NEW.action          IS DISTINCT FROM OLD.action
+        OR NEW.actor_kind      IS DISTINCT FROM OLD.actor_kind
+        OR NEW.mini_app        IS DISTINCT FROM OLD.mini_app
+        OR NEW.organization_id IS DISTINCT FROM OLD.organization_id
+        OR NEW.metadata::text  IS DISTINCT FROM OLD.metadata::text
+        OR NEW.created_at      IS DISTINCT FROM OLD.created_at
+        OR NEW.updated_at      IS DISTINCT FROM OLD.updated_at
+        OR (NEW.actor_id     IS NOT NULL AND NEW.actor_id     IS DISTINCT FROM OLD.actor_id)
+        OR (NEW.actor_type   IS NOT NULL AND NEW.actor_type   IS DISTINCT FROM OLD.actor_type)
+        OR (NEW.subject_id   IS NOT NULL AND NEW.subject_id   IS DISTINCT FROM OLD.subject_id)
+        OR (NEW.subject_type IS NOT NULL AND NEW.subject_type IS DISTINCT FROM OLD.subject_type)
+        THEN
+          RAISE EXCEPTION 'audit_logs is append-only; rows cannot be modified after creation';
+        END IF;
+        RETURN NEW;
+      END;
+      $function$
+  SQL
+
+  create_function :audit_logs_block_truncate, sql_definition: <<-'SQL'
+      CREATE OR REPLACE FUNCTION public.audit_logs_block_truncate()
+       RETURNS trigger
+       LANGUAGE plpgsql
+      AS $function$
+      BEGIN
+        RAISE EXCEPTION 'audit_logs is append-only; TRUNCATE is not permitted';
+        RETURN NULL;
+      END;
+      $function$
+  SQL
+
+  create_trigger :audit_logs_append_only_update, sql_definition: <<-SQL
+      CREATE TRIGGER audit_logs_append_only_update BEFORE UPDATE ON public.audit_logs FOR EACH ROW EXECUTE FUNCTION audit_logs_block_update()
+  SQL
+
+  create_trigger :audit_logs_append_only_truncate, sql_definition: <<-SQL
+      CREATE TRIGGER audit_logs_append_only_truncate BEFORE TRUNCATE ON public.audit_logs FOR EACH STATEMENT EXECUTE FUNCTION audit_logs_block_truncate()
+  SQL
 end

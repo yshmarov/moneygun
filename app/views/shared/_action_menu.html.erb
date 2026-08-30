@@ -1,0 +1,17 @@
+<%# locals: (button_variant: "btn-soft") -%>
+<div data-controller="dropdown" class="relative">
+  <button
+    type="button"
+    data-action="dropdown#toggle"
+    class="<%= class_names("btn btn-circle", button_variant) %>"
+    aria-label="<%= t("shared.actions.more") %>"
+    aria-haspopup="menu"
+    aria-expanded="false"
+  >
+    <%= icon_tag "ellipsis-vertical", class: "size-5" %>
+  </button>
+
+  <ul class="z-dropdown hidden w-56 p-1 border shadow-lg menu bg-base-100 rounded-box border-base-content/10" data-dropdown-menu role="menu">
+    <%= yield %>
+  </ul>
+</div>

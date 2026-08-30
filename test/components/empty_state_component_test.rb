@@ -4,9 +4,10 @@ require "test_helper"
 
 class EmptyStateComponentTest < ViewComponent::TestCase
   def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(EmptyStateComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+    render_inline EmptyStateComponent.new(title: "No projects", subtitle: "Create the first project", icon: "svg/briefcase.svg")
+
+    assert_selector "h2", text: "No projects"
+    assert_text "Create the first project"
+    assert_selector ".icon--briefcase"
   end
 end

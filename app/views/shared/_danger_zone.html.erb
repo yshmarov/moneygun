@@ -1,0 +1,13 @@
+<%# locals: (label: nil) %>
+<details class="group mb-4">
+  <summary class="flex items-center justify-between gap-2 px-5 py-3 list-none cursor-pointer text-sm font-semibold text-base-content/60 hover:text-base-content transition-colors [&::-webkit-details-marker]:hidden">
+    <span class="inline-flex items-center gap-2">
+      <%= icon_tag "exclamation-circle", class: "size-4" %>
+      <%= label || t("shared.danger_zone.label") %>
+    </span>
+    <%= icon_tag "chevron-down", class: "size-4 transition-transform group-open:rotate-180" %>
+  </summary>
+  <ul class="menu menu-lg bg-base-200 rounded-box w-full divide-y divide-base-content/10 mt-2">
+    <%= yield %>
+  </ul>
+</details>

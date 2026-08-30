@@ -6,7 +6,7 @@ class Public::OrganizationsController < ApplicationController
     user_org_ids = current_user.organizations.select(:id)
 
     @pagy, @organizations = pagy(
-      Organization.where(id: discoverable_ids)
+      Organization.kept.where(id: discoverable_ids)
                   .where.not(id: user_org_ids)
                   .with_logo
     )

@@ -2,9 +2,10 @@
 
 ## Prerequisites
 
-- Ruby 3.3+
+- Ruby 4.0
 - PostgreSQL
 - Node.js 20+
+- Hugo Extended 0.160+
 - Stripe CLI (for webhook testing)
 
 ## Installation
@@ -43,14 +44,6 @@ stripe:
   secret_key: sk_test_...
   signing_secret:
     - whsec_...
-
-google:
-  client_id: ...
-  client_secret: ...
-
-github:
-  client_id: ...
-  client_secret: ...
 ```
 
 For environment-specific credentials:
@@ -68,29 +61,16 @@ bin/dev
 This starts:
 
 - Rails server
+- Hugo website server
 - CSS build watcher
 - Stripe webhook listener
 - Background job processor
 
-Visit http://localhost:3000
+Visit the website at http://localhost:4000 and the Rails application at http://localhost:3000.
 
-## OAuth Setup
+Moneygun reserves the apex domain for the website and deploys Rails to an application subdomain. In production, set `APP_HOST=app.example.com`; customize the matching `baseURL` and `params.app_url` defaults in `website/hugo.yaml` before deployment.
 
-### Google OAuth
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create OAuth 2.0 credentials
-3. Add authorized redirect URI:
-   - Development: `http://localhost:3000/auth/google_oauth2/callback`
-   - Production: `https://yourdomain.com/auth/google_oauth2/callback`
-
-### GitHub OAuth
-
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Create a new OAuth App
-3. Add callback URL:
-   - Development: `http://localhost:3000/auth/github/callback`
-   - Production: `https://yourdomain.com/auth/github/callback`
+Authentication requires working email delivery in production. Development shows generated codes in the response UI. Active Record encryption derives its keys from `SECRET_KEY_BASE`, so that secret must be stable across deployments.
 
 ## Database
 
@@ -109,5 +89,7 @@ rails db:reset
 
 - [Stripe Integration](stripe-integration.md) - Set up payments
 - [Architecture](architecture.md) - Understand the codebase
+- [Authentication](authentication.md) - Configure passwordless auth and MFA
+- [Enterprise identity](enterprise-identity.md) - Configure SAML and SCIM
 - [Development](development.md) - Testing and linting
 - [Deployment](deployment.md) - Deploy to production

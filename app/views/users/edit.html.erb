@@ -14,6 +14,11 @@
                   autocomplete: "name"
                 } %>
 
+    <%= f.input :marketing_consent, as: :boolean %>
+
     <div class="flex justify-end"><%= f.button :submit, t("shared.actions.save_changes"), class: "btn btn-primary" %></div>
   <% end %>
+
+  <div class="divider"></div>
+  <%= link_to t("users.email_changes.new.title"), new_user_email_change_path, class: "btn btn-soft w-full", data: { turbo_frame: "_top" } %>
 <% end %>

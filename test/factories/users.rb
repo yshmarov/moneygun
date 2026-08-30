@@ -3,12 +3,10 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user#{n}_#{SecureRandom.hex(4)}@example.com" }
-    password { "password123" }
-    password_confirmation { "password123" }
-    confirmed_at { Time.current }
+    email_verified_at { Time.current }
 
     trait :unconfirmed do
-      confirmed_at { nil }
+      email_verified_at { nil }
     end
   end
 end

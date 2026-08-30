@@ -47,7 +47,7 @@ class Organization::BasePolicy
     end
 
     def resolve
-      scope.all
+      scope.where(organization_id: membership.organization_id)
     end
 
     private

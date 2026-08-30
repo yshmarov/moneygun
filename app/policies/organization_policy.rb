@@ -2,11 +2,11 @@
 
 class OrganizationPolicy < ApplicationPolicy
   def show?
-    record.memberships.include?(membership)
+    membership&.active? && membership.organization_id == record.id
   end
 
   def edit?
-    record.memberships.include?(membership) && membership.admin?
+    show? && membership.admin?
   end
 
   def update?
@@ -14,7 +14,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    edit?
+    show? && record.owner_id == membership.user_id
   end
 
   private

@@ -1,0 +1,13 @@
+<% content_for :title, t("sessions.sso.new.title") %>
+<% content_for :robots, "noindex" %>
+
+<div class="w-full max-w-md mx-auto space-y-6 text-center">
+  <h1 class="text-xl font-semibold"><%= t("sessions.sso.new.title") %></h1>
+  <p class="text-base-content/70"><%= t("sessions.sso.new.explanation") %></p>
+  <%= form_with url: sso_path, class: "space-y-3" do |form| %>
+    <%= form.email_field :email_address, value: @email_address, required: true, autofocus: true,
+        autocomplete: "username", placeholder: t("sessions.new.email_placeholder"), class: "input input-bordered w-full text-center" %>
+    <%= form.submit t("sessions.sso.new.submit"), class: "btn btn-primary btn-block" %>
+  <% end %>
+  <%= link_to t("sessions.sso.new.use_magic_link"), new_session_path, class: "link link-hover text-sm" %>
+</div>

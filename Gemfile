@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -44,58 +44,62 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.0"
+gem "ruby-vips", "~> 2.3"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "rubocop-rails", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-minitest", require: false
   gem "erb_lint", require: false
   gem "dotenv-rails"
   gem "factory_bot_rails"
+  gem "active_record_doctor", github: "gregnavis/active_record_doctor"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "i18n-tasks"
-  gem "lookbook", ">= 2.3.9"
   gem "letter_opener"
   gem "letter_opener_web"
-  gem "reactionview", "~> 0.1.6"
   gem "herb", require: false
+  gem "bundler-audit", "~> 0.9", require: false
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "axe-core-capybara"
   gem "capybara"
   gem "selenium-webdriver"
   gem "mocha"
   gem "webmock"
+  gem "simplecov", require: false
 end
 
 # active record
 gem "sqids" # for obfuscating IDs
-gem "pagy", "~> 9.3"
+gem "pagy", "~> 43.6"
 gem "ransack", "~> 4.2"
 gem "active_storage_validations"
+gem "fx", "~> 0.11.0"
+gem "invisible_captcha", "~> 2.3"
 
 # authentication
-gem "devise", github: "heartcombo/devise", branch: "main"
-gem "devise_masquerade"
 gem "nondisposable"
-
-# oauth
-gem "omniauth-google-oauth2"
-gem "omniauth-github"
-gem "jwt"
+gem "rotp", "~> 6.3"
+gem "rqrcode", "~> 3.1"
+gem "omniauth-saml", "~> 2.2"
+gem "omniauth-rails_csrf_protection", "~> 2.0"
+gem "scimitar", "~> 2.15"
 
 # authorization
 gem "pundit", "~> 2.3"
 
 # frontend
 gem "view_component"
-gem "inline_svg", "~> 1.9"
 gem "active_link_to", "~> 1.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
@@ -104,23 +108,19 @@ gem "simple_form", "~> 5.4"
 
 # admin
 gem "allgood", "~> 0.3.0"
-gem "active_storage_dashboard"
-gem "avo", ">= 3.22.0"
-group :avo, optional: true do
-  source "https://packager.dev/avo-hq/" do
-    gem "avo-pro"
-  end
-end
+gem "avo", "~> 4.1"
+gem "pghero"
 # feature flags
 gem "flipper-active_record"
 gem "flipper-ui"
 
 # payments
-gem "pay", "~> 8.0"
-gem "stripe", "~> 13.0"
+gem "pay", "~> 11.6"
+gem "stripe", "~> 19.0"
 
 # business logic
 gem "refer"
+gem "agreements", "~> 0.2.0"
 gem "noticed"
 
 group :production do
@@ -128,8 +128,9 @@ group :production do
 end
 
 gem "browser", "~> 6.2"
+gem "rubyzip"
 
-gem "honeybadger", "~> 6.3"
+gem "appsignal"
 
 gem "brakeman", "~> 8.0", group: :development
 gem "strong_migrations", "~> 2.5" # Catch unsafe migrations before they hit production

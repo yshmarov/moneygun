@@ -34,6 +34,15 @@ export default class extends Controller {
       })
     }
 
+    if (this.formatValue === 'short_time') {
+      return date.toLocaleString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+      })
+    }
+
     return date.toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'short',

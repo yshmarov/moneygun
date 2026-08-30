@@ -1,6 +1,7 @@
 <% content_for :title, t("organizations.projects.index.title") %>
 
-<%= render SectionComponent.new(title: breadcrumbs([t("organizations.projects.index.title")])) do |component| %>
+<%= render SectionComponent.new do |component| %>
+  <% component.with_page_title t("organizations.projects.index.title"), back_to: organization_path(@organization) %>
   <% component.with_action_list do %>
     <%= link_to t("shared.actions.new"), new_organization_project_path(@organization), data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <% end %>
@@ -47,11 +48,11 @@
               </td>
 
               <td data-label="<%= Project.human_attribute_name(:start_date) %>">
-                <%= project.start_date ? local_time(project.start_date, format: :short) : "-" %>
+                <%= project.start_date ? local_time_tag(project.start_date, format: :short) : "-" %>
               </td>
 
               <td data-label="<%= Project.human_attribute_name(:scheduled_at) %>">
-                <%= project.scheduled_at ? local_time(project.scheduled_at, format: :short) : "-" %>
+                <%= project.scheduled_at ? local_time_tag(project.scheduled_at, format: :short) : "-" %>
               </td>
 
               <td data-label="<%= Project.human_attribute_name(:budget) %>">

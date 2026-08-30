@@ -1,0 +1,8 @@
+pending:
+  organization: one
+  invited_by: one
+  email: unassociated@superails.com
+  role: member
+  token: pending-invitation-token
+  expires_at: <%= 10.days.from_now %>
+  last_sent_at: <%= 1.hour.ago %>

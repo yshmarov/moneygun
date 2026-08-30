@@ -34,7 +34,7 @@ module Translation
     locales_with_quality = header.split(",").map do |entry|
       entry = entry.strip
       locale, quality = entry.split(";")
-      locale = locale.strip.downcase.gsub("-", "_")
+      locale = locale.strip.downcase.tr("-", "_")
       q = quality ? quality.strip.delete_prefix("q=").to_f : 1.0
       [locale, q]
     end

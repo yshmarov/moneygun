@@ -1,0 +1,7 @@
+<%= t(".greeting") %>
+
+<%= t(".body", organization_name: @organization.name) %>
+
+<%= @action_url %>
+
+<%= t(".expires_in", time: distance_of_time_in_words(Invitation::EXPIRATION)) %>

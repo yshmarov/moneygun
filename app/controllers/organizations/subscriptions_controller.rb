@@ -17,7 +17,7 @@ class Organizations::SubscriptionsController < Organizations::BaseController
 
     return redirect_to organization_subscriptions_url(@organization) if @organization.payment_processor&.subscribed?
 
-    @checkout_session = @organization.payment_processor.checkout(
+    checkout_options = {
       mode: is_one_time ? "payment" : "subscription",
       locale: I18n.locale,
       line_items: [{
@@ -31,7 +31,9 @@ class Organizations::SubscriptionsController < Organizations::BaseController
       customer_update: { address: :auto, name: :auto },
       success_url: organization_subscriptions_success_url(@organization),
       cancel_url: organization_subscriptions_url(@organization)
-    )
+    }
+    checkout_options[:subscription_data] = { trial_period_days: @organization.trial_days } if !is_one_time && @organization.trial_eligible?
+    @checkout_session = @organization.payment_processor.checkout(**checkout_options)
 
     redirect_to @checkout_session.url, allow_other_host: true, status: :see_other
   end

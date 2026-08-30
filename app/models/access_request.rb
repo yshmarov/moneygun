@@ -23,7 +23,9 @@ class AccessRequest < ApplicationRecord
   def approve!(completed_by: nil)
     transaction do
       update!(status: :approved, completed_by:)
-      organization.memberships.find_or_create_by!(user:)
+      membership = organization.memberships.find_or_initialize_by(user:)
+      membership.deactivated_at = nil
+      membership.save!
       after_approve
     end
   end

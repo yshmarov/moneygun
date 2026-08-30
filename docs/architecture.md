@@ -48,10 +48,10 @@ The tenant. Has many users through memberships.
 
 ### User
 
-Global user account authenticated via Devise.
+Global passwordless user account authenticated through email codes, optional TOTP, and database-backed sessions.
 
 - Can belong to multiple organizations
-- Has connected accounts (OAuth via Google, GitHub)
+- Can use organization SAML SSO where configured
 
 ### Membership
 
@@ -60,6 +60,7 @@ Join table connecting User and Organization.
 - Has role: `member` or `admin`
 - Validates uniqueness of user + organization
 - Cannot remove last admin or owner
+- Retains deactivated members so ownership and audit history remain resolvable
 
 ### Project
 
@@ -114,6 +115,8 @@ Routes are split into separate files in `config/routes/`:
 - `users.rb` - User account routes
 - `organizations.rb` - Organization-scoped resources
 - `admin.rb` - Admin panel routes
+- `sso.rb` - SAML discovery and callback routes
+- `scim.rb` - Token-authenticated SCIM endpoints
 
 ## Resource Association Pattern
 
@@ -127,6 +130,14 @@ end
 ```
 
 This ties the resource to both the organization and the specific membership that created it.
+
+## Cross-cutting infrastructure
+
+- `AuditLog` records organization, membership, authentication, and mini-app events.
+- Active Storage controllers authorize the attached record on every download.
+- `SsoConnection` and `ScimConnection` are owned by exactly one organization.
+
+See [Authentication](authentication.md), [Security](security.md), and [Enterprise identity](enterprise-identity.md).
 
 ## Admin Panel
 

@@ -11,7 +11,7 @@ class SearchControllerTest < ActionDispatch::IntegrationTest
   test "should require authentication" do
     sign_out @user
     get search_path
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_session_path
   end
 
   test "should search organizations correctly" do

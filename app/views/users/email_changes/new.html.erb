@@ -1,0 +1,10 @@
+<% content_for :title, t("users.email_changes.new.title") %>
+
+<%= modal title: t("users.email_changes.new.title"), size: :narrow, close_on_submit: false do %>
+  <%= form_with url: user_email_change_path, method: :post, data: { turbo_frame: "_top" }, class: "space-y-4" do |form| %>
+    <%= form.label :email, t("users.email_changes.new.email_label"), class: "sr-only" %>
+    <%= form.email_field :email, value: current_user.email, required: true, autofocus: true, autocomplete: "email",
+        placeholder: t("users.email_changes.new.placeholder"), class: "input input-bordered w-full" %>
+    <%= form.submit t("users.email_changes.new.submit"), class: "btn btn-primary w-full" %>
+  <% end %>
+<% end %>

@@ -1,17 +1,17 @@
 <section class="space-y-4 mx-auto <%= width_class %> @container">
-  <% if title.present? || title_content.present? || action_list.present? || subtitle.present? %>
+  <% if title.present? || page_title.present? || action_list.present? || subtitle.present? %>
     <header class="space-y-1">
-      <% if title.present? || title_content.present? || action_list.present? %>
+      <% if title.present? || page_title.present? || action_list.present? %>
         <div class="flex justify-between gap-4 flex-wrap">
           <div class="flex-1 min-w-0">
-            <% if title_content.present? %>
-              <%= title_content %>
+            <% if page_title.present? %>
+              <%= page_title %>
             <% elsif title.present? %>
-              <%= helpers.breadcrumbs([title]) %>
+              <h1 class="text-base font-medium"><%= title %></h1>
             <% end %>
           </div>
           <% if action_list.present? %>
-            <div class="whitespace-nowrap flex items-center gap-1">
+            <div class="flex flex-wrap items-center gap-2">
               <%= action_list %>
             </div>
           <% end %>

@@ -1,7 +1,0 @@
-<% content_for :title, t(".title") %>
-<% content_for :description, t(".description") %>
-<% content_for :canonical, root_url %>
-
-<%= render SectionComponent.new(full_width: false) do |component| %>
-  <%= markdown_to_html(Rails.root.join("README.md").read) %>
-<% end %>

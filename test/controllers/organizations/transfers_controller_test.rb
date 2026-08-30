@@ -21,6 +21,7 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
   test "admin can transfer organization" do
     @membership2 = @organization.memberships.create!(user: @user2, role: Membership.roles[:member])
     sign_in @user
+    authenticate_sudo(@user)
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
     assert_redirected_to organization_path(@organization)
@@ -30,6 +31,7 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
   test "regular_user cannot transfer organization" do
     @membership2 = @organization.memberships.create!(user: @user2, role: Membership.roles[:member])
     sign_in @user2
+    authenticate_sudo(@user2)
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
     assert_redirected_to organization_path(@organization)
@@ -38,6 +40,7 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
 
   test "transfer organization to non-member" do
     sign_in @user
+    authenticate_sudo(@user)
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
     assert_response :unprocessable_content
@@ -46,10 +49,21 @@ class Organizations::TransfersControllerTest < ActionDispatch::IntegrationTest
 
   test "transfer organization that user is not a member of" do
     sign_in @user2
+    authenticate_sudo(@user2)
 
     patch organization_transfer_path(@organization), params: { user_id: @user2.id }
     assert_redirected_to organizations_url
     assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
+    assert_equal @user, @organization.reload.owner
+  end
+
+  test "transfer requires recent authentication" do
+    @organization.memberships.create!(user: @user2, role: Membership.roles[:member])
+    sign_in @user
+
+    patch organization_transfer_path(@organization), params: { user_id: @user2.id }
+
+    assert_redirected_to new_sudo_path
     assert_equal @user, @organization.reload.owner
   end
 end

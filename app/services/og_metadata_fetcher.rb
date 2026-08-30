@@ -149,7 +149,7 @@ class OgMetadataFetcher
       next unless href.start_with?("http")
 
       uri = URI.parse(href)
-      host = uri.host&.downcase&.sub(/\Awww\./, "")
+      host = uri.host&.downcase&.delete_prefix("www.")
       next unless SOCIAL_DOMAINS.any? { |domain| host&.end_with?(domain) }
 
       clean = "#{uri.scheme}://#{uri.host}#{uri.path}".chomp("/")

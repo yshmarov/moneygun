@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
 module OrganizationsHelper
-  def organization_avatar(organization, classes: "size-8")
-    if organization.logo.attached?
-      image_tag organization.logo_thumbnail, class: "rounded #{classes} aspect-square object-contain bg-base-300", alt: organization.name
+  def connection_status_badge(connection)
+    if connection.enabled?
+      tag.span t("organizations.connections.status.enabled"), class: "badge badge-success"
     else
-      tag.div organization.name[0..1], class: "aspect-square uppercase rounded bg-gray-400 text-xs flex items-center justify-center #{classes}"
+      tag.span t("organizations.connections.status.disabled"), class: "badge badge-ghost"
     end
+  end
+
+  def organization_avatar(organization, classes: "size-8")
+    render AvatarComponent.new(
+      src: (avatar_src(organization.logo_thumbnail) if organization.logo.attached?),
+      alt: organization.name,
+      initials: organization.name.first(2),
+      classes: classes,
+      variant: :organization
+    )
   end
 
   def privacy_setting_options(key)
@@ -62,7 +72,7 @@ module OrganizationsHelper
     return :paywalled_page if is_active_link?(organization_paywalled_page_path(Current.organization), :exact)
     return :projects if is_active_link?(organization_projects_path(Current.organization), :inclusive)
     return :members if is_active_link?(organization_memberships_path(Current.organization), :inclusive) ||
-                       is_active_link?(organization_sent_invitations_path(Current.organization), :inclusive) ||
+                       is_active_link?(organization_invitations_path(Current.organization), :inclusive) ||
                        is_active_link?(organization_received_join_requests_path(Current.organization), :inclusive)
     return :settings if is_active_link?(edit_organization_path(Current.organization), :inclusive)
     return :billing if is_active_link?(organization_subscriptions_path(Current.organization), :inclusive)

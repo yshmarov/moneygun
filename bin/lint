@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+fix = ARGV.include?("--fix")
+
+checks = {
+  "rubocop" => fix ? "bin/rubocop -A" : "bin/rubocop",
+  "prettier" => "npx --yes prettier@3.9.6 #{fix ? '--write' : '--check'} .",
+  "brakeman" => "bundle exec brakeman -q --no-pager --exit-on-warn --run-all-checks",
+  "herb" => "bundle exec herb analyze app --no-log-file",
+  "i18n:missing" => "bundle exec i18n-tasks missing -l en",
+  "i18n:interpolations" => "bundle exec i18n-tasks check-consistent-interpolations",
+  "i18n:reserved" => "bundle exec i18n-tasks check-reserved-interpolations",
+  "i18n:normalized" => fix ? "bundle exec i18n-tasks normalize" : "bundle exec i18n-tasks check-normalized",
+  "bundler-audit" => "bundle exec bundler-audit check --update",
+  "importmap-audit" => "bin/importmap audit"
+}
+
+failed = checks.reject { |_name, command| system(command) }.keys
+
+if failed.any?
+  warn "\n\e[1;37;41m LINT FAILED: #{failed.join(', ')} \e[0m\n"
+  exit(1)
+end
+
+puts "\n\e[1;37;42m All checks passed \e[0m\n"

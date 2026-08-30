@@ -5,3 +5,11 @@
 <%= nav_link t("organizations.dashboard.paywalled_page.title"), organization_paywalled_page_path(Current.organization), icon: "🔐" if Rails.application.credentials.dig(:stripe, :private_key).present? %>
 
 <%= nav_link "Projects", organization_projects_path(Current.organization), icon: "svg/question-mark-circle.svg" if policy(Project).index? %>
+
+<%= nav_link t("organizations.audit_logs.index.title"), organization_audit_logs_path(Current.organization), icon: "svg/list-bullet.svg" if policy(AuditLog).index? %>
+
+<%= nav_link t("organizations.data_exports.index.title"), organization_data_exports_path(Current.organization), icon: "svg/arrow-down-tray.svg" if policy(DataExport).index? %>
+
+<%= nav_link t("organizations.sso_connections.show.title"), organization_sso_connection_path(Current.organization), icon: "svg/link.svg" if policy(SsoConnection).show? %>
+
+<%= nav_link t("organizations.scim_connections.show.title"), organization_scim_connection_path(Current.organization), icon: "svg/link.svg" if policy(ScimConnection).show? %>

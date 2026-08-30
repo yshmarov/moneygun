@@ -1,0 +1,11 @@
+@layer utilities {
+  .list:not(:has(> *)),
+  [data-table-collection]:not(:has(tbody > tr)) {
+    display: none;
+  }
+
+  .list:has(> *) + [data-blank-slate],
+  [data-table-collection]:has(tbody > tr) + [data-blank-slate] {
+    display: none;
+  }
+}

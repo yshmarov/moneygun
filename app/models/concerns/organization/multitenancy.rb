@@ -6,7 +6,10 @@ module Organization::Multitenancy
   included do
     has_many :memberships, dependent: :destroy
     has_many :users, through: :memberships
-    has_many :sent_invitations, class_name: "AccessRequest::InviteToOrganization", dependent: :destroy
+    has_many :invitations, dependent: :destroy
+    has_many :audit_logs, dependent: :delete_all
+    has_one :sso_connection, dependent: :destroy
+    has_one :scim_connection, dependent: :destroy
     has_many :received_join_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
 
     after_create :create_owner_membership
@@ -14,14 +17,20 @@ module Organization::Multitenancy
 
   def participant?(user)
     if memberships.loaded?
-      memberships.any? { |m| m.user_id == user.id }
+      memberships.any? { |membership| membership.user_id == user.id && membership.active? }
     else
-      memberships.exists?(user: user)
+      memberships.active.exists?(user: user)
     end
   end
 
+  def membership_for(user)
+    return unless user
+
+    memberships.active.find_by(user: user)
+  end
+
   def pending_invitation_for(user)
-    sent_invitations.pending.find_by(user: user)
+    invitations.pending.for_email(user.email).first
   end
 
   def pending_join_request_for(user)
@@ -29,7 +38,7 @@ module Organization::Multitenancy
   end
 
   def admin_users
-    User.where(id: memberships.where(role: :admin).select(:user_id))
+    User.where(id: memberships.active.where(role: :admin).select(:user_id))
   end
 
   def membership_status_for(user)
@@ -42,9 +51,9 @@ module Organization::Multitenancy
       return :pending_join_request
     end
 
-    if sent_invitations.loaded?
-      return :invited if sent_invitations.select(&:pending?).any? { |r| r.user_id == user.id }
-    elsif sent_invitations.pending.exists?(user: user)
+    if invitations.loaded?
+      return :invited if invitations.reject(&:expired?).any? { |invitation| invitation.email.casecmp(user.email).zero? }
+    elsif invitations.pending.for_email(user.email).exists?
       return :invited
     end
 

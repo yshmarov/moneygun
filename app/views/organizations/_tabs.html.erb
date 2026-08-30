@@ -11,8 +11,8 @@
      },
      {
        key: :invitations,
-       path: user_organizations_received_invitations_path,
-       label: t("users.organizations.received_invitations.index.title"),
+       path: user_invitations_path,
+       label: t("users.invitations.index.title"),
        badge_count: current_user.received_invitations.pending.count
      },
      {
@@ -28,7 +28,14 @@
     <%= link_to t("shared.actions.create"), new_organization_path, data: { turbo_frame: :modal }, class: "btn btn-primary" %>
   <% end %>
 
-  <div class="-mx-4 lg:mx-0 mb-4">
-    <%= render TabsComponent.new(active_tab: active_tab, tabs:) %>
-  </div>
+  <nav class="tabs tabs-border w-full overflow-x-auto mb-4" aria-label="<%= t("shared.navigation.organizations") %>">
+    <% tabs.each do |tab| %>
+      <%= link_to tab[:path], class: "tab #{'tab-active' if active_tab == tab[:key]}", aria: { current: ("page" if active_tab == tab[:key]) } do %>
+        <%= tab[:label] %>
+        <% if tab[:badge_count].to_i.positive? %>
+          <span class="badge badge-sm badge-warning ml-1"><%= tab[:badge_count] %></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </nav>
 <% end %>

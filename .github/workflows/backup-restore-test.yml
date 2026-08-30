@@ -1,0 +1,47 @@
+name: Backup restore test
+
+on:
+  schedule:
+    - cron: '30 4 1 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: backup-restore-test
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    if: vars.BACKUP_RESTORE_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      KAMAL_HOST: ${{ secrets.KAMAL_HOST }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+      BUCKET_NAME: ${{ vars.BACKUP_BUCKET_NAME || vars.BUCKET_NAME }}
+      KAMAL_SERVICE: ${{ vars.KAMAL_SERVICE || 'moneygun' }}
+      POSTGRES_USER: ${{ vars.POSTGRES_USER || 'moneygun' }}
+      POSTGRES_DB: ${{ vars.POSTGRES_DB || 'moneygun_production' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Validate environment
+        run: |
+          test -n "$KAMAL_HOST"
+          test -n "$SSH_PRIVATE_KEY"
+          test -n "$SSH_KNOWN_HOSTS"
+          test -n "$BUCKET_NAME"
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Verify production backup lifecycle
+        run: bin/backup-lifecycle check
+
+      - name: Restore and verify latest backup
+        run: bin/backup-restore-test

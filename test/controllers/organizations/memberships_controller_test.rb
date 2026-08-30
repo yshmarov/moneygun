@@ -24,9 +24,9 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#edit" do
-    # admin can edit himself
+    # The owner's role is immutable.
     get edit_organization_membership_url(@organization, @membership)
-    assert_response :success
+    assert_redirected_to organizations_url
 
     # admin can edit other membership
     @organization.users << @user2
@@ -41,11 +41,10 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#update" do
-    # only admin can't make himself a member
+    # The owner cannot edit their own membership.
     patch organization_membership_url(@organization, @membership), params: { membership: { role: "member" } }
-    assert_response :unprocessable_content
+    assert_redirected_to organizations_url
     assert @membership.reload.admin?
-    assert_match "Role cannot be changed because this is the only admin.", response.body
 
     # admin can update other membership
     @organization.users << @user2
@@ -58,13 +57,6 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     assert_raises(ArgumentError) do
       patch organization_membership_url(@organization, second_membership), params: { membership: { role: "foo" } }
     end
-
-    # organization owner can not demote himself from admin
-    first_membership = @organization.memberships.find_by(user: @user)
-    patch organization_membership_url(@organization, first_membership), params: { membership: { role: "member" } }
-    assert_response :unprocessable_content
-    assert first_membership.reload.admin?
-    assert_match "Organization owner cannot be demoted from admin role.", response.body
 
     # member can not update membership
     sign_in @user2
@@ -79,27 +71,27 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Membership.count", 0) do
       delete organization_membership_url(@organization, @membership)
     end
-    assert_redirected_to organization_memberships_url
+    assert_redirected_to organizations_url
     follow_redirect!
     assert_response :success
 
-    # destroys another membership
+    # deactivates another membership without deleting its history
     @organization.users << @user2
     second_membership = @organization.memberships.find_by(user: @user2)
-    assert_difference("Membership.count", -1) do
+    assert_no_difference("Membership.count") do
       delete organization_membership_url(@organization, second_membership)
     end
+    assert second_membership.reload.deactivated?
     assert_redirected_to organization_memberships_url
     follow_redirect!
     assert_response :success
 
     # does not destroy only admin membership
-    @organization.users << @user2
-    second_membership = @organization.memberships.find_by(user: @user2)
+    second_membership.update!(deactivated_at: nil)
     assert_difference("Membership.count", 0) do
       delete organization_membership_url(@organization, @membership)
     end
-    assert_redirected_to organization_memberships_url
+    assert_redirected_to organizations_url
     follow_redirect!
     assert_response :success
 
@@ -109,9 +101,10 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
       delete organization_membership_url(@organization, @membership)
     end
 
-    # destroys non-owner admin if there is another admin
-    assert_difference("Membership.count", -1) do
+    # deactivates non-owner admin if there is another admin
+    assert_no_difference("Membership.count") do
       delete organization_membership_url(@organization, second_membership)
     end
+    assert second_membership.reload.deactivated?
   end
 end

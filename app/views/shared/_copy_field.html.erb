@@ -1,0 +1,7 @@
+<%# locals: (value:) %>
+<div class="join w-full" data-controller="clipboard" data-clipboard-success-content-value="<%= t("shared.actions.copied") %>">
+  <code class="input join-item flex w-full items-center overflow-x-auto bg-base-100 font-mono text-xs select-all" data-clipboard-target="source"><%= value %></code>
+  <button type="button" data-action="clipboard#copy" data-clipboard-target="button" class="btn btn-square join-item" aria-label="<%= t("shared.actions.copy_link") %>">
+    <%= icon_tag "document-duplicate", class: "size-4" %>
+  </button>
+</div>

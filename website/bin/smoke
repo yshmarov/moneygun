@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+WEBSITE_ORIGIN="${1:-${WEBSITE_SMOKE_URL:-}}"
+test -n "$WEBSITE_ORIGIN" || { echo "Usage: website/bin/smoke https://example.com" >&2; exit 64; }
+WEBSITE_ORIGIN="${WEBSITE_ORIGIN%/}"
+
+for path in / /robots.txt /sitemap.xml; do
+  status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 15 "$WEBSITE_ORIGIN$path")"
+  test "$status" = "200" || { echo "FAIL $path (expected 200, got $status)" >&2; exit 1; }
+  echo "ok   $path ($status)"
+done
+
+echo "Website smoke checks passed for $WEBSITE_ORIGIN"

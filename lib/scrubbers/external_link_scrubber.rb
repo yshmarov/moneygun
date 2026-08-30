@@ -3,7 +3,7 @@
 # Loofah scrubber that adds target="_blank" and rel="noopener noreferrer" to all anchor tags.
 #
 # Designed to run after AutoLinkScrubber so both user-created and auto-linked URLs open in new tabs.
-class ExternalLinkScrubber < Loofah::Scrubber
+class Scrubbers::ExternalLinkScrubber < Loofah::Scrubber
   def initialize
     @direction = :top_down
   end

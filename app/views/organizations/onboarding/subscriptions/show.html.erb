@@ -1,0 +1,14 @@
+<% content_for :title, t("organizations.onboarding.subscription.title") %>
+
+<div class="space-y-8">
+  <%= render "organizations/onboarding/progress", current: 3 %>
+  <div class="space-y-2">
+    <h1 class="text-2xl font-bold"><%= t("organizations.onboarding.subscription.title") %></h1>
+    <p class="text-base-content/70"><%= @trial_eligible ? t("organizations.onboarding.subscription.subtitle", trial_days: @organization.trial_days) : t("organizations.onboarding.subscription.subtitle_no_trial") %></p>
+  </div>
+  <%= render "organizations/subscriptions/pricing" %>
+  <div class="flex justify-between">
+    <%= link_to t("shared.navigation.back"), organization_onboarding_team_path(@organization), class: "link link-hover text-sm text-base-content/60" %>
+    <%= link_to t("organizations.onboarding.skip"), organization_dashboard_path(@organization), class: "link link-hover text-sm text-base-content/60" %>
+  </div>
+</div>
