@@ -11,8 +11,8 @@ for output in public/index.html public/robots.txt public/sitemap.xml; do
   test -s "$output" || { echo "Missing generated file: $output" >&2; exit 1; }
 done
 
-rg --quiet '<main id=main>' public/index.html
-rg --quiet 'href=https?://[^ >]+/session/new' public/index.html
-rg --quiet 'https://github.com/yshmarov/moneygun' public/index.html
+grep -Eq '<main id=main>' public/index.html
+grep -Eq 'href=https?://[^ >]+/session/new' public/index.html
+grep -Fq 'https://github.com/yshmarov/moneygun' public/index.html
 
 echo "Website build checks passed"

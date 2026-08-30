@@ -10,6 +10,7 @@ log/
 # Generated files
 db/schema.rb
 db/migrate/*.rb
+*.sarif
 
 # ERB-rendered YAML
 config/deploy.yml
