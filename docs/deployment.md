@@ -1,13 +1,18 @@
 # Deployment
 
-Moneygun ships a production baseline for [Kamal](https://kamal-deploy.org/): separate web and GoodJob roles, PostgreSQL with PgHero history, S3-compatible object storage, ClamAV upload scanning, container health checks, bounded shutdowns, registry build caching, and log rotation.
+Moneygun ships two deliberately separate deployment surfaces:
+
+- The Hugo website serves the apex domain, such as `https://example.com`.
+- The Rails application serves an application subdomain, such as `https://app.example.com`.
+
+The Rails baseline uses [Kamal](https://kamal-deploy.org/): separate web and GoodJob roles, PostgreSQL with PgHero history, S3-compatible object storage, ClamAV upload scanning, container health checks, bounded shutdowns, registry build caching, and log rotation. The website includes an opt-in Cloudflare Pages workflow.
 
 The checked-in values are examples. Configure them before the first deploy.
 
 ## Prerequisites
 
 - An amd64 server reachable over SSH
-- A domain whose DNS points to that server
+- An apex domain for the website and an application subdomain whose DNS points to the Rails server
 - A container registry account
 - An S3-compatible bucket
 - Production email delivery and application credentials
@@ -21,6 +26,7 @@ The checked-in values are examples. Configure them before the first deploy.
 | ------------------------- | ----------------------------------------------------- | -------------------------------- |
 | `KAMAL_HOST`              | Server address                                        | `203.0.113.10`                   |
 | `APP_HOST`                | Public application host                               | `app.example.com`                |
+| `WEBSITE_URL`             | Apex website origin, including scheme                 | `https://example.com`            |
 | `KAMAL_IMAGE`             | Registry namespace and image                          | `acme/moneygun`                  |
 | `KAMAL_REGISTRY_SERVER`   | Registry host                                         | `ghcr.io`                        |
 | `KAMAL_REGISTRY_USERNAME` | Registry username                                     | `acme`                           |
@@ -48,7 +54,7 @@ When `RAILS_MASTER_KEY` is not exported, local deploys fall back to `config/mast
 
 AppSignal reads `appsignal` from Rails credentials. `APPSIGNAL_PUSH_API_KEY` can override it in environments where credentials are not used, and `APPSIGNAL_ACTIVE=false` disables reporting for production-mode diagnostics.
 
-Production boot validates `HOST` and `DATABASE_URL`, plus the S3 credentials and bucket when `ACTIVE_STORAGE_SERVICE=s3`. A missing value stops the process immediately instead of surfacing as a delayed runtime error.
+Production boot validates `HOST`, `WEBSITE_URL`, and `DATABASE_URL`, plus the S3 credentials and bucket when `ACTIVE_STORAGE_SERVICE=s3`. It also requires `HOST` to be a subdomain of the apex host in `WEBSITE_URL`. A missing or inconsistent value stops the process immediately instead of surfacing as a delayed runtime error.
 
 ## First deploy
 
@@ -91,6 +97,7 @@ Repository or environment secrets:
 Repository or environment variables:
 
 - `APP_HOST`
+- `WEBSITE_URL`
 - `KAMAL_IMAGE`
 - `KAMAL_REGISTRY_USERNAME`
 - `KAMAL_REGISTRY_SERVER` (defaults to `ghcr.io`)
@@ -107,6 +114,25 @@ Optional workflow secrets:
 - `GHCR_PRUNE_TOKEN` is required only when registry pruning is enabled; use a narrowly scoped package token owned by the same account as the package.
 
 Store the exact host key in `SSH_KNOWN_HOSTS`; do not replace host verification with `StrictHostKeyChecking=no`. The workflow refuses an outdated revision when a newer commit has reached `main`.
+
+### Website deployment
+
+Customize `website/hugo.yaml` first. The production values must describe the same split as Rails: the Hugo `baseURL` is the apex website and `params.app.url` points to the Rails subdomain.
+
+`.github/workflows/deploy-website.yml` publishes `website/public` to Cloudflare Pages when files under `website/` reach `main`. It is opt-in; configure the following before setting `WEBSITE_DEPLOY_ENABLED=true`:
+
+Secrets:
+
+- `CLOUDFLARE_API_TOKEN` with access only to the intended Pages project
+- `CLOUDFLARE_ACCOUNT_ID`
+
+Variables:
+
+- `WEBSITE_URL`, for example `https://example.com`
+- `APP_HOST`, for example `app.example.com`
+- `CLOUDFLARE_PAGES_PROJECT`
+
+Attach the apex domain to that Pages project and configure DNS in Cloudflare. The workflow builds with those origins, deploys, then checks `/`, `/robots.txt`, and `/sitemap.xml`. Website-only commits do not start a Kamal deployment.
 
 ## Operations
 
@@ -163,11 +189,11 @@ These workflows are operational controls, not substitutes for watching AppSignal
 ## Production checklist
 
 1. `bin/ci` passes on the exact revision being deployed.
-2. DNS and the `APP_HOST` value agree.
+2. Apex DNS, `WEBSITE_URL`, application-subdomain DNS, and `APP_HOST` agree.
 3. Registry, SSH, Rails, PostgreSQL, and object-storage secrets are present.
 4. Production email delivery is working; passwordless authentication depends on it.
 5. Stripe live keys and the `https://APP_HOST/pay/webhooks/stripe` endpoint are configured if billing is enabled.
 6. Object storage permits the application credentials to read, write, and delete only the intended bucket.
 7. Database and object-storage restore drills have succeeded, and `bin/backup-lifecycle check` reports no drift.
-8. `bin/smoke https://APP_HOST`, the web role, the job role, ClamAV freshness, and a real email sign-in are healthy after deployment.
+8. `website/bin/smoke https://WEBSITE_URL`, `bin/smoke https://APP_HOST`, the web role, the job role, ClamAV freshness, and a real email sign-in are healthy after deployment.
 9. AppSignal has received a deploy and a test error from the production environment.

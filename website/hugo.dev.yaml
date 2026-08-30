@@ -1,0 +1,5 @@
+baseURL: 'http://localhost:4000/'
+
+params:
+  app:
+    url: 'http://localhost:3000'

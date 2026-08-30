@@ -2,6 +2,8 @@
 
 # Default to port 3000 if not specified
 export PORT="${PORT:-3000}"
+export WEBSITE_PORT="${WEBSITE_PORT:-4000}"
+export WEBSITE_URL="${WEBSITE_URL:-http://localhost:${WEBSITE_PORT}}"
 
 # Let the debug gem allow remote connections,
 # but avoid loading until `debugger` is called

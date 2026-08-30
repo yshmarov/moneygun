@@ -24,13 +24,14 @@ Moneygun is deliberately plain Rails: route-based organizations, membership-scop
 - Tailwind CSS 4, daisyUI 5, Hotwire, ViewComponent, shared page/shell components, and dark mode
 - Avo, GoodJob, PgHero, Flipper, Noticed, AppSignal, accessibility checks, and production-oriented lint/security checks
 - Kamal deployment, database backups with restore drills, image/configuration scanning, and conservative registry pruning
+- A standalone Hugo one-page website for the main domain, with the Rails application conventionally hosted at `app.<domain>`
 - `Project`, an example mini-app demonstrating tenant ownership, rich forms, files, policies, and audit events
 
 Moneygun contains no product-specific business domain. The example module is intended to be replaced.
 
 ## Quick start
 
-Prerequisites are Ruby 4.0, PostgreSQL, Node.js, and the Stripe CLI when developing billing.
+Prerequisites are Ruby 4.0, PostgreSQL, Node.js, Hugo, and the Stripe CLI when developing billing.
 
 ```bash
 git clone git@github.com:yshmarov/moneygun.git my-saas
@@ -39,7 +40,7 @@ bin/setup
 bin/dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). In development, email verification codes are shown in the UI as well as delivered through the configured mailer.
+Open the website at [http://localhost:4000](http://localhost:4000) and the Rails application at [http://localhost:3000](http://localhost:3000). In development, email verification codes are shown in the UI as well as delivered through the configured mailer.
 
 ## Verify a change
 
@@ -63,6 +64,7 @@ bin/ci
 | [Development](docs/development.md)                 | Tests, linting, and conventions                     |
 | [Linting and audits](docs/linting.md)              | Local quality gate and automated dependency checks  |
 | [Deployment](docs/deployment.md)                   | Production deployment with Kamal                    |
+| [Website](website/README.md)                       | Main-domain Hugo site and app-subdomain convention  |
 | [Upgrading to 2](docs/upgrading-to-2.md)           | Safe sequence for existing Moneygun forks           |
 
 ## Design choices

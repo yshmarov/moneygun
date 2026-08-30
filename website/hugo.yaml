@@ -1,0 +1,18 @@
+baseURL: 'https://example.com/'
+title: 'Moneygun'
+languageCode: 'en'
+enableRobotsTXT: true
+disableKinds:
+  - taxonomy
+  - term
+
+params:
+  description: 'A production-minded Rails foundation for multi-tenant SaaS applications.'
+  app:
+    url: 'https://app.example.com'
+  repository_url: 'https://github.com/yshmarov/moneygun'
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: false

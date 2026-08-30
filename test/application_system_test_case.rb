@@ -13,7 +13,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def sign_in(user)
     session_record = user.sessions.create!(user_agent: "test", ip_address: "127.0.0.1")
-    visit root_path
+    visit new_session_path
     page.driver.browser.manage.add_cookie(name: "session_token", value: session_record.signed_id, path: "/")
   end
 

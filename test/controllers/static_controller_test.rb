@@ -3,17 +3,6 @@
 require "test_helper"
 
 class StaticControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get root_url
-    assert_response :success
-
-    sign_in users(:one)
-    get root_url
-    assert_redirected_to organizations_path
-    follow_redirect!
-    assert_response :success
-  end
-
   test "should get pricing" do
     get pricing_url
     assert_response :success

@@ -72,6 +72,7 @@ env:
     - AWS_SECRET_ACCESS_KEY
   clear:
     HOST: <%= ENV.fetch("APP_HOST", "app.example.com") %>
+    WEBSITE_URL: <%= ENV.fetch("WEBSITE_URL", "https://example.com") %>
     APP_REVISION: <%= `git rev-parse HEAD`.strip %>
     ACTIVE_STORAGE_SERVICE: s3
     AWS_REGION: <%= ENV.fetch("AWS_REGION", "auto") %>

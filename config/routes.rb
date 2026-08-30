@@ -22,9 +22,7 @@ Rails.application.routes.draw do
   get "organizations/:organization_id/agreements/dpa", to: "agreements/acceptances#show", defaults: { agreement_key: "organization_dpa" }, as: :organization_dpa_agreement
   post "organizations/:organization_id/agreements/dpa", to: "agreements/acceptances#create", defaults: { agreement_key: "organization_dpa" }, as: :accept_organization_dpa_agreement
 
-  # Defines the root path route ("/")
-  root "static#index"
-  get "sitemap.xml", to: "static#sitemap", defaults: { format: :xml }
+  root "home#index"
   get "pricing", to: "static#pricing"
   get "terms", to: "static#terms"
   get "privacy", to: "static#privacy"

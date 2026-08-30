@@ -1,0 +1,126 @@
+{{ define "main" }}
+  {{ $appURL := strings.TrimRight "/" site.Params.app.url }}
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="{{ site.Home.RelPermalink }}" aria-label="Moneygun home">
+        <img src="{{ "logo.svg" | relURL }}" width="220" height="48" alt="Moneygun">
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#included">Included</a>
+        <a href="#principles">Principles</a>
+        <a href="#start">Quick start</a>
+      </nav>
+      <a class="button button-small" href="{{ $appURL }}/session/new">Open app</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">{{ .Params.eyebrow }}</p>
+          <h1>{{ .Params.hero_title }}</h1>
+          <p class="lede">{{ .Params.hero_description }}</p>
+          <div class="actions">
+            <a class="button" href="{{ $appURL }}/session/new">{{ .Params.primary_cta }}</a>
+            <a class="button button-secondary" href="{{ site.Params.repository_url }}">{{ .Params.secondary_cta }}</a>
+          </div>
+          <p class="subtle">Marketing at the main domain. The Rails application at its own subdomain.</p>
+        </div>
+
+        <div class="product-window" aria-label="Example Moneygun application interface">
+          <div class="window-bar"><i></i><i></i><i></i><span>app.example.com</span></div>
+          <div class="app-shell">
+            <aside>
+              <span class="app-brand">M</span>
+              <span class="nav-line active"></span>
+              <span class="nav-line"></span>
+              <span class="nav-line short"></span>
+            </aside>
+            <div class="app-main">
+              <div class="app-heading"><span></span><b></b></div>
+              <div class="stat-grid"><i></i><i></i><i></i></div>
+              <div class="app-table">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shell proof-grid">
+        {{ range .Params.proof }}
+          <div><strong>{{ .value }}</strong><span>{{ .label }}</span></div>
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="section" id="included">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Included</p>
+          <h2>{{ .Params.features_intro }}</h2>
+        </div>
+        <div class="feature-grid">
+          {{ range $index, $feature := .Params.features }}
+            <article class="feature-card">
+              <span class="feature-number">0{{ add $index 1 }}</span>
+              <h3>{{ $feature.title }}</h3>
+              <p>{{ $feature.description }}</p>
+            </article>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-contrast" id="principles">
+      <div class="shell principles-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Design principles</p>
+          <h2>Opinionated about the backbone. Quiet about your product.</h2>
+        </div>
+        <div class="principles-list">
+          {{ range .Params.principles }}
+            <article>
+              <h3>{{ .title }}</h3>
+              <p>{{ .description }}</p>
+            </article>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="start">
+      <div class="shell start-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Quick start</p>
+          <h2>Four commands to a serious starting point.</h2>
+          <p>Ruby, PostgreSQL, Node.js, Hugo, and the Stripe CLI are the only local prerequisites.</p>
+        </div>
+        <div class="terminal" aria-label="Moneygun installation commands">
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+          <pre><code>{{ .Params.quick_start }}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="shell closing-inner">
+        <div>
+          <h2>{{ .Params.closing_title }}</h2>
+          <p>{{ .Params.closing_description }}</p>
+        </div>
+        <a class="button button-light" href="{{ site.Params.repository_url }}">Use Moneygun</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <p><strong>Moneygun</strong> · Open-source Rails SaaS foundation.</p>
+      <div>
+        <a href="{{ site.Params.repository_url }}">GitHub</a>
+        <a href="{{ $appURL }}/session/new">Application</a>
+      </div>
+    </div>
+  </footer>
+{{ end }}

@@ -1,0 +1,65 @@
+name: Deploy website
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'website/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-website
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: vars.WEBSITE_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    env:
+      APP_HOST: ${{ vars.APP_HOST }}
+      HUGO_BASEURL: ${{ vars.WEBSITE_URL }}
+      HUGO_PARAMS_APP_URL: https://${{ vars.APP_HOST }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Validate website environment
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+        run: |
+          test -n "$HUGO_BASEURL"
+          test -n "$APP_HOST"
+          test -n "$HUGO_PARAMS_APP_URL"
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          test -n "$CLOUDFLARE_PAGES_PROJECT"
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
+        with:
+          hugo-version: '0.160.0'
+          extended: true
+
+      - name: Build website
+        run: bin/check
+        working-directory: website
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy public/ --project-name ${{ vars.CLOUDFLARE_PAGES_PROJECT }} --branch main
+          workingDirectory: website
+
+      - name: Smoke-test deployed website
+        run: bin/smoke "$HUGO_BASEURL"
+        working-directory: website

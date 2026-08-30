@@ -35,6 +35,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       APP_HOST: ${{ vars.APP_HOST }}
+      WEBSITE_URL: ${{ vars.WEBSITE_URL }}
       KAMAL_IMAGE: ${{ vars.KAMAL_IMAGE }}
       KAMAL_REGISTRY_SERVER: ${{ vars.KAMAL_REGISTRY_SERVER || 'ghcr.io' }}
       KAMAL_REGISTRY_USERNAME: ${{ vars.KAMAL_REGISTRY_USERNAME }}
@@ -49,16 +50,20 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
 
-      - name: Confirm latest main revision
+      - name: Confirm latest main revision and Rails changes
         id: latest
         run: |
           git fetch --depth=1 origin main
-          if [ "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)" ]; then
-            echo "deploy=true" >> "$GITHUB_OUTPUT"
-          else
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse FETCH_HEAD)" ]; then
             echo "deploy=false" >> "$GITHUB_OUTPUT"
             echo "Skipping deploy because a newer main commit exists."
+          elif [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ] && git diff --quiet HEAD^ HEAD -- . ':(exclude)website/**' ':(exclude)docs/**' ':(exclude)README.md'; then
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping the Rails deploy because only website or documentation files changed."
+          else
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up Ruby
@@ -80,6 +85,7 @@ jobs:
           test -n "$AWS_ACCESS_KEY_ID"
           test -n "$AWS_SECRET_ACCESS_KEY"
           test -n "$APP_HOST"
+          test -n "$WEBSITE_URL"
           test -n "$KAMAL_IMAGE"
           test -n "$KAMAL_REGISTRY_USERNAME"
           test -n "$AWS_REGION"

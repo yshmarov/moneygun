@@ -4,7 +4,7 @@ require "test_helper"
 
 class CspHeadersTest < ActionDispatch::IntegrationTest
   test "public pages emit an enforced policy" do
-    get root_url
+    get new_session_url
 
     assert_response :success
     policy = response.headers["Content-Security-Policy"]

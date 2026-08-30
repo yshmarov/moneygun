@@ -22,6 +22,8 @@ After reviewing every new source commit, port generic behavior with Moneygun's n
 
 Never merge the EthicsPortal branch into Moneygun or copy an entire directory. The repositories have different products, schemas, routes, translations, and deployment identities. Copying is appropriate only for self-contained files that are genuinely identical; otherwise adapt and test the behavior.
 
+The `website/` exclusion refers to EthicsPortal's product content, localization matrix, directory integrations, and compliance pages. Moneygun owns its own small Hugo skeleton and may adopt generic build or deployment improvements without copying that content.
+
 ## Pull Moneygun updates into an application
 
 An application built from Moneygun should retain its own `origin` and add Moneygun as `moneygun`:

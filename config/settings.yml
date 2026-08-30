@@ -7,6 +7,7 @@ shared:
     email: hello@superails.com
     address: Warsaw, Poland, 02-691
     og_image: logo.png
+    website_url: <%= ENV.fetch("WEBSITE_URL", "https://example.com") %>
   pro_features:
     - ✅ Access the paywalled page
   free_trial_days: 14

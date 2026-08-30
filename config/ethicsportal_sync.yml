@@ -8,6 +8,7 @@ compare:
   - config/initializers/active_storage.rb
   - config/initializers/good_job.rb
   - config/allgood.rb
+  - .github/workflows/ci.yml
   - app/controllers/concerns/authentication.rb
   - app/models/concerns/organization/billing.rb
   - app/models/membership.rb
@@ -24,6 +25,7 @@ adapt:
   - app/controllers/organizations/onboarding
   - app/jobs/pg_hero
   - app/javascript/controllers
+  - .github/workflows/deploy-website.yml
 
 exclude:
   - app/models/whistleblower

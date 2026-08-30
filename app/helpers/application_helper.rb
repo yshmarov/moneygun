@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def marketing_website_url(path = nil)
+    base_url = Rails.application.config_for(:settings).dig(:site, :website_url).to_s.chomp("/")
+    path.present? ? "#{base_url}/#{path.to_s.delete_prefix('/')}" : base_url
+  end
+
   def flash_style(type)
     case type
     when "notice" then "alert-info"

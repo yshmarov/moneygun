@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+WEBSITE_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+EXPECTED_APP_URL="${HUGO_PARAMS_APP_URL:-https://app.example.com}"
+cd "$WEBSITE_ROOT"
+
+hugo --gc --minify --panicOnWarning
+
+for output in public/index.html public/robots.txt public/sitemap.xml; do
+  test -s "$output" || { echo "Missing generated file: $output" >&2; exit 1; }
+done
+
+rg --quiet '<main id=main>' public/index.html
+rg --fixed-strings --quiet "${EXPECTED_APP_URL%/}/session/new" public/index.html
+rg --quiet 'https://github.com/yshmarov/moneygun' public/index.html
+
+echo "Website build checks passed"

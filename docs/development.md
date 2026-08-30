@@ -5,7 +5,7 @@
 ### Server
 
 ```bash
-bin/dev    # Start all services (web, css, stripe, jobs)
+bin/dev    # Start Rails, Hugo, CSS, Stripe, and jobs
 ```
 
 ### Testing

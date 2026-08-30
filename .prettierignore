@@ -28,6 +28,7 @@ test/fixtures/**/*
 
 # Public assets
 public/
+website/layouts/
 
 # DaisyUI files
 app/assets/tailwind/daisyui*
