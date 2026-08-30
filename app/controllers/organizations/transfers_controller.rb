@@ -8,7 +8,7 @@ class Organizations::TransfersController < Organizations::BaseController
   def show; end
 
   def update
-    if @organization.transfer_ownership(params[:user_id])
+    if @organization.transfer_ownership(transfer_params[:user_id])
       flash[:notice] = t(".success")
 
       respond_to do |format|
@@ -18,5 +18,11 @@ class Organizations::TransfersController < Organizations::BaseController
     else
       render :show, status: :unprocessable_content
     end
+  end
+
+  private
+
+  def transfer_params
+    params.expect(transfer: [:user_id])
   end
 end

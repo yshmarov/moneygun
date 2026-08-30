@@ -20,8 +20,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if @user.undeletable_reasons.any?
-      redirect_to user_path, alert: t("users.security.delete_account_blocked")
+    reasons = @user.undeletable_reasons
+    if reasons.any?
+      redirect_to user_path, alert: helpers.blocking_reasons_sentence(reasons, scope: "users.security.delete_account_disabled")
       return
     end
 

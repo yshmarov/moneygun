@@ -73,14 +73,22 @@ class User < ApplicationRecord
     reasons = []
     reasons << :owns_organizations if owned_organizations.exists?
 
-    memberships.active.includes(:organization).each_with_object(reasons) do |membership, result|
-      membership.undeactivatable_reasons.each do |reason|
-        result << [reason, { organizations: membership.organization.name }]
-      end
+    organizations_blocking_closure.each do |reason, names|
+      reasons << [reason, { organizations: names.sort.to_sentence }]
     end
+
+    reasons
   end
 
   private
+
+  def organizations_blocking_closure
+    memberships.active.includes(:organization).each_with_object({}) do |membership, grouped|
+      (membership.undeactivatable_reasons - [:owner]).each do |reason|
+        (grouped[reason] ||= []) << membership.organization.name
+      end
+    end
+  end
 
   def preprocess_avatar
     ActiveStorage::PreprocessVariantsJob.perform_later(self, "avatar") if @preprocess_avatar && avatar.attached?

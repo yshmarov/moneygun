@@ -25,6 +25,12 @@ class Organizations::MembershipsController < Organizations::BaseController
     @members_count = scoped.active.count
     @pending_count = manage ? pending_invitations.count : 0
     @deactivated_count = manage ? scoped.deactivated.count : 0
+
+    user_ids = @memberships.map(&:user_id)
+    @last_seen_at = Session.where(user_id: user_ids)
+                           .group(:user_id)
+                           .pluck(:user_id, Arel.sql("MAX(COALESCE(last_seen_at, created_at))"))
+                           .to_h
   end
 
   def edit; end

@@ -14,6 +14,8 @@ module User::Redaction
   end
 
   def erase!
+    return false if undeletable_reasons.any?
+
     retained_footprint? ? redact! : destroy
   end
 

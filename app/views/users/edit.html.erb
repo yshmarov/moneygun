@@ -7,6 +7,12 @@
     <%= f.input :avatar,
                 as: :dropzone,
                 input_html: { accept: "image/png, image/jpeg, image/gif" } %>
+    <% if @user.avatar.attached? %>
+      <div class="flex items-center justify-between gap-3">
+        <%= user_avatar(@user, classes: "size-12") %>
+        <%= link_to t("users.edit.remove_avatar"), user_avatar_path, data: { turbo_method: :delete, turbo_confirm: t("users.edit.remove_avatar_confirm") }, class: "btn btn-soft btn-sm text-error" %>
+      </div>
+    <% end %>
 
     <%= f.input :name,
                 input_html: {

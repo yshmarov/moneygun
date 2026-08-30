@@ -11,5 +11,11 @@
 <%= f.input :logo,
             as: :dropzone,
             input_html: { accept: "image/png, image/jpeg, image/gif" } %>
+<% if f.object.persisted? && f.object.logo.attached? %>
+  <div class="flex items-center justify-between gap-3">
+    <%= organization_avatar(f.object, classes: "size-12") %>
+    <%= link_to t("organizations.edit.remove_logo"), organization_logo_path(f.object), data: { turbo_method: :delete, turbo_confirm: t("organizations.edit.remove_logo_confirm") }, class: "btn btn-soft btn-sm text-error" %>
+  </div>
+<% end %>
 
 <%= f.hidden_field :website if f.object.new_record? %>

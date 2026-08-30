@@ -1,6 +1,6 @@
 <%= simple_form_for :transfer, url: organization_transfer_path(Current.organization), method: :patch, html: { class: "contents space-y-4", data: { controller: "auto-submit", action: "keydown.ctrl+enter->auto-submit#submit keydown.meta+enter->auto-submit#submit" } } do |f| %>
   <%= f.input :user_id,
-              collection: Current.organization.users.where.not(users: { id: current_user.id }),
+              collection: Current.organization.ownership_transfer_candidate_users,
               label_method: :email,
               value_method: :id,
               include_blank: true,

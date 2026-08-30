@@ -4,8 +4,13 @@
   <%= render "form", organization: @organization %>
 
   <%= render "shared/danger_zone", label: t("shared.danger_zone.label") do %>
-    <% if @organization.can_transfer?(current_user) %>
-      <li><%= link_to t("organizations.transfers.show.title"), organization_transfer_path(@organization), data: { turbo_frame: :modal } %></li>
+    <% if @organization.owner?(current_user) %>
+      <% transfer_reasons = @organization.non_transferable_reasons %>
+      <% if transfer_reasons.any? %>
+        <li><span class="text-base-content/60 cursor-not-allowed" title="<%= blocking_reasons_sentence(transfer_reasons, scope: 'organizations.edit.transfer_disabled') %>"><%= t("organizations.transfers.show.title") %></span></li>
+      <% else %>
+        <li><%= link_to t("organizations.transfers.show.title"), organization_transfer_path(@organization), data: { turbo_frame: :modal } %></li>
+      <% end %>
     <% end %>
     <% if policy(@organization).destroy? %>
       <li>

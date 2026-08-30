@@ -49,7 +49,7 @@
     <%= render EmptyStateComponent.new(title: t("organizations.invitations.index.empty"), icon: "📩") %>
   <% else %>
     <ul id="memberships" class="list bg-base-200 rounded-box">
-      <%= render partial: "membership", collection: @memberships %>
+      <%= render partial: "membership", collection: @memberships, locals: { last_seen_at: @last_seen_at } %>
     </ul>
     <%= render EmptyStateComponent.new %>
   <% end %>

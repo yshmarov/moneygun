@@ -1,5 +1,5 @@
 source_repository: https://github.com/yshmarov/ethicsportal.eu.git
-last_reviewed_revision: 96d4e16f6a63eeb2176681fa6196933af9abafc3
+last_reviewed_revision: 0cdbfbf02af77811382eed1ed7a07c87e55227b6
 
 compare:
   - Gemfile

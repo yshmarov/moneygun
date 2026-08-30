@@ -6,6 +6,7 @@ end
 
 resources :organizations, path: I18n.t("routes.organizations") do
   scope module: :organizations do
+    resource :logo, only: :destroy
     namespace :onboarding do
       resource :profile, only: %i[show update]
       resource :team, only: :show

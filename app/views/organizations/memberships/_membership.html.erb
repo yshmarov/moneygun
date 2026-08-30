@@ -1,5 +1,6 @@
 <% email = membership.user.display_email %>
 <% visible_email = Current.membership.admin? ? email : email&.split("@")&.first %>
+<% last_seen = local_assigns[:last_seen_at]&.[](membership.user_id) %>
 
 <li class="list-row items-center <%= 'opacity-60' if membership.deactivated? %>">
   <div class="list-col-grow flex items-center min-w-0 gap-3">
@@ -14,6 +15,14 @@
         <span class="badge badge-xs"><%= t("organizations.memberships.roles.#{membership.role}.label") %></span>
         <% if membership.deactivated? %><span class="badge badge-xs badge-ghost"><%= t("organizations.memberships.deactivated_badge") %></span><% end %>
         <span class="text-xs text-base-content/70"><%= t("organizations.memberships.index.joined_html", date: l(membership.created_at, format: :short)) %></span>
+        <span class="text-xs text-base-content/50" aria-hidden="true">·</span>
+        <span class="text-xs text-base-content/70">
+          <% if last_seen %>
+            <%= t("organizations.memberships.index.last_seen_html", time_ago: time_ago_in_words(last_seen)) %>
+          <% else %>
+            <%= t("organizations.memberships.index.never_signed_in") %>
+          <% end %>
+        </span>
       </div>
     </div>
   </div>

@@ -3,11 +3,19 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
+  test "new session reloads the full page when reached from a turbo frame" do
+    get new_session_path, headers: { "Turbo-Frame" => "modal" }
+
+    assert_response :success
+    assert_select "meta[name='turbo-visit-control'][content='reload']"
+  end
+
   test "sign-in form prefills the remembered email unless a parameter overrides it" do
     cookies[:remembered_email] = encrypt_cookie_value(:remembered_email, "remembered@example.com")
 
     get new_session_path
     assert_includes response.body, 'value="remembered@example.com"'
+    assert_select "meta[name='turbo-visit-control'][content='reload']", count: 0
 
     get new_session_path(email_address: "explicit@example.com")
     assert_includes response.body, 'value="explicit@example.com"'

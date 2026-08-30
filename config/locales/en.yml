@@ -281,7 +281,11 @@ en:
       delete_organization: Delete this organization
       destroy_disabled:
         has_active_subscription: Cancel the active subscription before deleting this organization
+      remove_logo: Remove logo
+      remove_logo_confirm: Remove the logo?
       title: Organization settings
+      transfer_disabled:
+        no_other_members: Invite another member before transferring ownership
     index:
       title: My organizations
     invitations:
@@ -325,6 +329,8 @@ en:
           apply: Apply
           role: Filter by role
         joined_html: Joined %{date}
+        last_seen_html: Active %{time_ago} ago
+        never_signed_in: Never signed in
         tabs:
           deactivated: Deactivated
           members: Members
@@ -429,9 +435,15 @@ en:
         title: Features
       index:
         title: Billing
+      intervals:
+        month: month
+        year: year
       plan:
         active: Active
         cancelled: Cancelled
+        excluding_tax: Excluding tax
+        first_charge: First charge
+        free_trial: Free trial
         granted_access: Complimentary access
         granted_access_after_cancellation: Your paid subscription is cancelled, but %{site_name} has granted this organization continued access.
         granted_access_detail: "%{site_name} has granted this organization access without a paid subscription."
@@ -439,8 +451,10 @@ en:
         next_billing_date: Next billing date
         price: Price
         resume_subscription: Resume subscription
+        standard_plan: 'Standard plan: %{amount} / %{interval}, excluding tax'
         status: Subscription status
         title: Manage subscription
+        trial_cancelled: Trial cancelled
         you_will_lose_access_in: You will lose access in %{distance_of_time_in_words}
       pricing:
         cancel_security: "🛡️ Cancel anytime. Secured by Stripe."
@@ -629,6 +643,8 @@ en:
   users:
     closed_account_name: Closed account
     edit:
+      remove_avatar: Remove avatar
+      remove_avatar_confirm: Remove the avatar?
       title: Edit profile
     email_changes:
       email_taken: That email is already taken.
@@ -719,8 +735,10 @@ en:
         title: Affiliate Program
     security:
       delete_account: Delete my account
-      delete_account_blocked: Delete or transfer organizations and assign another administrator before deleting this account.
       delete_account_confirm: This permanently closes your account and cannot be undone.
+      delete_account_disabled:
+        owns_organizations: Delete or transfer your organizations first
+        sole_admin: Assign another admin in %{organizations} first
     sessions:
       index:
         current: Current session

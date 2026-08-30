@@ -58,20 +58,12 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "new standalone user receives a default organization" do
-    assert_difference -> { Organization.count } => 1, -> { Membership.count } => 1 do
+  test "new user is created without a default organization" do
+    assert_no_difference ["Organization.count", "Membership.count"] do
       user = User.create!(email: "standalone@example.com")
 
-      assert_equal user, user.owned_organizations.first.owner
-      assert_predicate user.memberships.first, :admin?
-    end
-  end
-
-  test "pending invitee does not receive a throwaway default organization" do
-    organizations(:one).invitations.create!(email: "invited-user@example.com", invited_by: users(:one))
-
-    assert_no_difference ["Organization.count", "Membership.count"] do
-      User.create!(email: "invited-user@example.com")
+      assert_empty user.owned_organizations
+      assert_empty user.organizations
     end
   end
 

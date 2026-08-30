@@ -22,6 +22,7 @@ end
 
 resource :user, only: %i[show edit update destroy], path: I18n.t("routes.user") do
   scope module: :users do
+    resource :avatar, only: :destroy
     resource :email_change, only: %i[new create show update]
     resource :two_factor, only: %i[show new create edit destroy], controller: "two_factor"
     resources :notifications, only: %i[index]

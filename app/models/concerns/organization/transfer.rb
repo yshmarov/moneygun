@@ -8,10 +8,10 @@ module Organization::Transfer
   end
 
   def transfer_ownership(user_id)
-    previous_owner = owner
-    membership = memberships.active.find_by(user_id: user_id)
+    membership = ownership_transfer_candidate_memberships.find_by(user_id: user_id)
     return false unless membership
 
+    previous_owner = owner
     new_owner = membership.user
 
     ApplicationRecord.transaction do
@@ -27,16 +27,27 @@ module Organization::Transfer
     end
 
     OrganizationMailer.ownership_transferred(new_owner, self).deliver_later
-  rescue StandardError => e
-    Rails.logger.error("Ownership transfer failed: #{e.message}")
-    false
   end
 
   def owner?(user)
-    owner_id == user.id
+    owner_id == user&.id
   end
 
   def can_transfer?(user)
-    owner?(user) && memberships.active.where.not(user: user).exists?
+    owner?(user) && ownership_transfer_candidate_memberships.exists?
+  end
+
+  def non_transferable_reasons
+    reasons = []
+    reasons << :no_other_members unless ownership_transfer_candidate_memberships.exists?
+    reasons
+  end
+
+  def ownership_transfer_candidate_memberships
+    memberships.active.where.not(user_id: owner_id)
+  end
+
+  def ownership_transfer_candidate_users
+    User.where(id: ownership_transfer_candidate_memberships.select(:user_id)).order(:email)
   end
 end

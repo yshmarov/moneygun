@@ -11,7 +11,6 @@ module User::Multitenancy
     has_many :sent_join_requests, class_name: "AccessRequest::UserRequestForOrganization", dependent: :destroy
     has_many :sent_invitations, class_name: "Invitation", foreign_key: :invited_by_id, inverse_of: :invited_by, dependent: :nullify
 
-    after_create_commit :create_default_organization
     after_destroy_commit :purge_received_invitations
   end
 
@@ -31,14 +30,5 @@ module User::Multitenancy
 
   def purge_received_invitations
     Invitation.for_email(email).delete_all
-  end
-
-  def create_default_organization
-    return if Current.scim_connection || Current.sso_connection
-    return if Invitation.pending.for_email(email).exists?
-
-    organization_name = email.split("@").first
-    organization = Organization.create!(name: organization_name, owner: self)
-    organization.memberships.first.update(role: Membership.roles[:admin], provisioned_via: "manual")
   end
 end

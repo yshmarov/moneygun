@@ -23,6 +23,19 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     assert_match I18n.t("shared.errors.not_authorized"), flash[:alert]
   end
 
+  test "index shows each member's last activity" do
+    last_seen_at = 2.minutes.ago
+    @user.sessions.update_all(last_seen_at: last_seen_at) # rubocop:disable Rails/SkipsModelValidations
+
+    get organization_memberships_url(@organization)
+
+    assert_response :success
+    assert_match(
+      I18n.t("organizations.memberships.index.last_seen_html", time_ago: ApplicationController.helpers.time_ago_in_words(last_seen_at)),
+      response.body
+    )
+  end
+
   test "#edit" do
     # The owner's role is immutable.
     get edit_organization_membership_url(@organization, @membership)
