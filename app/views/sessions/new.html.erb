@@ -6,6 +6,7 @@
   <p class="text-base-content/70"><%= t("sessions.new.magic_link_explanation") %></p>
 
   <%= simple_form_for :session, url: session_path, html: { class: "space-y-3", data: { turbo_frame: "_top" } } do |f| %>
+    <%= invisible_captcha %>
     <%= f.input :email_address,
                 as: :email,
                 required: true,

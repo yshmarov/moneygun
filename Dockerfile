@@ -9,6 +9,8 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=4.0.5
+ARG CLAMAV_VERSION=1.4.5
+ARG CLAMAV_SHA256=49b7d9592c13e8834fd1e2339bf22b2fabe378317393b51b3879de8520c5b01f
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -53,10 +55,19 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # Final stage for app image
 FROM base
+ARG CLAMAV_VERSION
+ARG CLAMAV_SHA256
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y imagemagick libvips && \
+    apt-get install --no-install-recommends -y imagemagick libimage-exiftool-perl libvips && \
+    curl -fsSL "https://github.com/Cisco-Talos/clamav/releases/download/clamav-${CLAMAV_VERSION}/clamav-${CLAMAV_VERSION}.linux.x86_64.deb" -o /tmp/clamav.deb && \
+    echo "${CLAMAV_SHA256}  /tmp/clamav.deb" | sha256sum -c - && \
+    dpkg -i /tmp/clamav.deb && \
+    rm /tmp/clamav.deb && \
+    cp /usr/local/etc/freshclam.conf.sample /usr/local/etc/freshclam.conf && \
+    sed -i -e 's/^Example/#Example/' -e '$aDatabaseDirectory /var/lib/clamav' /usr/local/etc/freshclam.conf && \
+    clamscan --version | grep -F "ClamAV ${CLAMAV_VERSION}" && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
@@ -66,8 +77,8 @@ COPY --from=build /rails /rails
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    mkdir -p db log storage tmp && \
-    chown -R rails:rails db log storage tmp
+    mkdir -p db log storage tmp /var/lib/clamav && \
+    chown -R rails:rails db log storage tmp /var/lib/clamav
 USER 1000:1000
 
 # Entrypoint prepares the database.

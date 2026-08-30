@@ -2,7 +2,9 @@
 
 class Sessions::TwoFactorController < ApplicationController
   require_unauthenticated_access
-  rate_limit to: 10, within: 10.minutes, only: :create, by: -> { user_pending_two_factor&.id },
+  rate_limit to: 20, within: 10.minutes, only: :create, name: "ip",
+             with: -> { redirect_to new_session_two_factor_path, alert: t("sessions.two_factor.rate_limited") }
+  rate_limit to: 10, within: 10.minutes, only: :create, name: "account", by: -> { user_pending_two_factor&.id },
              with: -> { redirect_to new_session_two_factor_path, alert: t("sessions.two_factor.rate_limited") }
   before_action :ensure_pending_two_factor
 

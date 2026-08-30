@@ -8,14 +8,22 @@ class Organization < ApplicationRecord
   has_many :data_exports, dependent: :destroy
 
   include Organization::Multitenancy
+  include ScansForViruses
+  include StripsFileMetadata
   include Organization::Transfer
   include Organization::Billing
   include Organization::Logo
   include Organization::Community
+  include Organization::Onboarding
   include Auditable
+
+  scans_attachments_for_viruses :logo
 
   validates :name, presence: true
   validates :website, format: { with: %r{\Ahttps?://.+\z}i }, allow_blank: true
+
+  scope :kept, -> { where(deleted_at: nil) }
+  scope :soft_deleted, -> { where.not(deleted_at: nil) }
 
   audit_changes(*AUDITED_FIELDS, action: "organization.updated", mini_app: "organization", organization: :itself)
 
@@ -37,9 +45,22 @@ class Organization < ApplicationRecord
     active_subscription? ? [:has_active_subscription] : []
   end
 
+  def deleted?
+    deleted_at.present?
+  end
+
   def erase!
     recipients = memberships.active.includes(:user).map(&:user) - [Current.user]
-    return false unless destroy
+    return false if deleted? || active_subscription?
+
+    transaction do
+      invitations.destroy_all
+      sso_connection&.destroy
+      scim_connection&.destroy
+      update!(deleted_at: Time.current)
+      AuditLog.log!(organization: self, actor: Current.membership, actor_kind: Current.audit_actor_kind,
+                    action: "organization.soft_deleted", metadata: { organization_name: name })
+    end
 
     Membership::OrganizationDeletedNotifier.with(organization_name: name).deliver(recipients) if recipients.any?
     true

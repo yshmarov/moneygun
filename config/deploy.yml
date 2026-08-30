@@ -29,6 +29,10 @@ servers:
       health-timeout: 5s
       health-retries: 3
       health-start-period: 10s
+      memory: 1536m
+      memory-swap: 1536m
+      cpus: 1.0
+      volume: clamav_signatures:/var/lib/clamav
     env:
       clear:
         RAILS_MAX_THREADS: 5
@@ -37,7 +41,7 @@ servers:
         GOOD_JOB_MAX_THREADS: 5
         GOOD_JOB_POLL_INTERVAL: 10
         GOOD_JOB_PROBE_PORT: 7001
-        GOOD_JOB_QUEUES: '*'
+        GOOD_JOB_QUEUES: 'virus_scan:1;-virus_scan:5'
         GOOD_JOB_SHUTDOWN_TIMEOUT: 25
         GOOD_JOB_CRON_GRACEFUL_RESTART_PERIOD: 60
 
@@ -68,6 +72,7 @@ env:
     - AWS_SECRET_ACCESS_KEY
   clear:
     HOST: <%= ENV.fetch("APP_HOST", "app.example.com") %>
+    APP_REVISION: <%= `git rev-parse HEAD`.strip %>
     ACTIVE_STORAGE_SERVICE: s3
     AWS_REGION: <%= ENV.fetch("AWS_REGION", "auto") %>
     BUCKET_NAME: <%= ENV.fetch("BUCKET_NAME", "moneygun-production") %>
@@ -111,6 +116,7 @@ accessories:
     image: postgres:18
     host: <%= ENV.fetch("KAMAL_HOST", "192.168.0.1") %>
     port: '127.0.0.1:5432:5432'
+    cmd: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all
     options:
       health-cmd: 'pg_isready -U moneygun -d moneygun_production'
       health-interval: 10s

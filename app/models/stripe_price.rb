@@ -31,6 +31,10 @@ class StripePrice
   end
 
   class << self
+    def configured?
+      Rails.application.credentials.dig(:stripe, :private_key).present?
+    end
+
     def all
       Rails.cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) { fetch_all }
     end
@@ -48,7 +52,7 @@ class StripePrice
     private
 
     def fetch_all
-      return [] unless stripe_configured?
+      return [] unless configured?
 
       price_ids = configured_price_ids
       return [] if price_ids.empty?
@@ -58,7 +62,7 @@ class StripePrice
     end
 
     def fetch_one(price_id)
-      return nil unless stripe_configured?
+      return nil unless configured?
 
       stripe_price = Stripe::Price.retrieve(price_id)
       from_stripe(stripe_price)
@@ -81,10 +85,6 @@ class StripePrice
 
     def configured_price_ids
       Rails.application.config_for(:settings)[:plan_price_ids] || []
-    end
-
-    def stripe_configured?
-      Rails.application.credentials.dig(:stripe, :private_key).present?
     end
   end
 end

@@ -35,6 +35,7 @@ class OrganizationsController < ApplicationController
     @organization.owner = current_user
 
     if @organization.save
+      session[:organization_onboarding_id] = @organization.id
       redirect_to organization_dpa_agreement_path(@organization)
     else
       @show_form = true

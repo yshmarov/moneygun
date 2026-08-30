@@ -1,6 +1,6 @@
 # Deployment
 
-Moneygun ships a production baseline for [Kamal](https://kamal-deploy.org/): separate web and GoodJob roles, PostgreSQL, S3-compatible object storage, container health checks, bounded shutdowns, registry build caching, and log rotation.
+Moneygun ships a production baseline for [Kamal](https://kamal-deploy.org/): separate web and GoodJob roles, PostgreSQL with PgHero history, S3-compatible object storage, ClamAV upload scanning, container health checks, bounded shutdowns, registry build caching, and log rotation.
 
 The checked-in values are examples. Configure them before the first deploy.
 
@@ -69,6 +69,8 @@ bin/kamal deploy
 
 The web role never runs cron. The GoodJob role owns scheduled work and exposes a database-connected health endpoint on port 7001, so a worker that cannot reach PostgreSQL is not considered healthy.
 
+The worker also owns the persistent `clamav_signatures` volume. It seeds missing virus definitions at boot and refreshes them daily. File-serving controllers fail closed while a protected upload is pending or failed; keep the dedicated `virus_scan` queue and do not remove the signature volume without replacing that scanner contract. PgHero query collection depends on the PostgreSQL accessory's `shared_preload_libraries=pg_stat_statements` command.
+
 ## GitHub deployment
 
 `.github/workflows/deploy.yml` can deploy manually from Actions. Automatic deployment is deliberately opt-in: set the repository variable `KAMAL_DEPLOY_ENABLED` to `true`. Once enabled, a successful `CI` run for a push to `main` starts deployment; failed or draft CI never does.
@@ -118,6 +120,12 @@ bin/kamal dbc
 bin/kamal accessory logs db
 ```
 
+The admin gate exposes GoodJob at `/jobs`, PgHero at `/pghero`, feature flags at `/feature_flags`, and Allgood at `/healthcheck`. After deployment, run the non-mutating HTTP smoke test:
+
+```bash
+bin/smoke https://app.example.com
+```
+
 The container entrypoint runs `db:prepare` before the web process starts, so normal deployments do not need a separate migration command.
 
 ## Backups and recovery
@@ -161,5 +169,5 @@ These workflows are operational controls, not substitutes for watching AppSignal
 5. Stripe live keys and the `https://APP_HOST/pay/webhooks/stripe` endpoint are configured if billing is enabled.
 6. Object storage permits the application credentials to read, write, and delete only the intended bucket.
 7. Database and object-storage restore drills have succeeded, and `bin/backup-lifecycle check` reports no drift.
-8. `/up`, the web role, the job role, and a real email sign-in are healthy after deployment.
+8. `bin/smoke https://APP_HOST`, the web role, the job role, ClamAV freshness, and a real email sign-in are healthy after deployment.
 9. AppSignal has received a deploy and a test error from the production environment.

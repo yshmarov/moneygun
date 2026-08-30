@@ -17,12 +17,12 @@ Moneygun is deliberately plain Rails: route-based organizations, membership-scop
 - Stripe subscriptions through Pay
 - Pundit authorization with tenant-safe scopes
 - Append-only, tenant-scoped audit logs with actor and request snapshots
-- Authenticated Active Storage delivery and protected direct uploads
+- Authenticated Active Storage delivery, server-upload metadata stripping, decompression-bomb checks, and ClamAV scanning
 - Background image-variant preprocessing, cacheable external SVG icons, and enforced browser security policies
 - Per-organization SAML 2.0 SSO with verified domains, enforcement, JIT, signed assertions, and replay protection
 - SCIM 2.0 provisioning with one-time bearer tokens and safe member lifecycle rules
 - Tailwind CSS 4, daisyUI 5, Hotwire, ViewComponent, shared page/shell components, and dark mode
-- Avo, GoodJob, Flipper, Noticed, AppSignal, accessibility checks, and production-oriented lint/security checks
+- Avo, GoodJob, PgHero, Flipper, Noticed, AppSignal, accessibility checks, and production-oriented lint/security checks
 - Kamal deployment, database backups with restore drills, image/configuration scanning, and conservative registry pruning
 - `Project`, an example mini-app demonstrating tenant ownership, rich forms, files, policies, and audit events
 

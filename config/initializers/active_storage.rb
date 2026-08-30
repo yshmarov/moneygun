@@ -19,3 +19,9 @@ Rails.application.config.active_storage.variable_content_types = %w[
   image/webp
   image/avif
 ]
+
+Rails.application.config.after_initialize do
+  Rails.application.config.active_storage.analyzers.prepend(ActiveStorage::Analyzer::SafeImageAnalyzer)
+end
+
+ActionDispatch::ExceptionWrapper.rescue_responses["ActiveStorage::FileNotFoundError"] = :not_found

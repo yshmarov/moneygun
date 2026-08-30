@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 class Users::TwoFactorController < ApplicationController
-  rate_limit to: 10, within: 10.minutes, only: %i[create destroy], by: -> { current_user&.id },
+  rate_limit to: 20, within: 10.minutes, only: :create, name: "ip",
+             with: -> { redirect_to new_user_two_factor_path, alert: t("users.two_factor.rate_limited") }
+  rate_limit to: 10, within: 10.minutes, only: :create, name: "account", by: -> { current_user&.id },
+             with: -> { redirect_to new_user_two_factor_path, alert: t("users.two_factor.rate_limited") }
+  rate_limit to: 20, within: 10.minutes, only: :destroy, name: "disable_ip",
+             with: -> { redirect_to user_path, alert: t("users.two_factor.rate_limited") }
+  rate_limit to: 10, within: 10.minutes, only: :destroy, name: "disable_account", by: -> { current_user&.id },
              with: -> { redirect_to user_path, alert: t("users.two_factor.rate_limited") }
   before_action :redirect_if_two_factor_enabled, only: :new
   before_action -> { require_sudo(:enable_two_factor) }, only: %i[new create]

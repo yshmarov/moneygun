@@ -7,12 +7,12 @@ module Organization::Billing
     pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 
     scope :subscribed, lambda {
-      where(id: Pay::Subscription.active.for_name(Pay.default_product_name)
-                .joins(:customer)
-                .where(pay_customers: { owner_type: "Organization", deleted_at: nil })
-                .select("pay_customers.owner_id"))
+      kept.where(id: Pay::Subscription.active.for_name(Pay.default_product_name)
+                     .joins(:customer)
+                     .where(pay_customers: { owner_type: "Organization", deleted_at: nil })
+                     .select("pay_customers.owner_id"))
     }
-    scope :with_access, -> { subscribed.or(where(admin_granted_access: true)) }
+    scope :with_access, -> { subscribed.or(kept.where(admin_granted_access: true)) }
   end
 
   def stripe_attributes(pay_customer)
@@ -26,6 +26,10 @@ module Organization::Billing
 
   def pay_should_sync_customer?
     super || saved_change_to_owner_id?
+  end
+
+  def trial_days
+    Rails.application.config_for(:settings)[:free_trial_days].to_i
   end
 
   # rubocop:disable Naming/PredicatePrefix
@@ -46,6 +50,12 @@ module Organization::Billing
 
   def complimentary_access?
     admin_granted_access? && !active_subscription?
+  end
+
+  def trial_eligible?
+    return false if has_access? || !trial_days.positive?
+
+    payment_processor.nil? || payment_processor.subscription.nil?
   end
 
   delegate :email, to: :owner

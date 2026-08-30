@@ -8,6 +8,7 @@ class ActiveStorageAuthorizationTest < ActionDispatch::IntegrationTest
     @project = projects(:one)
     @project.document.attach(io: StringIO.new("private"), filename: "private.txt", content_type: "text/plain")
     @blob = @project.document.blob
+    ActiveStorageSafety.update_scan_status!(@blob, "clean")
   end
 
   test "organization member can download a project file" do
@@ -37,6 +38,7 @@ class ActiveStorageAuthorizationTest < ActionDispatch::IntegrationTest
   test "public avatars remain available without a session" do
     user = users(:one)
     user.avatar.attach(io: file_fixture("superails-logo.png").open, filename: "avatar.png", content_type: "image/png")
+    ActiveStorageSafety.update_scan_status!(user.avatar.blob, "clean")
 
     get rails_blob_path(user.avatar.blob)
     assert_response :redirect

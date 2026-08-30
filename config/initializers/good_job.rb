@@ -15,10 +15,30 @@ Rails.application.configure do
   config.good_job.cron_graceful_restart_period = ENV.fetch("GOOD_JOB_CRON_GRACEFUL_RESTART_PERIOD", 60).to_i
 
   config.good_job.cron = {
-    maintenance: {
-      cron: "15 * * * *",
-      class: "MaintenanceJob",
-      description: "Remove expired authentication state and abandoned uploads"
-    }
+    cleanup_magic_links: { cron: "0 * * * *", class: "MagicLink::CleanupJob" },
+    cleanup_saml_requests: { cron: "20 * * * *", class: "SamlAuthRequest::CleanupJob" },
+    cleanup_sessions: { cron: "30 3 * * *", class: "Session::CleanupJob" },
+    purge_invitations: { cron: "45 2 * * *", class: "Invitation::PurgeJob" },
+    purge_data_exports: { cron: "15 3 * * *", class: "DataExport::PurgeJob" },
+    purge_unattached_blobs: { cron: "45 3 * * *", class: "ActiveStorage::PurgeUnattachedBlobsJob" },
+    purge_soft_deleted_organizations: { cron: "30 4 * * *", class: "Organization::PurgeJob" },
+    clamav_signature_update: { cron: "0 4 * * *", class: "ClamavUpdateJob" },
+    capture_pghero_query_stats: { cron: "*/15 * * * *", class: "PgHero::CaptureQueryStatsJob" },
+    capture_pghero_space_stats: { cron: "30 5 * * *", class: "PgHero::CaptureSpaceStatsJob" }
   }
+
+  config.after_initialize do
+    next unless boolean.cast(ENV.fetch("GOOD_JOB_ENABLE_CRON", false))
+
+    recently_refreshed = ActiveRecord::Base.connection.select_value(<<~SQL.squish)
+      SELECT 1 FROM good_jobs
+      WHERE serialized_params->>'job_class' = 'ClamavUpdateJob'
+        AND finished_at > NOW() - INTERVAL '24 hours'
+        AND error IS NULL
+      LIMIT 1
+    SQL
+    ClamavUpdateJob.perform_later if recently_refreshed.blank?
+  rescue ActiveRecord::ActiveRecordError => e
+    Rails.logger.warn("[ClamAV] boot-time signature seed skipped: #{e.message}")
+  end
 end

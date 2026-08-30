@@ -9,6 +9,8 @@ shared:
     og_image: logo.png
   pro_features:
     - ✅ Access the paywalled page
+  free_trial_days: 14
+  organization_purge_after_days: 30
   plan_price_ids:
     - price_1SYWIEGHcaLYld8I3aEP3Qpp
     - price_1SYWIdGHcaLYld8IFWrZkAho

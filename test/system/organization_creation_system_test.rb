@@ -17,8 +17,14 @@ class OrganizationCreationSystemTest < ApplicationSystemTestCase
     check "acceptance_confirmed"
     click_button I18n.t("agreements.acceptances.accept_and_continue")
 
-    assert_text "Acme Studio"
-    assert_current_path organization_path(organization)
+    assert_current_path organization_onboarding_profile_path(organization)
+    assert_field Organization.human_attribute_name(:name), with: "Acme Studio"
+    click_button I18n.t("organizations.onboarding.save_and_continue")
+
+    assert_current_path organization_onboarding_team_path(organization)
+    click_link I18n.t("organizations.onboarding.continue")
+
+    assert_current_path organization_dashboard_path(organization)
     assert organization.memberships.active.exists?(user: user, role: "admin")
   end
 end

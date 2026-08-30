@@ -6,6 +6,11 @@ end
 
 resources :organizations, path: I18n.t("routes.organizations") do
   scope module: :organizations do
+    namespace :onboarding do
+      resource :profile, only: %i[show update]
+      resource :team, only: :show
+      resource :subscription, only: :show
+    end
     resource :sso_connection, only: %i[show create update destroy] do
       resources :sso_domains, only: %i[create destroy] do
         post :verify, on: :member

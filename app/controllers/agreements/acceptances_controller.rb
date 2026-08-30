@@ -94,7 +94,12 @@ class Agreements::AcceptancesController < ApplicationController
   helper_method :acceptance_allowed?, :user_terms?, :organization_dpa?
 
   def path_after_acceptance
-    return agreement_return_location || organization_path(@organization) if organization_dpa?
+    if organization_dpa?
+      onboarding = session.delete(:organization_onboarding_id) == @organization.id
+      return organization_onboarding_profile_path(@organization) if onboarding
+
+      return agreement_return_location || organization_path(@organization)
+    end
 
     next_onboarding_path || agreement_return_location || session.delete(:return_to_after_authenticating) || default_authenticated_path
   end

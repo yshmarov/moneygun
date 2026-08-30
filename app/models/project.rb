@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
+  include ScansForViruses
+  include StripsFileMetadata
+
   belongs_to :organization
   belongs_to :membership
 
@@ -21,6 +24,8 @@ class Project < ApplicationRecord
   has_many_attached :attachments
   has_one_attached :cover_image
   has_many_attached :gallery
+
+  scans_attachments_for_viruses :document, :attachments, :cover_image, :gallery
 
   validates :cover_image, content_type: IMAGE_CONTENT_TYPES, size: { less_than: 5.megabytes }
   validates :gallery, content_type: IMAGE_CONTENT_TYPES, size: { less_than: 5.megabytes }

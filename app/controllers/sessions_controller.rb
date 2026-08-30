@@ -2,6 +2,7 @@
 
 class SessionsController < ApplicationController
   require_unauthenticated_access except: :destroy
+  invisible_captcha only: :create
   rate_limit to: 10, within: 3.minutes, only: :create, name: "ip",
              with: -> { redirect_to new_session_path, alert: t("shared.errors.rate_limit") }
   rate_limit to: 5, within: 15.minutes, only: :create, name: "email",

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Lightweight deployed HTTP smoke test. It does not create data.
+
+set -euo pipefail
+
+BASE_URL="${1:-${SMOKE_BASE_URL:-}}"
+[ -n "$BASE_URL" ] || { echo "Usage: bin/smoke https://app.example.com" >&2; exit 64; }
+BASE_URL="${BASE_URL%/}"
+
+check() {
+  path="$1"
+  expected="$2"
+  status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 15 "$BASE_URL$path")"
+  case "$status" in
+    $expected) printf 'ok   %s (%s)\n' "$path" "$status" ;;
+    *) printf 'FAIL %s (expected %s, got %s)\n' "$path" "$expected" "$status" >&2; return 1 ;;
+  esac
+}
+
+check "/up" "200"
+check "/session/new" "200"
+check "/robots.txt" "200"
+
+printf 'Smoke checks passed for %s\n' "$BASE_URL"

@@ -10,6 +10,7 @@ ActiveRecordDoctor.configure do
     /^nondisposable_/,
     /^noticed_/,
     /^pay_/,
+    /^pghero_/,
     /^refer_/,
     /^solid_/
   ]
@@ -22,6 +23,7 @@ ActiveRecordDoctor.configure do
     /^Nondisposable::/,
     /^Noticed::/,
     /^Pay::/,
+    /^PgHero::/,
     /^Refer::/,
     /^Solid/
   ]

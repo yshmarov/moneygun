@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "open3"
+require "pathname"
+require "yaml"
+
+root = Pathname.new(__dir__).join("..").expand_path
+manifest = YAML.safe_load(root.join("config/ethicsportal_sync.yml").read)
+check = ARGV.delete("--check")
+source = Pathname.new(ARGV.first || ENV.fetch("ETHICSPORTAL_PATH", root.join("../..", "ethicsportal.eu").to_s)).expand_path
+
+abort "EthicsPortal checkout not found at #{source}. Pass its path or set ETHICSPORTAL_PATH." unless source.join(".git").exist?
+
+git = lambda do |*args|
+  output, status = Open3.capture2e("git", "-C", source.to_s, *args)
+  abort output unless status.success?
+  output.strip
+end
+
+reviewed = manifest.fetch("last_reviewed_revision")
+head = git.call("rev-parse", "HEAD")
+working_tree_changes = git.call("status", "--short")
+git.call("merge-base", "--is-ancestor", reviewed, head)
+
+puts "EthicsPortal sync audit"
+puts "Source:   #{source}"
+puts "Reviewed: #{reviewed}"
+puts "Current:  #{head}"
+
+unless working_tree_changes.empty?
+  puts "\nWarning: the source checkout has uncommitted changes. Revision tracking does not cover them:"
+  puts working_tree_changes.lines.map { |line| "  #{line}" }
+end
+
+if reviewed == head
+  puts "\nNo source commits remain to review."
+else
+  puts "\nSource commits to classify:"
+  puts git.call("log", "--oneline", "#{reviewed}..#{head}")
+end
+
+%w[compare adapt exclude].each do |group|
+  puts "\n#{group.capitalize} paths:"
+  manifest.fetch(group).each do |path|
+    source_path = source.join(path)
+    target_path = root.join(path)
+    state = if !source_path.exist?
+              "source missing"
+            elsif group == "exclude"
+              "excluded"
+            elsif !target_path.exist?
+              "target missing"
+            elsif source_path.directory? || target_path.directory?
+              "review directory"
+            elsif source_path.binread == target_path.binread
+              "identical"
+            else
+              "adapted/different"
+            end
+    puts "  %-18s %s" % [state, path]
+  end
+end
+
+exit(1) if check && reviewed != head

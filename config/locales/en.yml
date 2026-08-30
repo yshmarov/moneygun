@@ -93,6 +93,7 @@ en:
       already_has_pending_request: already has a pending request
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
       expired: has expired, please request a new one
+      metadata_stripping_failed: could not be sanitized for upload
       not_found: not found
       not_locked: was not locked
       not_saved:
@@ -346,6 +347,21 @@ en:
     new:
       title: New organization
       website_label: Website URL
+    onboarding:
+      continue: Continue
+      profile:
+        subtitle: Confirm the organization details your team will see.
+        title: Set up your organization
+      save_and_continue: Save and continue
+      skip: Skip for now
+      step_counter: Step %{current} of %{total}
+      subscription:
+        subtitle: Start with a %{trial_days}-day trial, then choose the plan that fits your organization.
+        subtitle_no_trial: Choose the plan that fits your organization.
+        title: Activate your plan
+      team:
+        subtitle: Invite the people who will work with you. You can always do this later.
+        title: Add your team
     projects:
       create:
         success: Project created
@@ -564,6 +580,8 @@ en:
     footer:
       all_rights_reserved: All rights reserved.
       brand_assets: Brand assets
+    forms:
+      unsaved_changes: You have unsaved changes. Leave this page?
     language_picker:
       label: Language
     modal:

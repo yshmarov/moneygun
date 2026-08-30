@@ -85,6 +85,7 @@ gem "pagy", "~> 43.6"
 gem "ransack", "~> 4.2"
 gem "active_storage_validations"
 gem "fx", "~> 0.11.0"
+gem "invisible_captcha", "~> 2.3"
 
 # authentication
 gem "nondisposable"
@@ -108,6 +109,7 @@ gem "simple_form", "~> 5.4"
 # admin
 gem "allgood", "~> 0.3.0"
 gem "avo", "~> 4.1"
+gem "pghero"
 # feature flags
 gem "flipper-active_record"
 gem "flipper-ui"

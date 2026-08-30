@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_30_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_30_130200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "access_requests", force: :cascade do |t|
     t.bigint "completed_by"
@@ -333,13 +334,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_30_000001) do
   create_table "organizations", force: :cascade do |t|
     t.boolean "admin_granted_access", default: false, null: false
     t.datetime "created_at", null: false
+    t.datetime "deleted_at"
+    t.jsonb "metadata", default: {}, null: false
     t.string "name", null: false
     t.bigint "owner_id", null: false
     t.string "privacy_setting", default: "private", null: false
     t.datetime "updated_at", null: false
     t.string "website"
-    t.index ["name"], name: "index_organizations_on_name"
-    t.index ["owner_id"], name: "index_organizations_on_owner_id"
+    t.index ["deleted_at"], name: "index_organizations_on_deleted_at", where: "(deleted_at IS NOT NULL)"
+    t.index ["name"], name: "index_organizations_on_name", where: "(deleted_at IS NULL)"
+    t.index ["owner_id"], name: "index_organizations_on_owner_id", where: "(deleted_at IS NULL)"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -436,6 +440,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_30_000001) do
     t.string "event_type"
     t.string "processor"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.bigint "calls"
+    t.datetime "captured_at", precision: nil
+    t.text "database"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.text "user"
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
+  end
+
+  create_table "pghero_space_stats", force: :cascade do |t|
+    t.datetime "captured_at", precision: nil
+    t.text "database"
+    t.text "relation"
+    t.text "schema"
+    t.bigint "size"
+    t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
   end
 
   create_table "projects", force: :cascade do |t|

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include ScansForViruses
+  include StripsFileMetadata
   include User::Authentication
   include User::Banning
   include User::MarketingConsent
@@ -19,6 +21,8 @@ class User < ApplicationRecord
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_fit: [256, 256], saver: { strip: true, quality: 80 }, format: :webp
   end
+
+  scans_attachments_for_viruses :avatar
 
   before_destroy :ensure_no_audit_footprint, prepend: true
   after_save { @preprocess_avatar = attachment_changes["avatar"].present? }

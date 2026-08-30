@@ -7,8 +7,8 @@ class SearchController < ApplicationController
                        user_org_ids = current_user.organizations.select(:id)
                        discoverable_ids = Organization.discoverable.select(:id)
 
-                       Organization.where(id: user_org_ids)
-                                   .or(Organization.where(id: discoverable_ids))
+                       Organization.kept.where(id: user_org_ids)
+                                   .or(Organization.kept.where(id: discoverable_ids))
                                    .where("name ILIKE ?", "%#{Organization.sanitize_sql_like(query)}%")
                      else
                        Organization.none

@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Users::SudoController < ApplicationController
-  rate_limit to: 10, within: 10.minutes, only: :create, by: -> { current_user&.id },
+  rate_limit to: 20, within: 10.minutes, only: :create, name: "ip",
              with: -> { redirect_to new_sudo_path, alert: t("users.sudo.rate_limited") }
-  rate_limit to: 5, within: 15.minutes, only: :resend, by: -> { current_user&.id },
+  rate_limit to: 10, within: 10.minutes, only: :create, name: "account", by: -> { current_user&.id },
+             with: -> { redirect_to new_sudo_path, alert: t("users.sudo.rate_limited") }
+  rate_limit to: 5, within: 15.minutes, only: :resend, name: "resend", by: -> { current_user&.id },
              with: -> { redirect_to new_sudo_path, alert: t("users.sudo.rate_limited") }
 
   layout "centered"

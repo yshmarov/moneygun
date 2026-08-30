@@ -82,9 +82,11 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in(@user)
     authenticate_sudo(@user)
-    assert_difference("Organization.count", -1) { delete organization_url(@organization) }
+    assert_no_difference("Organization.count") { delete organization_url(@organization) }
 
     assert_redirected_to organizations_url
+    assert_predicate @organization.reload, :deleted?
+    assert_not_includes @user.organizations.reload, @organization
   end
 
   test "active subscriptions block destruction" do
