@@ -65,7 +65,6 @@ bin/ci
 | [Linting and audits](docs/linting.md)              | Local quality gate and automated dependency checks  |
 | [Deployment](docs/deployment.md)                   | Production deployment with Kamal                    |
 | [Website](website/README.md)                       | Main-domain Hugo site and app-subdomain convention  |
-| [Upgrading to 2](docs/upgrading-to-2.md)           | Safe sequence for existing Moneygun forks           |
 
 ## Design choices
 

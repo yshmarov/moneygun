@@ -5,5 +5,3 @@ The `agreements` gem owns current-version lookup, append-only acceptance evidenc
 The starter migration intentionally uses `https://example.com` document URLs. Replace those references with the application's final, externally hosted Terms, Privacy Notice, and DPA URLs before the migration reaches production. Never rewrite a version after it may have acceptances.
 
 To require a later version, add it to `db/seeds/agreements.rb` for fresh databases and add an irreversible data migration with the same key, version, statement, and documents for deployed databases. Update the localized checkbox statement in the same release. Existing acceptances remain evidence for the old version and users are prompted for the new current version.
-
-The legacy `terms_accepted_at` column is deliberately not converted into an acceptance: a timestamp cannot prove which text or documents someone accepted.

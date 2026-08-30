@@ -9,7 +9,6 @@ class AddAccountAndMembershipLifecycle < ActiveRecord::Migration[8.1]
     add_column :users, :metadata, :jsonb, default: {}, null: false
     add_column :users, :onboarding_completed_at, :datetime
     add_column :users, :redacted_at, :datetime
-    add_column :users, :terms_accepted_at, :datetime
 
     add_index :users, :banned_at, where: "banned_at IS NOT NULL", algorithm: :concurrently
     add_index :invitations, :expires_at, algorithm: :concurrently

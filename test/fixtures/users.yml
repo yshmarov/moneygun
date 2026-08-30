@@ -8,23 +8,19 @@ one:
   email: yaro@superails.com
   admin: true
   email_verified_at: <%= Time.current %>
-  terms_accepted_at: <%= Time.current %>
   onboarding_completed_at: <%= Time.current %>
 
 two:
   email: hello@superails.com
   email_verified_at: <%= Time.current %>
-  terms_accepted_at: <%= Time.current %>
   onboarding_completed_at: <%= Time.current %>
 
 three:
   email: natan@superails.com
   email_verified_at: <%= Time.current %>
-  terms_accepted_at: <%= Time.current %>
   onboarding_completed_at: <%= Time.current %>
 
 unassociated:
   email: unassociated@superails.com
   email_verified_at: <%= Time.current %>
-  terms_accepted_at: <%= Time.current %>
   onboarding_completed_at: <%= Time.current %>

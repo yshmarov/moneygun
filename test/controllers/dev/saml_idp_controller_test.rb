@@ -21,7 +21,7 @@ class Dev::SamlIdpControllerTest < ActionDispatch::IntegrationTest
                           idp_sso_url: @idp_sso_url,
                           idp_cert: @idp.certificate_pem)
     @member = User.create!(email: "alice@acme.com", name: "Alice", email_verified_at: Time.current,
-                           terms_accepted_at: Time.current, onboarding_completed_at: Time.current)
+                           onboarding_completed_at: Time.current)
     accept_agreement("user_terms", subject: @member)
     @organization.memberships.create!(user: @member, role: :member)
   end

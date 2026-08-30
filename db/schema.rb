@@ -749,7 +749,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_30_130200) do
     t.datetime "otp_enabled_at"
     t.text "otp_secret"
     t.datetime "redacted_at"
-    t.datetime "terms_accepted_at"
     t.datetime "updated_at", null: false
     t.index "lower((email)::text)", name: "index_users_on_lower_email", unique: true
     t.index ["banned_at"], name: "index_users_on_banned_at", where: "(banned_at IS NOT NULL)"
