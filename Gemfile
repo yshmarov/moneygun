@@ -103,7 +103,7 @@ gem "view_component"
 gem "active_link_to", "~> 1.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
-gem "lexxy", "~> 0.1.26.beta"
+gem "lexxy", "~> 0.9.31"
 gem "simple_form", "~> 5.4"
 
 # admin
@@ -116,7 +116,7 @@ gem "flipper-ui"
 
 # payments
 gem "pay", "~> 11.6"
-gem "stripe", "~> 19.0"
+gem "stripe", "~> 19.6"
 
 # business logic
 gem "refer"
@@ -124,7 +124,7 @@ gem "agreements", "~> 0.2.0"
 gem "noticed"
 
 group :production do
-  gem "aws-sdk-s3", "~> 1.205", require: false
+  gem "aws-sdk-s3", "~> 1.229", require: false
 end
 
 gem "browser", "~> 6.2"
@@ -133,5 +133,5 @@ gem "rubyzip"
 gem "appsignal"
 
 gem "brakeman", "~> 8.0", group: :development
-gem "strong_migrations", "~> 2.5" # Catch unsafe migrations before they hit production
-gem "lograge", "~> 0.14.0" # Single-line structured logs for production
+gem "strong_migrations", "~> 2.8" # Catch unsafe migrations before they hit production
+gem "lograge", "~> 0.15.0" # Single-line structured logs for production
