@@ -44,7 +44,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 2.0"
+gem "image_processing", "~> 2.1"
 gem "ruby-vips", "~> 2.3"
 
 group :development, :test do
@@ -108,7 +108,7 @@ gem "simple_form", "~> 5.4"
 
 # admin
 gem "allgood", "~> 0.3.0"
-gem "avo", "~> 4.1"
+gem "avo", "~> 4.2"
 gem "pghero"
 # feature flags
 gem "flipper-active_record"
