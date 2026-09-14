@@ -57,7 +57,7 @@ GEM
     active_link_to (1.0.5)
       actionpack
       addressable
-    active_storage_validations (4.1.0)
+    active_storage_validations (4.1.1)
       activejob (>= 7.0.1)
       activemodel (>= 7.0.1)
       activestorage (>= 7.0.1)
@@ -97,11 +97,11 @@ GEM
       rails (>= 7.1, < 9)
     allgood (0.3.0)
       rails (>= 6.0.0)
-    appsignal (4.10.1)
+    appsignal (4.10.3)
       logger
       rack (>= 2.0.0)
     ast (2.4.3)
-    avo (4.1.15)
+    avo (4.2.3)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -119,8 +119,8 @@ GEM
     avo-icons (0.2.1)
       inline_svg
     aws-eventstream (1.4.0)
-    aws-partitions (1.1282.0)
-    aws-sdk-core (3.254.1)
+    aws-partitions (1.1286.0)
+    aws-sdk-core (3.256.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -128,11 +128,12 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.130.0)
-      aws-sdk-core (~> 3, >= 3.254.0)
+      rexml (~> 3.4, >= 3.4.2)
+    aws-sdk-kms (1.132.0)
+      aws-sdk-core (~> 3, >= 3.256.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.229.0)
-      aws-sdk-core (~> 3, >= 3.254.1)
+    aws-sdk-s3 (1.231.0)
+      aws-sdk-core (~> 3, >= 3.255.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
@@ -150,9 +151,9 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (4.1.2)
+    bigdecimal (4.1.3)
     bindex (0.8.1)
-    bootsnap (1.25.0)
+    bootsnap (1.26.0)
       msgpack (~> 1.5)
     brakeman (8.0.6)
       racc
@@ -241,10 +242,10 @@ GEM
     hashdiff (1.2.1)
     hashie (5.1.0)
       logger
-    herb (0.10.3-aarch64-linux-gnu)
-    herb (0.10.3-arm-linux-gnu)
-    herb (0.10.3-arm64-darwin)
-    herb (0.10.3-x86_64-linux-gnu)
+    herb (0.10.4-aarch64-linux-gnu)
+    herb (0.10.4-arm-linux-gnu)
+    herb (0.10.4-arm64-darwin)
+    herb (0.10.4-x86_64-linux-gnu)
     highline (3.1.2)
       reline
     i18n (1.15.2)
@@ -261,7 +262,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.8, >= 1.8.1)
       terminal-table (>= 1.5.1)
-    image_processing (2.0.3)
+    image_processing (2.1.0)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -281,7 +282,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
-    json (2.21.2)
+    json (3.0.2)
     kamal (2.12.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -325,7 +326,7 @@ GEM
       net-smtp
     marcel (1.2.1)
     matrix (0.4.3)
-    meta-tags (2.22.3)
+    meta-tags (2.24.0)
       actionpack (>= 6.0.0)
     mini_mime (1.1.5)
     minitest (6.0.6)
@@ -333,7 +334,7 @@ GEM
       prism (~> 1.5)
     mocha (3.1.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.8.4)
+    msgpack (1.8.5)
     net-imap (0.6.6)
       date
       net-protocol
@@ -516,14 +517,14 @@ GEM
       ffi (~> 1.12)
       logger
     ruby2_keywords (0.0.5)
-    rubyzip (3.5.0)
+    rubyzip (3.6.0)
     sanitize (7.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.16.8)
     scimitar (2.15.0)
       rails (>= 7.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.48.0)
+    selenium-webdriver (4.49.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -532,7 +533,7 @@ GEM
     simple_form (5.4.1)
       actionpack (>= 7.0)
       activemodel (>= 7.0)
-    simplecov (1.1.1)
+    simplecov (1.2.0)
     smart_properties (1.17.0)
     solid_cable (4.0.2)
       actioncable (>= 7.2)
@@ -553,7 +554,7 @@ GEM
       ostruct
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stripe (19.6.0)
+    stripe (19.6.2)
       bigdecimal
       logger
     strong_migrations (2.8.0)
@@ -577,7 +578,7 @@ GEM
     turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
-    turbo_power (0.7.0)
+    turbo_power (0.8.0)
       turbo-rails (>= 1.3.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -594,7 +595,7 @@ GEM
       actionview (>= 8.0.0)
       bindex (>= 0.4.0)
       railties (>= 8.0.0)
-    webmock (3.26.3)
+    webmock (3.26.4)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -622,8 +623,8 @@ DEPENDENCIES
   agreements (~> 0.2.0)
   allgood (~> 0.3.0)
   appsignal
-  avo (~> 4.1)
-  aws-sdk-s3 (~> 1.229)
+  avo (~> 4.2)
+  aws-sdk-s3 (~> 1.231)
   axe-core-capybara
   bootsnap
   brakeman (~> 8.0)
@@ -640,7 +641,7 @@ DEPENDENCIES
   good_job
   herb
   i18n-tasks
-  image_processing (~> 2.0)
+  image_processing (~> 2.1)
   importmap-rails
   invisible_captcha (~> 2.3)
   jbuilder
