@@ -103,7 +103,7 @@ gem "view_component"
 gem "active_link_to", "~> 1.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
-gem "lexxy", "~> 0.9.31"
+gem "lexxy", "~> 0.9.32"
 gem "simple_form", "~> 5.4"
 
 # admin
@@ -124,7 +124,7 @@ gem "agreements", "~> 0.2.0"
 gem "noticed"
 
 group :production do
-  gem "aws-sdk-s3", "~> 1.231", require: false
+  gem "aws-sdk-s3", "~> 1.232", require: false
 end
 
 gem "browser", "~> 6.2"
