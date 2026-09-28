@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -103,7 +103,7 @@ gem "view_component"
 gem "active_link_to", "~> 1.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
-gem "lexxy", "~> 0.9.31"
+gem "lexxy", "~> 0.9.33"
 gem "simple_form", "~> 5.4"
 
 # admin
@@ -124,7 +124,7 @@ gem "agreements", "~> 0.2.0"
 gem "noticed"
 
 group :production do
-  gem "aws-sdk-s3", "~> 1.231", require: false
+  gem "aws-sdk-s3", "~> 1.232", require: false
 end
 
 gem "browser", "~> 6.2"
