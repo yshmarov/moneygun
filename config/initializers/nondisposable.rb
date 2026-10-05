@@ -2,5 +2,5 @@
 
 Nondisposable.configure do |config|
   config.error_message = "is invalid"
-  config.excluded_domains = %w[privaterelay.appleid.com]
+  config.excluded_domains = %w[privaterelay.appleid.com private.icloud.com]
 end
