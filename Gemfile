@@ -82,7 +82,7 @@ end
 # active record
 gem "sqids" # for obfuscating IDs
 gem "pagy", "~> 43.6"
-gem "ransack", "~> 4.2"
+gem "ransack", "~> 5.0"
 gem "active_storage_validations"
 gem "fx", "~> 0.11.0"
 gem "invisible_captcha", "~> 2.3"
