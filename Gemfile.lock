@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/gregnavis/active_record_doctor.git
-  revision: c42816d5467df19800c46b3cca5fbe9827848fef
+  revision: df5265fea6f76dae826d7df2c1edf84e5f51e122
   specs:
-    active_record_doctor (2.0.1)
+    active_record_doctor (2.1.0)
       activerecord (>= 7.0.0)
 
 GEM
@@ -585,7 +585,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
-    uri (1.1.1)
+    uri (1.1.2)
     useragent (0.16.11)
     view_component (4.15.0)
       actionview (>= 7.1.0)
