@@ -5,11 +5,11 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.7"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -44,7 +44,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 2.1"
+gem "image_processing", "~> 2.2"
 gem "ruby-vips", "~> 2.3"
 
 group :development, :test do
@@ -81,7 +81,7 @@ end
 
 # active record
 gem "sqids" # for obfuscating IDs
-gem "pagy", "~> 43.6"
+gem "pagy", "~> 43.7"
 gem "ransack", "~> 4.2"
 gem "active_storage_validations"
 gem "fx", "~> 0.11.0"
@@ -108,7 +108,7 @@ gem "simple_form", "~> 5.4"
 
 # admin
 gem "allgood", "~> 0.3.0"
-gem "avo", "~> 4.2"
+gem "avo", "~> 4.3"
 gem "pghero"
 # feature flags
 gem "flipper-active_record"
@@ -124,7 +124,7 @@ gem "agreements", "~> 0.2.0"
 gem "noticed"
 
 group :production do
-  gem "aws-sdk-s3", "~> 1.231", require: false
+  gem "aws-sdk-s3", "~> 1.233", require: false
 end
 
 gem "browser", "~> 6.2"
@@ -132,6 +132,6 @@ gem "rubyzip"
 
 gem "appsignal"
 
-gem "brakeman", "~> 8.0", group: :development
+gem "brakeman", "~> 8.1", group: :development
 gem "strong_migrations", "~> 2.8" # Catch unsafe migrations before they hit production
-gem "lograge", "~> 0.15.0" # Single-line structured logs for production
+gem "lograge", "~> 0.15.1" # Single-line structured logs for production
