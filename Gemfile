@@ -115,7 +115,7 @@ gem "flipper-active_record"
 gem "flipper-ui"
 
 # payments
-gem "pay", "~> 11.6"
+gem "pay", "~> 12.3"
 gem "stripe", "~> 19.6"
 
 # business logic
