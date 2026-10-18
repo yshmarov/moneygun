@@ -15,6 +15,10 @@ updates:
         update-types:
           - minor
           - patch
+    cooldown:
+      default-days: 3
+      semver-minor-days: 7
+      semver-major-days: 14
 
   - package-ecosystem: github-actions
     directory: /
@@ -28,3 +32,22 @@ updates:
       github-actions:
         patterns:
           - '*'
+
+  - package-ecosystem: docker
+    directories:
+      - /
+      - /.docker/postgres-backup
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:30'
+      timezone: Europe/Paris
+    open-pull-requests-limit: 5
+    groups:
+      docker:
+        patterns:
+          - '*'
+    cooldown:
+      default-days: 3
+      semver-minor-days: 7
+      semver-major-days: 14

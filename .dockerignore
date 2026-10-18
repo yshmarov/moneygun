@@ -46,6 +46,12 @@
 # Ignore development files
 /.devcontainer
 
+# Keep development-only code and the separately deployed marketing site out of
+# the production image.
+/test
+/script
+/website
+
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*

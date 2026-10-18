@@ -34,6 +34,7 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      BACKUP_ENCRYPTION_KEY: ${{ secrets.BACKUP_ENCRYPTION_KEY }}
       APP_HOST: ${{ vars.APP_HOST }}
       KAMAL_IMAGE: ${{ vars.KAMAL_IMAGE }}
       KAMAL_REGISTRY_SERVER: ${{ vars.KAMAL_REGISTRY_SERVER || 'ghcr.io' }}
@@ -67,7 +68,7 @@ jobs:
 
       - name: Set up Ruby
         if: steps.latest.outputs.deploy == 'true'
-        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
+        uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
@@ -83,6 +84,7 @@ jobs:
           test -n "$POSTGRES_PASSWORD"
           test -n "$AWS_ACCESS_KEY_ID"
           test -n "$AWS_SECRET_ACCESS_KEY"
+          test -n "$BACKUP_ENCRYPTION_KEY"
           test -n "$APP_HOST"
           test -n "$KAMAL_IMAGE"
           test -n "$KAMAL_REGISTRY_USERNAME"

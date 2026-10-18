@@ -23,6 +23,6 @@ class Organizations::ReceivedJoinRequestsController < Organizations::BaseControl
   private
 
   def set_join_request
-    @join_request = @organization.received_join_requests.find(params[:id])
+    @join_request = @organization.received_join_requests.find(params.expect(:id))
   end
 end

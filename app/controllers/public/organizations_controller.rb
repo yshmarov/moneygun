@@ -13,6 +13,6 @@ class Public::OrganizationsController < ApplicationController
   end
 
   def show
-    @organization = Organization.discoverable.find(params[:id])
+    @organization = Organization.discoverable.find(params.expect(:id))
   end
 end

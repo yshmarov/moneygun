@@ -3,6 +3,8 @@
 require_relative "../../lib/rails_ext/active_storage_direct_upload_expiry"
 
 Rails.application.config.active_storage.variant_processor = :vips
+Rails.application.config.active_storage.resolve_model_to_route = :rails_storage_redirect_without_filename
+Rails.application.config.active_storage.urls_expire_in = 1.hour
 
 Rails.application.config.active_storage.web_image_content_types = %w[
   image/png

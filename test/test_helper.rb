@@ -47,11 +47,20 @@ module ActiveSupport
     def sign_in(user)
       session_record = user.sessions.create!(user_agent: "test", ip_address: "127.0.0.1")
       host! "example.com" if respond_to?(:host!)
-      cookies[:session_token] = session_record.signed_id
+      cookies[:session_token] = session_record.token
     end
 
     def sign_out(_user = nil)
       cookies[:session_token] = "" if respond_to?(:cookies)
+    end
+
+    def enable_two_factor(user)
+      user.enable_two_factor!(ROTP::Base32.random)
+    end
+
+    def sign_in_as_admin(user = users(:one))
+      enable_two_factor(user)
+      sign_in(user)
     end
 
     def authenticate_sudo(user)

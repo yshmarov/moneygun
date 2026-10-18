@@ -6,6 +6,10 @@ module ActiveStorageSafety
   MAX_IMAGE_DIMENSION = 10_000
 
   def self.scan_status(blob)
+    recorded_scan_status(blob) || ("pending" if blob.attachments.any? { |attachment| ScansForViruses.covers?(attachment) })
+  end
+
+  def self.recorded_scan_status(blob)
     blob.metadata[VIRUS_SCAN_STATUS_KEY]
   end
 

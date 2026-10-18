@@ -15,6 +15,6 @@ class Organizations::Onboarding::ProfilesController < Organizations::Onboarding:
   private
 
   def profile_params
-    params.expect(organization: %i[name website logo privacy_setting])
+    uploads_only(params.expect(organization: %i[name website logo privacy_setting]), @organization, :logo)
   end
 end

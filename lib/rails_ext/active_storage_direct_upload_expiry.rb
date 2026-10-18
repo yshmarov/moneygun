@@ -11,6 +11,7 @@ module ActiveStorage
   mattr_accessor :service_urls_for_direct_uploads_expire_in, default: 48.hours
 end
 
+# rubocop:disable-next Style/OneClassPerFile
 module ActiveStorageBlobServiceUrlForDirectUploadExpiry
   def service_url_for_direct_upload(expires_in: ActiveStorage.service_urls_for_direct_uploads_expire_in)
     super

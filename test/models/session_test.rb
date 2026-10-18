@@ -3,11 +3,11 @@
 require "test_helper"
 
 class SessionTest < ActiveSupport::TestCase
-  test "resumes a live signed session and touches activity" do
+  test "resumes a live token session and touches activity" do
     session = users(:one).sessions.create!(last_seen_at: 1.hour.ago)
     previous_seen_at = session.last_seen_at
 
-    resumed = Session.resume_from_cookie(session.signed_id)
+    resumed = Session.resume_from_cookie(session.token)
 
     assert_equal session, resumed
     assert_operator resumed.reload.last_seen_at, :>, previous_seen_at
@@ -16,7 +16,14 @@ class SessionTest < ActiveSupport::TestCase
   test "destroys a session after the idle timeout" do
     session = users(:one).sessions.create!(last_seen_at: (Session::IDLE_TIMEOUT + 1.day).ago)
 
-    assert_nil Session.resume_from_cookie(session.signed_id)
+    assert_nil Session.resume_from_cookie(session.token)
     assert_not Session.exists?(session.id)
+  end
+
+  test "does not resume a session from a recycled database id" do
+    session = users(:one).sessions.create!
+
+    assert_nil Session.resume_from_cookie(session.id.to_s)
+    assert_nil Session.resume_from_cookie(session.signed_id)
   end
 end

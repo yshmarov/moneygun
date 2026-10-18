@@ -14,7 +14,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def sign_in(user)
     session_record = user.sessions.create!(user_agent: "test", ip_address: "127.0.0.1")
     visit root_path
-    page.driver.browser.manage.add_cookie(name: "session_token", value: session_record.signed_id, path: "/")
+    page.driver.browser.manage.add_cookie(name: "session_token", value: session_record.token, path: "/")
   end
 
   def assert_axe_clean(**options)

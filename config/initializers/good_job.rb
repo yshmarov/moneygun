@@ -22,6 +22,7 @@ Rails.application.configure do
     purge_data_exports: { cron: "15 3 * * *", class: "DataExport::PurgeJob" },
     purge_unattached_blobs: { cron: "45 3 * * *", class: "ActiveStorage::PurgeUnattachedBlobsJob" },
     purge_soft_deleted_organizations: { cron: "30 4 * * *", class: "Organization::PurgeJob" },
+    sweep_unscanned_uploads: { cron: "10 * * * *", class: "VirusScanSweepJob" },
     clamav_signature_update: { cron: "0 4 * * *", class: "ClamavUpdateJob" },
     capture_pghero_query_stats: { cron: "*/15 * * * *", class: "PgHero::CaptureQueryStatsJob" },
     capture_pghero_space_stats: { cron: "30 5 * * *", class: "PgHero::CaptureSpaceStatsJob" }

@@ -82,4 +82,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
   config.hosts = nil
+  config.active_record.encryption.primary_key = "dev-only-primary-key"
+  config.active_record.encryption.deterministic_key = "dev-only-deterministic-key"
+  config.active_record.encryption.key_derivation_salt = "dev-only-key-derivation-salt"
 end

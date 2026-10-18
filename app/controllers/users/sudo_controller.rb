@@ -17,16 +17,23 @@ class Users::SudoController < ApplicationController
 
   def create
     if verify_sudo_challenge
-      start_sudo!
+      start_sudo!(current_user)
       AuditLog.log_for_memberships!(current_user.memberships.active, action: "user.sudo_granted")
-      session.delete(:sudo_reason)
-      redirect_to session.delete(:sudo_return_to) || default_authenticated_path
+      return_to = session[:sudo_return_to]
+      clear_challenge
+      redirect_to return_to || default_authenticated_path
     else
       AuditLog.log_for_memberships!(current_user.memberships.active, action: "user.sudo_failed")
       prepare_challenge
       flash.now[:alert] = t("users.sudo.invalid_code")
       render :new, status: :unprocessable_content
     end
+  end
+
+  def destroy
+    cancel_to = session[:sudo_cancel_to]
+    clear_challenge
+    redirect_to cancel_to || default_authenticated_path
   end
 
   def resend
@@ -43,7 +50,12 @@ class Users::SudoController < ApplicationController
   def prepare_challenge
     @two_factor = current_user.two_factor_enabled?
     @reason = session[:sudo_reason]
-    @cancel_path = session[:sudo_return_to] || default_authenticated_path
+  end
+
+  def clear_challenge
+    session.delete(:sudo_reason)
+    session.delete(:sudo_return_to)
+    session.delete(:sudo_cancel_to)
   end
 
   def verify_sudo_challenge

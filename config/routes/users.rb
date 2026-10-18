@@ -9,7 +9,7 @@ end
 get "/users/sign_in", to: "sessions#new", as: :new_user_session
 delete "/users/sign_out", to: "sessions#destroy", as: :destroy_user_session
 
-resource :sudo, only: %i[new create], module: :users, controller: "sudo" do
+resource :sudo, only: %i[new create destroy], module: :users, controller: "sudo" do
   post :resend
 end
 

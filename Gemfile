@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+# Hijacked releases are usually yanked within days. This also binds Dependabot;
+# for an urgent security update run `bundle update GEM --cooldown 0`.
+source "https://rubygems.org", cooldown: 3
 
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -32,6 +34,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
 gem "solid_cable"
+gem "msgpack"
 gem "good_job"
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -60,6 +63,8 @@ group :development, :test do
 end
 
 group :development do
+  gem "rack-mini-profiler"
+  gem "stackprof"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "i18n-tasks"
@@ -82,7 +87,7 @@ end
 # active record
 gem "sqids" # for obfuscating IDs
 gem "pagy", "~> 43.6"
-gem "ransack", "~> 4.2"
+gem "ransack", "~> 6.0"
 gem "active_storage_validations"
 gem "fx", "~> 0.11.0"
 gem "invisible_captcha", "~> 2.3"
@@ -115,8 +120,8 @@ gem "flipper-active_record"
 gem "flipper-ui"
 
 # payments
-gem "pay", "~> 11.6"
-gem "stripe", "~> 19.6"
+gem "pay", "~> 12.1"
+gem "stripe", "~> 20.0"
 
 # business logic
 gem "refer"

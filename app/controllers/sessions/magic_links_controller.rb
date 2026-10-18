@@ -21,6 +21,7 @@ class Sessions::MagicLinksController < ApplicationController
       magic_link.user.verify_email!
       sign_in_or_verify_two_factor magic_link.user, authentication: { "method" => "magic_link" }
     else
+      Rails.logger.warn("[Auth] Rejected sign-in code")
       redirect_to session_magic_link_path, alert: t("sessions.magic_links.invalid_code")
     end
   end

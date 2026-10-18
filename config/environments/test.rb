@@ -21,6 +21,10 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
   config.cache_store = :null_store
+  config.active_record.encryption.encrypt_fixtures = true
+  config.active_record.encryption.primary_key = "test-only-primary-key"
+  config.active_record.encryption.deterministic_key = "test-only-deterministic-key"
+  config.active_record.encryption.key_derivation_salt = "test-only-key-derivation-salt"
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable

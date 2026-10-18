@@ -4,7 +4,7 @@ require "test_helper"
 
 class Avo::ScimConnectionsTest < ActionDispatch::IntegrationTest
   setup do
-    sign_in users(:one)
+    sign_in_as_admin users(:one)
     @connection = ScimConnection.create!(organization: organizations(:one))
   end
 

@@ -17,13 +17,17 @@ class FileMetadataStripperTest < ActiveSupport::TestCase
   end
 
   test "rejects oversized images before rewriting" do
+    tempfile = Tempfile.new(["oversized", ".jpg"])
+    Vips::Image.black(1, 1).write_to_file(tempfile.path)
     image = stub(width: ActiveStorageSafety::MAX_IMAGE_DIMENSION + 1, height: 1)
     image.expects(:write_to_file).never
-    Vips::Image.stubs(:new_from_file).returns(image)
+    Vips::Image.stubs(:jpegload).returns(image)
 
     assert_raises(FileMetadataStripper::Error) do
-      FileMetadataStripper.strip!("/tmp/oversized.jpg", "image/jpeg")
+      FileMetadataStripper.strip!(tempfile.path, "image/jpeg")
     end
+  ensure
+    tempfile&.close!
   end
 
   test "bounds metadata processor execution time" do

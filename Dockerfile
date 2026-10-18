@@ -8,9 +8,9 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=4.0.5
-ARG CLAMAV_VERSION=1.4.5
-ARG CLAMAV_SHA256=49b7d9592c13e8834fd1e2339bf22b2fabe378317393b51b3879de8520c5b01f
+ARG RUBY_VERSION=4.0.7
+ARG CLAMAV_VERSION=1.4.6
+ARG CLAMAV_SHA256=d3ee9e401974855a1edc1761b1425417d126de618d5f0c91cd51209f69f6fcc2
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -60,7 +60,7 @@ ARG CLAMAV_SHA256
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y imagemagick libimage-exiftool-perl libvips && \
+    apt-get install --no-install-recommends -y libimage-exiftool-perl libvips qpdf && \
     curl -fsSL "https://github.com/Cisco-Talos/clamav/releases/download/clamav-${CLAMAV_VERSION}/clamav-${CLAMAV_VERSION}.linux.x86_64.deb" -o /tmp/clamav.deb && \
     echo "${CLAMAV_SHA256}  /tmp/clamav.deb" | sha256sum -c - && \
     dpkg -i /tmp/clamav.deb && \

@@ -25,4 +25,16 @@ class VirusScanJobTest < ActiveSupport::TestCase
   ensure
     AntivirusScanner.client = AntivirusScanner::ClamAv.new
   end
+
+  test "scanner outages leave files pending for the sweep" do
+    blob = ActiveStorage::Blob.create_and_upload!(io: file_fixture("avo-logo.png").open, filename: "test.png", content_type: "image/png")
+    ActiveStorageSafety.update_scan_status!(blob, "pending")
+    AntivirusScanner.client = AntivirusScanner::Fake.new(status: :unavailable)
+
+    VirusScanJob.perform_now(blob)
+
+    assert_equal "pending", blob.reload.metadata["virus_scan_status"]
+  ensure
+    AntivirusScanner.client = AntivirusScanner::ClamAv.new
+  end
 end

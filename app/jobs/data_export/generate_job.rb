@@ -50,7 +50,7 @@ class DataExport::GenerateJob < ApplicationJob
   def write_project_files(zip, organization)
     organization.projects.with_attached_document.with_attached_attachments.with_attached_cover_image.with_attached_gallery.find_each do |project|
       attachments = [project.document.attachment, project.cover_image.attachment].compact + project.attachments.attachments + project.gallery.attachments
-      attachments.each do |attachment|
+      attachments.select { |attachment| ActiveStorageSafety.scan_status(attachment.blob) == "clean" }.each do |attachment|
         zip.put_next_entry("projects/#{project.id}/files/#{attachment.id}-#{attachment.filename.sanitized}")
         attachment.blob.download { |chunk| zip.write(chunk) }
       end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  class PlatformAdminGranted < StandardError; end
+
   include ScansForViruses
   include StripsFileMetadata
   include User::Authentication
@@ -28,6 +30,7 @@ class User < ApplicationRecord
   after_save { @preprocess_avatar = attachment_changes["avatar"].present? }
   after_commit :preprocess_avatar, on: %i[create update]
   after_update_commit :log_name_changed, if: :saved_change_to_name?
+  after_update_commit :log_admin_changed, if: :saved_change_to_admin?
 
   validates :name, length: { maximum: 100 }, allow_blank: true
   validates :avatar, content_type: IMAGE_CONTENT_TYPES
@@ -59,6 +62,10 @@ class User < ApplicationRecord
 
   def active_storage_publicly_accessible?
     true
+  end
+
+  def admin_access?
+    admin? && !banned? && two_factor_enabled?
   end
 
   def audit_footprint?
@@ -110,5 +117,21 @@ class User < ApplicationRecord
       actor_kind: Current.scim_connection ? "scim" : Current.actor_kind.presence || "member",
       metadata: { changes: { name: saved_change_to_name }, scim_connection_id: Current.scim_connection&.id }.compact
     )
+  end
+
+  def log_admin_changed
+    AuditLog.log!(
+      organization: nil,
+      subject: self,
+      actor: Current.user,
+      actor_kind: Current.user ? "admin" : "system",
+      action: "user.admin_changed",
+      metadata: { changes: { admin: saved_change_to_admin } }
+    )
+    return unless admin?
+
+    Appsignal.send_error(PlatformAdminGranted.new("Platform admin access granted")) do
+      Appsignal.add_tags(user_id: id, granted_by_user_id: Current.user&.id)
+    end
   end
 end

@@ -15,5 +15,5 @@ CI.run do
 
   step "Tests: Rails", "env RAILS_ENV=test COVERAGE=true bin/rails test"
   step "Tests: System", "env RAILS_ENV=test bin/rails db:test:prepare test:system"
-  step "Tests: Seeds", "env RAILS_ENV=test bin/rails db:seed:replant"
+  step "Tests: Seeds", "env RAILS_ENV=test bin/rails db:seed:replant db:test:prepare"
 end

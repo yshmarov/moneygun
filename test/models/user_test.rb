@@ -3,6 +3,16 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
+  test "platform admin access requires two-factor authentication" do
+    user = users(:one)
+
+    assert_not user.admin_access?
+
+    enable_two_factor(user)
+
+    assert_predicate user, :admin_access?
+  end
+
   test "issuing a sign-in code retires the previous sign-in or sign-up code" do
     user = users(:one)
     superseded = user.send_magic_link(for: :sign_up)

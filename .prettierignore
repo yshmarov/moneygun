@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 vendor/
+.claude/worktrees/
 
 # Build outputs
 app/assets/builds/

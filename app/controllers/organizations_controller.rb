@@ -66,7 +66,7 @@ class OrganizationsController < ApplicationController
   private
 
   def set_organization
-    @organization = current_user.organizations.where(memberships: { deactivated_at: nil }).find(params[:id])
+    @organization = current_user.organizations.where(memberships: { deactivated_at: nil }).find(params.expect(:id))
     Current.membership = current_user.memberships.active.find_by(organization: @organization)
     Current.organization = Current.membership&.organization
     authorize @organization
@@ -75,7 +75,7 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.expect(organization: %i[name logo privacy_setting website])
+    uploads_only(params.expect(organization: %i[name logo privacy_setting website]), @organization, :logo)
   end
 
   def pundit_user

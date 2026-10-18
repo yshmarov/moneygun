@@ -6,6 +6,8 @@
 # Use this to limit dissemination of sensitive information.
 # See the ActiveSupport::ParameterFilter documentation for supported notations and behaviors.
 Rails.application.config.filter_parameters += %i[
-  passw email secret token _key crypt salt certificate otp ssn cvv cvc
+  passw passcode email secret token _key crypt salt certificate otp ssn cvv cvc SAMLResponse
   invitation_token
 ]
+
+Rails.application.config.filter_parameters << /\Acode\z/

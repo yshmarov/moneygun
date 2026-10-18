@@ -104,6 +104,9 @@ Rails.application.configure do
   config.active_job.queue_adapter = :good_job
   config.assume_ssl = true
   config.force_ssl = true
+  config.active_record.encryption.primary_key = Rails.application.key_generator.generate_key("active-record-encryption-primary-key", 32)
+  config.active_record.encryption.deterministic_key = Rails.application.key_generator.generate_key("active-record-encryption-deterministic-key", 32)
+  config.active_record.encryption.key_derivation_salt = Rails.application.key_generator.generate_key("active-record-encryption-key-derivation-salt", 32)
   # CUSTOM
   config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 end

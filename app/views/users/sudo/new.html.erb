@@ -12,5 +12,5 @@
   <% unless @two_factor %>
     <%= button_to t("users.sudo.new.resend"), resend_sudo_path, class: "btn btn-ghost btn-sm" %>
   <% end %>
-  <%= link_to t("shared.actions.cancel"), @cancel_path, class: "link link-hover text-sm" %>
+  <%= button_to t("shared.actions.cancel"), sudo_path, method: :delete, class: "btn btn-ghost btn-sm" %>
 </div>

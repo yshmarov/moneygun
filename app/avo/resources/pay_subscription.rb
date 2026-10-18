@@ -6,7 +6,10 @@ class Avo::Resources::PaySubscription < Avo::BaseResource
   self.model_class = ::Pay::Subscription
 
   self.search = {
-    query: -> { query.ransack(id_eq: params[:q], processor_id_cont: params[:q], m: "or").result(distinct: false) },
+    query: lambda {
+      processor_id = ::Pay::Subscription.arel_table[:processor_id]
+      query.where(id: params[:q]).or(query.where(processor_id.matches("%#{ActiveRecord::Base.sanitize_sql_like(params[:q])}%")))
+    },
     item: lambda {
       {
         title: record.processor_id

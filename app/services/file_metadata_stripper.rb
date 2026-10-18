@@ -12,6 +12,13 @@ class FileMetadataStripper
     "image/avif" => ".avif", "image/gif" => ".gif", "image/jpeg" => ".jpg",
     "image/png" => ".png", "image/webp" => ".webp"
   }.freeze
+  IMAGE_LOADERS = {
+    "image/avif" => :heifload,
+    "image/gif" => :gifload,
+    "image/jpeg" => :jpegload,
+    "image/png" => :pngload,
+    "image/webp" => :webpload
+  }.freeze
   EXIFTOOL_EXTENSIONS = {
     "application/pdf" => ".pdf", "video/mp4" => ".mp4", "video/quicktime" => ".mov",
     "audio/mpeg" => ".mp3", "audio/mp4" => ".m4a"
@@ -22,8 +29,10 @@ class FileMetadataStripper
     -UserData:GPSCoordinates -UserData:Location*
   ].freeze
 
-  def self.strip!(file_path, content_type)
-    if IMAGE_EXTENSIONS.key?(content_type)
+  def self.strip!(file_path, declared_type)
+    content_type = Marcel::MimeType.for(Pathname.new(file_path), declared_type: declared_type)
+
+    if IMAGE_LOADERS.key?(content_type)
       strip_image!(file_path, content_type)
     elsif EXIFTOOL_EXTENSIONS.key?(content_type)
       strip_with_exiftool!(file_path, content_type)
@@ -31,29 +40,61 @@ class FileMetadataStripper
   end
 
   def self.strip_image!(file_path, content_type)
-    image = Vips::Image.new_from_file(file_path, access: :sequential)
+    image = load_image(file_path, content_type)
     validate_image_dimensions!(image)
 
     with_sanitized_tempfile(file_path, IMAGE_EXTENSIONS.fetch(content_type)) do |sanitized|
       image.write_to_file(sanitized.path, strip: true)
-      verify_image!(sanitized.path, width: image.width, height: image.height)
+      verify_image!(sanitized.path, content_type, width: image.width, height: image.height)
       FileUtils.cp(sanitized.path, file_path)
     end
   rescue Vips::Error => e
     raise Error, "Image metadata could not be stripped", cause: e
   end
 
+  def self.load_image(file_path, content_type)
+    Vips::Image.public_send(IMAGE_LOADERS.fetch(content_type), file_path, access: :sequential)
+  end
+
   def self.strip_with_exiftool!(file_path, content_type)
-    raise Error, "ExifTool is unavailable" unless system("which", "exiftool", out: File::NULL, err: File::NULL)
+    raise Error, "ExifTool is unavailable" unless exiftool_available?
 
     with_sanitized_tempfile(file_path, EXIFTOOL_EXTENSIONS.fetch(content_type)) do |sanitized|
       FileUtils.cp(file_path, sanitized.path)
       stripped = run_command("exiftool", "-all=", "-overwrite_original", "-quiet", sanitized.path)
       raise Error, "ExifTool could not strip file metadata" unless stripped.status.success?
 
+      drop_pdf_revisions!(sanitized.path) if content_type == "application/pdf"
       verify_exiftool_metadata!(sanitized.path)
       FileUtils.cp(sanitized.path, file_path)
     end
+  end
+
+  def self.drop_pdf_revisions!(file_path)
+    raise Error, "qpdf is unavailable" unless qpdf_available?
+
+    with_sanitized_tempfile(file_path, ".pdf") do |rewritten|
+      result = run_command("qpdf", "--warning-exit-0", file_path, rewritten.path)
+      raise Error, "qpdf could not rewrite the PDF" unless result.status.success?
+      raise Error, "Earlier PDF revisions could not be verified as removed" unless revision_count(rewritten.path) == 1
+
+      FileUtils.cp(rewritten.path, file_path)
+    end
+  end
+
+  def self.revision_count(file_path, chunk_size: 1.megabyte)
+    token = "startxref"
+    count = 0
+    carry = "".b
+
+    File.open(file_path, "rb") do |file|
+      while (chunk = file.read(chunk_size))
+        window = carry + chunk
+        count += window.scan(token).size
+        carry = window.byteslice(-(token.bytesize - 1)..) || window
+      end
+    end
+    count
   end
 
   def self.validate_image_dimensions!(image)
@@ -62,8 +103,8 @@ class FileMetadataStripper
     raise Error, "Image dimensions exceed the safe processing limit"
   end
 
-  def self.verify_image!(file_path, width:, height:)
-    image = Vips::Image.new_from_file(file_path, access: :sequential)
+  def self.verify_image!(file_path, content_type, width:, height:)
+    image = load_image(file_path, content_type)
     raise Error, "Sanitized image dimensions changed" unless image.width == width && image.height == height
     raise Error, "Image metadata could not be verified as removed" if image.get_fields.grep(/\A(?:exif|iptc|xmp)(?:-|$)/i).any?
   end
@@ -126,5 +167,17 @@ class FileMetadataStripper
     Process.wait(pid)
   rescue Errno::ESRCH, Errno::ECHILD
     nil
+  end
+
+  def self.exiftool_available?
+    return @exiftool_available if defined?(@exiftool_available)
+
+    @exiftool_available = system("which", "exiftool", out: File::NULL, err: File::NULL) == true
+  end
+
+  def self.qpdf_available?
+    return @qpdf_available if defined?(@qpdf_available)
+
+    @qpdf_available = system("which", "qpdf", out: File::NULL, err: File::NULL) == true
   end
 end

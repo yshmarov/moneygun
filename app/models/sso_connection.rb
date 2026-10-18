@@ -2,6 +2,9 @@
 
 class SsoConnection < ApplicationRecord
   NAME_IDENTIFIER_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  SignIn = Data.define(:membership, :reason) do
+    def granted? = membership.present?
+  end
 
   belongs_to :organization
   has_many :saml_auth_requests, dependent: :delete_all
@@ -51,24 +54,22 @@ class SsoConnection < ApplicationRecord
     domain.present? && sso_domains.verified.exists?(domain: domain)
   end
 
-  def sign_in_membership(asserted_email, name: nil)
+  def resolve_sign_in(asserted_email, name: nil)
     email = asserted_email.to_s.strip.downcase
-    return unless asserts_email?(email)
+    return denied(:domain_not_asserted) unless asserts_email?(email)
 
     user = User.find_by(email: email)
-    return if user && !user.can_authenticate?
+    return denied(:user_cannot_authenticate) if user && !user.can_authenticate?
 
     membership = user && organization.memberships.find_by(user: user)
-    return membership if membership&.active?
-    return unless jit_provisioning?
+    return granted(membership) if membership&.active?
+    return denied(:jit_provisioning_off) unless jit_provisioning?
+    return granted(reactivate(membership)) if membership
+    return denied(:account_not_affiliated) if user
 
-    if membership
-      reactivate(membership)
-    elsif user.nil?
-      provision(email, name)
-    end
+    granted(provision(email, name))
   rescue ActiveRecord::RecordInvalid
-    nil
+    denied(:identity_rejected)
   end
 
   def saml_options(base_url:)
@@ -90,6 +91,9 @@ class SsoConnection < ApplicationRecord
   end
 
   private
+
+  def granted(membership) = SignIn.new(membership: membership, reason: nil)
+  def denied(reason) = SignIn.new(membership: nil, reason: reason)
 
   def enabled_connection_needs_a_verified_domain
     errors.add(:base, :no_verified_domain) unless sso_domains.any?(&:verified?)

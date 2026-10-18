@@ -14,8 +14,13 @@ class ApplicationController < ActionController::Base
   include Authorization
   include Sudo
   include Translation
+  include UploadParams
   include WwwRedirect
   include Agreements::Enforcement
+
+  rescue_from ActionController::UnknownFormat do
+    head :not_acceptable
+  end
 
   before_action :require_user_terms, if: :user_signed_in?
   before_action :require_onboarding, if: :user_signed_in?
@@ -34,5 +39,9 @@ class ApplicationController < ActionController::Base
 
   def set_current_organizations
     Current.organizations = current_user.organizations.where(memberships: { deactivated_at: nil }).with_logo
+  end
+
+  def anonymous_ip
+    Digest::SHA256.hexdigest("#{request.remote_ip}-#{Rails.application.secret_key_base.first(16)}")[..15]
   end
 end

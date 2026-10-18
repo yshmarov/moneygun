@@ -7,6 +7,17 @@ Rails.application.routes.draw do
   draw :sso
   draw :scim
 
+  direct :rails_storage_redirect_without_filename do |model, options|
+    expires_in = options.delete(:expires_in) { ActiveStorage.urls_expire_in }
+    expires_at = options.delete(:expires_at)
+
+    if model.respond_to?(:signed_id)
+      route_for(:rails_service_blob, model.signed_id(expires_in:, expires_at:), "file", options)
+    else
+      route_for(:rails_blob_representation, model.blob.signed_id(expires_in:, expires_at:), model.variation.key, "file", options)
+    end
+  end
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up", to: "rails/health#show", as: :rails_health_check

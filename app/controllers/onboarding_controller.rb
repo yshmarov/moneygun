@@ -41,6 +41,6 @@ class OnboardingController < ApplicationController
   end
 
   def profile_params
-    params.expect(user: %i[name avatar])
+    uploads_only(params.expect(user: %i[name avatar]), current_user, :avatar)
   end
 end

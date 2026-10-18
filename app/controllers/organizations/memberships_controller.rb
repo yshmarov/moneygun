@@ -7,6 +7,7 @@ class Organizations::MembershipsController < Organizations::BaseController
     authorize Membership
     manage = Current.membership.admin?
     available_tabs = manage ? %w[members pending deactivated] : %w[members]
+    # rubocop:disable-next Rails/StrongParametersExpect -- the tab is optional
     @current_tab = params[:tab].presence_in(available_tabs) || "members"
     @role_filter = Array(params[:role]).map(&:to_s) & Membership.roles.keys
 

@@ -33,6 +33,7 @@ ActiveRecordDoctor.configure do
 
   detector :extraneous_indexes, enabled: false
   detector :incorrect_dependent_option, enabled: false
-  detector :incorrect_length_validation, ignore_attributes: ["User.name"]
+  detector :incorrect_length_validation, ignore_attributes: ["User.name", "Organization.name"]
   detector :missing_presence_validation, enabled: false
+  detector :postgres_timestamps_without_time_zone, enabled: false
 end

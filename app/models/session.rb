@@ -5,6 +5,9 @@ class Session < ApplicationRecord
   IDLE_TIMEOUT = 14.days
 
   belongs_to :user
+  has_secure_token :token
+
+  validates :token, presence: true
 
   scope :expired, -> { where("COALESCE(last_seen_at, created_at) < ?", IDLE_TIMEOUT.ago) }
 
@@ -15,7 +18,7 @@ class Session < ApplicationRecord
   def self.resume_from_cookie(cookie_value, cookies: nil)
     return if cookie_value.blank?
 
-    session = find_signed(cookie_value)
+    session = find_by(token: cookie_value)
     return unless session
 
     if session.expired?
@@ -26,8 +29,6 @@ class Session < ApplicationRecord
 
     session.touch_last_seen
     session
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    nil
   end
 
   def touch_last_seen

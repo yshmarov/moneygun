@@ -8,9 +8,9 @@ module Organization::Billing
 
     scope :subscribed, lambda {
       kept.where(id: Pay::Subscription.active.for_name(Pay.default_product_name)
-                     .joins(:customer)
-                     .where(pay_customers: { owner_type: "Organization", deleted_at: nil })
-                     .select("pay_customers.owner_id"))
+                                      .joins(:customer)
+                                      .where(pay_customers: { owner_type: "Organization", deleted_at: nil })
+                                      .select("pay_customers.owner_id"))
     }
     scope :with_access, -> { subscribed.or(kept.where(admin_granted_access: true)) }
   end
@@ -32,14 +32,13 @@ module Organization::Billing
     Rails.application.config_for(:settings)[:free_trial_days].to_i
   end
 
-  # rubocop:disable Naming/PredicatePrefix
+  # rubocop:disable-next Naming/PredicatePrefix
   def has_access?
     return true if admin_granted_access?
     return false unless payment_processor
 
     payment_processor.subscribed?
   end
-  # rubocop:enable Naming/PredicatePrefix
 
   def active_subscription?
     return false unless payment_processor

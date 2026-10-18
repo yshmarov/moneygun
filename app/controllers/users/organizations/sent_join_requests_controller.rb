@@ -19,7 +19,7 @@ class Users::Organizations::SentJoinRequestsController < ApplicationController
   end
 
   def destroy
-    @join_request = current_user.sent_join_requests.pending.find(params[:id])
+    @join_request = current_user.sent_join_requests.pending.find(params.expect(:id))
     @join_request.destroy
     redirect_to user_organizations_sent_join_requests_path, notice: t(".success")
   end
@@ -27,6 +27,6 @@ class Users::Organizations::SentJoinRequestsController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.discoverable.find(params[:organization_id])
+    @organization = Organization.discoverable.find(params.expect(:organization_id))
   end
 end

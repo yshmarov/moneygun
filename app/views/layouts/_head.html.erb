@@ -18,6 +18,10 @@
 
 <meta name="view-transition" content="same-origin">
 
+<% if response.cache_control[:no_store] %>
+  <meta name="turbo-cache-control" content="no-cache">
+<% end %>
+
 <%= yield :head %>
 
 <%# Dock badge count for Tauri desktop app %>

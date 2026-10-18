@@ -19,7 +19,7 @@ class Organization < ApplicationRecord
 
   scans_attachments_for_viruses :logo
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 100 }
   validates :website, format: { with: %r{\Ahttps?://.+\z}i }, allow_blank: true
 
   scope :kept, -> { where(deleted_at: nil) }

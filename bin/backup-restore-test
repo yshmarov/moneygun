@@ -41,7 +41,7 @@ if [ -n "$requested_dump" ]; then
 else
   dump=$(docker exec "$backup_container" sh -c \
     'AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY" AWS_EC2_METADATA_DISABLED=true aws s3 ls "s3://'$bucket'/'$prefix'/" --endpoint-url "$S3_ENDPOINT" --region "$S3_REGION"' \
-    | awk '{print $4}' | grep -E '\.dump$' | sort | tail -1)
+    | awk '{print $4}' | grep -E '\.dump(\.gpg)?$' | sort | tail -1)
 fi
 
 [ -n "$dump" ] || { echo "No Postgres backup found" >&2; exit 1; }
@@ -49,6 +49,15 @@ mkdir -p "$scratch_dir"
 
 docker exec "$backup_container" sh -c \
   'AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY" AWS_EC2_METADATA_DISABLED=true aws s3 cp "s3://'$bucket'/'$prefix'/'$dump'" "/tmp/'$dump'" --endpoint-url "$S3_ENDPOINT" --region "$S3_REGION" --quiet'
+
+case "$dump" in
+  *.gpg)
+    plain="${dump%.gpg}"
+    docker exec "$backup_container" sh -c "GNUPGHOME=\$(mktemp -d); export GNUPGHOME; printf '%s' \"\$BACKUP_ENCRYPTION_KEY\" | gpg --batch --yes --quiet --pinentry-mode loopback --passphrase-fd 0 --decrypt --output /tmp/$plain /tmp/$dump; status=\$?; rm -rf \"\$GNUPGHOME\" /tmp/$dump; exit \$status"
+    dump="$plain"
+    ;;
+esac
+
 docker cp "$backup_container:/tmp/$dump" "$scratch_dir/$dump"
 docker exec "$backup_container" rm "/tmp/$dump"
 
@@ -58,13 +67,13 @@ docker run -d --name "$scratch_name" \
   -e POSTGRES_PASSWORD=scratchpass \
   -e POSTGRES_USER="$database_user" \
   -e POSTGRES_DB="$database_name" \
-  -v "$scratch_volume:/var/lib/postgresql" postgres:18 >/dev/null
+  -v "$scratch_volume:/var/lib/postgresql" postgres:18.6 >/dev/null
 
-for _ in $(seq 1 30); do
-  docker exec "$scratch_name" pg_isready -U "$database_user" -d "$database_name" >/dev/null 2>&1 && break
+for _ in $(seq 1 60); do
+  docker exec "$scratch_name" pg_isready -h 127.0.0.1 -U "$database_user" -d "$database_name" >/dev/null 2>&1 && break
   sleep 1
 done
-docker exec "$scratch_name" pg_isready -U "$database_user" -d "$database_name" >/dev/null
+docker exec "$scratch_name" pg_isready -h 127.0.0.1 -U "$database_user" -d "$database_name" >/dev/null
 
 docker cp "$scratch_dir/$dump" "$scratch_name:/tmp/backup.dump"
 docker exec "$scratch_name" pg_restore -U "$database_user" -d "$database_name" --no-owner --no-privileges /tmp/backup.dump
@@ -74,12 +83,33 @@ live_tables=$(docker exec "$database_container" psql -U "$database_user" -d "$da
 restored_tables=$(docker exec "$scratch_name" psql -U "$database_user" -d "$database_name" -At -c "$query")
 [ "$live_tables" = "$restored_tables" ] || { echo "Restored table set differs from production" >&2; exit 1; }
 
+pruned_tables=" good_jobs good_job_executions "
 while IFS= read -r table; do
   [ -n "$table" ] || continue
   live=$(docker exec "$database_container" psql -U "$database_user" -d "$database_name" -At -c "SELECT count(*) FROM \"$table\"")
   restored=$(docker exec "$scratch_name" psql -U "$database_user" -d "$database_name" -At -c "SELECT count(*) FROM \"$table\"")
-  [ "$restored" -le "$live" ] || { echo "$table has more restored rows than production" >&2; exit 1; }
+  if [ "$restored" -gt "$live" ] && [[ "$pruned_tables" != *" $table "* ]]; then
+    echo "$table has more restored rows than production" >&2
+    exit 1
+  fi
 done <<< "$restored_tables"
+
+app_container=$(docker ps --filter "label=service=${database_container%-db}" --filter "label=role=web" --format '{{.ID}}' | head -1)
+[ -n "$app_container" ] || app_container=$(docker ps --filter "name=${database_container%-db}-web" --format '{{.ID}}' | head -1)
+if [ -n "$app_container" ]; then
+  app_image=$(docker inspect -f '{{.Config.Image}}' "$app_container")
+  probe_env="$scratch_dir/probe.env"
+  (umask 077; docker inspect -f '{{range .Config.Env}}{{println .}}{{end}}' "$app_container" > "$probe_env")
+  scratch_url="postgres://${database_user}:scratchpass@127.0.0.1:5432/${database_name}"
+  probe='user = User.where.not(otp_secret: nil).first; puts(user ? (user.otp_secret.present? ? "DECRYPT_OK" : "DECRYPT_FAIL") : "DECRYPT_SKIP")'
+  output=$(docker run --rm --network "container:$scratch_name" --env-file "$probe_env" \
+    -e DATABASE_URL="$scratch_url" -e CACHE_DATABASE_URL="$scratch_url" -e CABLE_DATABASE_URL="$scratch_url" \
+    -e RAILS_ENV=production "$app_image" bin/rails runner "$probe" 2>&1) || true
+  case "$output" in
+    *DECRYPT_OK*|*DECRYPT_SKIP*) ;;
+    *) printf '%s\n' "$output" >&2; echo "Encrypted data restore check failed" >&2; exit 1 ;;
+  esac
+fi
 
 echo "Backup $dump restored successfully and passed schema/row-count checks."
 REMOTE

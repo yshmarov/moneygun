@@ -1,6 +1,6 @@
 baseURL: 'https://example.com/'
 title: 'Moneygun'
-languageCode: 'en'
+locale: 'en'
 enableRobotsTXT: true
 disableKinds:
   - taxonomy

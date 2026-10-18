@@ -18,7 +18,7 @@ class VirusScanJob < ApplicationJob
     mark_failed(job, error)
   end
   retry_on ScannerUnavailableError, wait: 5.minutes, attempts: 5 do |job, error|
-    mark_failed(job, error)
+    Rails.error.report(error, handled: true, severity: :error, context: { blob_id: job.arguments.first.id }, source: "virus_scan")
   end
   discard_on ActiveRecord::RecordNotFound
 

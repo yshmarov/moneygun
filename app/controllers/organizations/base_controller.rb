@@ -3,6 +3,8 @@
 class Organizations::BaseController < ApplicationController
   include OrganizationAgreements
 
+  before_action :no_store
+
   # the order of the before_actions is important
   before_action :set_organization
   # before_action :authorize_membership!
@@ -35,7 +37,7 @@ class Organizations::BaseController < ApplicationController
   private
 
   def set_organization
-    @organization = current_user.organizations.where(memberships: { deactivated_at: nil }).find(params[:organization_id])
+    @organization = current_user.organizations.where(memberships: { deactivated_at: nil }).find(params.expect(:organization_id))
   rescue ActiveRecord::RecordNotFound
     redirect_to organizations_path, alert: t("shared.errors.not_authorized")
   end

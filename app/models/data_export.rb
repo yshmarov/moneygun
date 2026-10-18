@@ -31,10 +31,8 @@ class DataExport < ApplicationRecord
   end
 
   def complete!(io)
-    transaction do
-      file.attach(io: io, filename: filename, content_type: "application/zip")
-      completed!
-    end
+    file.attach(io: io, filename: filename, content_type: "application/zip")
+    completed!
   end
 
   def filename

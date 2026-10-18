@@ -11,9 +11,8 @@ class AccessRequest < ApplicationRecord
 
   belongs_to :organization
   belongs_to :user
-  # rubocop:disable Rails/InverseOf
+  # rubocop:disable-next Rails/InverseOf
   belongs_to :completed_by, class_name: "User", optional: true, foreign_key: :completed_by
-  # rubocop:enable Rails/InverseOf
 
   enum :status, %w[pending approved rejected].index_by(&:itself), default: :pending
 

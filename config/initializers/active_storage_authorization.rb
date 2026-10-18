@@ -44,13 +44,21 @@ module ActiveStorage::AuthorizationGuard
 
   def ensure_blob_authorized
     return if @blob.active_storage_publicly_accessible?
+
+    no_store
     return if Current.user && @blob.active_storage_accessible_to?(Current.user)
 
     head :forbidden
   end
 
   def http_cache_forever(public: false, &)
+    return yield if response.cache_control[:no_store]
+
     super(public: public && @blob.active_storage_publicly_accessible?, &)
+  end
+
+  def expires_in(...)
+    super unless response.cache_control[:no_store]
   end
 end
 

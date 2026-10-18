@@ -11,6 +11,21 @@ module ScansForViruses
     end
   end
 
+  def self.covers?(attachment)
+    model = attachment.record_type.safe_constantize
+    model.respond_to?(:virus_scanned_attachment_names) && model.virus_scanned_attachment_names.include?(attachment.name)
+  end
+
+  def self.enqueue_scan(blob)
+    enqueue = blob.with_lock do
+      next false if ActiveStorageSafety.recorded_scan_status(blob).present?
+
+      blob.update!(metadata: blob.metadata.merge(ActiveStorageSafety::VIRUS_SCAN_STATUS_KEY => "pending"))
+      true
+    end
+    VirusScanJob.perform_later(blob) if enqueue
+  end
+
   private
 
   def enqueue_virus_scans
@@ -19,17 +34,7 @@ module ScansForViruses
       next unless attached.attached?
 
       attachments = attached.respond_to?(:attachments) ? attached.attachments : [attached]
-      attachments.each { |attachment| enqueue_virus_scan(attachment.blob) }
+      attachments.each { |attachment| ScansForViruses.enqueue_scan(attachment.blob) }
     end
-  end
-
-  def enqueue_virus_scan(blob)
-    enqueue = blob.with_lock do
-      next false if ActiveStorageSafety.scan_status(blob).present?
-
-      blob.update!(metadata: blob.metadata.merge(ActiveStorageSafety::VIRUS_SCAN_STATUS_KEY => "pending"))
-      true
-    end
-    VirusScanJob.perform_later(blob) if enqueue
   end
 end

@@ -57,6 +57,22 @@ class ActiveStorageAuthorizationTest < ActionDispatch::IntegrationTest
       post rails_direct_uploads_path, params: direct_upload_params, as: :json
     end
     assert_response :success
+    assert ActiveStorage::Blob.order(:id).last.metadata[ActiveStorage::DirectUploadAuthorization::OWNER_KEY]
+  end
+
+  test "a direct upload belongs only to the session that created it" do
+    sign_in users(:one)
+    post rails_direct_uploads_path, params: direct_upload_params, as: :json
+    blob = ActiveStorage::Blob.order(:id).last
+    blob.service.upload(blob.key, file_fixture("avo-logo.png").open, checksum: blob.checksum)
+    patch user_url, params: { user: { avatar: blob.signed_id } }
+
+    assert_equal blob, users(:one).reload.avatar.blob
+
+    sign_in users(:two)
+    patch user_url, params: { user: { avatar: blob.signed_id } }
+
+    assert_not users(:two).reload.avatar.attached?
   end
 
   private
@@ -64,10 +80,10 @@ class ActiveStorageAuthorizationTest < ActionDispatch::IntegrationTest
   def direct_upload_params
     {
       blob: {
-        filename: "upload.txt",
-        byte_size: 1,
-        checksum: Base64.strict_encode64(Digest::MD5.digest("x")),
-        content_type: "text/plain"
+        filename: "upload.png",
+        byte_size: file_fixture("avo-logo.png").size,
+        checksum: Base64.strict_encode64(Digest::MD5.file(file_fixture("avo-logo.png")).digest),
+        content_type: "image/png"
       }
     }
   end

@@ -64,17 +64,18 @@ class Organizations::ProjectsController < Organizations::BaseController
   private
 
   def set_project
-    @project = @organization.projects.find(params[:id])
+    @project = @organization.projects.find(params.expect(:id))
     authorize @project
   end
 
   def project_params
-    params.expect(project: [:name, :description, :status, :priority, :start_date, :due_date,
-                            :scheduled_at, :budget, :is_active, :category, :document, :body,
-                            :contact_email, :website_url, :phone_number, :start_time,
-                            :completion_percentage, :color, :search_keywords, :secret_token,
-                            :price, :cost, :cover_image,
-                            { tags: [], attachments: [], gallery: [] }])
+    permitted = params.expect(project: [:name, :description, :status, :priority, :start_date, :due_date,
+                                        :scheduled_at, :budget, :is_active, :category, :document, :body,
+                                        :contact_email, :website_url, :phone_number, :start_time,
+                                        :completion_percentage, :color, :search_keywords, :secret_token,
+                                        :price, :cost, :cover_image,
+                                        { tags: [], attachments: [], gallery: [] }])
+    uploads_only(permitted, @project, :document, :cover_image, :attachments, :gallery)
   end
 
   def log_project_event(action, subject: nil, **metadata)

@@ -18,6 +18,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "update cannot attach a blob merely by knowing its signed id" do
+    foreign_blob = ActiveStorage::Blob.create_and_upload!(io: StringIO.new("private"), filename: "private.txt")
+    projects(:one).document.attach(foreign_blob)
+    sign_in @user
+
+    patch user_url, params: { user: { avatar: foreign_blob.signed_id } }
+
+    assert_not @user.reload.avatar.attached?
+    assert_equal [projects(:one)], foreign_blob.attachments.map(&:record)
+  end
+
   test "destroy deletes an account without retained history" do
     user = User.create!(email: "controller-erasable@example.com", email_verified_at: Time.current, onboarding_completed_at: Time.current)
     accept_agreement "user_terms", subject: user

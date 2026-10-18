@@ -21,7 +21,7 @@ class SsoConnectionTest < ActiveSupport::TestCase
     connection = organizations(:one).create_sso_connection!(jit_provisioning: true)
     connection.sso_domains.create!(domain: "superails.com", verified_at: Time.current)
 
-    assert_nil connection.sign_in_membership(users(:two).email)
+    assert_not_predicate connection.resolve_sign_in(users(:two).email), :granted?
   end
 
   test "JIT creates a new user only inside the asserted organization" do
@@ -30,7 +30,7 @@ class SsoConnectionTest < ActiveSupport::TestCase
     Current.sso_connection = connection
 
     assert_difference -> { User.count } => 1, -> { Organization.count } => 0 do
-      membership = connection.sign_in_membership("new@acme.example", name: "New Person")
+      membership = connection.resolve_sign_in("new@acme.example", name: "New Person").membership
       assert_equal connection.organization, membership.organization
       assert_equal "sso", membership.provisioned_via
     end

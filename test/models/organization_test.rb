@@ -3,6 +3,17 @@
 require "test_helper"
 
 class OrganizationTest < ActiveSupport::TestCase
+  test "name is at most 100 characters" do
+    organization = organizations(:one)
+    organization.name = "a" * 100
+
+    assert_predicate organization, :valid?
+
+    organization.name = "a" * 101
+
+    assert_not organization.valid?
+  end
+
   test "with_access includes complimentary and subscribed organizations" do
     complimentary = organizations(:one)
     complimentary.update!(admin_granted_access: true)

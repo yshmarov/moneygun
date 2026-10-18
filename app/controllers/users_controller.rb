@@ -38,6 +38,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.expect(user: %i[name avatar marketing_consent])
+    uploads_only(params.expect(user: %i[name avatar marketing_consent]), @user, :avatar)
   end
 end

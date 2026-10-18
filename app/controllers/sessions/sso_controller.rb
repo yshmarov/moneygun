@@ -44,14 +44,15 @@ class Sessions::SsoController < ApplicationController
     Current.organization = connection.organization
     Current.sso_connection = connection
     Current.actor_kind = "sso"
-    membership = connection.sign_in_membership(asserted_email, name: asserted_name)
+    sign_in = connection.resolve_sign_in(asserted_email, name: asserted_name)
 
-    if membership
-      membership.user.verify_email!
-      sign_in_or_verify_two_factor(membership.user, authentication: {
-                                     "method" => "sso", "connection_id" => connection.id, "membership_id" => membership.id
+    if sign_in.granted?
+      sign_in.membership.user.verify_email!
+      sign_in_or_verify_two_factor(sign_in.membership.user, authentication: {
+                                     "method" => "sso", "connection_id" => connection.id, "membership_id" => sign_in.membership.id
                                    })
     else
+      Rails.logger.warn("[SSO] denied #{sign_in.reason} for #{SsoConnection.domain_for(asserted_email)} on connection##{connection.id}")
       redirect_to new_sso_path, alert: t("sessions.sso.denied")
     end
   end

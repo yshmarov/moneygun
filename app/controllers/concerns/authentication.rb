@@ -50,7 +50,7 @@ module Authentication
   def activate_session(session_record)
     Current.session = session_record
     cookies[:session_token] = {
-      value: session_record.signed_id,
+      value: session_record.token,
       httponly: true,
       same_site: :lax,
       secure: Rails.env.production?,
@@ -74,6 +74,7 @@ module Authentication
     end
 
     activate_session(session_record)
+    start_sudo!(user)
     remember_email(user)
     true
   rescue SsoAccessWithdrawn

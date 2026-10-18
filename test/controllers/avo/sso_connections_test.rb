@@ -4,7 +4,7 @@ require "test_helper"
 
 class Avo::SsoConnectionsTest < ActionDispatch::IntegrationTest
   setup do
-    sign_in users(:one)
+    sign_in_as_admin users(:one)
     @connection = create_sso_connection(
       organizations(:one),
       enabled: true,

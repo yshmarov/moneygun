@@ -1,15 +1,18 @@
 source_repository: https://github.com/yshmarov/ethicsportal.eu.git
-last_reviewed_revision: 0cdbfbf02af77811382eed1ed7a07c87e55227b6
+last_reviewed_revision: 4ef73f57e341098cc6819ad7194f184deff4fdc7
 
 compare:
   - Gemfile
   - Dockerfile
   - config/deploy.yml
   - config/initializers/active_storage.rb
+  - config/initializers/filter_parameter_logging.rb
   - config/initializers/good_job.rb
   - config/allgood.rb
   - .github/workflows/ci.yml
   - app/controllers/concerns/authentication.rb
+  - app/controllers/concerns/sudo.rb
+  - app/models/session.rb
   - app/models/concerns/organization/billing.rb
   - app/models/membership.rb
   - app/models/user.rb
@@ -18,10 +21,16 @@ adapt:
   - app/analyzers/active_storage/analyzer/safe_image_analyzer.rb
   - app/controllers/concerns/active_storage/virus_scan_guard.rb
   - app/jobs/virus_scan_job.rb
+  - app/jobs/virus_scan_sweep_job.rb
+  - app/jobs/concerns/cron_check_in.rb
   - app/models/concerns/scans_for_viruses.rb
   - app/models/concerns/strips_file_metadata.rb
   - app/services/antivirus_scanner.rb
   - app/services/file_metadata_stripper.rb
+  - app/controllers/concerns/upload_params.rb
+  - config/initializers/active_storage_direct_upload_authorization.rb
+  - bin/backup-restore-test
+  - .docker/postgres-backup
   - app/controllers/organizations/onboarding
   - app/jobs/pg_hero
   - app/javascript/controllers
@@ -35,3 +44,4 @@ exclude:
   - app/views/organizations/whistleblower
   - website
   - whistleblower-directory
+  - app/jobs/voice_anonymization_job.rb
