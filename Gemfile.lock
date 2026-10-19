@@ -308,7 +308,7 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
-    lexxy (0.9.33)
+    lexxy (1.0.1)
       railties (>= 8.0.2)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -653,7 +653,7 @@ DEPENDENCIES
   kamal
   letter_opener
   letter_opener_web
-  lexxy (~> 0.9.31)
+  lexxy (~> 1.0.1)
   lograge (~> 0.15.0)
   mocha
   msgpack
