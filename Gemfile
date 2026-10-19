@@ -108,7 +108,7 @@ gem "view_component"
 gem "active_link_to", "~> 1.0"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
-gem "lexxy", "~> 0.9.31"
+gem "lexxy", "~> 1.0.1"
 gem "simple_form", "~> 5.4"
 
 # admin
