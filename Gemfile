@@ -86,7 +86,7 @@ end
 
 # active record
 gem "sqids" # for obfuscating IDs
-gem "pagy", "~> 43.6"
+gem "pagy", "~> 43.8"
 gem "ransack", "~> 6.0"
 gem "active_storage_validations"
 gem "fx", "~> 0.11.0"
@@ -105,7 +105,7 @@ gem "pundit", "~> 2.3"
 
 # frontend
 gem "view_component"
-gem "active_link_to", "~> 1.0"
+gem "active_link_to", "~> 1.1"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
 gem "lexxy", "~> 1.0.1"
@@ -113,7 +113,7 @@ gem "simple_form", "~> 5.4"
 
 # admin
 gem "allgood", "~> 0.3.0"
-gem "avo", "~> 4.2"
+gem "avo", "~> 4.3"
 gem "pghero"
 # feature flags
 gem "flipper-active_record"
@@ -129,7 +129,7 @@ gem "agreements", "~> 0.2.0"
 gem "noticed"
 
 group :production do
-  gem "aws-sdk-s3", "~> 1.231", require: false
+  gem "aws-sdk-s3", "~> 1.235", require: false
 end
 
 gem "browser", "~> 6.2"
