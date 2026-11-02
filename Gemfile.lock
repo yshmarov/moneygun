@@ -97,11 +97,11 @@ GEM
       rails (>= 7.1, < 9)
     allgood (0.3.0)
       rails (>= 6.0.0)
-    appsignal (5.0.6)
+    appsignal (5.0.7)
       logger
       rack (>= 2.0.0)
     ast (2.4.3)
-    avo (4.3.4)
+    avo (4.3.10)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -120,8 +120,8 @@ GEM
     avo-icons (0.2.4)
       inline_svg
     aws-eventstream (1.4.1)
-    aws-partitions (1.1298.0)
-    aws-sdk-core (3.260.0)
+    aws-partitions (1.1299.1)
+    aws-sdk-core (3.263.0)
       aws-eventstream (~> 1, >= 1.4.1)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -130,11 +130,11 @@ GEM
       jmespath (~> 1, >= 1.6.1)
       logger
       rexml (~> 3.4, >= 3.4.2)
-    aws-sdk-kms (1.135.0)
-      aws-sdk-core (~> 3, >= 3.260.0)
+    aws-sdk-kms (1.138.0)
+      aws-sdk-core (~> 3, >= 3.263.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.235.0)
-      aws-sdk-core (~> 3, >= 3.258.0)
+    aws-sdk-s3 (1.237.0)
+      aws-sdk-core (~> 3, >= 3.263.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
@@ -154,7 +154,7 @@ GEM
       smart_properties
     bigdecimal (4.1.3)
     bindex (0.8.1)
-    bootsnap (1.26.0)
+    bootsnap (1.26.1)
       msgpack (~> 1.5)
     brakeman (8.1.0)
       racc
@@ -181,7 +181,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.8)
-    csv (3.3.6)
+    csv (3.3.7)
     date (3.6.0)
     debug (1.11.1)
       irb (~> 1.10)
@@ -234,7 +234,7 @@ GEM
       railties (>= 7.2)
     globalid (1.4.0)
       activesupport (>= 6.1)
-    good_job (4.22.1)
+    good_job (4.23.1)
       activejob (>= 6.1.0)
       activerecord (>= 6.1.0)
       concurrent-ruby (>= 1.3.1)
@@ -274,7 +274,7 @@ GEM
       nokogiri (>= 1.6)
     invisible_captcha (2.3.0)
       rails (>= 5.2)
-    io-console (0.9.4)
+    io-console (0.9.5)
     irb (1.18.0)
       pp (>= 0.6.0)
       prism (>= 1.3.0)
@@ -308,7 +308,7 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
-    lexxy (1.0.1)
+    lexxy (1.0.3)
       railties (>= 8.0.2)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -337,7 +337,7 @@ GEM
       prism (~> 1.5)
     mocha (3.1.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.8.5)
+    msgpack (1.8.6)
     net-imap (0.6.8)
       date
       net-protocol
@@ -410,7 +410,7 @@ GEM
       activesupport (>= 3.0.0)
     raabro (1.5.0)
     racc (1.8.1)
-    rack (3.2.7)
+    rack (3.2.8)
     rack-mini-profiler (5.0.0)
       rack (>= 1.2.0)
     rack-protection (4.2.1)
@@ -459,7 +459,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    ransack (6.0.0)
+    ransack (6.0.1)
       activerecord (>= 7.2)
       activesupport (>= 7.2)
       i18n
@@ -481,7 +481,7 @@ GEM
     request_store (1.7.0)
       rack (>= 1.4)
     rexml (3.4.4)
-    rotp (6.3.0)
+    rotp (6.4.0)
     rqrcode (3.2.0)
       chunky_png (~> 1.0)
       rqrcode_core (~> 2.0)
@@ -529,7 +529,7 @@ GEM
     scimitar (2.15.0)
       rails (>= 7.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.51.0)
+    selenium-webdriver (4.52.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rubyzip (>= 1.2.2, < 4.0)
@@ -559,12 +559,12 @@ GEM
     stackprof (0.2.28)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stripe (20.0.0)
+    stripe (20.1.0)
       bigdecimal
       logger
     strong_migrations (2.8.0)
       activerecord (>= 7.2)
-    tailwindcss-rails (4.6.0)
+    tailwindcss-rails (4.7.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
     tailwindcss-ruby (4.3.3)
@@ -592,9 +592,10 @@ GEM
     unicode-emoji (4.3.0)
     uri (1.1.2)
     useragent (0.16.11)
-    view_component (4.19.0)
+    view_component (4.20.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
+      prism (>= 1.0)
     web-console (4.3.0)
       actionview (>= 8.0.0)
       bindex (>= 0.4.0)
@@ -628,7 +629,7 @@ DEPENDENCIES
   allgood (~> 0.3.0)
   appsignal
   avo (~> 4.3)
-  aws-sdk-s3 (~> 1.235)
+  aws-sdk-s3 (~> 1.237)
   axe-core-capybara
   bootsnap
   brakeman (~> 8.0)
@@ -652,7 +653,7 @@ DEPENDENCIES
   kamal
   letter_opener
   letter_opener_web
-  lexxy (~> 1.0.1)
+  lexxy (~> 1.0.3)
   lograge (~> 0.15.0)
   mocha
   msgpack
@@ -673,7 +674,7 @@ DEPENDENCIES
   ransack (~> 6.0)
   redcarpet (~> 3.6)
   refer
-  rotp (~> 6.3)
+  rotp (~> 6.4)
   rqrcode (~> 3.1)
   rubocop-minitest
   rubocop-performance
@@ -689,7 +690,7 @@ DEPENDENCIES
   sqids
   stackprof
   stimulus-rails
-  stripe (~> 20.0)
+  stripe (~> 20.1)
   strong_migrations (~> 2.8)
   tailwindcss-rails
   thruster
