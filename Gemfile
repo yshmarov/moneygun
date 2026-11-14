@@ -89,12 +89,12 @@ gem "sqids" # for obfuscating IDs
 gem "pagy", "~> 43.8"
 gem "ransack", "~> 6.0"
 gem "active_storage_validations"
-gem "fx", "~> 0.11.0"
+gem "fx", "~> 0.12.0"
 gem "invisible_captcha", "~> 2.3"
 
 # authentication
 gem "nondisposable"
-gem "rotp", "~> 6.3"
+gem "rotp", "~> 6.4"
 gem "rqrcode", "~> 3.1"
 gem "omniauth-saml", "~> 2.2"
 gem "omniauth-rails_csrf_protection", "~> 2.0"
@@ -108,20 +108,20 @@ gem "view_component"
 gem "active_link_to", "~> 1.1"
 gem "rails-i18n"
 gem "redcarpet", "~> 3.6"
-gem "lexxy", "~> 1.0.1"
+gem "lexxy", "~> 1.0.4"
 gem "simple_form", "~> 5.4"
 
 # admin
 gem "allgood", "~> 0.3.0"
-gem "avo", "~> 4.3"
+gem "avo", "~> 4.4"
 gem "pghero"
 # feature flags
 gem "flipper-active_record"
 gem "flipper-ui"
 
 # payments
-gem "pay", "~> 12.1"
-gem "stripe", "~> 20.0"
+gem "pay", "~> 12.4"
+gem "stripe", "~> 20.1"
 
 # business logic
 gem "refer"
@@ -129,7 +129,7 @@ gem "agreements", "~> 0.2.0"
 gem "noticed"
 
 group :production do
-  gem "aws-sdk-s3", "~> 1.235", require: false
+  gem "aws-sdk-s3", "~> 1.241", require: false
 end
 
 gem "browser", "~> 6.2"
