@@ -46,7 +46,7 @@ fr:
       not_found: non trouvé
       not_locked: n'était pas verrouillé
       not_saved:
-        one: '1 erreur a empêché ce %{resource} d''être enregistré :'
+        one: "%{count} erreur a empêché ce %{resource} d'être enregistré :"
         other: "%{count} erreurs ont empêché ce %{resource} d'être enregistré :"
   membership_mailer:
     invitation_email:
