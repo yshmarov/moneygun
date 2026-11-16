@@ -89,7 +89,7 @@ gem "sqids" # for obfuscating IDs
 gem "pagy", "~> 43.8"
 gem "ransack", "~> 6.0"
 gem "active_storage_validations"
-gem "fx", "~> 0.12.0"
+gem "fx", "~> 0.13.0"
 gem "invisible_captcha", "~> 2.3"
 
 # authentication
@@ -125,11 +125,11 @@ gem "stripe", "~> 20.1"
 
 # business logic
 gem "refer"
-gem "agreements", "~> 0.2.0"
+gem "agreements", "~> 0.4.1"
 gem "noticed"
 
 group :production do
-  gem "aws-sdk-s3", "~> 1.241", require: false
+  gem "aws-sdk-s3", "~> 1.242", require: false
 end
 
 gem "browser", "~> 6.2"
