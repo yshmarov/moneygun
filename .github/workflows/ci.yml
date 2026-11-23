@@ -65,7 +65,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips libimage-exiftool-perl qpdf
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199 # v1
+        uses: ruby/setup-ruby@f9c4492e86def3e644ab32a0ef185eda5b0c20d0 # v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
@@ -102,7 +102,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips libimage-exiftool-perl qpdf
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199 # v1
+        uses: ruby/setup-ruby@f9c4492e86def3e644ab32a0ef185eda5b0c20d0 # v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
@@ -158,7 +158,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Set up Hugo
-        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
+        uses: peaceiris/actions-hugo@d1c81a15d4e6dca7086a17b9c2565cb70fd576bf # v3
         with:
           hugo-version: '0.168.0'
           extended: true
